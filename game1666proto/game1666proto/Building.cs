@@ -33,5 +33,18 @@ namespace game1666proto
 		}
 
 		#endregion
-	}
+
+        //#################### PUBLIC METHODS ####################
+        #region
+
+        /// <summary>
+        /// Draws the building.
+        /// </summary>
+        public void Draw()
+        {
+            // TODO
+        }
+
+        #endregion
+    }
 }
