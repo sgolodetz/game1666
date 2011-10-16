@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace game1666proto
 {
+	/// <summary>
+	/// Represents a city.
+	/// </summary>
 	class City
 	{
 		//#################### PRIVATE VARIABLES ####################
@@ -19,9 +22,21 @@ namespace game1666proto
 		//#################### PUBLIC METHODS ####################
 		#region
 
+		/// <summary>
+		/// Adds a building to the city.
+		/// </summary>
+		/// <param name="building">The new building to be added.</param>
 		public void AddBuilding(Building building)
 		{
 			m_buildings.Add(building);
+		}
+
+		/// <summary>
+		/// Draws the city.
+		/// </summary>
+		public void Draw()
+		{
+			// TODO
 		}
 
 		#endregion

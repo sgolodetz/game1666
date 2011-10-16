@@ -23,6 +23,9 @@ namespace game1666proto
 		//#################### CONSTRUCTORS ####################
 		#region
 
+		/// <summary>
+		/// Sets up the graphics device and sets the root directory for content.
+		/// </summary>
 		public Game()
 		{
 			m_graphics = new GraphicsDeviceManager(this);
@@ -40,14 +43,14 @@ namespace game1666proto
 		#region
 
 		/// <summary>
-		/// This is called when the game should draw itself.
+		/// Called when the game should draw itself.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			// TODO: Add your drawing code here
+			m_city.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -55,7 +58,7 @@ namespace game1666proto
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
 		/// This is where it can query for any required services and load any non-graphic
-		/// related content.  Calling base.Initialize will enumerate through any components
+		/// related content. Calling base.Initialize will enumerate through any components
 		/// and initialize them as well.
 		/// </summary>
 		protected override void Initialize()
@@ -68,8 +71,7 @@ namespace game1666proto
 		}
 
 		/// <summary>
-		/// LoadContent will be called once per game and is the place to load
-		/// all of your content.
+		/// Called once per game to allow content to be loaded.
 		/// </summary>
 		protected override void LoadContent()
 		{
@@ -80,8 +82,7 @@ namespace game1666proto
 		}
 
 		/// <summary>
-		/// UnloadContent will be called once per game and is the place to unload
-		/// all content.
+		/// Called once per game to allow content to be unloaded.
 		/// </summary>
 		protected override void UnloadContent()
 		{
