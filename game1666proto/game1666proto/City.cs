@@ -36,14 +36,14 @@ namespace game1666proto
 		/// </summary>
 		public void Draw()
 		{
-            // Draw the city plane.
-            // TODO
+			// Draw the city plane.
+			// TODO
 
-            // Draw the buildings in the city.
-            foreach (var building in m_buildings)
-            {
-                building.Draw();
-            }
+			// Draw the buildings in the city.
+			foreach (var building in m_buildings)
+			{
+				building.Draw();
+			}
 		}
 
 		#endregion
