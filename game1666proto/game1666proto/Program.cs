@@ -1,21 +1,18 @@
-using System;
+/***
+ * game1666: Program.cs
+ * Copyright 2011. All rights reserved.
+ ***/
 
 namespace game1666proto
 {
-#if WINDOWS || XBOX
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main(string[] args)
-        {
-            using (Game game = new Game())
-            {
-                game.Run();
-            }
-        }
-    }
-#endif
+	static class Program
+	{
+		static void Main(string[] args)
+		{
+			using (Game game = new Game())
+			{
+				game.Run();
+			}
+		}
+	}
 }
-
