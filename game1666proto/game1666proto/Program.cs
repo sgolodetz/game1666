@@ -7,12 +7,17 @@ namespace game1666proto
 {
 	static class Program
 	{
-		static void Main(string[] args)
+		//#################### PUBLIC STATIC METHODS ####################
+		#region
+
+		public static void Main(string[] args)
 		{
 			using (Game game = new Game())
 			{
 				game.Run();
 			}
 		}
+
+		#endregion
 	}
 }

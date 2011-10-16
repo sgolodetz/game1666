@@ -11,8 +11,17 @@ namespace game1666proto
 {
 	public class Game : Microsoft.Xna.Framework.Game
 	{
-		GraphicsDeviceManager m_graphics;
-		SpriteBatch m_spriteBatch;
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		private City m_city;
+		private GraphicsDeviceManager m_graphics;
+		private SpriteBatch m_spriteBatch;
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
 
 		public Game()
 		{
@@ -25,6 +34,24 @@ namespace game1666proto
 			Content.RootDirectory = "Content";
 		}
 
+		#endregion
+
+		//#################### PROTECTED METHODS ####################
+		#region
+
+		/// <summary>
+		/// This is called when the game should draw itself.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		protected override void Draw(GameTime gameTime)
+		{
+			GraphicsDevice.Clear(Color.CornflowerBlue);
+
+			// TODO: Add your drawing code here
+
+			base.Draw(gameTime);
+		}
+
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
 		/// This is where it can query for any required services and load any non-graphic
@@ -33,7 +60,9 @@ namespace game1666proto
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
+			m_city = new City();
+			m_city.AddBuilding(new Building(new Vector2(2,3)));
+			m_city.AddBuilding(new Building(new Vector2(-1,-2)));
 
 			base.Initialize();
 		}
@@ -75,17 +104,6 @@ namespace game1666proto
 			base.Update(gameTime);
 		}
 
-		/// <summary>
-		/// This is called when the game should draw itself.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		protected override void Draw(GameTime gameTime)
-		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			// TODO: Add your drawing code here
-
-			base.Draw(gameTime);
-		}
+		#endregion
 	}
 }
