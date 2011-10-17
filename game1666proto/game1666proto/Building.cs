@@ -41,7 +41,7 @@ namespace game1666proto
         /// <summary>
         /// Draws the building.
         /// </summary>
-        /// <param name="graphics">The graphics device to use for drawing.</param>
+        /// <param name="graphics">The graphics device.</param>
         /// <param name="basicEffect">The basic effect to use when drawing.</param>
         public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
         {

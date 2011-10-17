@@ -37,40 +37,75 @@ namespace game1666proto
 		/// <summary>
 		/// Draws the city.
 		/// </summary>
-        /// <param name="graphics">The graphics device to use for drawing.</param>
+        /// <param name="graphics">The graphics device.</param>
         /// <param name="basicEffect">The basic effect to use when drawing.</param>
-		public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
+        /// <param name="landscapeTexture">A landscape texture to use when drawing the city plane.</param>
+		public void Draw(GraphicsDevice graphics, BasicEffect basicEffect, Texture2D landscapeTexture)
 		{
-			// If we have not yet set up the vertex buffer for the city plane, do so now.
-            if(m_vertexBuffer == null)
-            {
-                // Construct the individual vertices at the corners of the (bounded) plane.
-                var vertices = new VertexPositionColor[4];
-                vertices[0] = new VertexPositionColor(new Vector3(-1, 1, 0), Color.Green);
-                vertices[1] = new VertexPositionColor(new Vector3(-1, -1, 0), Color.Blue);
-                vertices[2] = new VertexPositionColor(new Vector3(1, 1, 0), Color.Red);
-                vertices[3] = new VertexPositionColor(new Vector3(1, -1, 0), Color.Cyan);
+			EnsureVertexBufferCreated(graphics);
+            DrawCityPlane(graphics, basicEffect, landscapeTexture);
+            DrawBuildings(graphics, basicEffect);
+		}
 
-                // Create the vertex buffer and fill it with the constructed vertices.
-                m_vertexBuffer = new VertexBuffer(graphics, typeof(VertexPositionColor), 4, BufferUsage.WriteOnly);
-                m_vertexBuffer.SetData<VertexPositionColor>(vertices);
-            }
+		#endregion
 
-            // Draw the city plane.
+        //#################### PRIVATE METHODS ####################
+        #region
+
+        /// <summary>
+        /// Draws the buildings in the city.
+        /// </summary>
+        /// <param name="graphics">The graphics device.</param>
+        /// <param name="basicEffect">The basic effect to use when drawing.</param>
+        private void DrawBuildings(GraphicsDevice graphics, BasicEffect basicEffect)
+        {
+            foreach(Building building in m_buildings)
+			{
+				building.Draw(graphics, basicEffect);
+			}
+        }
+
+        /// <summary>
+		/// Draws the city plane.
+		/// </summary>
+        /// <param name="graphics">The graphics device.</param>
+        /// <param name="basicEffect">The basic effect to use when drawing.</param>
+        /// <param name="landscapeTexture">A landscape texture to use when drawing the city plane.</param>
+        private void DrawCityPlane(GraphicsDevice graphics, BasicEffect basicEffect, Texture2D landscapeTexture)
+        {
+            // Enable texturing.
+            basicEffect.Texture = landscapeTexture;
+            basicEffect.TextureEnabled = true;
+            
             graphics.SetVertexBuffer(m_vertexBuffer);
             foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 graphics.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
             }
+        }
 
-			// Draw the buildings in the city.
-			foreach(Building building in m_buildings)
-			{
-				building.Draw(graphics, basicEffect);
-			}
-		}
+        /// <summary>
+        /// Ensure that the vertex buffer for the city plane has been created.
+        /// </summary>
+        /// <param name="graphics">The graphics device.</param>
+        private void EnsureVertexBufferCreated(GraphicsDevice graphics)
+        {
+            if(m_vertexBuffer == null)
+            {
+                // Construct the individual vertices at the corners of the (bounded) plane.
+                var vertices = new VertexPositionTexture[4];
+                vertices[0] = new VertexPositionTexture(new Vector3(-10, 10, 0), new Vector2(0, 0));
+                vertices[1] = new VertexPositionTexture(new Vector3(-10, -10, 0), new Vector2(0, 1));
+                vertices[2] = new VertexPositionTexture(new Vector3(10, 10, 0), new Vector2(1, 0));
+                vertices[3] = new VertexPositionTexture(new Vector3(10, -10, 0), new Vector2(1, 1));
 
-		#endregion
-	}
+                // Create the vertex buffer and fill it with the constructed vertices.
+                m_vertexBuffer = new VertexBuffer(graphics, typeof(VertexPositionTexture), 4, BufferUsage.WriteOnly);
+                m_vertexBuffer.SetData<VertexPositionTexture>(vertices);
+            }
+        }
+
+        #endregion
+    }
 }

@@ -17,7 +17,7 @@ namespace game1666proto
         private BasicEffect m_basicEffect;
         private City m_city;
 		private readonly GraphicsDeviceManager m_graphics;
-		private SpriteBatch m_spriteBatch;
+        private Texture2D m_landscapeTexture;
 
 		#endregion
 
@@ -54,7 +54,7 @@ namespace game1666proto
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Set up the view matrix.
-            m_basicEffect.View = Matrix.CreateLookAt(new Vector3(5, -10, 10), new Vector3(0, 0, 0), new Vector3(0, 0, 1));
+            m_basicEffect.View = Matrix.CreateLookAt(new Vector3(15, -30, 20), new Vector3(0, 0, 0), new Vector3(0, 0, 1));
 
             // Set up the world matrix.
             m_basicEffect.World = Matrix.Identity;
@@ -65,7 +65,7 @@ namespace game1666proto
             GraphicsDevice.RasterizerState = rasterizerState;
 
             // Draw the city.
-			m_city.Draw(GraphicsDevice, m_basicEffect);
+			m_city.Draw(GraphicsDevice, m_basicEffect, m_landscapeTexture);
 
 			base.Draw(gameTime);
 		}
@@ -81,9 +81,6 @@ namespace game1666proto
             // Set up the basic effect.
             m_basicEffect = new BasicEffect(GraphicsDevice);
             
-            // Enable vertex colouring.
-            m_basicEffect.VertexColorEnabled = true;
-
             // Set up the projection matrix.
             m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
@@ -100,10 +97,7 @@ namespace game1666proto
 		/// </summary>
 		protected override void LoadContent()
 		{
-			// Create a new SpriteBatch, which can be used to draw textures.
-			m_spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			// TODO: use this.Content to load your game content here
+			m_landscapeTexture = Content.Load<Texture2D>("landscape");
 		}
 
 		/// <summary>
@@ -111,7 +105,7 @@ namespace game1666proto
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non ContentManager content here
+			// TODO: Unload any non-ContentManager content here.
 		}
 
 		/// <summary>
