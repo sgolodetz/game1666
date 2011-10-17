@@ -41,21 +41,23 @@ namespace game1666proto
         /// <param name="basicEffect">The basic effect to use when drawing.</param>
 		public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
 		{
-			// Draw the city plane.
+			// If we have not yet set up the vertex buffer for the city plane, do so now.
             if(m_vertexBuffer == null)
             {
+                // Construct the individual vertices at the corners of the (bounded) plane.
                 var vertices = new VertexPositionColor[4];
                 vertices[0] = new VertexPositionColor(new Vector3(-1, 1, 0), Color.Green);
                 vertices[1] = new VertexPositionColor(new Vector3(-1, -1, 0), Color.Blue);
                 vertices[2] = new VertexPositionColor(new Vector3(1, 1, 0), Color.Red);
                 vertices[3] = new VertexPositionColor(new Vector3(1, -1, 0), Color.Cyan);
 
+                // Create the vertex buffer and fill it with the constructed vertices.
                 m_vertexBuffer = new VertexBuffer(graphics, typeof(VertexPositionColor), 4, BufferUsage.WriteOnly);
                 m_vertexBuffer.SetData<VertexPositionColor>(vertices);
             }
 
+            // Draw the city plane.
             graphics.SetVertexBuffer(m_vertexBuffer);
-
             foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
