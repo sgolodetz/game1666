@@ -35,19 +35,19 @@ namespace game1666proto
 
 		#endregion
 
-        //#################### PUBLIC METHODS ####################
-        #region
+		//#################### PUBLIC METHODS ####################
+		#region
 
-        /// <summary>
-        /// Draws the building.
-        /// </summary>
-        /// <param name="graphics">The graphics device.</param>
-        /// <param name="basicEffect">The basic effect to use when drawing.</param>
-        public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
-        {
-            // TODO
-        }
+		/// <summary>
+		/// Draws the building.
+		/// </summary>
+		/// <param name="graphics">The graphics device.</param>
+		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
+		{
+			// TODO
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
