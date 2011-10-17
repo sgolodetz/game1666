@@ -15,7 +15,7 @@ namespace game1666proto
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private List<Building> m_buildings = new List<Building>();
+		private readonly List<Building> m_buildings = new List<Building>();
 
 		#endregion
 

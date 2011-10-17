@@ -7,10 +7,10 @@ namespace game1666proto
 {
 	static class Program
 	{
-		//#################### PUBLIC STATIC METHODS ####################
+		//#################### INTERNAL STATIC METHODS ####################
 		#region
 
-		public static void Main(string[] args)
+		static void Main(string[] args)
 		{
 			using (Game game = new Game())
 			{

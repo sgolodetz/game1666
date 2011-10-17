@@ -9,13 +9,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto
 {
-	public sealed class Game : Microsoft.Xna.Framework.Game
+	sealed class Game : Microsoft.Xna.Framework.Game
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		private City m_city;
-		private GraphicsDeviceManager m_graphics;
+		private readonly GraphicsDeviceManager m_graphics;
 		private SpriteBatch m_spriteBatch;
 
 		#endregion

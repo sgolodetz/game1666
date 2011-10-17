@@ -16,7 +16,7 @@ namespace game1666proto
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private Vector2 m_position;
+		private readonly Vector2 m_position;
 
 		#endregion
 
