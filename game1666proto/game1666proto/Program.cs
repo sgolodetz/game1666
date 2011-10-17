@@ -1,5 +1,5 @@
 /***
- * game1666: Program.cs
+ * game1666proto: Program.cs
  * Copyright 2011. All rights reserved.
  ***/
 

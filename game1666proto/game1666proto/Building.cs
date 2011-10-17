@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: Building.cs
+ * game1666proto: Building.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -11,7 +11,7 @@ namespace game1666proto
 	/// Represents a building in a city. For the purposes of the prototype, each building
 	/// will just be a block placed in a particular position on the city plane.
 	/// </summary>
-	class Building
+	sealed class Building
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

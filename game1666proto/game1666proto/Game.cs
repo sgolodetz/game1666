@@ -1,5 +1,5 @@
 /***
- * game1666: Game.cs
+ * game1666proto: Game.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto
 {
-	public class Game : Microsoft.Xna.Framework.Game
+	public sealed class Game : Microsoft.Xna.Framework.Game
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

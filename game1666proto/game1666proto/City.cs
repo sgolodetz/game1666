@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: City.cs
+ * game1666proto: City.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -10,7 +10,7 @@ namespace game1666proto
 	/// <summary>
 	/// Represents a city.
 	/// </summary>
-	class City
+	sealed class City
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
