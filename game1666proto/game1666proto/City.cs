@@ -76,7 +76,8 @@ namespace game1666proto
 			// Enable texturing.
 			basicEffect.Texture = landscapeTexture;
 			basicEffect.TextureEnabled = true;
-			
+
+            // Render the plane as a triangle strip.
 			graphics.SetVertexBuffer(m_vertexBuffer);
 			foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
