@@ -12,7 +12,7 @@ namespace game1666proto
 
 		static void Main(string[] args)
 		{
-			using (Game game = new Game())
+			using(Game game = new Game())
 			{
 				game.Run();
 			}

@@ -4,6 +4,7 @@
  ***/
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto
 {
@@ -40,7 +41,9 @@ namespace game1666proto
         /// <summary>
         /// Draws the building.
         /// </summary>
-        public void Draw()
+        /// <param name="graphics">The graphics device to use for drawing.</param>
+        /// <param name="basicEffect">The basic effect to use when drawing.</param>
+        public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
         {
             // TODO
         }

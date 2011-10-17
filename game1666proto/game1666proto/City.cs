@@ -4,6 +4,8 @@
  ***/
 
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto
 {
@@ -16,6 +18,7 @@ namespace game1666proto
 		#region
 
 		private readonly List<Building> m_buildings = new List<Building>();
+        private VertexBuffer m_vertexBuffer;
 
 		#endregion
 
@@ -34,15 +37,35 @@ namespace game1666proto
 		/// <summary>
 		/// Draws the city.
 		/// </summary>
-		public void Draw()
+        /// <param name="graphics">The graphics device to use for drawing.</param>
+        /// <param name="basicEffect">The basic effect to use when drawing.</param>
+		public void Draw(GraphicsDevice graphics, BasicEffect basicEffect)
 		{
 			// Draw the city plane.
-			// TODO
+            if(m_vertexBuffer == null)
+            {
+                var vertices = new VertexPositionColor[4];
+                vertices[0] = new VertexPositionColor(new Vector3(-1, 1, 0), Color.Green);
+                vertices[1] = new VertexPositionColor(new Vector3(-1, -1, 0), Color.Blue);
+                vertices[2] = new VertexPositionColor(new Vector3(1, 1, 0), Color.Red);
+                vertices[3] = new VertexPositionColor(new Vector3(1, -1, 0), Color.Cyan);
+
+                m_vertexBuffer = new VertexBuffer(graphics, typeof(VertexPositionColor), 4, BufferUsage.WriteOnly);
+                m_vertexBuffer.SetData<VertexPositionColor>(vertices);
+            }
+
+            graphics.SetVertexBuffer(m_vertexBuffer);
+
+            foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                graphics.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
+            }
 
 			// Draw the buildings in the city.
-			foreach (var building in m_buildings)
+			foreach(Building building in m_buildings)
 			{
-				building.Draw();
+				building.Draw(graphics, basicEffect);
 			}
 		}
 

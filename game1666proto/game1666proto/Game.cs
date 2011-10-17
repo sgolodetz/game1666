@@ -14,7 +14,8 @@ namespace game1666proto
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private City m_city;
+        private BasicEffect m_basicEffect;
+        private City m_city;
 		private readonly GraphicsDeviceManager m_graphics;
 		private SpriteBatch m_spriteBatch;
 
@@ -33,6 +34,8 @@ namespace game1666proto
 			{
 				m_graphics.GraphicsProfile = GraphicsProfile.Reach;
 			}
+            m_graphics.PreferredBackBufferWidth = 640;
+            m_graphics.PreferredBackBufferHeight = 480;
 
 			Content.RootDirectory = "Content";
 		}
@@ -50,7 +53,19 @@ namespace game1666proto
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			m_city.Draw();
+            // Set up the view matrix.
+            m_basicEffect.View = Matrix.CreateLookAt(new Vector3(5, -10, 10), new Vector3(0, 0, 0), new Vector3(0, 0, 1));
+
+            // Set up the world matrix.
+            m_basicEffect.World = Matrix.Identity;
+
+            // Set up the rasterizer state.
+            var rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            GraphicsDevice.RasterizerState = rasterizerState;
+
+            // Draw the city.
+			m_city.Draw(GraphicsDevice, m_basicEffect);
 
 			base.Draw(gameTime);
 		}
@@ -63,7 +78,17 @@ namespace game1666proto
 		/// </summary>
 		protected override void Initialize()
 		{
-			m_city = new City();
+            // Set up the basic effect.
+            m_basicEffect = new BasicEffect(GraphicsDevice);
+            
+            // Enable vertex colouring.
+            m_basicEffect.VertexColorEnabled = true;
+
+            // Set up the projection matrix.
+            m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
+
+            // Set up the city.
+            m_city = new City();
 			m_city.AddBuilding(new Building(new Vector2(2,3)));
 			m_city.AddBuilding(new Building(new Vector2(-1,-2)));
 
@@ -97,7 +122,7 @@ namespace game1666proto
 		protected override void Update(GameTime gameTime)
 		{
 			// Allows the game to exit
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+			if(GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 
 			// TODO: Add your update logic here
