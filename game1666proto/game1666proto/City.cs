@@ -40,11 +40,11 @@ namespace game1666proto
 		/// <param name="graphics">The graphics device.</param>
 		/// <param name="basicEffect">The basic effect to use when drawing.</param>
 		/// <param name="landscapeTexture">A landscape texture to use when drawing the city plane.</param>
-		public void Draw(GraphicsDevice graphics, BasicEffect basicEffect, Texture2D landscapeTexture)
+		public void Draw(GraphicsDevice graphics, ref BasicEffect basicEffect, Texture2D landscapeTexture)
 		{
 			EnsureVertexBufferCreated(graphics);
-			DrawCityPlane(graphics, basicEffect, landscapeTexture);
-			DrawBuildings(graphics, basicEffect);
+			DrawCityPlane(graphics, ref basicEffect, landscapeTexture);
+			DrawBuildings(graphics, ref basicEffect);
 		}
 
 		#endregion
@@ -57,11 +57,11 @@ namespace game1666proto
 		/// </summary>
 		/// <param name="graphics">The graphics device.</param>
 		/// <param name="basicEffect">The basic effect to use when drawing.</param>
-		private void DrawBuildings(GraphicsDevice graphics, BasicEffect basicEffect)
+		private void DrawBuildings(GraphicsDevice graphics, ref BasicEffect basicEffect)
 		{
 			foreach(Building building in m_buildings)
 			{
-				building.Draw(graphics, basicEffect);
+				building.Draw(graphics, ref basicEffect);
 			}
 		}
 
@@ -71,19 +71,23 @@ namespace game1666proto
 		/// <param name="graphics">The graphics device.</param>
 		/// <param name="basicEffect">The basic effect to use when drawing.</param>
 		/// <param name="landscapeTexture">A landscape texture to use when drawing the city plane.</param>
-		private void DrawCityPlane(GraphicsDevice graphics, BasicEffect basicEffect, Texture2D landscapeTexture)
+		private void DrawCityPlane(GraphicsDevice graphics, ref BasicEffect basicEffect, Texture2D landscapeTexture)
 		{
+			BasicEffect savedBasicEffect = basicEffect.Clone() as BasicEffect;
+
 			// Enable texturing.
 			basicEffect.Texture = landscapeTexture;
 			basicEffect.TextureEnabled = true;
 
-            // Render the plane as a triangle strip.
+			// Render the plane as a triangle strip.
 			graphics.SetVertexBuffer(m_vertexBuffer);
 			foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
 				graphics.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
 			}
+
+			basicEffect = savedBasicEffect;
 		}
 
 		/// <summary>
@@ -95,15 +99,17 @@ namespace game1666proto
 			if(m_vertexBuffer == null)
 			{
 				// Construct the individual vertices at the corners of the (bounded) plane.
-				var vertices = new VertexPositionTexture[4];
-				vertices[0] = new VertexPositionTexture(new Vector3(-10, 10, 0), new Vector2(0, 0));
-				vertices[1] = new VertexPositionTexture(new Vector3(-10, -10, 0), new Vector2(0, 1));
-				vertices[2] = new VertexPositionTexture(new Vector3(10, 10, 0), new Vector2(1, 0));
-				vertices[3] = new VertexPositionTexture(new Vector3(10, -10, 0), new Vector2(1, 1));
+				var vertices = new VertexPositionTexture[]
+				{
+					new VertexPositionTexture(new Vector3(-10, 10, 0), new Vector2(0, 0)),		// 0
+					new VertexPositionTexture(new Vector3(-10, -10, 0), new Vector2(0, 1)),		// 1
+					new VertexPositionTexture(new Vector3(10, 10, 0), new Vector2(1, 0)),		// 2
+					new VertexPositionTexture(new Vector3(10, -10, 0), new Vector2(1, 1))		// 3
+				};
 
 				// Create the vertex buffer and fill it with the constructed vertices.
-				m_vertexBuffer = new VertexBuffer(graphics, typeof(VertexPositionTexture), 4, BufferUsage.WriteOnly);
-				m_vertexBuffer.SetData<VertexPositionTexture>(vertices);
+				m_vertexBuffer = new VertexBuffer(graphics, typeof(VertexPositionTexture), vertices.Length, BufferUsage.WriteOnly);
+				m_vertexBuffer.SetData(vertices);
 			}
 		}
 

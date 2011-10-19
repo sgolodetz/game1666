@@ -25,7 +25,7 @@ namespace game1666proto
 		#region
 
 		/// <summary>
-		/// Sets up the graphics device and sets the root directory for content.
+		/// Sets up the graphics device and window, and sets the root directory for content.
 		/// </summary>
 		public Game()
 		{
@@ -36,6 +36,8 @@ namespace game1666proto
 			}
 			m_graphics.PreferredBackBufferWidth = 640;
 			m_graphics.PreferredBackBufferHeight = 480;
+
+			this.IsMouseVisible = true;
 
 			Content.RootDirectory = "Content";
 		}
@@ -61,11 +63,11 @@ namespace game1666proto
 
 			// Set up the rasterizer state.
 			var rasterizerState = new RasterizerState();
-			rasterizerState.CullMode = CullMode.None;
+			rasterizerState.CullMode = CullMode.CullClockwiseFace;
 			GraphicsDevice.RasterizerState = rasterizerState;
 
 			// Draw the city.
-			m_city.Draw(GraphicsDevice, m_basicEffect, m_landscapeTexture);
+			m_city.Draw(GraphicsDevice, ref m_basicEffect, m_landscapeTexture);
 
 			base.Draw(gameTime);
 		}
