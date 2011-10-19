@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
+
 namespace game1666proto
 {
 	static class Program
@@ -12,10 +14,14 @@ namespace game1666proto
 
 		static void Main(string[] args)
 		{
-			using(Game game = new Game())
+			try
 			{
-				game.Run();
+				using(Game game = new Game())
+				{
+					game.Run();
+				}
 			}
+			catch(Exception) {}
 		}
 
 		#endregion
