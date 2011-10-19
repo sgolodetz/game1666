@@ -73,6 +73,7 @@ namespace game1666proto
 		/// <param name="landscapeTexture">A landscape texture to use when drawing the city plane.</param>
 		private void DrawCityPlane(GraphicsDevice graphics, ref BasicEffect basicEffect, Texture2D landscapeTexture)
 		{
+			// Save the current state of the basic effect.
 			BasicEffect savedBasicEffect = basicEffect.Clone() as BasicEffect;
 
 			// Enable texturing.
@@ -87,6 +88,7 @@ namespace game1666proto
 				graphics.DrawPrimitives(PrimitiveType.TriangleStrip, 0, 2);
 			}
 
+			// Restore the basic effect to its saved state.
 			basicEffect = savedBasicEffect;
 		}
 

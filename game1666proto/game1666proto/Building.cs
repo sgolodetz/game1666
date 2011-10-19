@@ -47,8 +47,10 @@ namespace game1666proto
 		/// <param name="basicEffect">The basic effect to use when drawing.</param>
 		public void Draw(GraphicsDevice graphics, ref BasicEffect basicEffect)
 		{
+			// Ensure that the vertex and index buffers for the building have been created.
 			EnsureBuffersCreated(graphics);
 
+			// Save the current state of the basic effect.
 			BasicEffect savedBasicEffect = basicEffect.Clone() as BasicEffect;
 
 			// Enable vertex colouring.
@@ -66,6 +68,7 @@ namespace game1666proto
 				graphics.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, m_vertexBuffer.VertexCount, 0, m_indexBuffer.IndexCount / 3);
 			}
 
+			// Restore the basic effect to its saved state.
 			basicEffect = savedBasicEffect;
 		}
 
