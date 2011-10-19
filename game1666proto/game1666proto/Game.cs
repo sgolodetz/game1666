@@ -91,6 +91,9 @@ namespace game1666proto
 			m_city.AddBuilding(new Building(new Vector2(2,3)));
 			m_city.AddBuilding(new Building(new Vector2(-1,-2)));
 
+			// Register input handlers.
+			MouseEventManager.OnMousePressed += OnMousePressed;
+
 			base.Initialize();
 		}
 
@@ -117,13 +120,23 @@ namespace game1666proto
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			// Allows the game to exit
-			if(GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-				this.Exit();
-
-			// TODO: Add your update logic here
+			MouseEventManager.Update();
 
 			base.Update(gameTime);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="mouseState">The mouse state at the point when the mouse press check was made.</param>
+		private void OnMousePressed(MouseState mouseState)
+		{
+			// TODO
 		}
 
 		#endregion

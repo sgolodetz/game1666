@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Building.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="MouseEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
