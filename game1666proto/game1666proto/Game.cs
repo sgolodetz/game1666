@@ -110,7 +110,7 @@ namespace game1666proto
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			// TODO: Unload any non-ContentManager content here.
+			Content.Dispose();
 		}
 
 		/// <summary>
@@ -133,10 +133,31 @@ namespace game1666proto
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
-		/// <param name="mouseState">The mouse state at the point when the mouse press check was made.</param>
-		private void OnMousePressed(MouseState mouseState)
+		/// <param name="state">The mouse state at the point when the mouse press check was made.</param>
+		private void OnMousePressed(MouseState state)
 		{
-			// TODO
+			Viewport viewport = GraphicsDevice.Viewport;
+
+			// Find the point we're clicking on the near clipping plane.
+			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+			// Find the point we're clicking on the far clipping plane.
+			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+			// Find the ray (in world space) between them.
+			Vector3 dir = Vector3.Normalize(far - near);
+			var ray = new Ray(near, dir);
+
+			// Find where (if anywhere) the ray intersects the city plane.
+			float? distance = ray.Intersects(new Plane(new Vector3(0, 0, 1), 0));
+			if(distance != null)
+			{
+				// Determine the designated position.
+				Vector3 pos = near + dir * distance.Value;
+				
+				// Create a new building at the designated position.
+				m_city.AddBuilding(new Building(new Vector2(pos.X, pos.Y)));
+			}
 		}
 
 		#endregion

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto
 {
-	delegate void MousePressedEvent(MouseState mouseState);
+	delegate void MousePressedEvent(MouseState state);
 
 	/// <summary>
 	/// Manages mouse events, allowing the user to handle mouse input via an event-based rather than polling-based model.
