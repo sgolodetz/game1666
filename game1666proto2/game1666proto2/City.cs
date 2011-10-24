@@ -3,11 +3,18 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto2
 {
+	struct PickedTriangle
+	{
+		public Vector3	PickPoint	{ get; set; }
+		public Triangle	Triangle	{ get; set; }
+	}
+
 	sealed class City
 	{
 		//#################### CONSTANTS ####################
@@ -54,6 +61,33 @@ namespace game1666proto2
 		{
 			EnsureDataExists(graphics);
 			DrawCityTerrain(graphics, ref basicEffect, landscapeTexture);
+		}
+
+		/// <summary>
+		/// Determine the closest triangle in the terrain (if any) that is hit by the specified ray.
+		/// </summary>
+		/// <param name="ray">The ray.</param>
+		/// <returns>The picked triangle (if any).</returns>
+		public PickedTriangle? PickTerrainTriangle(Ray ray)
+		{
+			float bestDistance = float.MaxValue;
+			PickedTriangle? bestPickedTriangle = null;
+
+			foreach(var triangle in m_terrainMesh)
+			{
+				float? distance = ray.Intersects(triangle);
+				if(distance != null && distance < bestDistance)
+				{
+					bestPickedTriangle = new PickedTriangle
+					{
+						PickPoint = ray.Position + ray.Direction * distance.Value,
+						Triangle = triangle
+					};
+					bestDistance = distance.Value;
+				}
+			}
+
+			return bestPickedTriangle;
 		}
 
 		#endregion

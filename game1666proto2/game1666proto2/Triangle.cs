@@ -3,17 +3,49 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto2
 {
+	static class RayTriangleExtensions
+	{
+		/// <summary>
+		/// Tests whether the ray intersects the specified triangle, and if so, at what distance along its length.
+		/// </summary>
+		/// <param name="ray">The ray.</param>
+		/// <param name="triangle">The triangle.</param>
+		/// <returns>The value of the ray's distance parameter at the point at which it hits the triangle (if it does), or null.</returns>
+		public static float? Intersects(this Ray ray, Triangle triangle)
+		{
+			float? distance = ray.Intersects(triangle.DeterminePlane());
+			if(distance != null)
+			{
+				Vector3 p = ray.Position + ray.Direction * distance.Value;
+				if(triangle.Contains(p))
+				{
+					return distance;
+				}
+			}
+			return null;
+		}
+	}
+
 	sealed class Triangle
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private Vector3 m_normal;
-		private Vector3[] m_vertices;
+		private Vector3		m_normal;
+		private Vector3[]	m_vertices;
+
+		#endregion
+
+		//#################### PUBLIC PROPERTIES ####################
+		#region
+
+		public Vector3		Normal		{ get { return m_normal; } }
+		public Vector3[]	Vertices	{ get { return m_vertices; } }
 
 		#endregion
 
@@ -38,17 +70,60 @@ namespace game1666proto2
 
 		#endregion
 
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Tests whether the specified point (in the plane of the triangle) is actually within the triangle.
+		/// </summary>
+		/// <param name="p">The point.</param>
+		public bool Contains(Vector3 p)
+		{
+			// Make sure that the point's in the triangle's plane.
+			Plane plane = DeterminePlane();
+			if(Vector3.Dot(plane.Normal, p) + plane.D >= 0.001) return false;
+
+			// Check that the point's in the triangle itself.
+			double angleSum = 0.0;
+			for(int i = 0; i < 3; ++i)
+			{
+				int j = (i + 1) % 3;
+				Vector3 a = Vector3.Normalize(m_vertices[i] - p);
+				Vector3 b = Vector3.Normalize(m_vertices[j] - p);
+				angleSum += Math.Acos(Vector3.Dot(a, b));
+			}
+			return Math.Abs(angleSum - MathHelper.TwoPi) < 0.001;
+		}
+
+		/// <summary>
+		/// Determines the plane in which the triangle lies.
+		/// </summary>
+		/// <returns>The plane.</returns>
+		public Plane DeterminePlane()
+		{
+			return new Plane(m_normal, -Vector3.Dot(m_normal, m_vertices[0]));
+		}
+
+		#endregion
+
 		//#################### PRIVATE METHODS ####################
 		#region
 
 		/// <summary>
-		/// Calculates the normal of the triangle (note that we assume that it's a valid triangle for this prototype).
+		/// Calculates the normal of the triangle.
 		/// </summary>
 		private void CalculateNormal()
 		{
 			Vector3 a = m_vertices[1] - m_vertices[0];
 			Vector3 b = m_vertices[2] - m_vertices[0];
-			m_normal = Vector3.Normalize(Vector3.Cross(a, b));
+
+			m_normal = Vector3.Cross(a, b);
+
+			if(m_normal.LengthSquared() >= 0.0001)
+			{
+				m_normal = Vector3.Normalize(m_normal);
+			}
+			else throw new Exception("Cannot calculate the normal of a degenerate triangle.");
 		}
 
 		#endregion
