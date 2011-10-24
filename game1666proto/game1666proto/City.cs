@@ -70,7 +70,7 @@ namespace game1666proto
 		/// </summary>
 		/// <param name="graphics">The graphics device.</param>
 		/// <param name="basicEffect">The basic effect to use when drawing.</param>
-		/// <param name="landscapeTexture">A landscape texture to use when drawing the city plane.</param>
+		/// <param name="landscapeTexture">The landscape texture to use when drawing.</param>
 		private void DrawCityPlane(GraphicsDevice graphics, ref BasicEffect basicEffect, Texture2D landscapeTexture)
 		{
 			// Save the current state of the basic effect.

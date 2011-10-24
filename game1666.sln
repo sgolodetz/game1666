@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666proto", "game1666proto\game1666proto\game1666proto.csproj", "{37CBD30C-CA89-478C-9F0F-B2DD40047343}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "game1666protoContent", "game1666proto\game1666protoContent\game1666protoContent.contentproj", "{0E022830-9BCB-4396-8F0A-3435196A67B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666protoContent", "game1666proto\game1666protoContent\game1666protoContent.contentproj", "{0E022830-9BCB-4396-8F0A-3435196A67B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666proto2", "game1666proto2\game1666proto2\game1666proto2.csproj", "{15D2E166-DFDA-4A16-991A-83A9825F9B4B}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "game1666proto2Content", "game1666proto2\game1666proto2Content\game1666proto2Content.contentproj", "{47D218DB-8BBC-4024-9E60-35B20DAF915E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +21,12 @@ Global
 		{37CBD30C-CA89-478C-9F0F-B2DD40047343}.Release|x86.Build.0 = Release|x86
 		{0E022830-9BCB-4396-8F0A-3435196A67B2}.Debug|x86.ActiveCfg = Debug|x86
 		{0E022830-9BCB-4396-8F0A-3435196A67B2}.Release|x86.ActiveCfg = Release|x86
+		{15D2E166-DFDA-4A16-991A-83A9825F9B4B}.Debug|x86.ActiveCfg = Debug|x86
+		{15D2E166-DFDA-4A16-991A-83A9825F9B4B}.Debug|x86.Build.0 = Debug|x86
+		{15D2E166-DFDA-4A16-991A-83A9825F9B4B}.Release|x86.ActiveCfg = Release|x86
+		{15D2E166-DFDA-4A16-991A-83A9825F9B4B}.Release|x86.Build.0 = Release|x86
+		{47D218DB-8BBC-4024-9E60-35B20DAF915E}.Debug|x86.ActiveCfg = Debug|x86
+		{47D218DB-8BBC-4024-9E60-35B20DAF915E}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
