@@ -3,7 +3,6 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,8 +10,17 @@ namespace game1666proto2
 {
 	struct PickedTriangle
 	{
-		public Vector3	PickPoint	{ get; set; }
-		public Triangle	Triangle	{ get; set; }
+		private readonly Vector3 m_pickPoint;
+		private readonly Triangle m_triangle;
+
+		public Vector3	PickPoint	{ get { return m_pickPoint; } }
+		public Triangle	Triangle	{ get { return m_triangle; } }
+
+		public PickedTriangle(Vector3 pickPoint, Triangle triangle)
+		{
+			m_pickPoint = pickPoint;
+			m_triangle = triangle;
+		}
 	}
 
 	sealed class City
@@ -78,11 +86,7 @@ namespace game1666proto2
 				float? distance = ray.Intersects(triangle);
 				if(distance != null && distance < bestDistance)
 				{
-					bestPickedTriangle = new PickedTriangle
-					{
-						PickPoint = ray.Position + ray.Direction * distance.Value,
-						Triangle = triangle
-					};
+					bestPickedTriangle = new PickedTriangle(ray.Position + ray.Direction * distance.Value, triangle);
 					bestDistance = distance.Value;
 				}
 			}

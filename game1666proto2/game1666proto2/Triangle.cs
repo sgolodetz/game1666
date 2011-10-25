@@ -36,8 +36,8 @@ namespace game1666proto2
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private Vector3		m_normal;
-		private Vector3[]	m_vertices;
+		private Vector3 m_normal;
+		private readonly Vector3[] m_vertices;
 
 		#endregion
 
@@ -79,11 +79,11 @@ namespace game1666proto2
 		/// <param name="p">The point.</param>
 		public bool Contains(Vector3 p)
 		{
-			// Make sure that the point's in the triangle's plane.
+			// Make sure that the point is in the triangle's plane.
 			Plane plane = DeterminePlane();
 			if(Vector3.Dot(plane.Normal, p) + plane.D >= 0.001) return false;
 
-			// Check that the point's in the triangle itself.
+			// Check that the point is in the triangle itself.
 			double angleSum = 0.0;
 			for(int i = 0; i < 3; ++i)
 			{
@@ -123,7 +123,7 @@ namespace game1666proto2
 			{
 				m_normal = Vector3.Normalize(m_normal);
 			}
-			else throw new Exception("Cannot calculate the normal of a degenerate triangle.");
+			else throw new InvalidOperationException("Cannot calculate the normal of a degenerate triangle.");
 		}
 
 		#endregion

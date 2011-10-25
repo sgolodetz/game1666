@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Building.cs" />
     <Compile Include="City.cs" />
     <Compile Include="MouseEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
