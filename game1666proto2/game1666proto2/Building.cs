@@ -5,6 +5,9 @@
 
 namespace game1666proto2
 {
+	/// <summary>
+	/// Represents a building in a city.
+	/// </summary>
 	sealed class Building
 	{
 		// TODO

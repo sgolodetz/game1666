@@ -8,21 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto2
 {
-	struct PickedTriangle
-	{
-		private readonly Vector3 m_pickPoint;
-		private readonly Triangle m_triangle;
-
-		public Vector3	PickPoint	{ get { return m_pickPoint; } }
-		public Triangle	Triangle	{ get { return m_triangle; } }
-
-		public PickedTriangle(Vector3 pickPoint, Triangle triangle)
-		{
-			m_pickPoint = pickPoint;
-			m_triangle = triangle;
-		}
-	}
-
+	/// <summary>
+	/// Represents a city.
+	/// </summary>
 	sealed class City
 	{
 		//#################### CONSTANTS ####################

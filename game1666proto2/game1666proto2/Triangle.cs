@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace game1666proto2
 {
+	/// <summary>
+	/// Adds an extension method to Microsoft.Xna.Framework.Ray to support intersection tests with Triangle objects.
+	/// </summary>
 	static class RayTriangleExtensions
 	{
 		/// <summary>
@@ -31,6 +34,9 @@ namespace game1666proto2
 		}
 	}
 
+	/// <summary>
+	/// Represents a 3D triangle.
+	/// </summary>
 	sealed class Triangle
 	{
 		//#################### PRIVATE VARIABLES ####################
@@ -44,7 +50,14 @@ namespace game1666proto2
 		//#################### PUBLIC PROPERTIES ####################
 		#region
 
+		/// <summary>
+		/// The triangle's normal.
+		/// </summary>
 		public Vector3		Normal		{ get { return m_normal; } }
+
+		/// <summary>
+		/// The triangle's vertices.
+		/// </summary>
 		public Vector3[]	Vertices	{ get { return m_vertices; } }
 
 		#endregion
@@ -81,7 +94,7 @@ namespace game1666proto2
 		{
 			// Make sure that the point is in the triangle's plane.
 			Plane plane = DeterminePlane();
-			if(Vector3.Dot(plane.Normal, p) + plane.D >= 0.001) return false;
+			if(Vector3.Dot(plane.Normal, p) + plane.D >= Constants.EPSILON) return false;
 
 			// Check that the point is in the triangle itself.
 			double angleSum = 0.0;
@@ -92,7 +105,7 @@ namespace game1666proto2
 				Vector3 b = Vector3.Normalize(m_vertices[j] - p);
 				angleSum += Math.Acos(Vector3.Dot(a, b));
 			}
-			return Math.Abs(angleSum - MathHelper.TwoPi) < 0.001;
+			return Math.Abs(angleSum - MathHelper.TwoPi) < Constants.EPSILON;
 		}
 
 		/// <summary>
@@ -119,7 +132,7 @@ namespace game1666proto2
 
 			m_normal = Vector3.Cross(a, b);
 
-			if(m_normal.LengthSquared() >= 0.0001)
+			if(m_normal.LengthSquared() >= Constants.EPSILON)
 			{
 				m_normal = Vector3.Normalize(m_normal);
 			}
