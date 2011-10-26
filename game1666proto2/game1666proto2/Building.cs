@@ -23,9 +23,9 @@ namespace game1666proto2
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		Triangle m_baseTriangle;
-		IndexBuffer m_indexBuffer;
-		VertexBuffer m_vertexBuffer;
+		private readonly Triangle m_baseTriangle;
+		private IndexBuffer m_indexBuffer;
+		private VertexBuffer m_vertexBuffer;
 
 		#endregion
 
