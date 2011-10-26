@@ -16,7 +16,7 @@ namespace game1666proto2
 		//#################### CONSTANTS ####################
 		#region
 
-		const int BUILDING_HEIGHT = 10;
+		const int BUILDING_HEIGHT = 5;
 
 		#endregion
 
@@ -94,9 +94,9 @@ namespace game1666proto2
 					new VertexPositionColor(m_baseTriangle.Vertices[0], Color.Red),
 					new VertexPositionColor(m_baseTriangle.Vertices[1], Color.Green),
 					new VertexPositionColor(m_baseTriangle.Vertices[2], Color.Blue),
-					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[0].X, m_baseTriangle.Vertices[0].Y, BUILDING_HEIGHT), Color.Red),
-					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[1].X, m_baseTriangle.Vertices[1].Y, BUILDING_HEIGHT), Color.Green),
-					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[2].X, m_baseTriangle.Vertices[2].Y, BUILDING_HEIGHT), Color.Blue)
+					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[0].X, m_baseTriangle.Vertices[0].Y, m_baseTriangle.Vertices[0].Z + BUILDING_HEIGHT), Color.White),
+					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[1].X, m_baseTriangle.Vertices[1].Y, m_baseTriangle.Vertices[1].Z + BUILDING_HEIGHT), Color.White),
+					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[2].X, m_baseTriangle.Vertices[2].Y, m_baseTriangle.Vertices[2].Z + BUILDING_HEIGHT), Color.White)
 				};
 
 				// Create the vertex buffer and fill it with the constructed vertices.
@@ -106,8 +106,16 @@ namespace game1666proto2
 				// Construct the index array.
 				var indices = new short[]
 				{
-					0, 1, 4
-					// TODO
+					// Sides
+					0, 1, 3,
+					1, 4, 3,
+					1, 2, 4,
+					2, 5, 4,
+					2, 0, 5,
+					0, 3, 5,
+
+					// Top
+					3, 4, 5
 				};
 
 				// Create the index buffer.
