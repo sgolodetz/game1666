@@ -65,7 +65,6 @@ namespace game1666proto2
 			// Set up the rasterizer state.
 			var rasterizerState = new RasterizerState();
 			rasterizerState.CullMode = CullMode.CullClockwiseFace;
-			//rasterizerState.FillMode = FillMode.WireFrame;
 			GraphicsDevice.RasterizerState = rasterizerState;
 
 			// Draw the city.
@@ -156,28 +155,25 @@ namespace game1666proto2
 		{
 			m_buildingToPlace = null;
 
-			if(Keyboard.GetState().IsKeyDown(Keys.P))
+			Viewport viewport = GraphicsDevice.Viewport;
+
+			// Find the point we're hovering over on the near clipping plane.
+			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+			// Find the point we're hovering over on the far clipping plane.
+			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+			// Find the ray (in world space) between them.
+			Vector3 dir = Vector3.Normalize(far - near);
+			var ray = new Ray(near, dir);
+
+			// Find the terrain triangle we're hovering over (if any).
+			PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
+
+			// If we're hovering over a terrain triangle, set up a temporary building there to show where we would build.
+			if(pickedTriangle != null)
 			{
-				Viewport viewport = GraphicsDevice.Viewport;
-
-				// Find the point we're hovering over on the near clipping plane.
-				Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-				// Find the point we're hovering over on the far clipping plane.
-				Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-				// Find the ray (in world space) between them.
-				Vector3 dir = Vector3.Normalize(far - near);
-				var ray = new Ray(near, dir);
-
-				// Find the terrain triangle we're hovering over (if any).
-				PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
-
-				// If we're hovering over a terrain triangle, set up a temporary building there to show where we would build.
-				if(pickedTriangle != null)
-				{
-					m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
-				}
+				m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
 			}
 		}
 

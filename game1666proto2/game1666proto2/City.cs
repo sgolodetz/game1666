@@ -66,6 +66,10 @@ namespace game1666proto2
 		/// <returns>The picked triangle (if any).</returns>
 		public PickedTriangle? PickTerrainTriangle(Ray ray)
 		{
+			// Make sure the terrain mesh has been created.
+			if(m_terrainMesh == null) return null;
+
+			// Find the closest triangle (if any) that is hit.
 			float bestDistance = float.MaxValue;
 			PickedTriangle? bestPickedTriangle = null;
 

@@ -56,6 +56,12 @@ namespace game1666proto2
 			// Ensure that the vertex and index buffers for the building have been created.
 			EnsureBuffersCreated(graphics);
 
+			// Switch the rasterizer state to wireframe with no culling.
+			var rasterizerState = new RasterizerState();
+			rasterizerState.CullMode = CullMode.None;
+			rasterizerState.FillMode = FillMode.WireFrame;
+			graphics.RasterizerState = rasterizerState;
+
 			// Save the current state of the basic effect.
 			BasicEffect savedBasicEffect = basicEffect.Clone() as BasicEffect;
 
@@ -73,6 +79,12 @@ namespace game1666proto2
 
 			// Restore the basic effect to its saved state.
 			basicEffect = savedBasicEffect;
+
+			// Switch the rasterizer state back to filled with clockwise culling.
+			rasterizerState = new RasterizerState();
+			rasterizerState.CullMode = CullMode.CullClockwiseFace;
+			rasterizerState.FillMode = FillMode.Solid;
+			graphics.RasterizerState = rasterizerState;
 		}
 
 		#endregion
@@ -91,12 +103,12 @@ namespace game1666proto2
 				// Construct the individual vertices for the block representing the building.
 				var vertices = new VertexPositionColor[]
 				{
-					new VertexPositionColor(m_baseTriangle.Vertices[0], Color.Red),
-					new VertexPositionColor(m_baseTriangle.Vertices[1], Color.Green),
-					new VertexPositionColor(m_baseTriangle.Vertices[2], Color.Blue),
-					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[0].X, m_baseTriangle.Vertices[0].Y, m_baseTriangle.Vertices[0].Z + BUILDING_HEIGHT), Color.White),
-					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[1].X, m_baseTriangle.Vertices[1].Y, m_baseTriangle.Vertices[1].Z + BUILDING_HEIGHT), Color.White),
-					new VertexPositionColor(new Vector3(m_baseTriangle.Vertices[2].X, m_baseTriangle.Vertices[2].Y, m_baseTriangle.Vertices[2].Z + BUILDING_HEIGHT), Color.White)
+					new VertexPositionColor(m_baseTriangle.Vertices[0] + new Vector3(0, 0, 0.1f), Color.Red),
+					new VertexPositionColor(m_baseTriangle.Vertices[1] + new Vector3(0, 0, 0.1f), Color.Green),
+					new VertexPositionColor(m_baseTriangle.Vertices[2] + new Vector3(0, 0, 0.1f), Color.Blue),
+					new VertexPositionColor(m_baseTriangle.Vertices[0] + new Vector3(0, 0, BUILDING_HEIGHT), Color.White),
+					new VertexPositionColor(m_baseTriangle.Vertices[1] + new Vector3(0, 0, BUILDING_HEIGHT), Color.White),
+					new VertexPositionColor(m_baseTriangle.Vertices[2] + new Vector3(0, 0, BUILDING_HEIGHT), Color.White)
 				};
 
 				// Create the vertex buffer and fill it with the constructed vertices.
@@ -113,6 +125,9 @@ namespace game1666proto2
 					2, 5, 4,
 					2, 0, 5,
 					0, 3, 5,
+
+					// Bottom
+					0, 2, 1,
 
 					// Top
 					3, 4, 5
