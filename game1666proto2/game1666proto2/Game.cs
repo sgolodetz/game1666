@@ -15,6 +15,7 @@ namespace game1666proto2
 		#region
 
 		private BasicEffect m_basicEffect;
+		private Building m_buildingToPlace;
 		private City m_city;
 		private readonly GraphicsDeviceManager m_graphics;
 		private Texture2D m_landscapeTexture;
@@ -69,6 +70,12 @@ namespace game1666proto2
 
 			// Draw the city.
 			m_city.Draw(GraphicsDevice, ref m_basicEffect, m_landscapeTexture);
+
+			// Draw the building to be placed (if any).
+			if(m_buildingToPlace != null)
+			{
+				m_buildingToPlace.Draw(GraphicsDevice, ref m_basicEffect);
+			}
 
 			base.Draw(gameTime);
 		}
@@ -147,7 +154,31 @@ namespace game1666proto2
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMouseMoved(MouseState state)
 		{
-			// TODO
+			m_buildingToPlace = null;
+
+			if(Keyboard.GetState().IsKeyDown(Keys.P))
+			{
+				Viewport viewport = GraphicsDevice.Viewport;
+
+				// Find the point we're hovering over on the near clipping plane.
+				Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+				// Find the point we're hovering over on the far clipping plane.
+				Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+				// Find the ray (in world space) between them.
+				Vector3 dir = Vector3.Normalize(far - near);
+				var ray = new Ray(near, dir);
+
+				// Find the terrain triangle we're hovering over (if any).
+				PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
+
+				// If we're hovering over a terrain triangle, set up a temporary building there to show where we would build.
+				if(pickedTriangle != null)
+				{
+					m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
+				}
+			}
 		}
 
 		/// <summary>
@@ -156,7 +187,7 @@ namespace game1666proto2
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			Viewport viewport = GraphicsDevice.Viewport;
+			/*Viewport viewport = GraphicsDevice.Viewport;
 
 			// Find the point we're clicking on the near clipping plane.
 			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
@@ -170,7 +201,7 @@ namespace game1666proto2
 
 			// Find the terrain triangle we're trying to click (if any).
 			PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
-			// TODO
+			// TODO*/
 		}
 
 		#endregion

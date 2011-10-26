@@ -130,7 +130,7 @@ namespace game1666proto
 					7, 4, 6
 				};
 
-				// Construct the index buffer.
+				// Create the index buffer.
 				m_indexBuffer = new IndexBuffer(graphics, typeof(short), indices.Length, BufferUsage.WriteOnly);
 				m_indexBuffer.SetData(indices);
 			}
