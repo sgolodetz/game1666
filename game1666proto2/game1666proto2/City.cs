@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -23,6 +24,7 @@ namespace game1666proto2
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		private readonly List<Building> m_buildings = new List<Building>();
 		private IndexBuffer m_indexBuffer;
 		private readonly int[][] m_terrainHeightmap;
 		private Triangle[] m_terrainMesh;
@@ -48,6 +50,15 @@ namespace game1666proto2
 		#region
 
 		/// <summary>
+		/// Adds a building to the city.
+		/// </summary>
+		/// <param name="building">The new building to be added.</param>
+		public void AddBuilding(Building building)
+		{
+			m_buildings.Add(building);
+		}
+
+		/// <summary>
 		/// Draws the city.
 		/// </summary>
 		/// <param name="graphics">The graphics device.</param>
@@ -57,6 +68,7 @@ namespace game1666proto2
 		{
 			EnsureDataExists(graphics);
 			DrawCityTerrain(graphics, ref basicEffect, landscapeTexture);
+			DrawBuildings(graphics, ref basicEffect);
 		}
 
 		/// <summary>
@@ -90,6 +102,19 @@ namespace game1666proto2
 
 		//#################### PRIVATE METHODS ####################
 		#region
+
+		/// <summary>
+		/// Draws the buildings in the city.
+		/// </summary>
+		/// <param name="graphics">The graphics device.</param>
+		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		private void DrawBuildings(GraphicsDevice graphics, ref BasicEffect basicEffect)
+		{
+			foreach(Building building in m_buildings)
+			{
+				building.Draw(graphics, ref basicEffect);
+			}
+		}
 
 		/// <summary>
 		/// Draws the city terrain.

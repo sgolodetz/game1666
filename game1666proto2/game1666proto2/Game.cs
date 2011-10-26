@@ -183,21 +183,11 @@ namespace game1666proto2
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			/*Viewport viewport = GraphicsDevice.Viewport;
-
-			// Find the point we're clicking on the near clipping plane.
-			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-			// Find the point we're clicking on the far clipping plane.
-			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-			// Find the ray (in world space) between them.
-			Vector3 dir = Vector3.Normalize(far - near);
-			var ray = new Ray(near, dir);
-
-			// Find the terrain triangle we're trying to click (if any).
-			PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
-			// TODO*/
+			if(state.LeftButton == ButtonState.Pressed && m_buildingToPlace != null)
+			{
+				m_city.AddBuilding(m_buildingToPlace);
+				m_buildingToPlace = null;
+			}
 		}
 
 		#endregion
