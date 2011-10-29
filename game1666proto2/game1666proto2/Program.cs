@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Runtime.ExceptionServices;
 
 namespace game1666proto2
 {
@@ -12,6 +13,7 @@ namespace game1666proto2
 		//#################### INTERNAL STATIC METHODS ####################
 		#region
 
+		[HandleProcessCorruptedStateExceptions]
 		static void Main(string[] args)
 		{
 			try

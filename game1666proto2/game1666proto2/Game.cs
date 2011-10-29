@@ -127,7 +127,6 @@ namespace game1666proto2
 		/// </summary>
 		protected override void UnloadContent()
 		{
-			System.Threading.Thread.Sleep(3000);
 			Content.Dispose();
 		}
 
