@@ -7,7 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666protoContent", "gam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666proto2", "game1666proto2\game1666proto2\game1666proto2.csproj", "{15D2E166-DFDA-4A16-991A-83A9825F9B4B}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "game1666proto2Content", "game1666proto2\game1666proto2Content\game1666proto2Content.contentproj", "{47D218DB-8BBC-4024-9E60-35B20DAF915E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666proto2Content", "game1666proto2\game1666proto2Content\game1666proto2Content.contentproj", "{47D218DB-8BBC-4024-9E60-35B20DAF915E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666proto3", "game1666proto3\game1666proto3\game1666proto3.csproj", "{B6788D1E-6192-43BF-B8C9-27541AA2E7CD}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "game1666proto3Content", "game1666proto3\game1666proto3Content\game1666proto3Content.contentproj", "{5B8E0C6D-BBB2-4AEC-9B4C-5E94005E942E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,12 @@ Global
 		{15D2E166-DFDA-4A16-991A-83A9825F9B4B}.Release|x86.Build.0 = Release|x86
 		{47D218DB-8BBC-4024-9E60-35B20DAF915E}.Debug|x86.ActiveCfg = Debug|x86
 		{47D218DB-8BBC-4024-9E60-35B20DAF915E}.Release|x86.ActiveCfg = Release|x86
+		{B6788D1E-6192-43BF-B8C9-27541AA2E7CD}.Debug|x86.ActiveCfg = Debug|x86
+		{B6788D1E-6192-43BF-B8C9-27541AA2E7CD}.Debug|x86.Build.0 = Debug|x86
+		{B6788D1E-6192-43BF-B8C9-27541AA2E7CD}.Release|x86.ActiveCfg = Release|x86
+		{B6788D1E-6192-43BF-B8C9-27541AA2E7CD}.Release|x86.Build.0 = Release|x86
+		{5B8E0C6D-BBB2-4AEC-9B4C-5E94005E942E}.Debug|x86.ActiveCfg = Debug|x86
+		{5B8E0C6D-BBB2-4AEC-9B4C-5E94005E942E}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
