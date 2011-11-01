@@ -13,17 +13,17 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666proto3
 {
 	/// <summary>
-	/// A viewer to draw a city on the City screen.
+	/// A viewer to draw a city on the city screen.
 	/// </summary>
 	sealed class CityViewer : IViewEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private City m_city;
-		private IndexBuffer m_terrainIndexBuffer;
-		private VertexBuffer m_terrainVertexBuffer;
-		private readonly Viewport m_viewport;
+		private City m_city;							/// the city being viewed
+		private IndexBuffer m_terrainIndexBuffer;		/// the index buffer used when rendering the city terrain
+		private VertexBuffer m_terrainVertexBuffer;		/// the vertex buffer used when rendering the city terrain
+		private readonly Viewport m_viewport;			/// the viewport into which the city will be drawn
 
 		#endregion
 
@@ -61,10 +61,10 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Constructs a viewer that can be used to draw the specified city in the specified viewport.
 		/// </summary>
-		/// <param name="city"></param>
-		/// <param name="viewport"></param>
+		/// <param name="city">The city being viewed.</param>
+		/// <param name="viewport">The viewport into which the city will be drawn.</param>
 		public CityViewer(City city, Viewport viewport)
 		{
 			m_city = city;
@@ -85,19 +85,23 @@ namespace game1666proto3
 		/// </summary>
 		/// <param name="graphics">The graphics device.</param>
 		/// <param name="basicEffect">The basic effect to use when drawing.</param>
-		/// <param name="landscapeTexture">The content manager containing any textures to use when drawing.</param>
+		/// <param name="content">The content manager containing any textures to use when drawing.</param>
 		public void Draw(GraphicsDevice graphics, ref BasicEffect basicEffect, ContentManager content)
 		{
 			// If we're not currently viewing a city, don't try and render anything.
 			if(m_city == null) return;
 
+			// Make sure that any vertex and index buffers needed to draw the city have been appropriately created.
 			EnsureBuffersCreated(graphics);
 
+			// Save the existing viewport and replace it with our one.
 			Viewport savedViewport = graphics.Viewport;
 			graphics.Viewport = m_viewport;
 
+			// Actually draw the city.
 			DrawTerrain(graphics, ref basicEffect, content);
 
+			// Restore the original viewport.
 			graphics.Viewport = savedViewport;
 		}
 
@@ -107,11 +111,11 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Draws the terrain on which the city is founded.
 		/// </summary>
-		/// <param name="graphics"></param>
-		/// <param name="basicEffect"></param>
-		/// <param name="content"></param>
+		/// <param name="graphics">The graphics device.</param>
+		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		/// <param name="content">The content manager containing any textures to use when drawing.</param>
 		private void DrawTerrain(GraphicsDevice graphics, ref BasicEffect basicEffect, ContentManager content)
 		{
 			// Save the current state of the basic effect.
@@ -135,7 +139,7 @@ namespace game1666proto3
 		}
 
 		/// <summary>
-		/// TODO
+		/// Makes sure that any vertex and index buffers needed to draw the city have been appropriately created.
 		/// </summary>
 		/// <param name="graphics">The graphics device.</param>
 		private void EnsureBuffersCreated(GraphicsDevice graphics)

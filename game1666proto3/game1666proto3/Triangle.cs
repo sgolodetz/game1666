@@ -42,35 +42,16 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private Vector3 m_normal;
-		private readonly Vector3[] m_vertices;
+		private Vector3 m_normal;					/// the triangle's normal
+		private readonly Vector3[] m_vertices;		/// the triangle's vertices (in anti-clockwise winding order)
 
 		#endregion
 
 		//#################### PUBLIC PROPERTIES ####################
 		#region
 
-		/// <summary>
-		/// The triangle's normal.
-		/// </summary>
-		public Vector3 Normal
-		{
-			get
-			{
-				return m_normal;
-			}
-		}
-
-		/// <summary>
-		/// The triangle's vertices.
-		/// </summary>
-		public Vector3[] Vertices
-		{
-			get
-			{
-				return m_vertices;
-			}
-		}
+		public Vector3 Normal		{ get { return m_normal; } }
+		public Vector3[] Vertices	{ get { return m_vertices; } }
 
 		#endregion
 
@@ -78,7 +59,8 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// Constructs a triangle with the specified three vertices.
+		/// Constructs a triangle with the specified three vertices. The three vertices should be
+		/// specified in anti-clockwise winding order.
 		/// </summary>
 		/// <param name="v0">The first vertex.</param>
 		/// <param name="v1">The second vertex.</param>

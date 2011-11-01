@@ -16,20 +16,14 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly TerrainMesh m_terrainMesh;
+		private readonly TerrainMesh m_terrainMesh;		/// the mesh of the terrain on which the city is founded
 
 		#endregion
 
 		//#################### PUBLIC PROPERTIES ####################
 		#region
 
-		public TerrainMesh TerrainMesh
-		{
-			get
-			{
-				return m_terrainMesh;
-			}
-		}
+		public TerrainMesh TerrainMesh { get { return m_terrainMesh; } }
 
 		#endregion
 
@@ -37,7 +31,7 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Constructs a new city that is founded on the specified terrain.
 		/// </summary>
 		/// <param name="terrainMesh">The mesh of the terrain on which the city is founded.</param>
 		public City(TerrainMesh terrainMesh)

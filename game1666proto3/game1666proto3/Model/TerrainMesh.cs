@@ -16,10 +16,10 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly float m_gridSquareHeight;
-		private readonly float m_gridSquareWidth;
-		private readonly float[][] m_heightmap;
-		private readonly Triangle[] m_triangles;
+		private readonly float m_gridSquareHeight;	/// the height of a square in the terrain grid
+		private readonly float m_gridSquareWidth;	/// the width of a square in the terrain grid
+		private readonly float[][] m_heightmap;		/// a heightmap specifying the z heights of the corners of the grid squares
+		private readonly Triangle[] m_triangles;	/// the triangles that make up the mesh
 
 		#endregion
 
@@ -83,6 +83,11 @@ namespace game1666proto3
 		//#################### PUBLIC METHODS ####################
 		#region
 
+		/// <summary>
+		/// Find the grid square containing the nearest mesh triangle (if any) hit by the specified ray.
+		/// </summary>
+		/// <param name="ray">The ray.</param>
+		/// <returns>The coordinates of the grid square (if any), or null otherwise.</returns>
 		public Tuple<int,int> PickGridSquare(Ray ray)
 		{
 			// TODO
