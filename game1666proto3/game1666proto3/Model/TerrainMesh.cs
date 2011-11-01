@@ -15,6 +15,9 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		private readonly float m_gridSquareHeight;
+		private readonly float m_gridSquareWidth;
+		private readonly float[][] m_heightmap;
 		private readonly Triangle[] m_triangles;
 
 		#endregion
@@ -22,13 +25,10 @@ namespace game1666proto3
 		//#################### PUBLIC PROPERTIES ####################
 		#region
 
-		public Triangle[] Triangles
-		{
-			get
-			{
-				return m_triangles;
-			}
-		}
+		public float GridSquareHeight	{ get { return m_gridSquareHeight; } }
+		public float GridSquareWidth	{ get { return m_gridSquareWidth; } }
+		public float[][] Heightmap		{ get { return m_heightmap; } }
+		public Triangle[] Triangles		{ get { return m_triangles; } }
 
 		#endregion
 
@@ -43,6 +43,12 @@ namespace game1666proto3
 		/// <param name="gridSquareHeight">The height of each grid square.</param>
 		public TerrainMesh(float[][] heightmap, float gridSquareWidth, float gridSquareHeight)
 		{
+			// Save the heightmap and the grid square dimensions - they'll be needed later to construct vertex and index buffers.
+			m_heightmap = heightmap;
+			m_gridSquareWidth = gridSquareWidth;
+			m_gridSquareHeight = gridSquareHeight;
+
+			// Determine the size of the grid and allocate a mesh triangle array of the appropriate size.
 			int heightmapHeight = heightmap.Length;
 			int heightmapWidth = heightmap[0].Length;
 			int gridHeight = heightmapHeight - 1;
@@ -50,10 +56,11 @@ namespace game1666proto3
 
 			m_triangles = new Triangle[gridHeight * gridWidth * 2];
 
+			// Construct the individual mesh triangles - there will be two for each square in the grid.
 			int triangleIndex = 0;
-			for(int y=0; y<heightmapHeight; ++y)
+			for(int y=0; y<gridHeight; ++y)
 			{
-				for(int x=0; x<heightmapWidth; ++x)
+				for(int x=0; x<gridWidth; ++x)
 				{
 					float xOffset = x * gridSquareWidth, yOffset = y * gridSquareHeight;
 					m_triangles[triangleIndex++] = new Triangle(

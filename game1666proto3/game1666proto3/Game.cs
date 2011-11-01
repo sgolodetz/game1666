@@ -11,14 +11,21 @@ namespace game1666proto3
 {
 	sealed class Game : Microsoft.Xna.Framework.Game
 	{
+		//#################### CONSTANTS ####################
+		#region
+
+		private const float GRID_SIZE = 5f;
+
+		#endregion
+
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		private BasicEffect m_basicEffect;
-		/*private Building m_buildingToPlace;
-		private City m_city;*/
+		//private Building m_buildingToPlace;
+		private City m_city;
 		private readonly GraphicsDeviceManager m_graphics;
-		private Texture2D m_landscapeTexture;
+		private IViewEntity m_viewer;
 
 		#endregion
 
@@ -68,6 +75,7 @@ namespace game1666proto3
 			GraphicsDevice.RasterizerState = rasterizerState;
 
 			// Draw the city.
+			m_viewer.Draw(GraphicsDevice, ref m_basicEffect, Content);
 			/*m_city.Draw(GraphicsDevice, ref m_basicEffect, m_landscapeTexture);
 
 			// Draw the building to be placed (if any).
@@ -94,21 +102,24 @@ namespace game1666proto3
 			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
 			// Set up the city.
-			/*var terrain = new int[][]
+			var terrainHeightmap = new float[][]
 			{
-				new int[] {1,2,2,1},
-				new int[] {1,1,1,1},
-				new int[] {1,1,1,1},
-				new int[] {2,1,1,2},
-				new int[] {3,2,2,3},
-				new int[] {4,2,2,4},
-				new int[] {4,2,2,4},
-				new int[] {4,2,2,4}
+				new float[] {1,2,2,1},
+				new float[] {1,1,1,1},
+				new float[] {1,1,1,1},
+				new float[] {2,1,1,2},
+				new float[] {3,2,2,3},
+				new float[] {4,2,2,4},
+				new float[] {4,2,2,4},
+				new float[] {4,2,2,4}
 			};
-			m_city = new City(terrain);
+			m_city = new City(new TerrainMesh(terrainHeightmap, GRID_SIZE, GRID_SIZE));
+
+			// Set up the viewer.
+			m_viewer = new CityViewer(m_city, GraphicsDevice.Viewport);
 
 			// Register input handlers.
-			MouseEventManager.OnMouseMoved += OnMouseMoved;
+			/*MouseEventManager.OnMouseMoved += OnMouseMoved;
 			MouseEventManager.OnMousePressed += OnMousePressed;*/
 
 			base.Initialize();
@@ -119,7 +130,8 @@ namespace game1666proto3
 		/// </summary>
 		protected override void LoadContent()
 		{
-			m_landscapeTexture = Content.Load<Texture2D>("landscape");
+			// Pre-load content.
+			Content.Load<Texture2D>("landscape");
 		}
 
 		/// <summary>
