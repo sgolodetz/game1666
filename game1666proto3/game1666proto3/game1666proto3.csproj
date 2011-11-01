@@ -112,6 +112,7 @@
     <Compile Include="Model\ICompositeModelEntity.cs" />
     <Compile Include="Model\IModelEntity.cs" />
     <Compile Include="Model\TerrainMesh.cs" />
+    <Compile Include="MouseEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />

@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto3
@@ -82,7 +83,11 @@ namespace game1666proto3
 		//#################### PUBLIC METHODS ####################
 		#region
 
-		// TODO: PickGridSquare
+		public Tuple<int,int> PickGridSquare(Ray ray)
+		{
+			// TODO
+			throw new NotImplementedException();
+		}
 
 		#endregion
 	}

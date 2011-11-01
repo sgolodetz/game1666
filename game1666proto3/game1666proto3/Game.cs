@@ -76,10 +76,9 @@ namespace game1666proto3
 
 			// Draw the city.
 			m_viewer.Draw(GraphicsDevice, ref m_basicEffect, Content);
-			/*m_city.Draw(GraphicsDevice, ref m_basicEffect, m_landscapeTexture);
 
 			// Draw the building to be placed (if any).
-			if(m_buildingToPlace != null)
+			/*if(m_buildingToPlace != null)
 			{
 				m_buildingToPlace.Draw(GraphicsDevice, ref m_basicEffect);
 			}*/
@@ -119,8 +118,8 @@ namespace game1666proto3
 			m_viewer = new CityViewer(m_city, GraphicsDevice.Viewport);
 
 			// Register input handlers.
-			/*MouseEventManager.OnMouseMoved += OnMouseMoved;
-			MouseEventManager.OnMousePressed += OnMousePressed;*/
+			MouseEventManager.OnMouseMoved += OnMouseMoved;
+			MouseEventManager.OnMousePressed += OnMousePressed;
 
 			base.Initialize();
 		}
@@ -154,7 +153,7 @@ namespace game1666proto3
 				Exit();
 			}
 
-			//MouseEventManager.Update();
+			MouseEventManager.Update();
 
 			base.Update(gameTime);
 		}
@@ -168,9 +167,9 @@ namespace game1666proto3
 		/// Handles mouse moved events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		/*private void OnMouseMoved(MouseState state)
+		private void OnMouseMoved(MouseState state)
 		{
-			m_buildingToPlace = null;
+			/*m_buildingToPlace = null;
 
 			Viewport viewport = GraphicsDevice.Viewport;
 
@@ -191,7 +190,7 @@ namespace game1666proto3
 			if(pickedTriangle != null)
 			{
 				m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
-			}
+			}*/
 		}
 
 		/// <summary>
@@ -200,12 +199,12 @@ namespace game1666proto3
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			if(state.LeftButton == ButtonState.Pressed && m_buildingToPlace != null)
+			/*if(state.LeftButton == ButtonState.Pressed && m_buildingToPlace != null)
 			{
 				m_city.AddBuilding(m_buildingToPlace);
 				m_buildingToPlace = null;
-			}
-		}*/
+			}*/
+		}
 
 		#endregion
 	}

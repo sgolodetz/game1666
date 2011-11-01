@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto2: MouseManager.cs
+ * game1666proto2: MouseEventManager.cs
  * Copyright 2011. All rights reserved.
  ***/
 
