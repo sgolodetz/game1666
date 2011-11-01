@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto3
 {
@@ -68,6 +69,10 @@ namespace game1666proto3
 		{
 			m_city = city;
 			m_viewport = viewport;
+
+			// Register input handlers.
+			MouseEventManager.OnMouseMoved += OnMouseMoved;
+			MouseEventManager.OnMousePressed += OnMousePressed;
 		}
 
 		#endregion
@@ -185,6 +190,49 @@ namespace game1666proto3
 				m_terrainIndexBuffer = new IndexBuffer(graphics, typeof(int), indices.Length, BufferUsage.WriteOnly);
 				m_terrainIndexBuffer.SetData(indices);
 			}
+		}
+
+		/// <summary>
+		/// Handles mouse moved events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		private void OnMouseMoved(MouseState state)
+		{
+			/*m_buildingToPlace = null;
+
+			Viewport viewport = GraphicsDevice.Viewport;
+
+			// Find the point we're hovering over on the near clipping plane.
+			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+			// Find the point we're hovering over on the far clipping plane.
+			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
+
+			// Find the ray (in world space) between them.
+			Vector3 dir = Vector3.Normalize(far - near);
+			var ray = new Ray(near, dir);
+
+			// Find the terrain triangle we're hovering over (if any).
+			PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
+
+			// If we're hovering over a terrain triangle, set up a temporary building there to show where we would build.
+			if(pickedTriangle != null)
+			{
+				m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
+			}*/
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		private void OnMousePressed(MouseState state)
+		{
+			/*if(state.LeftButton == ButtonState.Pressed && m_buildingToPlace != null)
+			{
+				m_city.AddBuilding(m_buildingToPlace);
+				m_buildingToPlace = null;
+			}*/
 		}
 
 		#endregion

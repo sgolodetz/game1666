@@ -22,7 +22,6 @@ namespace game1666proto3
 		#region
 
 		private BasicEffect m_basicEffect;
-		//private Building m_buildingToPlace;
 		private City m_city;
 		private readonly GraphicsDeviceManager m_graphics;
 		private IViewEntity m_viewer;
@@ -77,12 +76,6 @@ namespace game1666proto3
 			// Draw the city.
 			m_viewer.Draw(GraphicsDevice, ref m_basicEffect, Content);
 
-			// Draw the building to be placed (if any).
-			/*if(m_buildingToPlace != null)
-			{
-				m_buildingToPlace.Draw(GraphicsDevice, ref m_basicEffect);
-			}*/
-
 			base.Draw(gameTime);
 		}
 
@@ -116,10 +109,6 @@ namespace game1666proto3
 
 			// Set up the viewer.
 			m_viewer = new CityViewer(m_city, GraphicsDevice.Viewport);
-
-			// Register input handlers.
-			MouseEventManager.OnMouseMoved += OnMouseMoved;
-			MouseEventManager.OnMousePressed += OnMousePressed;
 
 			base.Initialize();
 		}
@@ -156,54 +145,6 @@ namespace game1666proto3
 			MouseEventManager.Update();
 
 			base.Update(gameTime);
-		}
-
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Handles mouse moved events.
-		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		private void OnMouseMoved(MouseState state)
-		{
-			/*m_buildingToPlace = null;
-
-			Viewport viewport = GraphicsDevice.Viewport;
-
-			// Find the point we're hovering over on the near clipping plane.
-			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-			// Find the point we're hovering over on the far clipping plane.
-			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-			// Find the ray (in world space) between them.
-			Vector3 dir = Vector3.Normalize(far - near);
-			var ray = new Ray(near, dir);
-
-			// Find the terrain triangle we're hovering over (if any).
-			PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
-
-			// If we're hovering over a terrain triangle, set up a temporary building there to show where we would build.
-			if(pickedTriangle != null)
-			{
-				m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
-			}*/
-		}
-
-		/// <summary>
-		/// Handles mouse pressed events.
-		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		private void OnMousePressed(MouseState state)
-		{
-			/*if(state.LeftButton == ButtonState.Pressed && m_buildingToPlace != null)
-			{
-				m_city.AddBuilding(m_buildingToPlace);
-				m_buildingToPlace = null;
-			}*/
 		}
 
 		#endregion
