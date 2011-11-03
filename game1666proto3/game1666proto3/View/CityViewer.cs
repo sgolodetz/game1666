@@ -101,6 +101,11 @@ namespace game1666proto3
 			// Actually draw the city.
 			DrawTerrain(graphics, ref basicEffect, content);
 
+			foreach(IModelEntity entity in m_city.GetEntities())
+			{
+				DrawEntity((dynamic)entity, graphics, ref basicEffect, content);
+			}
+
 			// Restore the original viewport.
 			graphics.Viewport = savedViewport;
 		}
@@ -109,6 +114,18 @@ namespace game1666proto3
 
 		//#################### PRIVATE METHODS ####################
 		#region
+
+		/// <summary>
+		/// Draws a building in the city.
+		/// </summary>
+		/// <param name="building">The building.</param>
+		/// <param name="graphics">The graphics device.</param>
+		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		/// <param name="content">The content manager containing any textures to use when drawing.</param>
+		private void DrawEntity(Building building, GraphicsDevice graphics, ref BasicEffect basicEffect, ContentManager content)
+		{
+			// TODO
+		}
 
 		/// <summary>
 		/// Draws the terrain on which the city is founded.

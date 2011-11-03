@@ -16,6 +16,7 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		private readonly List<Building> m_buildings;	/// the buildings in the city
 		private readonly TerrainMesh m_terrainMesh;		/// the mesh of the terrain on which the city is founded
 
 		#endregion
@@ -37,6 +38,7 @@ namespace game1666proto3
 		public City(TerrainMesh terrainMesh)
 		{
 			m_terrainMesh = terrainMesh;
+			m_buildings = new List<Building>();
 		}
 
 		#endregion
@@ -45,13 +47,24 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
+		/// Adds a building to the city.
+		/// </summary>
+		/// <param name="building">The building to add.</param>
+		public void AddEntity(Building building)
+		{
+			m_buildings.Add(building);
+		}
+
+		/// <summary>
 		/// Gets the sub-entities within the city.
 		/// </summary>
 		/// <returns>An IEnumerable of the sub-entities.</returns>
 		public IEnumerable<IModelEntity> GetEntities()
 		{
-			// TODO
-			throw new NotImplementedException();
+			foreach(var building in m_buildings)
+			{
+				yield return building;
+			}
 		}
 
 		#endregion
