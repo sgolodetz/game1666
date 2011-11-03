@@ -18,7 +18,7 @@ namespace game1666proto3
 
 		private readonly float m_gridSquareHeight;	/// the height of a square in the terrain grid
 		private readonly float m_gridSquareWidth;	/// the width of a square in the terrain grid
-		private readonly float[][] m_heightmap;		/// a heightmap specifying the z heights of the corners of the grid squares
+		private readonly float[,] m_heightmap;		/// a heightmap specifying the z heights of the corners of the grid squares
 		private readonly Triangle[] m_triangles;	/// the triangles that make up the mesh
 
 		#endregion
@@ -28,7 +28,7 @@ namespace game1666proto3
 
 		public float GridSquareHeight	{ get { return m_gridSquareHeight; } }
 		public float GridSquareWidth	{ get { return m_gridSquareWidth; } }
-		public float[][] Heightmap		{ get { return m_heightmap; } }
+		public float[,] Heightmap		{ get { return m_heightmap; } }
 		public Triangle[] Triangles		{ get { return m_triangles; } }
 
 		#endregion
@@ -42,7 +42,7 @@ namespace game1666proto3
 		/// <param name="heightmap">A heightmap specifying the z heights of the corners of the grid squares.</param>
 		/// <param name="gridSquareWidth">The width of each grid square.</param>
 		/// <param name="gridSquareHeight">The height of each grid square.</param>
-		public TerrainMesh(float[][] heightmap, float gridSquareWidth, float gridSquareHeight)
+		public TerrainMesh(float[,] heightmap, float gridSquareWidth, float gridSquareHeight)
 		{
 			// Save the heightmap and the grid square dimensions - they'll be needed later to construct vertex and index buffers.
 			m_heightmap = heightmap;
@@ -50,8 +50,8 @@ namespace game1666proto3
 			m_gridSquareHeight = gridSquareHeight;
 
 			// Determine the size of the grid and allocate a mesh triangle array of the appropriate size.
-			int heightmapHeight = heightmap.Length;
-			int heightmapWidth = heightmap[0].Length;
+			int heightmapHeight = heightmap.GetLength(0);
+			int heightmapWidth = heightmap.GetLength(1);
 			int gridHeight = heightmapHeight - 1;
 			int gridWidth = heightmapWidth - 1;
 
@@ -65,14 +65,14 @@ namespace game1666proto3
 				{
 					float xOffset = x * gridSquareWidth, yOffset = y * gridSquareHeight;
 					m_triangles[triangleIndex++] = new Triangle(
-						new Vector3(xOffset, yOffset, heightmap[y][x]),
-						new Vector3(xOffset + gridSquareWidth, yOffset, heightmap[y][x+1]),
-						new Vector3(xOffset, yOffset + gridSquareHeight, heightmap[y+1][x])
+						new Vector3(xOffset, yOffset, heightmap[y,x]),
+						new Vector3(xOffset + gridSquareWidth, yOffset, heightmap[y,x+1]),
+						new Vector3(xOffset, yOffset + gridSquareHeight, heightmap[y+1,x])
 					);
 					m_triangles[triangleIndex++] = new Triangle(
-						new Vector3(xOffset + gridSquareWidth, yOffset, heightmap[y][x+1]),
-						new Vector3(xOffset + gridSquareWidth, yOffset + gridSquareHeight, heightmap[y+1][x+1]),
-						new Vector3(xOffset, yOffset + gridSquareWidth, heightmap[y+1][x])
+						new Vector3(xOffset + gridSquareWidth, yOffset, heightmap[y,x+1]),
+						new Vector3(xOffset + gridSquareWidth, yOffset + gridSquareHeight, heightmap[y+1,x+1]),
+						new Vector3(xOffset, yOffset + gridSquareWidth, heightmap[y+1,x])
 					);
 				}
 			}

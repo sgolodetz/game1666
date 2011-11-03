@@ -94,16 +94,16 @@ namespace game1666proto3
 			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
 			// Set up the city.
-			var terrainHeightmap = new float[][]
+			var terrainHeightmap = new float[,]
 			{
-				new float[] {1,2,2,1},
-				new float[] {1,1,1,1},
-				new float[] {1,1,1,1},
-				new float[] {2,1,1,2},
-				new float[] {3,2,2,3},
-				new float[] {4,2,2,4},
-				new float[] {4,2,2,4},
-				new float[] {4,2,2,4}
+				{1,2,2,1},
+				{1,1,1,1},
+				{1,1,1,1},
+				{2,1,1,2},
+				{3,2,2,3},
+				{4,2,2,4},
+				{4,2,2,4},
+				{4,2,2,4}
 			};
 			m_city = new City(new TerrainMesh(terrainHeightmap, GRID_SIZE, GRID_SIZE));
 

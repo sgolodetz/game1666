@@ -149,8 +149,8 @@ namespace game1666proto3
 				TerrainMesh mesh = m_city.TerrainMesh;
 
 				// Construct the individual vertices for the terrain.
-				int terrainHeight = mesh.Heightmap.Length;
-				int terrainWidth = mesh.Heightmap[0].Length;
+				int terrainHeight = mesh.Heightmap.GetLength(0);
+				int terrainWidth = mesh.Heightmap.GetLength(1);
 				int gridHeight = terrainHeight - 1;
 				int gridWidth = terrainWidth - 1;
 
@@ -161,7 +161,7 @@ namespace game1666proto3
 				{
 					for(int x = 0; x < terrainWidth; ++x)
 					{
-						var position = new Vector3(x * mesh.GridSquareWidth, y * mesh.GridSquareHeight, mesh.Heightmap[y][x]);
+						var position = new Vector3(x * mesh.GridSquareWidth, y * mesh.GridSquareHeight, mesh.Heightmap[y,x]);
 						var texCoords = new Vector2((float)x / gridWidth, (float)y / gridHeight);
 						vertices[vertIndex] = new VertexPositionTexture(position, texCoords);
 						++vertIndex;

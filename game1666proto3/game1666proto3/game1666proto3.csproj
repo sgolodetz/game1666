@@ -108,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Model\Building.cs" />
+    <Compile Include="Model\BuildingFactory.cs" />
+    <Compile Include="Model\BuildingFootprint.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\ICompositeModelEntity.cs" />
     <Compile Include="Model\IModelEntity.cs" />
