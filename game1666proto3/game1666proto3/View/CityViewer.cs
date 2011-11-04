@@ -21,6 +21,7 @@ namespace game1666proto3
 		#region
 
 		private City m_city;							/// the city being viewed
+		private IModelEntity m_entityToPlace;			/// the entity currently being placed by the user (if any)
 		private IndexBuffer m_terrainIndexBuffer;		/// the index buffer used when rendering the city terrain
 		private VertexBuffer m_terrainVertexBuffer;		/// the vertex buffer used when rendering the city terrain
 		private readonly Viewport m_viewport;			/// the viewport into which the city will be drawn

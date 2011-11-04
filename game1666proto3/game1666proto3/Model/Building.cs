@@ -23,14 +23,14 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly BuildingFootprint m_footprint;
+		private readonly Footprint m_footprint;
 
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
 
-		public Building(BuildingFootprint footprint)
+		public Building(Footprint footprint)
 		{
 			m_footprint = footprint;
 		}

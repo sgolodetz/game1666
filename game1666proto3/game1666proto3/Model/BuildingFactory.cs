@@ -20,7 +20,7 @@ namespace game1666proto3
 				{ 1, 0 }
 			};
 
-			return new Building(new BuildingFootprint(pattern, Tuple.Create(0, 0)));
+			return new Building(new Footprint(pattern, Tuple.Create(0, 0)));
 		}
 
 		#endregion
