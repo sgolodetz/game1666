@@ -8,6 +8,8 @@ using System.Collections.Generic;
 
 namespace game1666proto3
 {
+	delegate void CityEvent();	
+
 	/// <summary>
 	/// Represents a city in the game model.
 	/// </summary>
@@ -18,6 +20,13 @@ namespace game1666proto3
 
 		private readonly List<Building> m_buildings;	/// the buildings in the city
 		private readonly TerrainMesh m_terrainMesh;		/// the mesh of the terrain on which the city is founded
+
+		#endregion
+
+		//#################### EVENTS ####################
+		#region
+
+		public event CityEvent OnCityChanged = delegate {};
 
 		#endregion
 
@@ -53,6 +62,7 @@ namespace game1666proto3
 		public void AddEntity(Building building)
 		{
 			m_buildings.Add(building);
+			OnCityChanged();
 		}
 
 		/// <summary>

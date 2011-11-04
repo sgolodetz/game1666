@@ -94,6 +94,13 @@ namespace game1666proto3
 			return null;
 		}
 
+		// TODO
+		public bool ValidateFootprint(Footprint footprint, Tuple<int,int> position, BuildingOrientation orientation)
+		{
+			// TODO
+			return false;
+		}
+
 		#endregion
 	}
 }

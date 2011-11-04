@@ -20,11 +20,14 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private City m_city;							/// the city being viewed
-		private IModelEntity m_entityToPlace;			/// the entity currently being placed by the user (if any)
-		private IndexBuffer m_terrainIndexBuffer;		/// the index buffer used when rendering the city terrain
-		private VertexBuffer m_terrainVertexBuffer;		/// the vertex buffer used when rendering the city terrain
-		private readonly Viewport m_viewport;			/// the viewport into which the city will be drawn
+		private City m_city;										/// the city being viewed
+		private IndexBuffer m_terrainIndexBuffer;					/// the index buffer used when rendering the city terrain
+		private VertexBuffer m_terrainVertexBuffer;					/// the vertex buffer used when rendering the city terrain
+		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
+
+		private IPlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
+		private Tuple<int,int> m_entityPlacementPosition;			/// the grid square indicating where to place the new entity
+		private BuildingOrientation m_entityPlacementOrientation;	/// the orientation of the building to be placed
 
 		#endregion
 
@@ -40,7 +43,13 @@ namespace game1666proto3
 
 			set
 			{
+				if(m_city != null)
+				{
+					m_city.OnCityChanged -= OnCityChanged;
+				}
+
 				m_city = value;
+				m_city.OnCityChanged += OnCityChanged;
 
 				if(m_terrainIndexBuffer != null)
 				{
@@ -201,6 +210,14 @@ namespace game1666proto3
 		}
 
 		/// <summary>
+		/// Handles changes to the city being viewed.
+		/// </summary>
+		private void OnCityChanged()
+		{
+			// TODO
+		}
+
+		/// <summary>
 		/// Handles mouse moved events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
@@ -216,37 +233,8 @@ namespace game1666proto3
 			Vector3 dir = Vector3.Normalize(far - near);
 			var ray = new Ray(near, dir);
 
-			// Find the grid square we're hovering over (if any).
-			Tuple<int,int> pickedGridSquare = m_city.TerrainMesh.PickGridSquare(ray);
-
-			// TODO
-			if(pickedGridSquare != null)
-			{
-				// TODO
-			}
-
-			/*m_buildingToPlace = null;
-
-			Viewport viewport = GraphicsDevice.Viewport;
-
-			// Find the point we're hovering over on the near clipping plane.
-			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-			// Find the point we're hovering over on the far clipping plane.
-			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), m_basicEffect.Projection, m_basicEffect.View, m_basicEffect.World);
-
-			// Find the ray (in world space) between them.
-			Vector3 dir = Vector3.Normalize(far - near);
-			var ray = new Ray(near, dir);
-
-			// Find the terrain triangle we're hovering over (if any).
-			PickedTriangle? pickedTriangle = m_city.PickTerrainTriangle(ray);
-
-			// If we're hovering over a terrain triangle, set up a temporary building there to show where we would build.
-			if(pickedTriangle != null)
-			{
-				m_buildingToPlace = new Building(pickedTriangle.Value.Triangle);
-			}*/
+			// Record the grid square we're hovering over (if any).
+			m_entityPlacementPosition = m_city.TerrainMesh.PickGridSquare(ray);
 		}
 
 		/// <summary>
@@ -255,11 +243,14 @@ namespace game1666proto3
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			/*if(state.LeftButton == ButtonState.Pressed && m_buildingToPlace != null)
+			if(state.LeftButton == ButtonState.Pressed && m_entityToPlace != null)
 			{
-				m_city.AddBuilding(m_buildingToPlace);
-				m_buildingToPlace = null;
-			}*/
+				if(m_city.TerrainMesh.ValidateFootprint(m_entityToPlace.Footprint, m_entityPlacementPosition, m_entityPlacementOrientation))
+				{
+					m_city.AddEntity((dynamic)m_entityToPlace);
+					m_entityToPlace = null;
+				}
+			}
 		}
 
 		#endregion
