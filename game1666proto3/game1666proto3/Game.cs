@@ -74,7 +74,7 @@ namespace game1666proto3
 			GraphicsDevice.RasterizerState = rasterizerState;
 
 			// Draw the city.
-			m_viewer.Draw(GraphicsDevice, ref m_basicEffect, Content);
+			m_viewer.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -109,6 +109,11 @@ namespace game1666proto3
 
 			// Set up the viewer.
 			m_viewer = new CityViewer(m_city, GraphicsDevice.Viewport);
+
+			// Fill in the RenderingDetails static class as a global point of access for the graphics device, basic effect and content.
+			RenderingDetails.BasicEffect = m_basicEffect;
+			RenderingDetails.Content = Content;
+			RenderingDetails.GraphicsDevice = GraphicsDevice;
 
 			base.Initialize();
 		}

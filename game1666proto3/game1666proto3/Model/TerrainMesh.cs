@@ -91,7 +91,7 @@ namespace game1666proto3
 		public Tuple<int,int> PickGridSquare(Ray ray)
 		{
 			// TODO
-			throw new NotImplementedException();
+			return null;
 		}
 
 		#endregion

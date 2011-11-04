@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RenderingDetails.cs" />
     <Compile Include="Math\Constants.cs" />
     <Compile Include="Model\Building.cs" />
     <Compile Include="Model\BuildingFactory.cs" />
