@@ -113,6 +113,12 @@ namespace game1666proto3
 				DrawEntity((dynamic)entity);
 			}
 
+			if(m_entityToPlace != null &&
+			   m_city.TerrainMesh.ValidateFootprint(m_entityToPlace.Footprint, m_entityPlacementPosition, m_entityPlacementOrientation))
+			{
+				DrawEntity((dynamic)m_entityToPlace);
+			}
+
 			// Restore the original viewport.
 			RenderingDetails.GraphicsDevice.Viewport = savedViewport;
 		}
