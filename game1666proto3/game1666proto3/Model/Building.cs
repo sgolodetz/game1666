@@ -24,19 +24,15 @@ namespace game1666proto3
 		#region
 
 		private readonly BuildingFootprint m_footprint;
-		private readonly BuildingOrientation m_orientation;
-		private readonly Tuple<int,int> m_position;
 
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
 
-		public Building(BuildingFootprint footprint, Tuple<int,int> position, BuildingOrientation orientation = BuildingOrientation.RIGHT)
+		public Building(BuildingFootprint footprint)
 		{
 			m_footprint = footprint;
-			m_orientation = orientation;
-			m_position = position;
 		}
 
 		#endregion

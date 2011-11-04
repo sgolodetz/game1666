@@ -12,7 +12,7 @@ namespace game1666proto3
 		//#################### PUBLIC METHODS ####################
 		#region
 
-		public static Building CreateHouse(Tuple<int,int> position, BuildingOrientation orientation)
+		public static Building CreateHouse()
 		{
 			var pattern = new int[,]
 			{
@@ -20,7 +20,7 @@ namespace game1666proto3
 				{ 1, 0 }
 			};
 
-			return new Building(new BuildingFootprint(pattern, Tuple.Create(0, 0)), position, orientation);
+			return new Building(new BuildingFootprint(pattern, Tuple.Create(0, 0)));
 		}
 
 		#endregion

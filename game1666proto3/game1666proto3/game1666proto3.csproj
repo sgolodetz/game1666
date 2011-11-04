@@ -108,7 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
+    <Compile Include="Math\Constants.cs" />
     <Compile Include="Model\Building.cs" />
     <Compile Include="Model\BuildingFactory.cs" />
     <Compile Include="Model\BuildingFootprint.cs" />
@@ -116,11 +116,11 @@
     <Compile Include="Model\ICompositeModelEntity.cs" />
     <Compile Include="Model\IModelEntity.cs" />
     <Compile Include="Model\TerrainMesh.cs" />
-    <Compile Include="MouseEventManager.cs" />
+    <Compile Include="Input\MouseEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Triangle.cs" />
+    <Compile Include="Math\Geometry\Triangle.cs" />
     <Compile Include="View\CityViewer.cs" />
     <Compile Include="View\ICompositeViewEntity.cs" />
     <Compile Include="View\IViewEntity.cs" />
