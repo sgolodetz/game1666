@@ -13,11 +13,11 @@ namespace game1666proto3
 	/// </summary>
 	sealed class EntityFootprint
 	{
-		//#################### PRIVATE VARIABLES ####################
+		//#################### PROPERTIES ####################
 		#region
 
-		private readonly Tuple<int,int> m_hotspot;		/// the canonical grid square used to position the entity (the square in the pattern that will be under the user's mouse when placing the entity)
-		private readonly int[,] m_pattern;				/// the pattern of grid squares that the entity will occupy
+		public Tuple<int,int> Hotspot	{ get; private set; }	/// the canonical grid square used to position the entity (the square in the pattern that will be under the user's mouse when placing the entity)
+		public int[,] Pattern			{ get; private set; }	/// the pattern of grid squares that the entity will occupy
 
 		#endregion
 
@@ -31,8 +31,8 @@ namespace game1666proto3
 		/// <param name="hotspot">The canonical grid square used to position the entity.</param>
 		public EntityFootprint(int[,] pattern, Tuple<int,int> hotspot)
 		{
-			m_pattern = pattern;
-			m_hotspot = hotspot;
+			Pattern = pattern;
+			Hotspot = hotspot;
 		}
 
 		#endregion

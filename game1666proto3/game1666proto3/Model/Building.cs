@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto3
 {
@@ -24,7 +25,9 @@ namespace game1666proto3
 		/// <param name="terrainMesh">The terrain on which the building will stand.</param>
 		public Building(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation, TerrainMesh terrainMesh)
 		:	base(footprint, position, orientation, terrainMesh)
-		{}
+		{
+			ConstructBuffers(5f);
+		}
 
 		#endregion
 
@@ -38,7 +41,7 @@ namespace game1666proto3
 		public override bool ValidateFootprint()
 		{
 			// TODO
-			return false;
+			return true;
 		}
 
 		#endregion

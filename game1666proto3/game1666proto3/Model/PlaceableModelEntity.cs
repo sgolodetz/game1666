@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto3
 {
@@ -42,19 +43,15 @@ namespace game1666proto3
 
 		#endregion
 
-		//#################### PUBLIC PROPERTIES ####################
+		//#################### PROPERTIES ####################
 		#region
 
 		public EntityFootprint Footprint		{ get { return m_footprint; } }
+		public IndexBuffer IndexBuffer			{ get; protected set; }
 		public EntityOrientation Orientation	{ get { return m_orientation; } }
 		public Tuple<int,int> Position			{ get { return m_position; } }
-
-		#endregion
-
-		//#################### PROTECTED PROPERTIES ####################
-		#region
-
 		protected TerrainMesh TerrainMesh		{ get { return m_terrainMesh; } }
+		public VertexBuffer VertexBuffer		{ get; protected set; }
 
 		#endregion
 
@@ -66,6 +63,38 @@ namespace game1666proto3
 		/// </summary>
 		/// <returns>true, if the entity could be validly placed, or false otherwise</returns>
 		abstract public bool ValidateFootprint();
+
+		#endregion
+
+		//#################### PROTECTED METHODS ####################
+		#region
+
+		protected void ConstructBuffers(float entityHeight)
+		{
+			int [,] pattern = m_footprint.Pattern;
+			int height = pattern.GetLength(0) + 1;
+			int width = pattern.GetLength(1) + 1;
+
+			//Tuple<int,int> offset = m_position - m_footprint.Hotspot;
+
+			// Construct the individual vertices for the building.
+			var vertices = new VertexPositionColor[height * width * 2];
+			int vertIndex = 0;
+			for(int y=0; y<height; ++y)
+			{
+				for(int x=0; x<width; ++x)
+				{
+					//vertices[vertIndex++] = new VertexPositionColor(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, m_terrainMesh.Heightmap[
+					// TODO
+				}
+			}
+
+			// Create the vertex buffer and fill it with the constructed vertices.
+			/*VertexBuffer = new VertexBuffer(RenderingDetails.GraphicsDevice, typeof(VertexPositionColor), vertices.Length, BufferUsage.WriteOnly);
+			VertexBuffer.SetData(vertices);*/
+
+			// TODO
+		}
 
 		#endregion
 	}
