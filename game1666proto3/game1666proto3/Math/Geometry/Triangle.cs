@@ -13,6 +13,9 @@ namespace game1666proto3
 	/// </summary>
 	static class RayTriangleExtensions
 	{
+		//#################### PUBLIC METHODS ####################
+		#region
+
 		/// <summary>
 		/// Tests whether the ray intersects the specified triangle, and if so, at what distance along its length.
 		/// </summary>
@@ -32,6 +35,8 @@ namespace game1666proto3
 			}
 			return null;
 		}
+
+		#endregion
 	}
 
 	/// <summary>
@@ -59,11 +64,7 @@ namespace game1666proto3
 		/// <param name="v2">The third vertex.</param>
 		public Triangle(Vector3 v0, Vector3 v1, Vector3 v2)
 		{
-			m_vertices = new Vector3[]
-			{
-				v0, v1, v2
-			};
-
+			m_vertices = new Vector3[] { v0, v1, v2 };
 			CalculateNormal();
 		}
 

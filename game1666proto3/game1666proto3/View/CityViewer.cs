@@ -153,7 +153,7 @@ namespace game1666proto3
 			// If we found a grid square, create a temporary building there to show what the user is trying to place.
 			if(pickedGridSquare != null)
 			{
-				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare, EntityOrientation.RIGHT);
+				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare, EntityOrientation.LEFT2RIGHT);
 			}
 		}
 

@@ -16,7 +16,7 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly Tuple<int,int> m_hotspot;		/// the square in the pattern that will be under the user's mouse when placing the entity
+		private readonly Tuple<int,int> m_hotspot;		/// the canonical grid square used to position the entity (the square in the pattern that will be under the user's mouse when placing the entity)
 		private readonly int[,] m_pattern;				/// the pattern of grid squares that the entity will occupy
 
 		#endregion
@@ -25,10 +25,10 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// Constructs a new building footprint.
+		/// Constructs a new entity footprint.
 		/// </summary>
 		/// <param name="pattern">The pattern of grid squares that the entity will occupy.</param>
-		/// <param name="hotspot">The square in the pattern that will be under the user's mouse when placing the entity.</param>
+		/// <param name="hotspot">The canonical grid square used to position the entity.</param>
 		public EntityFootprint(int[,] pattern, Tuple<int,int> hotspot)
 		{
 			m_pattern = pattern;

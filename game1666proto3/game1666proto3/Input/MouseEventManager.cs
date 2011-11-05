@@ -17,15 +17,22 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static MouseState s_currentState;
-		private static MouseState s_previousState;
+		private static MouseState s_currentState;		/// used to hold the current mouse state
+		private static MouseState s_previousState;		/// used to hold the previous mouse state
 
 		#endregion
 
 		//#################### EVENTS ####################
 		#region
 
+		/// <summary>
+		/// Invoked when the mouse moves.
+		/// </summary>
 		public static event MouseEvent OnMouseMoved = delegate {};
+
+		/// <summary>
+		/// Invoked when a mouse button is pressed.
+		/// </summary>
 		public static event MouseEvent OnMousePressed = delegate {};
 
 		#endregion

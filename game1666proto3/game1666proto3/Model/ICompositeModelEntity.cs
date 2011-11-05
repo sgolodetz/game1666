@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace game1666proto3
 {
 	/// <summary>
-	/// The interface for composite entities that are part of the game model, e.g. cities.
+	/// The interface for composite model entities, e.g. cities.
 	/// </summary>
 	interface ICompositeModelEntity : IModelEntity
 	{

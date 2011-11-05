@@ -5,11 +5,14 @@
 
 namespace game1666proto3
 {
+	/// <summary>
+	/// Represents an entity's orientation on the terrain.
+	/// </summary>
 	enum EntityOrientation
 	{
-		RIGHT,
-		UP,
-		LEFT,
-		DOWN
+		DOWN2UP,
+		LEFT2RIGHT,
+		RIGHT2LEFT,
+		UP2DOWN
 	}
 }

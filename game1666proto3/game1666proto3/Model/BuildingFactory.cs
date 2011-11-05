@@ -12,6 +12,12 @@ namespace game1666proto3
 		//#################### PUBLIC METHODS ####################
 		#region
 
+		/// <summary>
+		/// Constructs a new house with the specified position and orientation.
+		/// </summary>
+		/// <param name="position">The position of the house's hotspot on the terrain.</param>
+		/// <param name="orientation">The orientation of the house.</param>
+		/// <returns></returns>
 		public static Building CreateHouse(Tuple<int,int> position, EntityOrientation orientation)
 		{
 			var pattern = new int[,]

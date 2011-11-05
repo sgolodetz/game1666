@@ -6,7 +6,7 @@
 namespace game1666proto3
 {
 	/// <summary>
-	/// The base interface for entities that are part of the game model, e.g. buildings.
+	/// The base interface for model entities, e.g. buildings.
 	/// </summary>
 	interface IModelEntity
 	{
