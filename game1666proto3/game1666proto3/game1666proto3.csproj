@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Math\Vectors\Vector2i.cs" />
     <Compile Include="Model\EntityOrientation.cs" />
     <Compile Include="Model\PlaceableModelEntity.cs" />
     <Compile Include="RenderingDetails.cs" />

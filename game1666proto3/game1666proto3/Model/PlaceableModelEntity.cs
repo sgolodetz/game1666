@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto3
@@ -18,7 +19,7 @@ namespace game1666proto3
 
 		private readonly EntityFootprint m_footprint;		/// the footprint of the entity
 		private readonly EntityOrientation m_orientation;	/// the orientation of the entity
-		private readonly Tuple<int,int> m_position;			/// the position of the entity's hotspot
+		private readonly Vector2i m_position;				/// the position of the entity's hotspot
 		private readonly TerrainMesh m_terrainMesh;			/// the terrain on which the entity will stand
 
 		#endregion
@@ -33,7 +34,7 @@ namespace game1666proto3
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The orientation of the entity.</param>
 		/// <param name="terrainMesh">The terrain on which the entity will stand.</param>
-		protected PlaceableModelEntity(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation, TerrainMesh terrainMesh)
+		protected PlaceableModelEntity(EntityFootprint footprint, Vector2i position, EntityOrientation orientation, TerrainMesh terrainMesh)
 		{
 			m_footprint = footprint;
 			m_orientation = orientation;
@@ -49,7 +50,7 @@ namespace game1666proto3
 		public EntityFootprint Footprint		{ get { return m_footprint; } }
 		public IndexBuffer IndexBuffer			{ get; protected set; }
 		public EntityOrientation Orientation	{ get { return m_orientation; } }
-		public Tuple<int,int> Position			{ get { return m_position; } }
+		public Vector2i Position				{ get { return m_position; } }
 		protected TerrainMesh TerrainMesh		{ get { return m_terrainMesh; } }
 		public VertexBuffer VertexBuffer		{ get; protected set; }
 
@@ -71,27 +72,31 @@ namespace game1666proto3
 
 		protected void ConstructBuffers(float entityHeight)
 		{
-			int [,] pattern = m_footprint.Pattern;
-			int height = pattern.GetLength(0) + 1;
-			int width = pattern.GetLength(1) + 1;
+			int gridHeight = m_terrainMesh.Heightmap.GetLength(0) - 1;
+			int gridWidth = m_terrainMesh.Heightmap.GetLength(1) - 1;
 
-			//Tuple<int,int> offset = m_position - m_footprint.Hotspot;
+			int [,] pattern = m_footprint.Pattern;
+			int patternHeightPlusOne = pattern.GetLength(0) + 1;
+			int patternWidthPlusOne = pattern.GetLength(1) + 1;
+
+			Vector2i offset = m_position - m_footprint.Hotspot;
 
 			// Construct the individual vertices for the building.
-			var vertices = new VertexPositionColor[height * width * 2];
+			var vertices = new VertexPositionColor[patternHeightPlusOne * patternWidthPlusOne * 2];
 			int vertIndex = 0;
-			for(int y=0; y<height; ++y)
+			for(int y = offset.Y; y < offset.Y + patternHeightPlusOne; ++y)
 			{
-				for(int x=0; x<width; ++x)
+				for(int x = offset.X; x < offset.X + patternWidthPlusOne; ++x)
 				{
-					//vertices[vertIndex++] = new VertexPositionColor(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, m_terrainMesh.Heightmap[
-					// TODO
+					float z = 0 <= x && x < gridWidth && 0 <= y && y < gridHeight ? z = m_terrainMesh.Heightmap[y,x] : 0f;
+					vertices[vertIndex++] = new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z), Color.Red);
+					vertices[vertIndex++] = new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z + entityHeight), Color.Red);
 				}
 			}
 
 			// Create the vertex buffer and fill it with the constructed vertices.
-			/*VertexBuffer = new VertexBuffer(RenderingDetails.GraphicsDevice, typeof(VertexPositionColor), vertices.Length, BufferUsage.WriteOnly);
-			VertexBuffer.SetData(vertices);*/
+			VertexBuffer = new VertexBuffer(RenderingDetails.GraphicsDevice, typeof(VertexPositionColor), vertices.Length, BufferUsage.WriteOnly);
+			VertexBuffer.SetData(vertices);
 
 			// TODO
 		}

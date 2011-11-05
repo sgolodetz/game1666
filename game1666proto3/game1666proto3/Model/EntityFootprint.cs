@@ -16,8 +16,8 @@ namespace game1666proto3
 		//#################### PROPERTIES ####################
 		#region
 
-		public Tuple<int,int> Hotspot	{ get; private set; }	/// the canonical grid square used to position the entity (the square in the pattern that will be under the user's mouse when placing the entity)
-		public int[,] Pattern			{ get; private set; }	/// the pattern of grid squares that the entity will occupy
+		public Vector2i Hotspot	{ get; private set; }	/// the canonical grid square used to position the entity (the square in the pattern that will be under the user's mouse when placing the entity)
+		public int[,] Pattern	{ get; private set; }	/// the pattern of grid squares that the entity will occupy
 
 		#endregion
 
@@ -29,7 +29,7 @@ namespace game1666proto3
 		/// </summary>
 		/// <param name="pattern">The pattern of grid squares that the entity will occupy.</param>
 		/// <param name="hotspot">The canonical grid square used to position the entity.</param>
-		public EntityFootprint(int[,] pattern, Tuple<int,int> hotspot)
+		public EntityFootprint(int[,] pattern, Vector2i hotspot)
 		{
 			Pattern = pattern;
 			Hotspot = hotspot;

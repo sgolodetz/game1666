@@ -19,7 +19,7 @@ namespace game1666proto3
 		/// <param name="orientation">The orientation of the house.</param>
 		/// <param name="terrainMesh">The terrain on which the building will stand.</param>
 		/// <returns>The constructed building.</returns>
-		public static Building CreateHouse(Tuple<int,int> position, EntityOrientation orientation, TerrainMesh terrainMesh)
+		public static Building CreateHouse(Vector2i position, EntityOrientation orientation, TerrainMesh terrainMesh)
 		{
 			var pattern = new int[,]
 			{
@@ -27,7 +27,7 @@ namespace game1666proto3
 				{ 1, 0 }
 			};
 
-			return new Building(new EntityFootprint(pattern, Tuple.Create(0, 0)), position, orientation, terrainMesh);
+			return new Building(new EntityFootprint(pattern, new Vector2i(0, 0)), position, orientation, terrainMesh);
 		}
 
 		#endregion

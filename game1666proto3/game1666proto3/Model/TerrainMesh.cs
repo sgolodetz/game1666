@@ -63,8 +63,7 @@ namespace game1666proto3
 				{
 					var position = new Vector3(x * gridSquareWidth, y * gridSquareHeight, heightmap[y,x]);
 					var texCoords = new Vector2((float)x / m_gridWidth, (float)y / m_gridHeight);
-					vertices[vertIndex] = new VertexPositionTexture(position, texCoords);
-					++vertIndex;
+					vertices[vertIndex++] = new VertexPositionTexture(position, texCoords);
 				}
 			}
 
@@ -129,7 +128,7 @@ namespace game1666proto3
 		/// </summary>
 		/// <param name="ray">The ray.</param>
 		/// <returns>The coordinates of the grid square (if any), or null otherwise.</returns>
-		public Tuple<int,int> PickGridSquare(Ray ray)
+		public Vector2i? PickGridSquare(Ray ray)
 		{
 			float bestDistance = float.MaxValue;
 			int? bestPickedTriangle = null;
@@ -149,7 +148,7 @@ namespace game1666proto3
 				int rowTriangleCount = m_gridWidth * 2;
 				int x = (bestPickedTriangle.Value % rowTriangleCount) / 2;
 				int y = bestPickedTriangle.Value / rowTriangleCount;
-				return Tuple.Create(x, y);
+				return new Vector2i(x, y);
 			}
 			else return null;
 		}

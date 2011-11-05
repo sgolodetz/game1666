@@ -130,12 +130,12 @@ namespace game1666proto3
 			var ray = new Ray(near, dir);
 
 			// Find the grid square containing the nearest terrain triangle hit by the ray (if any).
-			Tuple<int,int> pickedGridSquare = m_city.TerrainMesh.PickGridSquare(ray);
+			Vector2i? pickedGridSquare = m_city.TerrainMesh.PickGridSquare(ray);
 
 			// If we found a grid square, create a temporary building there to show what the user is trying to place.
 			if(pickedGridSquare != null)
 			{
-				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare, EntityOrientation.LEFT2RIGHT, m_city.TerrainMesh);
+				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare.Value, EntityOrientation.LEFT2RIGHT, m_city.TerrainMesh);
 			}
 		}
 

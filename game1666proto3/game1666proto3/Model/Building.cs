@@ -23,7 +23,7 @@ namespace game1666proto3
 		/// <param name="position">The position of the building's hotspot.</param>
 		/// <param name="orientation">The orientation of the building.</param>
 		/// <param name="terrainMesh">The terrain on which the building will stand.</param>
-		public Building(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation, TerrainMesh terrainMesh)
+		public Building(EntityFootprint footprint, Vector2i position, EntityOrientation orientation, TerrainMesh terrainMesh)
 		:	base(footprint, position, orientation, terrainMesh)
 		{
 			ConstructBuffers(5f);
