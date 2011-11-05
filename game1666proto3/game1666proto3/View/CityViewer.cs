@@ -38,13 +38,7 @@ namespace game1666proto3
 
 			set
 			{
-				if(m_city != null)
-				{
-					m_city.OnCityChanged -= OnCityChanged;
-				}
-
 				m_city = value;
-				m_city.OnCityChanged += OnCityChanged;
 			}
 		}
 
@@ -135,14 +129,6 @@ namespace game1666proto3
 				pass.Apply();
 				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, m_city.TerrainMesh.VertexBuffer.VertexCount, 0, m_city.TerrainMesh.IndexBuffer.IndexCount / 3);
 			}
-		}
-
-		/// <summary>
-		/// Handles changes to the city being viewed.
-		/// </summary>
-		private void OnCityChanged()
-		{
-			// TODO
 		}
 
 		/// <summary>

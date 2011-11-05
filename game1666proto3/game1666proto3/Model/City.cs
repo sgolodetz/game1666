@@ -23,13 +23,6 @@ namespace game1666proto3
 
 		#endregion
 
-		//#################### EVENTS ####################
-		#region
-
-		public event CityEvent OnCityChanged = delegate {};
-
-		#endregion
-
 		//#################### PUBLIC PROPERTIES ####################
 		#region
 
@@ -62,7 +55,6 @@ namespace game1666proto3
 		public void AddEntity(Building building)
 		{
 			m_buildings.Add(building);
-			OnCityChanged();
 		}
 
 		/// <summary>
