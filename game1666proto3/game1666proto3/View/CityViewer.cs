@@ -21,7 +21,7 @@ namespace game1666proto3
 		#region
 
 		private City m_city;										/// the city being viewed
-		private IPlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
+		private PlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
 		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
 
 		#endregion

@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto3: Building.cs
+ * game1666proto3: EntityOrientation.cs
  * Copyright 2011. All rights reserved.
  ***/
 

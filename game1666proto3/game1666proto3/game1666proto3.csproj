@@ -112,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\EntityOrientation.cs" />
-    <Compile Include="Model\IPlaceableModelEntity.cs" />
+    <Compile Include="Model\PlaceableModelEntity.cs" />
     <Compile Include="RenderingDetails.cs" />
     <Compile Include="Math\Constants.cs" />
     <Compile Include="Model\Building.cs" />

@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto3: BuildingFootprint.cs
+ * game1666proto3: EntityFootprint.cs
  * Copyright 2011. All rights reserved.
  ***/
 
