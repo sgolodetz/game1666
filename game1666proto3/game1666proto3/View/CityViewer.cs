@@ -22,11 +22,7 @@ namespace game1666proto3
 
 		private City m_city;										/// the city being viewed
 		private IPlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
-		private IndexBuffer m_terrainIndexBuffer;					/// the index buffer used when rendering the city terrain
-		private VertexBuffer m_terrainVertexBuffer;					/// the vertex buffer used when rendering the city terrain
 		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
-
-		
 
 		#endregion
 
@@ -49,18 +45,6 @@ namespace game1666proto3
 
 				m_city = value;
 				m_city.OnCityChanged += OnCityChanged;
-
-				if(m_terrainIndexBuffer != null)
-				{
-					m_terrainIndexBuffer.Dispose();
-					m_terrainIndexBuffer = null;
-				}
-
-				if(m_terrainVertexBuffer != null)
-				{
-					m_terrainVertexBuffer.Dispose();
-					m_terrainVertexBuffer = null;
-				}
 			}
 		}
 
@@ -96,9 +80,6 @@ namespace game1666proto3
 		{
 			// If we're not currently viewing a city, don't try and render anything.
 			if(m_city == null) return;
-
-			// Make sure that any vertex and index buffers needed to draw the city have been appropriately created.
-			EnsureBuffersCreated();
 
 			// Save the existing viewport and replace it with our one.
 			Viewport savedViewport = RenderingDetails.GraphicsDevice.Viewport;
@@ -147,69 +128,12 @@ namespace game1666proto3
 			basicEffect.TextureEnabled = true;
 
 			// Render the terrain as a triangle list.
-			RenderingDetails.GraphicsDevice.SetVertexBuffer(m_terrainVertexBuffer);
-			RenderingDetails.GraphicsDevice.Indices = m_terrainIndexBuffer;
+			RenderingDetails.GraphicsDevice.SetVertexBuffer(m_city.TerrainMesh.VertexBuffer);
+			RenderingDetails.GraphicsDevice.Indices = m_city.TerrainMesh.IndexBuffer;
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
-				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, m_terrainVertexBuffer.VertexCount, 0, m_terrainIndexBuffer.IndexCount / 3);
-			}
-		}
-
-		/// <summary>
-		/// Makes sure that any vertex and index buffers needed to draw the city have been appropriately created.
-		/// </summary>
-		private void EnsureBuffersCreated()
-		{
-			if(m_terrainVertexBuffer == null)
-			{
-				TerrainMesh mesh = m_city.TerrainMesh;
-
-				// Construct the individual vertices for the terrain.
-				int terrainHeight = mesh.Heightmap.GetLength(0);
-				int terrainWidth = mesh.Heightmap.GetLength(1);
-				int gridHeight = terrainHeight - 1;
-				int gridWidth = terrainWidth - 1;
-
-				var vertices = new VertexPositionTexture[terrainHeight * terrainWidth];
-
-				int vertIndex = 0;
-				for(int y = 0; y < terrainHeight; ++y)
-				{
-					for(int x = 0; x < terrainWidth; ++x)
-					{
-						var position = new Vector3(x * mesh.GridSquareWidth, y * mesh.GridSquareHeight, mesh.Heightmap[y,x]);
-						var texCoords = new Vector2((float)x / gridWidth, (float)y / gridHeight);
-						vertices[vertIndex] = new VertexPositionTexture(position, texCoords);
-						++vertIndex;
-					}
-				}
-
-				// Create the vertex buffer and fill it with the constructed vertices.
-				m_terrainVertexBuffer = new VertexBuffer(RenderingDetails.GraphicsDevice, typeof(VertexPositionTexture), vertices.Length, BufferUsage.WriteOnly);
-				m_terrainVertexBuffer.SetData(vertices);
-
-				// Construct the index array.
-				var indices = new int[gridHeight * gridWidth * 6];	// 2 triangles per grid square x 3 vertices per triangle
-
-				int indicesIndex = 0;
-				for(int y = 0; y < gridHeight; ++y)
-				{
-					for(int x = 0; x < gridWidth; ++x)
-					{
-						int start = y * terrainWidth + x;
-						indices[indicesIndex++] = start;
-						indices[indicesIndex++] = start + 1;
-						indices[indicesIndex++] = start + terrainWidth;
-						indices[indicesIndex++] = start + 1;
-						indices[indicesIndex++] = start + 1 + terrainWidth;
-						indices[indicesIndex++] = start + terrainWidth;
-					}
-				}
-
-				// Create the index buffer.
-				m_terrainIndexBuffer = new IndexBuffer(RenderingDetails.GraphicsDevice, typeof(int), indices.Length, BufferUsage.WriteOnly);
-				m_terrainIndexBuffer.SetData(indices);
+				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, m_city.TerrainMesh.VertexBuffer.VertexCount, 0, m_city.TerrainMesh.IndexBuffer.IndexCount / 3);
 			}
 		}
 

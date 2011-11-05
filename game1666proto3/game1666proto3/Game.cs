@@ -93,6 +93,11 @@ namespace game1666proto3
 			// Set up the projection matrix.
 			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
+			// Fill in the RenderingDetails static class as a global point of access for the graphics device, basic effect and content.
+			RenderingDetails.BasicEffect = m_basicEffect;
+			RenderingDetails.Content = Content;
+			RenderingDetails.GraphicsDevice = GraphicsDevice;
+
 			// Set up the city.
 			var terrainHeightmap = new float[,]
 			{
@@ -109,11 +114,6 @@ namespace game1666proto3
 
 			// Set up the viewer.
 			m_viewer = new CityViewer(m_city, GraphicsDevice.Viewport);
-
-			// Fill in the RenderingDetails static class as a global point of access for the graphics device, basic effect and content.
-			RenderingDetails.BasicEffect = m_basicEffect;
-			RenderingDetails.Content = Content;
-			RenderingDetails.GraphicsDevice = GraphicsDevice;
 
 			base.Initialize();
 		}
