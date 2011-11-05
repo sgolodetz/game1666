@@ -15,15 +15,21 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly EntityFootprint m_footprint;
-		private readonly EntityOrientation m_orientation;
-		private readonly Tuple<int,int> m_position;
+		private readonly EntityFootprint m_footprint;		/// the footprint of the entity
+		private readonly EntityOrientation m_orientation;	/// the orientation of the entity
+		private readonly Tuple<int,int> m_position;			/// the position of the entity's hotspot
 
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
 
+		/// <summary>
+		/// Constructs a new placeable model entity with the specified footprint, position and orientation.
+		/// </summary>
+		/// <param name="footprint">The footprint of the entity.</param>
+		/// <param name="position">The position of the entity's hotspot.</param>
+		/// <param name="orientation">The orientation of the entity.</param>
 		public PlaceableModelEntity(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation)
 		{
 			m_footprint = footprint;
@@ -45,6 +51,11 @@ namespace game1666proto3
 		//#################### PUBLIC ABSTRACT METHODS ####################
 		#region
 
+		/// <summary>
+		/// Checks whether or not the entity could be validly placed on the terrain mesh, given its position and orientation.
+		/// </summary>
+		/// <param name="terrainMesh">The terrain mesh against which to validate the entity.</param>
+		/// <returns>true, if the entity could be validly placed, or false otherwise</returns>
 		abstract public bool ValidateFootprint(TerrainMesh terrainMesh);
 
 		#endregion

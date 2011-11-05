@@ -20,9 +20,9 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private City m_city;										/// the city being viewed
-		private PlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
-		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
+		private City m_city;							/// the city being viewed
+		private PlaceableModelEntity m_entityToPlace;	/// the entity currently being placed by the user (if any)
+		private readonly Viewport m_viewport;			/// the viewport into which the city will be drawn
 
 		#endregion
 
@@ -42,24 +42,6 @@ namespace game1666proto3
 			// Register input handlers.
 			MouseEventManager.OnMouseMoved += OnMouseMoved;
 			MouseEventManager.OnMousePressed += OnMousePressed;
-		}
-
-		#endregion
-
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public City City
-		{
-			get
-			{
-				return m_city;
-			}
-
-			set
-			{
-				m_city = value;
-			}
 		}
 
 		#endregion
