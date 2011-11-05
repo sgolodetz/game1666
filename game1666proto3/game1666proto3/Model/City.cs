@@ -8,8 +8,6 @@ using System.Collections.Generic;
 
 namespace game1666proto3
 {
-	delegate void CityEvent();	
-
 	/// <summary>
 	/// Represents a city in the game model.
 	/// </summary>

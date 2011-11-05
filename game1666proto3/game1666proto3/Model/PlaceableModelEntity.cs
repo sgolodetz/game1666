@@ -30,7 +30,7 @@ namespace game1666proto3
 		/// <param name="footprint">The footprint of the entity.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The orientation of the entity.</param>
-		public PlaceableModelEntity(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation)
+		protected PlaceableModelEntity(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation)
 		{
 			m_footprint = footprint;
 			m_position = position;
