@@ -69,7 +69,7 @@ namespace game1666proto3
 				DrawEntity((dynamic)entity);
 			}
 
-			if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint(m_city.TerrainMesh))
+			if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint())
 			{
 				DrawEntity((dynamic)m_entityToPlace);
 			}
@@ -135,7 +135,7 @@ namespace game1666proto3
 			// If we found a grid square, create a temporary building there to show what the user is trying to place.
 			if(pickedGridSquare != null)
 			{
-				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare, EntityOrientation.LEFT2RIGHT);
+				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare, EntityOrientation.LEFT2RIGHT, m_city.TerrainMesh);
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace game1666proto3
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint(m_city.TerrainMesh))
+				if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint())
 				{
 					m_city.AddEntity((dynamic)m_entityToPlace);
 					m_entityToPlace = null;

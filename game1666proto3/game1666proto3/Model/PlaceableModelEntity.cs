@@ -18,6 +18,7 @@ namespace game1666proto3
 		private readonly EntityFootprint m_footprint;		/// the footprint of the entity
 		private readonly EntityOrientation m_orientation;	/// the orientation of the entity
 		private readonly Tuple<int,int> m_position;			/// the position of the entity's hotspot
+		private readonly TerrainMesh m_terrainMesh;			/// the terrain on which the entity will stand
 
 		#endregion
 
@@ -30,11 +31,13 @@ namespace game1666proto3
 		/// <param name="footprint">The footprint of the entity.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The orientation of the entity.</param>
-		protected PlaceableModelEntity(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation)
+		/// <param name="terrainMesh">The terrain on which the entity will stand.</param>
+		protected PlaceableModelEntity(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation, TerrainMesh terrainMesh)
 		{
 			m_footprint = footprint;
-			m_position = position;
 			m_orientation = orientation;
+			m_terrainMesh = terrainMesh;
+			m_position = position;
 		}
 
 		#endregion
@@ -48,15 +51,21 @@ namespace game1666proto3
 
 		#endregion
 
+		//#################### PROTECTED PROPERTIES ####################
+		#region
+
+		protected TerrainMesh TerrainMesh		{ get { return m_terrainMesh; } }
+
+		#endregion
+
 		//#################### PUBLIC ABSTRACT METHODS ####################
 		#region
 
 		/// <summary>
 		/// Checks whether or not the entity could be validly placed on the terrain mesh, given its position and orientation.
 		/// </summary>
-		/// <param name="terrainMesh">The terrain mesh against which to validate the entity.</param>
 		/// <returns>true, if the entity could be validly placed, or false otherwise</returns>
-		abstract public bool ValidateFootprint(TerrainMesh terrainMesh);
+		abstract public bool ValidateFootprint();
 
 		#endregion
 	}
