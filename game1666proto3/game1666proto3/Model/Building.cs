@@ -4,10 +4,11 @@
  ***/
 
 using System;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto3
 {
-	enum BuildingOrientation
+	enum EntityOrientation
 	{
 		RIGHT,
 		UP,
@@ -24,6 +25,8 @@ namespace game1666proto3
 		#region
 
 		private readonly Footprint m_footprint;
+		private readonly EntityOrientation m_orientation;
+		private readonly Vector3 m_position;
 
 		#endregion
 
@@ -37,9 +40,22 @@ namespace game1666proto3
 		//#################### CONSTRUCTORS ####################
 		#region
 
-		public Building(Footprint footprint)
+		public Building(Footprint footprint, Vector3 position, EntityOrientation orientation)
 		{
 			m_footprint = footprint;
+			m_position = position;
+			m_orientation = orientation;
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		public bool ValidateFootprint(TerrainMesh terrainMesh)
+		{
+			// TODO
+			return false;
 		}
 
 		#endregion

@@ -27,7 +27,7 @@ namespace game1666proto3
 
 		private IPlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
 		private Tuple<int,int> m_entityPlacementPosition;			/// the grid square indicating where to place the new entity
-		private BuildingOrientation m_entityPlacementOrientation;	/// the orientation of the building to be placed
+		private EntityOrientation m_entityPlacementOrientation;	/// the orientation of the building to be placed
 
 		#endregion
 
@@ -113,8 +113,7 @@ namespace game1666proto3
 				DrawEntity((dynamic)entity);
 			}
 
-			if(m_entityToPlace != null &&
-			   m_city.TerrainMesh.ValidateFootprint(m_entityToPlace.Footprint, m_entityPlacementPosition, m_entityPlacementOrientation))
+			if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint(m_city.TerrainMesh))
 			{
 				DrawEntity((dynamic)m_entityToPlace);
 			}
@@ -249,9 +248,9 @@ namespace game1666proto3
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			if(state.LeftButton == ButtonState.Pressed && m_entityToPlace != null)
+			if(state.LeftButton == ButtonState.Pressed)
 			{
-				if(m_city.TerrainMesh.ValidateFootprint(m_entityToPlace.Footprint, m_entityPlacementPosition, m_entityPlacementOrientation))
+				if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint(m_city.TerrainMesh))
 				{
 					m_city.AddEntity((dynamic)m_entityToPlace);
 					m_entityToPlace = null;

@@ -11,5 +11,7 @@ namespace game1666proto3
 	interface IPlaceableModelEntity : IModelEntity
 	{
 		Footprint Footprint { get; }
+
+		bool ValidateFootprint(TerrainMesh terrainMesh);
 	}
 }
