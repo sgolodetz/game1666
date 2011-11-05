@@ -32,18 +32,6 @@ namespace game1666proto3
 
 		#endregion
 
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public float GridSquareHeight		{ get { return m_gridSquareHeight; } }
-		public float GridSquareWidth		{ get { return m_gridSquareWidth; } }
-		public float[,] Heightmap			{ get { return m_heightmap; } }
-		public IndexBuffer IndexBuffer		{ get { return m_indexBuffer; } }
-		public Triangle[] Triangles			{ get { return m_triangles; } }
-		public VertexBuffer VertexBuffer	{ get { return m_vertexBuffer; } }
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -118,6 +106,18 @@ namespace game1666proto3
 				);
 			}
 		}
+
+		#endregion
+
+		//#################### PUBLIC PROPERTIES ####################
+		#region
+
+		public float GridSquareHeight		{ get { return m_gridSquareHeight; } }
+		public float GridSquareWidth		{ get { return m_gridSquareWidth; } }
+		public float[,] Heightmap			{ get { return m_heightmap; } }
+		public IndexBuffer IndexBuffer		{ get { return m_indexBuffer; } }
+		public Triangle[] Triangles			{ get { return m_triangles; } }
+		public VertexBuffer VertexBuffer	{ get { return m_vertexBuffer; } }
 
 		#endregion
 

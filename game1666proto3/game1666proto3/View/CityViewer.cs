@@ -26,24 +26,6 @@ namespace game1666proto3
 
 		#endregion
 
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public City City
-		{
-			get
-			{
-				return m_city;
-			}
-
-			set
-			{
-				m_city = value;
-			}
-		}
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -60,6 +42,24 @@ namespace game1666proto3
 			// Register input handlers.
 			MouseEventManager.OnMouseMoved += OnMouseMoved;
 			MouseEventManager.OnMousePressed += OnMousePressed;
+		}
+
+		#endregion
+
+		//#################### PUBLIC PROPERTIES ####################
+		#region
+
+		public City City
+		{
+			get
+			{
+				return m_city;
+			}
+
+			set
+			{
+				m_city = value;
+			}
 		}
 
 		#endregion

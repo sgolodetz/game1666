@@ -23,13 +23,6 @@ namespace game1666proto3
 
 		#endregion
 
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public TerrainMesh TerrainMesh { get { return m_terrainMesh; } }
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -42,6 +35,13 @@ namespace game1666proto3
 			m_terrainMesh = terrainMesh;
 			m_buildings = new List<Building>();
 		}
+
+		#endregion
+
+		//#################### PUBLIC PROPERTIES ####################
+		#region
+
+		public TerrainMesh TerrainMesh { get { return m_terrainMesh; } }
 
 		#endregion
 

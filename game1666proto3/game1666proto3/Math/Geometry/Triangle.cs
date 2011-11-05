@@ -47,14 +47,6 @@ namespace game1666proto3
 
 		#endregion
 
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public Vector3 Normal		{ get { return m_normal; } }
-		public Vector3[] Vertices	{ get { return m_vertices; } }
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -74,6 +66,14 @@ namespace game1666proto3
 
 			CalculateNormal();
 		}
+
+		#endregion
+
+		//#################### PUBLIC PROPERTIES ####################
+		#region
+
+		public Vector3 Normal		{ get { return m_normal; } }
+		public Vector3[] Vertices	{ get { return m_vertices; } }
 
 		#endregion
 
