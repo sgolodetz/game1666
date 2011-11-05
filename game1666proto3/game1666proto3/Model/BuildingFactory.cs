@@ -4,7 +4,6 @@
  ***/
 
 using System;
-using Microsoft.Xna.Framework;
 
 namespace game1666proto3
 {
@@ -13,7 +12,7 @@ namespace game1666proto3
 		//#################### PUBLIC METHODS ####################
 		#region
 
-		public static Building CreateHouse(Vector3 position, EntityOrientation orientation)
+		public static Building CreateHouse(Tuple<int,int> position, EntityOrientation orientation)
 		{
 			var pattern = new int[,]
 			{
@@ -21,7 +20,7 @@ namespace game1666proto3
 				{ 1, 0 }
 			};
 
-			return new Building(new Footprint(pattern, Tuple.Create(0, 0)), position, orientation);
+			return new Building(new EntityFootprint(pattern, Tuple.Create(0, 0)), position, orientation);
 		}
 
 		#endregion

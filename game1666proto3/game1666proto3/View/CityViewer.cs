@@ -21,13 +21,12 @@ namespace game1666proto3
 		#region
 
 		private City m_city;										/// the city being viewed
+		private IPlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
 		private IndexBuffer m_terrainIndexBuffer;					/// the index buffer used when rendering the city terrain
 		private VertexBuffer m_terrainVertexBuffer;					/// the vertex buffer used when rendering the city terrain
 		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
 
-		private IPlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
-		private Tuple<int,int> m_entityPlacementPosition;			/// the grid square indicating where to place the new entity
-		private EntityOrientation m_entityPlacementOrientation;	/// the orientation of the building to be placed
+		
 
 		#endregion
 
@@ -238,8 +237,14 @@ namespace game1666proto3
 			Vector3 dir = Vector3.Normalize(far - near);
 			var ray = new Ray(near, dir);
 
-			// Record the grid square we're hovering over (if any).
-			m_entityPlacementPosition = m_city.TerrainMesh.PickGridSquare(ray);
+			// Find the grid square containing the nearest terrain triangle hit by the ray (if any).
+			Tuple<int,int> pickedGridSquare = m_city.TerrainMesh.PickGridSquare(ray);
+
+			// If we found a grid square, create a temporary building there to show what the user is trying to place.
+			if(pickedGridSquare != null)
+			{
+				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare, EntityOrientation.RIGHT);
+			}
 		}
 
 		/// <summary>

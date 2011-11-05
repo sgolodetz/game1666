@@ -4,18 +4,9 @@
  ***/
 
 using System;
-using Microsoft.Xna.Framework;
 
 namespace game1666proto3
 {
-	enum EntityOrientation
-	{
-		RIGHT,
-		UP,
-		LEFT,
-		DOWN
-	}
-
 	/// <summary>
 	/// Represents a building in the game model.
 	/// </summary>
@@ -24,23 +15,23 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly Footprint m_footprint;
+		private readonly EntityFootprint m_footprint;
 		private readonly EntityOrientation m_orientation;
-		private readonly Vector3 m_position;
+		private readonly Tuple<int,int> m_position;
 
 		#endregion
 
 		//#################### PUBLIC PROPERTIES ####################
 		#region
 
-		public Footprint Footprint { get { return m_footprint; } }
+		public EntityFootprint Footprint { get { return m_footprint; } }
 
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
 
-		public Building(Footprint footprint, Vector3 position, EntityOrientation orientation)
+		public Building(EntityFootprint footprint, Tuple<int,int> position, EntityOrientation orientation)
 		{
 			m_footprint = footprint;
 			m_position = position;
