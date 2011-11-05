@@ -29,8 +29,10 @@ namespace game1666proto3
 		/// </summary>
 		/// <param name="pattern">The pattern of grid squares that the entity will occupy.</param>
 		/// <param name="hotspot">The canonical grid square used to position the entity.</param>
-		public EntityFootprint(int[,] pattern, Vector2i hotspot)
+		/// <param name="orientation">The orientation of the entity.</param>
+		public EntityFootprint(int[,] pattern, Vector2i hotspot, EntityOrientation orientation)
 		{
+			// TODO: Rotate the pattern as necessary based on the orientation.
 			Pattern = pattern;
 			Hotspot = hotspot;
 		}

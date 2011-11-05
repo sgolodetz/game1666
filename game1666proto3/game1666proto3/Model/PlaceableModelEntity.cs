@@ -18,7 +18,6 @@ namespace game1666proto3
 		#region
 
 		private readonly EntityFootprint m_footprint;		/// the footprint of the entity
-		private readonly EntityOrientation m_orientation;	/// the orientation of the entity
 		private readonly Vector2i m_position;				/// the position of the entity's hotspot
 		private readonly TerrainMesh m_terrainMesh;			/// the terrain on which the entity will stand
 
@@ -28,16 +27,14 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// Constructs a new placeable model entity with the specified footprint, position and orientation.
+		/// Constructs a new placeable model entity with the specified footprint and position.
 		/// </summary>
 		/// <param name="footprint">The footprint of the entity.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
-		/// <param name="orientation">The orientation of the entity.</param>
 		/// <param name="terrainMesh">The terrain on which the entity will stand.</param>
-		protected PlaceableModelEntity(EntityFootprint footprint, Vector2i position, EntityOrientation orientation, TerrainMesh terrainMesh)
+		protected PlaceableModelEntity(EntityFootprint footprint, Vector2i position, TerrainMesh terrainMesh)
 		{
 			m_footprint = footprint;
-			m_orientation = orientation;
 			m_terrainMesh = terrainMesh;
 			m_position = position;
 		}
@@ -49,7 +46,6 @@ namespace game1666proto3
 
 		public EntityFootprint Footprint		{ get { return m_footprint; } }
 		public IndexBuffer IndexBuffer			{ get; protected set; }
-		public EntityOrientation Orientation	{ get { return m_orientation; } }
 		public Vector2i Position				{ get { return m_position; } }
 		protected TerrainMesh TerrainMesh		{ get { return m_terrainMesh; } }
 		public VertexBuffer VertexBuffer		{ get; protected set; }
@@ -60,7 +56,7 @@ namespace game1666proto3
 		#region
 
 		/// <summary>
-		/// Checks whether or not the entity could be validly placed on the terrain mesh, given its position and orientation.
+		/// Checks whether or not the entity could be validly placed on the terrain mesh, given its footprint and position.
 		/// </summary>
 		/// <returns>true, if the entity could be validly placed, or false otherwise</returns>
 		abstract public bool ValidateFootprint();

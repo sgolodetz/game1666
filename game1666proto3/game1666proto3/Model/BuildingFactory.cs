@@ -27,7 +27,7 @@ namespace game1666proto3
 				{ 1, 0 }
 			};
 
-			return new Building(new EntityFootprint(pattern, new Vector2i(0, 0)), position, orientation, terrainMesh);
+			return new Building(new EntityFootprint(pattern, new Vector2i(0, 0), orientation), position, terrainMesh);
 		}
 
 		#endregion
