@@ -46,7 +46,7 @@ namespace game1666proto3
 		//#################### PROPERTIES ####################
 		#region
 
-		public bool CanPlace					{ get; private set; }
+		public bool CanPlace					{ get; protected set; }
 		public EntityFootprint Footprint		{ get { return m_footprint; } }
 		public IndexBuffer IndexBuffer			{ get; protected set; }
 		public Vector2i Position				{ get { return m_position; } }
@@ -62,7 +62,9 @@ namespace game1666proto3
 		/// Constructs the vertex and index buffers for the entity.
 		/// </summary>
 		/// <param name="entityHeight">The height of the entity.</param>
-		protected void ConstructBuffers(float entityHeight)
+		/// <param name="bottomColour">The colour to use for the bottom of the entity.</param>
+		/// <param name="topColour">The colour to use for the top of the entity.</param>
+		protected void ConstructBuffers(float entityHeight, Color bottomColour, Color topColour)
 		{
 			int heightmapHeight = m_terrainMesh.Heightmap.GetLength(0);
 			int heightmapWidth = m_terrainMesh.Heightmap.GetLength(1);
@@ -72,10 +74,6 @@ namespace game1666proto3
 			int patternHeightPlusOne = patternHeight + 1, patternWidthPlusOne = patternWidth + 1;
 
 			// Construct the individual vertices for the entity.
-			CanPlace = true;
-			float minZ = float.MaxValue;
-			float maxZ = float.MinValue;
-
 			Vector2i offset = m_position - m_footprint.Hotspot;
 
 			var vertices = new List<VertexPositionColor>();
@@ -90,26 +88,13 @@ namespace game1666proto3
 					}
 					else
 					{
-						throw new InvalidOperationException("The building would not stand fully on the terrain");
+						throw new InvalidOperationException("The building would not stand fully on the terrain.");
 					}
 
-					minZ = Math.Min(minZ, z);
-					maxZ = Math.Max(maxZ, z);
-
-					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z), Color.Blue));
-					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z + entityHeight), Color.Green));
+					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z), bottomColour));
+					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z + entityHeight), topColour));
 				}
 			}
-
-			// If the terrain isn't flat at the point at which we're trying to place the entity, prevent placement.
-			if(Math.Abs(maxZ - minZ) > Constants.EPSILON)
-			{
-				CanPlace = false;
-
-				// Change the colour of the building to red.
-				vertices = vertices.Select(v => new VertexPositionColor(v.Position, Color.Red)).ToList();
-			}
-
 			// Create the vertex buffer and fill it with the constructed vertices.
 			VertexBuffer = new VertexBuffer(RenderingDetails.GraphicsDevice, typeof(VertexPositionColor), vertices.Count, BufferUsage.WriteOnly);
 			VertexBuffer.SetData(vertices.ToArray());
