@@ -37,9 +37,9 @@ namespace game1666proto3
 		public Game()
 		{
 			m_graphics = new GraphicsDeviceManager(this);
-			if(!GraphicsAdapter.DefaultAdapter.IsProfileSupported(GraphicsProfile.HiDef))
+			if(GraphicsAdapter.DefaultAdapter.IsProfileSupported(GraphicsProfile.HiDef))
 			{
-				m_graphics.GraphicsProfile = GraphicsProfile.Reach;
+				m_graphics.GraphicsProfile = GraphicsProfile.HiDef;
 			}
 			m_graphics.PreferredBackBufferWidth = 640;
 			m_graphics.PreferredBackBufferHeight = 480;

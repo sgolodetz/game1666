@@ -66,12 +66,12 @@ namespace game1666proto3
 
 			foreach(IModelEntity entity in m_city.GetEntities())
 			{
-				DrawEntity((dynamic)entity);
+				DrawEntity(entity as dynamic);
 			}
 
 			if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint())
 			{
-				DrawEntity((dynamic)m_entityToPlace);
+				DrawEntity(m_entityToPlace as dynamic);
 			}
 
 			// Restore the original viewport.
@@ -149,7 +149,7 @@ namespace game1666proto3
 			{
 				if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint())
 				{
-					m_city.AddEntity((dynamic)m_entityToPlace);
+					m_city.AddEntity(m_entityToPlace as dynamic);
 					m_entityToPlace = null;
 				}
 			}

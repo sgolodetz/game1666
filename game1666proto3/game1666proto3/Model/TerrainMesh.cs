@@ -72,7 +72,7 @@ namespace game1666proto3
 			m_vertexBuffer.SetData(vertices);
 
 			// Construct the index array.
-			var indices = new int[m_gridHeight * m_gridWidth * 6];	// 2 triangles per grid square x 3 vertices per triangle
+			var indices = new short[m_gridHeight * m_gridWidth * 6];	// 2 triangles per grid square x 3 vertices per triangle
 
 			int indicesIndex = 0;
 			for(int y = 0; y < m_gridHeight; ++y)
@@ -80,17 +80,17 @@ namespace game1666proto3
 				for(int x = 0; x < m_gridWidth; ++x)
 				{
 					int start = y * heightmapWidth + x;
-					indices[indicesIndex++] = start;
-					indices[indicesIndex++] = start + 1;
-					indices[indicesIndex++] = start + heightmapWidth;
-					indices[indicesIndex++] = start + 1;
-					indices[indicesIndex++] = start + 1 + heightmapWidth;
-					indices[indicesIndex++] = start + heightmapWidth;
+					indices[indicesIndex++] = (short)start;
+					indices[indicesIndex++] = (short)(start + 1);
+					indices[indicesIndex++] = (short)(start + heightmapWidth);
+					indices[indicesIndex++] = (short)(start + 1);
+					indices[indicesIndex++] = (short)(start + 1 + heightmapWidth);
+					indices[indicesIndex++] = (short)(start + heightmapWidth);
 				}
 			}
 
 			// Create the index buffer.
-			m_indexBuffer = new IndexBuffer(RenderingDetails.GraphicsDevice, typeof(int), indices.Length, BufferUsage.WriteOnly);
+			m_indexBuffer = new IndexBuffer(RenderingDetails.GraphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
 			m_indexBuffer.SetData(indices);
 
 			// Construct the individual mesh triangles - there will be two for each square in the grid.
