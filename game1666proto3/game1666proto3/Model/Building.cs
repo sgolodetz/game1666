@@ -25,7 +25,7 @@ namespace game1666proto3
 		public Building(EntityFootprint footprint, Vector2i position, TerrainMesh terrainMesh)
 		:	base(footprint, position, terrainMesh)
 		{
-			ConstructBuffers(5f);
+			ConstructBuffers(2f);
 		}
 
 		#endregion

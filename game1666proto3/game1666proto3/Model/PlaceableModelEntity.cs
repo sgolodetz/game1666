@@ -58,6 +58,10 @@ namespace game1666proto3
 		//#################### PROTECTED METHODS ####################
 		#region
 
+		/// <summary>
+		/// Constructs the vertex and index buffers for the entity.
+		/// </summary>
+		/// <param name="entityHeight">The height of the entity.</param>
 		protected void ConstructBuffers(float entityHeight)
 		{
 			int heightmapHeight = m_terrainMesh.Heightmap.GetLength(0);
@@ -92,8 +96,8 @@ namespace game1666proto3
 					minZ = Math.Min(minZ, z);
 					maxZ = Math.Max(maxZ, z);
 
-					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z), Color.Gray));
-					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z + entityHeight), Color.Gray));
+					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z), Color.Blue));
+					vertices.Add(new VertexPositionColor(new Vector3(x * m_terrainMesh.GridSquareWidth, y * m_terrainMesh.GridSquareHeight, z + entityHeight), Color.Green));
 				}
 			}
 
@@ -119,10 +123,59 @@ namespace game1666proto3
 					// Only add triangles for enabled squares in the pattern.
 					if(pattern[y,x] == 0) continue;
 
+					// Front
 					indices.Add(GetVertexIndex(x, y, 0, patternWidthPlusOne, patternHeightPlusOne));
 					indices.Add(GetVertexIndex(x+1, y, 0, patternWidthPlusOne, patternHeightPlusOne));
 					indices.Add(GetVertexIndex(x, y, 1, patternWidthPlusOne, patternHeightPlusOne));
-					// TODO
+
+					indices.Add(GetVertexIndex(x+1, y, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					// Right
+					indices.Add(GetVertexIndex(x+1, y, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					indices.Add(GetVertexIndex(x+1, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					// Back
+					indices.Add(GetVertexIndex(x+1, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					indices.Add(GetVertexIndex(x, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					// Left
+					indices.Add(GetVertexIndex(x, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					indices.Add(GetVertexIndex(x, y, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					// Top
+					indices.Add(GetVertexIndex(x, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					indices.Add(GetVertexIndex(x+1, y, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y+1, 1, patternWidthPlusOne, patternHeightPlusOne));
+
+					// Bottom
+					indices.Add(GetVertexIndex(x, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y, 0, patternWidthPlusOne, patternHeightPlusOne));
+
+					indices.Add(GetVertexIndex(x+1, y+1, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x+1, y, 0, patternWidthPlusOne, patternHeightPlusOne));
+					indices.Add(GetVertexIndex(x, y, 0, patternWidthPlusOne, patternHeightPlusOne));
 				}
 			}
 
@@ -136,6 +189,15 @@ namespace game1666proto3
 		//#################### PRIVATE METHODS ####################
 		#region
 
+		/// <summary>
+		/// Gets the index (in the vertex buffer) of the relevant building vertex.
+		/// </summary>
+		/// <param name="x">The x coordinate of the vertex in the pattern.</param>
+		/// <param name="y">The y coordinate of the vertex in the pattern.</param>
+		/// <param name="z">The z coordinate of the vertex (0 indicates the one on the terrain, 1 indicates the one above it).</param>
+		/// <param name="patternWidthPlusOne">The width of the pattern + 1.</param>
+		/// <param name="patternHeightPlusOne">The height of the pattern + 1.</param>
+		/// <returns>See above.</returns>
 		private static short GetVertexIndex(int x, int y, int z, int patternWidthPlusOne, int patternHeightPlusOne)
 		{
 			return (short)((y * patternWidthPlusOne + x) * 2 + z);

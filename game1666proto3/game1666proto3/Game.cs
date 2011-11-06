@@ -63,7 +63,7 @@ namespace game1666proto3
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// Set up the view matrix.
-			m_basicEffect.View = Matrix.CreateLookAt(new Vector3(5, -20, 20), new Vector3(5, 20, 0), new Vector3(0, 0, 1));
+			m_basicEffect.View = Matrix.CreateLookAt(new Vector3(10, -20, 20), new Vector3(5, 20, 0), new Vector3(0, 0, 1));
 
 			// Set up the world matrix.
 			m_basicEffect.World = Matrix.Identity;
