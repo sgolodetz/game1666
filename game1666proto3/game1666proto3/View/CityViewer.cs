@@ -69,7 +69,7 @@ namespace game1666proto3
 				DrawEntity(entity as dynamic);
 			}
 
-			if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint())
+			if(m_entityToPlace != null)
 			{
 				DrawEntity(m_entityToPlace as dynamic);
 			}
@@ -89,7 +89,19 @@ namespace game1666proto3
 		/// <param name="building">The building.</param>
 		private void DrawEntity(Building building)
 		{
-			// TODO
+			BasicEffect basicEffect = RenderingDetails.BasicEffect.Clone() as BasicEffect;
+
+			// Enable colouring.
+			basicEffect.VertexColorEnabled = true;
+
+			// Render the terrain as a triangle list.
+			RenderingDetails.GraphicsDevice.SetVertexBuffer(building.VertexBuffer);
+			RenderingDetails.GraphicsDevice.Indices = building.IndexBuffer;
+			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			{
+				pass.Apply();
+				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, building.VertexBuffer.VertexCount, 0, building.IndexBuffer.IndexCount / 3);
+			}
 		}
 
 		/// <summary>
@@ -147,7 +159,7 @@ namespace game1666proto3
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				if(m_entityToPlace != null && m_entityToPlace.ValidateFootprint())
+				if(m_entityToPlace != null && m_entityToPlace.CanPlace)
 				{
 					m_city.AddEntity(m_entityToPlace as dynamic);
 					m_entityToPlace = null;

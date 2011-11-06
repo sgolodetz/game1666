@@ -29,20 +29,5 @@ namespace game1666proto3
 		}
 
 		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		/// <summary>
-		/// Checks whether or not the building could be validly placed on the terrain mesh, given its footprint and position.
-		/// </summary>
-		/// <returns>true, if the building could be validly placed, or false otherwise</returns>
-		public override bool ValidateFootprint()
-		{
-			// TODO
-			return true;
-		}
-
-		#endregion
 	}
 }
