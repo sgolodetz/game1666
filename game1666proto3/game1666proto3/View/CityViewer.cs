@@ -94,7 +94,7 @@ namespace game1666proto3
 			// Enable colouring.
 			basicEffect.VertexColorEnabled = true;
 
-			// Render the terrain as a triangle list.
+			// Render the building as a triangle list.
 			RenderingDetails.GraphicsDevice.SetVertexBuffer(building.VertexBuffer);
 			RenderingDetails.GraphicsDevice.Indices = building.IndexBuffer;
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
