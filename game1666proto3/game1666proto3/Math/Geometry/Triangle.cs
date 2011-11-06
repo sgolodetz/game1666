@@ -44,11 +44,11 @@ namespace game1666proto3
 	/// </summary>
 	sealed class Triangle
 	{
-		//#################### PRIVATE VARIABLES ####################
+		//#################### PROPERTIES ####################
 		#region
 
-		private Vector3 m_normal;					/// the triangle's normal
-		private readonly Vector3[] m_vertices;		/// the triangle's vertices (in anti-clockwise winding order)
+		public Vector3 Normal		{ get; private set; }	/// the triangle's normal
+		public Vector3[] Vertices	{ get; private set; }	/// the triangle's vertices (in anti-clockwise winding order)
 
 		#endregion
 
@@ -64,17 +64,9 @@ namespace game1666proto3
 		/// <param name="v2">The third vertex.</param>
 		public Triangle(Vector3 v0, Vector3 v1, Vector3 v2)
 		{
-			m_vertices = new Vector3[] { v0, v1, v2 };
+			this.Vertices = new Vector3[] { v0, v1, v2 };
 			CalculateNormal();
 		}
-
-		#endregion
-
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public Vector3 Normal		{ get { return m_normal; } }
-		public Vector3[] Vertices	{ get { return m_vertices; } }
 
 		#endregion
 
@@ -96,8 +88,8 @@ namespace game1666proto3
 			for(int i = 0; i < 3; ++i)
 			{
 				int j = (i + 1) % 3;
-				Vector3 a = Vector3.Normalize(m_vertices[i] - p);
-				Vector3 b = Vector3.Normalize(m_vertices[j] - p);
+				Vector3 a = Vector3.Normalize(this.Vertices[i] - p);
+				Vector3 b = Vector3.Normalize(this.Vertices[j] - p);
 				angleSum += Math.Acos(Vector3.Dot(a, b));
 			}
 			return Math.Abs(angleSum - MathHelper.TwoPi) < Constants.EPSILON;
@@ -109,7 +101,7 @@ namespace game1666proto3
 		/// <returns>The plane.</returns>
 		public Plane DeterminePlane()
 		{
-			return new Plane(m_normal, -Vector3.Dot(m_normal, m_vertices[0]));
+			return new Plane(this.Normal, -Vector3.Dot(this.Normal, this.Vertices[0]));
 		}
 
 		#endregion
@@ -122,14 +114,14 @@ namespace game1666proto3
 		/// </summary>
 		private void CalculateNormal()
 		{
-			Vector3 a = m_vertices[1] - m_vertices[0];
-			Vector3 b = m_vertices[2] - m_vertices[0];
+			Vector3 a = this.Vertices[1] - this.Vertices[0];
+			Vector3 b = this.Vertices[2] - this.Vertices[0];
 
-			m_normal = Vector3.Cross(a, b);
+			this.Normal = Vector3.Cross(a, b);
 
-			if(m_normal.LengthSquared() >= Constants.EPSILON)
+			if(this.Normal.LengthSquared() >= Constants.EPSILON)
 			{
-				m_normal = Vector3.Normalize(m_normal);
+				this.Normal = Vector3.Normalize(this.Normal);
 			}
 			else throw new InvalidOperationException("Cannot calculate the normal of a degenerate triangle.");
 		}

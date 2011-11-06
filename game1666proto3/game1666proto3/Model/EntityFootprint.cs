@@ -32,7 +32,7 @@ namespace game1666proto3
 		/// <param name="orientation">The orientation of the entity.</param>
 		public EntityFootprint(int[,] pattern, Vector2i hotspot, EntityOrientation orientation)
 		{
-			// TODO: Rotate the pattern as necessary based on the orientation.
+			// TODO: Rotate the pattern and hotspot as necessary based on the orientation.
 			Pattern = pattern;
 			Hotspot = hotspot;
 		}

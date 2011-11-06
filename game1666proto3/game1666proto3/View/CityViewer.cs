@@ -90,18 +90,8 @@ namespace game1666proto3
 		private void DrawEntity(Building building)
 		{
 			BasicEffect basicEffect = RenderingDetails.BasicEffect.Clone() as BasicEffect;
-
-			// Enable colouring.
 			basicEffect.VertexColorEnabled = true;
-
-			// Render the building as a triangle list.
-			RenderingDetails.GraphicsDevice.SetVertexBuffer(building.VertexBuffer);
-			RenderingDetails.GraphicsDevice.Indices = building.IndexBuffer;
-			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-			{
-				pass.Apply();
-				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, building.VertexBuffer.VertexCount, 0, building.IndexBuffer.IndexCount / 3);
-			}
+			DrawTriangleList(building.VertexBuffer, building.IndexBuffer, basicEffect);
 		}
 
 		/// <summary>
@@ -110,18 +100,25 @@ namespace game1666proto3
 		private void DrawTerrain()
 		{
 			BasicEffect basicEffect = RenderingDetails.BasicEffect.Clone() as BasicEffect;
-
-			// Enable texturing.
 			basicEffect.Texture = RenderingDetails.Content.Load<Texture2D>("landscape");
 			basicEffect.TextureEnabled = true;
+			DrawTriangleList(m_city.TerrainMesh.VertexBuffer, m_city.TerrainMesh.IndexBuffer, basicEffect);
+		}
 
-			// Render the terrain as a triangle list.
-			RenderingDetails.GraphicsDevice.SetVertexBuffer(m_city.TerrainMesh.VertexBuffer);
-			RenderingDetails.GraphicsDevice.Indices = m_city.TerrainMesh.IndexBuffer;
+		/// <summary>
+		/// Draws a triangle list using vertices and indices from the specified buffers.
+		/// </summary>
+		/// <param name="vertexBuffer">The vertex buffer containing the triangles' vertices.</param>
+		/// <param name="indexBuffer">The index buffer specifying how the vertices make up the triangles.</param>
+		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		private static void DrawTriangleList(VertexBuffer vertexBuffer, IndexBuffer indexBuffer, BasicEffect basicEffect)
+		{
+			RenderingDetails.GraphicsDevice.SetVertexBuffer(vertexBuffer);
+			RenderingDetails.GraphicsDevice.Indices = indexBuffer;
 			foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
-				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, m_city.TerrainMesh.VertexBuffer.VertexCount, 0, m_city.TerrainMesh.IndexBuffer.IndexCount / 3);
+				RenderingDetails.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexBuffer.IndexCount / 3);
 			}
 		}
 

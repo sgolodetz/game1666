@@ -16,8 +16,14 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly List<Building> m_buildings;	/// the buildings in the city
-		private readonly TerrainMesh m_terrainMesh;		/// the mesh of the terrain on which the city is founded
+		private readonly List<Building> m_buildings;			/// the buildings in the city
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		public TerrainMesh TerrainMesh { get; private set; }	/// the mesh of the terrain on which the city is founded
 
 		#endregion
 
@@ -30,16 +36,9 @@ namespace game1666proto3
 		/// <param name="terrainMesh">The mesh of the terrain on which the city is founded.</param>
 		public City(TerrainMesh terrainMesh)
 		{
-			m_terrainMesh = terrainMesh;
+			this.TerrainMesh = terrainMesh;
 			m_buildings = new List<Building>();
 		}
-
-		#endregion
-
-		//#################### PUBLIC PROPERTIES ####################
-		#region
-
-		public TerrainMesh TerrainMesh { get { return m_terrainMesh; } }
 
 		#endregion
 
