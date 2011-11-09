@@ -32,9 +32,39 @@ namespace game1666proto3
 		/// <param name="orientation">The orientation of the entity.</param>
 		public EntityFootprint(int[,] pattern, Vector2i hotspot, EntityOrientation orientation)
 		{
-			// TODO: Rotate the pattern and hotspot as necessary based on the orientation.
-			Pattern = pattern;
-			Hotspot = hotspot;
+			this.Pattern = pattern;
+			this.Hotspot = hotspot;
+
+			// Rotate the pattern and hotspot as necessary based on the orientation.
+			int rotations = orientation - EntityOrientation.LEFT2RIGHT;
+			for(int i = 0; i < rotations; ++i)
+			{
+				Rotate();
+			}
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Rotates the entity footprint anti-clockwise.
+		/// </summary>
+		private void Rotate()
+		{
+			int width = this.Pattern.GetLength(0), height = this.Pattern.GetLength(1);
+			int[,] pattern = new int[height, width];
+			for(int y = 0; y < height; ++y)
+			{
+				for(int x = 0; x < width; ++x)
+				{
+					pattern[x,height - 1 - y] = this.Pattern[y,x];
+				}
+			}
+			this.Pattern = pattern;
+
+			this.Hotspot = new Vector2i(height - 1 - this.Hotspot.Y, this.Hotspot.X);
 		}
 
 		#endregion

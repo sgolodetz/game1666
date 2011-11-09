@@ -10,8 +10,8 @@ namespace game1666proto3
 	/// </summary>
 	enum EntityOrientation
 	{
-		DOWN2UP,
 		LEFT2RIGHT,
+		DOWN2UP,
 		RIGHT2LEFT,
 		UP2DOWN
 	}

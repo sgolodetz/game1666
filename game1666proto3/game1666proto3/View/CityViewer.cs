@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,9 +21,10 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly City m_city;					/// the city being viewed
-		private PlaceableModelEntity m_entityToPlace;	/// the entity currently being placed by the user (if any)
-		private readonly Viewport m_viewport;			/// the viewport into which the city will be drawn
+		private readonly City m_city;								/// the city being viewed
+		private EntityOrientation m_entityPlacementOrientation;		/// the desired orientation of the entity to be placed (if any)
+		private PlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
+		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
 
 		#endregion
 
@@ -38,6 +40,9 @@ namespace game1666proto3
 		{
 			m_city = city;
 			m_viewport = viewport;
+
+			// The default entity placement orientation is left-to-right, but the user can change this.
+			m_entityPlacementOrientation = EntityOrientation.LEFT2RIGHT;
 
 			// Register input handlers.
 			MouseEventManager.OnMouseMoved += OnMouseMoved;
@@ -144,7 +149,7 @@ namespace game1666proto3
 			// If we found a grid square, create a temporary building there to show what the user is trying to place.
 			if(pickedGridSquare != null)
 			{
-				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare.Value, EntityOrientation.LEFT2RIGHT, m_city.TerrainMesh);
+				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare.Value, m_entityPlacementOrientation, m_city.TerrainMesh);
 			}
 		}
 
@@ -161,6 +166,11 @@ namespace game1666proto3
 					m_city.AddEntity(m_entityToPlace as dynamic);
 					m_entityToPlace = null;
 				}
+			}
+			else if(state.RightButton == ButtonState.Pressed)
+			{
+				int maxEntityOrientation = (int)Enum.GetValues(typeof(EntityOrientation)).Cast<EntityOrientation>().Last();
+				m_entityPlacementOrientation = (EntityOrientation)((int)(m_entityPlacementOrientation + 1) % maxEntityOrientation);
 			}
 		}
 
