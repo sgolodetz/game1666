@@ -53,8 +53,8 @@ namespace game1666proto3
 		/// </summary>
 		private void Rotate()
 		{
-			int width = this.Pattern.GetLength(0), height = this.Pattern.GetLength(1);
-			int[,] pattern = new int[height, width];
+			int height = this.Pattern.GetLength(0), width = this.Pattern.GetLength(1);
+			int[,] pattern = new int[width, height];
 			for(int y = 0; y < height; ++y)
 			{
 				for(int x = 0; x < width; ++x)

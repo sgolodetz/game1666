@@ -24,6 +24,7 @@ namespace game1666proto3
 		private readonly City m_city;								/// the city being viewed
 		private EntityOrientation m_entityPlacementOrientation;		/// the desired orientation of the entity to be placed (if any)
 		private PlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
+		private Vector2i? m_pickedGridSquare;						/// the coordinates of the grid square over which the user is currently hovering (if any)
 		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
 
 		#endregion
@@ -144,12 +145,12 @@ namespace game1666proto3
 			var ray = new Ray(near, dir);
 
 			// Find the grid square containing the nearest terrain triangle hit by the ray (if any).
-			Vector2i? pickedGridSquare = m_city.TerrainMesh.PickGridSquare(ray);
+			m_pickedGridSquare = m_city.TerrainMesh.PickGridSquare(ray);
 
 			// If we found a grid square, create a temporary building there to show what the user is trying to place.
-			if(pickedGridSquare != null)
+			if(m_pickedGridSquare != null)
 			{
-				m_entityToPlace = BuildingFactory.CreateHouse(pickedGridSquare.Value, m_entityPlacementOrientation, m_city.TerrainMesh);
+				m_entityToPlace = BuildingFactory.CreateHouse(m_pickedGridSquare.Value, m_entityPlacementOrientation, m_city.TerrainMesh);
 			}
 		}
 
@@ -169,8 +170,13 @@ namespace game1666proto3
 			}
 			else if(state.RightButton == ButtonState.Pressed)
 			{
-				int maxEntityOrientation = (int)Enum.GetValues(typeof(EntityOrientation)).Cast<EntityOrientation>().Last();
-				m_entityPlacementOrientation = (EntityOrientation)((int)(m_entityPlacementOrientation + 1) % maxEntityOrientation);
+				int entityOrientationCount = (int)Enum.GetValues(typeof(EntityOrientation)).Cast<EntityOrientation>().Last() + 1;
+				m_entityPlacementOrientation = (EntityOrientation)((int)(m_entityPlacementOrientation + 1) % entityOrientationCount);
+
+				if(m_pickedGridSquare != null)
+				{
+					m_entityToPlace = BuildingFactory.CreateHouse(m_pickedGridSquare.Value, m_entityPlacementOrientation, m_city.TerrainMesh);
+				}
 			}
 		}
 
