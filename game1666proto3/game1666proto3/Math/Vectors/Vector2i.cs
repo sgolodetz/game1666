@@ -13,11 +13,19 @@ namespace game1666proto3
 	/// </summary>
 	struct Vector2i : IEquatable<Vector2i>
 	{
-		//#################### PUBLIC VARIABLES ####################
+		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		public int X;	/// the x component of the vector
-		public int Y;	/// the y component of the vector
+		private readonly int m_x;
+		private readonly int m_y;
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		public int X { get { return m_x; } }		/// the x component of the vector
+		public int Y { get { return m_y; } }		/// the y component of the vector
 
 		#endregion
 
@@ -31,8 +39,8 @@ namespace game1666proto3
 		/// <param name="y">The y component of the new vector.</param>
 		public Vector2i(int x, int y)
 		{
-			X = x;
-			Y = y;
+			m_x = x;
+			m_y = y;
 		}
 
 		#endregion
