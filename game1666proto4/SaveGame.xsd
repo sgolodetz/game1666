@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://www.gxstudios.net/game1666/SaveGame.xsd" elementFormDefault="qualified" xmlns="http://www.gxstudios.net/game1666/SaveGame.xsd" xmlns:mstns="http://www.gxstudios.net/game1666/SaveGame.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BuildingType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="blueprint" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CityType">
+    <xs:sequence>
+      <xs:element name="terrain" type="TerrainType"/>
+      <xs:element name="roadnetwork" type="RoadNetworkType"/>
+      <xs:element name="entities">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="building" type="BuildingType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="walker" type="WalkerType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RoadNetworkType">
+    <!-- TODO -->
+  </xs:complexType>
+
+  <xs:complexType name="TerrainType">
+    <xs:attribute name="width" type="xs:int"/>
+    <xs:attribute name="height" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="WalkerType">
+    <!-- TODO -->
+  </xs:complexType>
+
+  <xs:element name="world">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="terrain" type="TerrainType"/>
+        <xs:element name="roadnetwork" type="RoadNetworkType"/>
+        <xs:element name="entities">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="city" type="CityType" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element name="walker" type="WalkerType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
