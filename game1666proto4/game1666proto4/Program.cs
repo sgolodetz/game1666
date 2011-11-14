@@ -1,21 +1,31 @@
+/***
+ * game1666proto4: Program.cs
+ * Copyright 2011. All rights reserved.
+ ***/
+
 using System;
+using System.Runtime.ExceptionServices;
 
 namespace game1666proto4
 {
-#if WINDOWS || XBOX
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main(string[] args)
-        {
-            using (Game game = new Game())
-            {
-                game.Run();
-            }
-        }
-    }
-#endif
-}
+	static class Program
+	{
+		//#################### INTERNAL STATIC METHODS ####################
+		#region
 
+		[HandleProcessCorruptedStateExceptions]
+		static void Main(string[] args)
+		{
+			try
+			{
+				using(Game game = new Game())
+				{
+					game.Run();
+				}
+			}
+			catch(Exception) {}
+		}
+
+		#endregion
+	}
+}
