@@ -49,6 +49,14 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="GameConfig.xsd">
+      <SubType>Designer</SubType>
+      <Name>GameConfig</Name>
+    </None>
+    <None Include="SaveGame.xsd">
+      <SubType>Designer</SubType>
+      <Name>SaveGame</Name>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
