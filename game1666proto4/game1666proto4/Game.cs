@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+/***
+ * game1666proto4: Game.cs
+ * Copyright 2011. All rights reserved.
+ ***/
+
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace game1666proto4
 {
@@ -34,6 +32,7 @@ namespace game1666proto4
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+			GameConfig.Load(@"Content\GameConfig.xml");
 
 			base.Initialize();
 		}
