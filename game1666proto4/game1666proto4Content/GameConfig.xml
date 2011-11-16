@@ -2,10 +2,10 @@
 <config>
   <blueprints>
     <blueprint name="Dwelling" type="House">
-      <!-- TODO -->
-    </blueprint>
-    <blueprint name="Fishmonger" type="Vendor">
-      <!-- TODO -->
+      <property name="Footprint">
+        <!-- TODO -->
+      </property>
+      <property name="MaxOccupants" value="2"/>
     </blueprint>
   </blueprints>
 </config>
