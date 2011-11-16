@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
-    <building name="Dwelling" type="House">
+    <blueprint name="Dwelling" type="House">
       <!-- TODO -->
-    </building>
-    <walker name="Fishmonger" type="Vendor">
+    </blueprint>
+    <blueprint name="Fishmonger" type="Vendor">
       <!-- TODO -->
-    </walker>
+    </blueprint>
   </blueprints>
 </config>

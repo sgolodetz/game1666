@@ -12,14 +12,14 @@ namespace game1666proto4
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
-	public class Game : Microsoft.Xna.Framework.Game
+	sealed class Game : Microsoft.Xna.Framework.Game
 	{
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
+		private readonly GraphicsDeviceManager m_graphics;
+		private SpriteBatch m_spriteBatch;
 
 		public Game()
 		{
-			graphics = new GraphicsDeviceManager(this);
+			m_graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 		}
 
@@ -44,7 +44,7 @@ namespace game1666proto4
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
+			m_spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// TODO: use this.Content to load your game content here
 		}

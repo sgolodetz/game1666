@@ -12,6 +12,9 @@ namespace game1666proto4
 	/// </summary>
 	static class GameConfig
 	{
+		//#################### PUBLIC METHODS ####################
+		#region
+
 		/// <summary>
 		/// TODO
 		/// </summary>
@@ -21,5 +24,7 @@ namespace game1666proto4
 			XDocument doc = XDocument.Load(filename);
 			// TODO
 		}
+
+		#endregion
 	}
 }
