@@ -11,9 +11,21 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// The maximum number of people that can occupy this house.
+		/// The maximum number of people that can occupy a house constructed using this blueprint.
 		/// </summary>
 		public int MaxOccupants
+		{
+			get
+			{
+				// TODO
+				throw new System.NotImplementedException();
+			}
+		}
+
+		/// <summary>
+		/// The name of the house blueprint, e.g. "Dwelling".
+		/// </summary>
+		public string Name
 		{
 			get
 			{
