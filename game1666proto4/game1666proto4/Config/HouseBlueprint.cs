@@ -3,9 +3,11 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+
 namespace game1666proto4
 {
-	sealed class HouseBlueprint : Blueprint
+	sealed class HouseBlueprint : EntityBlueprint
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -36,19 +38,17 @@ namespace game1666proto4
 
 		#endregion
 
-		//#################### PUBLIC METHODS ####################
+		//#################### CONSTRUCTORS ####################
 		#region
 
 		/// <summary>
 		/// Constructs a house blueprint from its XML representation.
 		/// </summary>
-		/// <param name="blueprintXml">The XML representation of the blueprint.</param>
+		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		/// <returns>The house blueprint.</returns>
-		public static HouseBlueprint LoadFromXml(string blueprintXml)
-		{
-			// TODO
-			throw new System.NotImplementedException();
-		}
+		public HouseBlueprint(XElement blueprintElt)
+		:	base(blueprintElt)
+		{}
 
 		#endregion
 	}
