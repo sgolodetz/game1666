@@ -21,6 +21,17 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The name of the blueprint, e.g. "Dwelling" for a house blueprint.
+		/// </summary>
+		public string BlueprintName
+		{
+			get
+			{
+				return Properties["BlueprintName"];
+			}
+		}
+
+		/// <summary>
 		/// The blueprint's properties.
 		/// </summary>
 		protected IDictionary<string,string> Properties
@@ -44,7 +55,7 @@ namespace game1666proto4
 		public EntityBlueprint(XElement blueprintElt)
 		{
 			m_properties = new Dictionary<string,string>();
-			m_properties["Name"] = blueprintElt.Attribute("name").Value;
+			m_properties["BlueprintName"] = blueprintElt.Attribute("name").Value;
 
 			foreach(XElement propertyElt in blueprintElt.Elements("property"))
 			{

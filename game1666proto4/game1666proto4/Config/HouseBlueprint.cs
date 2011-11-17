@@ -24,17 +24,6 @@ namespace game1666proto4
 			}
 		}
 
-		/// <summary>
-		/// The name of the house blueprint, e.g. "Dwelling".
-		/// </summary>
-		public string Name
-		{
-			get
-			{
-				return Properties["Name"];
-			}
-		}
-
 		#endregion
 
 		//#################### CONSTRUCTORS ####################

@@ -49,11 +49,26 @@ namespace game1666proto4
 			XDocument doc = XDocument.Load(filename);
 			foreach(XElement blueprintNode in doc.XPathSelectElements("config/blueprints/blueprint"))
 			{
+				// Each blueprint can be used to create specific instances of an archetype - for example,
+				// you might have a blueprint called "Dwelling" that creates a small instance of a house.
+				// Our first job here is to get the entity name (Dwelling) and entity type (House).
 				string entityName = Convert.ToString(blueprintNode.Attribute("name").Value);
 				string entityTypename = Convert.ToString(blueprintNode.Attribute("type").Value);
+
+				// Next, we look up the C# class corresponding to blueprints for this archetype - for the
+				// example mentioned above, this would be HouseBlueprint.
 				string blueprintTypename = "game1666proto4." + entityTypename + "Blueprint";
 				Type blueprintType = Type.GetType(blueprintTypename);
-				s_blueprints[entityName] = Activator.CreateInstance(blueprintType, blueprintNode);
+
+				if(blueprintType != null)
+				{
+					// If such a class exists, we create the blueprint and stored it for future use.
+					s_blueprints[entityName] = Activator.CreateInstance(blueprintType, blueprintNode);
+				}
+				else
+				{
+					throw new System.InvalidOperationException("No such class: " + blueprintTypename);
+				}
 			}
 		}
 
