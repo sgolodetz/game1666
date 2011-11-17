@@ -13,7 +13,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private IDictionary<string,object> m_properties;	/// the blueprint's properties
+		private IDictionary<string,string> m_properties;	/// the blueprint's properties
 
 		#endregion
 
@@ -23,7 +23,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The blueprint's properties.
 		/// </summary>
-		protected IDictionary<string,object> Properties
+		protected IDictionary<string,string> Properties
 		{
 			get
 			{
@@ -43,15 +43,17 @@ namespace game1666proto4
 		/// <returns>The blueprint.</returns>
 		public EntityBlueprint(XElement blueprintElt)
 		{
-			m_properties = new Dictionary<string,object>();
+			m_properties = new Dictionary<string,string>();
+			m_properties["Name"] = blueprintElt.Attribute("name").Value;
 
 			foreach(XElement propertyElt in blueprintElt.Elements("property"))
 			{
 				XAttribute nameAttribute = propertyElt.Attribute("name");
 				XAttribute valueAttribute = propertyElt.Attribute("value");
-				if(valueAttribute != null)
+				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Trim().Replace(" ", "");
+				if(nameAttribute != null && value != null)
 				{
-					m_properties[nameAttribute.Value] = valueAttribute.Value;
+					m_properties[nameAttribute.Value] = value;
 				}
 			}
 		}

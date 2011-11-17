@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -19,8 +20,7 @@ namespace game1666proto4
 		{
 			get
 			{
-				// TODO
-				throw new System.NotImplementedException();
+				return Convert.ToInt32(Properties["MaxOccupants"]);
 			}
 		}
 
@@ -31,8 +31,7 @@ namespace game1666proto4
 		{
 			get
 			{
-				// TODO
-				throw new System.NotImplementedException();
+				return Properties["Name"];
 			}
 		}
 
