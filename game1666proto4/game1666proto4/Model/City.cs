@@ -15,5 +15,23 @@ namespace game1666proto4
 		private List<IBuilding> m_buildings;
 
 		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		public string Name { get; private set; }
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		public City(string name, Terrain terrain)
+		:	base(terrain)
+		{
+			Name = name;
+		}
+
+		#endregion
 	}
 }

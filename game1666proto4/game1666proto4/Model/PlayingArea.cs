@@ -14,5 +14,16 @@ namespace game1666proto4
 		private Terrain m_terrain;
 
 		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		public PlayingArea(Terrain terrain)
+		{
+			m_terrain = terrain;
+			m_roadNetwork = new RoadNetwork();
+		}
+
+		#endregion
 	}
 }

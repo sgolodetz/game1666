@@ -16,6 +16,7 @@ namespace game1666proto4
 
 		private BasicEffect m_basicEffect;
 		private readonly GraphicsDeviceManager m_graphics;
+		private PlayingAreaViewer m_viewer;
 		private World m_world;
 
 		#endregion
@@ -87,7 +88,13 @@ namespace game1666proto4
 			// Set up the projection matrix.
 			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
-			// TODO
+			// Set up the world.
+			m_world = new World(new Terrain());
+			var city = new City("Stuartopolis", new Terrain());
+			m_world.AddEntity(city);
+
+			// Set up the viewer.
+			m_viewer = new PlayingAreaViewer(city);
 
 			base.Initialize();
 		}
