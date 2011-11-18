@@ -16,6 +16,7 @@ namespace game1666proto4
 
 		private BasicEffect m_basicEffect;
 		private readonly GraphicsDeviceManager m_graphics;
+		private World m_world;
 
 		#endregion
 

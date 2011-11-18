@@ -113,12 +113,22 @@
   <ItemGroup>
     <Compile Include="Config\EntityBlueprint.cs" />
     <Compile Include="Config\GameConfig.cs" />
+    <Compile Include="Config\RoadSegmentBlueprint.cs" />
+    <Compile Include="Math\Vectors\Vector2i.cs" />
+    <Compile Include="Model\City.cs" />
     <Compile Include="Model\House.cs" />
     <Compile Include="Config\HouseBlueprint.cs" />
     <Compile Include="Model\IBuilding.cs" />
+    <Compile Include="Model\PlayingArea.cs" />
+    <Compile Include="Model\RoadNetwork.cs" />
+    <Compile Include="Model\RoadSegment.cs" />
+    <Compile Include="Model\Terrain.cs" />
+    <Compile Include="Model\TerrainMesh.cs" />
+    <Compile Include="Model\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="View\PlayingAreaViewer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Support Files\Game.ico" />
