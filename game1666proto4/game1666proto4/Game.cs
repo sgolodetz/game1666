@@ -111,7 +111,7 @@ namespace game1666proto4
 		protected override void LoadContent()
 		{
 			// Pre-load content.
-			// TODO
+			Content.Load<Texture2D>("landscape");
 		}
 
 		/// <summary>
