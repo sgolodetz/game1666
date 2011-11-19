@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -40,6 +41,17 @@ namespace game1666proto4
 			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
 			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap, gridSquareWidth, gridSquareHeight);
 			ConstructBuffers();
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		public static Terrain LoadFromXml(XElement terrainElt)
+		{
+			// TODO
+			return null;
 		}
 
 		#endregion

@@ -62,7 +62,7 @@ namespace game1666proto4
 
 				if(blueprintType != null)
 				{
-					// If such a class exists, we create the blueprint and stored it for future use.
+					// If such a class exists, we create the blueprint and store it for future use.
 					s_blueprints[entityName] = Activator.CreateInstance(blueprintType, blueprintNode);
 				}
 				else

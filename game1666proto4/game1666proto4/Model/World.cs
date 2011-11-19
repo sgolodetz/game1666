@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace game1666proto4
 {
@@ -37,10 +38,14 @@ namespace game1666proto4
 
 		public static World LoadFromFile(string filename)
 		{
-			var world = new World(new Terrain(new float[2,2], 5f, 5f));
+			XDocument doc = XDocument.Load(filename);
+			return LoadFromXml(doc.Element("world"));
+		}
 
-			// TODO
-
+		public static World LoadFromXml(XElement worldElt)
+		{
+			var world = new World(Terrain.LoadFromXml(worldElt.Element("terrain")));
+			// TODO: Load entities.
 			return world;
 		}
 
