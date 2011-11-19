@@ -23,5 +23,26 @@ namespace game1666proto4
 		}
 
 		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		public void Draw()
+		{
+			// TODO
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		private void DrawTerrain()
+		{
+			Terrain terrain = m_playingArea.Terrain;
+			// TODO
+		}
+
+		#endregion
 	}
 }

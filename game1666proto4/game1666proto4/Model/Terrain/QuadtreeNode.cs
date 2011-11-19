@@ -26,7 +26,7 @@ namespace game1666proto4
 		public Vector2i? PickGridSquare(Ray ray)
 		{
 			// TODO
-			throw new NotImplementedException();
+			return null;
 		}
 
 		#endregion

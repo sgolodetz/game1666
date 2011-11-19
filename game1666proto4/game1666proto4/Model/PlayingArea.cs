@@ -7,11 +7,11 @@ namespace game1666proto4
 {
 	abstract class PlayingArea
 	{
-		//#################### PRIVATE VARIABLES ####################
+		//#################### PROPERTIES ####################
 		#region
 
-		private readonly RoadNetwork m_roadNetwork;
-		private readonly Terrain m_terrain;
+		public RoadNetwork RoadNetwork	{ get; private set; }
+		public Terrain Terrain			{ get; private set; }
 
 		#endregion
 
@@ -20,8 +20,8 @@ namespace game1666proto4
 
 		public PlayingArea(Terrain terrain)
 		{
-			m_terrain = terrain;
-			m_roadNetwork = new RoadNetwork();
+			this.Terrain = terrain;
+			this.RoadNetwork = new RoadNetwork();
 		}
 
 		#endregion

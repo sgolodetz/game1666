@@ -66,7 +66,8 @@ namespace game1666proto4
 			rasterizerState.CullMode = CullMode.CullClockwiseFace;
 			GraphicsDevice.RasterizerState = rasterizerState;
 
-			// TODO
+			// Draw the playing area.
+			m_viewer.Draw();
 
 			base.Draw(gameTime);
 		}
