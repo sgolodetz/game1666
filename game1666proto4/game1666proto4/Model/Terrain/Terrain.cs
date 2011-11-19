@@ -10,8 +10,18 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly TerrainMesh m_mesh;
 		private bool[][] m_occupancy;
+		private QuadtreeNode m_quadtreeRoot;
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		public Terrain(float[,] heightmap)
+		{
+			// TODO
+		}
 
 		#endregion
 	}

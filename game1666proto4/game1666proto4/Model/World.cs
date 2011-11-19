@@ -37,7 +37,7 @@ namespace game1666proto4
 
 		public static World LoadFromFile(string filename)
 		{
-			var world = new World(new Terrain());
+			var world = new World(new Terrain(new float[2,2]));
 
 			// TODO
 

@@ -89,8 +89,8 @@ namespace game1666proto4
 			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
 			// Set up the world.
-			m_world = new World(new Terrain());
-			var city = new City("Stuartopolis", new Terrain());
+			m_world = new World(new Terrain(new float[2,2]));
+			var city = new City("Stuartopolis", new Terrain(new float[2,2]));
 			m_world.AddEntity(city);
 
 			// Set up the viewer.
