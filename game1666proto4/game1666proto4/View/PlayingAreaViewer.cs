@@ -10,7 +10,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private PlayingArea m_playingArea;
+		private readonly PlayingArea m_playingArea;
 
 		#endregion
 

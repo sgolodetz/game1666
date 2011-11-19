@@ -10,8 +10,8 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private RoadNetwork m_roadNetwork;
-		private Terrain m_terrain;
+		private readonly RoadNetwork m_roadNetwork;
+		private readonly Terrain m_terrain;
 
 		#endregion
 

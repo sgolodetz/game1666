@@ -14,9 +14,9 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private BoundingBox m_bounds;
-		private QuadtreeNode[] m_children;
-		private IDictionary<Vector2i,Triangle[]> m_triangles;
+		private readonly BoundingBox m_bounds;
+		private readonly QuadtreeNode[] m_children;
+		private readonly IDictionary<Vector2i,Triangle[]> m_triangles;
 
 		#endregion
 

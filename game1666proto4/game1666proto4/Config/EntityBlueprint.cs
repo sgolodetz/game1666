@@ -13,7 +13,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private IDictionary<string,string> m_properties;	/// the blueprint's properties
+		private readonly IDictionary<string,string> m_properties;	/// the blueprint's properties
 
 		#endregion
 

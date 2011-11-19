@@ -12,7 +12,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private List<IBuilding> m_buildings;
+		private readonly List<IBuilding> m_buildings;
 
 		#endregion
 
@@ -30,6 +30,7 @@ namespace game1666proto4
 		:	base(terrain)
 		{
 			Name = name;
+			m_buildings = new List<IBuilding>();
 		}
 
 		#endregion

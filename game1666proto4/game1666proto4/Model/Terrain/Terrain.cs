@@ -12,8 +12,8 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private bool[,] m_occupancy;
-		private QuadtreeNode m_quadtreeRoot;
+		private readonly bool[,] m_occupancy;
+		private readonly QuadtreeNode m_quadtreeRoot;
 
 		#endregion
 

@@ -12,7 +12,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private IDictionary<string,City> m_cities;
+		private readonly IDictionary<string,City> m_cities;
 
 		#endregion
 
