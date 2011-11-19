@@ -69,7 +69,7 @@ namespace game1666proto4
 			}
 
 			// Create the vertex buffer and fill it with the constructed vertices.
-			this.VertexBuffer = new VertexBuffer(RenderingDetails.GraphicsDevice, typeof(VertexPositionTexture), vertices.Length, BufferUsage.WriteOnly);
+			this.VertexBuffer = new VertexBuffer(Renderer.GraphicsDevice, typeof(VertexPositionTexture), vertices.Length, BufferUsage.WriteOnly);
 			this.VertexBuffer.SetData(vertices);
 
 			// Construct the index array.
@@ -91,7 +91,7 @@ namespace game1666proto4
 			}
 
 			// Create the index buffer.
-			this.IndexBuffer = new IndexBuffer(RenderingDetails.GraphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
+			this.IndexBuffer = new IndexBuffer(Renderer.GraphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
 			this.IndexBuffer.SetData(indices);
 		}
 
