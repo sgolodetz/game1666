@@ -56,7 +56,7 @@ namespace game1666proto4
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// Set up the view matrix.
-			m_basicEffect.View = Matrix.CreateLookAt(new Vector3(10, -20, 20), new Vector3(5, 20, 0), new Vector3(0, 0, 1));
+			m_basicEffect.View = Matrix.CreateLookAt(new Vector3(5, -20, 20), new Vector3(5, 20, 0), new Vector3(0, 0, 1));
 
 			// Set up the world matrix.
 			m_basicEffect.World = Matrix.Identity;
@@ -96,7 +96,13 @@ namespace game1666proto4
 
 			// Set up the world.
 			m_world = new World(new Terrain(new float[2,2], 5f, 5f));
-			var city = new City("Stuartopolis", new Terrain(new float[2,2], 5f, 5f));
+			var heightmap = new float[,]
+			{
+				{1,1,1,2},
+				{1,1,2,2},
+				{4,4,4,4}
+			};
+			var city = new City("Stuartopolis", new Terrain(heightmap, 5f, 5f));
 			m_world.AddEntity(city);
 
 			// Set up the viewer.
