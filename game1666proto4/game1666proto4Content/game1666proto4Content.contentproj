@@ -53,9 +53,9 @@
       <SubType>Designer</SubType>
       <Name>GameConfig</Name>
     </None>
-    <None Include="SaveGame.xsd">
+    <None Include="GameWorld.xsd">
       <SubType>Designer</SubType>
-      <Name>SaveGame</Name>
+      <Name>GameWorld</Name>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +64,14 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestWorld.xml">
+      <Name>TestWorld</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
