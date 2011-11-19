@@ -89,6 +89,11 @@ namespace game1666proto4
 			// Set up the projection matrix.
 			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
+			// Fill in the RenderingDetails static class as a global point of access for the graphics device, basic effect and content.
+			RenderingDetails.BasicEffect = m_basicEffect;
+			RenderingDetails.Content = Content;
+			RenderingDetails.GraphicsDevice = GraphicsDevice;
+
 			// Set up the world.
 			m_world = new World(new Terrain(new float[2,2], 5f, 5f));
 			var city = new City("Stuartopolis", new Terrain(new float[2,2], 5f, 5f));
