@@ -124,6 +124,7 @@
     <Compile Include="Model\PlayingArea.cs" />
     <Compile Include="Model\RoadNetwork.cs" />
     <Compile Include="Model\RoadSegment.cs" />
+    <Compile Include="Model\Terrain\QuadtreeCompiler.cs" />
     <Compile Include="Model\Terrain\QuadtreeNode.cs" />
     <Compile Include="Model\Terrain\Terrain.cs" />
     <Compile Include="Model\World.cs" />
