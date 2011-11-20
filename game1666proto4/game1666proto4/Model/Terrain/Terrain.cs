@@ -3,22 +3,25 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto4
 {
-	sealed class Terrain
+	sealed class Terrain : ModelEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly float m_gridSquareHeight;
-		private readonly float m_gridSquareWidth;
-		private readonly float[,] m_heightmap;
-		private readonly bool[,] m_occupancy;
-		private readonly QuadtreeNode m_quadtreeRoot;
+		private float m_gridSquareHeight;
+		private float m_gridSquareWidth;
+		private float[,] m_heightmap;
+		private bool[,] m_occupancy;
+		private QuadtreeNode m_quadtreeRoot;
 
 		#endregion
 
@@ -35,17 +38,28 @@ namespace game1666proto4
 
 		public Terrain(float[,] heightmap, float gridSquareWidth, float gridSquareHeight)
 		{
-			m_gridSquareHeight = gridSquareHeight;
-			m_gridSquareWidth = gridSquareWidth;
-			m_heightmap = heightmap;
-			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
-			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap, gridSquareWidth, gridSquareHeight);
-			ConstructBuffers();
+			Initialise(heightmap, gridSquareWidth, gridSquareHeight);
 		}
 
 		public Terrain(XElement entityElt)
+		:	base(entityElt)
 		{
-			// TODO
+			int gridWidth = Convert.ToInt32(Properties["Width"]);
+			int gridHeight = Convert.ToInt32(Properties["Height"]);
+			float[,] heightmap = new float[gridHeight,gridWidth];
+
+			List<float> heightmapValues = Properties["Heightmap"].Split(new char[] { ',' }).Select(s => Convert.ToSingle(s.Trim())).ToList();
+
+			int valueIndex = 0;
+			for(int y = 0; y < gridHeight; ++y)
+			{
+				for(int x = 0; x < gridWidth; ++x)
+				{
+					heightmap[y,x] = heightmapValues[valueIndex++];
+				}
+			}
+
+			Initialise(heightmap, 5f, 5f);
 		}
 
 		#endregion
@@ -99,6 +113,16 @@ namespace game1666proto4
 			// Create the index buffer.
 			this.IndexBuffer = new IndexBuffer(Renderer.GraphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
 			this.IndexBuffer.SetData(indices);
+		}
+
+		private void Initialise(float[,] heightmap, float gridSquareWidth, float gridSquareHeight)
+		{
+			m_gridSquareHeight = gridSquareHeight;
+			m_gridSquareWidth = gridSquareWidth;
+			m_heightmap = heightmap;
+			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
+			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap, gridSquareWidth, gridSquareHeight);
+			ConstructBuffers();
 		}
 
 		#endregion

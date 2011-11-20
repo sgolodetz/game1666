@@ -43,6 +43,13 @@ namespace game1666proto4
 			AddEntity(entity);
 		}
 
+		public City GetCity(string name)
+		{
+			City city;
+			m_cities.TryGetValue(name, out city);
+			return city;
+		}
+
 		public static World LoadFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);

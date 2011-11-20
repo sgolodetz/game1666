@@ -11,12 +11,12 @@
   <entity type="City">
     <property name="Name" value="Stuartopolis"/>
     <entity type="Terrain">
-      <property name="Width" value="4"/>
+      <property name="Width" value="5"/>
       <property name="Height" value="3"/>
       <property name="Heightmap">
-        1,1,1,2,
-        1,1,2,2,
-        4,4,4,4
+        1,1,1,2,5,
+        1,1,2,2,5,
+        4,4,4,4,5
       </property>
     </entity>
   </entity>

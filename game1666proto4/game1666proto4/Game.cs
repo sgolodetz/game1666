@@ -94,18 +94,9 @@ namespace game1666proto4
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
 
-			// Set up the world.
-			World testWorld = World.LoadFromFile(@"Content\TestWorld.xml");
-
-			m_world = new World(new Terrain(new float[2,2], 5f, 5f));
-			var heightmap = new float[,]
-			{
-				{1,1,1,2},
-				{1,1,2,2},
-				{4,4,4,4}
-			};
-			var city = new City("Stuartopolis", new Terrain(heightmap, 5f, 5f));
-			m_world.AddEntity(city);
+			// Load the world.
+			World m_world = World.LoadFromFile(@"Content\TestWorld.xml");
+			City city = m_world.GetCity("Stuartopolis");
 
 			// Set up the viewer.
 			m_viewer = new PlayingAreaViewer(city);
