@@ -3,4 +3,5 @@ obj/
 /Help/
 *.cachefile
 *.csproj.user
+*.shfbproj_*
 *.suo
