@@ -8,8 +8,8 @@ using System;
 namespace game1666proto4
 {
 	/// <summary>
-	/// Represents a 2D vector with integer components. It is deliberately intended to
-	/// mirror the Vector2 class in XNA (which has float components).
+	/// An instance of this struct represents a 2D vector with integer components.
+	/// The struct is deliberately intended to mirror Vector2 in XNA (which has float components).
 	/// </summary>
 	struct Vector2i : IEquatable<Vector2i>
 	{

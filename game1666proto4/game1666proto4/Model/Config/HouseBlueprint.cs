@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// This class represents a blueprint for building a house.
+	/// An instance of this class represents a blueprint for building a house.
 	/// </summary>
 	sealed class HouseBlueprint : ModelEntity
 	{

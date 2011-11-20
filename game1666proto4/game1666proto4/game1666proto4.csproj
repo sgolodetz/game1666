@@ -120,7 +120,7 @@
     <Compile Include="Model\CompositeModelEntity.cs" />
     <Compile Include="Model\House.cs" />
     <Compile Include="Model\Config\HouseBlueprint.cs" />
-    <Compile Include="Model\IBuilding.cs" />
+    <Compile Include="Model\Building.cs" />
     <Compile Include="Model\ModelEntity.cs" />
     <Compile Include="Model\PlayingArea.cs" />
     <Compile Include="Model\RoadNetwork.cs" />

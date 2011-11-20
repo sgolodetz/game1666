@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// This class represents a blueprint for building a road segment.
+	/// An instance of this class represents a blueprint for building a road segment.
 	/// </summary>
 	sealed class RoadSegmentBlueprint : ModelEntity
 	{

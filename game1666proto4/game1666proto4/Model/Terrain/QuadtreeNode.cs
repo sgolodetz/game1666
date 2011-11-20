@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4
 {
 	/// <summary>
-	/// This class represents nodes in terrain quadtrees.
+	/// An instance of this class represents a node in a terrain quadtree.
 	/// </summary>
 	sealed class QuadtreeNode
 	{

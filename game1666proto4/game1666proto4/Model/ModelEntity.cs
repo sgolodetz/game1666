@@ -50,7 +50,7 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs an entity without any properties.
+		/// Constructs a model entity without any properties.
 		/// </summary>
 		public ModelEntity()
 		{
@@ -58,7 +58,7 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Constructs an entity directly from its properties.
+		/// Constructs a model entity directly from its properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		public ModelEntity(IDictionary<string,string> properties)
@@ -67,7 +67,7 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Constructs an entity from its XML representation.
+		/// Constructs a model entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public ModelEntity(XElement entityElt)

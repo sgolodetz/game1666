@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace game1666proto4
 {
 	/// <summary>
-	/// This class represents a heightmap-based terrain.
+	/// An instance of this class represents a heightmap-based terrain.
 	/// </summary>
 	sealed class Terrain : ModelEntity
 	{
