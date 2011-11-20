@@ -20,13 +20,6 @@ namespace game1666proto4
 
 		#endregion
 
-		//#################### PROPERTIES ####################
-		#region
-
-		public string Name { get { return Properties["Name"]; } }
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 

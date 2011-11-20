@@ -21,6 +21,19 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The name of the entity (if any).
+		/// </summary>
+		public string Name
+		{
+			get
+			{
+				string name;
+				Properties.TryGetValue("Name", out name);
+				return name;
+			}
+		}
+
+		/// <summary>
 		/// The entity's properties.
 		/// </summary>
 		protected IDictionary<string,string> Properties
