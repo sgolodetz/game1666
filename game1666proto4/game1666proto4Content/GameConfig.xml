@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
-    <blueprint name="Dwelling" type="House">
+    <entity type="HouseBlueprint">
+      <property name="Name" value="Dwelling"/>
       <property name="Footprint">
         <!-- TODO -->
       </property>
       <property name="MaxOccupants" value="2"/>
-    </blueprint>
-    <blueprint name="DirtTrack" type="RoadSegment">
+    </entity>
+    <entity type="RoadSegmentBlueprint">
+      <property name="Name" value="DirtTrack"/>
       <!-- TODO -->
-    </blueprint>
+    </entity>
   </blueprints>
 </config>

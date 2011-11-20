@@ -52,27 +52,18 @@ namespace game1666proto4
 		/// <param name="filename">The name of the file from which to load.</param>
 		public static void Load(string filename)
 		{
-			// Note: I'm not doing any major validation here as this is purely a prototype.
 			s_blueprints = new Dictionary<string,dynamic>();
 
 			XDocument doc = XDocument.Load(filename);
-			foreach(XElement blueprintNode in doc.XPathSelectElements("config/blueprints/blueprint"))
+			foreach(XElement blueprintElt in doc.XPathSelectElements("config/blueprints/entity"))
 			{
-				// Each blueprint can be used to create specific instances of an archetype - for example,
-				// you might have a blueprint called "Dwelling" that creates a small instance of a house.
-				// Our first job here is to get the entity name (Dwelling) and entity type (House).
-				string entityName = Convert.ToString(blueprintNode.Attribute("name").Value);
-				string entityTypename = Convert.ToString(blueprintNode.Attribute("type").Value);
-
-				// Next, we look up the C# class corresponding to blueprints for this archetype - for the
-				// example mentioned above, this would be HouseBlueprint.
-				string blueprintTypename = "game1666proto4." + entityTypename + "Blueprint";
+				string blueprintTypename = "game1666proto4." + Convert.ToString(blueprintElt.Attribute("type").Value);
 				Type blueprintType = Type.GetType(blueprintTypename);
 
 				if(blueprintType != null)
 				{
-					// If such a class exists, we create the blueprint and store it for future use.
-					s_blueprints[entityName] = Activator.CreateInstance(blueprintType, blueprintNode);
+					dynamic blueprint = Activator.CreateInstance(blueprintType, blueprintElt);
+					s_blueprints[blueprint.Name] = blueprint;
 				}
 				else
 				{

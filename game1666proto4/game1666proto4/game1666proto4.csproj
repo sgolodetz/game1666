@@ -111,16 +111,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\EntityBlueprint.cs" />
-    <Compile Include="Config\GameConfig.cs" />
-    <Compile Include="Config\RoadSegmentBlueprint.cs" />
+    <Compile Include="Model\Config\EntityBlueprint.cs" />
+    <Compile Include="Model\Config\GameConfig.cs" />
+    <Compile Include="Model\Config\RoadSegmentBlueprint.cs" />
     <Compile Include="Math\Constants.cs" />
     <Compile Include="Math\Geometry\Triangle.cs" />
     <Compile Include="Math\Vectors\Vector2i.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\CompositeModelEntity.cs" />
     <Compile Include="Model\House.cs" />
-    <Compile Include="Config\HouseBlueprint.cs" />
+    <Compile Include="Model\Config\HouseBlueprint.cs" />
     <Compile Include="Model\IBuilding.cs" />
     <Compile Include="Model\ModelEntity.cs" />
     <Compile Include="Model\PlayingArea.cs" />
