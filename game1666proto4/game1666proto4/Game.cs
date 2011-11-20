@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
 {
+	/// <summary>
+	/// An instance of this class represents the game itself.
+	/// </summary>
 	sealed class Game : Microsoft.Xna.Framework.Game
 	{
 		//#################### PRIVATE VARIABLES ####################

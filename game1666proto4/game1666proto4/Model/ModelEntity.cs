@@ -8,6 +8,9 @@ using System.Xml.Linq;
 
 namespace game1666proto4
 {
+	/// <summary>
+	/// An instance of this class represents an entity in the game model, e.g. a building.
+	/// </summary>
 	abstract class ModelEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
@@ -50,7 +53,7 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a model entity without any properties.
+		/// Constructs an entity without any properties.
 		/// </summary>
 		public ModelEntity()
 		{
@@ -58,7 +61,7 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Constructs a model entity directly from its properties.
+		/// Constructs an entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		public ModelEntity(IDictionary<string,string> properties)
@@ -67,7 +70,7 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Constructs a model entity from its XML representation.
+		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public ModelEntity(XElement entityElt)
@@ -76,9 +79,14 @@ namespace game1666proto4
 
 			foreach(XElement propertyElt in entityElt.Elements("property"))
 			{
+				// Look up the name of the property.
 				XAttribute nameAttribute = propertyElt.Attribute("name");
+
+				// If the property element has a value attribute, use that. Otherwise, use the text enclosed within the element.
 				XAttribute valueAttribute = propertyElt.Attribute("value");
 				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Trim().Replace(" ", "");
+
+				// Provided the property is valid, store it for later use.
 				if(nameAttribute != null && value != null)
 				{
 					m_properties[nameAttribute.Value] = value;

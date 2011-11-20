@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto4
 {
+	/// <summary>
+	/// This class provides a global point of access for rendering.
+	/// </summary>
 	static class Renderer
 	{
 		//#################### PROPERTIES ####################

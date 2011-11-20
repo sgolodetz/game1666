@@ -6,7 +6,7 @@
 namespace game1666proto4
 {
 	/// <summary>
-	/// Provides system-wide constants.
+	/// This class provides system-wide constants.
 	/// </summary>
 	static class Constants
 	{
