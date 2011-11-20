@@ -111,7 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Config\EntityBlueprint.cs" />
+    <Compile Include="Model\Config\Blueprint.cs" />
     <Compile Include="Model\Config\GameConfig.cs" />
     <Compile Include="Model\Config\RoadSegmentBlueprint.cs" />
     <Compile Include="Math\Constants.cs" />

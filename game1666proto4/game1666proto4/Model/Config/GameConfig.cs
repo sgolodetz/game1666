@@ -11,7 +11,7 @@ using System.Xml.XPath;
 namespace game1666proto4
 {
 	/// <summary>
-	/// This class handles the loading and subsequent access of game configuration data such as entity blueprints.
+	/// This class handles the loading and subsequent access of game configuration data such as blueprints.
 	/// </summary>
 	static class GameConfig
 	{
@@ -27,7 +27,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static IDictionary<string,dynamic> s_blueprints;	/// blueprints for all the entities in the game
+		private static IDictionary<string,dynamic> s_blueprints;	/// blueprints for the entities in the game
 
 		#endregion
 
@@ -35,19 +35,19 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Gets the blueprint for entities with the specified name.
+		/// Gets the blueprint with the specified name.
 		/// </summary>
-		/// <param name="entityName">The name of the entity for which to get the blueprint.</param>
+		/// <param name="name">The name of the blueprint to get.</param>
 		/// <returns>The blueprint.</returns>
-		public static dynamic GetBlueprint(string entityName)
+		public static dynamic GetBlueprint(string name)
 		{
 			dynamic blueprint = null;
-			s_blueprints.TryGetValue(entityName, blueprint);
+			s_blueprints.TryGetValue(name, blueprint);
 			return blueprint;
 		}
 
 		/// <summary>
-		/// Load game configuration data (e.g. entity blueprints) from the specified file.
+		/// Load game configuration data (e.g. blueprints) from the specified file.
 		/// </summary>
 		/// <param name="filename">The name of the file from which to load.</param>
 		public static void Load(string filename)
@@ -57,11 +57,13 @@ namespace game1666proto4
 			XDocument doc = XDocument.Load(filename);
 			foreach(XElement blueprintElt in doc.XPathSelectElements("config/blueprints/entity"))
 			{
+				// Look up the C# type for the blueprint.
 				string blueprintTypename = "game1666proto4." + Convert.ToString(blueprintElt.Attribute("type").Value);
 				Type blueprintType = Type.GetType(blueprintTypename);
 
 				if(blueprintType != null)
 				{
+					// Create the blueprint and store it for later use.
 					dynamic blueprint = Activator.CreateInstance(blueprintType, blueprintElt);
 					s_blueprints[blueprint.Name] = blueprint;
 				}

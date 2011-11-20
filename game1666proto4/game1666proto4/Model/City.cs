@@ -8,12 +8,15 @@ using System.Xml.Linq;
 
 namespace game1666proto4
 {
+	/// <summary>
+	/// This class represents a city.
+	/// </summary>
 	sealed class City : PlayingArea
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly List<IBuilding> m_buildings = new List<IBuilding>();
+		private readonly List<IBuilding> m_buildings = new List<IBuilding>();	/// the buildings in the city
 
 		#endregion
 

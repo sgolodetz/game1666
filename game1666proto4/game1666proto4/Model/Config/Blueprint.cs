@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityBlueprint.cs
+ * game1666proto4: Blueprint.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -8,7 +8,10 @@ using System.Xml.Linq;
 
 namespace game1666proto4
 {
-	abstract class EntityBlueprint : ModelEntity
+	/// <summary>
+	/// This class represents a blueprint for building an entity.
+	/// </summary>
+	abstract class Blueprint : ModelEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -16,13 +19,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The name of the blueprint, e.g. "Dwelling" for a house blueprint.
 		/// </summary>
-		public string Name
-		{
-			get
-			{
-				return Properties["Name"];
-			}
-		}
+		public string Name { get { return Properties["Name"]; } }
 
 		#endregion
 
@@ -33,7 +30,7 @@ namespace game1666proto4
 		/// Constructs a blueprint from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the blueprint's XML representation.</param>
-		public EntityBlueprint(XElement entityElt)
+		public Blueprint(XElement entityElt)
 		:	base(entityElt)
 		{}
 

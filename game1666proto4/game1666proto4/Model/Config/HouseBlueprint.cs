@@ -8,7 +8,10 @@ using System.Xml.Linq;
 
 namespace game1666proto4
 {
-	sealed class HouseBlueprint : EntityBlueprint
+	/// <summary>
+	/// This class represents a blueprint for building a house.
+	/// </summary>
+	sealed class HouseBlueprint : Blueprint
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -16,13 +19,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The maximum number of people that can occupy a house constructed using this blueprint.
 		/// </summary>
-		public int MaxOccupants
-		{
-			get
-			{
-				return Convert.ToInt32(Properties["MaxOccupants"]);
-			}
-		}
+		public int MaxOccupants { get { return Convert.ToInt32(Properties["MaxOccupants"]); } }
 
 		#endregion
 
@@ -33,7 +30,6 @@ namespace game1666proto4
 		/// Constructs a house blueprint from its XML representation.
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
-		/// <returns>The house blueprint.</returns>
 		public HouseBlueprint(XElement blueprintElt)
 		:	base(blueprintElt)
 		{}

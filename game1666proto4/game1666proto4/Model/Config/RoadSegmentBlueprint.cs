@@ -7,7 +7,10 @@ using System.Xml.Linq;
 
 namespace game1666proto4
 {
-	sealed class RoadSegmentBlueprint : EntityBlueprint
+	/// <summary>
+	/// This class represents a blueprint for building a road segment.
+	/// </summary>
+	sealed class RoadSegmentBlueprint : Blueprint
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
