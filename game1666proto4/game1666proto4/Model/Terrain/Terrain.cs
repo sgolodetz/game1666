@@ -17,8 +17,6 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private float m_gridSquareHeight;
-		private float m_gridSquareWidth;
 		private float[,] m_heightmap;
 		private bool[,] m_occupancy;
 		private QuadtreeNode m_quadtreeRoot;
@@ -36,9 +34,9 @@ namespace game1666proto4
 		//#################### CONSTRUCTORS ####################
 		#region
 
-		public Terrain(float[,] heightmap, float gridSquareWidth, float gridSquareHeight)
+		public Terrain(float[,] heightmap)
 		{
-			Initialise(heightmap, gridSquareWidth, gridSquareHeight);
+			Initialise(heightmap);
 		}
 
 		public Terrain(XElement entityElt)
@@ -59,7 +57,7 @@ namespace game1666proto4
 				}
 			}
 
-			Initialise(heightmap, 5f, 5f);
+			Initialise(heightmap);
 		}
 
 		#endregion
@@ -82,7 +80,7 @@ namespace game1666proto4
 			{
 				for(int x = 0; x < heightmapWidth; ++x)
 				{
-					var position = new Vector3(x * m_gridSquareWidth, y * m_gridSquareHeight, m_heightmap[y,x]);
+					var position = new Vector3(x * GameConfig.TERRAIN_SCALE_X, y * GameConfig.TERRAIN_SCALE_Y, m_heightmap[y,x] * GameConfig.TERRAIN_SCALE_Z);
 					var texCoords = new Vector2((float)x / gridWidth, (float)y / gridHeight);
 					vertices[vertIndex++] = new VertexPositionTexture(position, texCoords);
 				}
@@ -115,13 +113,11 @@ namespace game1666proto4
 			this.IndexBuffer.SetData(indices);
 		}
 
-		private void Initialise(float[,] heightmap, float gridSquareWidth, float gridSquareHeight)
+		private void Initialise(float[,] heightmap)
 		{
-			m_gridSquareHeight = gridSquareHeight;
-			m_gridSquareWidth = gridSquareWidth;
 			m_heightmap = heightmap;
 			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
-			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap, gridSquareWidth, gridSquareHeight);
+			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
 		}
 

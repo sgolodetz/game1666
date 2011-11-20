@@ -12,7 +12,7 @@ namespace game1666proto4
 		//#################### PUBLIC METHODS ####################
 		#region
 
-		public static QuadtreeNode BuildQuadtree(float[,] heightmap, float gridSquareWidth, float gridSquareHeight)
+		public static QuadtreeNode BuildQuadtree(float[,] heightmap)
 		{
 			// TODO
 			return null;

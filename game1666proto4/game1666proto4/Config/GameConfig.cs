@@ -15,6 +15,15 @@ namespace game1666proto4
 	/// </summary>
 	static class GameConfig
 	{
+		//#################### CONSTANTS ####################
+		#region
+
+		public const float TERRAIN_SCALE_X = 4f;
+		public const float TERRAIN_SCALE_Y = 4f;
+		public const float TERRAIN_SCALE_Z = 1f;
+
+		#endregion
+
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
