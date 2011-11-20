@@ -95,7 +95,7 @@ namespace game1666proto4
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Load the world.
-			World m_world = World.LoadFromFile(@"Content\TestWorld.xml");
+			m_world = World.LoadFromFile(@"Content\TestWorld.xml");
 			City city = m_world.GetCity("Stuartopolis");
 
 			// Set up the viewer.
