@@ -1,16 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<world>
-  <terrain width="2" height="2">
-    1,1,
-    1,1
-  </terrain>
-  <entities>
-    <city name="Stuartopolis">
-      <terrain width="4" height="3">
+<entity type="World">
+  <entity type="Terrain">
+    <property name="Width" value="2"/>
+    <property name="Height" value="2"/>
+    <property name="Heightmap">
+      1,1,
+      1,1
+    </property>
+  </entity>
+  <entity type="City">
+    <property name="Name" value="Stuartopolis"/>
+    <entity type="Terrain">
+      <property name="Width" value="4"/>
+      <property name="Height" value="3"/>
+      <property name="Heightmap">
         1,1,1,2,
         1,1,2,2,
         4,4,4,4
-      </terrain>
-    </city>
-  </entities>
-</world>
+      </property>
+    </entity>
+  </entity>
+</entity>

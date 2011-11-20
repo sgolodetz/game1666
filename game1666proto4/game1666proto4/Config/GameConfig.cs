@@ -67,7 +67,7 @@ namespace game1666proto4
 				}
 				else
 				{
-					throw new System.InvalidOperationException("No such class: " + blueprintTypename);
+					throw new InvalidOperationException("No such class: " + blueprintTypename);
 				}
 			}
 		}
