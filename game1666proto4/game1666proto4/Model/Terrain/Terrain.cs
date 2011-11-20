@@ -43,15 +43,9 @@ namespace game1666proto4
 			ConstructBuffers();
 		}
 
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		public static Terrain LoadFromXml(XElement terrainElt)
+		public Terrain(XElement entityElt)
 		{
 			// TODO
-			return null;
 		}
 
 		#endregion

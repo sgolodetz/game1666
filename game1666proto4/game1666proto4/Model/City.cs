@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace game1666proto4
 {
@@ -12,14 +13,14 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly List<IBuilding> m_buildings;
+		private readonly List<IBuilding> m_buildings = new List<IBuilding>();
 
 		#endregion
 
 		//#################### PROPERTIES ####################
 		#region
 
-		public string Name { get; private set; }
+		public string Name { get { return Properties["Name"]; } }
 
 		#endregion
 
@@ -29,8 +30,21 @@ namespace game1666proto4
 		public City(string name, Terrain terrain)
 		:	base(terrain)
 		{
-			Name = name;
-			m_buildings = new List<IBuilding>();
+			Properties["Name"] = name;
+		}
+
+		public City(XElement entityElt)
+		:	base(entityElt)
+		{}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		public override void AddEntityDynamic(dynamic entity)
+		{
+			AddEntity(entity);
 		}
 
 		#endregion

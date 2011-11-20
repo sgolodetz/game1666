@@ -3,14 +3,15 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+
 namespace game1666proto4
 {
-	abstract class PlayingArea
+	abstract class PlayingArea : CompositeModelEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
 
-		public RoadNetwork RoadNetwork	{ get; private set; }
 		public Terrain Terrain			{ get; private set; }
 
 		#endregion
@@ -21,7 +22,20 @@ namespace game1666proto4
 		public PlayingArea(Terrain terrain)
 		{
 			this.Terrain = terrain;
-			this.RoadNetwork = new RoadNetwork();
+		}
+
+		public PlayingArea(XElement entityElt)
+		:	base(entityElt)
+		{}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		public void AddEntity(Terrain terrain)
+		{
+			Terrain = terrain;
 		}
 
 		#endregion

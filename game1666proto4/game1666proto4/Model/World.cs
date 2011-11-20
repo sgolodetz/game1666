@@ -13,7 +13,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly IDictionary<string,City> m_cities;
+		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
 
 		#endregion
 
@@ -22,9 +22,11 @@ namespace game1666proto4
 
 		public World(Terrain terrain)
 		:	base(terrain)
-		{
-			m_cities = new Dictionary<string,City>();
-		}
+		{}
+
+		public World(XElement entityElt)
+		:	base(entityElt)
+		{}
 
 		#endregion
 
@@ -36,17 +38,15 @@ namespace game1666proto4
 			m_cities[city.Name] = city;
 		}
 
+		public override void AddEntityDynamic(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
 		public static World LoadFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
-			return LoadFromXml(doc.Element("world"));
-		}
-
-		public static World LoadFromXml(XElement worldElt)
-		{
-			var world = new World(Terrain.LoadFromXml(worldElt.Element("terrain")));
-			// TODO: Load entities.
-			return world;
+			return new World(doc.Element("entity"));
 		}
 
 		#endregion

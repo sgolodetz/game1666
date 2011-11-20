@@ -95,6 +95,8 @@ namespace game1666proto4
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Set up the world.
+			World testWorld = World.LoadFromFile(@"Content\TestWorld.xml");
+
 			m_world = new World(new Terrain(new float[2,2], 5f, 5f));
 			var heightmap = new float[,]
 			{

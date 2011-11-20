@@ -14,6 +14,9 @@ namespace game1666proto4
 		//#################### CONSTRUCTORS ####################
 		#region
 
+		public CompositeModelEntity()
+		{}
+
 		public CompositeModelEntity(IDictionary<string,string> properties)
 		:	base(properties)
 		{}

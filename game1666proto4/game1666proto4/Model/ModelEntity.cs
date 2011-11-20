@@ -37,6 +37,14 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Constructs an entity without any properties.
+		/// </summary>
+		public ModelEntity()
+		{
+			m_properties = new Dictionary<string,string>();
+		}
+
+		/// <summary>
 		/// Constructs an entity directly from its properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
