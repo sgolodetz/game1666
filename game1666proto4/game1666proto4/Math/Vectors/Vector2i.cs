@@ -103,6 +103,17 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// Returns the result of dividing a vector by a factor using integer division.
+		/// </summary>
+		/// <param name="v">The vector.</param>
+		/// <param name="divideFactor">The factor by which to divide the vector.</param>
+		/// <returns>v `div` divideFactor</returns>
+		public static Vector2i operator/(Vector2i v, int divideFactor)
+		{
+			return new Vector2i(v.X / divideFactor, v.Y / divideFactor);
+		}
+
+		/// <summary>
 		/// Tests whether or not two vectors are equal.
 		/// </summary>
 		/// <param name="lhs">The left-hand operand of the comparison.</param>

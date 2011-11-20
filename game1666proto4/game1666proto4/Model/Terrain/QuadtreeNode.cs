@@ -23,6 +23,31 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a (branch) quadtree node to contain a set of child quadtree nodes.
+		/// </summary>
+		/// <param name="children"></param>
+		public QuadtreeNode(QuadtreeNode[] children)
+		{
+			m_children = children;
+			// TODO: Calculate bounding box.
+		}
+
+		/// <summary>
+		/// Constructs a (leaf) quadtree node to contain a set of triangles.
+		/// </summary>
+		/// <param name="triangles">The triangles, grouped by grid square.</param>
+		public QuadtreeNode(IDictionary<Vector2i,Triangle[]> triangles)
+		{
+			m_triangles = triangles;
+			// TODO: Calculate bounding box.
+		}
+
+		#endregion
+
 		//#################### PUBLIC METHODS ####################
 		#region
 
