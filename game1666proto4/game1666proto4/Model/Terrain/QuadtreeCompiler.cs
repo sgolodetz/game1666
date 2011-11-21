@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
@@ -22,7 +23,7 @@ namespace game1666proto4
 		/// <returns>The root node of the quadtree.</returns>
 		public static QuadtreeNode BuildQuadtree(float[,] heightmap)
 		{
-			return BuildQuadtreeSub(heightmap, new Vector2i(0, 0), new Vector2i(heightmap.GetLength(1), heightmap.GetLength(0)));
+			return BuildQuadtreeSub(heightmap, new Vector2i(0, 0), new Vector2i(heightmap.GetLength(1) - 1, heightmap.GetLength(0) - 1));
 		}
 
 		#endregion
@@ -34,8 +35,8 @@ namespace game1666proto4
 		/// Builds a quadtree node from a segment of a heightmap.
 		/// </summary>
 		/// <param name="heightmap">The heightmap.</param>
-		/// <param name="topLeft">The coordinates of the top-left of the segment (inclusive).</param>
-		/// <param name="bottomRight">The coordinates of the bottom-right of the segment (exclusive).</param>
+		/// <param name="topLeft">The coordinates of the top-left of the segment.</param>
+		/// <param name="bottomRight">The coordinates of the bottom-right of the segment.</param>
 		/// <returns>The quadtree node for the specified heightmap segment.</returns>
 		private static QuadtreeNode BuildQuadtreeSub(float[,] heightmap, Vector2i topLeft, Vector2i bottomRight)
 		{
@@ -59,7 +60,22 @@ namespace game1666proto4
 			{
 				// Otherwise, construct a leaf node.
 				var triangles = new Dictionary<Vector2i,Triangle[]>();
-				// TODO
+				for(int y = topLeft.Y; y < bottomRight.Y; ++y)
+				{
+					for(int x = topLeft.X; x < bottomRight.X; ++x)
+					{
+						var v0 = new Vector3(x, y, heightmap[y,x]);
+						var v1 = new Vector3(x+1, y, heightmap[y,x+1]);
+						var v2 = new Vector3(x, y+1, heightmap[y+1,x]);
+						var v3 = new Vector3(x+1, y+1, heightmap[y+1,x+1]);
+
+						triangles[new Vector2i(x, y)] = new Triangle[]
+						{
+							new Triangle(v0, v1, v2),
+							new Triangle(v1, v3, v2)
+						};
+					}
+				}
 				return new QuadtreeNode(triangles);
 			}
 		}
