@@ -106,7 +106,7 @@ namespace game1666proto4
 			{
 				for(int x = 0; x < heightmapWidth; ++x)
 				{
-					var position = new Vector3(x * GameConfig.TERRAIN_SCALE_X, y * GameConfig.TERRAIN_SCALE_Y, m_heightmap[y,x] * GameConfig.TERRAIN_SCALE_Z);
+					var position = new Vector3(x, y, m_heightmap[y,x]) * GameConfig.TERRAIN_SCALE;
 					var texCoords = new Vector2((float)x / gridWidth, (float)y / gridHeight);
 					vertices[vertIndex++] = new VertexPositionTexture(position, texCoords);
 				}

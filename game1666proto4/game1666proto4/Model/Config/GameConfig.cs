@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
@@ -18,9 +19,7 @@ namespace game1666proto4
 		//#################### CONSTANTS ####################
 		#region
 
-		public const float TERRAIN_SCALE_X = 4f;
-		public const float TERRAIN_SCALE_Y = 4f;
-		public const float TERRAIN_SCALE_Z = 1f;
+		public static readonly Vector3 TERRAIN_SCALE = new Vector3(4f, 4f, 1f);
 
 		#endregion
 
