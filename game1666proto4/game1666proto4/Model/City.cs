@@ -16,7 +16,10 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly List<Building> m_buildings = new List<Building>();	/// the buildings in the city
+		/// <summary>
+		/// The buildings in the city.
+		/// </summary>
+		private readonly List<Building> m_buildings = new List<Building>();
 
 		#endregion
 

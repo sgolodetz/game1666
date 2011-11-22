@@ -16,7 +16,10 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly IDictionary<string,string> m_properties;	/// the entity's properties
+		/// <summary>
+		/// The entity's properties.
+		/// </summary>
+		private readonly IDictionary<string,string> m_properties;
 
 		#endregion
 

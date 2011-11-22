@@ -19,9 +19,20 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly EntityFootprint m_footprint;		/// the footprint of the entity
-		private readonly Vector2i m_position;				/// the position of the entity's hotspot
-		private readonly TerrainMesh m_terrainMesh;			/// the terrain on which the entity will stand
+		/// <summary>
+		/// The footprint of the entity.
+		/// </summary>
+		private readonly EntityFootprint m_footprint;
+
+		/// <summary>
+		/// The position of the entity's hotspot.
+		/// </summary>
+		private readonly Vector2i m_position;
+
+		/// <summary>
+		/// The terrain on which the entity will stand.
+		/// </summary>
+		private readonly TerrainMesh m_terrainMesh;
 
 		#endregion
 

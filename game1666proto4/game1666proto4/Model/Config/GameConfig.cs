@@ -19,7 +19,10 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static IDictionary<string,dynamic> s_blueprints;	/// blueprints for the entities in the game
+		/// <summary>
+		/// Blueprints for the entities in the game.
+		/// </summary>
+		private static IDictionary<string,dynamic> s_blueprints;
 
 		#endregion
 

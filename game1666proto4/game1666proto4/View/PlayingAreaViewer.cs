@@ -15,7 +15,10 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly PlayingArea m_playingArea;		/// the playing area to view
+		/// <summary>
+		/// The playing area to view.
+		/// </summary>
+		private readonly PlayingArea m_playingArea;
 
 		#endregion
 
@@ -42,6 +45,9 @@ namespace game1666proto4
 		public void Draw()
 		{
 			DrawTerrain();
+#if DEBUG
+			DrawTerrainQuadtree();
+#endif
 		}
 
 		#endregion
@@ -58,6 +64,14 @@ namespace game1666proto4
 			basicEffect.Texture = Renderer.Content.Load<Texture2D>("landscape");
 			basicEffect.TextureEnabled = true;
 			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, basicEffect);
+		}
+
+		/// <summary>
+		/// Draws the bounding boxes of the various nodes in the terrain quadtree (for debugging purposes).
+		/// </summary>
+		private void DrawTerrainQuadtree()
+		{
+			// TODO
 		}
 
 		#endregion

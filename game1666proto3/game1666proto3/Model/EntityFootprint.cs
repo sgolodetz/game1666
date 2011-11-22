@@ -16,8 +16,16 @@ namespace game1666proto3
 		//#################### PROPERTIES ####################
 		#region
 
-		public Vector2i Hotspot	{ get; private set; }	/// the canonical grid square used to position the entity (the square in the pattern that will be under the user's mouse when placing the entity)
-		public int[,] Pattern	{ get; private set; }	/// the pattern of grid squares that the entity will occupy
+		/// <summary>
+		/// The canonical grid square used to position the entity (the square in the
+		/// pattern that will be under the user's mouse when placing the entity).
+		/// </summary>
+		public Vector2i Hotspot	{ get; private set; }
+
+		/// <summary>
+		/// The pattern of grid squares that the entity will occupy.
+		/// </summary>
+		public int[,] Pattern	{ get; private set; }
 
 		#endregion
 

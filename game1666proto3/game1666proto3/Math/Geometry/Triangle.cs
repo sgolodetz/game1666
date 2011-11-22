@@ -47,8 +47,15 @@ namespace game1666proto3
 		//#################### PROPERTIES ####################
 		#region
 
-		public Vector3 Normal		{ get; private set; }	/// the triangle's normal
-		public Vector3[] Vertices	{ get; private set; }	/// the triangle's vertices (in anti-clockwise winding order)
+		/// <summary>
+		/// The triangle's normal.
+		/// </summary>
+		public Vector3 Normal		{ get; private set; }
+
+		/// <summary>
+		/// The triangle's vertices (in anti-clockwise winding order).
+		/// </summary>
+		public Vector3[] Vertices	{ get; private set; }
 
 		#endregion
 

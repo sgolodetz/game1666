@@ -17,9 +17,20 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly BoundingBox m_bounds;								/// an AABB that bounds the terrain segment represented by this node
-		private readonly QuadtreeNode[] m_children;							/// the children of this node in the quadtree (if any)
-		private readonly IDictionary<Vector2i,Triangle[]> m_triangleMap;	/// the triangles in the terrain segment represented by this node
+		/// <summary>
+		/// An AABB that bounds the terrain segment represented by this node.
+		/// </summary>
+		private readonly BoundingBox m_bounds;
+
+		/// <summary>
+		/// The children of this node in the quadtree (if any).
+		/// </summary>
+		private readonly QuadtreeNode[] m_children;
+
+		/// <summary>
+		/// The triangles in the terrain segment represented by this node.
+		/// </summary>
+		private readonly IDictionary<Vector2i,Triangle[]> m_triangleMap;
 
 		#endregion
 

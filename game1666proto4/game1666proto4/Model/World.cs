@@ -16,7 +16,10 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();		/// the cities in the game world
+		/// <summary>
+		/// The cities in the game world.
+		/// </summary>
+		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
 
 		#endregion
 

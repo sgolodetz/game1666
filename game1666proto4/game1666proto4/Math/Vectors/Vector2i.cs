@@ -24,8 +24,15 @@ namespace game1666proto4
 		//#################### PROPERTIES ####################
 		#region
 
-		public int X { get { return m_x; } }		/// the x component of the vector
-		public int Y { get { return m_y; } }		/// the y component of the vector
+		/// <summary>
+		/// The x component of the vector.
+		/// </summary>
+		public int X { get { return m_x; } }
+
+		/// <summary>
+		/// The y component of the vector.
+		/// </summary>
+		public int Y { get { return m_y; } }
 
 		#endregion
 

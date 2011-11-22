@@ -16,14 +16,20 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly List<Building> m_buildings;			/// the buildings in the city
+		/// <summary>
+		/// The buildings in the city.
+		/// </summary>
+		private readonly List<Building> m_buildings;
 
 		#endregion
 
 		//#################### PROPERTIES ####################
 		#region
 
-		public TerrainMesh TerrainMesh { get; private set; }	/// the mesh of the terrain on which the city is founded
+		/// <summary>
+		/// The mesh of the terrain on which the city is founded.
+		/// </summary>
+		public TerrainMesh TerrainMesh { get; private set; }
 
 		#endregion
 

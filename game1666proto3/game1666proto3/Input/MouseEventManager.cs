@@ -17,8 +17,15 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static MouseState s_currentState;		/// used to hold the current mouse state
-		private static MouseState s_previousState;		/// used to hold the previous mouse state
+		/// <summary>
+		/// Used to hold the current mouse state.
+		/// </summary>
+		private static MouseState s_currentState;
+
+		/// <summary>
+		/// Used to hold the previous mouse state.
+		/// </summary>
+		private static MouseState s_previousState;
 
 		#endregion
 

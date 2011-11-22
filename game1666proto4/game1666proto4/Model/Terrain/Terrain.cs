@@ -20,9 +20,15 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private float[,] m_heightmap;			/// the heightmap for the terrain
-		private bool[,] m_occupancy;			/// an occupancy grid indicating which grid squares are currently occupied, e.g. by buildings
-		private QuadtreeNode m_quadtreeRoot;	/// the root node of the terrain quadtree (used for picking)
+		/// <summary>
+		/// The heightmap for the terrain.
+		/// </summary>
+		private float[,] m_heightmap;
+
+		/// <summary>
+		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
+		/// </summary>
+		private bool[,] m_occupancy;
 
 		#endregion
 
@@ -33,6 +39,11 @@ namespace game1666proto4
 		/// The terrain's index buffer (for use when rendering the terrain).
 		/// </summary>
 		public IndexBuffer IndexBuffer { get; private set; }
+
+		/// <summary>
+		/// The root node of the terrain quadtree (used for picking).
+		/// </summary>
+		public QuadtreeNode QuadtreeRoot { get; private set; }
 
 		/// <summary>
 		/// The terrain's vertex buffer (for use when rendering the terrain).
@@ -148,7 +159,7 @@ namespace game1666proto4
 		{
 			m_heightmap = heightmap;
 			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
-			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
+			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
 		}
 

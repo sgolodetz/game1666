@@ -21,11 +21,30 @@ namespace game1666proto3
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly City m_city;								/// the city being viewed
-		private EntityOrientation m_entityPlacementOrientation;		/// the desired orientation of the entity to be placed (if any)
-		private PlaceableModelEntity m_entityToPlace;				/// the entity currently being placed by the user (if any)
-		private Vector2i? m_pickedGridSquare;						/// the coordinates of the grid square over which the user is currently hovering (if any)
-		private readonly Viewport m_viewport;						/// the viewport into which the city will be drawn
+		/// <summary>
+		/// The city being viewed.
+		/// </summary>
+		private readonly City m_city;
+
+		/// <summary>
+		/// The desired orientation of the entity to be placed (if any).
+		/// </summary>
+		private EntityOrientation m_entityPlacementOrientation;
+
+		/// <summary>
+		/// The entity currently being placed by the user (if any).
+		/// </summary>
+		private PlaceableModelEntity m_entityToPlace;
+
+		/// <summary>
+		/// The coordinates of the grid square over which the user is currently hovering (if any).
+		/// </summary>
+		private Vector2i? m_pickedGridSquare;
+
+		/// <summary>
+		/// The viewport into which the city will be drawn.
+		/// </summary>
+		private readonly Viewport m_viewport;
 
 		#endregion
 
