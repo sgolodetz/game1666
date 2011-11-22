@@ -16,13 +16,6 @@ namespace game1666proto4
 	/// </summary>
 	static class GameConfig
 	{
-		//#################### CONSTANTS ####################
-		#region
-
-		public static readonly Vector3 TERRAIN_SCALE = new Vector3(4f, 4f, 1f);
-
-		#endregion
-
 		//#################### PRIVATE VARIABLES ####################
 		#region
 

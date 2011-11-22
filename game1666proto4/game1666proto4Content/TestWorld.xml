@@ -3,6 +3,7 @@
   <entity type="Terrain">
     <property name="Width" value="2"/>
     <property name="Height" value="2"/>
+    <property name="ZScaling" value="0.25"/>
     <property name="Heightmap">
       1,1,
       1,1
@@ -13,6 +14,7 @@
     <entity type="Terrain">
       <property name="Width" value="5"/>
       <property name="Height" value="3"/>
+      <property name="ZScaling" value="0.25"/>
       <property name="Heightmap">
         1,1,1,2,5,
         1,1,2,2,5,

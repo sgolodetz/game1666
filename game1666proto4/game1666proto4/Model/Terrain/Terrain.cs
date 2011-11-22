@@ -64,6 +64,7 @@ namespace game1666proto4
 			// and construct an appropriately-sized heightmap.
 			int heightmapWidth = Convert.ToInt32(Properties["Width"]);
 			int heightmapHeight = Convert.ToInt32(Properties["Height"]);
+			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
 			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
 
 			// Parse the heightmap values from the properties loaded in from XML.
@@ -75,7 +76,7 @@ namespace game1666proto4
 			{
 				for(int x = 0; x < heightmapWidth; ++x)
 				{
-					heightmap[y,x] = heightmapValues[valueIndex++];
+					heightmap[y,x] = heightmapValues[valueIndex++] * zScaling;
 				}
 			}
 
@@ -106,7 +107,7 @@ namespace game1666proto4
 			{
 				for(int x = 0; x < heightmapWidth; ++x)
 				{
-					var position = new Vector3(x, y, m_heightmap[y,x]) * GameConfig.TERRAIN_SCALE;
+					var position = new Vector3(x, y, m_heightmap[y,x]);
 					var texCoords = new Vector2((float)x / gridWidth, (float)y / gridHeight);
 					vertices[vertIndex++] = new VertexPositionTexture(position, texCoords);
 				}

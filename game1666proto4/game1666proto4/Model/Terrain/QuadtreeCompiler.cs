@@ -64,10 +64,10 @@ namespace game1666proto4
 				{
 					for(int x = topLeft.X; x < bottomRight.X; ++x)
 					{
-						var v0 = new Vector3(x, y, heightmap[y,x]) * GameConfig.TERRAIN_SCALE;
-						var v1 = new Vector3(x+1, y, heightmap[y,x+1]) * GameConfig.TERRAIN_SCALE;
-						var v2 = new Vector3(x, y+1, heightmap[y+1,x]) * GameConfig.TERRAIN_SCALE;
-						var v3 = new Vector3(x+1, y+1, heightmap[y+1,x+1]) * GameConfig.TERRAIN_SCALE;
+						var v0 = new Vector3(x, y, heightmap[y,x]);
+						var v1 = new Vector3(x+1, y, heightmap[y,x+1]);
+						var v2 = new Vector3(x, y+1, heightmap[y+1,x]);
+						var v3 = new Vector3(x+1, y+1, heightmap[y+1,x+1]);
 
 						triangles[new Vector2i(x, y)] = new Triangle[]
 						{
