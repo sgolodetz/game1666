@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto4
@@ -71,7 +72,31 @@ namespace game1666proto4
 		/// </summary>
 		private void DrawTerrainQuadtree()
 		{
-			// TODO
+			BasicEffect basicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
+			basicEffect.VertexColorEnabled = true;
+			DrawTerrainQuadtreeSub(m_playingArea.Terrain.QuadtreeRoot, basicEffect);
+		}
+
+		/// <summary>
+		/// Draws the bounding boxes of the various nodes in a subtree of the terrain quadtree (for debugging purposes).
+		/// </summary>
+		/// <param name="node">The root node of the subtree.</param>
+		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		/// <param name="depth">The depth of the recursion.</param>
+		private void DrawTerrainQuadtreeSub(QuadtreeNode node, BasicEffect basicEffect, int depth = 0)
+		{
+			if(node.Children != null)
+			{
+				// This node is a branch, so recurse on its children.
+				foreach(QuadtreeNode child in node.Children)
+				{
+					DrawTerrainQuadtreeSub(child, basicEffect, depth + 1);
+				}
+			}
+
+			// Draw the node's own bounding box.
+			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
+			Renderer.DrawBoundingBox(node.Bounds, basicEffect, colours[depth % colours.Length]);
 		}
 
 		#endregion

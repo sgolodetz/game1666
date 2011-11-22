@@ -34,6 +34,21 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// An AABB that bounds the terrain segment represented by this node.
+		/// </summary>
+		public BoundingBox Bounds { get { return m_bounds; } }
+
+		/// <summary>
+		/// The children of this node in the quadtree (if any).
+		/// </summary>
+		public QuadtreeNode[] Children { get { return m_children; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
