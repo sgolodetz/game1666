@@ -135,6 +135,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="View\Camera.cs" />
     <Compile Include="View\PlayingAreaViewer.cs" />
   </ItemGroup>
   <ItemGroup>
