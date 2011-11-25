@@ -17,8 +17,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private BasicEffect m_basicEffect;
-		private readonly GraphicsDeviceManager m_graphics;
+		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
 		private PlayingAreaViewer m_viewer;
 		private World m_world;
 
@@ -32,13 +31,14 @@ namespace game1666proto4
 		/// </summary>
 		public Game()
 		{
-			m_graphics = new GraphicsDeviceManager(this);
+			m_graphicsDeviceManager = new GraphicsDeviceManager(this);
 			if(GraphicsAdapter.DefaultAdapter.IsProfileSupported(GraphicsProfile.HiDef))
 			{
-				m_graphics.GraphicsProfile = GraphicsProfile.HiDef;
+				m_graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
 			}
-			m_graphics.PreferredBackBufferWidth = 640;
-			m_graphics.PreferredBackBufferHeight = 480;
+			m_graphicsDeviceManager.PreferredBackBufferWidth = 640;
+			m_graphicsDeviceManager.PreferredBackBufferHeight = 480;
+			m_graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
 
 			this.IsMouseVisible = true;
 
@@ -57,12 +57,6 @@ namespace game1666proto4
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			// Set up the view matrix.
-			m_basicEffect.View = Matrix.CreateLookAt(new Vector3(2, -5, 5), new Vector3(2, 5, 0), new Vector3(0, 0, 1));
-
-			// Set up the world matrix.
-			m_basicEffect.World = Matrix.Identity;
 
 			// Set up the rasterizer state.
 			var rasterizerState = new RasterizerState();
@@ -86,16 +80,13 @@ namespace game1666proto4
 			// Load the game configuration from XML.
 			GameConfig.Load(@"Content\GameConfig.xml");
 
-			// Set up the basic effect.
-			m_basicEffect = new BasicEffect(GraphicsDevice);
-			
-			// Set up the projection matrix.
-			m_basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphics.PreferredBackBufferWidth / m_graphics.PreferredBackBufferHeight, 0.1f, 1000.0f);
-
 			// Set up the renderer.
-			Renderer.DefaultBasicEffect = m_basicEffect;
+			Renderer.DefaultBasicEffect = new BasicEffect(GraphicsDevice);
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
+
+			// Set up the projection matrix.
+			Renderer.DefaultBasicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphicsDeviceManager.PreferredBackBufferWidth / m_graphicsDeviceManager.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
 			// Load the world.
 			m_world = World.LoadFromFile(@"Content\TestWorld.xml");
@@ -136,7 +127,7 @@ namespace game1666proto4
 				Exit();
 			}
 
-			// TODO
+			m_viewer.Update(gameTime);
 
 			base.Update(gameTime);
 		}

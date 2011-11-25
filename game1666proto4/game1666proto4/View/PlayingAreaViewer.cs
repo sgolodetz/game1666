@@ -5,6 +5,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
 {
@@ -15,6 +16,11 @@ namespace game1666proto4
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
+
+		/// <summary>
+		/// The 3D camera specifying the position of the viewer.
+		/// </summary>
+		private readonly Camera m_camera;
 
 		/// <summary>
 		/// The playing area to view.
@@ -33,6 +39,7 @@ namespace game1666proto4
 		public PlayingAreaViewer(PlayingArea playingArea)
 		{
 			m_playingArea = playingArea;
+			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
 		}
 
 		#endregion
@@ -45,10 +52,43 @@ namespace game1666proto4
 		/// </summary>
 		public void Draw()
 		{
-			DrawTerrain();
+			BasicEffect viewerBasicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
+
+			// Set up the view matrix.
+			viewerBasicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
+
+			// Set up the world matrix.
+			viewerBasicEffect.World = Matrix.Identity;
+
+			DrawTerrain(viewerBasicEffect);
 #if DEBUG
-			DrawTerrainQuadtree();
+			DrawTerrainQuadtree(viewerBasicEffect);
 #endif
+		}
+
+		/// <summary>
+		/// Updates the viewer from one frame to the next, taking user input into account.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public void Update(GameTime gameTime)
+		{
+			// Determine the linear, horizontal angular, and vertical angular movement rates.
+			float linearRate = 0.006f * gameTime.ElapsedGameTime.Milliseconds;
+			float angularRateH = 0.002f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
+			float angularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
+
+			// Alter the camera based on user input.
+			KeyboardState state = Keyboard.GetState();
+			if(state.IsKeyDown(Keys.W))		m_camera.MoveN(linearRate);
+			if(state.IsKeyDown(Keys.S))		m_camera.MoveN(-linearRate);
+			if(state.IsKeyDown(Keys.A))		m_camera.MoveU(linearRate);
+			if(state.IsKeyDown(Keys.D))		m_camera.MoveU(-linearRate);
+			if(state.IsKeyDown(Keys.Q))		m_camera.MoveV(linearRate);
+			if(state.IsKeyDown(Keys.E))		m_camera.MoveV(-linearRate);
+			if(state.IsKeyDown(Keys.Left))	m_camera.Rotate(new Vector3(0,0,1), angularRateH);
+			if(state.IsKeyDown(Keys.Right))	m_camera.Rotate(new Vector3(0,0,1), -angularRateH);
+			if(state.IsKeyDown(Keys.Up))	m_camera.Rotate(m_camera.U, angularRateV);
+			if(state.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -angularRateV);
 		}
 
 		#endregion
@@ -59,9 +99,10 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the playing area's terrain.
 		/// </summary>
-		private void DrawTerrain()
+		/// <param name="viewerBasicEffect">The underlying basic effect for the viewer as a whole (ready to be customised).</param>
+		private void DrawTerrain(BasicEffect viewerBasicEffect)
 		{
-			BasicEffect basicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
+			BasicEffect basicEffect = viewerBasicEffect.Clone() as BasicEffect;
 			basicEffect.Texture = Renderer.Content.Load<Texture2D>("landscape");
 			basicEffect.TextureEnabled = true;
 			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, basicEffect);
@@ -70,9 +111,10 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the bounding boxes of the various nodes in the terrain quadtree (for debugging purposes).
 		/// </summary>
-		private void DrawTerrainQuadtree()
+		/// <param name="viewerBasicEffect">The underlying basic effect for the viewer as a whole (ready to be customised).</param>
+		private void DrawTerrainQuadtree(BasicEffect viewerBasicEffect)
 		{
-			BasicEffect basicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
+			BasicEffect basicEffect = viewerBasicEffect.Clone() as BasicEffect;
 			basicEffect.VertexColorEnabled = true;
 			DrawTerrainQuadtreeSub(m_playingArea.Terrain.QuadtreeRoot, basicEffect);
 		}
