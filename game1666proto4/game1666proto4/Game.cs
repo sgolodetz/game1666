@@ -18,7 +18,8 @@ namespace game1666proto4
 		#region
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
-		private PlayingAreaViewer m_viewer;
+		private PlayingAreaSidebar m_playingAreaSidebar;
+		private PlayingAreaViewer m_playingAreaViewer;
 		private World m_world;
 
 		#endregion
@@ -36,8 +37,8 @@ namespace game1666proto4
 			{
 				m_graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
 			}
-			m_graphicsDeviceManager.PreferredBackBufferWidth = 640;
-			m_graphicsDeviceManager.PreferredBackBufferHeight = 480;
+			m_graphicsDeviceManager.PreferredBackBufferWidth = 800;
+			m_graphicsDeviceManager.PreferredBackBufferHeight = 600;
 			m_graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
 
 			this.IsMouseVisible = true;
@@ -63,8 +64,9 @@ namespace game1666proto4
 			rasterizerState.CullMode = CullMode.CullClockwiseFace;
 			GraphicsDevice.RasterizerState = rasterizerState;
 
-			// Draw the playing area.
-			m_viewer.Draw();
+			// Draw the playing area and sidebar.
+			m_playingAreaViewer.Draw();
+			m_playingAreaSidebar.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -88,8 +90,16 @@ namespace game1666proto4
 			m_world = World.LoadFromFile(@"Content\TestWorld.xml");
 			City city = m_world.GetCity("Stuartopolis");
 
-			// Set up the viewer.
-			m_viewer = new PlayingAreaViewer(city, GraphicsDevice.Viewport);
+			// Set up the playing area viewer.
+			var playingAreaViewport = GraphicsDevice.Viewport;
+			playingAreaViewport.Width = playingAreaViewport.Width * 4 / 5;
+			m_playingAreaViewer = new PlayingAreaViewer(city, playingAreaViewport);
+
+			// Set up the sidebar.
+			var sidebarViewport = GraphicsDevice.Viewport;
+			sidebarViewport.Width = GraphicsDevice.Viewport.Width - playingAreaViewport.Width;
+			sidebarViewport.X = playingAreaViewport.Width;
+			m_playingAreaSidebar = new PlayingAreaSidebar(city, sidebarViewport);
 
 			base.Initialize();
 		}
@@ -124,7 +134,7 @@ namespace game1666proto4
 			}
 
 			MouseEventManager.Update();
-			m_viewer.Update(gameTime);
+			m_playingAreaViewer.Update(gameTime);
 
 			base.Update(gameTime);
 		}

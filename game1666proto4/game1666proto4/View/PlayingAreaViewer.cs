@@ -62,9 +62,10 @@ namespace game1666proto4
 		/// </summary>
 		public void Draw()
 		{
-			BasicEffect viewerBasicEffect = CreateViewerBasicEffect();
-			DrawTerrain(viewerBasicEffect);
-			DrawTerrainQuadtree(viewerBasicEffect);
+			Renderer.GraphicsDevice.Viewport = m_viewport;
+			BasicEffect basicEffect = CreateBasicEffect();
+			DrawTerrain(basicEffect);
+			DrawTerrainQuadtree(basicEffect);
 		}
 
 		/// <summary>
@@ -101,13 +102,13 @@ namespace game1666proto4
 		/// Creates the underlying basic effect for the viewer as a whole (ready to be customised).
 		/// </summary>
 		/// <returns>The basic effect.</returns>
-		private BasicEffect CreateViewerBasicEffect()
+		private BasicEffect CreateBasicEffect()
 		{
-			var viewerBasicEffect = new BasicEffect(Renderer.GraphicsDevice);
-			viewerBasicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_viewport.Width / m_viewport.Height, 0.1f, 1000.0f);
-			viewerBasicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
-			viewerBasicEffect.World = Matrix.Identity;
-			return viewerBasicEffect;
+			var basicEffect = new BasicEffect(Renderer.GraphicsDevice);
+			basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_viewport.Width / m_viewport.Height, 0.1f, 1000.0f);
+			basicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
+			basicEffect.World = Matrix.Identity;
+			return basicEffect;
 		}
 
 		/// <summary>
@@ -161,7 +162,7 @@ namespace game1666proto4
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			BasicEffect viewerBasicEffect = CreateViewerBasicEffect();
+			BasicEffect viewerBasicEffect = CreateBasicEffect();
 
 			// Find the point we're hovering over on the near clipping plane.
 			Vector3 near = m_viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
