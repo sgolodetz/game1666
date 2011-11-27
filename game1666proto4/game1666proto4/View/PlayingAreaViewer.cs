@@ -63,11 +63,8 @@ namespace game1666proto4
 		public void Draw()
 		{
 			BasicEffect viewerBasicEffect = CreateViewerBasicEffect();
-
 			DrawTerrain(viewerBasicEffect);
-#if DEBUG
 			DrawTerrainQuadtree(viewerBasicEffect);
-#endif
 		}
 
 		/// <summary>
@@ -106,14 +103,10 @@ namespace game1666proto4
 		/// <returns>The basic effect.</returns>
 		private BasicEffect CreateViewerBasicEffect()
 		{
-			BasicEffect viewerBasicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
-
-			// Set up the view matrix.
+			var viewerBasicEffect = new BasicEffect(Renderer.GraphicsDevice);
+			viewerBasicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_viewport.Width / m_viewport.Height, 0.1f, 1000.0f);
 			viewerBasicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
-
-			// Set up the world matrix.
 			viewerBasicEffect.World = Matrix.Identity;
-
 			return viewerBasicEffect;
 		}
 

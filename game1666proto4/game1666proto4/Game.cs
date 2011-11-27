@@ -81,12 +81,8 @@ namespace game1666proto4
 			GameConfig.Load(@"Content\GameConfig.xml");
 
 			// Set up the renderer.
-			Renderer.DefaultBasicEffect = new BasicEffect(GraphicsDevice);
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
-
-			// Set up the projection matrix.
-			Renderer.DefaultBasicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_graphicsDeviceManager.PreferredBackBufferWidth / m_graphicsDeviceManager.PreferredBackBufferHeight, 0.1f, 1000.0f);
 
 			// Load the world.
 			m_world = World.LoadFromFile(@"Content\TestWorld.xml");

@@ -19,7 +19,6 @@ namespace game1666proto4
 		#region
 
 		public static ContentManager Content			{ get; set; }
-		public static BasicEffect DefaultBasicEffect	{ get; set; }
 		public static GraphicsDevice GraphicsDevice		{ get; set; }
 
 		#endregion
