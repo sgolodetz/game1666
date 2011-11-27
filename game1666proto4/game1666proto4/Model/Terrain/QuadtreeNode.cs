@@ -116,8 +116,47 @@ namespace game1666proto4
 		/// <returns>The nearest terrain grid square hit by the specified ray (if found), or null otherwise.</returns>
 		public Vector2i? PickGridSquare(Ray ray)
 		{
-			// TODO
-			return null;
+			if(m_children != null)
+			{
+				// Find any children whose bounding boxes are hit by the ray, and sort them into
+				// non-decreasing order by distance.
+				var boundingHits = new SortedDictionary<float,QuadtreeNode>();
+				foreach(QuadtreeNode child in m_children)
+				{
+					float? distance = ray.Intersects(child.m_bounds);
+					if(distance != null) boundingHits.Add(distance.Value, child);
+				}
+
+				// Recursively check each child whose bounding box was hit by the ray in order.
+				// If we find a hit, it must be the closest one, so return it.
+				foreach(KeyValuePair<float,QuadtreeNode> boundingHit in boundingHits)
+				{
+					Vector2i? result = boundingHit.Value.PickGridSquare(ray);
+					if(result != null) return result;
+				}
+
+				// If we get here, the ray didn't hit any triangles.
+				return null;
+			}
+			else
+			{
+				// Find the nearest triangle in this leaf that is hit by the ray (if any).
+				float bestDistance = float.MaxValue;
+				Vector2i? bestGridSquare = null;
+				foreach(KeyValuePair<Vector2i,Triangle[]> triangleSet in m_triangleMap)
+				{
+					foreach(Triangle triangle in triangleSet.Value)
+					{
+						float? distance = ray.Intersects(triangle);
+						if(distance < bestDistance)
+						{
+							bestGridSquare = triangleSet.Key;
+							bestDistance = distance.Value;
+						}
+					}
+				}
+				return bestGridSquare;
+			}
 		}
 
 		#endregion
