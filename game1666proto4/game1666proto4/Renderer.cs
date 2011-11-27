@@ -65,6 +65,22 @@ namespace game1666proto4
 			}
 		}
 
+		/// <summary>
+		/// Sets the appropriate settings on the graphics device to prepare for 3D rendering.
+		/// </summary>
+		public static void Setup3D()
+		{
+			// Set up the depth stencil state.
+			var depthStencilState = new DepthStencilState();
+			depthStencilState.DepthBufferEnable = true;
+			GraphicsDevice.DepthStencilState = depthStencilState;
+
+			// Set up the rasterizer state.
+			var rasterizerState = new RasterizerState();
+			rasterizerState.CullMode = CullMode.CullClockwiseFace;
+			GraphicsDevice.RasterizerState = rasterizerState;
+		}
+
 		#endregion
 	}
 }

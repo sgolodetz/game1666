@@ -59,12 +59,6 @@ namespace game1666proto4
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			// Set up the rasterizer state.
-			var rasterizerState = new RasterizerState();
-			rasterizerState.CullMode = CullMode.CullClockwiseFace;
-			GraphicsDevice.RasterizerState = rasterizerState;
-
-			// Draw the playing area and sidebar.
 			m_playingAreaViewer.Draw();
 			m_playingAreaSidebar.Draw();
 

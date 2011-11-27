@@ -63,7 +63,9 @@ namespace game1666proto4
 		public void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = m_viewport;
+			Renderer.Setup3D();
 			BasicEffect basicEffect = CreateBasicEffect();
+
 			DrawTerrain(basicEffect);
 			DrawTerrainQuadtree(basicEffect);
 		}

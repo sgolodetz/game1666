@@ -18,6 +18,7 @@ namespace game1666proto4
 		#region
 
 		private readonly PlayingArea m_playingArea;
+		private readonly SpriteBatch m_spriteBatch;
 		private readonly Viewport m_viewport;
 
 		#endregion
@@ -34,6 +35,7 @@ namespace game1666proto4
 		{
 			m_playingArea = playingArea;
 			m_viewport = viewport;
+			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 		}
 
 		#endregion
@@ -47,13 +49,10 @@ namespace game1666proto4
 		public void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = m_viewport;
-			Renderer.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = false };
 			Texture2D sprite = Renderer.Content.Load<Texture2D>("landscape");
-			var spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			spriteBatch.Begin();
-			spriteBatch.Draw(sprite, m_viewport.Bounds, Color.White);
-			spriteBatch.End();
-			Renderer.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = false };
+			m_spriteBatch.Begin();
+			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, m_viewport.Width, m_viewport.Height), Color.White);
+			m_spriteBatch.End();
 		}
 
 		#endregion
