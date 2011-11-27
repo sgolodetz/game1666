@@ -27,6 +27,11 @@ namespace game1666proto4
 		/// </summary>
 		private readonly PlayingArea m_playingArea;
 
+		/// <summary>
+		/// The viewport into which to draw the playing area.
+		/// </summary>
+		private readonly Viewport m_viewport;
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -36,10 +41,15 @@ namespace game1666proto4
 		/// Constructs a viewer for the specified playing area.
 		/// </summary>
 		/// <param name="playingArea">The playing area to view.</param>
-		public PlayingAreaViewer(PlayingArea playingArea)
+		/// <param name="viewport">The viewport into which to draw the playing area.</param>
+		public PlayingAreaViewer(PlayingArea playingArea, Viewport viewport)
 		{
 			m_playingArea = playingArea;
+			m_viewport = viewport;
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
+
+			// Register input handlers.
+			MouseEventManager.OnMousePressed += OnMousePressed;
 		}
 
 		#endregion
@@ -52,13 +62,7 @@ namespace game1666proto4
 		/// </summary>
 		public void Draw()
 		{
-			BasicEffect viewerBasicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
-
-			// Set up the view matrix.
-			viewerBasicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
-
-			// Set up the world matrix.
-			viewerBasicEffect.World = Matrix.Identity;
+			BasicEffect viewerBasicEffect = CreateViewerBasicEffect();
 
 			DrawTerrain(viewerBasicEffect);
 #if DEBUG
@@ -95,6 +99,23 @@ namespace game1666proto4
 
 		//#################### PRIVATE METHODS ####################
 		#region
+
+		/// <summary>
+		/// Creates the underlying basic effect for the viewer as a whole (ready to be customised).
+		/// </summary>
+		/// <returns>The basic effect.</returns>
+		private BasicEffect CreateViewerBasicEffect()
+		{
+			BasicEffect viewerBasicEffect = Renderer.DefaultBasicEffect.Clone() as BasicEffect;
+
+			// Set up the view matrix.
+			viewerBasicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
+
+			// Set up the world matrix.
+			viewerBasicEffect.World = Matrix.Identity;
+
+			return viewerBasicEffect;
+		}
 
 		/// <summary>
 		/// Draws the playing area's terrain.
@@ -139,6 +160,30 @@ namespace game1666proto4
 			// Draw the node's own bounding box.
 			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
 			Renderer.DrawBoundingBox(node.Bounds, basicEffect, colours[depth % colours.Length]);
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		private void OnMousePressed(MouseState state)
+		{
+			BasicEffect viewerBasicEffect = CreateViewerBasicEffect();
+
+			// Find the point we're hovering over on the near clipping plane.
+			Vector3 near = m_viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+
+			// Find the point we're hovering over on the far clipping plane.
+			Vector3 far = m_viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+
+			// Find the ray (in world space) between them.
+			Vector3 dir = Vector3.Normalize(far - near);
+			var ray = new Ray(near, dir);
+
+			// Output the grid square clicked by the user.
+			Vector2i? gridSquare = m_playingArea.Terrain.QuadtreeRoot.PickGridSquare(ray);
+			if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
+			else					System.Console.WriteLine("No grid square was clicked");
 		}
 
 		#endregion

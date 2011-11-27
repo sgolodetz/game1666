@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input\MouseEventManager.cs" />
     <Compile Include="Math\MathUtil.cs" />
     <Compile Include="Model\Config\GameConfig.cs" />
     <Compile Include="Model\Config\RoadSegmentBlueprint.cs" />

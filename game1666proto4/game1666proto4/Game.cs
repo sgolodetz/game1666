@@ -93,7 +93,7 @@ namespace game1666proto4
 			City city = m_world.GetCity("Stuartopolis");
 
 			// Set up the viewer.
-			m_viewer = new PlayingAreaViewer(city);
+			m_viewer = new PlayingAreaViewer(city, GraphicsDevice.Viewport);
 
 			base.Initialize();
 		}
@@ -127,6 +127,7 @@ namespace game1666proto4
 				Exit();
 			}
 
+			MouseEventManager.Update();
 			m_viewer.Update(gameTime);
 
 			base.Update(gameTime);
