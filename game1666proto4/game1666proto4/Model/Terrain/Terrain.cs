@@ -97,6 +97,25 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Finds the terrain grid square (if any) hit by the specified ray.
+		/// </summary>
+		/// <param name="ray">The ray.</param>
+		/// <returns>The nearest terrain grid square hit by the specified ray (if found), or null otherwise.</returns>
+		public Vector2i? PickGridSquare(Ray ray)
+		{
+			if(ray.Intersects(QuadtreeRoot.Bounds) != null)
+			{
+				return QuadtreeRoot.PickGridSquare(ray);
+			}
+			else return null;
+		}
+
+		#endregion
+
 		//#################### PRIVATE METHODS ####################
 		#region
 

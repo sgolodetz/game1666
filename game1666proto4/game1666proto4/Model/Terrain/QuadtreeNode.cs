@@ -110,7 +110,7 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Finds the terrain grid square (if any) hit by the specified ray.
+		/// Searching the subtree below this quadtree node, find the terrain grid square (if any) hit by the specified ray.
 		/// </summary>
 		/// <param name="ray">The ray.</param>
 		/// <returns>The nearest terrain grid square hit by the specified ray (if found), or null otherwise.</returns>

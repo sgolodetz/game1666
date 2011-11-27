@@ -181,7 +181,7 @@ namespace game1666proto4
 			var ray = new Ray(near, dir);
 
 			// Output the grid square clicked by the user.
-			Vector2i? gridSquare = m_playingArea.Terrain.QuadtreeRoot.PickGridSquare(ray);
+			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 			if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
 			else					System.Console.WriteLine("No grid square was clicked");
 		}
