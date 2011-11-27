@@ -136,7 +136,7 @@ namespace game1666proto3
 			for(int i = 0; i < m_triangles.Length; ++i)
 			{
 				float? distance = ray.Intersects(m_triangles[i]);
-				if(distance != null && distance < bestDistance)
+				if(distance < bestDistance)
 				{
 					bestPickedTriangle = i;
 					bestDistance = distance.Value;
