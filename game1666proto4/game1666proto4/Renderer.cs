@@ -79,6 +79,11 @@ namespace game1666proto4
 			var rasterizerState = new RasterizerState();
 			rasterizerState.CullMode = CullMode.CullClockwiseFace;
 			GraphicsDevice.RasterizerState = rasterizerState;
+
+			// Set up the first sampler state.
+			var samplerState = new SamplerState();
+			samplerState.AddressU = samplerState.AddressV = TextureAddressMode.Wrap;
+			GraphicsDevice.SamplerStates[0] = samplerState;
 		}
 
 		#endregion
