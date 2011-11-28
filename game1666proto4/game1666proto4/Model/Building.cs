@@ -8,7 +8,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : ModelEntity
+	abstract class Building : Entity
 	{
 		// TODO
 	}

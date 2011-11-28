@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: CompositeModelEntity.cs
+ * game1666proto4: CompositeEntity.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -10,9 +10,9 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents a composite entity in the game model, e.g. a city.
+	/// An instance of this class represents a composite entity in the game, e.g. a city.
 	/// </summary>
-	abstract class CompositeModelEntity : ModelEntity
+	abstract class CompositeEntity : Entity
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
@@ -20,14 +20,14 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs a composite entity without any properties.
 		/// </summary>
-		public CompositeModelEntity()
+		public CompositeEntity()
 		{}
 
 		/// <summary>
 		/// Constructs a composite entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeModelEntity(IDictionary<string,string> properties)
+		public CompositeEntity(IDictionary<string,string> properties)
 		:	base(properties)
 		{}
 
@@ -35,7 +35,7 @@ namespace game1666proto4
 		/// Constructs a composite entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
-		public CompositeModelEntity(XElement entityElt)
+		public CompositeEntity(XElement entityElt)
 		:	base(entityElt)
 		{
 			foreach(XElement childElt in entityElt.Elements("entity"))

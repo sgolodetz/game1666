@@ -10,7 +10,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a blueprint for building a road segment.
 	/// </summary>
-	sealed class RoadSegmentBlueprint : ModelEntity
+	sealed class RoadSegmentBlueprint : Entity
 	{
 		//#################### CONSTRUCTORS ####################
 		#region

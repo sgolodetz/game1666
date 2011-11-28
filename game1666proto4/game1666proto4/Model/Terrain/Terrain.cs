@@ -15,7 +15,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a heightmap-based terrain.
 	/// </summary>
-	sealed class Terrain : ModelEntity
+	sealed class Terrain : Entity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

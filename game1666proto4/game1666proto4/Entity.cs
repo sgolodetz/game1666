@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: ModelEntity.cs
+ * game1666proto4: Entity.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -9,9 +9,9 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents an entity in the game model, e.g. a building.
+	/// An instance of this class represents an entity in the game, e.g. a building.
 	/// </summary>
-	abstract class ModelEntity
+	abstract class Entity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -58,7 +58,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs an entity without any properties.
 		/// </summary>
-		public ModelEntity()
+		public Entity()
 		{
 			m_properties = new Dictionary<string,string>();
 		}
@@ -67,7 +67,7 @@ namespace game1666proto4
 		/// Constructs an entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public ModelEntity(IDictionary<string,string> properties)
+		public Entity(IDictionary<string,string> properties)
 		{
 			m_properties = Properties;
 		}
@@ -76,7 +76,7 @@ namespace game1666proto4
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		public ModelEntity(XElement entityElt)
+		public Entity(XElement entityElt)
 		{
 			m_properties = new Dictionary<string,string>();
 

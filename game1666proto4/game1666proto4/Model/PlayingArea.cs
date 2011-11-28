@@ -10,7 +10,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a playing area (e.g. the world or a city).
 	/// </summary>
-	abstract class PlayingArea : CompositeModelEntity
+	abstract class PlayingArea : CompositeEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
