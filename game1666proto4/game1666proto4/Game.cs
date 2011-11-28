@@ -76,7 +76,7 @@ namespace game1666proto4
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
 
-			// Loads the world from an XML file.
+			// Load the world from an XML file.
 			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
 			// Look up the playing area.

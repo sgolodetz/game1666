@@ -59,6 +59,11 @@ namespace game1666proto4
 			AddEntity(entity);
 		}
 
+		/// <summary>
+		/// Gets an entity in the city by its (relative) path.
+		/// </summary>
+		/// <param name="path">The path to the entity.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
 		public dynamic GetEntityByPath(Queue<string> path)
 		{
 			if(path.Count != 0) return null;
