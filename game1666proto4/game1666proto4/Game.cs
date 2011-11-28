@@ -18,8 +18,8 @@ namespace game1666proto4
 		#region
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
-		private PlayingAreaSidebar m_playingAreaSidebar;
 		private PlayingAreaViewer m_playingAreaViewer;
+		private SidebarViewer m_sidebarViewer;
 
 		#endregion
 
@@ -59,7 +59,7 @@ namespace game1666proto4
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			m_playingAreaViewer.Draw();
-			m_playingAreaSidebar.Draw();
+			m_sidebarViewer.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -91,7 +91,7 @@ namespace game1666proto4
 			var sidebarViewport = GraphicsDevice.Viewport;
 			sidebarViewport.Width = GraphicsDevice.Viewport.Width - playingAreaViewport.Width;
 			sidebarViewport.X = playingAreaViewport.Width;
-			m_playingAreaSidebar = new PlayingAreaSidebar(playingArea, sidebarViewport);
+			m_sidebarViewer = new SidebarViewer(playingArea, sidebarViewport);
 
 			base.Initialize();
 		}
