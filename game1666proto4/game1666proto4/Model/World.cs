@@ -78,6 +78,26 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// TODO
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public dynamic GetEntityByPath(Queue<string> path)
+		{
+			if(path.Count != 0)
+			{
+				string first = path.Dequeue();
+				if(first.StartsWith("city:"))
+				{
+					City city = GetCity(first.Substring("city:".Length));
+					return city != null ? city.GetEntityByPath(path) : null;
+				}
+				else return null;
+			}
+			else return this;
+		}
+
+		/// <summary>
 		/// Loads a world from an XML file.
 		/// </summary>
 		/// <param name="filename">The name of the XML file.</param>

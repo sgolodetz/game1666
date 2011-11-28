@@ -27,7 +27,7 @@ namespace game1666proto4
 		public static Vector3 RotateAboutAxis(Vector3 v, float angle, Vector3 axis)
 		{
 			// Check the preconditions.
-			Contract.Assert(Math.Abs(axis.Length() - 1) <= Constants.EPSILON);
+			Contract.Requires(Math.Abs(axis.Length() - 1) <= Constants.EPSILON);
 
 			// Main algorithm.
 			float cosAngle = Convert.ToSingle(Math.Cos(angle)), sinAngle = Convert.ToSingle(Math.Sin(angle));

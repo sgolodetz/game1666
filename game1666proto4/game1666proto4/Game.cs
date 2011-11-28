@@ -20,7 +20,6 @@ namespace game1666proto4
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
 		private PlayingAreaSidebar m_playingAreaSidebar;
 		private PlayingAreaViewer m_playingAreaViewer;
-		private World m_world;
 
 		#endregion
 
@@ -73,27 +72,26 @@ namespace game1666proto4
 		/// </summary>
 		protected override void Initialize()
 		{
-			// Load the game configuration from XML.
-			GameConfig.Load(@"Content\GameConfig.xml");
-
 			// Set up the renderer.
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
 
-			// Load the world.
-			m_world = World.LoadFromFile(@"Content\TestWorld.xml");
-			City city = m_world.GetCity("Stuartopolis");
+			// Load the scene graph from XML.
+			SceneGraph.Load(@"Content\TestWorld.xml");
+
+			// Look up the playing area.
+			PlayingArea playingArea = SceneGraph.GetEntityByPath("world/city:Stuartopolis");
 
 			// Set up the playing area viewer.
 			var playingAreaViewport = GraphicsDevice.Viewport;
 			playingAreaViewport.Width = playingAreaViewport.Width * 4 / 5;
-			m_playingAreaViewer = new PlayingAreaViewer(city, playingAreaViewport);
+			m_playingAreaViewer = new PlayingAreaViewer(playingArea, playingAreaViewport);
 
 			// Set up the sidebar.
 			var sidebarViewport = GraphicsDevice.Viewport;
 			sidebarViewport.Width = GraphicsDevice.Viewport.Width - playingAreaViewport.Width;
 			sidebarViewport.X = playingAreaViewport.Width;
-			m_playingAreaSidebar = new PlayingAreaSidebar(city, sidebarViewport);
+			m_playingAreaSidebar = new PlayingAreaSidebar(playingArea, sidebarViewport);
 
 			base.Initialize();
 		}

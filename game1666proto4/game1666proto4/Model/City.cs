@@ -59,6 +59,12 @@ namespace game1666proto4
 			AddEntity(entity);
 		}
 
+		public dynamic GetEntityByPath(Queue<string> path)
+		{
+			if(path.Count != 0) return null;
+			else return this;
+		}
+
 		#endregion
 	}
 }

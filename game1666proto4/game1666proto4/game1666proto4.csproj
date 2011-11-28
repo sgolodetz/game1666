@@ -166,7 +166,7 @@
   <ItemGroup>
     <Compile Include="Input\MouseEventManager.cs" />
     <Compile Include="Math\MathUtil.cs" />
-    <Compile Include="Model\Config\GameConfig.cs" />
+    <Compile Include="Model\Config\BlueprintManager.cs" />
     <Compile Include="Model\Config\RoadSegmentBlueprint.cs" />
     <Compile Include="Math\Constants.cs" />
     <Compile Include="Math\Geometry\Triangle.cs" />
@@ -188,6 +188,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="SceneGraph.cs" />
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\PlayingAreaViewer.cs" />
     <Compile Include="View\PlayingAreaSidebar.cs" />

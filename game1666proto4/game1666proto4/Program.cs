@@ -23,7 +23,10 @@ namespace game1666proto4
 					game.Run();
 				}
 			}
-			catch(Exception) {}
+			catch(Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 
 		#endregion

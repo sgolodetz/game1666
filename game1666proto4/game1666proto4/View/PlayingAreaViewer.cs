@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Diagnostics.Contracts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -44,6 +45,9 @@ namespace game1666proto4
 		/// <param name="viewport">The viewport into which to draw the playing area.</param>
 		public PlayingAreaViewer(PlayingArea playingArea, Viewport viewport)
 		{
+			// Check the preconditions.
+			Contract.Requires(playingArea != null);
+
 			m_playingArea = playingArea;
 			m_viewport = viewport;
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
