@@ -11,15 +11,28 @@ using System.Xml.XPath;
 namespace game1666proto4
 {
 	/// <summary>
-	/// TODO
+	/// This class represents the scene graph for the game.
 	/// </summary>
 	static class SceneGraph
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static BlueprintManager m_blueprints;
-		private static World m_world;
+		private static BlueprintManager s_blueprints;
+		private static World s_world;
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Loads the game's configuration data, e.g. entity blueprints.
+		/// </summary>
+		static SceneGraph()
+		{
+			LoadBlueprints();
+		}
 
 		#endregion
 
@@ -27,36 +40,29 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Gets an entity in the scene graph by its (relative) path, e.g. "world/city:Stuartopolis".
 		/// </summary>
-		/// <param name="pathString"></param>
-		/// <returns></returns>
+		/// <param name="pathString">The path, as a string.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
 		public static dynamic GetEntityByPath(string pathString)
 		{
 			var path = new Queue<string>(pathString.Split('/').Where(s => !string.IsNullOrEmpty(s)));
 			if(path.Count != 0)
 			{
 				string first = path.Dequeue();
-				if(first == "world")
-				{
-					return m_world.GetEntityByPath(path);
-				}
+				if(first == "blueprints")	return s_blueprints.GetEntityByPath(path);
+				else if(first == "world")	return s_world.GetEntityByPath(path);
 			}
 			return null;
 		}
 
 		/// <summary>
-		/// TODO
+		/// Loads a world from an XML file.
 		/// </summary>
-		/// <param name="worldFilename"></param>
-		public static void Load(string worldFilename)
+		/// <param name="worldFilename">The name of the XML file.</param>
+		public static void LoadWorld(string worldFilename)
 		{
-			if(m_blueprints == null)
-			{
-				LoadBlueprints();
-			}
-
-			m_world = World.LoadFromFile(worldFilename);
+			s_world = World.LoadFromFile(worldFilename);
 		}
 
 		#endregion
@@ -65,12 +71,12 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Loads the entity blueprints.
 		/// </summary>
 		private static void LoadBlueprints()
 		{
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			m_blueprints = new BlueprintManager(doc.XPathSelectElement("config/blueprints"));
+			s_blueprints = new BlueprintManager(doc.XPathSelectElement("config/blueprints"));
 		}
 
 		#endregion

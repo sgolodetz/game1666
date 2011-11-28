@@ -56,8 +56,19 @@ namespace game1666proto4
 		public dynamic GetBlueprint(string name)
 		{
 			dynamic blueprint = null;
-			m_blueprints.TryGetValue(name, blueprint);
+			m_blueprints.TryGetValue(name, out blueprint);
 			return blueprint;
+		}
+
+		/// <summary>
+		/// Gets a blueprint by its (relative) path, e.g. "Dwelling".
+		/// </summary>
+		/// <param name="path">The path to the blueprint.</param>
+		/// <returns>The blueprint, if found, or null otherwise.</returns>
+		public dynamic GetEntityByPath(Queue<string> path)
+		{
+			if(path.Count == 1) return GetBlueprint(path.Dequeue());
+			else return null;
 		}
 
 		#endregion

@@ -76,8 +76,8 @@ namespace game1666proto4
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
 
-			// Load the scene graph from XML.
-			SceneGraph.Load(@"Content\TestWorld.xml");
+			// Loads the world from an XML file.
+			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
 			// Look up the playing area.
 			PlayingArea playingArea = SceneGraph.GetEntityByPath("world/city:Stuartopolis");

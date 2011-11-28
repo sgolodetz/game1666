@@ -78,10 +78,10 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// TODO
+		/// Gets an entity in the world by its (relative) path, e.g. "city:Stuartopolis".
 		/// </summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
+		/// <param name="path">The path to the entity.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
 		public dynamic GetEntityByPath(Queue<string> path)
 		{
 			if(path.Count != 0)
