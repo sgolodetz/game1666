@@ -130,7 +130,6 @@
     <Compile Include="Game.cs" />
     <Compile Include="Math\Geometry\Triangle.cs" />
     <Compile Include="View\CityViewer.cs" />
-    <Compile Include="View\ICompositeViewEntity.cs" />
     <Compile Include="View\IViewEntity.cs" />
   </ItemGroup>
   <ItemGroup>
