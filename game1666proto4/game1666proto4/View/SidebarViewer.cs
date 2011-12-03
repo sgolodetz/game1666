@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,8 +19,19 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		/// <summary>
+		/// The playing area whose entities this sidebar is used to manipulate.
+		/// </summary>
 		private PlayingArea m_playingArea;
+
+		/// <summary>
+		/// The sprite batch used when drawing the sidebar.
+		/// </summary>
 		private SpriteBatch m_spriteBatch;
+
+		/// <summary>
+		/// The viewport into which to draw the sidebar.
+		/// </summary>
 		private Viewport m_viewport;
 
 		#endregion
@@ -30,20 +42,8 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs a sidebar viewer for the specified playing area.
 		/// </summary>
-		/// <param name="playingArea">The playing area.</param>
-		/// <param name="viewport">The viewport into which to draw the sidebar.</param>
-		public SidebarViewer(PlayingArea playingArea, Viewport viewport)
-		{
-			m_playingArea = playingArea;
-			m_viewport = viewport;
-			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-		}
-
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <param name="playingAreaSpecifier"></param>
-		/// <param name="viewportSpecifier"></param>
+		/// <param name="playingAreaSpecifier">The entity reference of the specified playing area.</param>
+		/// <param name="viewportSpecifier">A string specifying the viewport into which to draw the sidebar.</param>
 		public SidebarViewer(string playingAreaSpecifier, string viewportSpecifier)
 		{
 			Properties["PlayingArea"] = playingAreaSpecifier;
@@ -52,9 +52,9 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// TODO
+		/// Constructs a sidebar viewer from its XML representation.
 		/// </summary>
-		/// <param name="entityElt"></param>
+		/// <param name="entityElt">The root node of the viewer's XML representation.</param>
 		public SidebarViewer(XElement entityElt)
 		:	base(entityElt)
 		{
@@ -84,10 +84,13 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Initialises the viewer based on its properties.
 		/// </summary>
 		private void Initialise()
 		{
+			// Enforce the postcondition.
+			Contract.Ensures(m_playingArea != null);
+
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);

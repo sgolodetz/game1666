@@ -40,28 +40,10 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a viewer for the specified playing area.
+		/// Constructs a playing area viewer for the specified playing area.
 		/// </summary>
-		/// <param name="playingArea">The playing area to view.</param>
-		/// <param name="viewport">The viewport into which to draw the playing area.</param>
-		public PlayingAreaViewer(PlayingArea playingArea, Viewport viewport)
-		{
-			// Check the preconditions.
-			Contract.Requires(playingArea != null);
-
-			m_playingArea = playingArea;
-			m_viewport = viewport;
-			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
-
-			// Register input handlers.
-			MouseEventManager.OnMousePressed += OnMousePressed;
-		}
-
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <param name="playingAreaSpecifier"></param>
-		/// <param name="viewportSpecifier"></param>
+		/// <param name="playingAreaSpecifier">The entity reference of the specified playing area.</param>
+		/// <param name="viewportSpecifier">A string specifying the viewport into which to draw the playing area.</param>
 		public PlayingAreaViewer(string playingAreaSpecifier, string viewportSpecifier)
 		{
 			Properties.Add("PlayingArea", playingAreaSpecifier);
@@ -70,9 +52,9 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// TODO
+		/// Constructs a playing area viewer from its XML representation.
 		/// </summary>
-		/// <param name="entityElt"></param>
+		/// <param name="entityElt">The root element of the viewer's XML representation.</param>
 		public PlayingAreaViewer(XElement entityElt)
 		:	base(entityElt)
 		{
@@ -186,10 +168,13 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// TODO
+		/// Initialises the viewer based on its properties.
 		/// </summary>
 		private void Initialise()
 		{
+			// Enforce the postcondition.
+			Contract.Ensures(m_playingArea != null);
+
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);

@@ -79,19 +79,9 @@ namespace game1666proto4
 			// Load the world from an XML file.
 			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
-			// Look up the playing area.
-			PlayingArea playingArea = SceneGraph.GetEntityByPath("world/city:Home");
-
-			// Set up the playing area viewer.
-			var playingAreaViewport = GraphicsDevice.Viewport;
-			playingAreaViewport.Width = playingAreaViewport.Width * 4 / 5;
-			m_playingAreaViewer = new PlayingAreaViewer(playingArea, playingAreaViewport);
-
-			// Set up the sidebar.
-			var sidebarViewport = GraphicsDevice.Viewport;
-			sidebarViewport.Width = GraphicsDevice.Viewport.Width - playingAreaViewport.Width;
-			sidebarViewport.X = playingAreaViewport.Width;
-			m_sidebarViewer = new SidebarViewer(playingArea, sidebarViewport);
+			// Set up the playing area viewer and sidebar.
+			m_playingAreaViewer = new PlayingAreaViewer("world/city:Home", "0,0,0.8,1");
+			m_sidebarViewer = new SidebarViewer("world/city:Home", "0.8,0,0.2,1");
 
 			base.Initialize();
 		}
