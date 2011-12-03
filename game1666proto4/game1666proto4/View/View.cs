@@ -16,9 +16,9 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Constructs a view from its XML representation.
 		/// </summary>
-		/// <param name="entityElt"></param>
+		/// <param name="entityElt">The root element of the view's XML representation.</param>
 		public View(XElement entityElt)
 		:	base(entityElt)
 		{}
@@ -29,16 +29,16 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Adds an entity to the view based on its dynamic type.
 		/// </summary>
-		/// <param name="entity"></param>
+		/// <param name="entity">The entity.</param>
 		public override void AddEntityDynamic(dynamic entity)
 		{
 			// TODO
 		}
 
 		/// <summary>
-		/// TODO
+		/// Draws the view.
 		/// </summary>
 		public void Draw()
 		{
