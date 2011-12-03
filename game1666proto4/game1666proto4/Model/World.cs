@@ -23,6 +23,16 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The player's home city.
+		/// </summary>
+		public string HomeCity { get { return Properties["HomeCity"]; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -89,7 +99,7 @@ namespace game1666proto4
 				string first = path.Dequeue();
 				if(first.StartsWith("city:"))
 				{
-					City city = GetCity(first.Substring("city:".Length));
+					City city = first == "city:Home" ? GetCity(HomeCity) : GetCity(first.Substring("city:".Length));
 					return city != null ? city.GetEntityByPath(path) : null;
 				}
 				else return null;

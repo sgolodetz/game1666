@@ -4,6 +4,7 @@
  ***/
 
 using System.Diagnostics.Contracts;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +14,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class can be used to view a playing area.
 	/// </summary>
-	sealed class PlayingAreaViewer
+	sealed class PlayingAreaViewer : Entity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -21,17 +22,17 @@ namespace game1666proto4
 		/// <summary>
 		/// The 3D camera specifying the position of the viewer.
 		/// </summary>
-		private readonly Camera m_camera;
+		private Camera m_camera;
 
 		/// <summary>
 		/// The playing area to view.
 		/// </summary>
-		private readonly PlayingArea m_playingArea;
+		private PlayingArea m_playingArea;
 
 		/// <summary>
 		/// The viewport into which to draw the playing area.
 		/// </summary>
-		private readonly Viewport m_viewport;
+		private Viewport m_viewport;
 
 		#endregion
 
@@ -54,6 +55,28 @@ namespace game1666proto4
 
 			// Register input handlers.
 			MouseEventManager.OnMousePressed += OnMousePressed;
+		}
+
+		/// <summary>
+		/// TODO
+		/// </summary>
+		/// <param name="playingAreaSpecifier"></param>
+		/// <param name="viewportSpecifier"></param>
+		public PlayingAreaViewer(string playingAreaSpecifier, string viewportSpecifier)
+		{
+			Properties.Add("PlayingArea", playingAreaSpecifier);
+			Properties.Add("Viewport", viewportSpecifier);
+			Initialise();
+		}
+
+		/// <summary>
+		/// TODO
+		/// </summary>
+		/// <param name="entityElt"></param>
+		public PlayingAreaViewer(XElement entityElt)
+		:	base(entityElt)
+		{
+			Initialise();
 		}
 
 		#endregion
@@ -160,6 +183,19 @@ namespace game1666proto4
 			// Draw the node's own bounding box.
 			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
 			Renderer.DrawBoundingBox(node.Bounds, basicEffect, colours[depth % colours.Length]);
+		}
+
+		/// <summary>
+		/// TODO
+		/// </summary>
+		private void Initialise()
+		{
+			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
+			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
+			m_viewport = Renderer.GraphicsDevice.Viewport;	// TEMPORARY
+
+			// Register input handlers.
+			MouseEventManager.OnMousePressed += OnMousePressed;
 		}
 
 		/// <summary>

@@ -80,7 +80,7 @@ namespace game1666proto4
 			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
 			// Look up the playing area.
-			PlayingArea playingArea = SceneGraph.GetEntityByPath("world/city:Stuartopolis");
+			PlayingArea playingArea = SceneGraph.GetEntityByPath("world/city:Home");
 
 			// Set up the playing area viewer.
 			var playingAreaViewport = GraphicsDevice.Viewport;

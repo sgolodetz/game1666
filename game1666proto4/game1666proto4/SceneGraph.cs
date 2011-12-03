@@ -19,6 +19,7 @@ namespace game1666proto4
 		#region
 
 		private static BlueprintManager s_blueprints;
+		private static ViewManager s_views;
 		private static World s_world;
 
 		#endregion
@@ -31,7 +32,8 @@ namespace game1666proto4
 		/// </summary>
 		static SceneGraph()
 		{
-			LoadBlueprints();
+			var doc = XDocument.Load(@"Content\GameConfig.xml");
+			s_blueprints = new BlueprintManager(doc.XPathSelectElement("config/blueprints"));
 		}
 
 		#endregion
@@ -63,20 +65,9 @@ namespace game1666proto4
 		public static void LoadWorld(string worldFilename)
 		{
 			s_world = World.LoadFromFile(worldFilename);
-		}
 
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Loads the entity blueprints.
-		/// </summary>
-		private static void LoadBlueprints()
-		{
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			s_blueprints = new BlueprintManager(doc.XPathSelectElement("config/blueprints"));
+			s_views = new ViewManager(doc.XPathSelectElement("config/views"));
 		}
 
 		#endregion

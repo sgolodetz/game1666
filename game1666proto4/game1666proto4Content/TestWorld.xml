@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <entity type="World">
+  <property name="HomeCity" value="Stuartopolis"/>
   <entity type="Terrain">
     <property name="Width" value="2"/>
     <property name="Height" value="2"/>

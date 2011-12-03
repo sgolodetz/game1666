@@ -192,6 +192,8 @@
     <Compile Include="View\Camera.cs" />
     <Compile Include="View\PlayingAreaViewer.cs" />
     <Compile Include="View\SidebarViewer.cs" />
+    <Compile Include="View\View.cs" />
+    <Compile Include="View\ViewManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Support Files\Game.ico" />

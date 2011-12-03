@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,14 +13,14 @@ namespace game1666proto4
 	/// An instance of this class is used to show a sidebar for a playing area,
 	/// allowing the user to place / remove entities.
 	/// </summary>
-	sealed class SidebarViewer
+	sealed class SidebarViewer : Entity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private readonly PlayingArea m_playingArea;
-		private readonly SpriteBatch m_spriteBatch;
-		private readonly Viewport m_viewport;
+		private PlayingArea m_playingArea;
+		private SpriteBatch m_spriteBatch;
+		private Viewport m_viewport;
 
 		#endregion
 
@@ -36,6 +37,26 @@ namespace game1666proto4
 			m_playingArea = playingArea;
 			m_viewport = viewport;
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
+		}
+
+		public SidebarViewer(string playingAreaSpecifier, string viewportSpecifier)
+		{
+			Properties["PlayingArea"] = playingAreaSpecifier;
+			Properties["Viewport"] = viewportSpecifier;
+			Initialise();
+		}
+
+		public SidebarViewer(XElement entityElt)
+		:	base(entityElt)
+		{
+			Initialise();
+		}
+
+		private void Initialise()
+		{
+			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
+			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
+			m_viewport = Renderer.GraphicsDevice.Viewport;	// TEMPORARY
 		}
 
 		#endregion
