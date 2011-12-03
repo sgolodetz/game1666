@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto4
@@ -22,8 +24,19 @@ namespace game1666proto4
 		/// <returns>The viewport.</returns>
 		public static Viewport ParseViewportSpecifier(string viewportSpecifier)
 		{
-			// TODO
-			return Renderer.GraphicsDevice.Viewport;
+			decimal[] values = viewportSpecifier.Split(',').Select(v => decimal.Parse(v.Trim())).ToArray();
+			if(values.Length == 4)
+			{
+				Viewport fullViewport = Renderer.GraphicsDevice.Viewport;
+				return new Viewport
+				(
+					(int)(values[0] * fullViewport.Width),
+					(int)(values[1] * fullViewport.Height),
+					(int)(values[2] * fullViewport.Width),
+					(int)(values[3] * fullViewport.Height)
+				);
+			}
+			else throw new InvalidDataException("The viewport specifier '" + viewportSpecifier + "' does not have the right number of components.");
 		}
 
 		#endregion
