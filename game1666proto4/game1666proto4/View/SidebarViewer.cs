@@ -39,6 +39,11 @@ namespace game1666proto4
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 		}
 
+		/// <summary>
+		/// TODO
+		/// </summary>
+		/// <param name="playingAreaSpecifier"></param>
+		/// <param name="viewportSpecifier"></param>
 		public SidebarViewer(string playingAreaSpecifier, string viewportSpecifier)
 		{
 			Properties["PlayingArea"] = playingAreaSpecifier;
@@ -46,17 +51,14 @@ namespace game1666proto4
 			Initialise();
 		}
 
+		/// <summary>
+		/// TODO
+		/// </summary>
+		/// <param name="entityElt"></param>
 		public SidebarViewer(XElement entityElt)
 		:	base(entityElt)
 		{
 			Initialise();
-		}
-
-		private void Initialise()
-		{
-			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
-			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion
@@ -74,6 +76,21 @@ namespace game1666proto4
 			m_spriteBatch.Begin();
 			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, m_viewport.Width, m_viewport.Height), Color.White);
 			m_spriteBatch.End();
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// TODO
+		/// </summary>
+		private void Initialise()
+		{
+			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
+			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
+			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion
