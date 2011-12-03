@@ -42,7 +42,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs a sidebar viewer for the specified playing area.
 		/// </summary>
-		/// <param name="playingAreaSpecifier">The entity reference of the specified playing area.</param>
+		/// <param name="playingAreaSpecifier">The entity path of the specified playing area.</param>
 		/// <param name="viewportSpecifier">A string specifying the viewport into which to draw the sidebar.</param>
 		public SidebarViewer(string playingAreaSpecifier, string viewportSpecifier)
 		{
