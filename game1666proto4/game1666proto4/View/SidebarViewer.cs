@@ -56,7 +56,7 @@ namespace game1666proto4
 		{
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			m_viewport = Renderer.GraphicsDevice.Viewport;	// TEMPORARY
+			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion

@@ -192,7 +192,7 @@ namespace game1666proto4
 		{
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
-			m_viewport = Renderer.GraphicsDevice.Viewport;	// TEMPORARY
+			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 
 			// Register input handlers.
 			MouseEventManager.OnMousePressed += OnMousePressed;

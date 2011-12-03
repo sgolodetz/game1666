@@ -194,6 +194,7 @@
     <Compile Include="View\SidebarViewer.cs" />
     <Compile Include="View\View.cs" />
     <Compile Include="View\ViewManager.cs" />
+    <Compile Include="View\ViewUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Support Files\Game.ico" />
