@@ -78,6 +78,15 @@ namespace game1666proto4
 			m_spriteBatch.End();
 		}
 
+		/// <summary>
+		/// Updates the viewer based on user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public override void Update(GameTime gameTime)
+		{
+			// No-op
+		}
+
 		#endregion
 
 		//#################### PRIVATE METHODS ####################

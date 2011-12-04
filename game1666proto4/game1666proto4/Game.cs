@@ -113,7 +113,7 @@ namespace game1666proto4
 			}
 
 			MouseEventManager.Update();
-			//m_playingAreaViewer.Update(gameTime);
+			m_viewManager.Update(gameTime);
 
 			base.Update(gameTime);
 		}

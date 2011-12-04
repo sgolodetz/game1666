@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
@@ -75,6 +76,16 @@ namespace game1666proto4
 		{
 			if(path.Count != 0) return null;
 			else return this;
+		}
+
+		/// <summary>
+		/// Updates the current view based on user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public override void Update(GameTime gameTime)
+		{
+			// TEMPORARY
+			m_views["City"].Update(gameTime);
 		}
 
 		#endregion

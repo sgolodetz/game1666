@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
@@ -65,6 +66,18 @@ namespace game1666proto4
 			foreach(ViewEntity entity in m_children.Values)
 			{
 				entity.Draw();
+			}
+		}
+
+		/// <summary>
+		/// Updates the view based on user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public override void Update(GameTime gameTime)
+		{
+			foreach(ViewEntity entity in m_children.Values)
+			{
+				entity.Update(gameTime);
 			}
 		}
 

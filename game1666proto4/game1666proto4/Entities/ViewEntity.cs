@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
@@ -48,6 +49,12 @@ namespace game1666proto4
 		/// Draws the entity.
 		/// </summary>
 		public abstract void Draw();
+
+		/// <summary>
+		/// Updates the entity based on user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public abstract void Update(GameTime gameTime);
 
 		#endregion
 	}

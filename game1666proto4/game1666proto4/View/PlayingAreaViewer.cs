@@ -80,10 +80,10 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Updates the viewer from one frame to the next, taking user input into account.
+		/// Updates the viewer based on user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		public void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime)
 		{
 			// Determine the linear, horizontal angular, and vertical angular movement rates.
 			float linearRate = 0.006f * gameTime.ElapsedGameTime.Milliseconds;
