@@ -19,6 +19,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The current game view.
+		/// </summary>
+		private string m_currentView = "City";
+
+		/// <summary>
 		/// The different game views, e.g. City, World, etc.
 		/// </summary>
 		private IDictionary<string,View> m_views = new Dictionary<string,View>();
@@ -67,8 +72,7 @@ namespace game1666proto4
 		/// </summary>
 		public override void Draw()
 		{
-			// TEMPORARY
-			m_views["City"].Draw();
+			m_views[m_currentView].Draw();
 		}
 
 		/// <summary>
@@ -88,8 +92,7 @@ namespace game1666proto4
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
-			// TEMPORARY
-			m_views["City"].OnMousePressed(state);
+			m_views[m_currentView].OnMousePressed(state);
 		}
 
 		/// <summary>
@@ -98,8 +101,7 @@ namespace game1666proto4
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			// TEMPORARY
-			m_views["City"].Update(gameTime);
+			m_views[m_currentView].Update(gameTime);
 		}
 
 		#endregion
