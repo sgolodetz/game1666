@@ -16,6 +16,9 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		/// <summary>
+		/// The different game views, e.g. City, World, etc.
+		/// </summary>
 		private IDictionary<string,View> m_views = new Dictionary<string,View>();
 
 		#endregion
@@ -24,9 +27,9 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Constructs a view manager from its XML representation.
 		/// </summary>
-		/// <param name="entityElt"></param>
+		/// <param name="entityElt">The root element of the manager's XML representation.</param>
 		public ViewManager(XElement entityElt)
 		:	base(entityElt)
 		{}
@@ -37,18 +40,18 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Adds a view to the view manager.
 		/// </summary>
-		/// <param name="view"></param>
+		/// <param name="view">The view.</param>
 		public void AddEntity(View view)
 		{
 			m_views[view.Name] = view;
 		}
 
 		/// <summary>
-		/// TODO
+		/// Adds an entity to the view manager based on its dynamic type.
 		/// </summary>
-		/// <param name="entity"></param>
+		/// <param name="entity">The entity.</param>
 		public override void AddEntityDynamic(dynamic entity)
 		{
 			AddEntity(entity);
