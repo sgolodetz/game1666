@@ -51,9 +51,15 @@ namespace game1666proto4
 			var path = new Queue<string>(pathString.Split('/').Where(s => !string.IsNullOrEmpty(s)));
 			if(path.Count != 0)
 			{
-				string first = path.Dequeue();
-				if(first == "blueprints")	return s_blueprints.GetEntityByPath(path);
-				else if(first == "world")	return s_world.GetEntityByPath(path);
+				switch(path.Dequeue())
+				{
+					case "blueprints":
+						return s_blueprints.GetEntityByPath(path);
+					case "views":
+						return s_views.GetEntityByPath(path);
+					case "world":
+						return s_world.GetEntityByPath(path);
+				}
 			}
 			return null;
 		}

@@ -62,7 +62,19 @@ namespace game1666proto4
 		/// </summary>
 		public override void Draw()
 		{
-			// TODO
+			// TEMPORARY
+			m_views["City"].Draw();
+		}
+
+		/// <summary>
+		/// Gets an entity in the view manager by its (relative) path, e.g. "City".
+		/// </summary>
+		/// <param name="path">The path to the entity.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
+		public dynamic GetEntityByPath(Queue<string> path)
+		{
+			if(path.Count != 0) return null;
+			else return this;
 		}
 
 		#endregion

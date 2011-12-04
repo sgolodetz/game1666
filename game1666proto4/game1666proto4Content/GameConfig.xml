@@ -15,12 +15,14 @@
   </blueprints>
   <views>
     <entity type="View">
-      <property name="Name" value="CityView"/>
+      <property name="Name" value="City"/>
       <entity type="PlayingAreaViewer">
+        <property name="Name" value="PlayingAreaViewer"/>
         <property name="PlayingArea" value="world/city:Home"/>
         <property name="Viewport" value="0,0,0.8,1"/>
       </entity>
       <entity type="SidebarViewer">
+        <property name="Name" value="SidebarViewer"/>
         <property name="PlayingArea" value="world/city:Home"/>
         <property name="Viewport" value="0.8,0,0.2,1"/>
         <entity type="SidebarGroup">
@@ -38,12 +40,14 @@
       </entity>
     </entity>
     <entity type="View">
-      <property name="Name" value="WorldView"/>
+      <property name="Name" value="World"/>
       <entity type="PlayingAreaViewer">
+        <property name="Name" value="PlayingAreaViewer"/>
         <property name="PlayingArea" value="world"/>
         <property name="Viewport" value="0,0,0.8,1"/>
       </entity>
       <entity type="SidebarViewer">
+        <property name="Name" value="SidebarViewer"/>
         <property name="PlayingArea" value="world"/>
         <property name="Viewport" value="0.8,0,0.2,1"/>
         <entity type="SidebarGroup">

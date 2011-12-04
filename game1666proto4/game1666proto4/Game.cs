@@ -18,8 +18,7 @@ namespace game1666proto4
 		#region
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
-		private PlayingAreaViewer m_playingAreaViewer;
-		private SidebarViewer m_sidebarViewer;
+		private ViewManager m_viewManager;
 
 		#endregion
 
@@ -58,8 +57,7 @@ namespace game1666proto4
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			m_playingAreaViewer.Draw();
-			m_sidebarViewer.Draw();
+			m_viewManager.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -79,9 +77,8 @@ namespace game1666proto4
 			// Load the world from an XML file.
 			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
-			// Set up the playing area viewer and sidebar.
-			m_playingAreaViewer = new PlayingAreaViewer("world/city:Home", "0,0,0.8,1");
-			m_sidebarViewer = new SidebarViewer("world/city:Home", "0.8,0,0.2,1");
+			// Look up the view manager in the scene graph.
+			m_viewManager = SceneGraph.GetEntityByPath("views");
 
 			base.Initialize();
 		}
@@ -116,7 +113,7 @@ namespace game1666proto4
 			}
 
 			MouseEventManager.Update();
-			m_playingAreaViewer.Update(gameTime);
+			//m_playingAreaViewer.Update(gameTime);
 
 			base.Update(gameTime);
 		}
