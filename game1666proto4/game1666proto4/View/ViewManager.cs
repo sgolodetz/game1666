@@ -30,6 +30,16 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The current game view.
+		/// </summary>
+		public string CurrentView { get { return m_currentView; } set { m_currentView = value; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 

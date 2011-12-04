@@ -107,10 +107,10 @@ namespace game1666proto4
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			if(Keyboard.GetState().IsKeyDown(Keys.Escape))
-			{
-				Exit();
-			}
+			KeyboardState keyState = Keyboard.GetState();
+			if(keyState.IsKeyDown(Keys.Escape))	Exit();
+			if(keyState.IsKeyDown(Keys.F1))		m_viewManager.CurrentView = "City";
+			if(keyState.IsKeyDown(Keys.F2))		m_viewManager.CurrentView = "World";
 
 			MouseEventManager.Update();
 			m_viewManager.Update(gameTime);
