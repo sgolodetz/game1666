@@ -164,21 +164,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CompositeModelEntity.cs" />
-    <Compile Include="Entities\CompositeViewEntity.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntityUtil.cs" />
-    <Compile Include="Entities\ViewEntity.cs" />
+    <Compile Include="Model\CompositeModelEntity.cs" />
+    <Compile Include="View\CompositeViewEntity.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityUtil.cs" />
+    <Compile Include="View\ViewEntity.cs" />
     <Compile Include="Input\MouseEventManager.cs" />
     <Compile Include="Math\MathUtil.cs" />
-    <Compile Include="Model\Config\BlueprintManager.cs" />
-    <Compile Include="Model\Config\RoadSegmentBlueprint.cs" />
+    <Compile Include="Model\Blueprints\BlueprintManager.cs" />
+    <Compile Include="Model\Blueprints\RoadSegmentBlueprint.cs" />
     <Compile Include="Math\Constants.cs" />
     <Compile Include="Math\Geometry\Triangle.cs" />
     <Compile Include="Math\Vectors\Vector2i.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\House.cs" />
-    <Compile Include="Model\Config\HouseBlueprint.cs" />
+    <Compile Include="Model\Blueprints\HouseBlueprint.cs" />
     <Compile Include="Model\Building.cs" />
     <Compile Include="Model\PlayingArea.cs" />
     <Compile Include="Model\RoadNetwork.cs" />
