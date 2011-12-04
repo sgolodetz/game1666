@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
@@ -85,7 +86,12 @@ namespace game1666proto4
 		{
 			foreach(ViewEntity entity in Children)
 			{
-				entity.OnMousePressed(state);
+				Viewport viewport = entity.Viewport;
+				if(viewport.Bounds.Left <= state.X && state.X < viewport.Bounds.Right &&
+				   viewport.Bounds.Top <= state.Y && state.Y < viewport.Bounds.Bottom)
+				{
+					entity.OnMousePressed(state);
+				}
 			}
 		}
 

@@ -30,11 +30,6 @@ namespace game1666proto4
 		/// </summary>
 		private SpriteBatch m_spriteBatch;
 
-		/// <summary>
-		/// The viewport into which to draw the sidebar.
-		/// </summary>
-		private Viewport m_viewport;
-
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -72,10 +67,10 @@ namespace game1666proto4
 		/// </summary>
 		public override void Draw()
 		{
-			Renderer.GraphicsDevice.Viewport = m_viewport;
+			Renderer.GraphicsDevice.Viewport = Viewport;
 			Texture2D sprite = Renderer.Content.Load<Texture2D>("landscape");
 			m_spriteBatch.Begin();
-			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, m_viewport.Width, m_viewport.Height), Color.White);
+			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
 			m_spriteBatch.End();
 		}
 
@@ -112,7 +107,7 @@ namespace game1666proto4
 
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
+			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion

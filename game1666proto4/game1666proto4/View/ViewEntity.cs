@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
@@ -15,6 +16,16 @@ namespace game1666proto4
 	/// </summary>
 	abstract class ViewEntity : Entity
 	{
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The viewport into which to draw the entity.
+		/// </summary>
+		public Viewport Viewport { get; protected set; }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 

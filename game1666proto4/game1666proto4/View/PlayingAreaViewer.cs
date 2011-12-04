@@ -29,11 +29,6 @@ namespace game1666proto4
 		/// </summary>
 		private PlayingArea m_playingArea;
 
-		/// <summary>
-		/// The viewport into which to draw the playing area.
-		/// </summary>
-		private Viewport m_viewport;
-
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -71,7 +66,7 @@ namespace game1666proto4
 		/// </summary>
 		public override void Draw()
 		{
-			Renderer.GraphicsDevice.Viewport = m_viewport;
+			Renderer.GraphicsDevice.Viewport = Viewport;
 			Renderer.Setup3D();
 			BasicEffect basicEffect = CreateBasicEffect();
 
@@ -88,10 +83,10 @@ namespace game1666proto4
 			BasicEffect viewerBasicEffect = CreateBasicEffect();
 
 			// Find the point we're hovering over on the near clipping plane.
-			Vector3 near = m_viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+			Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
 
 			// Find the point we're hovering over on the far clipping plane.
-			Vector3 far = m_viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+			Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
 
 			// Find the ray (in world space) between them.
 			Vector3 dir = Vector3.Normalize(far - near);
@@ -140,7 +135,7 @@ namespace game1666proto4
 		private BasicEffect CreateBasicEffect()
 		{
 			var basicEffect = new BasicEffect(Renderer.GraphicsDevice);
-			basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)m_viewport.Width / m_viewport.Height, 0.1f, 1000.0f);
+			basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Viewport.Width / Viewport.Height, 0.1f, 1000.0f);
 			basicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
 			basicEffect.World = Matrix.Identity;
 			return basicEffect;
@@ -201,7 +196,7 @@ namespace game1666proto4
 
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
-			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
+			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion
