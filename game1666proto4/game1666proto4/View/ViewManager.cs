@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
 {
@@ -33,7 +34,10 @@ namespace game1666proto4
 		/// <param name="entityElt">The root element of the manager's XML representation.</param>
 		public ViewManager(XElement entityElt)
 		:	base(entityElt)
-		{}
+		{
+			// Register input handlers.
+			MouseEventManager.OnMousePressed += OnMousePressed;
+		}
 
 		#endregion
 
@@ -76,6 +80,16 @@ namespace game1666proto4
 		{
 			if(path.Count != 0) return null;
 			else return this;
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public override void OnMousePressed(MouseState state)
+		{
+			// TEMPORARY
+			m_views["City"].OnMousePressed(state);
 		}
 
 		/// <summary>

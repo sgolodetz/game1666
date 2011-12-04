@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
 {
@@ -76,6 +77,15 @@ namespace game1666proto4
 			m_spriteBatch.Begin();
 			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, m_viewport.Width, m_viewport.Height), Color.White);
 			m_spriteBatch.End();
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public override void OnMousePressed(MouseState state)
+		{
+			// TODO
 		}
 
 		/// <summary>

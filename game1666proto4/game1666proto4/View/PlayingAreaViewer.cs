@@ -80,6 +80,30 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public override void OnMousePressed(MouseState state)
+		{
+			BasicEffect viewerBasicEffect = CreateBasicEffect();
+
+			// Find the point we're hovering over on the near clipping plane.
+			Vector3 near = m_viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+
+			// Find the point we're hovering over on the far clipping plane.
+			Vector3 far = m_viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+
+			// Find the ray (in world space) between them.
+			Vector3 dir = Vector3.Normalize(far - near);
+			var ray = new Ray(near, dir);
+
+			// Output the grid square clicked by the user.
+			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
+			if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
+			else					System.Console.WriteLine("No grid square was clicked");
+		}
+
+		/// <summary>
 		/// Updates the viewer based on user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
@@ -178,33 +202,6 @@ namespace game1666proto4
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
-
-			// Register input handlers.
-			MouseEventManager.OnMousePressed += OnMousePressed;
-		}
-
-		/// <summary>
-		/// Handles mouse pressed events.
-		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		private void OnMousePressed(MouseState state)
-		{
-			BasicEffect viewerBasicEffect = CreateBasicEffect();
-
-			// Find the point we're hovering over on the near clipping plane.
-			Vector3 near = m_viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
-
-			// Find the point we're hovering over on the far clipping plane.
-			Vector3 far = m_viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
-
-			// Find the ray (in world space) between them.
-			Vector3 dir = Vector3.Normalize(far - near);
-			var ray = new Ray(near, dir);
-
-			// Output the grid square clicked by the user.
-			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
-			if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
-			else					System.Console.WriteLine("No grid square was clicked");
 		}
 
 		#endregion

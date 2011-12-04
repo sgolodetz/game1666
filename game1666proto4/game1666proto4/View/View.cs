@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
 {
@@ -66,6 +67,18 @@ namespace game1666proto4
 			foreach(ViewEntity entity in m_children.Values)
 			{
 				entity.Draw();
+			}
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public override void OnMousePressed(MouseState state)
+		{
+			foreach(ViewEntity entity in m_children.Values)
+			{
+				entity.OnMousePressed(state);
 			}
 		}
 
