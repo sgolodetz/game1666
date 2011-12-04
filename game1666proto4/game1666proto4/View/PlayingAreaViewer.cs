@@ -14,7 +14,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class can be used to view a playing area.
 	/// </summary>
-	sealed class PlayingAreaViewer : Entity
+	sealed class PlayingAreaViewer : ViewEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -69,7 +69,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the playing area.
 		/// </summary>
-		public void Draw()
+		public override void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = m_viewport;
 			Renderer.Setup3D();

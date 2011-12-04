@@ -10,7 +10,7 @@ namespace game1666proto4
 	/// <summary>
 	/// TODO
 	/// </summary>
-	sealed class View : CompositeEntity
+	sealed class View : CompositeViewEntity
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
@@ -40,7 +40,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the view.
 		/// </summary>
-		public void Draw()
+		public override void Draw()
 		{
 			// TODO
 		}

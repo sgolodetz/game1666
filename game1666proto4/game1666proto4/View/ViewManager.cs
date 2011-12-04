@@ -11,7 +11,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class manages the view hierarchy for the game.
 	/// </summary>
-	sealed class ViewManager : CompositeEntity
+	sealed class ViewManager : CompositeViewEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -55,6 +55,14 @@ namespace game1666proto4
 		public override void AddEntityDynamic(dynamic entity)
 		{
 			AddEntity(entity);
+		}
+
+		/// <summary>
+		/// Draws the current view.
+		/// </summary>
+		public override void Draw()
+		{
+			// TODO
 		}
 
 		#endregion

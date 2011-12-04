@@ -14,7 +14,7 @@ namespace game1666proto4
 	/// An instance of this class is used to show a sidebar for a playing area,
 	/// allowing the user to place / remove entities.
 	/// </summary>
-	sealed class SidebarViewer : Entity
+	sealed class SidebarViewer : ViewEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -69,7 +69,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the sidebar for the playing area.
 		/// </summary>
-		public void Draw()
+		public override void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = m_viewport;
 			Texture2D sprite = Renderer.Content.Load<Texture2D>("landscape");

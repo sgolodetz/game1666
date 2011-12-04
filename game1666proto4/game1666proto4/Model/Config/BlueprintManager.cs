@@ -11,7 +11,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class manages blueprints for the entities in the game.
 	/// </summary>
-	sealed class BlueprintManager : CompositeEntity
+	sealed class BlueprintManager : CompositeModelEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

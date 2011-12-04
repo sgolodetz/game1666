@@ -1,18 +1,17 @@
 ﻿/***
- * game1666proto4: CompositeEntity.cs
+ * game1666proto4: CompositeViewEntity.cs
  * Copyright 2011. All rights reserved.
  ***/
 
-using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents a composite entity in the game, e.g. a city.
+	/// An instance of this class represents a composite view entity in the game, e.g. a sidebar viewer.
 	/// </summary>
-	abstract class CompositeEntity : Entity
+	abstract class CompositeViewEntity : ViewEntity
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
@@ -20,14 +19,14 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs a composite entity without any properties.
 		/// </summary>
-		public CompositeEntity()
+		public CompositeViewEntity()
 		{}
 
 		/// <summary>
 		/// Constructs a composite entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeEntity(IDictionary<string,string> properties)
+		public CompositeViewEntity(IDictionary<string,string> properties)
 		:	base(properties)
 		{}
 
@@ -35,24 +34,12 @@ namespace game1666proto4
 		/// Constructs a composite entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
-		public CompositeEntity(XElement entityElt)
+		public CompositeViewEntity(XElement entityElt)
 		:	base(entityElt)
 		{
-			foreach(XElement childElt in entityElt.Elements("entity"))
+			foreach(dynamic child in EntityUtil.LoadChildEntities(entityElt))
 			{
-				// Look up the C# type of the child entity.
-				string childTypename = "game1666proto4." + Convert.ToString(childElt.Attribute("type").Value);
-				Type childType = Type.GetType(childTypename);
-
-				if(childType != null)
-				{
-					// Construct the child entity and add it as a child of this one.
-					AddEntityDynamic(Activator.CreateInstance(childType, childElt));
-				}
-				else
-				{
-					throw new InvalidOperationException("No such class: " + childTypename);
-				}
+				AddEntityDynamic(child);
 			}
 		}
 

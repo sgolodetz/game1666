@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents an entity in the game, e.g. a building.
+	/// An instance of this class represents an entity in the game.
 	/// </summary>
 	abstract class Entity
 	{
@@ -78,23 +78,7 @@ namespace game1666proto4
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public Entity(XElement entityElt)
 		{
-			m_properties = new Dictionary<string,string>();
-
-			foreach(XElement propertyElt in entityElt.Elements("property"))
-			{
-				// Look up the name of the property.
-				XAttribute nameAttribute = propertyElt.Attribute("name");
-
-				// If the property element has a value attribute, use that. Otherwise, use the text enclosed within the element.
-				XAttribute valueAttribute = propertyElt.Attribute("value");
-				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Trim().Replace(" ", "");
-
-				// Provided the property is valid, store it for later use.
-				if(nameAttribute != null && value != null)
-				{
-					m_properties[nameAttribute.Value] = value;
-				}
-			}
+			m_properties = EntityUtil.LoadProperties(entityElt);
 		}
 
 		#endregion
