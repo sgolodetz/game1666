@@ -25,6 +25,16 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The sub-entities contained within the composite.
+		/// </summary>
+		protected override IEnumerable<ViewEntity> Children { get { return m_children.Values; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -57,41 +67,6 @@ namespace game1666proto4
 		public override void AddEntityDynamic(dynamic entity)
 		{
 			AddEntity(entity);
-		}
-
-		/// <summary>
-		/// Draws the view.
-		/// </summary>
-		public override void Draw()
-		{
-			foreach(ViewEntity entity in m_children.Values)
-			{
-				entity.Draw();
-			}
-		}
-
-		/// <summary>
-		/// Handles mouse pressed events.
-		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		public override void OnMousePressed(MouseState state)
-		{
-			foreach(ViewEntity entity in m_children.Values)
-			{
-				entity.OnMousePressed(state);
-			}
-		}
-
-		/// <summary>
-		/// Updates the view based on user input.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		public override void Update(GameTime gameTime)
-		{
-			foreach(ViewEntity entity in m_children.Values)
-			{
-				entity.Update(gameTime);
-			}
 		}
 
 		#endregion

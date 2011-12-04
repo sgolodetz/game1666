@@ -5,6 +5,8 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4
 {
@@ -13,6 +15,16 @@ namespace game1666proto4
 	/// </summary>
 	abstract class CompositeViewEntity : ViewEntity
 	{
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The sub-entities contained within the composite.
+		/// </summary>
+		abstract protected IEnumerable<ViewEntity> Children { get; }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -53,6 +65,41 @@ namespace game1666proto4
 		/// </summary>
 		/// <param name="entity">The child entity.</param>
 		abstract public void AddEntityDynamic(dynamic entity);
+
+		/// <summary>
+		/// Draws the entity.
+		/// </summary>
+		public override void Draw()
+		{
+			foreach(ViewEntity entity in Children)
+			{
+				entity.Draw();
+			}
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public override void OnMousePressed(MouseState state)
+		{
+			foreach(ViewEntity entity in Children)
+			{
+				entity.OnMousePressed(state);
+			}
+		}
+
+		/// <summary>
+		/// Updates the entity based on user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public override void Update(GameTime gameTime)
+		{
+			foreach(ViewEntity entity in Children)
+			{
+				entity.Update(gameTime);
+			}
+		}
 
 		#endregion
 	}

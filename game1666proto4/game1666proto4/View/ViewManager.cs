@@ -34,6 +34,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The sub-entities contained within the composite.
+		/// </summary>
+		protected override IEnumerable<ViewEntity> Children { get { return m_views.Values; } }
+
+		/// <summary>
 		/// The current game view.
 		/// </summary>
 		public string CurrentView { get { return m_currentView; } set { m_currentView = value; } }
