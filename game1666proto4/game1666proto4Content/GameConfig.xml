@@ -14,7 +14,7 @@
     </entity>
   </blueprints>
   <views>
-    <entity type="View">
+    <entity type="GameView">
       <property name="Name" value="City"/>
       <entity type="PlayingAreaViewer">
         <property name="Name" value="PlayingAreaViewer"/>
@@ -39,7 +39,7 @@
         </entity>
       </entity>
     </entity>
-    <entity type="View">
+    <entity type="GameView">
       <property name="Name" value="World"/>
       <entity type="PlayingAreaViewer">
         <property name="Name" value="PlayingAreaViewer"/>

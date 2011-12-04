@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: View.cs
+ * game1666proto4: GameView.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -13,7 +13,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a particular game view, e.g. the City View.
 	/// </summary>
-	sealed class View : CompositeViewEntity
+	sealed class GameView : CompositeViewEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -42,7 +42,7 @@ namespace game1666proto4
 		/// Constructs a view from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the view's XML representation.</param>
-		public View(XElement entityElt)
+		public GameView(XElement entityElt)
 		:	base(entityElt)
 		{}
 

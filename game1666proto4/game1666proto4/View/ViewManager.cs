@@ -26,7 +26,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The different game views, e.g. City, World, etc.
 		/// </summary>
-		private IDictionary<string,View> m_views = new Dictionary<string,View>();
+		private IDictionary<string,GameView> m_views = new Dictionary<string,GameView>();
 
 		#endregion
 
@@ -68,7 +68,7 @@ namespace game1666proto4
 		/// Adds a view to the view manager.
 		/// </summary>
 		/// <param name="view">The view.</param>
-		public void AddEntity(View view)
+		public void AddEntity(GameView view)
 		{
 			m_views[view.Name] = view;
 		}
