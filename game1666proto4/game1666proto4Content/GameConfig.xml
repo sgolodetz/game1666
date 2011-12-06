@@ -25,18 +25,12 @@
         <property name="Name" value="SidebarViewer"/>
         <property name="PlayingArea" value="world/city:Home"/>
         <property name="Viewport" value="0.8,0,0.2,1"/>
-        <entity type="SidebarGroup">
-          <property name="Name" value="Houses"/>
-          <entity type="SidebarElement">
-            <property name="Name" value="Dwelling"/>
-          </entity>
-        </entity>
-        <entity type="SidebarGroup">
-          <property name="Name" value="Roads"/>
-          <entity type="SidebarElement">
-            <property name="Name" value="DirtTrack"/>
-          </entity>
-        </entity>
+        <group name="Houses">
+          <element name="Dwelling"/>
+        </group>
+        <group name="Roads">
+          <element name="DirtTrack"/>
+        </group>
       </entity>
     </entity>
     <entity type="GameView">
@@ -50,12 +44,9 @@
         <property name="Name" value="SidebarViewer"/>
         <property name="PlayingArea" value="world"/>
         <property name="Viewport" value="0.8,0,0.2,1"/>
-        <entity type="SidebarGroup">
-          <property name="Name" value="Roads"/>
-          <entity type="SidebarElement">
-            <property name="Name" value="DirtTrack"/>
-          </entity>
-        </entity>
+        <group name="Roads">
+          <element name="DirtTrack"/>
+        </group>
       </entity>
     </entity>
   </views>

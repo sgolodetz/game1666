@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
@@ -19,6 +20,11 @@ namespace game1666proto4
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
+
+		/// <summary>
+		/// The groups of entities that the player can manipulate.
+		/// </summary>
+		private readonly IDictionary<string,List<string>> m_groups = new Dictionary<string,List<string>>();
 
 		/// <summary>
 		/// The playing area whose entities this sidebar is used to manipulate.
@@ -54,7 +60,21 @@ namespace game1666proto4
 		public SidebarViewer(XElement entityElt)
 		:	base(entityElt)
 		{
+			// Initialise the sidebar view based on its properties.
 			Initialise();
+
+			// Load in the entity groups.
+			foreach(XElement group in entityElt.Elements("group"))
+			{
+				string groupName = group.Attribute("name").Value;
+				m_groups[groupName] = new List<string>();
+
+				foreach(XElement element in group.Elements("element"))
+				{
+					string elementName = element.Attribute("name").Value;
+					m_groups[groupName].Add(elementName);
+				}
+			}
 		}
 
 		#endregion
