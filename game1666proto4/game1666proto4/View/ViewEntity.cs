@@ -66,13 +66,19 @@ namespace game1666proto4
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		abstract public void OnMousePressed(MouseState state);
+		virtual public void OnMousePressed(MouseState state)
+		{
+			// No-op by default
+		}
 
 		/// <summary>
 		/// Updates the entity based on user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		abstract public void Update(GameTime gameTime);
+		virtual public void Update(GameTime gameTime)
+		{
+			// No-op by default
+		}
 
 		#endregion
 	}
