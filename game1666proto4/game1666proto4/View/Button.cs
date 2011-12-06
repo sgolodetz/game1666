@@ -35,7 +35,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Invoked when a mouse button is pressed.
 		/// </summary>
-		public static event MouseEvent MousePressedHook = delegate {};
+		public event MouseEvent MousePressedHook = delegate {};
 
 		#endregion
 

@@ -109,7 +109,9 @@ namespace game1666proto4
 			}
 
 			// TEMPORARY: This is just a test button.
-			m_groupButtons.Add(new Button("landscape", new Viewport { X = Viewport.X + 10, Y = Viewport.Y + 10, Width = Viewport.Width - 20, Height = 30 }));
+			var button = new Button("landscape", new Viewport { X = Viewport.X + 10, Y = Viewport.Y + 10, Width = Viewport.Width - 20, Height = 30 });
+			button.MousePressedHook += state => System.Console.WriteLine("Clicked");
+			m_groupButtons.Add(button);
 		}
 
 		#endregion
