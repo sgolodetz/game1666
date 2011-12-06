@@ -18,7 +18,7 @@ namespace game1666proto4
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static BlueprintManager s_blueprints;
+		private static readonly BlueprintManager s_blueprints;
 		private static ViewManager s_views;
 		private static World s_world;
 

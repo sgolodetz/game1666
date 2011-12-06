@@ -26,7 +26,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The different game views, e.g. City, World, etc.
 		/// </summary>
-		private IDictionary<string,GameView> m_views = new Dictionary<string,GameView>();
+		private readonly IDictionary<string,GameView> m_views = new Dictionary<string,GameView>();
 
 		#endregion
 

@@ -21,7 +21,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The view entities that together make up the view.
 		/// </summary>
-		private IDictionary<string,ViewEntity> m_children = new Dictionary<string,ViewEntity>();
+		private readonly IDictionary<string,ViewEntity> m_children = new Dictionary<string,ViewEntity>();
 
 		#endregion
 
