@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,7 +25,7 @@ namespace game1666proto4
 		/// <returns>The viewport.</returns>
 		public static Viewport ParseViewportSpecifier(string viewportSpecifier)
 		{
-			decimal[] values = viewportSpecifier.Split(',').Select(v => decimal.Parse(v.Trim())).ToArray();
+			decimal[] values = viewportSpecifier.Split(',').Select(v => decimal.Parse(v.Trim(), CultureInfo.GetCultureInfo("en-GB"))).ToArray();
 			if(values.Length == 4)
 			{
 				Viewport fullViewport = Renderer.GraphicsDevice.Viewport;
