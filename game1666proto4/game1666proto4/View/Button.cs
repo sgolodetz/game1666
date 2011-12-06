@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -17,14 +18,14 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// The name of the texture to use when drawing the button.
+		/// The sprite batch used when drawing the button.
 		/// </summary>
-		private string m_textureName;
+		private SpriteBatch m_spriteBatch;
 
 		/// <summary>
-		/// The viewport specifying the area taken up by the button on the screen.
+		/// The texture used when drawing the button.
 		/// </summary>
-		private Viewport m_viewport;
+		private Texture2D m_texture;
 
 		#endregion
 
@@ -48,8 +49,9 @@ namespace game1666proto4
 		/// <param name="viewport">The viewport specifying the area taken up by the button on the screen.</param>
 		public Button(string textureName, Viewport viewport)
 		{
-			m_textureName = textureName;
-			m_viewport = viewport;
+			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
+			m_texture = Renderer.Content.Load<Texture2D>(textureName);
+			Viewport = viewport;
 		}
 
 		#endregion
@@ -62,7 +64,10 @@ namespace game1666proto4
 		/// </summary>
 		public override void Draw()
 		{
-			// TODO
+			Renderer.GraphicsDevice.Viewport = Viewport;
+			m_spriteBatch.Begin();
+			m_spriteBatch.Draw(m_texture, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
+			m_spriteBatch.End();
 		}
 
 		/// <summary>

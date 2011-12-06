@@ -46,6 +46,11 @@ namespace game1666proto4
 		/// </summary>
 		private SpriteBatch m_spriteBatch;
 
+		/// <summary>
+		/// The texture used when drawing the sidebar.
+		/// </summary>
+		private Texture2D m_texture;
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -102,6 +107,9 @@ namespace game1666proto4
 					m_groups[groupName].Add(elementName);
 				}
 			}
+
+			// TEMPORARY: This is just a test button.
+			m_groupButtons.Add(new Button("landscape", new Viewport { X = Viewport.X + 10, Y = Viewport.Y + 10, Width = Viewport.Width - 20, Height = 30 }));
 		}
 
 		#endregion
@@ -124,12 +132,11 @@ namespace game1666proto4
 		public override void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = Viewport;
-			Texture2D sprite = Renderer.Content.Load<Texture2D>("landscape");
 			m_spriteBatch.Begin();
-			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
+			m_spriteBatch.Draw(m_texture, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
 			m_spriteBatch.End();
 
-			// Draw the group and element buttons.
+			// Draw the sidebar buttons.
 			base.Draw();
 		}
 
@@ -148,6 +155,7 @@ namespace game1666proto4
 
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
+			m_texture = Renderer.Content.Load<Texture2D>("landscape");
 			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
