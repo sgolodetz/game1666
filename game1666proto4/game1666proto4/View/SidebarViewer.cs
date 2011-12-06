@@ -16,13 +16,23 @@ namespace game1666proto4
 	/// An instance of this class is used to show a sidebar for a playing area,
 	/// allowing the user to place / remove entities.
 	/// </summary>
-	sealed class SidebarViewer : ViewEntity
+	sealed class SidebarViewer : CompositeViewEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
-		/// The groups of entities that the player can manipulate.
+		/// The buttons for the individual entities that the player can manipulate.
+		/// </summary>
+		private IList<Button> m_elementButtons = new List<Button>();
+
+		/// <summary>
+		/// The buttons for the groups of entity that the player can manipulate.
+		/// </summary>
+		private IList<Button> m_groupButtons = new List<Button>();
+
+		/// <summary>
+		/// The groups of entity that the player can manipulate.
 		/// </summary>
 		private readonly IDictionary<string,List<string>> m_groups = new Dictionary<string,List<string>>();
 
@@ -35,6 +45,23 @@ namespace game1666proto4
 		/// The sprite batch used when drawing the sidebar.
 		/// </summary>
 		private SpriteBatch m_spriteBatch;
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The sub-entities contained within the composite.
+		/// </summary>
+		protected override IEnumerable<ViewEntity> Children
+		{
+			get
+			{
+				foreach(Button button in m_elementButtons)	yield return button;
+				foreach(Button button in m_groupButtons)	yield return button;
+			}
+		}
 
 		#endregion
 
@@ -83,6 +110,15 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Adds an entity to the viewer based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddEntityDynamic(dynamic entity)
+		{
+			// No-op
+		}
+
+		/// <summary>
 		/// Draws the sidebar for the playing area.
 		/// </summary>
 		public override void Draw()
@@ -92,15 +128,9 @@ namespace game1666proto4
 			m_spriteBatch.Begin();
 			m_spriteBatch.Draw(sprite, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
 			m_spriteBatch.End();
-		}
 
-		/// <summary>
-		/// Handles mouse pressed events.
-		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		public override void OnMousePressed(MouseState state)
-		{
-			// TODO
+			// Draw the group and element buttons.
+			base.Draw();
 		}
 
 		#endregion
