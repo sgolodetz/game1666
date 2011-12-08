@@ -175,9 +175,6 @@ namespace game1666proto4
 				int column = buttonIndex % columns;
 				int row = buttonIndex / columns;
 
-				// TODO: Look up the actual button texture for the specified group.
-				string textureName = "landscape";
-
 				// Construct the viewport for the button based on its location in the grid.
 				var viewport = new Viewport
 				{
@@ -188,7 +185,7 @@ namespace game1666proto4
 				};
 
 				// Construct the actual button and set its mouse pressed handler.
-				var button = new Button(textureName, viewport);
+				var button = new Button("sidebargroup_" + group, viewport);
 				string groupCopy = group;
 				button.MousePressedHook += state => System.Console.WriteLine("Clicked Button: " + groupCopy);
 
