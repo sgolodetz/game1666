@@ -8,6 +8,13 @@
       </property>
       <property name="MaxOccupants" value="2"/>
     </entity>
+    <entity type="HouseBlueprint">
+      <property name="Name" value="Mansion"/>
+      <property name="Footprint">
+        <!-- TODO -->
+      </property>
+      <property name="MaxOccupants" value="10"/>
+    </entity>
     <entity type="RoadSegmentBlueprint">
       <property name="Name" value="DirtTrack"/>
       <!-- TODO -->
@@ -27,6 +34,7 @@
         <property name="Viewport" value="0.8,0,0.2,1"/>
         <group name="Houses">
           <element name="Dwelling"/>
+          <element name="Mansion"/>
         </group>
         <group name="Roads">
           <element name="DirtTrack"/>

@@ -224,7 +224,7 @@ namespace game1666proto4
 			};
 
 			// Determine how the buttons should be laid out.
-			var layout = DetermineButtonLayout(elementButtonsViewport, m_groups[group].Count);
+			var layout = DetermineButtonLayout(elementButtonsViewport, m_groups[group].Count, 3);
 
 			// Construct the buttons and add them to the element buttons list.
 			int buttonIndex = 0;
@@ -235,7 +235,7 @@ namespace game1666proto4
 				int row = buttonIndex / layout.Columns;
 
 				// Construct the button and set its mouse pressed handler.
-				var button = new Button("landscape", ConstructButtonViewport(elementButtonsViewport, layout, row, column));
+				var button = new Button("sidebarelement_" + element, ConstructButtonViewport(elementButtonsViewport, layout, row, column));
 				string elementCopy = element;
 				button.MousePressedHook += state => Console.WriteLine("Clicked Element: " + elementCopy);
 
@@ -261,7 +261,7 @@ namespace game1666proto4
 			};
 
 			// Determine how the buttons should be laid out.
-			var layout = DetermineButtonLayout(groupButtonsViewport, m_groups.Keys.Count);
+			var layout = DetermineButtonLayout(groupButtonsViewport, m_groups.Keys.Count, 2);
 
 			// Construct the buttons and add them to the group buttons list.
 			int buttonIndex = 0;
@@ -288,13 +288,14 @@ namespace game1666proto4
 		/// </summary>
 		/// <param name="buttonsViewport">The viewport for the set of buttons as a whole.</param>
 		/// <param name="buttonCount">The number of buttons that need to be laid out.</param>
+		/// <param name="columns">The number of columns to use for the button grid.</param>
 		/// <returns>The determined button layout.</returns>
-		private static ButtonLayout DetermineButtonLayout(Viewport buttonsViewport, int buttonCount)
+		private static ButtonLayout DetermineButtonLayout(Viewport buttonsViewport, int buttonCount, int columns)
 		{
 			var result = new ButtonLayout();
 
 			// Work out the dimensions of each button.
-			result.Columns = 2;
+			result.Columns = columns;
 			result.Rows = (buttonCount + result.Columns - 1) / result.Columns;	// note: this rounds up when the last row is incomplete
 			result.ButtonWidth = Math.Min((buttonsViewport.Width - HORIZONTAL_SPACING) / result.Columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
 			result.ButtonHeight = Math.Min((buttonsViewport.Height - VERTICAL_SPACING) / result.Rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
