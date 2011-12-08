@@ -148,9 +148,8 @@ namespace game1666proto4
 			var groupButtonsViewport = new Viewport { X = Viewport.X, Y = Viewport.Y, Width = Viewport.Width, Height = Viewport.Height / 3 };
 
 			// Work out how many buttons are needed, and their dimensions.
-			int groupCount = m_groups.Keys.Count;
 			int columns = 2;
-			int rows = (groupCount + columns - 1) / columns;	// note: this has the effect of rounding up when the last row is incomplete
+			int rows = (m_groups.Keys.Count + columns - 1) / columns;	// note: this rounds up when the last row is incomplete
 			int buttonWidth = Math.Min((groupButtonsViewport.Width - HORIZONTAL_SPACING) / columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
 			int buttonHeight = Math.Min((groupButtonsViewport.Height - VERTICAL_SPACING) / rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
 
@@ -164,18 +163,17 @@ namespace game1666proto4
 			int columnWidth = buttonWidth + HORIZONTAL_SPACING;
 			int rowHeight = buttonHeight + VERTICAL_SPACING;
 
-			// Determine the top-left button's x and y offsets from the top-left of the group buttons viewport.
-			// Note that the x offset is calculated so as to centre the buttons in the group buttons viewport.
+			// Determine the top-left button's x offset from the top-left of the group buttons viewport.
+			// This is calculated so as to horizontally centre the buttons in the group buttons viewport.
 			int xOffset = (groupButtonsViewport.Width - (columns * columnWidth - HORIZONTAL_SPACING)) / 2;
-			int yOffset = VERTICAL_SPACING;
 
 			// Construct the buttons and add them to the group button list.
-			int i = 0;
+			int buttonIndex = 0;
 			foreach(string group in m_groups.Keys)
 			{
-				// Work out which row and column we're in.
-				int column = i % columns;
-				int row = i / columns;
+				// Work out in which row and column the button lies.
+				int column = buttonIndex % columns;
+				int row = buttonIndex / columns;
 
 				// TODO: Look up the actual button texture for the specified group.
 				string textureName = "landscape";
@@ -184,7 +182,7 @@ namespace game1666proto4
 				var viewport = new Viewport
 				{
 					X = groupButtonsViewport.X + xOffset + column * columnWidth,
-					Y = groupButtonsViewport.Y + yOffset + row * rowHeight,
+					Y = groupButtonsViewport.Y + VERTICAL_SPACING + row * rowHeight,
 					Width = buttonWidth,
 					Height = buttonHeight
 				};
@@ -197,7 +195,7 @@ namespace game1666proto4
 				// Add the button to the list.
 				m_groupButtons.Add(button);
 
-				++i;
+				++buttonIndex;
 			}
 		}
 
