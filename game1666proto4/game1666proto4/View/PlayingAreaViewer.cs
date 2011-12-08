@@ -41,7 +41,12 @@ namespace game1666proto4
 		public PlayingAreaViewer(XElement entityElt)
 		:	base(entityElt)
 		{
-			Initialise();
+			// Enforce the postcondition.
+			Contract.Ensures(m_playingArea != null);
+
+			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
+			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
+			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion
@@ -172,19 +177,6 @@ namespace game1666proto4
 			// Draw the node's own bounding box.
 			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
 			Renderer.DrawBoundingBox(node.Bounds, basicEffect, colours[depth % colours.Length]);
-		}
-
-		/// <summary>
-		/// Initialises the viewer based on its properties.
-		/// </summary>
-		private void Initialise()
-		{
-			// Enforce the postcondition.
-			Contract.Ensures(m_playingArea != null);
-
-			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
-			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
-			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion
