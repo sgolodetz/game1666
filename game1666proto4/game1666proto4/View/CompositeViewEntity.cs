@@ -36,14 +36,6 @@ namespace game1666proto4
 		{}
 
 		/// <summary>
-		/// Constructs a composite entity directly from a set of properties.
-		/// </summary>
-		/// <param name="properties">The properties of the entity.</param>
-		public CompositeViewEntity(IDictionary<string,string> properties)
-		:	base(properties)
-		{}
-
-		/// <summary>
 		/// Constructs a composite entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>

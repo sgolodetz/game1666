@@ -74,18 +74,6 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a sidebar viewer for the specified playing area.
-		/// </summary>
-		/// <param name="playingAreaSpecifier">The entity path of the specified playing area.</param>
-		/// <param name="viewportSpecifier">A string specifying the viewport into which to draw the sidebar.</param>
-		public SidebarViewer(string playingAreaSpecifier, string viewportSpecifier)
-		{
-			Properties["PlayingArea"] = playingAreaSpecifier;
-			Properties["Viewport"] = viewportSpecifier;
-			Initialise();
-		}
-
-		/// <summary>
 		/// Constructs a sidebar viewer from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the viewer's XML representation.</param>

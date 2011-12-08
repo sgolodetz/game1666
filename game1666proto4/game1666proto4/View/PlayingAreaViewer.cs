@@ -35,18 +35,6 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a playing area viewer for the specified playing area.
-		/// </summary>
-		/// <param name="playingAreaSpecifier">The entity path of the specified playing area.</param>
-		/// <param name="viewportSpecifier">A string specifying the viewport into which to draw the playing area.</param>
-		public PlayingAreaViewer(string playingAreaSpecifier, string viewportSpecifier)
-		{
-			Properties.Add("PlayingArea", playingAreaSpecifier);
-			Properties.Add("Viewport", viewportSpecifier);
-			Initialise();
-		}
-
-		/// <summary>
 		/// Constructs a playing area viewer from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the viewer's XML representation.</param>

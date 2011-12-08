@@ -37,14 +37,6 @@ namespace game1666proto4
 		{}
 
 		/// <summary>
-		/// Constructs an entity directly from a set of properties.
-		/// </summary>
-		/// <param name="properties">The properties of the entity.</param>
-		public ViewEntity(IDictionary<string,string> properties)
-		:	base(properties)
-		{}
-
-		/// <summary>
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
