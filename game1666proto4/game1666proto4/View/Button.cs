@@ -20,12 +20,12 @@ namespace game1666proto4
 		/// <summary>
 		/// The sprite batch used when drawing the button.
 		/// </summary>
-		private SpriteBatch m_spriteBatch;
+		private readonly SpriteBatch m_spriteBatch;
 
 		/// <summary>
 		/// The texture used when drawing the button.
 		/// </summary>
-		private Texture2D m_texture;
+		private readonly Texture2D m_texture;
 
 		#endregion
 

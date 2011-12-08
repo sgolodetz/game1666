@@ -22,12 +22,12 @@ namespace game1666proto4
 		/// <summary>
 		/// The 3D camera specifying the position of the viewer.
 		/// </summary>
-		private Camera m_camera;
+		private readonly Camera m_camera;
 
 		/// <summary>
 		/// The playing area to view.
 		/// </summary>
-		private PlayingArea m_playingArea;
+		private readonly PlayingArea m_playingArea;
 
 		#endregion
 

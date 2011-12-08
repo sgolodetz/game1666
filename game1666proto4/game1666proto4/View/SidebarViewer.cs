@@ -19,6 +19,19 @@ namespace game1666proto4
 	/// </summary>
 	sealed class SidebarViewer : CompositeViewEntity
 	{
+		//#################### CONSTANTS ####################
+		#region
+
+		private const bool ENSURE_SQUARE_BUTTONS = true;
+
+		private const int MAX_BUTTON_WIDTH = int.MaxValue;
+		private const int MAX_BUTTON_HEIGHT = int.MaxValue;
+
+		private const int HORIZONTAL_SPACING = 10;
+		private const int VERTICAL_SPACING = 10;
+
+		#endregion
+
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
@@ -131,13 +144,6 @@ namespace game1666proto4
 		/// </summary>
 		private void CreateGroupButtons()
 		{
-			// Set up layout constants.
-			const bool ENSURE_SQUARE_BUTTONS = true;
-			const int HORIZONTAL_SPACING = 10;
-			const int VERTICAL_SPACING = 10;
-			const int MAX_BUTTON_WIDTH = int.MaxValue;
-			const int MAX_BUTTON_HEIGHT = int.MaxValue;
-
 			// Use the top third of the sidebar as the area in which to place the group buttons.
 			var groupButtonsViewport = new Viewport { X = Viewport.X, Y = Viewport.Y, Width = Viewport.Width, Height = Viewport.Height / 3 };
 
