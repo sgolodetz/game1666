@@ -32,11 +32,57 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### NESTED TYPES ####################
+		#region
+
+		/// <summary>
+		/// An instance of this struct represents the way in which a set of buttons should be laid out (in a grid).
+		/// </summary>
+		private struct ButtonLayout
+		{
+			/// <summary>
+			/// The height of each button.
+			/// </summary>
+			public int ButtonHeight { get; set; }
+
+			/// <summary>
+			/// The width of each button.
+			/// </summary>
+			public int ButtonWidth { get; set; }
+
+			/// <summary>
+			/// The number of columns in the button grid.
+			/// </summary>
+			public int Columns { get; set; }
+
+			/// <summary>
+			/// The width of each column in the button grid (including the horizontal spacing between columns).
+			/// </summary>
+			public int ColumnWidth { get; set; }
+
+			/// <summary>
+			/// The height of each row in the button grid (including the vertical spacing between rows).
+			/// </summary>
+			public int RowHeight { get; set; }
+
+			/// <summary>
+			/// The number of rows in the button grid.
+			/// </summary>
+			public int Rows { get; set; }
+
+			/// <summary>
+			/// The horizontal offset of the top-left button from the top-left of the viewport for the button set.
+			/// </summary>
+			public int XOffset { get; set; }
+		};
+
+		#endregion
+
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
-		/// The buttons for the individual entities that the player can manipulate.
+		/// The buttons for the individual entities in the current group that the player can manipulate.
 		/// </summary>
 		private readonly IList<Button> m_elementButtons = new List<Button>();
 
@@ -140,60 +186,134 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Creates the buttons for the groups of entity that the player can manipulate.
+		/// Constructs the viewport for a button, based on the viewport of the set of buttons containing it, the determined
+		/// grid layout for the set of buttons, and the row and column of the grid in which the button lies.
+		/// </summary>
+		/// <param name="buttonsViewport">The viewport of the containing set of buttons.</param>
+		/// <param name="layout">The determined grid layout for the set of buttons.</param>
+		/// <param name="row">The grid row in which the button lies.</param>
+		/// <param name="column">The grid column in which the button lies.</param>
+		/// <returns></returns>
+		private static Viewport ConstructButtonViewport(Viewport buttonsViewport, ButtonLayout layout, int row, int column)
+		{
+			return new Viewport
+			{
+				X = buttonsViewport.X + layout.XOffset + column * layout.ColumnWidth,
+				Y = buttonsViewport.Y + VERTICAL_SPACING + row * layout.RowHeight,
+				Width = layout.ButtonWidth,
+				Height = layout.ButtonHeight
+			};
+		}
+
+		/// <summary>
+		/// Creates buttons for the individual entities in the specified group.
+		/// </summary>
+		/// <param name="group">The group.</param>
+		private void CreateElementButtons(string group)
+		{
+			// Clear the existing element buttons list ready to fill it with elements from the new group.
+			m_elementButtons.Clear();
+
+			// Use the middle third of the sidebar as the area in which to place the element buttons.
+			var elementButtonsViewport = new Viewport
+			{
+				X = Viewport.X,
+				Y = Viewport.Y + Viewport.Height / 3,
+				Width = Viewport.Width,
+				Height = Viewport.Height / 3
+			};
+
+			// Determine how the buttons should be laid out.
+			var layout = DetermineButtonLayout(elementButtonsViewport, m_groups[group].Count);
+
+			// Construct the buttons and add them to the element buttons list.
+			int buttonIndex = 0;
+			foreach(string element in m_groups[group])
+			{
+				// Work out in which row and column the button lies.
+				int column = buttonIndex % layout.Columns;
+				int row = buttonIndex / layout.Columns;
+
+				// Construct the button and set its mouse pressed handler.
+				var button = new Button("landscape", ConstructButtonViewport(elementButtonsViewport, layout, row, column));
+				string elementCopy = element;
+				button.MousePressedHook += state => Console.WriteLine("Clicked Element: " + elementCopy);
+
+				// Add the button to the list.
+				m_elementButtons.Add(button);
+
+				++buttonIndex;
+			}
+		}
+
+		/// <summary>
+		/// Creates buttons for the groups of entity that the player can manipulate.
 		/// </summary>
 		private void CreateGroupButtons()
 		{
 			// Use the top third of the sidebar as the area in which to place the group buttons.
-			var groupButtonsViewport = new Viewport { X = Viewport.X, Y = Viewport.Y, Width = Viewport.Width, Height = Viewport.Height / 3 };
-
-			// Work out how many buttons are needed, and their dimensions.
-			int columns = 2;
-			int rows = (m_groups.Keys.Count + columns - 1) / columns;	// note: this rounds up when the last row is incomplete
-			int buttonWidth = Math.Min((groupButtonsViewport.Width - HORIZONTAL_SPACING) / columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
-			int buttonHeight = Math.Min((groupButtonsViewport.Height - VERTICAL_SPACING) / rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
-
-			if(ENSURE_SQUARE_BUTTONS)
+			var groupButtonsViewport = new Viewport
 			{
-				// Ensure that the buttons are square.
-				buttonWidth = buttonHeight = Math.Min(buttonWidth, buttonHeight);
-			}
+				X = Viewport.X,
+				Y = Viewport.Y,
+				Width = Viewport.Width,
+				Height = Viewport.Height / 3
+			};
 
-			// Work out the width of columns and the height of rows in the button grid.
-			int columnWidth = buttonWidth + HORIZONTAL_SPACING;
-			int rowHeight = buttonHeight + VERTICAL_SPACING;
+			// Determine how the buttons should be laid out.
+			var layout = DetermineButtonLayout(groupButtonsViewport, m_groups.Keys.Count);
 
-			// Determine the top-left button's x offset from the top-left of the group buttons viewport.
-			// This is calculated so as to horizontally centre the buttons in the group buttons viewport.
-			int xOffset = (groupButtonsViewport.Width - (columns * columnWidth - HORIZONTAL_SPACING)) / 2;
-
-			// Construct the buttons and add them to the group button list.
+			// Construct the buttons and add them to the group buttons list.
 			int buttonIndex = 0;
 			foreach(string group in m_groups.Keys)
 			{
 				// Work out in which row and column the button lies.
-				int column = buttonIndex % columns;
-				int row = buttonIndex / columns;
+				int column = buttonIndex % layout.Columns;
+				int row = buttonIndex / layout.Columns;
 
-				// Construct the viewport for the button based on its location in the grid.
-				var viewport = new Viewport
-				{
-					X = groupButtonsViewport.X + xOffset + column * columnWidth,
-					Y = groupButtonsViewport.Y + VERTICAL_SPACING + row * rowHeight,
-					Width = buttonWidth,
-					Height = buttonHeight
-				};
-
-				// Construct the actual button and set its mouse pressed handler.
-				var button = new Button("sidebargroup_" + group, viewport);
+				// Construct the button and set its mouse pressed handler.
+				var button = new Button("sidebargroup_" + group, ConstructButtonViewport(groupButtonsViewport, layout, row, column));
 				string groupCopy = group;
-				button.MousePressedHook += state => System.Console.WriteLine("Clicked Button: " + groupCopy);
+				button.MousePressedHook += state => CreateElementButtons(groupCopy);
 
 				// Add the button to the list.
 				m_groupButtons.Add(button);
 
 				++buttonIndex;
 			}
+		}
+
+		/// <summary>
+		/// Determines how a set of buttons should be laid out.
+		/// </summary>
+		/// <param name="buttonsViewport">The viewport for the set of buttons as a whole.</param>
+		/// <param name="buttonCount">The number of buttons that need to be laid out.</param>
+		/// <returns>The determined button layout.</returns>
+		private static ButtonLayout DetermineButtonLayout(Viewport buttonsViewport, int buttonCount)
+		{
+			var result = new ButtonLayout();
+
+			// Work out the dimensions of each button.
+			result.Columns = 2;
+			result.Rows = (buttonCount + result.Columns - 1) / result.Columns;	// note: this rounds up when the last row is incomplete
+			result.ButtonWidth = Math.Min((buttonsViewport.Width - HORIZONTAL_SPACING) / result.Columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
+			result.ButtonHeight = Math.Min((buttonsViewport.Height - VERTICAL_SPACING) / result.Rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
+
+			if(ENSURE_SQUARE_BUTTONS)
+			{
+				// Ensure that the buttons are square.
+				result.ButtonWidth = result.ButtonHeight = Math.Min(result.ButtonWidth, result.ButtonHeight);
+			}
+
+			// Work out the width of columns and the height of rows in the button grid.
+			result.ColumnWidth = result.ButtonWidth + HORIZONTAL_SPACING;
+			result.RowHeight = result.ButtonHeight + VERTICAL_SPACING;
+
+			// Determine the top-left button's x offset from the top-left of the group buttons viewport.
+			// This is calculated so as to horizontally centre the buttons in the group buttons viewport.
+			result.XOffset = (buttonsViewport.Width - (result.Columns * result.ColumnWidth - HORIZONTAL_SPACING)) / 2;
+
+			return result;
 		}
 
 		/// <summary>
