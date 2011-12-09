@@ -35,8 +35,8 @@ namespace game1666proto4
 			{
 				m_graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
 			}
-			m_graphicsDeviceManager.PreferredBackBufferWidth = 800;
-			m_graphicsDeviceManager.PreferredBackBufferHeight = 600;
+			m_graphicsDeviceManager.PreferredBackBufferWidth = 1024;
+			m_graphicsDeviceManager.PreferredBackBufferHeight = 768;
 			m_graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
 
 			this.IsMouseVisible = true;

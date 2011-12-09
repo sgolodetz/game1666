@@ -27,8 +27,8 @@ namespace game1666proto4
 		private const int MAX_BUTTON_WIDTH = int.MaxValue;
 		private const int MAX_BUTTON_HEIGHT = int.MaxValue;
 
-		private const int HORIZONTAL_SPACING = 10;
-		private const int VERTICAL_SPACING = 10;
+		private const int HORIZONTAL_SPACING = 20;
+		private const int VERTICAL_SPACING = 20;
 
 		#endregion
 
@@ -145,7 +145,7 @@ namespace game1666proto4
 
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			m_texture = Renderer.Content.Load<Texture2D>("landscape");
+			m_texture = Renderer.Content.Load<Texture2D>("sidebarbackground");
 			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 
 			LoadEntityGroups(entityElt);
