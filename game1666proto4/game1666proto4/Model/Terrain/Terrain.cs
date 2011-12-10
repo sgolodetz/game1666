@@ -71,24 +71,16 @@ namespace game1666proto4
 		public Terrain(XElement entityElt)
 		:	base(entityElt)
 		{
-			// Look up the width and height of the terrain grid in the properties loaded in from XML,
-			// and construct an appropriately-sized heightmap.
-			int heightmapWidth = Convert.ToInt32(Properties["Width"]);
-			int heightmapHeight = Convert.ToInt32(Properties["Height"]);
-			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
-			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
-
-			// Parse the heightmap values from the properties loaded in from XML.
-			List<float> heightmapValues = Properties["Heightmap"].Split(new char[] { ',' }).Select(s => Convert.ToSingle(s.Trim())).ToList();
-
-			// Fill in the heightmap with these values.
-			int valueIndex = 0;
-			for(int y = 0; y < heightmapHeight; ++y)
+			float[,] heightmap = null;
+			if(Properties.ContainsKey("AssetHeightmap"))
 			{
-				for(int x = 0; x < heightmapWidth; ++x)
-				{
-					heightmap[y,x] = heightmapValues[valueIndex++] * zScaling;
-				}
+				// Load a heightmap from the specified XNA texture asset.
+				heightmap = LoadHeightmapFromAsset(Properties["AssetHeightmap"]);
+			}
+			else
+			{
+				// Create a heightmap from the properties loaded in from XML.
+				heightmap = CreateHeightmapFromProperties();
 			}
 
 			// Use the heightmap to initialise the terrain.
@@ -118,6 +110,35 @@ namespace game1666proto4
 
 		//#################### PRIVATE METHODS ####################
 		#region
+
+		/// <summary>
+		// Create a heightmap from the properties loaded in from XML.
+		/// </summary>
+		/// <returns>The heightmap.</returns>
+		private float[,] CreateHeightmapFromProperties()
+		{
+			// Look up the width and height of the terrain grid in the properties loaded in from XML,
+			// and construct an appropriately-sized heightmap.
+			int heightmapWidth = Convert.ToInt32(Properties["Width"]);
+			int heightmapHeight = Convert.ToInt32(Properties["Height"]);
+			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
+			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
+
+			// Parse the heightmap values from the properties loaded in from XML.
+			List<float> heightmapValues = Properties["Heightmap"].Split(new char[] { ',' }).Select(s => Convert.ToSingle(s.Trim())).ToList();
+
+			// Fill in the heightmap with these values.
+			int valueIndex = 0;
+			for(int y = 0; y < heightmapHeight; ++y)
+			{
+				for(int x = 0; x < heightmapWidth; ++x)
+				{
+					heightmap[y,x] = heightmapValues[valueIndex++] * zScaling;
+				}
+			}
+
+			return heightmap;
+		}
 
 		/// <summary>
 		/// Constructs the vertex and index buffers for the terrain (for use when rendering the terrain).
@@ -180,6 +201,33 @@ namespace game1666proto4
 			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
 			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
+		}
+
+		/// <summary>
+		/// Loads a heightmap from an XNA texture asset.
+		/// </summary>
+		/// <param name="assetName">The name of the asset.</param>
+		/// <returns>The heightmap.</returns>
+		private float[,] LoadHeightmapFromAsset(string assetName)
+		{
+			// Load the texture and get the heightmap data from it.
+			Texture2D texture = Renderer.Content.Load<Texture2D>(assetName);
+			var heightmapValues = new Color[texture.Width * texture.Height];
+			texture.GetData(heightmapValues);
+
+			// Create the heightmap from the heightmap data.
+			var heightmap = new float[texture.Height, texture.Width];
+			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
+			int valueIndex = 0;
+			for(int y = 0; y < texture.Height; ++y)
+			{
+				for(int x = 0; x < texture.Width; ++x)
+				{
+					// Note: It's a greyscale image, so all the RGB components will be equal here.
+					heightmap[y,x] = (float)heightmapValues[valueIndex++].R * zScaling;
+				}
+			}
+			return heightmap;
 		}
 
 		#endregion

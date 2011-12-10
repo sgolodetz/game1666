@@ -2,13 +2,8 @@
 <entity type="World">
   <property name="HomeCity" value="Stuartopolis"/>
   <entity type="Terrain">
-    <property name="Width" value="2"/>
-    <property name="Height" value="2"/>
-    <property name="ZScaling" value="0.25"/>
-    <property name="Heightmap">
-      1,1,
-      1,1
-    </property>
+    <property name="ZScaling" value="0.1"/>
+    <property name="AssetHeightmap" value="testworldheightmap"/>
   </entity>
   <entity type="City">
     <property name="Name" value="Stuartopolis"/>
