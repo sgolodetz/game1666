@@ -76,22 +76,25 @@ namespace game1666proto4
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
-			BasicEffect viewerBasicEffect = CreateBasicEffect();
+			if(state.LeftButton == ButtonState.Pressed)
+			{
+				BasicEffect viewerBasicEffect = CreateBasicEffect();
 
-			// Find the point we're hovering over on the near clipping plane.
-			Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+				// Find the point we're hovering over on the near clipping plane.
+				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
 
-			// Find the point we're hovering over on the far clipping plane.
-			Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+				// Find the point we're hovering over on the far clipping plane.
+				Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
 
-			// Find the ray (in world space) between them.
-			Vector3 dir = Vector3.Normalize(far - near);
-			var ray = new Ray(near, dir);
+				// Find the ray (in world space) between them.
+				Vector3 dir = Vector3.Normalize(far - near);
+				var ray = new Ray(near, dir);
 
-			// Output the grid square clicked by the user.
-			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
-			if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
-			else					System.Console.WriteLine("No grid square was clicked");
+				// Output the grid square clicked by the user.
+				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
+				if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
+				else					System.Console.WriteLine("No grid square was clicked");
+			}
 		}
 
 		/// <summary>
@@ -108,17 +111,26 @@ namespace game1666proto4
 			float angularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 
 			// Alter the camera based on user input.
-			KeyboardState state = Keyboard.GetState();
-			if(state.IsKeyDown(Keys.W))		m_camera.MoveN(linearRate);
-			if(state.IsKeyDown(Keys.S))		m_camera.MoveN(-linearRate);
-			if(state.IsKeyDown(Keys.A))		m_camera.MoveU(linearRate);
-			if(state.IsKeyDown(Keys.D))		m_camera.MoveU(-linearRate);
-			if(state.IsKeyDown(Keys.Q))		m_camera.MoveV(linearRate);
-			if(state.IsKeyDown(Keys.E))		m_camera.MoveV(-linearRate);
-			if(state.IsKeyDown(Keys.Left))	m_camera.Rotate(new Vector3(0,0,1), angularRateH);
-			if(state.IsKeyDown(Keys.Right))	m_camera.Rotate(new Vector3(0,0,1), -angularRateH);
-			if(state.IsKeyDown(Keys.Up))	m_camera.Rotate(m_camera.U, angularRateV);
-			if(state.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -angularRateV);
+			KeyboardState keyState = Keyboard.GetState();
+			if(keyState.IsKeyDown(Keys.W))		m_camera.MoveN(linearRate);
+			if(keyState.IsKeyDown(Keys.S))		m_camera.MoveN(-linearRate);
+			if(keyState.IsKeyDown(Keys.A))		m_camera.MoveU(linearRate);
+			if(keyState.IsKeyDown(Keys.D))		m_camera.MoveU(-linearRate);
+			if(keyState.IsKeyDown(Keys.Q))		m_camera.MoveV(linearRate);
+			if(keyState.IsKeyDown(Keys.E))		m_camera.MoveV(-linearRate);
+			if(keyState.IsKeyDown(Keys.Left))	m_camera.Rotate(new Vector3(0,0,1), angularRateH);
+			if(keyState.IsKeyDown(Keys.Right))	m_camera.Rotate(new Vector3(0,0,1), -angularRateH);
+			if(keyState.IsKeyDown(Keys.Up))		m_camera.Rotate(m_camera.U, angularRateV);
+			if(keyState.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -angularRateV);
+
+			MouseState mouseState = Mouse.GetState();
+			if(mouseState.RightButton == ButtonState.Pressed)
+			{
+				float xOffset = Viewport.X + Viewport.Width * 0.5f - mouseState.X;
+				float yOffset = mouseState.Y - (Viewport.Y + Viewport.Height * 0.5f);
+				m_camera.Rotate(new Vector3(0,0,1), xOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+				m_camera.Rotate(m_camera.U, yOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+			}
 		}
 
 		#endregion

@@ -120,19 +120,35 @@ namespace game1666proto4
 			{
 				// Find any children whose bounding boxes are hit by the ray, and sort them into
 				// non-decreasing order by distance.
-				var boundingHits = new SortedDictionary<float,QuadtreeNode>();
+				var boundingHits = new SortedDictionary<float,List<QuadtreeNode>>();
 				foreach(QuadtreeNode child in m_children)
 				{
 					float? distance = ray.Intersects(child.m_bounds);
-					if(distance != null) boundingHits.Add(distance.Value, child);
+					if(distance != null)
+					{
+						List<QuadtreeNode> nodes;
+						if(boundingHits.ContainsKey(distance.Value))
+						{
+							nodes = boundingHits[distance.Value];
+						}
+						else
+						{
+							nodes = new List<QuadtreeNode>();
+							boundingHits.Add(distance.Value, nodes);
+						}
+						nodes.Add(child);
+					}
 				}
 
 				// Recursively check each child whose bounding box was hit by the ray in order.
 				// If we find a hit, it must be the closest one, so return it.
-				foreach(KeyValuePair<float,QuadtreeNode> boundingHit in boundingHits)
+				foreach(KeyValuePair<float,List<QuadtreeNode>> kv in boundingHits)
 				{
-					Vector2i? result = boundingHit.Value.PickGridSquare(ray);
-					if(result != null) return result;
+					foreach(QuadtreeNode boundingHit in kv.Value)
+					{
+						Vector2i? result = boundingHit.PickGridSquare(ray);
+						if(result != null) return result;
+					}
 				}
 
 				// If we get here, the ray didn't hit any triangles.
