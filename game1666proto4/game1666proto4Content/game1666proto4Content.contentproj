@@ -49,14 +49,6 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GameConfig.xsd">
-      <SubType>Designer</SubType>
-      <Name>GameConfig</Name>
-    </None>
-    <None Include="GameWorld.xsd">
-      <SubType>Designer</SubType>
-      <Name>GameWorld</Name>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="landscape.jpg">
