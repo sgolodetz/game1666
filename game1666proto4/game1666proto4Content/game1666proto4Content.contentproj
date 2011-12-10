@@ -51,6 +51,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="heightmap_TestWorld.png">
+      <Name>heightmap_TestWorld</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="landscape.jpg">
       <Name>landscape</Name>
       <Importer>TextureImporter</Importer>
@@ -103,15 +108,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="heightmap_TestWorld.png">
-      <Name>heightmap_TestWorld</Name>
+    <Compile Include="snow.png">
+      <Name>snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="snow.png">
-      <Name>snow</Name>
+    <Compile Include="grass.png">
+      <Name>grass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="heightmap_Riemers.png">
+      <Name>heightmap_Riemers</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -146,7 +146,7 @@ namespace game1666proto4
 		private void DrawTerrain(BasicEffect viewerBasicEffect)
 		{
 			BasicEffect basicEffect = viewerBasicEffect.Clone() as BasicEffect;
-			basicEffect.Texture = Renderer.Content.Load<Texture2D>("landscape");
+			basicEffect.Texture = Renderer.Content.Load<Texture2D>("grass");
 			basicEffect.TextureEnabled = true;
 			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, basicEffect);
 		}

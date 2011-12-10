@@ -159,7 +159,7 @@ namespace game1666proto4
 				for(int x = 0; x < heightmapWidth; ++x)
 				{
 					var position = new Vector3(x, y, Heightmap[y,x]);
-					var texCoords = new Vector2(x, y);
+					var texCoords = new Vector2(x * 2f / heightmapWidth, y * 2f / heightmapHeight);
 					vertices[vertIndex++] = new VertexPositionTexture(position, texCoords);
 				}
 			}
