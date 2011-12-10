@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
@@ -100,7 +101,9 @@ namespace game1666proto4
 		public override void Update(GameTime gameTime)
 		{
 			// Determine the linear, horizontal angular, and vertical angular movement rates.
-			float linearRate = 0.006f * gameTime.ElapsedGameTime.Milliseconds;
+			float[,] heightmap = m_playingArea.Terrain.Heightmap;
+			float scalingFactor = Math.Max(heightmap.GetLength(0), heightmap.GetLength(1));
+			float linearRate = 0.0005f * scalingFactor * gameTime.ElapsedGameTime.Milliseconds;
 			float angularRateH = 0.002f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 			float angularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 

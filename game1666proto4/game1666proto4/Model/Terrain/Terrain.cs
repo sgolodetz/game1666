@@ -21,11 +21,6 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// The heightmap for the terrain.
-		/// </summary>
-		private float[,] m_heightmap;
-
-		/// <summary>
 		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
 		/// </summary>
 		private bool[,] m_occupancy;
@@ -34,6 +29,11 @@ namespace game1666proto4
 
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The heightmap for the terrain.
+		/// </summary>
+		public float[,] Heightmap { get; private set; }
 
 		/// <summary>
 		/// The terrain's index buffer (for use when rendering the terrain).
@@ -145,8 +145,8 @@ namespace game1666proto4
 		/// </summary>
 		private void ConstructBuffers()
 		{
-			int heightmapHeight = m_heightmap.GetLength(0);
-			int heightmapWidth = m_heightmap.GetLength(1);
+			int heightmapHeight = Heightmap.GetLength(0);
+			int heightmapWidth = Heightmap.GetLength(1);
 			int gridHeight = heightmapHeight - 1;
 			int gridWidth = heightmapWidth - 1;
 
@@ -158,7 +158,7 @@ namespace game1666proto4
 			{
 				for(int x = 0; x < heightmapWidth; ++x)
 				{
-					var position = new Vector3(x, y, m_heightmap[y,x]);
+					var position = new Vector3(x, y, Heightmap[y,x]);
 					var texCoords = new Vector2(x, y);
 					vertices[vertIndex++] = new VertexPositionTexture(position, texCoords);
 				}
@@ -197,7 +197,7 @@ namespace game1666proto4
 		/// <param name="heightmap">The heightmap.</param>
 		private void Initialise(float[,] heightmap)
 		{
-			m_heightmap = heightmap;
+			Heightmap = heightmap;
 			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
 			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
