@@ -64,7 +64,9 @@ namespace game1666proto4
 			BasicEffect basicEffect = CreateBasicEffect();
 
 			DrawTerrain(basicEffect);
-			DrawTerrainQuadtree(basicEffect);
+
+			// For debugging purposes only.
+			//DrawTerrainQuadtree(basicEffect);
 		}
 
 		/// <summary>
