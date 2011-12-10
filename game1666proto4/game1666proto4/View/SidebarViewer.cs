@@ -199,7 +199,7 @@ namespace game1666proto4
 			return new Viewport
 			{
 				X = buttonsViewport.X + layout.XOffset + column * layout.ColumnWidth,
-				Y = buttonsViewport.Y + VERTICAL_SPACING + row * layout.RowHeight,
+				Y = buttonsViewport.Y + row * layout.RowHeight,
 				Width = layout.ButtonWidth,
 				Height = layout.ButtonHeight
 			};
@@ -215,12 +215,13 @@ namespace game1666proto4
 			m_elementButtons.Clear();
 
 			// Use the middle third of the sidebar as the area in which to place the element buttons.
+			int margin = (int)(Viewport.Width / 10);
 			var elementButtonsViewport = new Viewport
 			{
-				X = Viewport.X,
-				Y = Viewport.Y + Viewport.Height / 3,
-				Width = Viewport.Width,
-				Height = Viewport.Height / 3
+				X = Viewport.X + margin,
+				Y = Viewport.Y + margin + Viewport.Height / 3,
+				Width = Viewport.Width - 2 * margin,
+				Height = Viewport.Height / 3 - 2 * margin
 			};
 
 			// Determine how the buttons should be laid out.
@@ -252,12 +253,13 @@ namespace game1666proto4
 		private void CreateGroupButtons()
 		{
 			// Use the top third of the sidebar as the area in which to place the group buttons.
+			int margin = (int)(Viewport.Width / 10);
 			var groupButtonsViewport = new Viewport
 			{
-				X = Viewport.X,
-				Y = Viewport.Y,
-				Width = Viewport.Width,
-				Height = Viewport.Height / 3
+				X = Viewport.X + margin,
+				Y = Viewport.Y + margin,
+				Width = Viewport.Width - 2 * margin,
+				Height = Viewport.Height / 3 - 2 * margin
 			};
 
 			// Determine how the buttons should be laid out.
@@ -297,8 +299,8 @@ namespace game1666proto4
 			// Work out the dimensions of each button.
 			result.Columns = columns;
 			result.Rows = (buttonCount + result.Columns - 1) / result.Columns;	// note: this rounds up when the last row is incomplete
-			result.ButtonWidth = Math.Min((buttonsViewport.Width - HORIZONTAL_SPACING) / result.Columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
-			result.ButtonHeight = Math.Min((buttonsViewport.Height - VERTICAL_SPACING) / result.Rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
+			result.ButtonWidth = Math.Min((buttonsViewport.Width + HORIZONTAL_SPACING) / result.Columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
+			result.ButtonHeight = Math.Min((buttonsViewport.Height + VERTICAL_SPACING) / result.Rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
 
 			if(ENSURE_SQUARE_BUTTONS)
 			{
