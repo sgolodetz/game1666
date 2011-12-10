@@ -216,7 +216,7 @@ namespace game1666proto4
 			texture.GetData(heightmapValues);
 
 			// Create the heightmap from the heightmap data.
-			var heightmap = new float[texture.Height, texture.Width];
+			var heightmap = new float[texture.Height + 1, texture.Width + 1];
 			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
 			int valueIndex = 0;
 			for(int y = 0; y < texture.Height; ++y)
@@ -227,6 +227,11 @@ namespace game1666proto4
 					heightmap[y,x] = (float)heightmapValues[valueIndex++].R * zScaling;
 				}
 			}
+
+			// Pad it to ensure that it's of size (2m+1) x (2n+1).
+			for(int y = 0; y < texture.Height; ++y) heightmap[y,texture.Width] = heightmap[y,texture.Width-1];
+			for(int x = 0; x < texture.Width; ++x) heightmap[texture.Height,x] = heightmap[texture.Height-1,x];
+
 			return heightmap;
 		}
 
