@@ -3,7 +3,7 @@
   <property name="HomeCity" value="Stuartopolis"/>
   <entity type="Terrain">
     <property name="ZScaling" value="0.1"/>
-    <property name="AssetHeightmap" value="testworldheightmap"/>
+    <property name="AssetHeightmap" value="heightmap_TestWorld"/>
   </entity>
   <entity type="City">
     <property name="Name" value="Stuartopolis"/>

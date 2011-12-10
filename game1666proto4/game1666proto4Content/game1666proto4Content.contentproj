@@ -103,8 +103,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="testworldheightmap.png">
-      <Name>testworldheightmap</Name>
+    <Compile Include="heightmap_TestWorld.png">
+      <Name>heightmap_TestWorld</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
