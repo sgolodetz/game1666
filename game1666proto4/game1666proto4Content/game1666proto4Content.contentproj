@@ -51,12 +51,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="heightmap_TestWorld.png">
+    <Compile Include="Heightmaps\heightmap_TestWorld.png">
       <Name>heightmap_TestWorld</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="landscape.jpg">
+    <Compile Include="Textures\landscape.jpg">
       <Name>landscape</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -77,55 +77,55 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sidebargroup_Houses.png">
+    <Compile Include="Textures\sidebargroup_Houses.png">
       <Name>sidebargroup_Houses</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sidebargroup_Roads.png">
+    <Compile Include="Textures\sidebargroup_Roads.png">
       <Name>sidebargroup_Roads</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sidebarelement_DirtTrack.png">
+    <Compile Include="Textures\sidebarelement_DirtTrack.png">
       <Name>sidebarelement_DirtTrack</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sidebarelement_Dwelling.png">
+    <Compile Include="Textures\sidebarelement_Dwelling.png">
       <Name>sidebarelement_Dwelling</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sidebarelement_Mansion.png">
+    <Compile Include="Textures\sidebarelement_Mansion.png">
       <Name>sidebarelement_Mansion</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sidebarbackground.png">
+    <Compile Include="Textures\sidebarbackground.png">
       <Name>sidebarbackground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="snow.png">
+    <Compile Include="Textures\snow.png">
       <Name>snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="grass.png">
+    <Compile Include="Textures\grass.png">
       <Name>grass</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="heightmap_Riemers.png">
+    <Compile Include="Heightmaps\heightmap_Riemers.png">
       <Name>heightmap_Riemers</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

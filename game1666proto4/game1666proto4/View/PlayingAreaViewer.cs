@@ -167,8 +167,8 @@ namespace game1666proto4
 			effect.Parameters["World"].SetValue(viewerBasicEffect.World);
 			effect.Parameters["View"].SetValue(viewerBasicEffect.View);
 			effect.Parameters["Projection"].SetValue(viewerBasicEffect.Projection);
-			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("grass"));
-			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("snow"));
+			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("Textures/grass"));
+			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("Textures/snow"));
 			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, effect);
 		}
 

@@ -211,7 +211,7 @@ namespace game1666proto4
 		private float[,] LoadHeightmapFromAsset(string assetName)
 		{
 			// Load the texture and get the heightmap data from it.
-			Texture2D texture = Renderer.Content.Load<Texture2D>(assetName);
+			Texture2D texture = Renderer.Content.Load<Texture2D>("Heightmaps/" + assetName);
 			var heightmapValues = new Color[texture.Width * texture.Height];
 			texture.GetData(heightmapValues);
 

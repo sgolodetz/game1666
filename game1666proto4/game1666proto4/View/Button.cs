@@ -50,7 +50,7 @@ namespace game1666proto4
 		public Button(string textureName, Viewport viewport)
 		{
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			m_texture = Renderer.Content.Load<Texture2D>(textureName);
+			m_texture = Renderer.Content.Load<Texture2D>("Textures/" + textureName);
 			Viewport = viewport;
 		}
 
