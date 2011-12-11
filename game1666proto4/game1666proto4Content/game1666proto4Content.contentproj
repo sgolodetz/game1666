@@ -51,8 +51,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Heightmaps\heightmap_TestWorld.png">
-      <Name>heightmap_TestWorld</Name>
+    <Compile Include="Heightmaps\TestWorld.png">
+      <Name>TestWorld</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -125,8 +125,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Heightmaps\heightmap_Riemers.png">
-      <Name>heightmap_Riemers</Name>
+    <Compile Include="Heightmaps\Riemers.png">
+      <Name>Riemers</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
