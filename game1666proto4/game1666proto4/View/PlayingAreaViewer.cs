@@ -82,7 +82,7 @@ namespace game1666proto4
 			DrawTerrain();
 
 			// For debugging purposes only.
-			DrawTerrainQuadtree();
+			//DrawTerrainQuadtree();
 		}
 
 		/// <summary>
