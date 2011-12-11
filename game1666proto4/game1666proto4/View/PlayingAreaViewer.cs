@@ -168,6 +168,8 @@ namespace game1666proto4
 			effect.Parameters["Projection"].SetValue(m_matProjection);
 			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("Textures/grass"));
 			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("Textures/snow"));
+			effect.Parameters["TransitionHalfWidth"].SetValue(4f);
+			effect.Parameters["TransitionHeight"].SetValue(10f);
 			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, effect);
 		}
 
