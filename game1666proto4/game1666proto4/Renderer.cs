@@ -30,9 +30,9 @@ namespace game1666proto4
 		/// Draws an axis-aligned bounding box (AABB).
 		/// </summary>
 		/// <param name="bounds">The bounding box in question.</param>
-		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		/// <param name="effect">The effect to use when drawing.</param>
 		/// <param name="colour">The colour to use for the bounding box.</param>
-		public static void DrawBoundingBox(BoundingBox bounds, BasicEffect basicEffect, Color colour)
+		public static void DrawBoundingBox(BoundingBox bounds, Effect effect, Color colour)
 		{
 			VertexPositionColor[] vertices = bounds.GetCorners().Select(v => new VertexPositionColor(v, colour)).ToArray();
 			var indices = new short[]
@@ -41,7 +41,7 @@ namespace game1666proto4
 				4, 5,	5, 6,	6, 7,	7, 4,	// bottom
 				0, 4,	1, 5,	2, 6,	3, 7	// connectors
 			};
-			foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
 				Renderer.GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, vertices, 0, vertices.Length, indices, 0, indices.Length / 2);
@@ -53,12 +53,12 @@ namespace game1666proto4
 		/// </summary>
 		/// <param name="vertexBuffer">The vertex buffer containing the triangles' vertices.</param>
 		/// <param name="indexBuffer">The index buffer specifying how the vertices make up the triangles.</param>
-		/// <param name="basicEffect">The basic effect to use when drawing.</param>
-		public static void DrawTriangleList(VertexBuffer vertexBuffer, IndexBuffer indexBuffer, BasicEffect basicEffect)
+		/// <param name="effect">The effect to use when drawing.</param>
+		public static void DrawTriangleList(VertexBuffer vertexBuffer, IndexBuffer indexBuffer, Effect effect)
 		{
 			Renderer.GraphicsDevice.SetVertexBuffer(vertexBuffer);
 			Renderer.GraphicsDevice.Indices = indexBuffer;
-			foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
+			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
 				Renderer.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexBuffer.IndexCount / 3);
