@@ -26,6 +26,21 @@ namespace game1666proto4
 		private readonly Camera m_camera;
 
 		/// <summary>
+		/// The current projection matrix.
+		/// </summary>
+		private Matrix m_matProjection;
+
+		/// <summary>
+		/// The current view matrix.
+		/// </summary>
+		private Matrix m_matView;
+
+		/// <summary>
+		/// The current world matrix.
+		/// </summary>
+		private Matrix m_matWorld;
+
+		/// <summary>
 		/// The playing area to view.
 		/// </summary>
 		private readonly PlayingArea m_playingArea;
@@ -62,12 +77,12 @@ namespace game1666proto4
 		{
 			Renderer.GraphicsDevice.Viewport = Viewport;
 			Renderer.Setup3D();
-			BasicEffect basicEffect = CreateBasicEffect();
+			SetupMatrices();
 
-			DrawTerrain(basicEffect);
+			DrawTerrain();
 
 			// For debugging purposes only.
-			//DrawTerrainQuadtree(basicEffect);
+			DrawTerrainQuadtree();
 		}
 
 		/// <summary>
@@ -78,13 +93,11 @@ namespace game1666proto4
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				BasicEffect viewerBasicEffect = CreateBasicEffect();
-
 				// Find the point we're hovering over on the near clipping plane.
-				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), m_matProjection, m_matView, m_matWorld);
 
 				// Find the point we're hovering over on the far clipping plane.
-				Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), viewerBasicEffect.Projection, viewerBasicEffect.View, viewerBasicEffect.World);
+				Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), m_matProjection, m_matView, m_matWorld);
 
 				// Find the ray (in world space) between them.
 				Vector3 dir = Vector3.Normalize(far - near);
@@ -145,28 +158,14 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Creates the underlying basic effect for the viewer as a whole (ready to be customised).
-		/// </summary>
-		/// <returns>The basic effect.</returns>
-		private BasicEffect CreateBasicEffect()
-		{
-			var basicEffect = new BasicEffect(Renderer.GraphicsDevice);
-			basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Viewport.Width / Viewport.Height, 0.1f, 1000.0f);
-			basicEffect.View = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
-			basicEffect.World = Matrix.Identity;
-			return basicEffect;
-		}
-
-		/// <summary>
 		/// Draws the playing area's terrain.
 		/// </summary>
-		/// <param name="viewerBasicEffect">The underlying basic effect for the viewer as a whole (ready to be customised).</param>
-		private void DrawTerrain(BasicEffect viewerBasicEffect)
+		private void DrawTerrain()
 		{
 			var effect = Renderer.Content.Load<Effect>("Effects/TerrainMultitexture");
-			effect.Parameters["World"].SetValue(viewerBasicEffect.World);
-			effect.Parameters["View"].SetValue(viewerBasicEffect.View);
-			effect.Parameters["Projection"].SetValue(viewerBasicEffect.Projection);
+			effect.Parameters["World"].SetValue(m_matWorld);
+			effect.Parameters["View"].SetValue(m_matView);
+			effect.Parameters["Projection"].SetValue(m_matProjection);
 			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("Textures/grass"));
 			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("Textures/snow"));
 			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, effect);
@@ -175,11 +174,14 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the bounding boxes of the various nodes in the terrain quadtree (for debugging purposes).
 		/// </summary>
-		/// <param name="viewerBasicEffect">The underlying basic effect for the viewer as a whole (ready to be customised).</param>
-		private void DrawTerrainQuadtree(BasicEffect viewerBasicEffect)
+		private void DrawTerrainQuadtree()
 		{
-			BasicEffect basicEffect = viewerBasicEffect.Clone() as BasicEffect;
+			var basicEffect = new BasicEffect(Renderer.GraphicsDevice);
+			basicEffect.World = m_matWorld;
+			basicEffect.View = m_matView;
+			basicEffect.Projection = m_matProjection;
 			basicEffect.VertexColorEnabled = true;
+
 			DrawTerrainQuadtreeSub(m_playingArea.Terrain.QuadtreeRoot, basicEffect);
 		}
 
@@ -187,22 +189,32 @@ namespace game1666proto4
 		/// Draws the bounding boxes of the various nodes in a subtree of the terrain quadtree (for debugging purposes).
 		/// </summary>
 		/// <param name="node">The root node of the subtree.</param>
-		/// <param name="basicEffect">The basic effect to use when drawing.</param>
+		/// <param name="effect">The effect to use when drawing.</param>
 		/// <param name="depth">The depth of the recursion.</param>
-		private void DrawTerrainQuadtreeSub(QuadtreeNode node, BasicEffect basicEffect, int depth = 0)
+		private void DrawTerrainQuadtreeSub(QuadtreeNode node, Effect effect, int depth = 0)
 		{
 			if(node.Children != null)
 			{
 				// This node is a branch, so recurse on its children.
 				foreach(QuadtreeNode child in node.Children)
 				{
-					DrawTerrainQuadtreeSub(child, basicEffect, depth + 1);
+					DrawTerrainQuadtreeSub(child, effect, depth + 1);
 				}
 			}
 
 			// Draw the node's own bounding box.
 			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
-			Renderer.DrawBoundingBox(node.Bounds, basicEffect, colours[depth % colours.Length]);
+			Renderer.DrawBoundingBox(node.Bounds, effect, colours[depth % colours.Length]);
+		}
+
+		/// <summary>
+		/// Sets up the world, view and projection matrices ready for rendering.
+		/// </summary>
+		private void SetupMatrices()
+		{
+			m_matProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Viewport.Width / Viewport.Height, 0.1f, 1000.0f);
+			m_matView = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
+			m_matWorld = Matrix.Identity;
 		}
 
 		#endregion
