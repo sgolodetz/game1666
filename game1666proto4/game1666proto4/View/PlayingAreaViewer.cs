@@ -128,8 +128,14 @@ namespace game1666proto4
 			{
 				float xOffset = Viewport.X + Viewport.Width * 0.5f - mouseState.X;
 				float yOffset = mouseState.Y - (Viewport.Y + Viewport.Height * 0.5f);
-				m_camera.Rotate(new Vector3(0,0,1), xOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
-				m_camera.Rotate(m_camera.U, yOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+				if(Math.Abs(xOffset) > Viewport.Width / 8)
+				{
+					m_camera.Rotate(new Vector3(0,0,1), xOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+				}
+				if(Math.Abs(yOffset) > Viewport.Height / 8)
+				{
+					m_camera.Rotate(m_camera.U, yOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+				}
 			}
 		}
 
