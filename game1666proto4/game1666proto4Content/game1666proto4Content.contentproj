@@ -63,6 +63,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\TerrainMultitexture.fx">
+      <Name>TerrainMultitexture</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <None Include="TestWorld.xml">
       <Name>TestWorld</Name>
       <Importer>XmlImporter</Importer>

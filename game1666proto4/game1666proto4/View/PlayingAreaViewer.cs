@@ -163,10 +163,13 @@ namespace game1666proto4
 		/// <param name="viewerBasicEffect">The underlying basic effect for the viewer as a whole (ready to be customised).</param>
 		private void DrawTerrain(BasicEffect viewerBasicEffect)
 		{
-			BasicEffect basicEffect = viewerBasicEffect.Clone() as BasicEffect;
-			basicEffect.Texture = Renderer.Content.Load<Texture2D>("grass");
-			basicEffect.TextureEnabled = true;
-			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, basicEffect);
+			var effect = Renderer.Content.Load<Effect>("Effects/TerrainMultitexture");
+			effect.Parameters["World"].SetValue(viewerBasicEffect.World);
+			effect.Parameters["View"].SetValue(viewerBasicEffect.View);
+			effect.Parameters["Projection"].SetValue(viewerBasicEffect.Projection);
+			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("grass"));
+			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("snow"));
+			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, effect);
 		}
 
 		/// <summary>
