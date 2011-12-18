@@ -112,7 +112,7 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		// Create a heightmap from the properties loaded in from XML.
+		/// Create a heightmap from the properties loaded in from XML.
 		/// </summary>
 		/// <returns>The heightmap.</returns>
 		private float[,] CreateHeightmapFromProperties()
