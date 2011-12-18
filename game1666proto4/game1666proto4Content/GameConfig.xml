@@ -3,17 +3,24 @@
   <blueprints>
     <entity type="HouseBlueprint">
       <property name="Name" value="Dwelling"/>
-      <property name="Footprint">
-        <!-- TODO -->
-      </property>
       <property name="MaxOccupants" value="2"/>
+      <footprints>
+        <property name="City">
+          <!-- TODO -->
+        </property>
+        <property name="World">
+          <!-- TODO -->
+        </property>
+      </footprints>
+      <models>
+        <property name="City" value="CityDwelling"/>
+        <property name="World" value="WorldDwelling"/>
+      </models>
     </entity>
     <entity type="HouseBlueprint">
       <property name="Name" value="Mansion"/>
-      <property name="Footprint">
-        <!-- TODO -->
-      </property>
       <property name="MaxOccupants" value="10"/>
+      <!-- TODO -->
     </entity>
     <entity type="RoadSegmentBlueprint">
       <property name="Name" value="DirtTrack"/>

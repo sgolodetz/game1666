@@ -11,7 +11,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a blueprint for building a house.
 	/// </summary>
-	sealed class HouseBlueprint : Entity
+	sealed class HouseBlueprint : Blueprint
 	{
 		//#################### PROPERTIES ####################
 		#region

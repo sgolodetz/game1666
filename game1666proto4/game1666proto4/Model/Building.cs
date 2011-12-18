@@ -10,6 +10,38 @@ namespace game1666proto4
 	/// </summary>
 	abstract class Building : Entity
 	{
-		// TODO
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The position (relative to the origin of the containing entity) of the building's hotspot.
+		/// </summary>
+		private readonly Vector2i m_position;
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The position (relative to the origin of the containing entity) of the building's hotspot.
+		/// </summary>
+		public Vector2i Position { get { return m_position; } }
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a new building at the specified position.
+		/// </summary>
+		/// <param name="position">The position (relative to the origin of the containing entity) of the building's hotspot.</param>
+		public Building(Vector2i position)
+		{
+			m_position = position;
+		}
+
+		#endregion
 	}
 }
