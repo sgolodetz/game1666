@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+
 namespace game1666proto4
 {
 	/// <summary>
@@ -14,12 +16,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a house at the specified position using the specified blueprint.
+		/// Constructs a house from its XML representation.
 		/// </summary>
-		/// <param name="blueprint">The blueprint for the house.</param>
-		/// <param name="position">The position (relative to the origin of the containing entity) of the house's hotspot.</param>
-		public House(HouseBlueprint blueprint, Vector2i position)
-		:	base(blueprint, position)
+		/// <param name="entityElt">The root node of the house's XML representation.</param>
+		public House(XElement entityElt)
+		:	base(entityElt)
 		{}
 
 		#endregion

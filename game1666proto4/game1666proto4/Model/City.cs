@@ -61,6 +61,15 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Adds a building to the city.
+		/// </summary>
+		/// <param name="building"></param>
+		public void AddEntity(Building building)
+		{
+			m_buildings.Add(building);
+		}
+
+		/// <summary>
 		/// Adds an entity to the city based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>

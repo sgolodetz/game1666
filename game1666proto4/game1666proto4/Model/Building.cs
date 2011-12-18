@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+
 namespace game1666proto4
 {
 	/// <summary>
@@ -44,14 +46,14 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a new building at the specified position using the specified blueprint.
+		/// Constructs a building from its XML representation.
 		/// </summary>
-		/// <param name="blueprint">The blueprint for the building.</param>
-		/// <param name="position">The position (relative to the origin of the containing entity) of the building's hotspot.</param>
-		public Building(Blueprint blueprint, Vector2i position)
+		/// <param name="entityElt">The root node of the building's XML representation.</param>
+		public Building(XElement entityElt)
+		:	base(entityElt)
 		{
-			m_blueprint = blueprint;
-			m_position = position;
+			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
+			// TODO: Get the position.
 		}
 
 		#endregion

@@ -19,5 +19,9 @@
         2,2,2,2,3,2,1,1,1,1
       </property>
     </entity>
+    <entity type="House">
+      <property name="Blueprint" value="Dwelling"/>
+      <property name="Position" value="(0,0)"/>
+    </entity>
   </entity>
 </entity>
