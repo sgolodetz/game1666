@@ -60,7 +60,7 @@ namespace game1666proto4
 			// Enforce the postcondition.
 			Contract.Ensures(m_playingArea != null);
 
-			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), new Vector3(0,0,1));
+			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
@@ -128,8 +128,8 @@ namespace game1666proto4
 			if(keyState.IsKeyDown(Keys.D))		m_camera.MoveU(-linearRate);
 			if(keyState.IsKeyDown(Keys.Q))		m_camera.MoveV(linearRate);
 			if(keyState.IsKeyDown(Keys.E))		m_camera.MoveV(-linearRate);
-			if(keyState.IsKeyDown(Keys.Left))	m_camera.Rotate(new Vector3(0,0,1), angularRateH);
-			if(keyState.IsKeyDown(Keys.Right))	m_camera.Rotate(new Vector3(0,0,1), -angularRateH);
+			if(keyState.IsKeyDown(Keys.Left))	m_camera.Rotate(Vector3.UnitZ, angularRateH);
+			if(keyState.IsKeyDown(Keys.Right))	m_camera.Rotate(Vector3.UnitZ, -angularRateH);
 			if(keyState.IsKeyDown(Keys.Up))		m_camera.Rotate(m_camera.U, angularRateV);
 			if(keyState.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -angularRateV);
 
@@ -140,7 +140,7 @@ namespace game1666proto4
 				float yOffset = mouseState.Y - (Viewport.Y + Viewport.Height * 0.5f);
 				if(Math.Abs(xOffset) > Viewport.Width / 8)
 				{
-					m_camera.Rotate(new Vector3(0,0,1), xOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+					m_camera.Rotate(Vector3.UnitZ, xOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
 				}
 				if(Math.Abs(yOffset) > Viewport.Height / 8)
 				{
