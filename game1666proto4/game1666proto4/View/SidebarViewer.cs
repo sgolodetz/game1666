@@ -146,7 +146,7 @@ namespace game1666proto4
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_texture = Renderer.Content.Load<Texture2D>("Textures/sidebarbackground");
-			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
+			Viewport = EntityUtil.ParseViewportSpecifier(Properties["Viewport"]);
 
 			LoadEntityGroups(entityElt);
 			CreateGroupButtons();

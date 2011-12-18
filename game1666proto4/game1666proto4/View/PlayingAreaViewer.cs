@@ -62,7 +62,7 @@ namespace game1666proto4
 
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
 			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
-			Viewport = ViewUtil.ParseViewportSpecifier(Properties["Viewport"]);
+			Viewport = EntityUtil.ParseViewportSpecifier(Properties["Viewport"]);
 		}
 
 		#endregion
