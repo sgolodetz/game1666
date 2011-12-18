@@ -5,6 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -72,6 +75,26 @@ namespace game1666proto4
 			}
 
 			return properties;
+		}
+
+		/// <summary>
+		/// Parses the string representation of a Vector2i in order to construct the Vector2i itself.
+		/// </summary>
+		/// <param name="vectorSpecifier">The string representation of a Vector2i.</param>
+		/// <returns>The Vector2i.</returns>
+		public static Vector2i ParseVector2iSpecifier(string vectorSpecifier)
+		{
+			int[] values = vectorSpecifier
+				.Split('(',',',')')
+				.Where(v => !string.IsNullOrWhiteSpace(v))
+				.Select(v => int.Parse(v.Trim(), CultureInfo.GetCultureInfo("en-GB")))
+				.ToArray();
+
+			if(values.Length == 2)
+			{
+				return new Vector2i(values[0], values[1]);
+			}
+			else throw new InvalidDataException("The vector specifier '" + vectorSpecifier + "' does not have the right number of components.");
 		}
 
 		#endregion

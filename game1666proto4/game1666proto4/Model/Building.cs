@@ -75,7 +75,7 @@ namespace game1666proto4
 			m_altitude = float.Parse(Properties["Altitude"]);
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 			m_builder = new EntityBuilder(5000);	// TEMPORARY: Build the entity over a 5 second period.
-			// TODO: Get the position.
+			m_position = EntityUtil.ParseVector2iSpecifier(Properties["Position"]);
 		}
 
 		#endregion
