@@ -158,9 +158,19 @@ namespace game1666proto4
 		/// Draws a building.
 		/// </summary>
 		/// <param name="building">The building to draw.</param>
-		private void DrawBuilding(Building building)
+		/// <param name="playingAreaSpecifier">The type of playing area in which the building resides.</param>
+		private void DrawBuilding(Building building, string playingAreaSpecifier)
 		{
+			// Get the relevant model reference for the building from its blueprint.
+			string modelReference = building.Blueprint.Models[playingAreaSpecifier];
+
+			// Get the actual model from the content manager.
 			// TODO
+
+			// Get the building's position.
+			Vector2i position = building.Position;
+
+			// TODO: Render the model in the correct position.
 		}
 
 		/// <summary>
@@ -178,7 +188,7 @@ namespace game1666proto4
 			// Draw all the buildings in the city.
 			foreach(Building building in city.Buildings)
 			{
-				DrawBuilding(building);
+				DrawBuilding(building, "City");
 			}
 		}
 

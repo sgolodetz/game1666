@@ -22,6 +22,16 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// A set of model references that specify which model to use for each game view.
+		/// </summary>
+		public BlueprintModels Models { get { return m_models; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
