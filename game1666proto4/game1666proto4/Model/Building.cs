@@ -14,6 +14,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The blueprint for the building.
+		/// </summary>
+		private readonly Blueprint m_blueprint;
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
 		/// </summary>
 		private readonly Vector2i m_position;
@@ -22,6 +27,11 @@ namespace game1666proto4
 
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The blueprint for the building.
+		/// </summary>
+		public Blueprint Blueprint { get { return m_blueprint; } }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -34,11 +44,13 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a new building at the specified position.
+		/// Constructs a new building at the specified position using the specified blueprint.
 		/// </summary>
+		/// <param name="blueprint">The blueprint for the building.</param>
 		/// <param name="position">The position (relative to the origin of the containing entity) of the building's hotspot.</param>
-		public Building(Vector2i position)
+		public Building(Blueprint blueprint, Vector2i position)
 		{
+			m_blueprint = blueprint;
 			m_position = position;
 		}
 

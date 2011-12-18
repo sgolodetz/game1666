@@ -14,11 +14,12 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a house at the specified position.
+		/// Constructs a house at the specified position using the specified blueprint.
 		/// </summary>
+		/// <param name="blueprint">The blueprint for the house.</param>
 		/// <param name="position">The position (relative to the origin of the containing entity) of the house's hotspot.</param>
-		public House(Vector2i position)
-		:	base(position)
+		public House(HouseBlueprint blueprint, Vector2i position)
+		:	base(blueprint, position)
 		{}
 
 		#endregion
