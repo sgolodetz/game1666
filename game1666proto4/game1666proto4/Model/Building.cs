@@ -21,6 +21,11 @@ namespace game1666proto4
 		private readonly Blueprint m_blueprint;
 
 		/// <summary>
+		/// The entity builder for the building.
+		/// </summary>
+		private readonly EntityBuilder m_builder;
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
 		/// </summary>
 		private readonly Vector2i m_position;
@@ -34,6 +39,11 @@ namespace game1666proto4
 		/// The blueprint for the building.
 		/// </summary>
 		public Blueprint Blueprint { get { return m_blueprint; } }
+
+		/// <summary>
+		/// The entity builder for the building.
+		/// </summary>
+		public EntityBuilder Builder { get { return m_builder; } }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -53,6 +63,7 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
+			m_builder = new EntityBuilder(5000);	// TEMPORARY: Build the entity over a 5 second period.
 			// TODO: Get the position.
 		}
 

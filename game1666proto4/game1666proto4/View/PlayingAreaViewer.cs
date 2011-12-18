@@ -155,22 +155,22 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Draws a building.
+		/// Draws a buildable entity.
 		/// </summary>
-		/// <param name="building">The building to draw.</param>
-		/// <param name="playingAreaSpecifier">The type of playing area in which the building resides.</param>
-		private void DrawBuilding(Building building, string playingAreaSpecifier)
+		/// <param name="entity">The entity to draw.</param>
+		/// <param name="playingAreaSpecifier">The type of playing area in which the entity resides.</param>
+		private void DrawBuildableEntity(IBuildableModelEntity entity, string playingAreaSpecifier)
 		{
-			// Get the relevant model reference for the building from its blueprint.
-			string modelReference = building.Blueprint.Models[playingAreaSpecifier];
+			// Get the relevant model reference for the entity from its blueprint.
+			string modelReference = entity.Blueprint.Models[playingAreaSpecifier];
 
 			// Get the actual model from the content manager.
 			// TODO
 
-			// Get the building's position.
-			Vector2i position = building.Position;
+			// Get the entity's position.
+			Vector2i position = entity.Position;
 
-			// TODO: Render the model in the correct position.
+			// TODO: Render the model in the correct position, scaling it based on its state of completion.
 		}
 
 		/// <summary>
@@ -188,7 +188,7 @@ namespace game1666proto4
 			// Draw all the buildings in the city.
 			foreach(Building building in city.Buildings)
 			{
-				DrawBuilding(building, "City");
+				DrawBuildableEntity(building, "City");
 			}
 		}
 

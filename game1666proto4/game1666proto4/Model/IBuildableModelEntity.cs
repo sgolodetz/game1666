@@ -18,6 +18,11 @@ namespace game1666proto4
 		Blueprint Blueprint { get; }
 
 		/// <summary>
+		/// The builder for the entity.
+		/// </summary>
+		EntityBuilder Builder { get; }
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.
 		/// </summary>
 		Vector2i Position { get; }
