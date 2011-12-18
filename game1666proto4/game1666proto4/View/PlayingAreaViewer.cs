@@ -79,10 +79,7 @@ namespace game1666proto4
 			Renderer.Setup3D();
 			SetupMatrices();
 
-			DrawTerrain();
-
-			// For debugging purposes only.
-			//DrawTerrainQuadtree();
+			DrawPlayingArea((dynamic)m_playingArea);
 		}
 
 		/// <summary>
@@ -158,9 +155,34 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Draws the playing area's terrain.
+		/// Draws the playing area for a city.
 		/// </summary>
-		private void DrawTerrain()
+		/// <param name="city">The city.</param>
+		private void DrawPlayingArea(City city)
+		{
+			DrawTerrain(city.Terrain);
+
+			// For debugging purposes only.
+			//DrawTerrainQuadtree(city.Terrain.QuadtreeRoot);
+		}
+
+		/// <summary>
+		/// Draws the playing area for the world.
+		/// </summary>
+		/// <param name="world">The world.</param>
+		private void DrawPlayingArea(World world)
+		{
+			DrawTerrain(world.Terrain);
+
+			// For debugging purposes only.
+			//DrawTerrainQuadtree(world.Terrain.QuadtreeRoot);
+		}
+
+		/// <summary>
+		/// Draws a terrain.
+		/// </summary>
+		/// <param name="terrain">The terrain to draw.</param>
+		private void DrawTerrain(Terrain terrain)
 		{
 			var effect = Renderer.Content.Load<Effect>("Effects/TerrainMultitexture");
 			effect.Parameters["World"].SetValue(m_matWorld);
@@ -170,13 +192,14 @@ namespace game1666proto4
 			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("Textures/snow"));
 			effect.Parameters["TransitionHalfWidth"].SetValue(4f);
 			effect.Parameters["TransitionHeight"].SetValue(10f);
-			Renderer.DrawTriangleList(m_playingArea.Terrain.VertexBuffer, m_playingArea.Terrain.IndexBuffer, effect);
+			Renderer.DrawTriangleList(terrain.VertexBuffer, terrain.IndexBuffer, effect);
 		}
 
 		/// <summary>
-		/// Draws the bounding boxes of the various nodes in the terrain quadtree (for debugging purposes).
+		/// Draws the bounding boxes of the various nodes in a terrain quadtree (for debugging purposes).
 		/// </summary>
-		private void DrawTerrainQuadtree()
+		/// <param name="root">The root node of the terrain quadtree to draw.</param>
+		private void DrawTerrainQuadtree(QuadtreeNode root)
 		{
 			var basicEffect = new BasicEffect(Renderer.GraphicsDevice);
 			basicEffect.World = m_matWorld;
@@ -184,7 +207,7 @@ namespace game1666proto4
 			basicEffect.Projection = m_matProjection;
 			basicEffect.VertexColorEnabled = true;
 
-			DrawTerrainQuadtreeSub(m_playingArea.Terrain.QuadtreeRoot, basicEffect);
+			DrawTerrainQuadtreeSub(root, basicEffect);
 		}
 
 		/// <summary>
