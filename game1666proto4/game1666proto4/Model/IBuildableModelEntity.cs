@@ -1,14 +1,14 @@
 ﻿/***
- * game1666proto4: IPlaceableModelEntity.cs
+ * game1666proto4: IBuildableModelEntity.cs
  * Copyright 2011. All rights reserved.
  ***/
 
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of a class implementing this interface represents an entity that can be placed in a playing area.
+	/// An instance of a class implementing this interface represents an entity that can be built in a playing area.
 	/// </summary>
-	interface IPlaceableModelEntity
+	interface IBuildableModelEntity
 	{
 		//#################### PROPERTIES ####################
 
