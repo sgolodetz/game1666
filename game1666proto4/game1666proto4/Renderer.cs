@@ -49,6 +49,36 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// Draws a 3D model.
+		/// </summary>
+		/// <param name="model">The model to draw.</param>
+		/// <param name="matWorld">The world matrix to use.</param>
+		/// <param name="matView">The view matrix to use.</param>
+		/// <param name="matProjection">The projection matrix to use.</param>
+		public static void DrawModel(Model model, Matrix matWorld, Matrix matView, Matrix matProjection)
+		{
+			// Change the cull mode - the models that are exported from Blender require counter-clockwise culling.
+			var oldRasterizerState = GraphicsDevice.RasterizerState;
+			var newRasterizerState = new RasterizerState();
+			newRasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
+			GraphicsDevice.RasterizerState = newRasterizerState;
+
+			foreach(ModelMesh mesh in model.Meshes)
+			{
+				foreach(BasicEffect effect in mesh.Effects)
+				{
+					effect.World = matWorld;
+					effect.View = matView;
+					effect.Projection = matProjection;
+				}
+				mesh.Draw();
+			}
+
+			// Restore the previous rasterizer state.
+			GraphicsDevice.RasterizerState = oldRasterizerState;
+		}
+
+		/// <summary>
 		/// Draws a triangle list using vertices and indices from the specified buffers.
 		/// </summary>
 		/// <param name="vertexBuffer">The vertex buffer containing the triangles' vertices.</param>

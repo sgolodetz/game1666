@@ -160,16 +160,9 @@ namespace game1666proto4
 		/// <param name="entity">The entity to draw.</param>
 		private void DrawBuildableEntity(IBuildableModelEntity entity)
 		{
-			// Get the relevant model reference for the entity from its blueprint.
-			string modelReference = entity.Blueprint.Model;
-
-			// Get the actual model from the content manager.
-			// TODO
-
-			// Get the entity's position.
-			Vector2i position = entity.Position;
-
 			// TODO: Render the model in the correct position, scaling it based on its state of completion.
+			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
+			Renderer.DrawModel(model, m_matWorld, m_matView, m_matProjection);
 		}
 
 		/// <summary>
