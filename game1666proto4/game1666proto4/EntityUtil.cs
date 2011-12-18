@@ -86,7 +86,7 @@ namespace game1666proto4
 		public static Vector2i ParseVector2iSpecifier(string vectorSpecifier)
 		{
 			int[] values = vectorSpecifier
-				.Split('(', ',', ')')
+				.Split(',')
 				.Where(v => !string.IsNullOrWhiteSpace(v))
 				.Select(v => int.Parse(v.Trim(), CultureInfo.GetCultureInfo("en-GB")))
 				.ToArray();
