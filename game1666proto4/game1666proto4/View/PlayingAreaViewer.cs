@@ -155,15 +155,31 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Draws a building.
+		/// </summary>
+		/// <param name="building">The building to draw.</param>
+		private void DrawBuilding(Building building)
+		{
+			// TODO
+		}
+
+		/// <summary>
 		/// Draws the playing area for a city.
 		/// </summary>
 		/// <param name="city">The city.</param>
 		private void DrawPlayingArea(City city)
 		{
+			// Draw the city's underlying terrain.
 			DrawTerrain(city.Terrain);
 
 			// For debugging purposes only.
 			//DrawTerrainQuadtree(city.Terrain.QuadtreeRoot);
+
+			// Draw all the buildings in the city.
+			foreach(Building building in city.Buildings)
+			{
+				DrawBuilding(building);
+			}
 		}
 
 		/// <summary>
@@ -172,6 +188,7 @@ namespace game1666proto4
 		/// <param name="world">The world.</param>
 		private void DrawPlayingArea(World world)
 		{
+			// Draw the world's underlying terrain.
 			DrawTerrain(world.Terrain);
 
 			// For debugging purposes only.

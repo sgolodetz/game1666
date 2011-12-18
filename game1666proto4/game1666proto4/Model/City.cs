@@ -23,6 +23,16 @@ namespace game1666proto4
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The buildings in the city.
+		/// </summary>
+		public IEnumerable<Building> Buildings { get { return m_buildings; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
