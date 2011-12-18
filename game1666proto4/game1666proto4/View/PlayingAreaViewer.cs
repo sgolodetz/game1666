@@ -162,7 +162,8 @@ namespace game1666proto4
 		{
 			// TODO: Render the model in the correct position, scaling it based on its state of completion.
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
-			Renderer.DrawModel(model, m_matWorld, m_matView, m_matProjection);
+			Matrix matWorld = Matrix.CreateTranslation(0, 0, entity.Altitude);
+			Renderer.DrawModel(model, matWorld, m_matView, m_matProjection);
 		}
 
 		/// <summary>

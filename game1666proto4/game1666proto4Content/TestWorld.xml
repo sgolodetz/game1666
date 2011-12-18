@@ -20,6 +20,7 @@
       </property>
     </entity>
     <entity type="House">
+      <property name="Altitude" value="0.25"/>
       <property name="Blueprint" value="Dwelling"/>
       <property name="Position" value="(0,0)"/>
     </entity>

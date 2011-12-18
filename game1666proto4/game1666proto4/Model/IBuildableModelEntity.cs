@@ -11,6 +11,12 @@ namespace game1666proto4
 	interface IBuildableModelEntity
 	{
 		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The altitude of the base of the entity.
+		/// </summary>
+		float Altitude { get; }
 
 		/// <summary>
 		/// The blueprint for the entity.
@@ -26,5 +32,7 @@ namespace game1666proto4
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.
 		/// </summary>
 		Vector2i Position { get; }
+
+		#endregion
 	}
 }

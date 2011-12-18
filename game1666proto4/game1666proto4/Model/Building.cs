@@ -16,6 +16,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The altitude of the base of the building.
+		/// </summary>
+		private readonly float m_altitude;
+
+		/// <summary>
 		/// The blueprint for the building.
 		/// </summary>
 		private readonly Blueprint m_blueprint;
@@ -34,6 +39,11 @@ namespace game1666proto4
 
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The altitude of the base of the building.
+		/// </summary>
+		public float Altitude { get { return m_altitude; } }
 
 		/// <summary>
 		/// The blueprint for the building.
@@ -62,6 +72,7 @@ namespace game1666proto4
 		public Building(XElement entityElt)
 		:	base(entityElt)
 		{
+			m_altitude = float.Parse(Properties["Altitude"]);
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 			m_builder = new EntityBuilder(5000);	// TEMPORARY: Build the entity over a 5 second period.
 			// TODO: Get the position.
