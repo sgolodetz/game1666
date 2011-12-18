@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Blueprints\Blueprint.cs" />
+    <Compile Include="Model\Blueprints\BlueprintModels.cs" />
     <Compile Include="Model\CompositeModelEntity.cs" />
     <Compile Include="View\Button.cs" />
     <Compile Include="View\CompositeViewEntity.cs" />

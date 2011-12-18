@@ -12,10 +12,10 @@
           <!-- TODO -->
         </property>
       </footprints>
-      <models>
+      <entity type="BlueprintModels">
         <property name="City" value="CityDwelling"/>
         <property name="World" value="WorldDwelling"/>
-      </models>
+      </entity>
     </entity>
     <entity type="HouseBlueprint">
       <property name="Name" value="Mansion"/>

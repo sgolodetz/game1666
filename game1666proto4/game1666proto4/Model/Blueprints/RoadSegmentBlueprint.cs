@@ -25,5 +25,19 @@ namespace game1666proto4
 		{}
 
 		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Adds an entity to the blueprint based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddEntityDynamic(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
+		#endregion
 	}
 }
