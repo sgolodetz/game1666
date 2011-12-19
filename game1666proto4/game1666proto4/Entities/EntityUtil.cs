@@ -33,7 +33,7 @@ namespace game1666proto4
 			foreach(XElement childElt in entityElt.Elements("entity"))
 			{
 				// Look up the C# type of the child entity.
-				string childTypename = "game1666proto4." + Convert.ToString(childElt.Attribute("type").Value);
+				string childTypename = typeof(EntityUtil).Namespace + "." + Convert.ToString(childElt.Attribute("type").Value);
 				Type childType = Type.GetType(childTypename);
 
 				if(childType != null)
