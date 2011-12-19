@@ -15,7 +15,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class can be used to view a playing area.
 	/// </summary>
-	sealed class PlayingAreaViewer : ViewEntity
+	sealed class PlayingAreaViewer : VisibleEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

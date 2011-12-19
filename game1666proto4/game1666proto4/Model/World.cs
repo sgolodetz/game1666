@@ -27,6 +27,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The sub-entities contained within the world.
+		/// </summary>
+		protected override IEnumerable<IUpdateableEntity> Children { get { return m_cities.Values; } }
+
+		/// <summary>
 		/// The player's home city.
 		/// </summary>
 		public string HomeCity { get { return Properties["HomeCity"]; } }

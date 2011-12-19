@@ -31,6 +31,11 @@ namespace game1666proto4
 		/// </summary>
 		public IEnumerable<Building> Buildings { get { return m_buildings; } }
 
+		/// <summary>
+		/// The sub-entities contained within the city.
+		/// </summary>
+		protected override IEnumerable<IUpdateableEntity> Children { get { return m_buildings; } }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################

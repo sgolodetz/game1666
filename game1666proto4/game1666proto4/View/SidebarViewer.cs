@@ -17,7 +17,7 @@ namespace game1666proto4
 	/// An instance of this class is used to show a sidebar for a playing area,
 	/// allowing the user to place / remove entities.
 	/// </summary>
-	sealed class SidebarViewer : CompositeViewEntity
+	sealed class SidebarViewer : CompositeVisibleEntity
 	{
 		//#################### CONSTANTS ####################
 		#region
@@ -119,7 +119,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The sub-entities contained within the composite.
 		/// </summary>
-		protected override IEnumerable<ViewEntity> Children
+		protected override IEnumerable<IVisibleEntity> Children
 		{
 			get
 			{

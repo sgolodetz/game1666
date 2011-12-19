@@ -169,14 +169,13 @@
     <Compile Include="IVisibleEntity.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="CompositeEntity.cs" />
-    <Compile Include="Model\CompositeModelEntity.cs" />
+    <Compile Include="Model\CompositeUpdatableEntity.cs" />
     <Compile Include="Model\EntityBuilder.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="View\Button.cs" />
-    <Compile Include="View\CompositeViewEntity.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityUtil.cs" />
-    <Compile Include="View\ViewEntity.cs" />
+    <Compile Include="View\CompositeVisibleEntity.cs" />
     <Compile Include="Input\MouseEventManager.cs" />
     <Compile Include="Math\MathUtil.cs" />
     <Compile Include="Model\Blueprints\BlueprintManager.cs" />
@@ -205,6 +204,7 @@
     <Compile Include="View\SidebarViewer.cs" />
     <Compile Include="View\GameView.cs" />
     <Compile Include="View\ViewManager.cs" />
+    <Compile Include="View\VisibleEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Support Files\Game.ico" />

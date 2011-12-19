@@ -13,15 +13,15 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a particular game view, e.g. the City View.
 	/// </summary>
-	sealed class GameView : CompositeViewEntity
+	sealed class GameView : CompositeVisibleEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
-		/// The view entities that together make up the view.
+		/// The visible entities that together make up the view.
 		/// </summary>
-		private readonly IDictionary<string,ViewEntity> m_children = new Dictionary<string,ViewEntity>();
+		private readonly IDictionary<string,IVisibleEntity> m_children = new Dictionary<string,IVisibleEntity>();
 
 		#endregion
 
@@ -31,7 +31,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The sub-entities contained within the composite.
 		/// </summary>
-		protected override IEnumerable<ViewEntity> Children { get { return m_children.Values; } }
+		protected override IEnumerable<IVisibleEntity> Children { get { return m_children.Values; } }
 
 		#endregion
 
@@ -52,10 +52,10 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Adds a view entity (such as a playing area viewer) to the view.
+		/// Adds a visible entity (such as a playing area viewer) to the view.
 		/// </summary>
-		/// <param name="entity">The view entity.</param>
-		public void AddEntity(ViewEntity entity)
+		/// <param name="entity">The visible entity.</param>
+		public void AddEntity(IVisibleEntity entity)
 		{
 			m_children[entity.Name] = entity;
 		}

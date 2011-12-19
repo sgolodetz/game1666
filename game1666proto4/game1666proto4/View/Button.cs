@@ -12,7 +12,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a clickable button in one of the views.
 	/// </summary>
-	sealed class Button : ViewEntity
+	sealed class Button : VisibleEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

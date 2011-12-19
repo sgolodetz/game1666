@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: CompositeViewEntity.cs
+ * game1666proto4: CompositeVisibleEntity.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -12,17 +12,17 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents a composite view entity in the game, e.g. a sidebar viewer.
+	/// An instance of this class represents a composite of visible entities in the game, e.g. a sidebar viewer.
 	/// </summary>
-	abstract class CompositeViewEntity : ViewEntity
+	abstract class CompositeVisibleEntity : CompositeEntity<IVisibleEntity>, IVisibleEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The sub-entities contained within the composite.
+		/// The viewport into which to draw the entity.
 		/// </summary>
-		abstract protected IEnumerable<ViewEntity> Children { get; }
+		public Viewport Viewport { get; protected set; }
 
 		#endregion
 
@@ -30,16 +30,16 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs a composite entity without any properties.
+		/// Constructs a composite visible entity without any properties.
 		/// </summary>
-		public CompositeViewEntity()
+		public CompositeVisibleEntity()
 		{}
 
 		/// <summary>
-		/// Constructs a composite entity from its XML representation.
+		/// Constructs a composite visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
-		public CompositeViewEntity(XElement entityElt)
+		public CompositeVisibleEntity(XElement entityElt)
 		:	base(entityElt)
 		{
 			foreach(dynamic child in EntityUtil.LoadChildEntities(entityElt))
@@ -54,17 +54,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Adds a child entity to this entity based on its dynamic type.
-		/// </summary>
-		/// <param name="entity">The child entity.</param>
-		abstract public void AddEntityDynamic(dynamic entity);
-
-		/// <summary>
 		/// Draws the entity.
 		/// </summary>
-		public override void Draw()
+		virtual public void Draw()
 		{
-			foreach(ViewEntity entity in Children)
+			foreach(IVisibleEntity entity in Children)
 			{
 				entity.Draw();
 			}
@@ -74,9 +68,9 @@ namespace game1666proto4
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		public override void OnMousePressed(MouseState state)
+		virtual public void OnMousePressed(MouseState state)
 		{
-			foreach(ViewEntity entity in Children)
+			foreach(IVisibleEntity entity in Children)
 			{
 				Viewport viewport = entity.Viewport;
 				if(viewport.Bounds.Left <= state.X && state.X < viewport.Bounds.Right &&
@@ -91,9 +85,9 @@ namespace game1666proto4
 		/// Updates the entity based on user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		public override void Update(GameTime gameTime)
+		virtual public void Update(GameTime gameTime)
 		{
-			foreach(ViewEntity entity in Children)
+			foreach(IVisibleEntity entity in Children)
 			{
 				entity.Update(gameTime);
 			}

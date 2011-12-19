@@ -1,9 +1,8 @@
 ﻿/***
- * game1666proto4: ViewEntity.cs
+ * game1666proto4: VisibleEntity.cs
  * Copyright 2011. All rights reserved.
  ***/
 
-using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,9 +11,9 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents a view entity in the game, e.g. a playing area viewer.
+	/// An instance of this class represents an entity that will be drawn on the screen, e.g. a playing area viewer.
 	/// </summary>
-	abstract class ViewEntity : Entity
+	abstract class VisibleEntity : Entity, IVisibleEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -32,7 +31,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs an entity without any properties.
 		/// </summary>
-		public ViewEntity()
+		public VisibleEntity()
 		:	base()
 		{}
 
@@ -40,7 +39,7 @@ namespace game1666proto4
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		public ViewEntity(XElement entityElt)
+		public VisibleEntity(XElement entityElt)
 		:	base(entityElt)
 		{}
 

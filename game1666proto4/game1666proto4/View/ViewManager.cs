@@ -13,7 +13,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class manages the view hierarchy for the game.
 	/// </summary>
-	sealed class ViewManager : CompositeViewEntity
+	sealed class ViewManager : CompositeVisibleEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -36,7 +36,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The sub-entities contained within the composite.
 		/// </summary>
-		protected override IEnumerable<ViewEntity> Children { get { return m_views.Values; } }
+		protected override IEnumerable<IVisibleEntity> Children { get { return m_views.Values; } }
 
 		/// <summary>
 		/// The current game view.
