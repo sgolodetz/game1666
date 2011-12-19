@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,14 +30,22 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Constructs an entity without any properties.
+		/// Constructs a visible entity without any properties.
 		/// </summary>
 		public VisibleEntity()
 		:	base()
 		{}
 
 		/// <summary>
-		/// Constructs an entity from its XML representation.
+		/// Constructs a visible entity directly from a set of properties.
+		/// </summary>
+		/// <param name="properties">The properties of the entity.</param>
+		public VisibleEntity(IDictionary<string,string> properties)
+		:	base(properties)
+		{}
+
+		/// <summary>
+		/// Constructs a visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public VisibleEntity(XElement entityElt)
@@ -63,7 +72,7 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Updates the entity based on user input.
+		/// Updates the entity based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public virtual void Update(GameTime gameTime)

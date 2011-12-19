@@ -125,7 +125,10 @@ namespace game1666proto4
 			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
 
 			// Parse the heightmap values from the properties loaded in from XML.
-			List<float> heightmapValues = Properties["Heightmap"].Split(new char[] { ',' }).Select(s => Convert.ToSingle(s.Trim())).ToList();
+			List<float> heightmapValues = Properties["Heightmap"]
+				.Split(',')
+				.Select(s => Convert.ToSingle(s.Trim()))
+				.ToList();
 
 			// Fill in the heightmap with these values.
 			int valueIndex = 0;
@@ -228,7 +231,7 @@ namespace game1666proto4
 				}
 			}
 
-			// Pad it to ensure that it's of size (2m+1) x (2n+1).
+			// Pad it to ensure that it's of size (2m+1) x (2n+1), for some m and n.
 			for(int y = 0; y < texture.Height; ++y) heightmap[y,texture.Width] = heightmap[y,texture.Width-1];
 			for(int x = 0; x < texture.Width; ++x) heightmap[texture.Height,x] = heightmap[texture.Height-1,x];
 

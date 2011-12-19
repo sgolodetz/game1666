@@ -66,7 +66,7 @@ namespace game1666proto4
 
 				// If the property element has a value attribute, use that. Otherwise, use the text enclosed within the element.
 				XAttribute valueAttribute = propertyElt.Attribute("value");
-				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Trim().Replace(" ", "");
+				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Replace(" ", "");
 
 				// Provided the property is valid, store it for later use.
 				if(nameAttribute != null && value != null)

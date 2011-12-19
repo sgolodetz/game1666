@@ -16,7 +16,7 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Updates the entity based on user input.
+		/// Updates the entity based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		void Update(GameTime gameTime);
