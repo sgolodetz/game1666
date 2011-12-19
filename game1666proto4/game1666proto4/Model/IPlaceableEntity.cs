@@ -26,9 +26,9 @@ namespace game1666proto4
 		Blueprint Blueprint { get; }
 
 		/// <summary>
-		/// The builder for the entity.
+		/// The finite state machine for the entity.
 		/// </summary>
-		EntityBuilder Builder { get; }
+		EntityFSM FSM { get; }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.

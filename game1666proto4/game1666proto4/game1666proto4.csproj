@@ -170,7 +170,7 @@
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="CompositeEntity.cs" />
     <Compile Include="CompositeUpdatableEntity.cs" />
-    <Compile Include="Model\EntityBuilder.cs" />
+    <Compile Include="Model\EntityFSM.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="View\Button.cs" />
     <Compile Include="Entity.cs" />

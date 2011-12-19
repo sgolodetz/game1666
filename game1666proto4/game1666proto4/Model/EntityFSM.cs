@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityBuilder.cs
+ * game1666proto4: EntityFSM.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -10,7 +10,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class is used to manage the building of an entity over time.
 	/// </summary>
-	sealed class EntityBuilder
+	sealed class EntityFSM
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -34,7 +34,7 @@ namespace game1666proto4
 		/// Constructs an entity builder that will take the specified amount of time to finish building the entity.
 		/// </summary>
 		/// <param name="timeToBuild">The overall time required to build the entity (in milliseconds).</param>
-		public EntityBuilder(int timeToBuild)
+		public EntityFSM(int timeToBuild)
 		{
 			m_timeToBuild = m_timeToCompletion = timeToBuild;
 		}

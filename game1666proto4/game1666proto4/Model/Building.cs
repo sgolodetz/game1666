@@ -27,9 +27,9 @@ namespace game1666proto4
 		private readonly Blueprint m_blueprint;
 
 		/// <summary>
-		/// The entity builder for the building.
+		/// The finite state machine for the building.
 		/// </summary>
-		private readonly EntityBuilder m_builder;
+		private readonly EntityFSM m_fsm;
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -52,9 +52,9 @@ namespace game1666proto4
 		public Blueprint Blueprint { get { return m_blueprint; } }
 
 		/// <summary>
-		/// The entity builder for the building.
+		/// The finite state machine for the building.
 		/// </summary>
-		public EntityBuilder Builder { get { return m_builder; } }
+		public EntityFSM FSM { get { return m_fsm; } }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -75,7 +75,7 @@ namespace game1666proto4
 		{
 			m_altitude = float.Parse(Properties["Altitude"]);
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
-			m_builder = new EntityBuilder(5000);	// TEMPORARY: Build the entity over a 5 second period.
+			m_fsm = new EntityFSM(5000);	// TEMPORARY: Build the entity over a 5 second period.
 			m_position = EntityUtil.ParseVector2iSpecifier(Properties["Position"]);
 		}
 
