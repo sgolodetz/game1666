@@ -45,22 +45,22 @@ namespace game1666proto4
 
 		#endregion
 
-		//#################### PUBLIC METHODS ####################
+		//#################### PUBLIC ABSTRACT METHODS ####################
 		#region
 
 		/// <summary>
 		/// Adds a child entity to this entity based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The child entity.</param>
-		abstract public void AddEntityDynamic(dynamic entity);
+		public abstract void AddEntityDynamic(dynamic entity);
 
 		#endregion
 	}
 
 	/// <summary>
-	/// An instance of this class represents a composite entity in the game, e.g. a city.
+	/// An instance of this class represents a composite entity in the game whose children can be enumerated.
 	/// </summary>
-	abstract class CompositeEntity<T> : CompositeEntity where T : IEntity
+	abstract class CompositeEntity<Child> : CompositeEntity where Child : IEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -68,7 +68,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The sub-entities contained within the composite.
 		/// </summary>
-		abstract protected IEnumerable<T> Children { get; }
+		protected abstract IEnumerable<Child> Children { get; }
 
 		#endregion
 

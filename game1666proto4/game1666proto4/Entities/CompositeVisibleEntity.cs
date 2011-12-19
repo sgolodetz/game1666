@@ -36,6 +36,14 @@ namespace game1666proto4
 		{}
 
 		/// <summary>
+		/// Constructs a composite visible entity directly from a set of properties.
+		/// </summary>
+		/// <param name="properties">The properties of the entity.</param>
+		public CompositeVisibleEntity(IDictionary<string,string> properties)
+		:	base(properties)
+		{}
+
+		/// <summary>
 		/// Constructs a composite visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
@@ -56,7 +64,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the entity.
 		/// </summary>
-		virtual public void Draw()
+		public virtual void Draw()
 		{
 			foreach(IVisibleEntity entity in Children)
 			{
@@ -68,7 +76,7 @@ namespace game1666proto4
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		virtual public void OnMousePressed(MouseState state)
+		public virtual void OnMousePressed(MouseState state)
 		{
 			foreach(IVisibleEntity entity in Children)
 			{
@@ -82,10 +90,10 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Updates the entity based on user input.
+		/// Updates the entity based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		virtual public void Update(GameTime gameTime)
+		public virtual void Update(GameTime gameTime)
 		{
 			foreach(IVisibleEntity entity in Children)
 			{

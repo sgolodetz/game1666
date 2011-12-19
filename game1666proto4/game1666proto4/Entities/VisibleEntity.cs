@@ -51,13 +51,13 @@ namespace game1666proto4
 		/// <summary>
 		/// Draws the entity.
 		/// </summary>
-		abstract public void Draw();
+		public abstract void Draw();
 
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
-		virtual public void OnMousePressed(MouseState state)
+		public virtual void OnMousePressed(MouseState state)
 		{
 			// No-op by default
 		}
@@ -66,7 +66,7 @@ namespace game1666proto4
 		/// Updates the entity based on user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		virtual public void Update(GameTime gameTime)
+		public virtual void Update(GameTime gameTime)
 		{
 			// No-op by default
 		}

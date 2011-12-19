@@ -69,7 +69,7 @@ namespace game1666proto4
 		/// <param name="properties">The properties of the entity.</param>
 		public Entity(IDictionary<string,string> properties)
 		{
-			m_properties = Properties;
+			m_properties = properties;
 		}
 
 		/// <summary>
