@@ -11,7 +11,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents an entity in the game.
 	/// </summary>
-	abstract class Entity
+	abstract class Entity : IEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

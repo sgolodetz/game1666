@@ -4,13 +4,14 @@
  ***/
 
 using System.Xml.Linq;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : Entity, IBuildableModelEntity
+	abstract class Building : Entity, IBuildableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -76,6 +77,20 @@ namespace game1666proto4
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 			m_builder = new EntityBuilder(5000);	// TEMPORARY: Build the entity over a 5 second period.
 			m_position = EntityUtil.ParseVector2iSpecifier(Properties["Position"]);
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Updates the building based on user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public void Update(GameTime gameTime)
+		{
+			// TODO
 		}
 
 		#endregion

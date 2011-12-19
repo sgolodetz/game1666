@@ -1,14 +1,16 @@
 ﻿/***
- * game1666proto4: IBuildableModelEntity.cs
+ * game1666proto4: IBuildableEntity.cs
  * Copyright 2011. All rights reserved.
  ***/
+
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can be built in a playing area.
 	/// </summary>
-	interface IBuildableModelEntity
+	interface IBuildableEntity : IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region

@@ -158,7 +158,7 @@ namespace game1666proto4
 		/// Draws a buildable entity.
 		/// </summary>
 		/// <param name="entity">The entity to draw.</param>
-		private void DrawBuildableEntity(IBuildableModelEntity entity)
+		private void DrawBuildableEntity(IBuildableEntity entity)
 		{
 			// TODO: Render the model in the correct position, scaling it based on its state of completion.
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
