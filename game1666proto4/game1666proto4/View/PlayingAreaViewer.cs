@@ -155,10 +155,10 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Draws a buildable entity.
+		/// Draws a placeable entity.
 		/// </summary>
 		/// <param name="entity">The entity to draw.</param>
-		private void DrawBuildableEntity(IBuildableEntity entity)
+		private void DrawPlaceableEntity(IPlaceableEntity entity)
 		{
 			// TODO: Render the model in the correct position, scaling it based on its state of completion.
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
@@ -181,7 +181,7 @@ namespace game1666proto4
 			// Draw all the buildings in the city.
 			foreach(Building building in city.Buildings)
 			{
-				DrawBuildableEntity(building);
+				DrawPlaceableEntity(building);
 			}
 		}
 

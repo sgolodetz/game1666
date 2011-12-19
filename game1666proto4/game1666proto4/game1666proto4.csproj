@@ -164,12 +164,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\IBuildableEntity.cs" />
+    <Compile Include="Model\IPlaceableEntity.cs" />
     <Compile Include="IUpdateableEntity.cs" />
     <Compile Include="View\IVisibleEntity.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="CompositeEntity.cs" />
-    <Compile Include="Model\CompositeUpdatableEntity.cs" />
+    <Compile Include="CompositeUpdatableEntity.cs" />
     <Compile Include="Model\EntityBuilder.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="View\Button.cs" />

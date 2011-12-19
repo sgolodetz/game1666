@@ -11,7 +11,7 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : Entity, IBuildableEntity
+	abstract class Building : Entity, IPlaceableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
