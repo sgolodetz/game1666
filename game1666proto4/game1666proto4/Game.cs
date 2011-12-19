@@ -19,6 +19,7 @@ namespace game1666proto4
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
 		private ViewManager m_viewManager;
+		private World m_world;
 
 		#endregion
 
@@ -77,8 +78,9 @@ namespace game1666proto4
 			// Load the world from an XML file.
 			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
-			// Look up the view manager in the scene graph.
+			// Look up the view manager and world in the scene graph.
 			m_viewManager = SceneGraph.GetEntityByPath("views");
+			m_world = SceneGraph.GetEntityByPath("world");
 
 			base.Initialize();
 		}
@@ -115,6 +117,7 @@ namespace game1666proto4
 
 			MouseEventManager.Update();
 			m_viewManager.Update(gameTime);
+			m_world.Update(gameTime);
 
 			base.Update(gameTime);
 		}
