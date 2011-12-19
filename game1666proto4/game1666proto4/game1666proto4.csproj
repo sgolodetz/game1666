@@ -164,9 +164,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBuildableEntity.cs" />
+    <Compile Include="Model\IBuildableEntity.cs" />
     <Compile Include="IUpdateableEntity.cs" />
-    <Compile Include="IVisibleEntity.cs" />
+    <Compile Include="View\IVisibleEntity.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="CompositeEntity.cs" />
     <Compile Include="Model\CompositeUpdatableEntity.cs" />
