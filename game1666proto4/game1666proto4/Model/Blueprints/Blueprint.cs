@@ -20,6 +20,11 @@ namespace game1666proto4
 		/// </summary>
 		public string Model { get { return Properties["Model"]; } }
 
+		/// <summary>
+		/// The overall time required to construct the entity (in milliseconds).
+		/// </summary>
+		public int TimeToConstruct { get { return int.Parse(Properties["TimeToConstruct"]); } }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################

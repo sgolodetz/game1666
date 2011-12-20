@@ -75,7 +75,7 @@ namespace game1666proto4
 		{
 			m_altitude = float.Parse(Properties["Altitude"]);
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
-			m_fsm = new EntityFSM(5000);	// TEMPORARY: Build the entity over a 5 second period.
+			m_fsm = new EntityFSM(m_blueprint.TimeToConstruct);
 			m_position = EntityUtil.ParseVector2iSpecifier(Properties["Position"]);
 		}
 

@@ -8,6 +8,7 @@
       </property>
       <property name="MaxOccupants" value="2"/>
       <property name="Model" value="Dwelling"/>
+      <property name="TimeToConstruct" value="1000"/>
     </entity>
     <entity type="HouseBlueprint">
       <property name="Name" value="Mansion"/>
