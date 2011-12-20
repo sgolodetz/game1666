@@ -12,23 +12,18 @@ namespace game1666proto4
 	/// An instance of this class represents a finite state machine.
 	/// </summary>
 	/// <typeparam name="StateID">The type used to identify the different states in the machine.</typeparam>
-	sealed class FiniteStateMachine<StateID>
+	abstract class FiniteStateMachine<StateID>
 	{
 		//#################### DELEGATES ####################
 		#region
 
 		private delegate StateID Transition(dynamic fromState);
-		public delegate StateID Transition<State>(State fromState);
+		protected delegate StateID Transition<State>(State fromState);
 
 		#endregion
 
 		//#################### PRIVATE VARIABLES ####################
 		#region
-
-		/// <summary>
-		/// The ID of the current state.
-		/// </summary>
-		private StateID m_currentStateID;
 
 		/// <summary>
 		/// A lookup table of all the states in the machine.
@@ -48,50 +43,17 @@ namespace game1666proto4
 		/// <summary>
 		/// The current state.
 		/// </summary>
-		public dynamic CurrentState { get { return m_states[m_currentStateID]; } }
+		public dynamic CurrentState { get { return m_states[CurrentStateID]; } }
 
 		/// <summary>
 		/// The ID of the current state.
 		/// </summary>
-		public StateID CurrentStateID { get { return m_currentStateID; } }
-
-		#endregion
-
-		//#################### CONSTRUCTORS ####################
-		#region
-
-		/// <summary>
-		/// Constructs a new finite state machine with the specified states and initial state.
-		/// </summary>
-		/// <param name="states">The states in the finite state machine.</param>
-		/// <param name="initialStateID">The initial state.</param>
-		public FiniteStateMachine(IDictionary<StateID,IFSMState<StateID>> states, StateID initialStateID)
-		{
-			// Copy the specified states into our local lookup table - done this way to convert the types to dynamic.
-			foreach(var kv in states)
-			{
-				m_states.Add(kv.Key, kv.Value);
-			}
-
-			m_currentStateID = initialStateID;
-		}
+		public StateID CurrentStateID { get; protected set; }
 
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
 		#region
-
-		/// <summary>
-		/// Adds a new transition out of the specified state.
-		/// </summary>
-		/// <param name="fromStateID">The starting state for the transition.</param>
-		/// <param name="transition">The transition.</param>
-		public void AddTransition<State>(StateID fromStateID, Transition<State> transition)
-			where State : IFSMState<StateID>
-		{
-			// Forward to the private method that accepts a delegate taking a dynamic 'from state' parameter.
-			AddTransition(fromStateID, s => transition(s));
-		}
 
 		/// <summary>
 		/// Updates the finite state machine based on elapsed time and user input.
@@ -105,18 +67,45 @@ namespace game1666proto4
 
 			// Process any transitions.
 			List<Transition> relevantTransitions;
-			m_transitions.TryGetValue(m_currentStateID, out relevantTransitions);
+			m_transitions.TryGetValue(CurrentStateID, out relevantTransitions);
 			if(relevantTransitions == null) return;
 
 			foreach(Transition transition in relevantTransitions)
 			{
 				StateID toStateID = transition(currentState);
-				if(!EqualityComparer<StateID>.Default.Equals(toStateID, m_currentStateID))
+				if(!EqualityComparer<StateID>.Default.Equals(toStateID, CurrentStateID))
 				{
-					m_currentStateID = toStateID;
+					CurrentStateID = toStateID;
 					break;
 				}
 			}
+		}
+
+		#endregion
+
+		//#################### PROTECTED METHODS ####################
+		#region
+
+		/// <summary>
+		/// Adds a new state.
+		/// </summary>
+		/// <param name="stateID">The ID of the state.</param>
+		/// <param name="state">The state itself.</param>
+		protected void AddState(StateID stateID, IFSMState<StateID> state)
+		{
+			m_states.Add(stateID, state);
+		}
+
+		/// <summary>
+		/// Adds a new transition out of the specified state.
+		/// </summary>
+		/// <param name="fromStateID">The starting state for the transition.</param>
+		/// <param name="transition">The transition.</param>
+		protected void AddTransition<State>(StateID fromStateID, Transition<State> transition)
+			where State : IFSMState<StateID>
+		{
+			// Forward to the private method that accepts a delegate taking a dynamic 'from state' parameter.
+			AddTransition(fromStateID, s => transition(s));
 		}
 
 		#endregion
