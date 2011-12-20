@@ -8,22 +8,113 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class is used to manage the building of an entity over time.
+	/// The various possible states of an entity.
 	/// </summary>
-	sealed class EntityFSM
+	enum EntityState
 	{
-		//#################### PRIVATE VARIABLES ####################
+		IN_CONSTRUCTION,
+		OPERATING
+	}
+
+	/// <summary>
+	/// An instance of this class is used to manage the state of an entity over time.
+	/// </summary>
+	sealed class EntityFSM : FiniteStateMachine<EntityState>
+	{
+		//#################### NESTED CLASSES ####################
 		#region
 
 		/// <summary>
-		/// The overall time required to build the entity (in milliseconds).
+		/// A state representing a time in which the entity is being constructed.
 		/// </summary>
-		private int m_timeToBuild;
+		public class InConstructionState : IFSMState<EntityState>
+		{
+			//#################### PRIVATE VARIABLES ####################
+			#region
+
+			/// <summary>
+			/// The time (in milliseconds) that has elapsed since construction started.
+			/// </summary>
+			private int m_timeElapsed;
+
+			/// <summary>
+			/// The time (in milliseconds) that it takes to construct the entity.
+			/// </summary>
+			private int m_timeToConstruct;
+
+			#endregion
+
+			//#################### PROPERTIES ####################
+			#region
+
+			/// <summary>
+			/// The ID of the state.
+			/// </summary>
+			public EntityState ID { get { return EntityState.IN_CONSTRUCTION; } }
+
+			/// <summary>
+			/// The completeness percentage of the entity.
+			/// </summary>
+			public int PercentComplete { get { return m_timeElapsed * 100 / m_timeToConstruct; } }
+
+			#endregion
+
+			//#################### CONSTRUCTORS ####################
+			#region
+
+			/// <summary>
+			/// Constructs a new 'in construction' state.
+			/// </summary>
+			/// <param name="timeToConstruct">The time (in milliseconds) that it takes to construct the entity.</param>
+			public InConstructionState(int timeToConstruct)
+			{
+				m_timeElapsed = 0;
+				m_timeToConstruct = timeToConstruct;
+			}
+
+			#endregion
+
+			//#################### PUBLIC METHODS ####################
+			#region
+
+			/// <summary>
+			/// Updates the state based on elapsed time and user input.
+			/// </summary>
+			/// <param name="gameTime">Provides a snapshot of timing values.</param>
+			public void Update(GameTime gameTime)
+			{
+				m_timeElapsed += gameTime.ElapsedGameTime.Milliseconds;
+			}
+
+			#endregion
+		}
 
 		/// <summary>
-		/// The remaining time required to build the entity (in milliseconds).
+		/// A state representing a time in which the entity is operational.
 		/// </summary>
-		private int m_timeToCompletion;
+		public class OperatingState : IFSMState<EntityState>
+		{
+			//#################### PROPERTIES ####################
+			#region
+
+			/// <summary>
+			/// The ID of the state.
+			/// </summary>
+			public EntityState ID { get { return EntityState.OPERATING; } }
+
+			#endregion
+
+			//#################### PUBLIC METHODS ####################
+			#region
+
+			/// <summary>
+			/// Updates the state based on elapsed time and user input.
+			/// </summary>
+			/// <param name="gameTime">Provides a snapshot of timing values.</param>
+			public void Update(GameTime gameTime) { }
+
+			#endregion
+		}
 
 		#endregion
 
@@ -33,24 +124,20 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs an entity builder that will take the specified amount of time to finish building the entity.
 		/// </summary>
-		/// <param name="timeToBuild">The overall time required to build the entity (in milliseconds).</param>
-		public EntityFSM(int timeToBuild)
+		/// <param name="timeToConstruct">The overall time required to construct the entity (in milliseconds).</param>
+		public EntityFSM(int timeToConstruct)
 		{
-			m_timeToBuild = m_timeToCompletion = timeToBuild;
-		}
+			// Add the necessary states.
+			AddState(EntityState.IN_CONSTRUCTION, new InConstructionState(timeToConstruct));
+			AddState(EntityState.OPERATING, new OperatingState());
 
-		#endregion
+			// Add the necessary transitions.
+			AddTransition(EntityState.IN_CONSTRUCTION, (InConstructionState s) =>
+				s.PercentComplete >= 100 ? EntityState.OPERATING : EntityState.IN_CONSTRUCTION
+			);
 
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <param name="gameTime"></param>
-		public void Update(GameTime gameTime)
-		{
-			// TODO
+			// Set the starting state.
+			CurrentStateID = EntityState.IN_CONSTRUCTION;
 		}
 
 		#endregion

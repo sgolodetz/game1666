@@ -90,7 +90,7 @@ namespace game1666proto4
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			// TODO
+			m_fsm.Update(gameTime);
 		}
 
 		#endregion
