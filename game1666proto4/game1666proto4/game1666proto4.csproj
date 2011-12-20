@@ -167,8 +167,8 @@
     <Compile Include="Entities\IPlaceableEntity.cs" />
     <Compile Include="Entities\IUpdateableEntity.cs" />
     <Compile Include="Entities\IVisibleEntity.cs" />
-    <Compile Include="FSMs\FiniteStateMachine.cs" />
-    <Compile Include="FSMs\IFSMState.cs" />
+    <Compile Include="FSM\FiniteStateMachine.cs" />
+    <Compile Include="FSM\IFSMState.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="Entities\CompositeEntity.cs" />
     <Compile Include="Entities\CompositeUpdatableEntity.cs" />
