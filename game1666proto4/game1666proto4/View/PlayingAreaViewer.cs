@@ -160,9 +160,20 @@ namespace game1666proto4
 		/// <param name="entity">The entity to draw.</param>
 		private void DrawPlaceableEntity(IPlaceableEntity entity)
 		{
-			// TODO: Render the model in the correct position, scaling it based on its state of completion.
+			// Load the model.
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
+
+			// Move the model to the correct position.
 			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X, entity.Position.Y, entity.Altitude);
+
+			// If the entity is still being constructed, scale the model based on the current state of completion.
+			if(entity.FSM.CurrentStateID == EntityState.IN_CONSTRUCTION)
+			{
+				Matrix matScale = Matrix.CreateScale(1, 1, entity.FSM.CurrentState.PercentComplete / 100f);
+				matWorld = Matrix.Multiply(matScale, matWorld);
+			}
+
+			// Render the model.
 			Renderer.DrawModel(model, matWorld, m_matView, m_matProjection);
 		}
 
