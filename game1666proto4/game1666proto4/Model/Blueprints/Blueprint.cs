@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -23,7 +24,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The overall time required to construct the entity (in milliseconds).
 		/// </summary>
-		public int TimeToConstruct { get { return int.Parse(Properties["TimeToConstruct"]); } }
+		public int TimeToConstruct { get { return int.Parse(Properties["TimeToConstruct"], CultureInfo.GetCultureInfo("en-GB")); } }
 
 		#endregion
 

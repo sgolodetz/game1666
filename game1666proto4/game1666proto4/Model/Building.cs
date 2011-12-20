@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Globalization;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
@@ -73,7 +74,7 @@ namespace game1666proto4
 		public Building(XElement entityElt)
 		:	base(entityElt)
 		{
-			m_altitude = float.Parse(Properties["Altitude"]);
+			m_altitude = float.Parse(Properties["Altitude"], CultureInfo.GetCultureInfo("en-GB"));
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 			m_fsm = new EntityFSM(m_blueprint.TimeToConstruct);
 			m_position = EntityUtil.ParseVector2iSpecifier(Properties["Position"]);
