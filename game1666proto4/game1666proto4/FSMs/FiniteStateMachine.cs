@@ -8,20 +8,6 @@ using Microsoft.Xna.Framework;
 
 namespace game1666proto4
 {
-	interface IFSMState<StateID>
-	{
-		/// <summary>
-		/// The ID of the state.
-		/// </summary>
-		StateID ID { get; }
-
-		/// <summary>
-		/// Updates the state based on elapsed time and user input.
-		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		void Update(GameTime gameTime);
-	}
-
 	/// <summary>
 	/// An instance of this class represents a finite state machine.
 	/// </summary>
