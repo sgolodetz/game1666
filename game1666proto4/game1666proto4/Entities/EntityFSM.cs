@@ -66,7 +66,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The time (in milliseconds) that it takes to construct the entity.
 		/// </summary>
-		private int m_timeToConstruct;
+		private readonly int m_timeToConstruct;
 
 		#endregion
 

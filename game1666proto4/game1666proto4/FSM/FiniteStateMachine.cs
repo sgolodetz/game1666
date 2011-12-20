@@ -28,12 +28,12 @@ namespace game1666proto4
 		/// <summary>
 		/// A lookup table of all the states in the machine.
 		/// </summary>
-		private IDictionary<StateID,dynamic> m_states = new Dictionary<StateID,dynamic>();
+		private readonly IDictionary<StateID,dynamic> m_states = new Dictionary<StateID,dynamic>();
 
 		/// <summary>
 		/// A lookup table of all the transitions leading out of different states in the machine.
 		/// </summary>
-		private IDictionary<StateID,List<Transition>> m_transitions = new Dictionary<StateID,List<Transition>>();
+		private readonly IDictionary<StateID,List<Transition>> m_transitions = new Dictionary<StateID,List<Transition>>();
 
 		#endregion
 
