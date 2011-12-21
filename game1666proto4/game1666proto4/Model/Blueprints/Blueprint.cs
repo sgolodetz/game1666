@@ -24,7 +24,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The overall time required to construct the entity (in milliseconds).
 		/// </summary>
-		public int TimeToConstruct { get { return int.Parse(Properties["TimeToConstruct"], CultureInfo.GetCultureInfo("en-GB")); } }
+		public int TimeToConstruct { get { return Properties["TimeToConstruct"]; } }
 
 		#endregion
 

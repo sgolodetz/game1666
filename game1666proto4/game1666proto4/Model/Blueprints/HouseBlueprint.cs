@@ -19,7 +19,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The maximum number of people that can occupy a house constructed using this blueprint.
 		/// </summary>
-		public int MaxOccupants { get { return Convert.ToInt32(Properties["MaxOccupants"]); } }
+		public int MaxOccupants { get { return Properties["MaxOccupants"]; } }
 
 		#endregion
 

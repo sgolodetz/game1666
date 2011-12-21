@@ -26,7 +26,7 @@ namespace game1666proto4
 		/// Constructs a composite entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeEntity(IDictionary<string,string> properties)
+		public CompositeEntity(IDictionary<string,dynamic> properties)
 		:	base(properties)
 		{}
 
@@ -85,7 +85,7 @@ namespace game1666proto4
 		/// Constructs a composite entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeEntity(IDictionary<string,string> properties)
+		public CompositeEntity(IDictionary<string,dynamic> properties)
 		:	base(properties)
 		{}
 

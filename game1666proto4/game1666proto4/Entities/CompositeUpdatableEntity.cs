@@ -27,7 +27,7 @@ namespace game1666proto4
 		/// Constructs a composite updatable entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeUpdatableEntity(IDictionary<string,string> properties)
+		public CompositeUpdatableEntity(IDictionary<string,dynamic> properties)
 		:	base(properties)
 		{}
 

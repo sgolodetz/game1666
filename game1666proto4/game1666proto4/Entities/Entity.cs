@@ -19,7 +19,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The entity's properties.
 		/// </summary>
-		private readonly IDictionary<string,string> m_properties;
+		private readonly IDictionary<string,dynamic> m_properties;
 
 		#endregion
 
@@ -33,16 +33,14 @@ namespace game1666proto4
 		{
 			get
 			{
-				string name;
-				Properties.TryGetValue("Name", out name);
-				return name;
+				return Properties.ContainsKey("Name") ? Properties["Name"] : "";
 			}
 		}
 
 		/// <summary>
 		/// The entity's properties.
 		/// </summary>
-		protected IDictionary<string,string> Properties
+		protected IDictionary<string,dynamic> Properties
 		{
 			get
 			{
@@ -60,14 +58,14 @@ namespace game1666proto4
 		/// </summary>
 		public Entity()
 		{
-			m_properties = new Dictionary<string,string>();
+			m_properties = new Dictionary<string,dynamic>();
 		}
 
 		/// <summary>
 		/// Constructs an entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public Entity(IDictionary<string,string> properties)
+		public Entity(IDictionary<string,dynamic> properties)
 		{
 			m_properties = properties;
 		}

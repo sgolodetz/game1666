@@ -2,21 +2,21 @@
 <config>
   <blueprints>
     <entity type="HouseBlueprint">
-      <property name="Name" value="Dwelling"/>
+      <property name="Name" type="string" value="Dwelling"/>
       <property name="Footprint">
         <!-- TODO -->
       </property>
-      <property name="MaxOccupants" value="2"/>
-      <property name="Model" value="Dwelling"/>
-      <property name="TimeToConstruct" value="1000"/>
+      <property name="MaxOccupants" type="int" value="2"/>
+      <property name="Model" type="string" value="Dwelling"/>
+      <property name="TimeToConstruct" type="int" value="1000"/>
     </entity>
     <entity type="HouseBlueprint">
-      <property name="Name" value="Mansion"/>
-      <property name="MaxOccupants" value="10"/>
+      <property name="Name" type="string" value="Mansion"/>
+      <property name="MaxOccupants" type="int" value="10"/>
       <!-- TODO -->
     </entity>
     <entity type="RoadSegmentBlueprint">
-      <property name="Name" value="DirtTrack"/>
+      <property name="Name" type="string" value="DirtTrack"/>
       <!-- TODO -->
     </entity>
   </blueprints>
@@ -24,14 +24,14 @@
     <entity type="GameView">
       <property name="Name" value="City"/>
       <entity type="PlayingAreaViewer">
-        <property name="Name" value="PlayingAreaViewer"/>
-        <property name="PlayingArea" value="world/city:Home"/>
-        <property name="Viewport" value="0,0,0.8,1"/>
+        <property name="Name" type="string" value="PlayingAreaViewer"/>
+        <property name="PlayingArea" type="string" value="world/city:Home"/>
+        <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
       </entity>
       <entity type="SidebarViewer">
-        <property name="Name" value="SidebarViewer"/>
-        <property name="PlayingArea" value="world/city:Home"/>
-        <property name="Viewport" value="0.8,0,0.2,1"/>
+        <property name="Name" type="string" value="SidebarViewer"/>
+        <property name="PlayingArea" type="string" value="world/city:Home"/>
+        <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <group name="Houses">
           <element name="Dwelling"/>
           <element name="Mansion"/>
@@ -44,14 +44,14 @@
     <entity type="GameView">
       <property name="Name" value="World"/>
       <entity type="PlayingAreaViewer">
-        <property name="Name" value="PlayingAreaViewer"/>
-        <property name="PlayingArea" value="world"/>
-        <property name="Viewport" value="0,0,0.8,1"/>
+        <property name="Name" type="string" value="PlayingAreaViewer"/>
+        <property name="PlayingArea" type="string" value="world"/>
+        <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
       </entity>
       <entity type="SidebarViewer">
-        <property name="Name" value="SidebarViewer"/>
-        <property name="PlayingArea" value="world"/>
-        <property name="Viewport" value="0.8,0,0.2,1"/>
+        <property name="Name" type="string" value="SidebarViewer"/>
+        <property name="PlayingArea" type="string" value="world"/>
+        <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <group name="Roads">
           <element name="DirtTrack"/>
         </group>

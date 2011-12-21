@@ -39,7 +39,7 @@ namespace game1666proto4
 		/// Constructs a composite visible entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeVisibleEntity(IDictionary<string,string> properties)
+		public CompositeVisibleEntity(IDictionary<string,dynamic> properties)
 		:	base(properties)
 		{}
 

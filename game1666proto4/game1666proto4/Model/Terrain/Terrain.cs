@@ -119,13 +119,13 @@ namespace game1666proto4
 		{
 			// Look up the width and height of the terrain grid in the properties loaded in from XML,
 			// and construct an appropriately-sized heightmap.
-			int heightmapWidth = Convert.ToInt32(Properties["Width"]);
-			int heightmapHeight = Convert.ToInt32(Properties["Height"]);
-			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
+			int heightmapWidth = Properties["Width"];
+			int heightmapHeight = Properties["Height"];
+			float zScaling = Properties["ZScaling"];
 			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
 
 			// Parse the heightmap values from the properties loaded in from XML.
-			List<float> heightmapValues = Properties["Heightmap"]
+			List<float> heightmapValues = ((string)Properties["Heightmap"])
 				.Split(',')
 				.Select(s => Convert.ToSingle(s.Trim()))
 				.ToList();
@@ -220,7 +220,7 @@ namespace game1666proto4
 
 			// Create the heightmap from the heightmap data.
 			var heightmap = new float[texture.Height + 1, texture.Width + 1];
-			float zScaling = Convert.ToSingle(Properties["ZScaling"]);
+			float zScaling = Properties["ZScaling"];
 			int valueIndex = 0;
 			for(int y = 0; y < texture.Height; ++y)
 			{

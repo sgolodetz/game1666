@@ -18,11 +18,6 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// The altitude of the base of the building.
-		/// </summary>
-		private readonly float m_altitude;
-
-		/// <summary>
 		/// The blueprint for the building.
 		/// </summary>
 		private readonly Blueprint m_blueprint;
@@ -32,11 +27,6 @@ namespace game1666proto4
 		/// </summary>
 		private readonly EntityFSM m_fsm;
 
-		/// <summary>
-		/// The position (relative to the origin of the containing entity) of the building's hotspot.
-		/// </summary>
-		private readonly Vector2i m_position;
-
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -45,7 +35,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The altitude of the base of the building.
 		/// </summary>
-		public float Altitude { get { return m_altitude; } }
+		public float Altitude { get { return Properties["Altitude"]; } }
 
 		/// <summary>
 		/// The blueprint for the building.
@@ -60,7 +50,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
 		/// </summary>
-		public Vector2i Position { get { return m_position; } }
+		public Vector2i Position { get { return Properties["Position"]; } }
 
 		#endregion
 
@@ -74,10 +64,8 @@ namespace game1666proto4
 		public Building(XElement entityElt)
 		:	base(entityElt)
 		{
-			m_altitude = float.Parse(Properties["Altitude"], CultureInfo.GetCultureInfo("en-GB"));
 			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 			m_fsm = new EntityFSM(m_blueprint.TimeToConstruct);
-			m_position = EntityUtil.ParseVector2iSpecifier(Properties["Position"]);
 		}
 
 		#endregion

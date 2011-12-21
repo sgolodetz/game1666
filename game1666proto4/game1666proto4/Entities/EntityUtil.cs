@@ -51,27 +51,39 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Loads an entity's properties from XML.
+		/// Loads an entity's typed properties from XML.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		/// <returns>The loaded properties.</returns>
-		public static IDictionary<string,string> LoadProperties(XElement entityElt)
+		public static IDictionary<string,dynamic> LoadProperties(XElement entityElt)
 		{
-			var properties = new Dictionary<string,string>();
+			var properties = new Dictionary<string,dynamic>();
+
+			// Set up the converters for the various supported types.
+			var converters = new Dictionary<string,Func<string,dynamic>>();
+			converters["float"] = s => Convert.ToSingle(s);
+			converters["int"] = s => Convert.ToInt32(s);
+			converters["string"] = s => s;
+			converters["Vector2i"] = s => ParseVector2iSpecifier(s);
+			converters["Viewport"] = s => ParseViewportSpecifier(s);
 
 			foreach(XElement propertyElt in entityElt.Elements("property"))
 			{
 				// Look up the name of the property.
 				XAttribute nameAttribute = propertyElt.Attribute("name");
 
+				// If the property element has a type attribute, use it. Otherwise, use string as the default.
+				XAttribute typeAttribute = propertyElt.Attribute("type");
+				string type = typeAttribute != null ? typeAttribute.Value : "string";
+
 				// If the property element has a value attribute, use that. Otherwise, use the text enclosed within the element.
 				XAttribute valueAttribute = propertyElt.Attribute("value");
 				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Replace(" ", "");
 
-				// Provided the property is valid, store it for later use.
+				// Provided the property is valid, convert and store it for later use.
 				if(nameAttribute != null && value != null)
 				{
-					properties[nameAttribute.Value] = value;
+					properties[nameAttribute.Value] = converters[type](value);
 				}
 			}
 
@@ -88,7 +100,7 @@ namespace game1666proto4
 			int[] values = vectorSpecifier
 				.Split(',')
 				.Where(v => !string.IsNullOrWhiteSpace(v))
-				.Select(v => int.Parse(v.Trim(), CultureInfo.GetCultureInfo("en-GB")))
+				.Select(v => Convert.ToInt32(v.Trim()))
 				.ToArray();
 
 			if(values.Length == 2)
@@ -107,7 +119,7 @@ namespace game1666proto4
 		{
 			decimal[] values = viewportSpecifier
 				.Split(',')
-				.Select(v => decimal.Parse(v.Trim(), CultureInfo.GetCultureInfo("en-GB")))
+				.Select(v => Convert.ToDecimal(v.Trim()))
 				.ToArray();
 
 			if(values.Length == 4)

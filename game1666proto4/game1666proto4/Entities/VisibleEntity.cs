@@ -40,7 +40,7 @@ namespace game1666proto4
 		/// Constructs a visible entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public VisibleEntity(IDictionary<string,string> properties)
+		public VisibleEntity(IDictionary<string,dynamic> properties)
 		:	base(properties)
 		{}
 

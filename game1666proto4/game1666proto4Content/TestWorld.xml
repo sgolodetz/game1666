@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <entity type="World">
-  <property name="HomeCity" value="Stuartopolis"/>
+  <property name="HomeCity" type="string" value="Stuartopolis"/>
   <entity type="Terrain">
-    <property name="ZScaling" value="0.1"/>
-    <property name="AssetHeightmap" value="TestWorld"/>
+    <property name="ZScaling" type="float" value="0.1"/>
+    <property name="AssetHeightmap" type="string" value="TestWorld"/>
   </entity>
   <entity type="City">
     <property name="Name" value="Stuartopolis"/>
     <entity type="Terrain">
-      <property name="Width" value="9"/>
-      <property name="Height" value="5"/>
-      <property name="ZScaling" value="0.25"/>
-      <property name="Heightmap">
+      <property name="Width" type="int" value="9"/>
+      <property name="Height" type="int" value="5"/>
+      <property name="ZScaling" type="float" value="0.25"/>
+      <property name="Heightmap" type="string">
         1,1,1,2,5,4,4,3,2,1,
         1,1,2,2,5,4,3,3,1,1,
         4,4,4,4,5,4,3,2,1,1,
@@ -20,9 +20,9 @@
       </property>
     </entity>
     <entity type="House">
-      <property name="Altitude" value="0.25"/>
-      <property name="Blueprint" value="Dwelling"/>
-      <property name="Position" value="1,0"/>
+      <property name="Altitude" type="float" value="0.25"/>
+      <property name="Blueprint" type="string" value="Dwelling"/>
+      <property name="Position" type="Vector2i" value="1,0"/>
     </entity>
   </entity>
 </entity>
