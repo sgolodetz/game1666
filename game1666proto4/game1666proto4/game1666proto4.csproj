@@ -164,6 +164,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\FSM\EntityInConstructionState.cs" />
+    <Compile Include="Entities\FSM\EntityOperatingState.cs" />
     <Compile Include="Entities\IPlaceableEntity.cs" />
     <Compile Include="Entities\IUpdateableEntity.cs" />
     <Compile Include="Entities\IVisibleEntity.cs" />
@@ -172,7 +174,7 @@
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="Entities\CompositeEntity.cs" />
     <Compile Include="Entities\CompositeUpdatableEntity.cs" />
-    <Compile Include="Entities\EntityFSM.cs" />
+    <Compile Include="Entities\FSM\EntityFSM.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="View\Button.cs" />
     <Compile Include="Entities\Entity.cs" />
