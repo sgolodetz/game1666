@@ -61,9 +61,10 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs a new 'entity in construction' state.
 		/// </summary>
-		public EntityInConstructionState()
+		/// <param name="timeElapsed">The time (in milliseconds) that has elapsed since construction started.</param>
+		public EntityInConstructionState(int timeElapsed)
 		{
-			m_timeElapsed = 0;
+			m_timeElapsed = timeElapsed;
 		}
 
 		#endregion

@@ -53,7 +53,7 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			// Add the necessary states.
-			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState());
+			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState(Properties["TimeElapsed"]));
 			AddState(EntityStateID.OPERATING, new EntityOperatingState());
 
 			// Add the necessary transitions.

@@ -24,7 +24,8 @@
       <property name="Blueprint" type="string" value="Dwelling"/>
       <property name="Position" type="Vector2i" value="1,0"/>
       <entity type="EntityFSM">
-        <property name="CurrentStateID" type="string" value="IN_CONSTRUCTION"/>
+        <property name="CurrentStateID" type="string" value="OPERATING"/>
+        <property name="TimeElapsed" type="int" value="1000"/>
       </entity>
     </entity>
   </entity>
