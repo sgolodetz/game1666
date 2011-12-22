@@ -13,16 +13,6 @@ namespace game1666proto4
 	/// </summary>
 	abstract class Building : CompositeEntity, IPlaceableEntity
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The finite state machine for the building.
-		/// </summary>
-		private EntityFSM m_fsm;
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -39,7 +29,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The finite state machine for the building.
 		/// </summary>
-		public FiniteStateMachine<EntityStateID> FSM { get { return m_fsm; } }
+		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -72,8 +62,8 @@ namespace game1666proto4
 		/// <param name="fsm">The FSM.</param>
 		public void AddEntity(EntityFSM fsm)
 		{
-			m_fsm = fsm;
-			m_fsm.EntityProperties = Properties;
+			FSM = fsm;
+			fsm.EntityProperties = Properties;
 		}
 
 		/// <summary>
@@ -91,7 +81,7 @@ namespace game1666proto4
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			m_fsm.Update(gameTime);
+			FSM.Update(gameTime);
 		}
 
 		#endregion
