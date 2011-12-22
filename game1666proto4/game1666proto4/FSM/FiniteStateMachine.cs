@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4
@@ -12,7 +13,7 @@ namespace game1666proto4
 	/// An instance of this class represents a finite state machine.
 	/// </summary>
 	/// <typeparam name="StateID">The type used to identify the different states in the machine.</typeparam>
-	abstract class FiniteStateMachine<StateID>
+	abstract class FiniteStateMachine<StateID> : Entity
 	{
 		//#################### DELEGATES ####################
 		#region
@@ -49,6 +50,19 @@ namespace game1666proto4
 		/// The ID of the current state.
 		/// </summary>
 		public StateID CurrentStateID { get; protected set; }
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a finite state machine (FSM) from its XML representation.
+		/// </summary>
+		/// <param name="entityElt">The root element of the FSM's XML representation.</param>
+		public FiniteStateMachine(XElement entityElt)
+		:	base(entityElt)
+		{}
 
 		#endregion
 

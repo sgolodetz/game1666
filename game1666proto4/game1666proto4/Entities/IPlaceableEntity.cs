@@ -28,7 +28,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The finite state machine for the entity.
 		/// </summary>
-		EntityFSM FSM { get; }
+		FiniteStateMachine<EntityStateID> FSM { get; }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.

@@ -167,7 +167,7 @@ namespace game1666proto4
 			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X, entity.Position.Y, entity.Altitude);
 
 			// If the entity is still being constructed, scale the model based on the current state of completion.
-			if(entity.FSM.CurrentStateID == EntityState.IN_CONSTRUCTION)
+			if(entity.FSM.CurrentStateID == EntityStateID.IN_CONSTRUCTION)
 			{
 				Matrix matScale = Matrix.CreateScale(1, 1, entity.FSM.CurrentState.PercentComplete / 100f);
 				matWorld = Matrix.Multiply(matScale, matWorld);

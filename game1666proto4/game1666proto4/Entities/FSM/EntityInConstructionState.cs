@@ -10,7 +10,7 @@ namespace game1666proto4
 	/// <summary>
 	/// A state representing a time in which the entity is being constructed.
 	/// </summary>
-	sealed class EntityInConstructionState : IFSMState<EntityState>
+	sealed class EntityInConstructionState : IFSMState<EntityStateID>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -33,7 +33,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The ID of the state.
 		/// </summary>
-		public EntityState ID { get { return EntityState.IN_CONSTRUCTION; } }
+		public EntityStateID ID { get { return EntityStateID.IN_CONSTRUCTION; } }
 
 		/// <summary>
 		/// The completeness percentage of the entity.

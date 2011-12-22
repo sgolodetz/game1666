@@ -3,7 +3,6 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-using System.Globalization;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
@@ -12,23 +11,8 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : Entity, IPlaceableEntity
+	abstract class Building : CompositeEntity, IPlaceableEntity
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The blueprint for the building.
-		/// </summary>
-		private readonly Blueprint m_blueprint;
-
-		/// <summary>
-		/// The finite state machine for the building.
-		/// </summary>
-		private readonly EntityFSM m_fsm;
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -40,12 +24,12 @@ namespace game1666proto4
 		/// <summary>
 		/// The blueprint for the building.
 		/// </summary>
-		public Blueprint Blueprint { get { return m_blueprint; } }
+		public Blueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// The finite state machine for the building.
 		/// </summary>
-		public EntityFSM FSM { get { return m_fsm; } }
+		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -64,8 +48,7 @@ namespace game1666proto4
 		public Building(XElement entityElt)
 		:	base(entityElt)
 		{
-			m_blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
-			m_fsm = new EntityFSM(m_blueprint.TimeToConstruct);
+			Blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 		}
 
 		#endregion
@@ -74,12 +57,30 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Adds a finite state machine (FSM) to the building (note that there can only be one FSM).
+		/// </summary>
+		/// <param name="fsm">The FSM.</param>
+		public void AddEntity(FiniteStateMachine<EntityStateID> fsm)
+		{
+			FSM = fsm;
+		}
+
+		/// <summary>
+		/// Adds an entity to the building based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddEntityDynamic(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
+		/// <summary>
 		/// Updates the building based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			m_fsm.Update(gameTime);
+			FSM.Update(gameTime);
 		}
 
 		#endregion

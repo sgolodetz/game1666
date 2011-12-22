@@ -10,7 +10,7 @@ namespace game1666proto4
 	/// <summary>
 	/// A state representing a time in which the entity is operational.
 	/// </summary>
-	sealed class EntityOperatingState : IFSMState<EntityState>
+	sealed class EntityOperatingState : IFSMState<EntityStateID>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -18,7 +18,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The ID of the state.
 		/// </summary>
-		public EntityState ID { get { return EntityState.OPERATING; } }
+		public EntityStateID ID { get { return EntityStateID.OPERATING; } }
 
 		#endregion
 
