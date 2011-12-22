@@ -59,15 +59,15 @@ namespace game1666proto4
 		{
 			var properties = new Dictionary<string,dynamic>();
 
-			// Set up the converters for the various supported types.
-			var converters = new Dictionary<string,Func<string,dynamic>>();
-			converters["float"] = s => Convert.ToSingle(s);
-			converters["int"] = s => Convert.ToInt32(s);
-			converters["List[int]"] = s => ParseList(s, Convert.ToInt32);
-			converters["List[float]"] = s => ParseList(s, Convert.ToSingle);
-			converters["string"] = s => s;
-			converters["Vector2i"] = s => ParseVector2iSpecifier(s);
-			converters["Viewport"] = s => ParseViewportSpecifier(s);
+			// Set up the parsers for the various supported types.
+			var parsers = new Dictionary<string,Func<string,dynamic>>();
+			parsers["float"] = s => Convert.ToSingle(s);
+			parsers["int"] = s => Convert.ToInt32(s);
+			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
+			parsers["List[float]"] = s => ParseList(s, Convert.ToSingle);
+			parsers["string"] = s => s;
+			parsers["Vector2i"] = s => ParseVector2iSpecifier(s);
+			parsers["Viewport"] = s => ParseViewportSpecifier(s);
 
 			foreach(XElement propertyElt in entityElt.Elements("property"))
 			{
@@ -82,10 +82,10 @@ namespace game1666proto4
 				XAttribute valueAttribute = propertyElt.Attribute("value");
 				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Replace(" ", "");
 
-				// Provided the property is valid, convert and store it for later use.
+				// Provided the property is valid, parse and store it for later use.
 				if(nameAttribute != null && value != null)
 				{
-					properties[nameAttribute.Value] = converters[type](value);
+					properties[nameAttribute.Value] = parsers[type](value);
 				}
 			}
 

@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+
 namespace game1666proto4
 {
 	/// <summary>
@@ -10,6 +12,19 @@ namespace game1666proto4
 	/// </summary>
 	sealed class EntityFootprint : Entity
 	{
-		// TODO
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs an entity footprint from its XML representation.
+		/// </summary>
+		/// <param name="entityElt">The root element of the footprint's XML representation.</param>
+		public EntityFootprint(XElement entityElt)
+		:	base(entityElt)
+		{
+			// TODO
+		}
+
+		#endregion
 	}
 }

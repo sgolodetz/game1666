@@ -11,10 +11,15 @@ namespace game1666proto4
 	/// <summary>
 	/// An instance of this class represents a blueprint for building an entity.
 	/// </summary>
-	abstract class Blueprint : Entity
+	abstract class Blueprint : CompositeEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The footprint for the type of entity to be built.
+		/// </summary>
+		public EntityFootprint Footprint { get; private set; }
 
 		/// <summary>
 		/// The name of the 3D model for this blueprint.
@@ -38,6 +43,29 @@ namespace game1666proto4
 		public Blueprint(XElement blueprintElt)
 		:	base(blueprintElt)
 		{}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Adds an entity footprint to the blueprint (note that a blueprint can only contain the one footprint).
+		/// </summary>
+		/// <param name="footprint">The footprint.</param>
+		public void AddEntity(EntityFootprint footprint)
+		{
+			Footprint = footprint;
+		}
+
+		/// <summary>
+		/// Adds an entity to the blueprint based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddEntityDynamic(dynamic entity)
+		{
+			AddEntity(entity);
+		}
 
 		#endregion
 	}
