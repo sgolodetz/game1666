@@ -6,7 +6,7 @@
       <property name="MaxOccupants" type="int" value="2"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>
-      <entity type="EntityFootprint">
+      <entity type="Footprint">
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">
           [1,1]
@@ -19,7 +19,7 @@
       <property name="MaxOccupants" type="int" value="10"/>
       <property name="Model" type="string" value="TODO"/>
       <property name="TimeToConstruct" type="int" value="10000"/>
-      <entity type="EntityFootprint">
+      <entity type="Footprint">
         <property name="Hotspot" type="Vector2i" value="1,1"/>
         <property name="Pattern" type="Array2D[int]">
           [3,3]
@@ -33,7 +33,7 @@
       <property name="Name" type="string" value="DirtTrack"/>
       <property name="Model" type="string" value="TODO"/>
       <property name="TimeToConstruct" type="int" value="0"/>
-      <entity type="EntityFootprint">
+      <entity type="Footprint">
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">
           [1,1]

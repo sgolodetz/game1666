@@ -19,7 +19,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The footprint for the type of entity to be built.
 		/// </summary>
-		public EntityFootprint Footprint { get; private set; }
+		public Footprint Footprint { get; private set; }
 
 		/// <summary>
 		/// The name of the 3D model for this blueprint.
@@ -50,10 +50,10 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Adds an entity footprint to the blueprint (note that a blueprint can only contain the one footprint).
+		/// Adds a footprint to the blueprint (note that a blueprint can only contain the one footprint).
 		/// </summary>
 		/// <param name="footprint">The footprint.</param>
-		public void AddEntity(EntityFootprint footprint)
+		public void AddEntity(Footprint footprint)
 		{
 			Footprint = footprint;
 		}
