@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4
@@ -23,12 +24,24 @@ namespace game1666proto4
 		/// <summary>
 		/// The time (in milliseconds) that it takes to construct the entity.
 		/// </summary>
-		private readonly int m_timeToConstruct;
+		private int m_timeToConstruct;
 
 		#endregion
 
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// Supplies the properties of the entity whose state is managed by the containing FSM.
+		/// </summary>
+		public IDictionary<string,dynamic> EntityProperties
+		{
+			set
+			{
+				Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + value["Blueprint"]);
+				m_timeToConstruct = blueprint.TimeToConstruct;
+			}
+		}
 
 		/// <summary>
 		/// The ID of the state.
@@ -48,11 +61,9 @@ namespace game1666proto4
 		/// <summary>
 		/// Constructs a new 'entity in construction' state.
 		/// </summary>
-		/// <param name="timeToConstruct">The time (in milliseconds) that it takes to construct the entity.</param>
-		public EntityInConstructionState(int timeToConstruct)
+		public EntityInConstructionState()
 		{
 			m_timeElapsed = 0;
-			m_timeToConstruct = timeToConstruct;
 		}
 
 		#endregion

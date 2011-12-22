@@ -51,6 +51,11 @@ namespace game1666proto4
 		/// </summary>
 		public StateID CurrentStateID { get; protected set; }
 
+		/// <summary>
+		/// An enumerable of the states in the machine.
+		/// </summary>
+		protected IEnumerable<dynamic> States { get { return m_states.Values; } }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################

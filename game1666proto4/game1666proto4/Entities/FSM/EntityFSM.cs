@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -22,6 +23,25 @@ namespace game1666proto4
 	/// </summary>
 	sealed class EntityFSM : FiniteStateMachine<EntityStateID>
 	{
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// Supplies the properties of the entity whose state is managed by this FSM to the various states.
+		/// </summary>
+		public IDictionary<string,dynamic> EntityProperties
+		{
+			set
+			{
+				foreach(dynamic state in States)
+				{
+					state.EntityProperties = value;
+				}
+			}
+		}
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -33,7 +53,7 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			// Add the necessary states.
-			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState(1000));
+			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState());
 			AddState(EntityStateID.OPERATING, new EntityOperatingState());
 
 			// Add the necessary transitions.
@@ -43,7 +63,14 @@ namespace game1666proto4
 
 			// Set the starting state.
 			EntityStateID currentStateID;
-			CurrentStateID = Enum.TryParse(Properties["CurrentStateID"], out currentStateID) ? currentStateID : EntityStateID.OPERATING;
+			if(Enum.TryParse(Properties["CurrentStateID"], out currentStateID))
+			{
+				CurrentStateID = currentStateID;
+			}
+			else
+			{
+				CurrentStateID = EntityStateID.OPERATING;
+			}
 		}
 
 		#endregion

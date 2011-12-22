@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4
@@ -14,6 +15,11 @@ namespace game1666proto4
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// Supplies the properties of the entity whose state is managed by the containing FSM.
+		/// </summary>
+		public IDictionary<string,dynamic> EntityProperties { set {} }
 
 		/// <summary>
 		/// The ID of the state.

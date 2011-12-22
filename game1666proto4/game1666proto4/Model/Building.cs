@@ -13,6 +13,16 @@ namespace game1666proto4
 	/// </summary>
 	abstract class Building : CompositeEntity, IPlaceableEntity
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The finite state machine for the building.
+		/// </summary>
+		private EntityFSM m_fsm;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -29,7 +39,7 @@ namespace game1666proto4
 		/// <summary>
 		/// The finite state machine for the building.
 		/// </summary>
-		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
+		public FiniteStateMachine<EntityStateID> FSM { get { return m_fsm; } }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
@@ -49,6 +59,7 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			Blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
+			m_fsm.EntityProperties = Properties;
 		}
 
 		#endregion
@@ -60,9 +71,9 @@ namespace game1666proto4
 		/// Adds a finite state machine (FSM) to the building (note that there can only be one FSM).
 		/// </summary>
 		/// <param name="fsm">The FSM.</param>
-		public void AddEntity(FiniteStateMachine<EntityStateID> fsm)
+		public void AddEntity(EntityFSM fsm)
 		{
-			FSM = fsm;
+			m_fsm = fsm;
 		}
 
 		/// <summary>
@@ -80,7 +91,7 @@ namespace game1666proto4
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			FSM.Update(gameTime);
+			m_fsm.Update(gameTime);
 		}
 
 		#endregion
