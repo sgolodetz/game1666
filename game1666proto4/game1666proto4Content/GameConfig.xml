@@ -7,10 +7,9 @@
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>
       <entity type="EntityFootprint">
-        <property name="Width" type="int" value="1"/>
-        <property name="Height" type="int" value="1"/>
         <property name="Hotspot" type="Vector2i" value="0,0"/>
-        <property name="Pattern" type="List[int]">
+        <property name="Pattern" type="Array2D[int]">
+          [1,1]
           2
         </property>
       </entity>
@@ -21,10 +20,9 @@
       <property name="Model" type="string" value="TODO"/>
       <property name="TimeToConstruct" type="int" value="10000"/>
       <entity type="EntityFootprint">
-        <property name="Width" type="int" value="3"/>
-        <property name="Height" type="int" value="3"/>
         <property name="Hotspot" type="Vector2i" value="1,1"/>
-        <property name="Pattern" type="List[int]">
+        <property name="Pattern" type="Array2D[int]">
+          [3,3]
           1,2,1,
           1,1,1,
           1,1,1
@@ -36,10 +34,9 @@
       <property name="Model" type="string" value="TODO"/>
       <property name="TimeToConstruct" type="int" value="0"/>
       <entity type="EntityFootprint">
-        <property name="Width" type="int" value="1"/>
-        <property name="Height" type="int" value="1"/>
         <property name="Hotspot" type="Vector2i" value="0,0"/>
-        <property name="Pattern" type="List[int]">
+        <property name="Pattern" type="Array2D[int]">
+          [1,1]
           1
         </property>
       </entity>

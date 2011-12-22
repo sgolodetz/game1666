@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -61,6 +62,7 @@ namespace game1666proto4
 
 			// Set up the parsers for the various supported types.
 			var parsers = new Dictionary<string,Func<string,dynamic>>();
+			parsers["Array2D[int]"] = s => ParseArray2D(s, Convert.ToInt32);
 			parsers["float"] = s => Convert.ToSingle(s);
 			parsers["int"] = s => Convert.ToInt32(s);
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
@@ -93,7 +95,42 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Parses the (comma-separated) string representation of a list in order to construct the list itself.
+		/// Parses the string representation of a 2D array in order to construct the array itself.
+		/// </summary>
+		/// <typeparam name="T">The type of array element.</typeparam>
+		/// <param name="arraySpecifier">The string representation of a 2D array.</param>
+		/// <param name="elementParser">The function used to parse individual elements.</param>
+		/// <returns>The 2D array.</returns>
+		public static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser)
+		{
+			// Filter the array specifier to get rid of any whitespace, newlines, etc.
+			arraySpecifier = new string(arraySpecifier.Where(c => !char.IsWhiteSpace(c)).ToArray());
+
+			// Match a regular expression of the form "[width,height]listSpecifier".
+			Regex regex = new Regex("\\[(?<width>[^,]+),(?<height>[^\\]]+)\\](?<listSpecifier>.+)");
+			Match match = regex.Match(arraySpecifier);
+
+			// Get the width, height and array elements from the match.
+			int width = Convert.ToInt32(match.Groups["width"].ToString());
+			int height = Convert.ToInt32(match.Groups["height"].ToString());
+			List<T> arrayElements = ParseList(match.Groups["listSpecifier"].ToString(), elementParser);
+
+			// Convert the 1D list into a 2D array with the right dimensions.
+			var arr = new T[height,width];
+			int index = 0;
+			for(int y = 0; y < height; ++y)
+			{
+				for(int x = 0; x < width; ++x)
+				{
+					arr[y,x] = arrayElements[index++];
+				}
+			}
+
+			return arr;
+		}
+
+		/// <summary>
+		/// Parses the string representation of a list in order to construct the list itself.
 		/// </summary>
 		/// <typeparam name="T">The type of list element.</typeparam>
 		/// <param name="listSpecifier">The string representation of a list.</param>
