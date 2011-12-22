@@ -8,10 +8,9 @@
   <entity type="City">
     <property name="Name" value="Stuartopolis"/>
     <entity type="Terrain">
-      <property name="Width" type="int" value="9"/>
-      <property name="Height" type="int" value="5"/>
       <property name="ZScaling" type="float" value="0.25"/>
-      <property name="Heightmap" type="List[float]">
+      <property name="Heightmap" type="Array2D[float]">
+        [9,5]
         1,1,1,2,5,4,4,3,2,1,
         1,1,2,2,5,4,3,3,1,1,
         4,4,4,4,5,4,3,2,1,1,

@@ -117,23 +117,20 @@ namespace game1666proto4
 		/// <returns>The heightmap.</returns>
 		private float[,] CreateHeightmapFromProperties()
 		{
-			// Look up the width and height of the terrain grid in the properties loaded in from XML,
-			// and construct an appropriately-sized heightmap.
-			int heightmapWidth = Properties["Width"];
-			int heightmapHeight = Properties["Height"];
+			// Look up the heightmap and required z-scaling in the properties loaded in from XML.
+			float[,] heightmap = Properties["Heightmap"];
 			float zScaling = Properties["ZScaling"];
-			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
 
-			// Look up the heightmap values in the properties loaded in from XML.
-			List<float> heightmapValues = Properties["Heightmap"];
+			// Determine the dimensions of the heightmap.
+			int height = heightmap.GetLength(0);
+			int width = heightmap.GetLength(1);
 
-			// Fill in the heightmap with these values.
-			int valueIndex = 0;
-			for(int y = 0; y < heightmapHeight; ++y)
+			// Scale all of the elements of the heightmap by the z-scaling factor.
+			for(int y = 0; y < height; ++y)
 			{
-				for(int x = 0; x < heightmapWidth; ++x)
+				for(int x = 0; x < width; ++x)
 				{
-					heightmap[y,x] = heightmapValues[valueIndex++] * zScaling;
+					heightmap[y,x] *= zScaling;
 				}
 			}
 

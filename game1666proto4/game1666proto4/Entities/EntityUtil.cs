@@ -62,6 +62,7 @@ namespace game1666proto4
 
 			// Set up the parsers for the various supported types.
 			var parsers = new Dictionary<string,Func<string,dynamic>>();
+			parsers["Array2D[float]"] = s => ParseArray2D(s, Convert.ToSingle);
 			parsers["Array2D[int]"] = s => ParseArray2D(s, Convert.ToInt32);
 			parsers["float"] = s => Convert.ToSingle(s);
 			parsers["int"] = s => Convert.ToInt32(s);
