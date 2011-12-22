@@ -124,11 +124,8 @@ namespace game1666proto4
 			float zScaling = Properties["ZScaling"];
 			float[,] heightmap = new float[heightmapHeight,heightmapWidth];
 
-			// Parse the heightmap values from the properties loaded in from XML.
-			List<float> heightmapValues = ((string)Properties["Heightmap"])
-				.Split(',')
-				.Select(s => Convert.ToSingle(s.Trim()))
-				.ToList();
+			// Look up the heightmap values in the properties loaded in from XML.
+			List<float> heightmapValues = Properties["Heightmap"];
 
 			// Fill in the heightmap with these values.
 			int valueIndex = 0;

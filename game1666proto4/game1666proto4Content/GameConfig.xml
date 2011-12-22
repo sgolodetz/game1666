@@ -3,9 +3,12 @@
   <blueprints>
     <entity type="HouseBlueprint">
       <property name="Name" type="string" value="Dwelling"/>
-      <property name="Footprint">
-        <!-- TODO -->
-      </property>
+      <footprint>
+        <property name="Hotspot" type="Vector2i" value="0,0"/>
+        <property name="Pattern" type="string">
+          2
+        </property>
+      </footprint>
       <property name="MaxOccupants" type="int" value="2"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>

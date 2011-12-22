@@ -63,6 +63,7 @@ namespace game1666proto4
 			var converters = new Dictionary<string,Func<string,dynamic>>();
 			converters["float"] = s => Convert.ToSingle(s);
 			converters["int"] = s => Convert.ToInt32(s);
+			converters["List[float]"] = s => ParseFloatList(s);
 			converters["string"] = s => s;
 			converters["Vector2i"] = s => ParseVector2iSpecifier(s);
 			converters["Viewport"] = s => ParseViewportSpecifier(s);
@@ -88,6 +89,16 @@ namespace game1666proto4
 			}
 
 			return properties;
+		}
+
+		/// <summary>
+		/// Parses the string representation of a float list in order to construct the float list itself.
+		/// </summary>
+		/// <param name="listSpecifier">The string representation of a float list.</param>
+		/// <returns>The float list.</returns>
+		public static List<float> ParseFloatList(string listSpecifier)
+		{
+			return listSpecifier.Split(',').Select(s => Convert.ToSingle(s.Trim())).ToList();
 		}
 
 		/// <summary>
