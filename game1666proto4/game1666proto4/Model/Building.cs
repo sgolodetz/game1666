@@ -59,7 +59,6 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			Blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
-			m_fsm.EntityProperties = Properties;
 		}
 
 		#endregion
@@ -74,6 +73,7 @@ namespace game1666proto4
 		public void AddEntity(EntityFSM fsm)
 		{
 			m_fsm = fsm;
+			m_fsm.EntityProperties = Properties;
 		}
 
 		/// <summary>
