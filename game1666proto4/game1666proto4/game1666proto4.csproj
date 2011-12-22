@@ -176,6 +176,7 @@
     <Compile Include="Entities\CompositeUpdatableEntity.cs" />
     <Compile Include="Entities\FSM\EntityFSM.cs" />
     <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Model\EntityFootprint.cs" />
     <Compile Include="View\Button.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityUtil.cs" />

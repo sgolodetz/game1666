@@ -63,7 +63,8 @@ namespace game1666proto4
 			var converters = new Dictionary<string,Func<string,dynamic>>();
 			converters["float"] = s => Convert.ToSingle(s);
 			converters["int"] = s => Convert.ToInt32(s);
-			converters["List[float]"] = s => ParseFloatList(s);
+			converters["List[int]"] = s => ParseList(s, Convert.ToInt32);
+			converters["List[float]"] = s => ParseList(s, Convert.ToSingle);
 			converters["string"] = s => s;
 			converters["Vector2i"] = s => ParseVector2iSpecifier(s);
 			converters["Viewport"] = s => ParseViewportSpecifier(s);
@@ -92,13 +93,15 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Parses the string representation of a float list in order to construct the float list itself.
+		/// Parses the (comma-separated) string representation of a list in order to construct the list itself.
 		/// </summary>
-		/// <param name="listSpecifier">The string representation of a float list.</param>
-		/// <returns>The float list.</returns>
-		public static List<float> ParseFloatList(string listSpecifier)
+		/// <typeparam name="T">The type of list element.</typeparam>
+		/// <param name="listSpecifier">The string representation of a list.</param>
+		/// <param name="elementParser">The function used to parse individual elements.</param>
+		/// <returns>The list.</returns>
+		public static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser)
 		{
-			return listSpecifier.Split(',').Select(s => Convert.ToSingle(s.Trim())).ToList();
+			return listSpecifier.Split(',').Select(s => elementParser(s.Trim())).ToList();
 		}
 
 		/// <summary>

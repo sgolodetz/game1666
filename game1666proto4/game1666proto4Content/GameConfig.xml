@@ -3,24 +3,46 @@
   <blueprints>
     <entity type="HouseBlueprint">
       <property name="Name" type="string" value="Dwelling"/>
-      <footprint>
-        <property name="Hotspot" type="Vector2i" value="0,0"/>
-        <property name="Pattern" type="string">
-          2
-        </property>
-      </footprint>
       <property name="MaxOccupants" type="int" value="2"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>
+      <entity type="EntityFootprint">
+        <property name="Width" type="int" value="1"/>
+        <property name="Height" type="int" value="1"/>
+        <property name="Hotspot" type="Vector2i" value="0,0"/>
+        <property name="Pattern" type="List[int]">
+          2
+        </property>
+      </entity>
     </entity>
     <entity type="HouseBlueprint">
       <property name="Name" type="string" value="Mansion"/>
       <property name="MaxOccupants" type="int" value="10"/>
-      <!-- TODO -->
+      <property name="Model" type="string" value="TODO"/>
+      <property name="TimeToConstruct" type="int" value="10000"/>
+      <entity type="EntityFootprint">
+        <property name="Width" type="int" value="3"/>
+        <property name="Height" type="int" value="3"/>
+        <property name="Hotspot" type="Vector2i" value="1,1"/>
+        <property name="Pattern" type="List[int]">
+          1,2,1,
+          1,1,1,
+          1,1,1
+        </property>
+      </entity>
     </entity>
     <entity type="RoadSegmentBlueprint">
       <property name="Name" type="string" value="DirtTrack"/>
-      <!-- TODO -->
+      <property name="Model" type="string" value="TODO"/>
+      <property name="TimeToConstruct" type="int" value="0"/>
+      <entity type="EntityFootprint">
+        <property name="Width" type="int" value="1"/>
+        <property name="Height" type="int" value="1"/>
+        <property name="Hotspot" type="Vector2i" value="0,0"/>
+        <property name="Pattern" type="List[int]">
+          1
+        </property>
+      </entity>
     </entity>
   </blueprints>
   <views>
