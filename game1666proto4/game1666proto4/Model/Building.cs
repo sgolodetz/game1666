@@ -32,6 +32,11 @@ namespace game1666proto4
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
 
 		/// <summary>
+		/// The 2D axis-aligned orientation of the building.
+		/// </summary>
+		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
 		/// </summary>
 		public Vector2i Position { get { return Properties["Position"]; } }

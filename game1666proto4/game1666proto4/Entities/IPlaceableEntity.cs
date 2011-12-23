@@ -31,6 +31,11 @@ namespace game1666proto4
 		FiniteStateMachine<EntityStateID> FSM { get; }
 
 		/// <summary>
+		/// The 2D axis-aligned orientation of the entity.
+		/// </summary>
+		Orientation4 Orientation { get; }
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.
 		/// </summary>
 		Vector2i Position { get; }
