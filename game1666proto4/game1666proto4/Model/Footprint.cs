@@ -38,12 +38,9 @@ namespace game1666proto4
 		public Vector2i Hotspot { get; private set; }
 
 		/// <summary>
-		/// The footprint pattern, specifying which squares are occupied by the entity and where the entrances are:
-		/// * 0 means that the square is not occupied by the entity
-		/// * 1 means that the square is occupied by the entity, but not an entrance
-		/// * 2 means that the square is an entrance
+		/// The occupancy matrix specifying which squares are occupied by the entity.
 		/// </summary>
-		public int[,] Pattern { get; private set; }
+		public bool[,] Occupancy { get; private set; }
 
 		#endregion
 
@@ -58,19 +55,35 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			Hotspot = Properties["Hotspot"];
-			Pattern = Properties["Pattern"];
 
-			// Determine the locations of the entrances to the entity from the pattern.
-			const int ENTRANCE_SPECIFIER = 2;
-			int height = Pattern.GetLength(0);
-			int width = Pattern.GetLength(1);
+			/*
+			The footprint pattern specifies which squares are occupied by the entity and where the entrances are:
+			- 0 means that the square is not occupied by the entity
+			- 1 means that the square is occupied by the entity, but not an entrance
+			- 2 means that the square is an entrance
+			*/
+			int[,] pattern = Properties["Pattern"];
+			int height = pattern.GetLength(0);
+			int width = pattern.GetLength(1);
+
+			// Determine the occupancy matrix and the locations of the entrances to the entity from the pattern.
+			Occupancy = new bool[height,width];
 			for(int y = 0; y < height; ++y)
 			{
 				for(int x = 0; x < width; ++x)
 				{
-					if(Pattern[y,x] == ENTRANCE_SPECIFIER)
+					switch(pattern[y,x])
 					{
-						m_entrances.Add(new Vector2i(x, y));
+						case 0:
+							Occupancy[y,x] = false;
+							break;
+						case 1:
+							Occupancy[y,x] = true;
+							break;
+						case 2:
+							Occupancy[y,x] = true;
+							m_entrances.Add(new Vector2i(x, y));
+							break;
 					}
 				}
 			}
