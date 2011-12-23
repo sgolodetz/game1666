@@ -68,6 +68,7 @@ namespace game1666proto4
 			parsers["int"] = s => Convert.ToInt32(s);
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
 			parsers["List[float]"] = s => ParseList(s, Convert.ToSingle);
+			parsers["Orientation4"] = s => Enum.Parse(typeof(Orientation4), s);
 			parsers["string"] = s => s;
 			parsers["Vector2i"] = s => ParseVector2iSpecifier(s);
 			parsers["Viewport"] = s => ParseViewportSpecifier(s);

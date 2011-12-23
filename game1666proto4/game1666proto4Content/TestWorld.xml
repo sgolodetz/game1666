@@ -21,6 +21,7 @@
     <entity type="House">
       <property name="Altitude" type="float" value="0.25"/>
       <property name="Blueprint" type="string" value="Dwelling"/>
+      <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="1,0"/>
       <entity type="EntityFSM">
         <property name="CurrentStateID" type="string" value="OPERATING"/>

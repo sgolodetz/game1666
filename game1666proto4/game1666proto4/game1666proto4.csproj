@@ -171,6 +171,7 @@
     <Compile Include="Entities\IVisibleEntity.cs" />
     <Compile Include="FSMs\Base\FiniteStateMachine.cs" />
     <Compile Include="FSMs\Base\IFSMState.cs" />
+    <Compile Include="Math\Orientation4.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="Entities\CompositeEntity.cs" />
     <Compile Include="Entities\CompositeUpdatableEntity.cs" />
