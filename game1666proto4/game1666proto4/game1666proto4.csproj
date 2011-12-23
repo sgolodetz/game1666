@@ -164,17 +164,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\FSM\EntityInConstructionState.cs" />
-    <Compile Include="Entities\FSM\EntityOperatingState.cs" />
+    <Compile Include="FSMs\Entity\EntityInConstructionState.cs" />
+    <Compile Include="FSMs\Entity\EntityOperatingState.cs" />
     <Compile Include="Entities\IPlaceableEntity.cs" />
     <Compile Include="Entities\IUpdateableEntity.cs" />
     <Compile Include="Entities\IVisibleEntity.cs" />
-    <Compile Include="FSM\FiniteStateMachine.cs" />
-    <Compile Include="FSM\IFSMState.cs" />
+    <Compile Include="FSMs\Base\FiniteStateMachine.cs" />
+    <Compile Include="FSMs\Base\IFSMState.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="Entities\CompositeEntity.cs" />
     <Compile Include="Entities\CompositeUpdatableEntity.cs" />
-    <Compile Include="Entities\FSM\EntityFSM.cs" />
+    <Compile Include="FSMs\Entity\EntityFSM.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Model\Footprint.cs" />
     <Compile Include="View\Button.cs" />
