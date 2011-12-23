@@ -10,15 +10,6 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// The various possible states of an entity.
-	/// </summary>
-	enum EntityStateID
-	{
-		IN_CONSTRUCTION,
-		OPERATING
-	}
-
-	/// <summary>
 	/// An instance of this class is used to manage the state of an entity over time.
 	/// </summary>
 	sealed class EntityFSM : FiniteStateMachine<EntityStateID>
