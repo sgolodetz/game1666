@@ -89,16 +89,7 @@ namespace game1666proto4
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMouseMoved(MouseState state)
 		{
-			// TODO
-		}
-
-		/// <summary>
-		/// Handles mouse pressed events.
-		/// </summary>
-		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		public override void OnMousePressed(MouseState state)
-		{
-			if(state.LeftButton == ButtonState.Pressed)
+			if(m_playingArea.BlueprintToPlace != null)
 			{
 				// Find the point we're hovering over on the near clipping plane.
 				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), m_matProjection, m_matView, m_matWorld);
@@ -110,13 +101,39 @@ namespace game1666proto4
 				Vector3 dir = Vector3.Normalize(far - near);
 				var ray = new Ray(near, dir);
 
-				// Output the grid square clicked by the user.
+				// Determine which grid square we're hovering over (if any).
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
-				if(gridSquare != null)	Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
-				else					Console.WriteLine("No grid square was clicked");
+
+				// Output it so that we can see what's going on.
+				if(gridSquare != null)
+				{
+					Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
+				}
+			}
+		}
+
+		/// <summary>
+		/// Handles mouse pressed events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
+		public override void OnMousePressed(MouseState state)
+		{
+			if(state.LeftButton == ButtonState.Pressed)
+			{
+				// Find the point we're clicking on the near clipping plane.
+				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), m_matProjection, m_matView, m_matWorld);
+
+				// Find the point we're clicking on the far clipping plane.
+				Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), m_matProjection, m_matView, m_matWorld);
+
+				// Find the ray (in world space) between them.
+				Vector3 dir = Vector3.Normalize(far - near);
+				var ray = new Ray(near, dir);
+
+				// Determine which grid square we're clicking (if any).
+				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
 				// TEMPORARY: Add an entity to the playing area at runtime.
-				Console.WriteLine(m_playingArea.BlueprintToPlace);
 				if(gridSquare != null && m_playingArea.BlueprintToPlace == "Dwelling")
 				{
 					var entityProperties = new Dictionary<string,dynamic>();
@@ -126,6 +143,7 @@ namespace game1666proto4
 					entityProperties["Position"] = gridSquare.Value;
 					m_playingArea.AddEntityDynamic(new House(entityProperties, EntityStateID.IN_CONSTRUCTION));
 				}
+				else Console.WriteLine("Could not place entity of type: " + m_playingArea.BlueprintToPlace);
 			}
 		}
 
