@@ -27,6 +27,11 @@ namespace game1666proto4
 		private readonly Camera m_camera;
 
 		/// <summary>
+		/// The entity currently being placed by the user (if any).
+		/// </summary>
+		private IPlaceableEntity m_entityToPlace;
+
+		/// <summary>
 		/// The current projection matrix.
 		/// </summary>
 		private Matrix m_matProjection;
@@ -104,10 +109,21 @@ namespace game1666proto4
 				// Determine which grid square we're hovering over (if any).
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
-				// Output it so that we can see what's going on.
-				if(gridSquare != null)
+				if(gridSquare != null && m_playingArea.BlueprintToPlace == "Dwelling")
 				{
-					Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
+					// Work out what type of entity we're trying to place.
+					Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + m_playingArea.BlueprintToPlace);
+					Type entityType = blueprint.EntityType;
+
+					// Set the properties of the entity.
+					var entityProperties = new Dictionary<string,dynamic>();
+					entityProperties["Altitude"] = 0f;
+					entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
+					entityProperties["Orientation"] = Orientation4.XPOS;
+					entityProperties["Position"] = gridSquare.Value;
+
+					// Create a new entity and set it as the entity to be placed.
+					m_entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
 				}
 			}
 		}
@@ -252,6 +268,12 @@ namespace game1666proto4
 			foreach(Building building in city.Buildings)
 			{
 				DrawPlaceableEntity(building);
+			}
+
+			// Draw the entity currently being placed (if any).
+			if(m_entityToPlace != null)
+			{
+				DrawPlaceableEntity(m_entityToPlace);
 			}
 		}
 
