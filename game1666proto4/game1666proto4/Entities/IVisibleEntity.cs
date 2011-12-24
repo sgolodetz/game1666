@@ -32,6 +32,12 @@ namespace game1666proto4
 		void Draw();
 
 		/// <summary>
+		/// Handles mouse moved events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		void OnMouseMoved(MouseState state);
+
+		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>

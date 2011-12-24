@@ -56,6 +56,7 @@ namespace game1666proto4
 		:	base(entityElt)
 		{
 			// Register input handlers.
+			MouseEventManager.OnMouseMoved += OnMouseMoved;
 			MouseEventManager.OnMousePressed += OnMousePressed;
 		}
 
@@ -99,6 +100,15 @@ namespace game1666proto4
 		{
 			if(path.Count != 0) return null;
 			else return this;
+		}
+
+		/// <summary>
+		/// Handles mouse moved events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public override void OnMouseMoved(MouseState state)
+		{
+			m_views[m_currentView].OnMouseMoved(state);
 		}
 
 		/// <summary>

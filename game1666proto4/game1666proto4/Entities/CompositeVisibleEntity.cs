@@ -73,6 +73,21 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// Handles mouse moved events.
+		/// </summary>
+		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		public virtual void OnMouseMoved(MouseState state)
+		{
+			foreach(IVisibleEntity entity in Children)
+			{
+				if(ViewportContains(entity.Viewport, state.X, state.Y))
+				{
+					entity.OnMouseMoved(state);
+				}
+			}
+		}
+
+		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
@@ -80,9 +95,7 @@ namespace game1666proto4
 		{
 			foreach(IVisibleEntity entity in Children)
 			{
-				Viewport viewport = entity.Viewport;
-				if(viewport.Bounds.Left <= state.X && state.X < viewport.Bounds.Right &&
-				   viewport.Bounds.Top <= state.Y && state.Y < viewport.Bounds.Bottom)
+				if(ViewportContains(entity.Viewport, state.X, state.Y))
 				{
 					entity.OnMousePressed(state);
 				}
@@ -99,6 +112,24 @@ namespace game1666proto4
 			{
 				entity.Update(gameTime);
 			}
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Tests whether or not a viewport contains a specific point.
+		/// </summary>
+		/// <param name="viewport">The viewport.</param>
+		/// <param name="x">The x coordinate of the point.</param>
+		/// <param name="y">The y coordinate of the point.</param>
+		/// <returns>true, if the viewport contains the point, or false otherwise</returns>
+		private static bool ViewportContains(Viewport viewport, int x, int y)
+		{
+			return viewport.Bounds.Left <= x && x < viewport.Bounds.Right &&
+				   viewport.Bounds.Top <= y && y < viewport.Bounds.Bottom;
 		}
 
 		#endregion
