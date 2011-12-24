@@ -238,7 +238,7 @@ namespace game1666proto4
 				// Construct the button and set its mouse pressed handler.
 				var button = new Button("sidebarelement_" + element, ConstructButtonViewport(elementButtonsViewport, layout, row, column));
 				string elementCopy = element;
-				button.MousePressedHook += state => Console.WriteLine("Clicked Element: " + elementCopy);
+				button.MousePressedHook += state => m_playingArea.BlueprintToPlace = elementCopy;
 
 				// Add the button to the list.
 				m_elementButtons.Add(button);

@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
@@ -102,8 +103,20 @@ namespace game1666proto4
 
 				// Output the grid square clicked by the user.
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
-				if(gridSquare != null)	System.Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
-				else					System.Console.WriteLine("No grid square was clicked");
+				if(gridSquare != null)	Console.WriteLine(gridSquare.Value.X.ToString() + ' ' + gridSquare.Value.Y.ToString());
+				else					Console.WriteLine("No grid square was clicked");
+
+				// TEMPORARY: Add an entity to the playing area at runtime.
+				Console.WriteLine(m_playingArea.BlueprintToPlace);
+				if(gridSquare != null && m_playingArea.BlueprintToPlace == "Dwelling")
+				{
+					var entityProperties = new Dictionary<string,dynamic>();
+					entityProperties["Altitude"] = 0f;
+					entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
+					entityProperties["Orientation"] = Orientation4.XPOS;
+					entityProperties["Position"] = gridSquare.Value;
+					m_playingArea.AddEntityDynamic(new House(entityProperties, EntityStateID.IN_CONSTRUCTION));
+				}
 			}
 		}
 

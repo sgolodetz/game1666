@@ -16,6 +16,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The name of the blueprint for the entity that is currently being placed (if any).
+		/// </summary>
+		public string BlueprintToPlace { get; set; }
+
+		/// <summary>
 		/// The playing area's terrain.
 		/// </summary>
 		public Terrain Terrain	{ get; private set; }
