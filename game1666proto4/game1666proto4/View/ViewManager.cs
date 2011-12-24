@@ -105,7 +105,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Handles mouse moved events.
 		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMouseMoved(MouseState state)
 		{
 			m_views[m_currentView].OnMouseMoved(state);
@@ -114,7 +114,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
 			m_views[m_currentView].OnMousePressed(state);

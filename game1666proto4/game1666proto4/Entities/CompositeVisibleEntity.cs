@@ -75,7 +75,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Handles mouse moved events.
 		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public virtual void OnMouseMoved(MouseState state)
 		{
 			foreach(IVisibleEntity entity in Children)
@@ -90,7 +90,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public virtual void OnMousePressed(MouseState state)
 		{
 			foreach(IVisibleEntity entity in Children)

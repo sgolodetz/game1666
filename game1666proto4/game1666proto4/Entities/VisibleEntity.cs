@@ -65,7 +65,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Handles mouse moved events.
 		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public virtual void OnMouseMoved(MouseState state)
 		{
 			// No-op by default
@@ -74,7 +74,7 @@ namespace game1666proto4
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
-		/// <param name="state">The mouse state at the point when the mouse check was made.</param>
+		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public virtual void OnMousePressed(MouseState state)
 		{
 			// No-op by default
