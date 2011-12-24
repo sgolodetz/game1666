@@ -133,15 +133,23 @@ namespace game1666proto4
 				// Determine which grid square we're clicking (if any).
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
-				// TEMPORARY: Add an entity to the playing area at runtime.
+				// TEMPORARY
 				if(gridSquare != null && m_playingArea.BlueprintToPlace == "Dwelling")
 				{
+					// Work out what type of entity we're trying to build.
+					Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + m_playingArea.BlueprintToPlace);
+					Type entityType = blueprint.EntityType;
+
+					// Set the properties of the entity.
 					var entityProperties = new Dictionary<string,dynamic>();
 					entityProperties["Altitude"] = 0f;
 					entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
 					entityProperties["Orientation"] = Orientation4.XPOS;
 					entityProperties["Position"] = gridSquare.Value;
-					m_playingArea.AddEntityDynamic(new House(entityProperties, EntityStateID.IN_CONSTRUCTION));
+
+					// Add an entity of that type to the playing area.
+					dynamic entity = Activator.CreateInstance(entityType, entityProperties, EntityStateID.IN_CONSTRUCTION);
+					m_playingArea.AddEntityDynamic(entity);
 				}
 				else Console.WriteLine("Could not place entity of type: " + m_playingArea.BlueprintToPlace);
 			}

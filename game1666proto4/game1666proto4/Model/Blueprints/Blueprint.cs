@@ -3,7 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-using System.Globalization;
+using System;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -15,6 +15,20 @@ namespace game1666proto4
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The type of entity this blueprint can be used to build.
+		/// </summary>
+		public Type EntityType
+		{
+			get
+			{
+				Type blueprintType = this.GetType();
+				string blueprintTypeName = blueprintType.Name;
+				string entityTypeName = blueprintTypeName.Substring(0, blueprintTypeName.Length - "Blueprint".Length);
+				return Type.GetType(blueprintType.Namespace + "." + entityTypeName);
+			}
+		}
 
 		/// <summary>
 		/// The footprint for the type of entity to be built.
