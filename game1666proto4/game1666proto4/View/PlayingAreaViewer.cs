@@ -164,7 +164,18 @@ namespace game1666proto4
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
 
 			// Move the model to the correct position.
-			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X, entity.Position.Y, entity.Altitude);
+			Vector2i position = entity.Position, hotspot = entity.Blueprint.Footprint.Hotspot;
+			Matrix matWorld = Matrix.CreateTranslation(position.X + hotspot.X + 0.5f,
+													   position.Y + hotspot.Y + 0.5f,
+													   entity.Altitude);
+
+			// If the entity has a non-default orientation, rotate the model appropriately.
+			if(entity.Orientation != Orientation4.XPOS)
+			{
+				float angle = Convert.ToInt32(entity.Orientation) * MathHelper.PiOver2;
+				Matrix matRot = Matrix.CreateRotationZ(angle);
+				matWorld = Matrix.Multiply(matRot, matWorld);
+			}
 
 			// If the entity is still being constructed, scale the model based on the current state of completion.
 			if(entity.FSM.CurrentStateID == EntityStateID.IN_CONSTRUCTION)
