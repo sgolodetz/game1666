@@ -37,11 +37,34 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Constructs an entity FSM directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the FSM.</param>
+		public EntityFSM(IDictionary<string,dynamic> properties)
+		:	base(properties)
+		{
+			Initialise();
+		}
+
+		/// <summary>
 		/// Constructs an entity FSM from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the FSM's XML representation.</param>
 		public EntityFSM(XElement entityElt)
 		:	base(entityElt)
+		{
+			Initialise();
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Initialises the FSM using its properties.
+		/// </summary>
+		private void Initialise()
 		{
 			// Add the necessary states.
 			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState(Properties["TimeElapsed"]));

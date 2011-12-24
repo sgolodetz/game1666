@@ -62,6 +62,14 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Constructs a finite state machine (FSM) directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the FSM.</param>
+		public FiniteStateMachine(IDictionary<string,dynamic> properties)
+		:	base(properties)
+		{}
+
+		/// <summary>
 		/// Constructs a finite state machine (FSM) from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the FSM's XML representation.</param>

@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
@@ -47,13 +48,30 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Constructs a building directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the building.</param>
+		/// <param name="initialStateID">The initial state of the building.</param>
+		public Building(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		:	base(properties)
+		{
+			Initialise();
+
+			// Construct and add the building's finite state machine.
+			var fsmProperties = new Dictionary<string,dynamic>();
+			fsmProperties["CurrentStateID"] = initialStateID.ToString();
+			fsmProperties["TimeElapsed"] = 0;	// this is a new building, so no construction time has yet elapsed
+			AddEntity(new EntityFSM(fsmProperties));
+		}
+
+		/// <summary>
 		/// Constructs a building from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the building's XML representation.</param>
 		public Building(XElement entityElt)
 		:	base(entityElt)
 		{
-			Blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
+			Initialise();
 		}
 
 		#endregion
@@ -87,6 +105,19 @@ namespace game1666proto4
 		public void Update(GameTime gameTime)
 		{
 			FSM.Update(gameTime);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Initialises the building from its properties.
+		/// </summary>
+		private void Initialise()
+		{
+			Blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
 		}
 
 		#endregion

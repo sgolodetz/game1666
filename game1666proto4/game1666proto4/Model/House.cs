@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -14,6 +15,15 @@ namespace game1666proto4
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a house directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the house.</param>
+		/// <param name="initialStateID">The initial state of the house.</param>
+		public House(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		:	base(properties, initialStateID)
+		{}
 
 		/// <summary>
 		/// Constructs a house from its XML representation.
