@@ -41,5 +41,16 @@ namespace game1666proto4
 		Vector2i Position { get; }
 
 		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Makes a clone of this entity that is in the 'in construction' state.
+		/// </summary>
+		/// <returns>The clone.</returns>
+		IPlaceableEntity CloneNew();
+
+		#endregion
 	}
 }

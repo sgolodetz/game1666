@@ -99,6 +99,12 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// Makes a clone of this building that is in the 'in construction' state.
+		/// </summary>
+		/// <returns>The clone.</returns>
+		public abstract IPlaceableEntity CloneNew();
+
+		/// <summary>
 		/// Updates the building based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>

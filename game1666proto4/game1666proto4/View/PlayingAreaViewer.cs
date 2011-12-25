@@ -136,38 +136,12 @@ namespace game1666proto4
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				// Find the point we're clicking on the near clipping plane.
-				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), m_matProjection, m_matView, m_matWorld);
-
-				// Find the point we're clicking on the far clipping plane.
-				Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), m_matProjection, m_matView, m_matWorld);
-
-				// Find the ray (in world space) between them.
-				Vector3 dir = Vector3.Normalize(far - near);
-				var ray = new Ray(near, dir);
-
-				// Determine which grid square we're clicking (if any).
-				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
-
-				// TEMPORARY
-				if(gridSquare != null && m_playingArea.BlueprintToPlace == "Dwelling")
+				if(m_entityToPlace != null)
 				{
-					// Work out what type of entity we're trying to build.
-					Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + m_playingArea.BlueprintToPlace);
-					Type entityType = blueprint.EntityType;
-
-					// Set the properties of the entity.
-					var entityProperties = new Dictionary<string,dynamic>();
-					entityProperties["Altitude"] = 0f;
-					entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
-					entityProperties["Orientation"] = Orientation4.XPOS;
-					entityProperties["Position"] = gridSquare.Value;
-
-					// Add an entity of that type to the playing area.
-					dynamic entity = Activator.CreateInstance(entityType, entityProperties, EntityStateID.IN_CONSTRUCTION);
-					m_playingArea.AddEntityDynamic(entity);
+					m_playingArea.AddEntityDynamic(m_entityToPlace.CloneNew());
+					m_playingArea.BlueprintToPlace = null;
+					m_entityToPlace = null;
 				}
-				else Console.WriteLine("Could not place entity of type: " + m_playingArea.BlueprintToPlace);
 			}
 		}
 

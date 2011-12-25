@@ -34,5 +34,19 @@ namespace game1666proto4
 		{}
 
 		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Makes a clone of this house that is in the 'in construction' state.
+		/// </summary>
+		/// <returns>The clone.</returns>
+		public override IPlaceableEntity CloneNew()
+		{
+			return new House(Properties, EntityStateID.IN_CONSTRUCTION);
+		}
+
+		#endregion
 	}
 }
