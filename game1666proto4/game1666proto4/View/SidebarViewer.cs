@@ -172,6 +172,8 @@ namespace game1666proto4
 		public override void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = Viewport;
+			Renderer.Setup2D();
+
 			m_spriteBatch.Begin();
 			m_spriteBatch.Draw(m_texture, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
 			m_spriteBatch.End();

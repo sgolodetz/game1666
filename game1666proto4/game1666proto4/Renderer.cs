@@ -27,6 +27,21 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Creates a suitable basic effect for drawing 2D lines.
+		/// </summary>
+		/// <param name="viewport">The viewport into which the lines will be drawn.</param>
+		/// <returns>The basic effect.</returns>
+		public static BasicEffect CreateLine2DEffect(Viewport viewport)
+		{
+			var effect = new BasicEffect(Renderer.GraphicsDevice);
+			effect.Projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, -1f, 1f);
+			effect.View = Matrix.Identity;
+			effect.World = Matrix.Identity;
+			effect.VertexColorEnabled = true;
+			return effect;
+		}
+
+		/// <summary>
 		/// Draws an axis-aligned bounding box (AABB).
 		/// </summary>
 		/// <param name="bounds">The bounding box in question.</param>
@@ -44,7 +59,29 @@ namespace game1666proto4
 			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
-				Renderer.GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, vertices, 0, vertices.Length, indices, 0, indices.Length / 2);
+				GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, vertices, 0, vertices.Length, indices, 0, indices.Length / 2);
+			}
+		}
+
+		/// <summary>
+		/// Draws a 2D line.
+		/// </summary>
+		/// <param name="v1">One end of the line.</param>
+		/// <param name="v2">The other end of the line.</param>
+		/// <param name="effect">The effect to use when drawing.</param>
+		/// <param name="colour">The colour to use for the line.</param>
+		public static void DrawLine2D(Vector2 v1, Vector2 v2, Effect effect, Color colour)
+		{
+			var vertices = new VertexPositionColor[]
+			{
+				new VertexPositionColor(new Vector3(v1.X, v1.Y, 0), colour),
+				new VertexPositionColor(new Vector3(v2.X, v2.Y, 0), colour)
+			};
+			var indices = new short[] { 0, 1 };
+			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
+			{
+				pass.Apply();
+				GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, vertices, 0, 2, indices, 0, 1);
 			}
 		}
 
@@ -91,8 +128,29 @@ namespace game1666proto4
 			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
-				Renderer.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexBuffer.IndexCount / 3);
+				GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexBuffer.IndexCount / 3);
 			}
+		}
+
+		/// <summary>
+		/// Sets the appropriate settings on the graphics device to prepare for 2D rendering.
+		/// </summary>
+		public static void Setup2D()
+		{
+			// Set up the depth stencil state.
+			var depthStencilState = new DepthStencilState();
+			depthStencilState.DepthBufferEnable = false;
+			GraphicsDevice.DepthStencilState = depthStencilState;
+
+			// Set up the rasterizer state.
+			var rasterizerState = new RasterizerState();
+			rasterizerState.CullMode = CullMode.None;
+			GraphicsDevice.RasterizerState = rasterizerState;
+
+			// Set up the first sampler state.
+			var samplerState = new SamplerState();
+			samplerState.AddressU = samplerState.AddressV = TextureAddressMode.Wrap;
+			GraphicsDevice.SamplerStates[0] = samplerState;
 		}
 
 		/// <summary>
