@@ -31,7 +31,7 @@ namespace game1666proto4
 		/// </summary>
 		/// <param name="viewport">The viewport into which the lines will be drawn.</param>
 		/// <returns>The basic effect.</returns>
-		public static BasicEffect CreateLine2DEffect(Viewport viewport)
+		public static BasicEffect Create2DLineEffect(Viewport viewport)
 		{
 			var effect = new BasicEffect(Renderer.GraphicsDevice);
 			effect.Projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, -1f, 1f);
@@ -42,7 +42,31 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Draws an axis-aligned bounding box (AABB).
+		/// Draws an axis-aligned bounding box (AABB) in 2D.
+		/// </summary>
+		/// <param name="topLeft">The top-left of the bounding box in question.</param>
+		/// <param name="bottomRight">The bottom-right of the bounding box in question.</param>
+		/// <param name="effect">The effect to use when drawing.</param>
+		/// <param name="colour">The colour to use for the bounding box.</param>
+		public static void DrawBoundingBox(Vector2 topLeft, Vector2 bottomRight, Effect effect, Color colour)
+		{
+			var vertices = new VertexPositionColor[]
+			{
+				new VertexPositionColor(new Vector3(topLeft.X, topLeft.Y, 0), colour),
+				new VertexPositionColor(new Vector3(bottomRight.X, topLeft.Y, 0), colour),
+				new VertexPositionColor(new Vector3(bottomRight.X, bottomRight.Y, 0), colour),
+				new VertexPositionColor(new Vector3(topLeft.X, bottomRight.Y, 0), colour)
+			};
+			var indices = new short[] { 0, 1, 2, 3, 0 };
+			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
+			{
+				pass.Apply();
+				GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineStrip, vertices, 0, vertices.Length, indices, 0, indices.Length - 1);
+			}
+		}
+
+		/// <summary>
+		/// Draws an axis-aligned bounding box (AABB) in 3D.
 		/// </summary>
 		/// <param name="bounds">The bounding box in question.</param>
 		/// <param name="effect">The effect to use when drawing.</param>
@@ -70,7 +94,7 @@ namespace game1666proto4
 		/// <param name="v2">The other end of the line.</param>
 		/// <param name="effect">The effect to use when drawing.</param>
 		/// <param name="colour">The colour to use for the line.</param>
-		public static void DrawLine2D(Vector2 v1, Vector2 v2, Effect effect, Color colour)
+		public static void DrawLine(Vector2 v1, Vector2 v2, Effect effect, Color colour)
 		{
 			var vertices = new VertexPositionColor[]
 			{

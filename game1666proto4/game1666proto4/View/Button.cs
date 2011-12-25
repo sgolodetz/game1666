@@ -65,9 +65,18 @@ namespace game1666proto4
 		public override void Draw()
 		{
 			Renderer.GraphicsDevice.Viewport = Viewport;
+
+			// Draw the button texture.
 			m_spriteBatch.Begin();
 			m_spriteBatch.Draw(m_texture, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
 			m_spriteBatch.End();
+
+			// Draw a highlighting rectangle if the button is selected.
+			if(true)
+			{
+				BasicEffect effect = Renderer.Create2DLineEffect(Viewport);
+				Renderer.DrawBoundingBox(new Vector2(0, 0), new Vector2(Viewport.Width - 1, Viewport.Height - 1), effect, Color.White);
+			}
 		}
 
 		/// <summary>
