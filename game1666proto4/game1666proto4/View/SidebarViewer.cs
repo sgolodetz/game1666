@@ -82,6 +82,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// The current group of entities that the player can manipulate.
+		/// </summary>
+		private string m_currentGroup;
+
+		/// <summary>
 		/// The buttons for the individual entities in the current group that the player can manipulate.
 		/// </summary>
 		private readonly IList<Button> m_elementButtons = new List<Button>();
@@ -213,6 +218,9 @@ namespace game1666proto4
 		/// <param name="group">The group.</param>
 		private void CreateElementButtons(string group)
 		{
+			// Set the current group.
+			m_currentGroup = group;
+
 			// Clear the existing element buttons list ready to fill it with elements from the new group.
 			m_elementButtons.Clear();
 
@@ -241,6 +249,7 @@ namespace game1666proto4
 				var button = new Button("sidebarelement_" + element, ConstructButtonViewport(elementButtonsViewport, layout, row, column));
 				string elementCopy = element;
 				button.MousePressedHook += state => m_playingArea.BlueprintToPlace = elementCopy;
+				button.IsHighlighted = () => m_playingArea.BlueprintToPlace == elementCopy;
 
 				// Add the button to the list.
 				m_elementButtons.Add(button);
@@ -279,6 +288,7 @@ namespace game1666proto4
 				var button = new Button("sidebargroup_" + group, ConstructButtonViewport(groupButtonsViewport, layout, row, column));
 				string groupCopy = group;
 				button.MousePressedHook += state => CreateElementButtons(groupCopy);
+				button.IsHighlighted = () => m_currentGroup == groupCopy;
 
 				// Add the button to the list.
 				m_groupButtons.Add(button);

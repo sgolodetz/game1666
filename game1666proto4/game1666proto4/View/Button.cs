@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -18,6 +19,11 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// A hook that the button can use to check whether or not it should be drawn highlighted.
+		/// </summary>
+		private Func<bool> m_isHighlighted = () => false;
+
+		/// <summary>
 		/// The sprite batch used when drawing the button.
 		/// </summary>
 		private readonly SpriteBatch m_spriteBatch;
@@ -26,6 +32,16 @@ namespace game1666proto4
 		/// The texture used when drawing the button.
 		/// </summary>
 		private readonly Texture2D m_texture;
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// A hook that the button can use to check whether or not it should be drawn highlighted.
+		/// </summary>
+		public Func<bool> IsHighlighted { get { return m_isHighlighted; } set { m_isHighlighted = value; } }
 
 		#endregion
 
@@ -71,8 +87,8 @@ namespace game1666proto4
 			m_spriteBatch.Draw(m_texture, new Rectangle(0, 0, Viewport.Width, Viewport.Height), Color.White);
 			m_spriteBatch.End();
 
-			// Draw a highlighting rectangle if the button is selected.
-			if(true)
+			// Draw a surrounding rectangle if the button is highlighted.
+			if(IsHighlighted())
 			{
 				BasicEffect effect = Renderer.Create2DLineEffect(Viewport);
 				Renderer.DrawBoundingBox(new Vector2(0, 0), new Vector2(Viewport.Width - 1, Viewport.Height - 1), effect, Color.White);
