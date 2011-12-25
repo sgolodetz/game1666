@@ -91,7 +91,7 @@ namespace game1666proto4
 			if(IsHighlighted())
 			{
 				BasicEffect effect = Renderer.Create2DLineEffect(Viewport);
-				Renderer.DrawBoundingBox(new Vector2(0, 0), new Vector2(Viewport.Width - 1, Viewport.Height - 1), effect, Color.White);
+				Renderer.DrawBoundingBox(new Vector2(0, 0), new Vector2(Viewport.Width - 1, Viewport.Height - 1), effect, Color.Red);
 			}
 		}
 
