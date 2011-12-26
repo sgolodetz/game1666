@@ -30,17 +30,21 @@ namespace game1666proto4
 			IEnumerable<Vector2i> gridSquares = OverlaidGridSquares(footprint, hotspotPosition, terrain, true);
 			if(gridSquares == null) return null;
 
-			float heightSum = 0f;
+			float fullSum = 0f;
 			int count = 0;
 			foreach(Vector2i s in gridSquares)
 			{
-				heightSum += (terrain.Heightmap[s.Y, s.X] +
-							  terrain.Heightmap[s.Y, s.X + 1] +
-							  terrain.Heightmap[s.Y + 1, s.X] +
-							  terrain.Heightmap[s.Y + 1, s.X + 1]) / 4f;
+				float sum = 0f;
+				sum += terrain.Heightmap[s.Y, s.X];
+				sum += terrain.Heightmap[s.Y, s.X + 1];
+				sum += terrain.Heightmap[s.Y + 1, s.X];
+				sum += terrain.Heightmap[s.Y + 1, s.X + 1];
+				sum /= 4f;
+
+				fullSum += sum;
 				++count;
 			}
-			return count > 0 ? (float?)heightSum / count : null;
+			return count > 0 ? (float?)fullSum / count : null;
 		}
 
 		/// <summary>
