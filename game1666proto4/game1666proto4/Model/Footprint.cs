@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// An instance of this class represents the 'footprint' of an entity on a terrain.
+	/// An instance of this class represents the 'footprint' of an entity.
 	/// </summary>
 	sealed class Footprint : Entity
 	{
@@ -87,6 +87,21 @@ namespace game1666proto4
 					}
 				}
 			}
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Rotates the footprint anti-clockwise by 90 degrees.
+		/// </summary>
+		/// <returns>The footprint itself.</returns>
+		public Footprint Rotate()
+		{
+			// TODO
+			return this;
 		}
 
 		#endregion
