@@ -68,7 +68,7 @@ namespace game1666proto4
 		public static IEnumerable<Vector2i> Place(Building building, Terrain terrain)
 		{
 			Footprint footprint = building.Blueprint.Footprint;
-			if(CheckFlatness(OverlaidGridSquares(footprint, building.Position, terrain, false), terrain, 0f))
+			if(CalculateHeightRange(OverlaidGridSquares(footprint, building.Position, terrain, false), terrain) == 0f)
 			{
 				return OverlaidGridSquares(footprint, building.Position, terrain, true);
 			}
@@ -105,18 +105,6 @@ namespace game1666proto4
 			}
 
 			return maxHeight - minHeight;
-		}
-
-		/// <summary>
-		/// Checks whether or not the height range over the specified grid squares is no greater than a tolerance value.
-		/// </summary>
-		/// <param name="gridSquares">The grid squares.</param>
-		/// <param name="terrain">The terrain.</param>
-		/// <param name="tolerance">The tolerance value (generally fairly small).</param>
-		/// <returns>true, if the height range is no greater than the tolerance value, or false otherwise</returns>
-		private static bool CheckFlatness(IEnumerable<Vector2i> gridSquares, Terrain terrain, float tolerance)
-		{
-			return CalculateHeightRange(gridSquares, terrain) <= tolerance;
 		}
 
 		/// <summary>
