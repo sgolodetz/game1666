@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,30 +44,29 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Returns whether or not an entity would be validly placed on a terrain at a specified position.
+		/// Returns whether or not an entity would be validly placed on a terrain.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		/// <param name="hotspotPosition">The position (on the terrain) of the entity footprint's hotspot.</param>
 		/// <param name="terrain">The terrain.</param>
 		/// <returns>true, if the entity would be validly placed, or false otherwise</returns>
-		public static bool IsValidlyPlaced(dynamic entity, Vector2i hotspotPosition, Terrain terrain)
+		public static bool IsValidlyPlaced(dynamic entity, Terrain terrain)
 		{
-			return Place(entity, hotspotPosition, terrain).Any();
+			IEnumerable<Vector2i> gridSquares = Place(entity, terrain);
+			return gridSquares != null && gridSquares.Any();
 		}
 
 		/// <summary>
-		/// Attempts to place a building on a terrain at the specified position.
+		/// Attempts to place a building on a terrain.
 		/// </summary>
 		/// <param name="building">The building.</param>
-		/// <param name="hotspotPosition">The position (on the terrain) of the building footprint's hotspot.</param>
 		/// <param name="terrain">The terrain.</param>
 		/// <returns>A set of overlaid grid squares, if the building is validly placed, or null otherwise</returns>
-		public static IEnumerable<Vector2i> Place(Building building, Vector2i hotspotPosition, Terrain terrain)
+		public static IEnumerable<Vector2i> Place(Building building, Terrain terrain)
 		{
 			Footprint footprint = building.Blueprint.Footprint;
-			if(CheckFlatness(OverlaidGridSquares(footprint, hotspotPosition, terrain, false)))
+			if(CheckFlatness(OverlaidGridSquares(footprint, building.Position, terrain, false), terrain, 0f))
 			{
-				return OverlaidGridSquares(footprint, hotspotPosition, terrain, true);
+				return OverlaidGridSquares(footprint, building.Position, terrain, true);
 			}
 			else return null;
 		}
@@ -77,14 +77,42 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Checks whether or not the specified grid squares are all flat and at the same altitude.
+		/// Calculates the height range over the specified set of grid squares in the specified terrain.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares.</param>
-		/// <returns>true, if they are all flat and at the same altitude, or false otherwise</returns>
-		private static bool CheckFlatness(IEnumerable<Vector2i> gridSquares)
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>The height range over the grid squares.</returns>
+		private static float CalculateHeightRange(IEnumerable<Vector2i> gridSquares, Terrain terrain)
 		{
-			// TODO
-			return true;
+			float maxHeight = float.MinValue;
+			float minHeight = float.MaxValue;
+
+			foreach(Vector2i s in gridSquares)
+			{
+				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X], maxHeight);
+				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X + 1], maxHeight);
+				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X], maxHeight);
+				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X + 1], maxHeight);
+
+				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X], minHeight);
+				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X + 1], minHeight);
+				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X], minHeight);
+				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X + 1], minHeight);
+			}
+
+			return maxHeight - minHeight;
+		}
+
+		/// <summary>
+		/// Checks whether or not the height range over the specified grid squares is no greater than a tolerance value.
+		/// </summary>
+		/// <param name="gridSquares">The grid squares.</param>
+		/// <param name="terrain">The terrain.</param>
+		/// <param name="tolerance">The tolerance value (generally fairly small).</param>
+		/// <returns>true, if the height range is no greater than the tolerance value, or false otherwise</returns>
+		private static bool CheckFlatness(IEnumerable<Vector2i> gridSquares, Terrain terrain, float tolerance)
+		{
+			return CalculateHeightRange(gridSquares, terrain) <= tolerance;
 		}
 
 		/// <summary>
