@@ -211,7 +211,7 @@ namespace game1666proto4
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
 
 			// Move the model to the correct position.
-			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X, entity.Position.Y, entity.Altitude);
+			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X + 0.5f, entity.Position.Y + 0.5f, entity.Altitude);
 
 			// If the entity has a non-default orientation, rotate the model appropriately.
 			if(entity.Orientation != Orientation4.XPOS)
