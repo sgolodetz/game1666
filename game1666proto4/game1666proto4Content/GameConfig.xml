@@ -17,14 +17,13 @@
     <entity type="HouseBlueprint">
       <property name="Name" type="string" value="Mansion"/>
       <property name="MaxOccupants" type="int" value="10"/>
-      <property name="Model" type="string" value="TODO"/>
+      <property name="Model" type="string" value="Mansion"/>
       <property name="TimeToConstruct" type="int" value="10000"/>
       <entity type="Footprint">
-        <property name="Hotspot" type="Vector2i" value="1,1"/>
+        <property name="Hotspot" type="Vector2i" value="1,0"/>
         <property name="Pattern" type="Array2D[int]">
-          [3,3]
+          [3,2]
           1,2,1,
-          1,1,1,
           1,1,1
         </property>
       </entity>

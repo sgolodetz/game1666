@@ -1,6 +1,7 @@
 bin/
 obj/
 /Help/
+*.blend1
 *.cachefile
 *.csproj.user
 *.shfbproj_*

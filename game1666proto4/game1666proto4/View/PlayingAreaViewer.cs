@@ -109,7 +109,7 @@ namespace game1666proto4
 				// Determine which grid square we're hovering over (if any).
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
-				if(gridSquare != null && m_playingArea.BlueprintToPlace == "Dwelling")
+				if(gridSquare != null && (m_playingArea.BlueprintToPlace == "Dwelling" || m_playingArea.BlueprintToPlace == "Mansion"))
 				{
 					// Work out what type of entity we're trying to place.
 					Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + m_playingArea.BlueprintToPlace);
@@ -210,10 +210,7 @@ namespace game1666proto4
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
 
 			// Move the model to the correct position.
-			Vector2i position = entity.Position, hotspot = entity.Blueprint.Footprint.Hotspot;
-			Matrix matWorld = Matrix.CreateTranslation(position.X + hotspot.X + 0.5f,
-													   position.Y + hotspot.Y + 0.5f,
-													   entity.Altitude);
+			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X, entity.Position.Y, entity.Altitude);
 
 			// If the entity has a non-default orientation, rotate the model appropriately.
 			if(entity.Orientation != Orientation4.XPOS)

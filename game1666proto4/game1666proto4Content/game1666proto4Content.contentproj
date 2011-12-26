@@ -73,6 +73,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Models\Mansion.fbx">
+      <Name>Mansion</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="TestWorld.xml">
       <Name>TestWorld</Name>
       <Importer>XmlImporter</Importer>
