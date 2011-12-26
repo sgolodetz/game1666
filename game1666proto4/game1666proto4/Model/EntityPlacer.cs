@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace game1666proto4
 {
@@ -25,8 +26,23 @@ namespace game1666proto4
 		/// <returns>The average altitude of the grid squares, if the footprint is validly placed, or null otherwise</returns>
 		public static float? DetermineAverageAltitude(Footprint footprint, Vector2i hotspotPosition, Terrain terrain)
 		{
+			IEnumerable<Vector2i> gridSquares = OverlaidGridSquares(footprint, hotspotPosition, terrain, true);
+			//if(gridSquares == null) return null;
+
 			// TODO
 			return 0f;
+		}
+
+		/// <summary>
+		/// Returns whether or not an entity would be validly placed on a terrain at a specified position.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		/// <param name="hotspotPosition">The position (on the terrain) of the entity footprint's hotspot.</param>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>true, if the entity would be validly placed, or false otherwise</returns>
+		public static bool IsValidlyPlaced(dynamic entity, Vector2i hotspotPosition, Terrain terrain)
+		{
+			return Place(entity, hotspotPosition, terrain).Any();
 		}
 
 		/// <summary>

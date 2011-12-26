@@ -115,15 +115,23 @@ namespace game1666proto4
 					Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + m_playingArea.BlueprintToPlace);
 					Type entityType = blueprint.EntityType;
 
-					// Set the properties of the entity.
-					var entityProperties = new Dictionary<string,dynamic>();
-					entityProperties["Altitude"] = 0f;
-					entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
-					entityProperties["Orientation"] = Orientation4.XPOS;
-					entityProperties["Position"] = gridSquare.Value;
+					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
+					// Note that this will return null if the entity can't be validly placed.
+					float? altitude = EntityPlacer.DetermineAverageAltitude(blueprint.Footprint, gridSquare.Value, m_playingArea.Terrain);
 
-					// Create a new entity and set it as the entity to be placed.
-					m_entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+					// Provided the altitude could be determined, continue with entity creation.
+					if(altitude != null)
+					{
+						// Set the properties of the entity.
+						var entityProperties = new Dictionary<string,dynamic>();
+						entityProperties["Altitude"] = altitude;
+						entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
+						entityProperties["Orientation"] = Orientation4.XPOS;
+						entityProperties["Position"] = gridSquare.Value;
+
+						// Create a new entity and set it as the entity to be placed.
+						m_entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+					}
 				}
 			}
 		}
