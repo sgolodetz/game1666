@@ -109,6 +109,7 @@ namespace game1666proto4
 				// Determine which grid square we're hovering over (if any).
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
+				m_entityToPlace = null;
 				if(gridSquare != null && (m_playingArea.BlueprintToPlace == "Dwelling" || m_playingArea.BlueprintToPlace == "Mansion"))
 				{
 					// Work out what type of entity we're trying to place.

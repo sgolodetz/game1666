@@ -27,7 +27,7 @@ namespace game1666proto4
 		public static float? DetermineAverageAltitude(Footprint footprint, Vector2i hotspotPosition, Terrain terrain)
 		{
 			IEnumerable<Vector2i> gridSquares = OverlaidGridSquares(footprint, hotspotPosition, terrain, true);
-			//if(gridSquares == null) return null;
+			if(gridSquares == null) return null;
 
 			// TODO
 			return 0f;
@@ -92,8 +92,32 @@ namespace game1666proto4
 																 Terrain terrain,
 																 bool useFootprintOccupancy)
 		{
-			// TODO
-			return null;
+			bool[,] occupancy = footprint.Occupancy;
+			Vector2i offset = hotspotPosition - footprint.Hotspot;
+
+			int footprintHeight = occupancy.GetLength(0);
+			int footprintWidth = occupancy.GetLength(1);
+			int gridHeight = terrain.Heightmap.GetLength(0) - 1;		// - 1 because grid height not heightmap height
+			int gridWidth = terrain.Heightmap.GetLength(1) - 1;		// - 1 because grid width not heightmap width
+
+			var gridSquares = new List<Vector2i>();
+			for(int y = 0; y < footprintHeight; ++y)
+			{
+				int gridY = y + offset.Y;
+				if(gridY < 0 || gridY >= gridHeight) return null;
+
+				for(int x = 0; x < footprintWidth; ++x)
+				{
+					int gridX = x + offset.X;
+					if(gridX < 0 || gridX >= gridWidth) return null;
+
+					if(!useFootprintOccupancy || occupancy[y,x])
+					{
+						gridSquares.Add(new Vector2i(gridX, gridY));
+					}
+				}
+			}
+			return gridSquares;
 		}
 
 		#endregion
