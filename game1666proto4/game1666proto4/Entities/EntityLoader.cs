@@ -1,11 +1,10 @@
 ﻿/***
- * game1666proto4: EntityUtil.cs
+ * game1666proto4: EntityLoader.cs
  * Copyright 2011. All rights reserved.
  ***/
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,7 +16,7 @@ namespace game1666proto4
 	/// <summary>
 	/// This class contains utility functions for loading entities from XML.
 	/// </summary>
-	static class EntityUtil
+	static class EntityLoader
 	{
 		//#################### PUBLIC METHODS ####################
 		#region
@@ -34,7 +33,7 @@ namespace game1666proto4
 			foreach(XElement childElt in entityElt.Elements("entity"))
 			{
 				// Look up the C# type of the child entity.
-				string childTypename = typeof(EntityUtil).Namespace + "." + Convert.ToString(childElt.Attribute("type").Value);
+				string childTypename = typeof(EntityLoader).Namespace + "." + Convert.ToString(childElt.Attribute("type").Value);
 				Type childType = Type.GetType(childTypename);
 
 				if(childType != null)
@@ -96,6 +95,11 @@ namespace game1666proto4
 			return properties;
 		}
 
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
 		/// <summary>
 		/// Parses the string representation of a 2D array in order to construct the array itself.
 		/// </summary>
@@ -103,7 +107,7 @@ namespace game1666proto4
 		/// <param name="arraySpecifier">The string representation of a 2D array.</param>
 		/// <param name="elementParser">The function used to parse individual elements.</param>
 		/// <returns>The 2D array.</returns>
-		public static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser)
+		private static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser)
 		{
 			// Filter the array specifier to get rid of any whitespace, newlines, etc.
 			arraySpecifier = new string(arraySpecifier.Where(c => !char.IsWhiteSpace(c)).ToArray());
@@ -138,7 +142,7 @@ namespace game1666proto4
 		/// <param name="listSpecifier">The string representation of a list.</param>
 		/// <param name="elementParser">The function used to parse individual elements.</param>
 		/// <returns>The list.</returns>
-		public static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser)
+		private static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser)
 		{
 			return listSpecifier.Split(',').Select(s => elementParser(s.Trim())).ToList();
 		}
@@ -148,7 +152,7 @@ namespace game1666proto4
 		/// </summary>
 		/// <param name="vectorSpecifier">The string representation of a Vector2i.</param>
 		/// <returns>The Vector2i.</returns>
-		public static Vector2i ParseVector2iSpecifier(string vectorSpecifier)
+		private static Vector2i ParseVector2iSpecifier(string vectorSpecifier)
 		{
 			int[] values = vectorSpecifier
 				.Split(',')
@@ -168,7 +172,7 @@ namespace game1666proto4
 		/// </summary>
 		/// <param name="viewportSpecifier">The string representation of a viewport.</param>
 		/// <returns>The viewport.</returns>
-		public static Viewport ParseViewportSpecifier(string viewportSpecifier)
+		private static Viewport ParseViewportSpecifier(string viewportSpecifier)
 		{
 			decimal[] values = viewportSpecifier
 				.Split(',')

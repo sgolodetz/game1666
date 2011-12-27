@@ -50,7 +50,7 @@ namespace game1666proto4
 		public CompositeVisibleEntity(XElement entityElt)
 		:	base(entityElt)
 		{
-			foreach(dynamic child in EntityUtil.LoadChildEntities(entityElt))
+			foreach(dynamic child in EntityLoader.LoadChildEntities(entityElt))
 			{
 				AddEntityDynamic(child);
 			}

@@ -76,7 +76,7 @@ namespace game1666proto4
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public Entity(XElement entityElt)
 		{
-			m_properties = EntityUtil.LoadProperties(entityElt);
+			m_properties = EntityLoader.LoadProperties(entityElt);
 		}
 
 		#endregion

@@ -182,7 +182,7 @@
     <Compile Include="Model\EntityPlacer.cs" />
     <Compile Include="View\Button.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntityUtil.cs" />
+    <Compile Include="Entities\EntityLoader.cs" />
     <Compile Include="Entities\CompositeVisibleEntity.cs" />
     <Compile Include="Input\MouseEventManager.cs" />
     <Compile Include="Math\MathUtil.cs" />

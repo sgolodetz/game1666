@@ -47,10 +47,7 @@ namespace game1666proto4
 		/// <param name="terrain">The terrain.</param>
 		/// <param name="useFootprintOccupancy">Whether or not to take footprint occupancy into account.</param>
 		/// <returns>A set of overlaid grid squares, if the footprint is validly placed, or null otherwise</returns>
-		public static IEnumerable<Vector2i> OverlaidGridSquares(Footprint footprint,
-																Vector2i hotspotPosition,
-																Terrain terrain,
-																bool useFootprintOccupancy)
+		public static IEnumerable<Vector2i> OverlaidGridSquares(Footprint footprint, Vector2i hotspotPosition, Terrain terrain, bool useFootprintOccupancy)
 		{
 			bool[,] occupancy = footprint.Occupancy;
 			Vector2i offset = hotspotPosition - footprint.Hotspot;
