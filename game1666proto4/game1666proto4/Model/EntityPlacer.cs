@@ -28,23 +28,14 @@ namespace game1666proto4
 		public static float? DetermineAverageAltitude(Footprint footprint, Vector2i hotspotPosition, Terrain terrain)
 		{
 			IEnumerable<Vector2i> gridSquares = OverlaidGridSquares(footprint, hotspotPosition, terrain, true);
-			if(gridSquares == null) return null;
-
-			float fullSum = 0f;
-			int count = 0;
-			foreach(Vector2i s in gridSquares)
+			if(gridSquares != null && gridSquares.Any())
 			{
-				float sum = 0f;
-				sum += terrain.Heightmap[s.Y, s.X];
-				sum += terrain.Heightmap[s.Y, s.X + 1];
-				sum += terrain.Heightmap[s.Y + 1, s.X];
-				sum += terrain.Heightmap[s.Y + 1, s.X + 1];
-				sum /= 4f;
-
-				fullSum += sum;
-				++count;
+				return terrain.DetermineAverageAltitude(gridSquares);
 			}
-			return count > 0 ? (float?)fullSum / count : null;
+			else
+			{
+				return null;
+			}
 		}
 
 		/// <summary>

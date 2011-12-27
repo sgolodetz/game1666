@@ -98,7 +98,7 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Calculates the height range over the specified set of grid squares.
+		/// Calculates the height range over a non-empty set of grid squares.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares.</param>
 		/// <returns>The height range over the grid squares.</returns>
@@ -120,7 +120,34 @@ namespace game1666proto4
 				minHeight = Math.Min(Heightmap[s.Y + 1, s.X + 1], minHeight);
 			}
 
-			return maxHeight - minHeight;
+			if(maxHeight >= minHeight) return maxHeight - minHeight;
+			else throw new ArgumentException("Cannot determine the height range of an empty set of grid squares");
+		}
+
+		/// <summary>
+		/// Determines the average altitude of a non-empty set of grid squares.
+		/// </summary>
+		/// <param name="gridSquares">The grid squares.</param>
+		/// <returns>The average altitude of the grid squares.</returns>
+		public float DetermineAverageAltitude(IEnumerable<Vector2i> gridSquares)
+		{
+			float fullSum = 0f;
+			int count = 0;
+			foreach(Vector2i s in gridSquares)
+			{
+				float sum = 0f;
+				sum += Heightmap[s.Y, s.X];
+				sum += Heightmap[s.Y, s.X + 1];
+				sum += Heightmap[s.Y + 1, s.X];
+				sum += Heightmap[s.Y + 1, s.X + 1];
+				sum /= 4f;
+
+				fullSum += sum;
+				++count;
+			}
+
+			if(count > 0) return fullSum / count;
+			else throw new ArgumentException("Cannot determine the average altitude of an empty set of grid squares");
 		}
 
 		/// <summary>
