@@ -74,6 +74,43 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Determines which grid squares in the specified terrain would be overlaid
+		/// by placing the footprint's hotspot at the specified position.
+		/// </summary>
+		/// <param name="hotspotPosition">The position (on the terrain) to place the footprint's hotspot.</param>
+		/// <param name="terrain">The terrain.</param>
+		/// <param name="useOccupancy">Whether or not to take footprint occupancy into account.</param>
+		/// <returns>A set of overlaid grid squares, if the footprint is within bounds, or null otherwise</returns>
+		public IEnumerable<Vector2i> OverlaidGridSquares(Vector2i hotspotPosition, Terrain terrain, bool useOccupancy)
+		{
+			Vector2i offset = hotspotPosition - Hotspot;
+
+			int footprintHeight = Occupancy.GetLength(0);
+			int footprintWidth = Occupancy.GetLength(1);
+			int gridHeight = terrain.Heightmap.GetLength(0) - 1;		// - 1 because grid height not heightmap height
+			int gridWidth = terrain.Heightmap.GetLength(1) - 1;		// - 1 because grid width not heightmap width
+
+			var gridSquares = new List<Vector2i>();
+			for(int y = 0; y < footprintHeight; ++y)
+			{
+				int gridY = y + offset.Y;
+				if(gridY < 0 || gridY >= gridHeight) return null;
+
+				for(int x = 0; x < footprintWidth; ++x)
+				{
+					int gridX = x + offset.X;
+					if(gridX < 0 || gridX >= gridWidth) return null;
+
+					if(!useOccupancy || Occupancy[y,x])
+					{
+						gridSquares.Add(new Vector2i(gridX, gridY));
+					}
+				}
+			}
+			return gridSquares;
+		}
+
+		/// <summary>
 		/// Constructs a clone of this footprint that is rotated by a specific number of anti-clockwise 90 degree turns.
 		/// </summary>
 		/// <param name="rotations">The number of anti-clockwise 90 degree rotations to perform on the footprint.</param>
