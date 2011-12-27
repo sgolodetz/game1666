@@ -125,7 +125,7 @@ namespace game1666proto4
 		public IEnumerable<Vector2i> Place(Terrain terrain)
 		{
 			Footprint footprint = Blueprint.Footprint.Rotated((int)Orientation);
-			if(EntityPlacer.CalculateHeightRange(EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, false), terrain) == 0f)
+			if(terrain.CalculateHeightRange(EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, false)) == 0f)
 			{
 				return EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, true);
 			}

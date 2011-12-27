@@ -98,6 +98,32 @@ namespace game1666proto4
 		}
 
 		/// <summary>
+		/// Calculates the height range over the specified set of grid squares.
+		/// </summary>
+		/// <param name="gridSquares">The grid squares.</param>
+		/// <returns>The height range over the grid squares.</returns>
+		public float CalculateHeightRange(IEnumerable<Vector2i> gridSquares)
+		{
+			float maxHeight = float.MinValue;
+			float minHeight = float.MaxValue;
+
+			foreach(Vector2i s in gridSquares)
+			{
+				maxHeight = Math.Max(Heightmap[s.Y, s.X], maxHeight);
+				maxHeight = Math.Max(Heightmap[s.Y, s.X + 1], maxHeight);
+				maxHeight = Math.Max(Heightmap[s.Y + 1, s.X], maxHeight);
+				maxHeight = Math.Max(Heightmap[s.Y + 1, s.X + 1], maxHeight);
+
+				minHeight = Math.Min(Heightmap[s.Y, s.X], minHeight);
+				minHeight = Math.Min(Heightmap[s.Y, s.X + 1], minHeight);
+				minHeight = Math.Min(Heightmap[s.Y + 1, s.X], minHeight);
+				minHeight = Math.Min(Heightmap[s.Y + 1, s.X + 1], minHeight);
+			}
+
+			return maxHeight - minHeight;
+		}
+
+		/// <summary>
 		/// Marks a set of grid squares as occupied.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares to mark.</param>

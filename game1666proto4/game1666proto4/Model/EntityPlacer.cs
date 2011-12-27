@@ -18,33 +18,6 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Calculates the height range over the specified set of grid squares in the specified terrain.
-		/// </summary>
-		/// <param name="gridSquares">The grid squares.</param>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>The height range over the grid squares.</returns>
-		public static float CalculateHeightRange(IEnumerable<Vector2i> gridSquares, Terrain terrain)
-		{
-			float maxHeight = float.MinValue;
-			float minHeight = float.MaxValue;
-
-			foreach(Vector2i s in gridSquares)
-			{
-				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X], maxHeight);
-				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X + 1], maxHeight);
-				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X], maxHeight);
-				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X + 1], maxHeight);
-
-				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X], minHeight);
-				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X + 1], minHeight);
-				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X], minHeight);
-				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X + 1], minHeight);
-			}
-
-			return maxHeight - minHeight;
-		}
-
-		/// <summary>
 		/// Determines the average altitude of the grid squares overload by the specified footprint
 		/// when placed at the specified position on a terrain.
 		/// </summary>
