@@ -3,7 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace game1666proto4
 {
@@ -50,6 +50,13 @@ namespace game1666proto4
 		/// </summary>
 		/// <returns>The clone.</returns>
 		IPlaceableEntity CloneNew();
+
+		/// <summary>
+		/// Attempts to place the entity on a terrain.
+		/// </summary>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise</returns>
+		IEnumerable<Vector2i> Place(Terrain terrain);
 
 		#endregion
 	}

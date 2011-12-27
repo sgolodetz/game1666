@@ -18,6 +18,33 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
+		/// Calculates the height range over the specified set of grid squares in the specified terrain.
+		/// </summary>
+		/// <param name="gridSquares">The grid squares.</param>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>The height range over the grid squares.</returns>
+		public static float CalculateHeightRange(IEnumerable<Vector2i> gridSquares, Terrain terrain)
+		{
+			float maxHeight = float.MinValue;
+			float minHeight = float.MaxValue;
+
+			foreach(Vector2i s in gridSquares)
+			{
+				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X], maxHeight);
+				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X + 1], maxHeight);
+				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X], maxHeight);
+				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X + 1], maxHeight);
+
+				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X], minHeight);
+				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X + 1], minHeight);
+				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X], minHeight);
+				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X + 1], minHeight);
+			}
+
+			return maxHeight - minHeight;
+		}
+
+		/// <summary>
 		/// Determines the average altitude of the grid squares overload by the specified footprint
 		/// when placed at the specified position on a terrain.
 		/// </summary>
@@ -55,56 +82,8 @@ namespace game1666proto4
 		/// <returns>true, if the entity would be validly placed, or false otherwise</returns>
 		public static bool IsValidlyPlaced(dynamic entity, Terrain terrain)
 		{
-			IEnumerable<Vector2i> gridSquares = Place(entity, terrain);
+			IEnumerable<Vector2i> gridSquares = entity.Place(terrain);
 			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
-		}
-
-		/// <summary>
-		/// Attempts to place a building on a terrain.
-		/// </summary>
-		/// <param name="building">The building.</param>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>A set of overlaid grid squares, if the building is validly placed, or null otherwise</returns>
-		public static IEnumerable<Vector2i> Place(Building building, Terrain terrain)
-		{
-			Footprint footprint = building.Blueprint.Footprint;
-			if(CalculateHeightRange(OverlaidGridSquares(footprint, building.Position, terrain, false), terrain) == 0f)
-			{
-				return OverlaidGridSquares(footprint, building.Position, terrain, true);
-			}
-			else return null;
-		}
-
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Calculates the height range over the specified set of grid squares in the specified terrain.
-		/// </summary>
-		/// <param name="gridSquares">The grid squares.</param>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>The height range over the grid squares.</returns>
-		private static float CalculateHeightRange(IEnumerable<Vector2i> gridSquares, Terrain terrain)
-		{
-			float maxHeight = float.MinValue;
-			float minHeight = float.MaxValue;
-
-			foreach(Vector2i s in gridSquares)
-			{
-				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X], maxHeight);
-				maxHeight = Math.Max(terrain.Heightmap[s.Y, s.X + 1], maxHeight);
-				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X], maxHeight);
-				maxHeight = Math.Max(terrain.Heightmap[s.Y + 1, s.X + 1], maxHeight);
-
-				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X], minHeight);
-				minHeight = Math.Min(terrain.Heightmap[s.Y, s.X + 1], minHeight);
-				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X], minHeight);
-				minHeight = Math.Min(terrain.Heightmap[s.Y + 1, s.X + 1], minHeight);
-			}
-
-			return maxHeight - minHeight;
 		}
 
 		/// <summary>
@@ -116,7 +95,7 @@ namespace game1666proto4
 		/// <param name="terrain">The terrain.</param>
 		/// <param name="useFootprintOccupancy">Whether or not to take footprint occupancy into account.</param>
 		/// <returns>A set of overlaid grid squares, if the footprint is validly placed, or null otherwise</returns>
-		private static IEnumerable<Vector2i> OverlaidGridSquares(Footprint footprint,
+		public static IEnumerable<Vector2i> OverlaidGridSquares(Footprint footprint,
 																 Vector2i hotspotPosition,
 																 Terrain terrain,
 																 bool useFootprintOccupancy)

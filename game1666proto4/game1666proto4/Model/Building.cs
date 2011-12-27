@@ -105,6 +105,22 @@ namespace game1666proto4
 		public abstract IPlaceableEntity CloneNew();
 
 		/// <summary>
+		/// Attempts to place the building on a terrain.
+		/// </summary>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>A set of grid squares that the building overlays, if it can be validly placed, or null otherwise</returns>
+		public IEnumerable<Vector2i> Place(Terrain terrain)
+		{
+			Footprint footprint = Blueprint.Footprint;
+			// TODO: Take orientation into account.
+			if(EntityPlacer.CalculateHeightRange(EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, false), terrain) == 0f)
+			{
+				return EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, true);
+			}
+			else return null;
+		}
+
+		/// <summary>
 		/// Updates the building based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
