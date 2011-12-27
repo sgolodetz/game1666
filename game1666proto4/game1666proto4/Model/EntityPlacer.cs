@@ -56,7 +56,7 @@ namespace game1666proto4
 		public static bool IsValidlyPlaced(dynamic entity, Terrain terrain)
 		{
 			IEnumerable<Vector2i> gridSquares = Place(entity, terrain);
-			return gridSquares != null && gridSquares.Any();
+			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
 		}
 
 		/// <summary>

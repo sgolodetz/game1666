@@ -136,8 +136,12 @@ namespace game1666proto4
 						entityProperties["Orientation"] = m_placementOrientation;
 						entityProperties["Position"] = gridSquare.Value;
 
-						// Create a new entity and set it as the entity to be placed.
-						m_entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+						// Create the new entity, and set it as the entity to be placed if it's valid.
+						IPlaceableEntity entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+						if(EntityPlacer.IsValidlyPlaced(entityToPlace, m_playingArea.Terrain))
+						{
+							m_entityToPlace = entityToPlace;
+						}
 					}
 				}
 			}

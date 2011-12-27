@@ -72,6 +72,7 @@ namespace game1666proto4
 		public void AddEntity(Building building)
 		{
 			m_buildings.Add(building);
+			Terrain.MarkOccupied(EntityPlacer.Place(building, Terrain));
 		}
 
 		/// <summary>

@@ -17,16 +17,6 @@ namespace game1666proto4
 	/// </summary>
 	sealed class Terrain : Entity
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
-		/// </summary>
-		private bool[,] m_occupancy;
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -39,6 +29,11 @@ namespace game1666proto4
 		/// The terrain's index buffer (for use when rendering the terrain).
 		/// </summary>
 		public IndexBuffer IndexBuffer { get; private set; }
+
+		/// <summary>
+		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
+		/// </summary>
+		public bool[,] Occupancy { get; private set; }
 
 		/// <summary>
 		/// The root node of the terrain quadtree (used for picking).
@@ -91,6 +86,28 @@ namespace game1666proto4
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Checks whether or not any of the specified grid squares are occupied.
+		/// </summary>
+		/// <param name="gridSquares">The grid squares to check.</param>
+		/// <returns>true, if any of the grid squares are occupied, or false otherwise</returns>
+		public bool AreOccupied(IEnumerable<Vector2i> gridSquares)
+		{
+			return gridSquares.Any(s => Occupancy[s.Y, s.X]);
+		}
+
+		/// <summary>
+		/// Marks a set of grid squares as occupied.
+		/// </summary>
+		/// <param name="gridSquares">The grid squares to mark.</param>
+		public void MarkOccupied(IEnumerable<Vector2i> gridSquares)
+		{
+			foreach(Vector2i s in gridSquares)
+			{
+				Occupancy[s.Y, s.X] = true;
+			}
+		}
 
 		/// <summary>
 		/// Finds the terrain grid square (if any) hit by the specified ray.
@@ -195,7 +212,7 @@ namespace game1666proto4
 		private void Initialise(float[,] heightmap)
 		{
 			Heightmap = heightmap;
-			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
+			Occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
 			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
 		}
