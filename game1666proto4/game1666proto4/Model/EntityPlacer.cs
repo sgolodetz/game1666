@@ -10,7 +10,7 @@ using System.Linq;
 namespace game1666proto4
 {
 	/// <summary>
-	/// This class is used to place entities on a terrain.
+	/// This class is used to help place entities on a terrain.
 	/// </summary>
 	static class EntityPlacer
 	{
@@ -80,7 +80,7 @@ namespace game1666proto4
 		/// <param name="entity">The entity.</param>
 		/// <param name="terrain">The terrain.</param>
 		/// <returns>true, if the entity would be validly placed, or false otherwise</returns>
-		public static bool IsValidlyPlaced(dynamic entity, Terrain terrain)
+		public static bool IsValidlyPlaced(IPlaceableEntity entity, Terrain terrain)
 		{
 			IEnumerable<Vector2i> gridSquares = entity.Place(terrain);
 			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
@@ -96,9 +96,9 @@ namespace game1666proto4
 		/// <param name="useFootprintOccupancy">Whether or not to take footprint occupancy into account.</param>
 		/// <returns>A set of overlaid grid squares, if the footprint is validly placed, or null otherwise</returns>
 		public static IEnumerable<Vector2i> OverlaidGridSquares(Footprint footprint,
-																 Vector2i hotspotPosition,
-																 Terrain terrain,
-																 bool useFootprintOccupancy)
+																Vector2i hotspotPosition,
+																Terrain terrain,
+																bool useFootprintOccupancy)
 		{
 			bool[,] occupancy = footprint.Occupancy;
 			Vector2i offset = hotspotPosition - footprint.Hotspot;
