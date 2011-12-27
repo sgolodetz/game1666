@@ -75,18 +75,6 @@ namespace game1666proto4
 		}
 
 		/// <summary>
-		/// Returns whether or not an entity would be validly placed on a terrain.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>true, if the entity would be validly placed, or false otherwise</returns>
-		public static bool IsValidlyPlaced(IPlaceableEntity entity, Terrain terrain)
-		{
-			IEnumerable<Vector2i> gridSquares = entity.Place(terrain);
-			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
-		}
-
-		/// <summary>
 		/// Determines which grid squares in a terrain are overlaid by the specified entity footprint
 		/// placed at the specified position.
 		/// </summary>

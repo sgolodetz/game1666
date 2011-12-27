@@ -52,7 +52,15 @@ namespace game1666proto4
 		IPlaceableEntity CloneNew();
 
 		/// <summary>
-		/// Attempts to place the entity on a terrain.
+		/// Checks whether or not the entity can be validly placed on the specified terrain,
+		/// bearing in mind its position and orientation.
+		/// </summary>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>true, if it can be validly placed, or false otherwise</returns>
+		bool IsValidlyPlaced(Terrain terrain);
+
+		/// <summary>
+		/// Attempts to place the entity on the specified terrain.
 		/// </summary>
 		/// <param name="terrain">The terrain.</param>
 		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise</returns>

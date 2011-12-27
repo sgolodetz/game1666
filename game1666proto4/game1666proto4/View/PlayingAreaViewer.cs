@@ -138,7 +138,7 @@ namespace game1666proto4
 
 						// Create the new entity, and set it as the entity to be placed if it's valid.
 						IPlaceableEntity entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
-						if(EntityPlacer.IsValidlyPlaced(entityToPlace, m_playingArea.Terrain))
+						if(entityToPlace.IsValidlyPlaced(m_playingArea.Terrain))
 						{
 							m_entityToPlace = entityToPlace;
 						}

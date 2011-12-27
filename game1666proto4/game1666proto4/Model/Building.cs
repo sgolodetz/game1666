@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
@@ -105,7 +106,19 @@ namespace game1666proto4
 		public abstract IPlaceableEntity CloneNew();
 
 		/// <summary>
-		/// Attempts to place the building on a terrain.
+		/// Checks whether or not the building can be validly placed on the specified terrain,
+		/// bearing in mind its position and orientation.
+		/// </summary>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>true, if it can be validly placed, or false otherwise</returns>
+		public bool IsValidlyPlaced(Terrain terrain)
+		{
+			IEnumerable<Vector2i> gridSquares = Place(terrain);
+			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
+		}
+
+		/// <summary>
+		/// Attempts to place the building on the specified terrain.
 		/// </summary>
 		/// <param name="terrain">The terrain.</param>
 		/// <returns>A set of grid squares that the building overlays, if it can be validly placed, or null otherwise</returns>
