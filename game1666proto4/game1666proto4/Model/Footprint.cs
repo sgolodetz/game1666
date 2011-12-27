@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace game1666proto4
@@ -74,8 +75,28 @@ namespace game1666proto4
 		#region
 
 		/// <summary>
-		/// Determines which grid squares in the specified terrain would be overlaid
-		/// by placing the footprint's hotspot at the specified position.
+		/// Determines the average altitude of the footprint when placed at the specified
+		/// position on the specified terrain.
+		/// </summary>
+		/// <param name="hotspotPosition">The position (on the terrain) to place the footprint's hotspot.</param>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>The average altitude of the footprint, if the footprint is within bounds, or null otherwise</returns>
+		public float? DetermineAverageAltitude(Vector2i hotspotPosition, Terrain terrain)
+		{
+			IEnumerable<Vector2i> gridSquares = OverlaidGridSquares(hotspotPosition, terrain, true);
+			if(gridSquares != null && gridSquares.Any())
+			{
+				return terrain.DetermineAverageAltitude(gridSquares);
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// Determines which grid squares in the specified terrain would be overlaid by placing the
+		/// footprint's hotspot at the specified position.
 		/// </summary>
 		/// <param name="hotspotPosition">The position (on the terrain) to place the footprint's hotspot.</param>
 		/// <param name="terrain">The terrain.</param>

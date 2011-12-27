@@ -179,7 +179,6 @@
     <Compile Include="FSMs\Entity\EntityFSM.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Model\Footprint.cs" />
-    <Compile Include="Model\EntityPlacer.cs" />
     <Compile Include="View\Button.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityLoader.cs" />

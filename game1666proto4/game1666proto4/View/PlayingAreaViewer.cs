@@ -124,7 +124,7 @@ namespace game1666proto4
 					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
 					// Note that this will return null if the entity can't be validly placed.
 					Footprint footprint = blueprint.Footprint.Rotated((int)m_placementOrientation);
-					float? altitude = EntityPlacer.DetermineAverageAltitude(footprint, gridSquare.Value, m_playingArea.Terrain);
+					float? altitude = footprint.DetermineAverageAltitude(gridSquare.Value, m_playingArea.Terrain);
 
 					// Provided the altitude could be determined, continue with entity creation.
 					if(altitude != null)
