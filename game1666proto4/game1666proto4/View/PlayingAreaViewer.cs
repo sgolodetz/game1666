@@ -123,7 +123,7 @@ namespace game1666proto4
 
 					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
 					// Note that this will return null if the entity can't be validly placed.
-					Footprint footprint = blueprint.Footprint.Rotated(Convert.ToInt32(m_placementOrientation));
+					Footprint footprint = blueprint.Footprint.Rotated((int)m_placementOrientation);
 					float? altitude = EntityPlacer.DetermineAverageAltitude(footprint, gridSquare.Value, m_playingArea.Terrain);
 
 					// Provided the altitude could be determined, continue with entity creation.
@@ -158,6 +158,15 @@ namespace game1666proto4
 					m_entityToPlace = null;
 				}
 			}
+			else if(state.RightButton == ButtonState.Pressed)
+			{
+				int placementOrientation = (int)m_placementOrientation;
+				placementOrientation = (placementOrientation + 1) % 4;
+				m_placementOrientation = (Orientation4)placementOrientation;
+
+				// Call the mouse moved handler to update the entity being placed.
+				OnMouseMoved(state);
+			}
 		}
 
 		/// <summary>
@@ -186,9 +195,9 @@ namespace game1666proto4
 			if(keyState.IsKeyDown(Keys.Up))		m_camera.Rotate(m_camera.U, angularRateV);
 			if(keyState.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -angularRateV);
 
-			MouseState mouseState = Mouse.GetState();
-			if(mouseState.RightButton == ButtonState.Pressed)
+			if(keyState.IsKeyDown(Keys.LeftShift))
 			{
+				MouseState mouseState = Mouse.GetState();
 				float xOffset = Viewport.X + Viewport.Width * 0.5f - mouseState.X;
 				float yOffset = mouseState.Y - (Viewport.Y + Viewport.Height * 0.5f);
 				if(Math.Abs(xOffset) > Viewport.Width / 8)
