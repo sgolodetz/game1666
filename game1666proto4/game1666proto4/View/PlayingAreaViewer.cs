@@ -47,6 +47,11 @@ namespace game1666proto4
 		private Matrix m_matWorld;
 
 		/// <summary>
+		/// The orientation of the entity currently being placed (if any).
+		/// </summary>
+		private Orientation4 m_placementOrientation = Orientation4.XPOS;
+
+		/// <summary>
 		/// The playing area to view.
 		/// </summary>
 		private readonly PlayingArea m_playingArea;
@@ -118,7 +123,8 @@ namespace game1666proto4
 
 					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
 					// Note that this will return null if the entity can't be validly placed.
-					float? altitude = EntityPlacer.DetermineAverageAltitude(blueprint.Footprint, gridSquare.Value, m_playingArea.Terrain);
+					Footprint footprint = blueprint.Footprint.Rotated(Convert.ToInt32(m_placementOrientation));
+					float? altitude = EntityPlacer.DetermineAverageAltitude(footprint, gridSquare.Value, m_playingArea.Terrain);
 
 					// Provided the altitude could be determined, continue with entity creation.
 					if(altitude != null)
@@ -127,7 +133,7 @@ namespace game1666proto4
 						var entityProperties = new Dictionary<string,dynamic>();
 						entityProperties["Altitude"] = altitude;
 						entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
-						entityProperties["Orientation"] = Orientation4.XPOS;
+						entityProperties["Orientation"] = m_placementOrientation;
 						entityProperties["Position"] = gridSquare.Value;
 
 						// Create a new entity and set it as the entity to be placed.

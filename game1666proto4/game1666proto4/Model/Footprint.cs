@@ -54,6 +54,54 @@ namespace game1666proto4
 		public Footprint(XElement entityElt)
 		:	base(entityElt)
 		{
+			Initialise();
+		}
+
+		/// <summary>
+		/// Constructs a footprint directly from its properties and a specified number of rotations.
+		/// </summary>
+		/// <param name="properties">The properties of the footprint.</param>
+		/// <param name="rotations">The number of anti-clockwise 90 degree rotations to perform on the footprint.</param>
+		private Footprint(IDictionary<string,dynamic> properties, int rotations)
+		:	base(properties)
+		{
+			Initialise(rotations % 4);
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a clone of this footprint that is rotated by a specific number of anti-clockwise 90 degree turns.
+		/// </summary>
+		/// <param name="rotations">The number of anti-clockwise 90 degree rotations to perform on the footprint.</param>
+		/// <returns>The clone.</returns>
+		public Footprint Rotated(int rotations)
+		{
+			return new Footprint(new Dictionary<string,dynamic>(Properties), rotations);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Initialises the footprint from its properties and a specified number of rotations.
+		/// </summary>
+		/// <param name="rotations">The number of anti-clockwise 90 degree rotations to perform on the footprint.</param>
+		private void Initialise(int rotations = 0)
+		{
+			// Perform the specified number of rotations on the footprint.
+			for(int i = 0; i < rotations; ++i)
+			{
+				int patternHeight = Properties["Pattern"].GetLength(0);
+				Properties["Hotspot"] = RotateHotspot(Properties["Hotspot"], patternHeight);
+				Properties["Pattern"] = RotatePattern(Properties["Pattern"]);
+			}
+
 			Hotspot = Properties["Hotspot"];
 
 			/*
@@ -89,19 +137,35 @@ namespace game1666proto4
 			}
 		}
 
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
+		/// <summary>
+		/// Rotates the specified hotspot anti-clockwise by 90 degrees in a pattern with the specified height.
+		/// </summary>
+		/// <param name="hotspot">The hotspot.</param>
+		/// <param name="patternHeight">The height of the pattern in which it is embedded.</param>
+		/// <returns>The rotated hotspot.</returns>
+		private static Vector2i RotateHotspot(Vector2i hotspot, int patternHeight)
+		{
+			return new Vector2i(patternHeight - 1 - hotspot.Y, hotspot.X);
+		}
 
 		/// <summary>
-		/// Rotates the footprint anti-clockwise by 90 degrees.
+		/// Rotates a pattern anti-clockwise by 90 degrees.
 		/// </summary>
-		/// <returns>The footprint itself.</returns>
-		public Footprint Rotate()
+		/// <param name="pattern">The pattern.</param>
+		/// <returns>The rotated pattern.</returns>
+		private static int[,] RotatePattern(int[,] pattern)
 		{
-			// TODO
-			return this;
+			int height = pattern.GetLength(0);
+			int width = pattern.GetLength(1);
+			var rotatedPattern = new int[width, height];
+			for(int y = 0; y < height; ++y)
+			{
+				for(int x = 0; x < width; ++x)
+				{
+					rotatedPattern[x,height - 1 - y] = pattern[y,x];
+				}
+			}
+			return rotatedPattern;
 		}
 
 		#endregion
