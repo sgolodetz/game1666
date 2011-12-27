@@ -124,8 +124,7 @@ namespace game1666proto4
 		/// <returns>A set of grid squares that the building overlays, if it can be validly placed, or null otherwise</returns>
 		public IEnumerable<Vector2i> Place(Terrain terrain)
 		{
-			Footprint footprint = Blueprint.Footprint;
-			// TODO: Take orientation into account.
+			Footprint footprint = Blueprint.Footprint.Rotated((int)Orientation);
 			if(EntityPlacer.CalculateHeightRange(EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, false), terrain) == 0f)
 			{
 				return EntityPlacer.OverlaidGridSquares(footprint, Position, terrain, true);
