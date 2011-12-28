@@ -5,8 +5,9 @@
 
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.GameModel.Terrains;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// An instance of this class represents a playing area (e.g. the world or a city).

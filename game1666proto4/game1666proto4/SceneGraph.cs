@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using game1666proto4.GameModel;
+using game1666proto4.GameModel.Blueprints;
+using game1666proto4.UI;
 
 namespace game1666proto4
 {

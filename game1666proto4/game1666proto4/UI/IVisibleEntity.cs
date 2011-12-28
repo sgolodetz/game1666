@@ -7,7 +7,7 @@ using game1666proto4.Common.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4
+namespace game1666proto4.UI
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that will be drawn on the screen.

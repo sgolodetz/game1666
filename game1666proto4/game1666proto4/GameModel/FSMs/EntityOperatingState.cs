@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using game1666proto4.Common.FSMs;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
 	/// A state representing a time in which the entity is operational.

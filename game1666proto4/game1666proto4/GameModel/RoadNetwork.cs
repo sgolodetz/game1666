@@ -5,7 +5,7 @@
 
 using game1666proto4.Common.Maths;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// An instance of this class represents a road network.

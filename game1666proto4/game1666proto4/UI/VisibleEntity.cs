@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4
+namespace game1666proto4.UI
 {
 	/// <summary>
 	/// An instance of this class represents an entity that will be drawn on the screen, e.g. a playing area viewer.

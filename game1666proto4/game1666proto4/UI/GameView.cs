@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4
+namespace game1666proto4.UI
 {
 	/// <summary>
 	/// An instance of this class represents a particular game view, e.g. the City View.

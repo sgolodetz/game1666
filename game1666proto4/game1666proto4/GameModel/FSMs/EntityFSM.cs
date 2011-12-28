@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.FSMs;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
 	/// An instance of this class is used to manage the state of an entity over time.

@@ -6,7 +6,7 @@
 using System;
 using System.Xml.Linq;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
 	/// An instance of this class represents a blueprint for building a house.

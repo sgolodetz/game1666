@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
 	/// An instance of this class manages blueprints for the entities in the game.

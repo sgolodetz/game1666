@@ -3,7 +3,9 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-namespace game1666proto4
+using game1666proto4.GameModel.Blueprints;
+
+namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// An instance of this class represents a road segment.

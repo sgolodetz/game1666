@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4
+namespace game1666proto4.UI
 {
 	/// <summary>
 	/// An instance of this class represents a composite of visible entities in the game, e.g. a sidebar viewer.

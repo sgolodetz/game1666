@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
+using game1666proto4.GameModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4
+namespace game1666proto4.UI
 {
 	/// <summary>
 	/// An instance of this class is used to show a sidebar for a playing area,
