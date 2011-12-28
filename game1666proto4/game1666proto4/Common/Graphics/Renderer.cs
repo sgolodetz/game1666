@@ -116,7 +116,8 @@ namespace game1666proto4.Common.Graphics
 		/// <param name="matWorld">The world matrix to use.</param>
 		/// <param name="matView">The view matrix to use.</param>
 		/// <param name="matProjection">The projection matrix to use.</param>
-		public static void DrawModel(Model model, Matrix matWorld, Matrix matView, Matrix matProjection)
+		/// <param name="alpha">The alpha value to use.</param>
+		public static void DrawModel(Model model, Matrix matWorld, Matrix matView, Matrix matProjection, float alpha = 1f)
 		{
 			// Change the cull mode - the models that are exported from Blender require counter-clockwise culling.
 			var oldRasterizerState = GraphicsDevice.RasterizerState;
@@ -131,6 +132,7 @@ namespace game1666proto4.Common.Graphics
 					effect.World = matWorld;
 					effect.View = matView;
 					effect.Projection = matProjection;
+					effect.Alpha = alpha;
 				}
 				mesh.Draw();
 			}

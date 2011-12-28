@@ -143,11 +143,7 @@ namespace game1666proto4.UI
 						entityProperties["Position"] = gridSquare.Value;
 
 						// Create the new entity, and set it as the entity to be placed if it's valid.
-						IPlaceableEntity entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
-						if(entityToPlace.IsValidlyPlaced(m_playingArea.Terrain))
-						{
-							m_entityToPlace = entityToPlace;
-						}
+						m_entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
 					}
 				}
 			}
@@ -161,7 +157,7 @@ namespace game1666proto4.UI
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				if(m_entityToPlace != null)
+				if(m_entityToPlace != null && m_entityToPlace.IsValidlyPlaced(m_playingArea.Terrain))
 				{
 					m_playingArea.AddEntityDynamic(m_entityToPlace.CloneNew());
 					m_playingArea.BlueprintToPlace = null;
@@ -230,7 +226,8 @@ namespace game1666proto4.UI
 		/// Draws a placeable entity.
 		/// </summary>
 		/// <param name="entity">The entity to draw.</param>
-		private void DrawPlaceableEntity(IPlaceableEntity entity)
+		/// <param name="alpha">The alpha value to use for the model when drawing.</param>
+		private void DrawPlaceableEntity(IPlaceableEntity entity, float alpha = 1f)
 		{
 			// Load the model.
 			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
@@ -254,7 +251,7 @@ namespace game1666proto4.UI
 			}
 
 			// Render the model.
-			Renderer.DrawModel(model, matWorld, m_matView, m_matProjection);
+			Renderer.DrawModel(model, matWorld, m_matView, m_matProjection, alpha);
 		}
 
 		/// <summary>
@@ -278,7 +275,8 @@ namespace game1666proto4.UI
 			// Draw the entity currently being placed (if any).
 			if(m_entityToPlace != null)
 			{
-				DrawPlaceableEntity(m_entityToPlace);
+				float alpha = m_entityToPlace.IsValidlyPlaced(m_playingArea.Terrain) ? 1f : 0.35f;
+				DrawPlaceableEntity(m_entityToPlace, alpha);
 			}
 		}
 
