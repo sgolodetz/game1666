@@ -172,7 +172,7 @@
     <Compile Include="Common\FSMs\FiniteStateMachine.cs" />
     <Compile Include="Common\FSMs\IFSMState.cs" />
     <Compile Include="Model\FSMs\EntityStateID.cs" />
-    <Compile Include="Common\Math\Orientation4.cs" />
+    <Compile Include="Common\Maths\Orientation4.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
     <Compile Include="Common\Entities\CompositeEntity.cs" />
     <Compile Include="Common\Entities\CompositeUpdatableEntity.cs" />
@@ -184,12 +184,12 @@
     <Compile Include="Common\Entities\EntityLoader.cs" />
     <Compile Include="UI\CompositeVisibleEntity.cs" />
     <Compile Include="Common\Input\MouseEventManager.cs" />
-    <Compile Include="Common\Math\MathUtil.cs" />
+    <Compile Include="Common\Maths\MathUtil.cs" />
     <Compile Include="Model\Blueprints\BlueprintManager.cs" />
     <Compile Include="Model\Blueprints\RoadSegmentBlueprint.cs" />
-    <Compile Include="Common\Math\Constants.cs" />
-    <Compile Include="Common\Math\Triangle.cs" />
-    <Compile Include="Common\Math\Vector2i.cs" />
+    <Compile Include="Common\Maths\Constants.cs" />
+    <Compile Include="Common\Maths\Triangle.cs" />
+    <Compile Include="Common\Maths\Vector2i.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\House.cs" />
     <Compile Include="Model\Blueprints\HouseBlueprint.cs" />
@@ -204,9 +204,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Common\3D\Renderer.cs" />
+    <Compile Include="Common\Graphics\Renderer.cs" />
     <Compile Include="SceneGraph.cs" />
-    <Compile Include="Common\3D\Camera.cs" />
+    <Compile Include="Common\Graphics\Camera.cs" />
     <Compile Include="UI\PlayingAreaViewer.cs" />
     <Compile Include="UI\SidebarViewer.cs" />
     <Compile Include="UI\GameView.cs" />

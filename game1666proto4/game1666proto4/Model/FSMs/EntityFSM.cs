@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.FSMs;
 
 namespace game1666proto4
 {

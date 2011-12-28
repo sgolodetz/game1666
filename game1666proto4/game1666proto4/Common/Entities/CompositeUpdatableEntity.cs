@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Entities
 {
 	/// <summary>
 	/// An instance of this class represents a composite of updateable entities in the game.

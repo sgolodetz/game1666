@@ -6,7 +6,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Maths
 {
 	/// <summary>
 	/// Adds an extension method to Microsoft.Xna.Framework.Ray to support intersection tests with Triangle objects.

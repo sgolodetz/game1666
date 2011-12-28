@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics.Contracts;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Maths
 {
 	/// <summary>
 	/// This class provides mathematical utility functions.

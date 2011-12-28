@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using game1666proto4.Common.Maths;
+
 namespace game1666proto4
 {
 	/// <summary>

@@ -3,7 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-namespace game1666proto4
+namespace game1666proto4.Common.Maths
 {
 	/// <summary>
 	/// This enum represents 2D axis-aligned orientation.

@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using game1666proto4.Common.Maths;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4

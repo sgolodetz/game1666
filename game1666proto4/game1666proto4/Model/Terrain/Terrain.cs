@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
+using game1666proto4.Common.Graphics;
+using game1666proto4.Common.Maths;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

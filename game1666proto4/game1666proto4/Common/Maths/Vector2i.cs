@@ -5,7 +5,7 @@
 
 using System;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Maths
 {
 	/// <summary>
 	/// An instance of this struct represents a 2D vector with integer components.

@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.Common.FSMs
 {
 	/// <summary>
 	/// An instance of a class implementing this type represents an individual state in a finite state machine.

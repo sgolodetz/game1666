@@ -4,6 +4,8 @@
  ***/
 
 using System;
+using game1666proto4.Common.Graphics;
+using game1666proto4.Common.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

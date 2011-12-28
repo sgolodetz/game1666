@@ -3,9 +3,10 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using game1666proto4.Common.Maths;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Graphics
 {
 	/// <summary>
 	/// An instance of this class represents a camera for a 3D view.

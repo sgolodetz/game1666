@@ -9,9 +9,11 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using game1666proto4.Common.Graphics;
+using game1666proto4.Common.Maths;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Entities
 {
 	/// <summary>
 	/// This class contains utility functions for loading entities from XML.

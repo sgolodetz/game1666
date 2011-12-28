@@ -4,6 +4,7 @@
  ***/
 
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 
 namespace game1666proto4
 {

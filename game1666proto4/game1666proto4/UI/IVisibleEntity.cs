@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using game1666proto4.Common.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 

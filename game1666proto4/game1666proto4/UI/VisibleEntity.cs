@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

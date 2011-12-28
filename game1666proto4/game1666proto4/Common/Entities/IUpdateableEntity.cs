@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Entities
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can be updated over time.

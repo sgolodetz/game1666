@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace game1666proto4
+namespace game1666proto4.Common.Entities
 {
 	/// <summary>
 	/// An instance of this class represents an entity in the game.
