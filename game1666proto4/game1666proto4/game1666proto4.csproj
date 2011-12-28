@@ -164,32 +164,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FSMs\Entity\EntityInConstructionState.cs" />
-    <Compile Include="FSMs\Entity\EntityOperatingState.cs" />
-    <Compile Include="Entities\IPlaceableEntity.cs" />
-    <Compile Include="Entities\IUpdateableEntity.cs" />
-    <Compile Include="Entities\IVisibleEntity.cs" />
-    <Compile Include="FSMs\Base\FiniteStateMachine.cs" />
-    <Compile Include="FSMs\Base\IFSMState.cs" />
-    <Compile Include="FSMs\Entity\EntityStateID.cs" />
-    <Compile Include="Math\Orientation4.cs" />
+    <Compile Include="Model\FSMs\EntityInConstructionState.cs" />
+    <Compile Include="Model\FSMs\EntityOperatingState.cs" />
+    <Compile Include="Model\IPlaceableEntity.cs" />
+    <Compile Include="Common\Entities\IUpdateableEntity.cs" />
+    <Compile Include="UI\IVisibleEntity.cs" />
+    <Compile Include="Common\FSMs\FiniteStateMachine.cs" />
+    <Compile Include="Common\FSMs\IFSMState.cs" />
+    <Compile Include="Model\FSMs\EntityStateID.cs" />
+    <Compile Include="Common\Math\Orientation4.cs" />
     <Compile Include="Model\Blueprints\Blueprint.cs" />
-    <Compile Include="Entities\CompositeEntity.cs" />
-    <Compile Include="Entities\CompositeUpdatableEntity.cs" />
-    <Compile Include="FSMs\Entity\EntityFSM.cs" />
-    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Common\Entities\CompositeEntity.cs" />
+    <Compile Include="Common\Entities\CompositeUpdatableEntity.cs" />
+    <Compile Include="Model\FSMs\EntityFSM.cs" />
+    <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Model\Footprint.cs" />
-    <Compile Include="View\Button.cs" />
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntityLoader.cs" />
-    <Compile Include="Entities\CompositeVisibleEntity.cs" />
-    <Compile Include="Input\MouseEventManager.cs" />
-    <Compile Include="Math\MathUtil.cs" />
+    <Compile Include="UI\Button.cs" />
+    <Compile Include="Common\Entities\Entity.cs" />
+    <Compile Include="Common\Entities\EntityLoader.cs" />
+    <Compile Include="UI\CompositeVisibleEntity.cs" />
+    <Compile Include="Common\Input\MouseEventManager.cs" />
+    <Compile Include="Common\Math\MathUtil.cs" />
     <Compile Include="Model\Blueprints\BlueprintManager.cs" />
     <Compile Include="Model\Blueprints\RoadSegmentBlueprint.cs" />
-    <Compile Include="Math\Constants.cs" />
-    <Compile Include="Math\Geometry\Triangle.cs" />
-    <Compile Include="Math\Vectors\Vector2i.cs" />
+    <Compile Include="Common\Math\Constants.cs" />
+    <Compile Include="Common\Math\Triangle.cs" />
+    <Compile Include="Common\Math\Vector2i.cs" />
     <Compile Include="Model\City.cs" />
     <Compile Include="Model\House.cs" />
     <Compile Include="Model\Blueprints\HouseBlueprint.cs" />
@@ -204,14 +204,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Renderer.cs" />
+    <Compile Include="Common\3D\Renderer.cs" />
     <Compile Include="SceneGraph.cs" />
-    <Compile Include="View\Camera.cs" />
-    <Compile Include="View\PlayingAreaViewer.cs" />
-    <Compile Include="View\SidebarViewer.cs" />
-    <Compile Include="View\GameView.cs" />
-    <Compile Include="View\ViewManager.cs" />
-    <Compile Include="Entities\VisibleEntity.cs" />
+    <Compile Include="Common\3D\Camera.cs" />
+    <Compile Include="UI\PlayingAreaViewer.cs" />
+    <Compile Include="UI\SidebarViewer.cs" />
+    <Compile Include="UI\GameView.cs" />
+    <Compile Include="UI\ViewManager.cs" />
+    <Compile Include="UI\VisibleEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Support Files\Game.ico" />
