@@ -44,14 +44,6 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
-		/// Constructs a world based on the specified terrain.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		public World(Terrain terrain)
-		:	base(terrain)
-		{}
-
-		/// <summary>
 		/// Constructs a world from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the world's XML representation.</param>

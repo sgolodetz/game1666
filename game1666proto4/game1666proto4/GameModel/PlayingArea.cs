@@ -33,15 +33,6 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
-		/// Constructs a playing area with the specified terrain.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		public PlayingArea(Terrain terrain)
-		{
-			this.Terrain = terrain;
-		}
-
-		/// <summary>
 		/// Constructs a playing area from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the playing area's XML representation.</param>
