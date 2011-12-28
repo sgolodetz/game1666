@@ -43,7 +43,7 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// A hook that the button can use to check whether or not it should be drawn highlighted.
 		/// </summary>
-		public Func<bool> IsHighlighted { get { return m_isHighlighted; } set { m_isHighlighted = value; } }
+		public Func<bool> IsHighlighted { private get { return m_isHighlighted; } set { m_isHighlighted = value; } }
 
 		#endregion
 

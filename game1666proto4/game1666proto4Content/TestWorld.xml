@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<entity type="World">
+<entity type="GameModel.World">
   <property name="HomeCity" type="string" value="Stuartopolis"/>
-  <entity type="Terrain">
+  <entity type="GameModel.Terrains.Terrain">
     <property name="ZScaling" type="float" value="0.1"/>
     <property name="AssetHeightmap" type="string" value="TestWorld"/>
   </entity>
-  <entity type="City">
+  <entity type="GameModel.City">
     <property name="Name" value="Stuartopolis"/>
-    <entity type="Terrain">
+    <entity type="GameModel.Terrains.Terrain">
       <property name="ZScaling" type="float" value="0.25"/>
       <property name="Heightmap" type="Array2D[float]">
         [9,5]
@@ -18,12 +18,12 @@
         2,2,2,2,3,2,1,1,1,1
       </property>
     </entity>
-    <entity type="House">
+    <entity type="GameModel.House">
       <property name="Altitude" type="float" value="0.25"/>
       <property name="Blueprint" type="string" value="Dwelling"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="1,0"/>
-      <entity type="EntityFSM">
+      <entity type="GameModel.FSMs.EntityFSM">
         <property name="CurrentStateID" type="string" value="OPERATING"/>
         <property name="TimeElapsed" type="int" value="1000"/>
       </entity>

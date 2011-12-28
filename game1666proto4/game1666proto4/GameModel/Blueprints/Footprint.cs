@@ -23,7 +23,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <summary>
 		/// The locations of the entrances to the entity, e.g. the doors into a building.
 		/// </summary>
-		private IList<Vector2i> m_entrances = new List<Vector2i>();
+		private readonly IList<Vector2i> m_entrances = new List<Vector2i>();
 
 		#endregion
 

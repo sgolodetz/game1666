@@ -20,6 +20,21 @@ namespace game1666proto4.GameModel.Terrains
 	/// </summary>
 	sealed class Terrain : Entity
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
+		/// </summary>
+		private bool[,] m_occupancy;
+
+		/// <summary>
+		/// The root node of the terrain quadtree (used for picking).
+		/// </summary>
+		private QuadtreeNode m_quadtreeRoot;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -32,16 +47,6 @@ namespace game1666proto4.GameModel.Terrains
 		/// The terrain's index buffer (for use when rendering the terrain).
 		/// </summary>
 		public IndexBuffer IndexBuffer { get; private set; }
-
-		/// <summary>
-		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
-		/// </summary>
-		public bool[,] Occupancy { get; private set; }
-
-		/// <summary>
-		/// The root node of the terrain quadtree (used for picking).
-		/// </summary>
-		public QuadtreeNode QuadtreeRoot { get; private set; }
 
 		/// <summary>
 		/// The terrain's vertex buffer (for use when rendering the terrain).
@@ -97,7 +102,7 @@ namespace game1666proto4.GameModel.Terrains
 		/// <returns>true, if any of the grid squares are occupied, or false otherwise</returns>
 		public bool AreOccupied(IEnumerable<Vector2i> gridSquares)
 		{
-			return gridSquares.Any(s => Occupancy[s.Y, s.X]);
+			return gridSquares.Any(s => m_occupancy[s.Y, s.X]);
 		}
 
 		/// <summary>
@@ -161,7 +166,7 @@ namespace game1666proto4.GameModel.Terrains
 		{
 			foreach(Vector2i s in gridSquares)
 			{
-				Occupancy[s.Y, s.X] = true;
+				m_occupancy[s.Y, s.X] = true;
 			}
 		}
 
@@ -172,9 +177,9 @@ namespace game1666proto4.GameModel.Terrains
 		/// <returns>The nearest terrain grid square hit by the specified ray (if found), or null otherwise.</returns>
 		public Vector2i? PickGridSquare(Ray ray)
 		{
-			if(ray.Intersects(QuadtreeRoot.Bounds) != null)
+			if(ray.Intersects(m_quadtreeRoot.Bounds) != null)
 			{
-				return QuadtreeRoot.PickGridSquare(ray);
+				return m_quadtreeRoot.PickGridSquare(ray);
 			}
 			else return null;
 		}
@@ -268,8 +273,8 @@ namespace game1666proto4.GameModel.Terrains
 		private void Initialise(float[,] heightmap)
 		{
 			Heightmap = heightmap;
-			Occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
-			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
+			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
+			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
 		}
 

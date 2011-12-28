@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
-    <entity type="HouseBlueprint">
+    <entity type="GameModel.Blueprints.HouseBlueprint">
       <property name="Name" type="string" value="Dwelling"/>
       <property name="MaxOccupants" type="int" value="2"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>
-      <entity type="Footprint">
+      <entity type="GameModel.Blueprints.Footprint">
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">
           [1,1]
@@ -14,12 +14,12 @@
         </property>
       </entity>
     </entity>
-    <entity type="HouseBlueprint">
+    <entity type="GameModel.Blueprints.HouseBlueprint">
       <property name="Name" type="string" value="Mansion"/>
       <property name="MaxOccupants" type="int" value="10"/>
       <property name="Model" type="string" value="Mansion"/>
       <property name="TimeToConstruct" type="int" value="5000"/>
-      <entity type="Footprint">
+      <entity type="GameModel.Blueprints.Footprint">
         <property name="Hotspot" type="Vector2i" value="1,0"/>
         <property name="Pattern" type="Array2D[int]">
           [3,2]
@@ -28,11 +28,11 @@
         </property>
       </entity>
     </entity>
-    <entity type="RoadSegmentBlueprint">
+    <entity type="GameModel.Blueprints.RoadSegmentBlueprint">
       <property name="Name" type="string" value="DirtTrack"/>
       <property name="Model" type="string" value="TODO"/>
       <property name="TimeToConstruct" type="int" value="0"/>
-      <entity type="Footprint">
+      <entity type="GameModel.Blueprints.Footprint">
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">
           [1,1]
@@ -42,14 +42,14 @@
     </entity>
   </blueprints>
   <views>
-    <entity type="GameView">
+    <entity type="UI.GameView">
       <property name="Name" value="City"/>
-      <entity type="PlayingAreaViewer">
+      <entity type="UI.PlayingAreaViewer">
         <property name="Name" type="string" value="PlayingAreaViewer"/>
         <property name="PlayingArea" type="string" value="world/city:Home"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
       </entity>
-      <entity type="SidebarViewer">
+      <entity type="UI.SidebarViewer">
         <property name="Name" type="string" value="SidebarViewer"/>
         <property name="PlayingArea" type="string" value="world/city:Home"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
@@ -62,14 +62,14 @@
         </group>
       </entity>
     </entity>
-    <entity type="GameView">
+    <entity type="UI.GameView">
       <property name="Name" value="World"/>
-      <entity type="PlayingAreaViewer">
+      <entity type="UI.PlayingAreaViewer">
         <property name="Name" type="string" value="PlayingAreaViewer"/>
         <property name="PlayingArea" type="string" value="world"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
       </entity>
-      <entity type="SidebarViewer">
+      <entity type="UI.SidebarViewer">
         <property name="Name" type="string" value="SidebarViewer"/>
         <property name="PlayingArea" type="string" value="world"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
