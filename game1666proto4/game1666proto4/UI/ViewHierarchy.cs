@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: ViewManager.cs
+ * game1666proto4: ViewHierarchy.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -14,7 +14,7 @@ namespace game1666proto4.UI
 	/// <summary>
 	/// An instance of this class manages the view hierarchy for the game.
 	/// </summary>
-	sealed class ViewManager : CompositeVisibleEntity
+	sealed class ViewHierarchy : CompositeVisibleEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -50,10 +50,10 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
-		/// Constructs a view manager from its XML representation.
+		/// Constructs a view hierarchy from its XML representation.
 		/// </summary>
-		/// <param name="entityElt">The root element of the manager's XML representation.</param>
-		public ViewManager(XElement entityElt)
+		/// <param name="entityElt">The root element of the hierarchy's XML representation.</param>
+		public ViewHierarchy(XElement entityElt)
 		:	base(entityElt)
 		{
 			// Register input handlers.
@@ -67,7 +67,7 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
-		/// Adds a view to the view manager.
+		/// Adds a view to the view hierarchy.
 		/// </summary>
 		/// <param name="view">The view.</param>
 		public void AddEntity(GameView view)
@@ -76,7 +76,7 @@ namespace game1666proto4.UI
 		}
 
 		/// <summary>
-		/// Adds an entity to the view manager based on its dynamic type.
+		/// Adds an entity to the view hierarchy based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		public override void AddEntityDynamic(dynamic entity)
@@ -90,17 +90,6 @@ namespace game1666proto4.UI
 		public override void Draw()
 		{
 			m_views[m_currentView].Draw();
-		}
-
-		/// <summary>
-		/// Gets an entity in the view manager by its (relative) path, e.g. "City".
-		/// </summary>
-		/// <param name="path">The path to the entity.</param>
-		/// <returns>The entity, if found, or null otherwise.</returns>
-		public dynamic GetEntityByPath(Queue<string> path)
-		{
-			if(path.Count != 0) return null;
-			else return this;
 		}
 
 		/// <summary>

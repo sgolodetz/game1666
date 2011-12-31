@@ -24,7 +24,7 @@ namespace game1666proto4
 		#region
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
-		private ViewManager m_viewManager;
+		private ViewHierarchy m_viewHierarchy;
 		private World m_world;
 
 		#endregion
@@ -64,7 +64,7 @@ namespace game1666proto4
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			m_viewManager.Draw();
+			m_viewHierarchy.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -89,7 +89,7 @@ namespace game1666proto4
 
 			// Load the view hierarchy from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			m_viewManager = new ViewManager(doc.XPathSelectElement("config/views"));
+			m_viewHierarchy = new ViewHierarchy(doc.XPathSelectElement("config/views"));
 
 			base.Initialize();
 		}
@@ -121,11 +121,11 @@ namespace game1666proto4
 		{
 			KeyboardState keyState = Keyboard.GetState();
 			if(keyState.IsKeyDown(Keys.Escape))	Exit();
-			if(keyState.IsKeyDown(Keys.F1))		m_viewManager.CurrentView = "City";
-			if(keyState.IsKeyDown(Keys.F2))		m_viewManager.CurrentView = "World";
+			if(keyState.IsKeyDown(Keys.F1))		m_viewHierarchy.CurrentView = "City";
+			if(keyState.IsKeyDown(Keys.F2))		m_viewHierarchy.CurrentView = "World";
 
 			MouseEventManager.Update();
-			m_viewManager.Update(gameTime);
+			m_viewHierarchy.Update(gameTime);
 			m_world.Update(gameTime);
 
 			base.Update(gameTime);
