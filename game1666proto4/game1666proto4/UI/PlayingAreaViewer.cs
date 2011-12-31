@@ -124,7 +124,7 @@ namespace game1666proto4.UI
 				if(gridSquare != null && (m_playingArea.BlueprintToPlace == "Dwelling" || m_playingArea.BlueprintToPlace == "Mansion"))
 				{
 					// Work out what type of entity we're trying to place.
-					Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + m_playingArea.BlueprintToPlace);
+					Blueprint blueprint = BlueprintManager.GetBlueprint(m_playingArea.BlueprintToPlace);
 					Type entityType = blueprint.EntityType;
 
 					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.

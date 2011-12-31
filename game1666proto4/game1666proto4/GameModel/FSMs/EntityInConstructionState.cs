@@ -40,7 +40,7 @@ namespace game1666proto4.GameModel.FSMs
 		{
 			set
 			{
-				Blueprint blueprint = SceneGraph.GetEntityByPath("blueprints/" + value["Blueprint"]);
+				Blueprint blueprint = BlueprintManager.GetBlueprint(value["Blueprint"]);
 				m_timeToConstruct = blueprint.TimeToConstruct;
 			}
 		}

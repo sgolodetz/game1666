@@ -157,7 +157,7 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		private void Initialise()
 		{
-			Blueprint = SceneGraph.GetEntityByPath("blueprints/" + Properties["Blueprint"]);
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 
 		#endregion

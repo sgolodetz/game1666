@@ -5,14 +5,15 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using game1666proto4.Common.Entities;
 
 namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
-	/// An instance of this class manages blueprints for the entities in the game.
+	/// This class manages blueprints for the entities in the game.
 	/// </summary>
-	sealed class BlueprintManager : CompositeEntity
+	static class BlueprintManager
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -20,20 +21,21 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <summary>
 		/// Blueprints for the entities in the game.
 		/// </summary>
-		private readonly IDictionary<string,dynamic> m_blueprints = new Dictionary<string,dynamic>();
+		private static readonly IDictionary<string,dynamic> s_blueprints = new Dictionary<string,dynamic>();
 
 		#endregion
 
-		//#################### CONSTRUCTORS ####################
+		//#################### STATIC CONSTRUCTOR ####################
 		#region
 
-		/// <summary>
-		/// Constructs a blueprint manager from its XML representation.
-		/// </summary>
-		/// <param name="entityElt">The root node of the blueprint manager's XML representation.</param>
-		public BlueprintManager(XElement entityElt)
-		:	base(entityElt)
-		{}
+		static BlueprintManager()
+		{
+			var doc = XDocument.Load(@"Content\GameConfig.xml");
+			foreach(dynamic child in EntityLoader.LoadChildEntities(doc.XPathSelectElement("config/blueprints")))
+			{
+				AddEntityDynamic(child);
+			}
+		}
 
 		#endregion
 
@@ -44,9 +46,9 @@ namespace game1666proto4.GameModel.Blueprints
 		/// Adds a new blueprint to be managed.
 		/// </summary>
 		/// <param name="blueprint">The blueprint.</param>
-		public override void AddEntityDynamic(dynamic blueprint)
+		public static void AddEntityDynamic(dynamic blueprint)
 		{
-			m_blueprints[blueprint.Name] = blueprint;
+			s_blueprints[blueprint.Name] = blueprint;
 		}
 
 		/// <summary>
@@ -54,22 +56,11 @@ namespace game1666proto4.GameModel.Blueprints
 		/// </summary>
 		/// <param name="name">The name of the blueprint to get.</param>
 		/// <returns>The blueprint.</returns>
-		public dynamic GetBlueprint(string name)
+		public static dynamic GetBlueprint(string name)
 		{
 			dynamic blueprint = null;
-			m_blueprints.TryGetValue(name, out blueprint);
+			s_blueprints.TryGetValue(name, out blueprint);
 			return blueprint;
-		}
-
-		/// <summary>
-		/// Gets a blueprint by its (relative) path, e.g. "Dwelling".
-		/// </summary>
-		/// <param name="path">The path to the blueprint.</param>
-		/// <returns>The blueprint, if found, or null otherwise.</returns>
-		public dynamic GetEntityByPath(Queue<string> path)
-		{
-			if(path.Count == 1) return GetBlueprint(path.Dequeue());
-			else return null;
 		}
 
 		#endregion

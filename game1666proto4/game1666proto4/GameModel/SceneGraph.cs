@@ -5,9 +5,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
-using System.Xml.XPath;
-using game1666proto4.GameModel.Blueprints;
 
 namespace game1666proto4.GameModel
 {
@@ -19,22 +16,7 @@ namespace game1666proto4.GameModel
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
-		private static readonly BlueprintManager s_blueprints;
 		private static World s_world;
-
-		#endregion
-
-		//#################### CONSTRUCTORS ####################
-		#region
-
-		/// <summary>
-		/// Loads the game's configuration data, e.g. entity blueprints.
-		/// </summary>
-		static SceneGraph()
-		{
-			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			s_blueprints = new BlueprintManager(doc.XPathSelectElement("config/blueprints"));
-		}
 
 		#endregion
 
@@ -53,8 +35,6 @@ namespace game1666proto4.GameModel
 			{
 				switch(path.Dequeue())
 				{
-					case "blueprints":
-						return s_blueprints.GetEntityByPath(path);
 					case "world":
 						return s_world.GetEntityByPath(path);
 				}
