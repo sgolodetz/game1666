@@ -7,11 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using game1666proto4.GameModel;
 using game1666proto4.GameModel.Blueprints;
-using game1666proto4.UI;
 
-namespace game1666proto4
+namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// This class represents the scene graph for the game.
@@ -22,7 +20,6 @@ namespace game1666proto4
 		#region
 
 		private static readonly BlueprintManager s_blueprints;
-		private static ViewManager s_views;
 		private static World s_world;
 
 		#endregion
@@ -58,8 +55,6 @@ namespace game1666proto4
 				{
 					case "blueprints":
 						return s_blueprints.GetEntityByPath(path);
-					case "views":
-						return s_views.GetEntityByPath(path);
 					case "world":
 						return s_world.GetEntityByPath(path);
 				}
@@ -74,9 +69,6 @@ namespace game1666proto4
 		public static void LoadWorld(string worldFilename)
 		{
 			s_world = World.LoadFromFile(worldFilename);
-
-			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			s_views = new ViewManager(doc.XPathSelectElement("config/views"));
 		}
 
 		#endregion

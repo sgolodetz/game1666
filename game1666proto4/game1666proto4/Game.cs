@@ -3,6 +3,8 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+using System.Xml.XPath;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Input;
 using game1666proto4.GameModel;
@@ -82,9 +84,12 @@ namespace game1666proto4
 			// Load the world from an XML file.
 			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
 
-			// Look up the view manager and world in the scene graph.
-			m_viewManager = SceneGraph.GetEntityByPath("views");
+			// Look up the world in the scene graph.
 			m_world = SceneGraph.GetEntityByPath("world");
+
+			// Load the view hierarchy from the configuration file.
+			var doc = XDocument.Load(@"Content\GameConfig.xml");
+			m_viewManager = new ViewManager(doc.XPathSelectElement("config/views"));
 
 			base.Initialize();
 		}
