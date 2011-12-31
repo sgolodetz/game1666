@@ -87,7 +87,7 @@ namespace game1666proto4
 			// Look up the world in the scene graph.
 			m_world = SceneGraph.GetEntityByPath("world");
 
-			// Load the view hierarchy from the configuration file.
+			// Load the view hierarchy from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
 			m_viewManager = new ViewManager(doc.XPathSelectElement("config/views"));
 

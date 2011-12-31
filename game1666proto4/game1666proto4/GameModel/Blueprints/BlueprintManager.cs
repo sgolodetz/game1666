@@ -28,12 +28,15 @@ namespace game1666proto4.GameModel.Blueprints
 		//#################### STATIC CONSTRUCTOR ####################
 		#region
 
+		/// <summary>
+		/// Loads entity blueprints from the game configuration file.
+		/// </summary>
 		static BlueprintManager()
 		{
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			foreach(dynamic child in EntityLoader.LoadChildEntities(doc.XPathSelectElement("config/blueprints")))
+			foreach(dynamic blueprint in EntityLoader.LoadChildEntities(doc.XPathSelectElement("config/blueprints")))
 			{
-				AddEntityDynamic(child);
+				AddBlueprint(blueprint);
 			}
 		}
 
@@ -46,7 +49,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// Adds a new blueprint to be managed.
 		/// </summary>
 		/// <param name="blueprint">The blueprint.</param>
-		public static void AddEntityDynamic(dynamic blueprint)
+		public static void AddBlueprint(dynamic blueprint)
 		{
 			s_blueprints[blueprint.Name] = blueprint;
 		}
