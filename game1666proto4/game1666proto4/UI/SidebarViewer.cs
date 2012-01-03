@@ -76,7 +76,7 @@ namespace game1666proto4.UI
 			/// The horizontal offset of the top-left button from the top-left of the viewport for the button set.
 			/// </summary>
 			public int XOffset { get; set; }
-		};
+		}
 
 		#endregion
 
@@ -202,7 +202,7 @@ namespace game1666proto4.UI
 		/// <param name="layout">The determined grid layout for the set of buttons.</param>
 		/// <param name="row">The grid row in which the button lies.</param>
 		/// <param name="column">The grid column in which the button lies.</param>
-		/// <returns></returns>
+		/// <returns>The viewport for the button.</returns>
 		private static Viewport ConstructButtonViewport(Viewport buttonsViewport, ButtonLayout layout, int row, int column)
 		{
 			return new Viewport

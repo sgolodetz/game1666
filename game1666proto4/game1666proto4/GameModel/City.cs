@@ -59,7 +59,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// Adds a building to the city.
 		/// </summary>
-		/// <param name="building"></param>
+		/// <param name="building">The building.</param>
 		public void AddEntity(Building building)
 		{
 			m_buildings.Add(building);

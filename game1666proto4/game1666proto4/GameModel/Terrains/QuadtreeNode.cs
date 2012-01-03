@@ -56,7 +56,7 @@ namespace game1666proto4.GameModel.Terrains
 		/// <summary>
 		/// Constructs a (branch) quadtree node to contain a set of child quadtree nodes.
 		/// </summary>
-		/// <param name="children"></param>
+		/// <param name="children">The child quadtree nodes.</param>
 		public QuadtreeNode(QuadtreeNode[] children)
 		{
 			m_children = children;

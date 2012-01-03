@@ -152,7 +152,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="rhs">The other object.</param>
 		/// <returns>true, if the other object is a vector equal to this one, or false otherwise</returns>
-		public override bool Equals(Object rhs)
+		public override bool Equals(object rhs)
 		{
 			if(rhs is Vector2i) return Equals((Vector2i)rhs);
 			else return false;

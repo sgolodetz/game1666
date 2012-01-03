@@ -35,7 +35,7 @@ namespace game1666proto4.Common.Maths
 
 			// The rotated vector is v cos radianAngle + (axis x v) sin radianAngle + axis(axis . v)(1 - cos radianAngle)
 			// (See Mathematics for 3D Game Programming and Computer Graphics, P.62, for details of why this is (it's not very hard)).
-			return v * cosAngle + aCROSSv * sinAngle + axis * (Vector3.Dot(axis, v)) * (1 - cosAngle);
+			return v * cosAngle + aCROSSv * sinAngle + axis * Vector3.Dot(axis, v) * (1 - cosAngle);
 		}
 
 		#endregion

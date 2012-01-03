@@ -72,8 +72,9 @@ namespace game1666proto4.GameModel.FSMs
 			AddState(EntityStateID.OPERATING, new EntityOperatingState());
 
 			// Add the necessary transitions.
-			AddTransition(EntityStateID.IN_CONSTRUCTION, (EntityInConstructionState s) =>
-				s.PercentComplete >= 100 ? EntityStateID.OPERATING : EntityStateID.IN_CONSTRUCTION
+			AddTransition(
+				EntityStateID.IN_CONSTRUCTION,
+				(EntityInConstructionState s) => s.PercentComplete >= 100 ? EntityStateID.OPERATING : EntityStateID.IN_CONSTRUCTION
 			);
 
 			// Set the starting state.
