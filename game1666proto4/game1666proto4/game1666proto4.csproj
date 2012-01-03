@@ -219,8 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\game1666proto4Content\game1666proto4Content.contentproj">
-      <Name>game1666proto4Content</Name>
+      <Name>game1666proto4Content %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{56CD9599-75F5-4B9C-A0EE-69FD35034DFA}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

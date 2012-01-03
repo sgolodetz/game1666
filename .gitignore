@@ -1,6 +1,7 @@
 bin/
 obj/
 /Help/
+/TestResults/
 StyleCop.Cache
 *.blend1
 *.cachefile
