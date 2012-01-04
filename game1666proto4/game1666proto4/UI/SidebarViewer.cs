@@ -247,6 +247,9 @@ namespace game1666proto4.UI
 		{
 			var buttons = new List<Button>();
 
+			// If there are no button specifiers, early out and return an empty list of buttons.
+			if(buttonSpecifiers.Count == 0) return buttons;
+
 			// Determine how the buttons should be laid out.
 			var layout = DetermineButtonLayout(buttonsViewport, buttonSpecifiers.Count, columns);
 
@@ -281,16 +284,6 @@ namespace game1666proto4.UI
 			// Set the current group.
 			m_currentGroup = group;
 
-			// Use the middle third of the sidebar as the area in which to place the element buttons.
-			int margin = (int)(Viewport.Width / 10);
-			var elementButtonsViewport = new Viewport
-			{
-				X = Viewport.X + margin,
-				Y = Viewport.Y + margin + Viewport.Height / 3,
-				Width = Viewport.Width - 2 * margin,
-				Height = Viewport.Height / 3 - 2 * margin
-			};
-
 			// Create the button specifiers.
 			var buttonSpecifiers = new List<ButtonSpecifier>();
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
@@ -301,7 +294,7 @@ namespace game1666proto4.UI
 			}));
 
 			// Create the buttons themselves.
-			m_elementButtons = CreateButtons(elementButtonsViewport, 3, buttonSpecifiers);
+			m_elementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
 		}
 
 		/// <summary>
@@ -309,18 +302,14 @@ namespace game1666proto4.UI
 		/// </summary>
 		private void CreateGroupButtons()
 		{
-			// Use the top third of the sidebar as the area in which to place the group buttons.
-			int margin = (int)(Viewport.Width / 10);
-			var groupButtonsViewport = new Viewport
-			{
-				X = Viewport.X + margin,
-				Y = Viewport.Y + margin,
-				Width = Viewport.Width - 2 * margin,
-				Height = Viewport.Height / 3 - 2 * margin
-			};
-
 			// Create the button specifiers.
 			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.Add(new ButtonSpecifier
+			{
+				IsHighlighted		= () => m_currentGroup == "Special",
+				MousePressedHook	= state => CreateSpecialElementButtons(),
+				TextureName			= "landscape"
+			});
 			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_currentGroup == group,
@@ -329,7 +318,23 @@ namespace game1666proto4.UI
 			}));
 
 			// Create the buttons themselves.
-			m_groupButtons = CreateButtons(groupButtonsViewport, 2, buttonSpecifiers);
+			m_groupButtons = CreateButtons(GroupButtonsViewport(), 2, buttonSpecifiers);
+		}
+
+		/// <summary>
+		/// Creates buttons for the individual entities in the Special group.
+		/// </summary>
+		private void CreateSpecialElementButtons()
+		{
+			// Set the current group.
+			m_currentGroup = "Special";
+
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			// TODO
+
+			// Create the buttons themselves.
+			m_elementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
 		}
 
 		/// <summary>
@@ -364,6 +369,40 @@ namespace game1666proto4.UI
 			result.XOffset = (buttonsViewport.Width - (result.Columns * result.ColumnWidth - HORIZONTAL_SPACING)) / 2;
 
 			return result;
+		}
+
+		/// <summary>
+		/// Construct the viewport in which to place element buttons.
+		/// </summary>
+		/// <returns>The constructed viewport.</returns>
+		private Viewport ElementButtonsViewport()
+		{
+			// Use the middle third of the sidebar as the area in which to place the element buttons.
+			int margin = (int)(Viewport.Width / 10);
+			return new Viewport
+			{
+				X = Viewport.X + margin,
+				Y = Viewport.Y + margin + Viewport.Height / 3,
+				Width = Viewport.Width - 2 * margin,
+				Height = Viewport.Height / 3 - 2 * margin
+			};
+		}
+
+		/// <summary>
+		/// Construct the viewport in which to place group buttons.
+		/// </summary>
+		/// <returns>The constructed viewport.</returns>
+		private Viewport GroupButtonsViewport()
+		{
+			// Use the top third of the sidebar as the area in which to place the group buttons.
+			int margin = (int)(Viewport.Width / 10);
+			return new Viewport
+			{
+				X = Viewport.X + margin,
+				Y = Viewport.Y + margin,
+				Width = Viewport.Width - 2 * margin,
+				Height = Viewport.Height / 3 - 2 * margin
+			};
 		}
 
 		/// <summary>
