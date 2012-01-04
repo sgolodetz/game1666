@@ -39,7 +39,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="xunit">
-      <HintPath>.\xunit.dll</HintPath>
+      <HintPath>..\..\libraries\xunit-1.9\xunit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
