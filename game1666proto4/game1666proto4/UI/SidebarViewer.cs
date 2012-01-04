@@ -291,13 +291,17 @@ namespace game1666proto4.UI
 				Height = Viewport.Height / 3 - 2 * margin
 			};
 
-			// Create the buttons.
-			m_elementButtons = CreateButtons(elementButtonsViewport, 3, m_groups[group].Select(element => new ButtonSpecifier
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_playingArea.BlueprintToPlace == element,
 				MousePressedHook	= state => m_playingArea.BlueprintToPlace = element,
 				TextureName			= "sidebarelement_" + element
-			}).ToList());
+			}));
+
+			// Create the buttons themselves.
+			m_elementButtons = CreateButtons(elementButtonsViewport, 3, buttonSpecifiers);
 		}
 
 		/// <summary>
@@ -315,13 +319,17 @@ namespace game1666proto4.UI
 				Height = Viewport.Height / 3 - 2 * margin
 			};
 
-			// Create the buttons.
-			m_groupButtons = CreateButtons(groupButtonsViewport, 2, m_groups.Keys.Select(group => new ButtonSpecifier
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_currentGroup == group,
 				MousePressedHook	= state => CreateElementButtons(group),
 				TextureName			= "sidebargroup_" + group
-			}).ToList());
+			}));
+
+			// Create the buttons themselves.
+			m_groupButtons = CreateButtons(groupButtonsViewport, 2, buttonSpecifiers);
 		}
 
 		/// <summary>
