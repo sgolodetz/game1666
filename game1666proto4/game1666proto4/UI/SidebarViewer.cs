@@ -308,7 +308,7 @@ namespace game1666proto4.UI
 			{
 				IsHighlighted		= () => m_currentGroup == "Special",
 				MousePressedHook	= state => CreateSpecialElementButtons(),
-				TextureName			= "landscape"
+				TextureName			= "sidebargroup_Special"
 			});
 			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
 			{
