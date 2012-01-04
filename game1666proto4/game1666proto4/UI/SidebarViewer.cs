@@ -6,12 +6,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
+using game1666proto4.Common.Input;
 using game1666proto4.GameModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4.UI
 {
@@ -78,6 +79,27 @@ namespace game1666proto4.UI
 			public int XOffset { get; set; }
 		}
 
+		/// <summary>
+		/// An instance of this struct specifies all the information necessary to construct a button.
+		/// </summary>
+		private struct ButtonSpecifier
+		{
+			/// <summary>
+			/// A hook that the button can use to check whether or not it should be drawn highlighted.
+			/// </summary>
+			public Func<bool> IsHighlighted { get; set; }
+
+			/// <summary>
+			/// Invoked when a mouse button is pressed.
+			/// </summary>
+			public MouseEvent MousePressedHook { get; set; }
+
+			/// <summary>
+			/// The name of the texture to use when drawing the button.
+			/// </summary>
+			public string TextureName { get; set; }
+		};
+
 		#endregion
 
 		//#################### PRIVATE VARIABLES ####################
@@ -91,12 +113,12 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// The buttons for the individual entities in the current group that the player can manipulate.
 		/// </summary>
-		private readonly IList<Button> m_elementButtons = new List<Button>();
+		private IList<Button> m_elementButtons = new List<Button>();
 
 		/// <summary>
 		/// The buttons for the groups of entity that the player can manipulate.
 		/// </summary>
-		private readonly IList<Button> m_groupButtons = new List<Button>();
+		private IList<Button> m_groupButtons = new List<Button>();
 
 		/// <summary>
 		/// The groups of entity that the player can manipulate.
@@ -215,6 +237,42 @@ namespace game1666proto4.UI
 		}
 
 		/// <summary>
+		/// Creates buttons to fill a given viewport, based on a list of button specifiers.
+		/// </summary>
+		/// <param name="buttonsViewport">The viewport that the buttons are to fill.</param>
+		/// <param name="columns">The number of columns in which the buttons should be laid out.</param>
+		/// <param name="buttonSpecifiers">The button specifiers.</param>
+		/// <returns>The created buttons.</returns>
+		private static List<Button> CreateButtons(Viewport buttonsViewport, int columns, IList<ButtonSpecifier> buttonSpecifiers)
+		{
+			var buttons = new List<Button>();
+
+			// Determine how the buttons should be laid out.
+			var layout = DetermineButtonLayout(buttonsViewport, buttonSpecifiers.Count, columns);
+
+			// Construct the buttons (using the supplied specifiers) and add them to the buttons list.
+			int buttonIndex = 0;
+			foreach(ButtonSpecifier bs in buttonSpecifiers)
+			{
+				// Work out in which row and column the button lies.
+				int column = buttonIndex % layout.Columns;
+				int row = buttonIndex / layout.Columns;
+
+				// Construct the button and set its handlers.
+				var button = new Button(bs.TextureName, ConstructButtonViewport(buttonsViewport, layout, row, column));
+				button.IsHighlighted = bs.IsHighlighted;
+				button.MousePressedHook += bs.MousePressedHook;
+
+				// Add the button to the list.
+				buttons.Add(button);
+
+				++buttonIndex;
+			}
+
+			return buttons;
+		}
+
+		/// <summary>
 		/// Creates buttons for the individual entities in the specified group.
 		/// </summary>
 		/// <param name="group">The group.</param>
@@ -222,9 +280,6 @@ namespace game1666proto4.UI
 		{
 			// Set the current group.
 			m_currentGroup = group;
-
-			// Clear the existing element buttons list ready to fill it with elements from the new group.
-			m_elementButtons.Clear();
 
 			// Use the middle third of the sidebar as the area in which to place the element buttons.
 			int margin = (int)(Viewport.Width / 10);
@@ -236,28 +291,13 @@ namespace game1666proto4.UI
 				Height = Viewport.Height / 3 - 2 * margin
 			};
 
-			// Determine how the buttons should be laid out.
-			var layout = DetermineButtonLayout(elementButtonsViewport, m_groups[group].Count, 3);
-
-			// Construct the buttons and add them to the element buttons list.
-			int buttonIndex = 0;
-			foreach(string element in m_groups[group])
+			// Create the buttons.
+			m_elementButtons = CreateButtons(elementButtonsViewport, 3, m_groups[group].Select(element => new ButtonSpecifier
 			{
-				// Work out in which row and column the button lies.
-				int column = buttonIndex % layout.Columns;
-				int row = buttonIndex / layout.Columns;
-
-				// Construct the button and set its mouse pressed handler.
-				var button = new Button("sidebarelement_" + element, ConstructButtonViewport(elementButtonsViewport, layout, row, column));
-				string elementCopy = element;
-				button.MousePressedHook += state => m_playingArea.BlueprintToPlace = elementCopy;
-				button.IsHighlighted = () => m_playingArea.BlueprintToPlace == elementCopy;
-
-				// Add the button to the list.
-				m_elementButtons.Add(button);
-
-				++buttonIndex;
-			}
+				IsHighlighted		= () => m_playingArea.BlueprintToPlace == element,
+				MousePressedHook	= state => m_playingArea.BlueprintToPlace = element,
+				TextureName			= "sidebarelement_" + element
+			}).ToList());
 		}
 
 		/// <summary>
@@ -275,28 +315,13 @@ namespace game1666proto4.UI
 				Height = Viewport.Height / 3 - 2 * margin
 			};
 
-			// Determine how the buttons should be laid out.
-			var layout = DetermineButtonLayout(groupButtonsViewport, m_groups.Keys.Count, 2);
-
-			// Construct the buttons and add them to the group buttons list.
-			int buttonIndex = 0;
-			foreach(string group in m_groups.Keys)
+			// Create the buttons.
+			m_groupButtons = CreateButtons(groupButtonsViewport, 2, m_groups.Keys.Select(group => new ButtonSpecifier
 			{
-				// Work out in which row and column the button lies.
-				int column = buttonIndex % layout.Columns;
-				int row = buttonIndex / layout.Columns;
-
-				// Construct the button and set its mouse pressed handler.
-				var button = new Button("sidebargroup_" + group, ConstructButtonViewport(groupButtonsViewport, layout, row, column));
-				string groupCopy = group;
-				button.MousePressedHook += state => CreateElementButtons(groupCopy);
-				button.IsHighlighted = () => m_currentGroup == groupCopy;
-
-				// Add the button to the list.
-				m_groupButtons.Add(button);
-
-				++buttonIndex;
-			}
+				IsHighlighted		= () => m_currentGroup == group,
+				MousePressedHook	= state => CreateElementButtons(group),
+				TextureName			= "sidebargroup_" + group
+			}).ToList());
 		}
 
 		/// <summary>
