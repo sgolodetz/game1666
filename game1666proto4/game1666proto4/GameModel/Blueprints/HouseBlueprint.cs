@@ -3,7 +3,6 @@
  * Copyright 2011. All rights reserved.
  ***/
 
-using System;
 using System.Xml.Linq;
 
 namespace game1666proto4.GameModel.Blueprints

@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameModel\Blueprints\CityBlueprint.cs" />
     <Compile Include="GameModel\FSMs\EntityInConstructionState.cs" />
     <Compile Include="GameModel\FSMs\EntityOperatingState.cs" />
     <Compile Include="GameModel\IPlaceableEntity.cs" />
