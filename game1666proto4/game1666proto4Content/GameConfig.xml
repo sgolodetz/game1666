@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
+    <entity type="GameModel.Blueprints.CityBlueprint">
+      <property name="Name" type="string" value="Village"/>
+      <property name="Model" type="string" value="TODO"/>
+      <property name="TimeToConstruct" type="int" value="10000"/>
+      <entity type="GameModel.Blueprints.Footprint">
+        <property name="Hotspot" type="Vector2i" value="1,1"/>
+        <property name="Pattern" type="Array2D[int]">
+          [3,3]
+          1,2,1,
+          2,1,2,
+          1,2,1
+        </property>
+      </entity>
+    </entity>
     <entity type="GameModel.Blueprints.HouseBlueprint">
       <property name="Name" type="string" value="Dwelling"/>
       <property name="MaxOccupants" type="int" value="2"/>
