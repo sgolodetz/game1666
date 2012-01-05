@@ -33,11 +33,6 @@ namespace game1666proto4.UI
 		private readonly Camera m_camera;
 
 		/// <summary>
-		/// The entity currently being placed by the user (if any).
-		/// </summary>
-		private IPlaceableEntity m_entityToPlace;
-
-		/// <summary>
 		/// The current projection matrix.
 		/// </summary>
 		private Matrix m_matProjection;
@@ -51,11 +46,6 @@ namespace game1666proto4.UI
 		/// The current world matrix.
 		/// </summary>
 		private Matrix m_matWorld;
-
-		/// <summary>
-		/// The orientation of the entity currently being placed (if any).
-		/// </summary>
-		private Orientation4 m_placementOrientation = Orientation4.XPOS;
 
 		/// <summary>
 		/// The playing area to view.
@@ -117,45 +107,7 @@ namespace game1666proto4.UI
 		{
 			if(GameViewState.Tool != null)
 			{
-				// Find the point we're hovering over on the near clipping plane.
-				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), m_matProjection, m_matView, m_matWorld);
-
-				// Find the point we're hovering over on the far clipping plane.
-				Vector3 far = Viewport.Unproject(new Vector3(state.X, state.Y, 1), m_matProjection, m_matView, m_matWorld);
-
-				// Find the ray (in world space) between them.
-				Vector3 dir = Vector3.Normalize(far - near);
-				var ray = new Ray(near, dir);
-
-				// Determine which grid square we're hovering over (if any).
-				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
-
-				m_entityToPlace = null;
-				if(gridSquare != null && (GameViewState.Tool.Name == "Dwelling" || GameViewState.Tool.Name == "Mansion"))
-				{
-					// Work out what type of entity we're trying to place.
-					Blueprint blueprint = BlueprintManager.GetBlueprint(GameViewState.Tool.Name);
-					Type entityType = blueprint.EntityType;
-
-					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
-					// Note that this will return null if the entity can't be validly placed.
-					Footprint footprint = blueprint.Footprint.Rotated((int)m_placementOrientation);
-					float? altitude = footprint.DetermineAverageAltitude(gridSquare.Value, m_playingArea.Terrain);
-
-					// Provided the altitude could be determined, continue with entity creation.
-					if(altitude != null)
-					{
-						// Set the properties of the entity.
-						var entityProperties = new Dictionary<string,dynamic>();
-						entityProperties["Altitude"] = altitude;
-						entityProperties["Blueprint"] = GameViewState.Tool.Name;
-						entityProperties["Orientation"] = m_placementOrientation;
-						entityProperties["Position"] = gridSquare.Value;
-
-						// Create the new entity, and set it as the entity to be placed if it's valid.
-						m_entityToPlace = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
-					}
-				}
+				GameViewState.Tool.OnMouseMoved(state, Viewport, m_matProjection, m_matView, m_matWorld);
 			}
 		}
 
@@ -165,23 +117,9 @@ namespace game1666proto4.UI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
-			if(state.LeftButton == ButtonState.Pressed)
+			if(GameViewState.Tool != null)
 			{
-				if(m_entityToPlace != null && m_entityToPlace.IsValidlyPlaced(m_playingArea.Terrain))
-				{
-					m_playingArea.AddEntityDynamic(m_entityToPlace.CloneNew());
-					GameViewState.Tool = null;
-					m_entityToPlace = null;
-				}
-			}
-			else if(state.RightButton == ButtonState.Pressed)
-			{
-				int placementOrientation = (int)m_placementOrientation;
-				placementOrientation = (placementOrientation + 1) % 4;
-				m_placementOrientation = (Orientation4)placementOrientation;
-
-				// Call the mouse moved handler to update the entity being placed.
-				OnMouseMoved(state);
+				GameViewState.Tool = GameViewState.Tool.OnMousePressed(state, Viewport, m_matProjection, m_matView, m_matWorld);
 			}
 		}
 
@@ -282,11 +220,11 @@ namespace game1666proto4.UI
 				DrawPlaceableEntity(building);
 			}
 
-			// Draw the entity currently being placed (if any).
-			if(m_entityToPlace != null)
+			// Draw the entity associated with the active tool (if any).
+			if(GameViewState.Tool != null && GameViewState.Tool.Entity != null)
 			{
-				float alpha = m_entityToPlace.IsValidlyPlaced(m_playingArea.Terrain) ? 1f : 0.35f;
-				DrawPlaceableEntity(m_entityToPlace, alpha);
+				float alpha = GameViewState.Tool.Entity.IsValidlyPlaced(m_playingArea.Terrain) ? 1f : 0.35f;
+				DrawPlaceableEntity(GameViewState.Tool.Entity, alpha);
 			}
 		}
 

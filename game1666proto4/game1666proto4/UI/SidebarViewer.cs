@@ -295,7 +295,7 @@ namespace game1666proto4.UI
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
 				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name == element,
-				MousePressedHook    = state => GameViewState.Tool = new EntityPlacementTool(element),
+				MousePressedHook    = state => GameViewState.Tool = new EntityPlacementTool(element, m_playingArea),
 				TextureName			= "sidebarelement_" + element
 			}));
 
@@ -313,13 +313,13 @@ namespace game1666proto4.UI
 			buttonSpecifiers.Add(new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_currentGroup == "Special",
-				MousePressedHook	= state => CreateSpecialElementButtons(),
+				MousePressedHook	= state => { GameViewState.Tool = null; CreateSpecialElementButtons(); },
 				TextureName			= "sidebargroup_Special"
 			});
 			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_currentGroup == group,
-				MousePressedHook	= state => CreateElementButtons(group),
+				MousePressedHook	= state => { GameViewState.Tool = null; CreateElementButtons(group); },
 				TextureName			= "sidebargroup_" + group
 			}));
 

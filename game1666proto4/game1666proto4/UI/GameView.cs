@@ -57,15 +57,6 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
-		/// Adds a visible entity (such as a playing area viewer) to the view.
-		/// </summary>
-		/// <param name="entity">The visible entity.</param>
-		public void AddEntity(IVisibleEntity entity)
-		{
-			m_children[entity.Name] = entity;
-		}
-
-		/// <summary>
 		/// Adds an entity to the view based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
@@ -73,6 +64,20 @@ namespace game1666proto4.UI
 		{
 			entity.GameViewState = m_state;
 			AddEntity(entity);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Adds a visible entity (such as a playing area viewer) to the view.
+		/// </summary>
+		/// <param name="entity">The visible entity.</param>
+		private void AddEntity(IVisibleEntity entity)
+		{
+			m_children[entity.Name] = entity;
 		}
 
 		#endregion

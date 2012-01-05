@@ -3,6 +3,9 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using game1666proto4.GameModel;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace game1666proto4.UI.Tools
@@ -13,6 +16,11 @@ namespace game1666proto4.UI.Tools
 	interface ITool
 	{
 		/// <summary>
+		/// A relevant entity that should be drawn while this tool is active (e.g. for entity placement tools, the entity being placed).
+		/// </summary>
+		IPlaceableEntity Entity { get; }
+
+		/// <summary>
 		/// A name relevant to the type of tool being used (e.g. for entity placement tools, this would specify the relevant blueprint).
 		/// </summary>
 		string Name { get; }
@@ -21,12 +29,21 @@ namespace game1666proto4.UI.Tools
 		/// Handles mouse moved events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		void OnMouseMoved(MouseState state);
+		/// <param name="viewport">The viewport of the viewer being used to interact with the playing area.</param>
+		/// <param name="matProjection">The current projection matrix in that viewer.</param>
+		/// <param name="matView">The current view matrix in that viewer.</param>
+		/// <param name="matWorld">The current world matrix in that viewer.</param>
+		void OnMouseMoved(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld);
 
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		void OnMousePressed(MouseState state);
+		/// <param name="viewport">The viewport of the viewer being used to interact with the playing area.</param>
+		/// <param name="matProjection">The current projection matrix in that viewer.</param>
+		/// <param name="matView">The current view matrix in that viewer.</param>
+		/// <param name="matWorld">The current world matrix in that viewer.</param>
+		/// <returns>The tool that should be active after the mouse press (generally this or null).</returns>
+		ITool OnMousePressed(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld);
 	}
 }
