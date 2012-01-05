@@ -23,6 +23,11 @@ namespace game1666proto4.UI
 		/// </summary>
 		private readonly IDictionary<string,IVisibleEntity> m_children = new Dictionary<string,IVisibleEntity>();
 
+		/// <summary>
+		/// The state shared between the visible entities that together make up the game view - e.g. things like the currently active tool.
+		/// </summary>
+		private readonly GameViewState m_state = new GameViewState();
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -66,6 +71,7 @@ namespace game1666proto4.UI
 		/// <param name="entity">The entity.</param>
 		public override void AddEntityDynamic(dynamic entity)
 		{
+			entity.GameViewState = m_state;
 			AddEntity(entity);
 		}
 

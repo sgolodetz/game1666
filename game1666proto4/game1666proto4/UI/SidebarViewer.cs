@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Input;
 using game1666proto4.GameModel;
+using game1666proto4.UI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -157,6 +158,11 @@ namespace game1666proto4.UI
 			}
 		}
 
+		/// <summary>
+		/// The state shared between the visible entities that together make up the game view - e.g. things like the currently active tool.
+		/// </summary>
+		public GameViewState GameViewState { private get; set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -288,8 +294,8 @@ namespace game1666proto4.UI
 			var buttonSpecifiers = new List<ButtonSpecifier>();
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
-				IsHighlighted		= () => m_playingArea.BlueprintToPlace == element,
-				MousePressedHook	= state => m_playingArea.BlueprintToPlace = element,
+				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name == element,
+				MousePressedHook    = state => GameViewState.Tool = new EntityPlacementTool(element),
 				TextureName			= "sidebarelement_" + element
 			}));
 

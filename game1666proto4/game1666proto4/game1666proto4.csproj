@@ -168,6 +168,9 @@
     <Compile Include="GameModel\FSMs\EntityOperatingState.cs" />
     <Compile Include="GameModel\IPlaceableEntity.cs" />
     <Compile Include="Common\Entities\IUpdateableEntity.cs" />
+    <Compile Include="UI\GameViewState.cs" />
+    <Compile Include="UI\Tools\EntityPlacementTool.cs" />
+    <Compile Include="UI\Tools\ITool.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />
     <Compile Include="Common\FSMs\FiniteStateMachine.cs" />
     <Compile Include="Common\FSMs\IFSMState.cs" />

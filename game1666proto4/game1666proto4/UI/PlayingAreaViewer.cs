@@ -64,6 +64,16 @@ namespace game1666proto4.UI
 
 		#endregion
 
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The state shared between the visible entities that together make up the game view - e.g. things like the currently active tool.
+		/// </summary>
+		public GameViewState GameViewState { private get; set; }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -105,7 +115,7 @@ namespace game1666proto4.UI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMouseMoved(MouseState state)
 		{
-			if(m_playingArea.BlueprintToPlace != null)
+			if(GameViewState.Tool != null)
 			{
 				// Find the point we're hovering over on the near clipping plane.
 				Vector3 near = Viewport.Unproject(new Vector3(state.X, state.Y, 0), m_matProjection, m_matView, m_matWorld);
@@ -121,10 +131,10 @@ namespace game1666proto4.UI
 				Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
 				m_entityToPlace = null;
-				if(gridSquare != null && (m_playingArea.BlueprintToPlace == "Dwelling" || m_playingArea.BlueprintToPlace == "Mansion"))
+				if(gridSquare != null && (GameViewState.Tool.Name == "Dwelling" || GameViewState.Tool.Name == "Mansion"))
 				{
 					// Work out what type of entity we're trying to place.
-					Blueprint blueprint = BlueprintManager.GetBlueprint(m_playingArea.BlueprintToPlace);
+					Blueprint blueprint = BlueprintManager.GetBlueprint(GameViewState.Tool.Name);
 					Type entityType = blueprint.EntityType;
 
 					// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
@@ -138,7 +148,7 @@ namespace game1666proto4.UI
 						// Set the properties of the entity.
 						var entityProperties = new Dictionary<string,dynamic>();
 						entityProperties["Altitude"] = altitude;
-						entityProperties["Blueprint"] = m_playingArea.BlueprintToPlace;
+						entityProperties["Blueprint"] = GameViewState.Tool.Name;
 						entityProperties["Orientation"] = m_placementOrientation;
 						entityProperties["Position"] = gridSquare.Value;
 
@@ -160,7 +170,7 @@ namespace game1666proto4.UI
 				if(m_entityToPlace != null && m_entityToPlace.IsValidlyPlaced(m_playingArea.Terrain))
 				{
 					m_playingArea.AddEntityDynamic(m_entityToPlace.CloneNew());
-					m_playingArea.BlueprintToPlace = null;
+					GameViewState.Tool = null;
 					m_entityToPlace = null;
 				}
 			}
