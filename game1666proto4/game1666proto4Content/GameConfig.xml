@@ -86,7 +86,7 @@
         <property name="PlayingArea" type="string" value="world"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <group name="Cities">
-          <!--<element name="Village"/>-->
+          <element name="Village"/>
         </group>
         <group name="Roads">
           <element name="DirtTrack"/>

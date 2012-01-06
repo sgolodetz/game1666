@@ -93,7 +93,7 @@ namespace game1666proto4.UI.Tools
 			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
 			Entity = null;
-			if(gridSquare != null && (Name == "Dwelling" || Name == "Mansion"))
+			if(gridSquare != null && (Name == "Dwelling" || Name == "Mansion" || Name == "Village"))
 			{
 				// Work out what type of entity we're trying to place.
 				Blueprint blueprint = BlueprintManager.GetBlueprint(Name);

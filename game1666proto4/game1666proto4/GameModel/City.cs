@@ -73,6 +73,23 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
+		/// Constructs a city directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the city.</param>
+		/// <param name="initialStateID">The initial state of the city.</param>
+		public City(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		:	base(properties)
+		{
+			Initialise();
+
+			// Construct and add the city's finite state machine.
+			var fsmProperties = new Dictionary<string,dynamic>();
+			fsmProperties["CurrentStateID"] = initialStateID.ToString();
+			fsmProperties["TimeElapsed"] = 0;	// this is a new city, so no construction time has yet elapsed
+			AddEntity(new EntityFSM(fsmProperties));
+		}
+
+		/// <summary>
 		/// Constructs a city from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the city's XML representation.</param>

@@ -246,7 +246,12 @@ namespace game1666proto4.UI
 				DrawPlaceableEntity(city);
 			}
 
-			// TODO
+			// Draw the entity associated with the active tool (if any).
+			if(GameViewState.Tool != null && GameViewState.Tool.Entity != null)
+			{
+				float alpha = GameViewState.Tool.Entity.IsValidlyPlaced(m_playingArea.Terrain) ? 1f : 0.35f;
+				DrawPlaceableEntity(GameViewState.Tool.Entity, alpha);
+			}
 		}
 
 		/// <summary>

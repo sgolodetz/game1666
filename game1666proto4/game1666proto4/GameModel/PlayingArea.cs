@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.Terrains;
@@ -26,6 +27,14 @@ namespace game1666proto4.GameModel
 
 		//#################### CONSTRUCTORS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a playing area directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the playing area.</param>
+		public PlayingArea(IDictionary<string,dynamic> properties)
+		:	base(properties)
+		{}
 
 		/// <summary>
 		/// Constructs a playing area from its XML representation.
