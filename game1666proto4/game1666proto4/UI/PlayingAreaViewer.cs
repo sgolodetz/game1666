@@ -239,6 +239,14 @@ namespace game1666proto4.UI
 
 			// For debugging purposes only.
 			//DrawTerrainQuadtree(world.Terrain.QuadtreeRoot);
+
+			// Draw all the cities in the world.
+			foreach(City city in world.Cities)
+			{
+				DrawPlaceableEntity(city);
+			}
+
+			// TODO
 		}
 
 		/// <summary>

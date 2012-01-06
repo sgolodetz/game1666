@@ -34,6 +34,11 @@ namespace game1666proto4.GameModel
 		protected override IEnumerable<IUpdateableEntity> Children { get { return m_cities.Values; } }
 
 		/// <summary>
+		/// The cities in the world.
+		/// </summary>
+		public IEnumerable<City> Cities { get { return m_cities.Values; } }
+
+		/// <summary>
 		/// The player's home city.
 		/// </summary>
 		public string HomeCity { get { return Properties["HomeCity"]; } }
