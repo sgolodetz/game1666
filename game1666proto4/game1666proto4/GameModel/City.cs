@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
@@ -11,6 +12,7 @@ using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Terrains;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel
 {
@@ -139,8 +141,7 @@ namespace game1666proto4.GameModel
 		/// <returns>The clone.</returns>
 		public IPlaceableEntity CloneNew()
 		{
-			// TODO
-			return null;
+			return new City(Properties, EntityStateID.IN_CONSTRUCTION);
 		}
 
 		/// <summary>
@@ -162,8 +163,8 @@ namespace game1666proto4.GameModel
 		/// <returns>true, if it can be validly placed, or false otherwise</returns>
 		public bool IsValidlyPlaced(Terrain terrain)
 		{
-			// TODO
-			return false;
+			IEnumerable<Vector2i> gridSquares = Place(terrain);
+			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
 		}
 
 		/// <summary>
@@ -173,8 +174,21 @@ namespace game1666proto4.GameModel
 		/// <returns>A set of grid squares that the city overlays, if it can be validly placed, or null otherwise</returns>
 		public IEnumerable<Vector2i> Place(Terrain terrain)
 		{
-			// TODO
-			return null;
+			Footprint footprint = Blueprint.Footprint.Rotated((int)Orientation);
+			if(terrain.CalculateHeightRange(footprint.OverlaidGridSquares(Position, terrain, false)) == 0f)
+			{
+				return footprint.OverlaidGridSquares(Position, terrain, true);
+			}
+			else return null;
+		}
+
+		/// <summary>
+		/// Updates the city based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public override void Update(GameTime gameTime)
+		{
+			FSM.Update(gameTime);
 		}
 
 		#endregion
