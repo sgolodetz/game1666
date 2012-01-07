@@ -164,6 +164,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Entities2\EntityLoader.cs" />
+    <Compile Include="Common\Entities2\ICompositeEntity.cs" />
+    <Compile Include="Common\Entities2\IPersistableEntity.cs" />
+    <Compile Include="Common\Entities2\IPlaceableEntity.cs" />
+    <Compile Include="Common\Entities2\IPlacementStrategy.cs" />
+    <Compile Include="Common\Entities2\IPlayingArea.cs" />
+    <Compile Include="Common\Entities2\IUpdateableEntity.cs" />
+    <Compile Include="Common\Entities2\IUserInterfaceEntity.cs" />
+    <Compile Include="Common\Entities2\PlacementStrategyBase.cs" />
     <Compile Include="GameModel\Blueprints\CityBlueprint.cs" />
     <Compile Include="GameModel\FSMs\EntityInConstructionState.cs" />
     <Compile Include="GameModel\FSMs\EntityOperatingState.cs" />
