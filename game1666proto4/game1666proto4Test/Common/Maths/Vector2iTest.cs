@@ -6,7 +6,7 @@ using Assert = Xunit.Assert;
 namespace game1666proto4Test.Common.Maths
 {
 	[TestClass]
-	public class Vector2iTest
+	public sealed class Vector2iTest
 	{
 		[TestMethod]
 		public void op_AdditionTest()
