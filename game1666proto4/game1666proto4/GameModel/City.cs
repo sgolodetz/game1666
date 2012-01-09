@@ -125,8 +125,9 @@ namespace game1666proto4.GameModel
 		public City(XElement entityElt)
 		{
 			m_properties = EntityLoader.LoadProperties(entityElt);
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 			Initialise();
+
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion

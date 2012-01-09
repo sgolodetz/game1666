@@ -64,10 +64,7 @@ namespace game1666proto4.UI
 		/// Adds an entity to the composite based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public virtual void AddDynamicEntity(dynamic entity)
-		{
-			// No-op
-		}
+		public abstract void AddDynamicEntity(dynamic entity);
 
 		/// <summary>
 		/// Draws the entity.
