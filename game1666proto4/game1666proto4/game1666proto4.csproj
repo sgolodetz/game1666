@@ -200,7 +200,6 @@
     <Compile Include="Common\Maths\Vector2i.cs" />
     <Compile Include="GameModel\House.cs" />
     <Compile Include="GameModel\Blueprints\HouseBlueprint.cs" />
-    <Compile Include="GameModel\RoadNetwork.cs" />
     <Compile Include="GameModel\RoadSegment.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
