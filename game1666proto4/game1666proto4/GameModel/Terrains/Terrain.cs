@@ -36,7 +36,7 @@ namespace game1666proto4.GameModel.Terrains
 		/// <summary>
 		/// The properties of the terrain.
 		/// </summary>
-		private IDictionary<string,dynamic> m_properties;
+		private readonly IDictionary<string,dynamic> m_properties;
 
 		#endregion
 

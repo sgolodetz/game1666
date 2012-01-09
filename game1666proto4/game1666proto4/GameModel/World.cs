@@ -27,7 +27,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The properties of the world.
 		/// </summary>
-		private IDictionary<string,dynamic> m_properties;
+		private readonly IDictionary<string,dynamic> m_properties;
 
 		#endregion
 
