@@ -66,7 +66,15 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The name of the city.
 		/// </summary>
-		public string Name { get { return m_properties["Name"]; } }
+		public string Name
+		{
+			get
+			{
+				// FIXME: Cities need to be given names when they are created.
+				dynamic name;
+				return m_properties.TryGetValue("Name", out name) ? name : "";
+			}
+		}
 
 		/// <summary>
 		/// The 2D axis-aligned orientation of the city.
@@ -205,6 +213,11 @@ namespace game1666proto4.GameModel
 		public void Update(GameTime gameTime)
 		{
 			FSM.Update(gameTime);
+
+			foreach(IUpdateableEntity entity in Children)
+			{
+				entity.Update(gameTime);
+			}
 		}
 
 		#endregion
