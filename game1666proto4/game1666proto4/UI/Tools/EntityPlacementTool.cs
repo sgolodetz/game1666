@@ -31,7 +31,7 @@ namespace game1666proto4.UI.Tools
 		/// <summary>
 		/// The playing area in which to place the entity.
 		/// </summary>
-		private readonly PlayingArea m_playingArea;
+		private readonly IPlayingArea m_playingArea;
 
 		#endregion
 
@@ -58,7 +58,7 @@ namespace game1666proto4.UI.Tools
 		/// </summary>
 		/// <param name="name">The name of the blueprint specifying the kind of entity to place.</param>
 		/// <param name="playingArea">The playing area in which to place the entity.</param>
-		public EntityPlacementTool(string name, PlayingArea playingArea)
+		public EntityPlacementTool(string name, IPlayingArea playingArea)
 		{
 			Name = name;
 			m_playingArea = playingArea;
@@ -133,9 +133,14 @@ namespace game1666proto4.UI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				if(Entity != null && Entity.IsValidlyPlaced(m_playingArea.Terrain))
+				if(Entity != null && Entity.PlacementStrategy.IsValidlyPlaced(
+					m_playingArea.Terrain,
+					Entity.Blueprint.Footprint,
+					Entity.Position,
+					Entity.Orientation
+				))
 				{
-					m_playingArea.AddEntityDynamic(Entity.CloneNew());
+					m_playingArea.AddPlaceableEntity(Entity.CloneNew());
 					return null;
 				}
 			}

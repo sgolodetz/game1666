@@ -129,7 +129,7 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// The playing area whose entities this sidebar is used to manipulate.
 		/// </summary>
-		private readonly PlayingArea m_playingArea;
+		private readonly IPlayingArea m_playingArea;
 
 		/// <summary>
 		/// The sprite batch used when drawing the sidebar.
@@ -149,7 +149,7 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// The sub-entities contained within the composite.
 		/// </summary>
-		protected override IEnumerable<IVisibleEntity> Children
+		public override IEnumerable<dynamic> Children
 		{
 			get
 			{
@@ -196,7 +196,7 @@ namespace game1666proto4.UI
 		/// Adds an entity to the viewer based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public override void AddEntityDynamic(dynamic entity)
+		public override void AddDynamicEntity(dynamic entity)
 		{
 			// No-op
 		}

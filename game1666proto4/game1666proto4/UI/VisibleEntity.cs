@@ -13,12 +13,22 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666proto4.UI
 {
 	/// <summary>
-	/// An instance of this class represents an entity that will be drawn on the screen, e.g. a playing area viewer.
+	/// An instance of a class derivd from this one represents an entity that will be drawn on the screen, e.g. a playing area viewer.
 	/// </summary>
-	abstract class VisibleEntity : Entity, IVisibleEntity
+	abstract class VisibleEntity : IVisibleEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The name of the entity.
+		/// </summary>
+		public string Name { get { return Properties["Name"]; } }
+
+		/// <summary>
+		/// The properties of the entity.
+		/// </summary>
+		protected IDictionary<string,dynamic> Properties { get; set; }
 
 		/// <summary>
 		/// The viewport into which to draw the entity.
@@ -42,16 +52,18 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		public VisibleEntity(IDictionary<string,dynamic> properties)
-		:	base(properties)
-		{}
+		{
+			Properties = properties;
+		}
 
 		/// <summary>
 		/// Constructs a visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public VisibleEntity(XElement entityElt)
-		:	base(entityElt)
-		{}
+		{
+			Properties = EntityLoader.LoadProperties(entityElt);
+		}
 
 		#endregion
 

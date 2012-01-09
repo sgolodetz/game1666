@@ -37,7 +37,7 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// The sub-entities contained within the composite.
 		/// </summary>
-		protected override IEnumerable<IVisibleEntity> Children { get { return m_views.Values; } }
+		public override IEnumerable<dynamic> Children { get { return m_views.Values; } }
 
 		/// <summary>
 		/// The current game view.
@@ -67,21 +67,21 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
+		/// Adds an entity to the view hierarchy based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddDynamicEntity(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
+		/// <summary>
 		/// Adds a view to the view hierarchy.
 		/// </summary>
 		/// <param name="view">The view.</param>
 		public void AddEntity(GameView view)
 		{
 			m_views[view.Name] = view;
-		}
-
-		/// <summary>
-		/// Adds an entity to the view hierarchy based on its dynamic type.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public override void AddEntityDynamic(dynamic entity)
-		{
-			AddEntity(entity);
 		}
 
 		/// <summary>

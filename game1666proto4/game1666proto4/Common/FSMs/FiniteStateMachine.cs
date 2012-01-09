@@ -14,7 +14,7 @@ namespace game1666proto4.Common.FSMs
 	/// An instance of this class represents a finite state machine.
 	/// </summary>
 	/// <typeparam name="StateID">The type used to identify the different states in the machine.</typeparam>
-	abstract class FiniteStateMachine<StateID> : Entity
+	abstract class FiniteStateMachine<StateID>
 	{
 		//#################### DELEGATES ####################
 		#region
@@ -53,6 +53,11 @@ namespace game1666proto4.Common.FSMs
 		public StateID CurrentStateID { get; protected set; }
 
 		/// <summary>
+		/// The properties of the machine.
+		/// </summary>
+		protected IDictionary<string,dynamic> Properties { get; private set; }
+
+		/// <summary>
 		/// An enumerable of the states in the machine.
 		/// </summary>
 		protected IEnumerable<dynamic> States { get { return m_states.Values; } }
@@ -67,16 +72,18 @@ namespace game1666proto4.Common.FSMs
 		/// </summary>
 		/// <param name="properties">The properties of the FSM.</param>
 		public FiniteStateMachine(IDictionary<string,dynamic> properties)
-		:	base(properties)
-		{}
+		{
+			Properties = properties;
+		}
 
 		/// <summary>
 		/// Constructs a finite state machine (FSM) from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the FSM's XML representation.</param>
 		public FiniteStateMachine(XElement entityElt)
-		:	base(entityElt)
-		{}
+		{
+			Properties = EntityLoader.LoadProperties(entityElt);
+		}
 
 		#endregion
 

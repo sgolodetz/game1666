@@ -50,7 +50,7 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// The playing area to view.
 		/// </summary>
-		private readonly PlayingArea m_playingArea;
+		private readonly IPlayingArea m_playingArea;
 
 		#endregion
 
@@ -223,7 +223,13 @@ namespace game1666proto4.UI
 			// Draw the entity associated with the active tool (if any).
 			if(GameViewState.Tool != null && GameViewState.Tool.Entity != null)
 			{
-				float alpha = GameViewState.Tool.Entity.IsValidlyPlaced(m_playingArea.Terrain) ? 1f : 0.35f;
+				IPlaceableEntity entity = GameViewState.Tool.Entity;
+				float alpha = entity.PlacementStrategy.IsValidlyPlaced(
+					m_playingArea.Terrain,
+					entity.Blueprint.Footprint,
+					entity.Position,
+					entity.Orientation
+				) ? 1f : 0.35f;
 				DrawPlaceableEntity(GameViewState.Tool.Entity, alpha);
 			}
 		}
@@ -249,7 +255,13 @@ namespace game1666proto4.UI
 			// Draw the entity associated with the active tool (if any).
 			if(GameViewState.Tool != null && GameViewState.Tool.Entity != null)
 			{
-				float alpha = GameViewState.Tool.Entity.IsValidlyPlaced(m_playingArea.Terrain) ? 1f : 0.35f;
+				IPlaceableEntity entity = GameViewState.Tool.Entity;
+				float alpha = entity.PlacementStrategy.IsValidlyPlaced(
+					m_playingArea.Terrain,
+					entity.Blueprint.Footprint,
+					entity.Position,
+					entity.Orientation
+				) ? 1f : 0.35f;
 				DrawPlaceableEntity(GameViewState.Tool.Entity, alpha);
 			}
 		}

@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace game1666proto4.Common.Entities2
+namespace game1666proto4.Common.Entities
 {
 	/// <summary>
 	/// An instance of a class implementing this interface can contain other entities.

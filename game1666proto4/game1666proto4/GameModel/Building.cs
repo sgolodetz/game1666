@@ -1,17 +1,15 @@
 ﻿/***
  * game1666proto4: Building.cs
- * Copyright 2011. All rights reserved.
+ * Copyright 2012. All rights reserved.
  ***/
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
-using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel
@@ -19,7 +17,7 @@ namespace game1666proto4.GameModel
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : CompositeEntity, IPlaceableEntity
+	abstract class Building : ICompositeEntity, IPlaceableEntity, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -35,6 +33,11 @@ namespace game1666proto4.GameModel
 		public Blueprint Blueprint { get; private set; }
 
 		/// <summary>
+		/// The sub-entities of the building (not relevant to the rest of the game).
+		/// </summary>
+		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
+
+		/// <summary>
 		/// The finite state machine for the building.
 		/// </summary>
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
@@ -45,9 +48,19 @@ namespace game1666proto4.GameModel
 		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
 
 		/// <summary>
+		/// The placement strategy for the building.
+		/// </summary>
+		public IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the building's hotspot.
 		/// </summary>
 		public Vector2i Position { get { return Properties["Position"]; } }
+
+		/// <summary>
+		/// The properties of the building.
+		/// </summary>
+		protected IDictionary<string,dynamic> Properties { get; private set; }
 
 		#endregion
 
@@ -60,8 +73,8 @@ namespace game1666proto4.GameModel
 		/// <param name="properties">The properties of the building.</param>
 		/// <param name="initialStateID">The initial state of the building.</param>
 		public Building(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
-		:	base(properties)
 		{
+			Properties = properties;
 			Initialise();
 
 			// Construct and add the building's finite state machine.
@@ -76,9 +89,11 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		/// <param name="entityElt">The root node of the building's XML representation.</param>
 		public Building(XElement entityElt)
-		:	base(entityElt)
 		{
+			Properties = EntityLoader.LoadProperties(entityElt);
 			Initialise();
+
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
@@ -100,7 +115,7 @@ namespace game1666proto4.GameModel
 		/// Adds an entity to the building based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public override void AddEntityDynamic(dynamic entity)
+		public void AddDynamicEntity(dynamic entity)
 		{
 			AddEntity(entity);
 		}
@@ -110,33 +125,6 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		/// <returns>The clone.</returns>
 		public abstract IPlaceableEntity CloneNew();
-
-		/// <summary>
-		/// Checks whether or not the building can be validly placed on the specified terrain,
-		/// bearing in mind its position and orientation.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>true, if it can be validly placed, or false otherwise</returns>
-		public bool IsValidlyPlaced(Terrain terrain)
-		{
-			IEnumerable<Vector2i> gridSquares = Place(terrain);
-			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
-		}
-
-		/// <summary>
-		/// Attempts to place the building on the specified terrain.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>A set of grid squares that the building overlays, if it can be validly placed, or null otherwise</returns>
-		public IEnumerable<Vector2i> Place(Terrain terrain)
-		{
-			Footprint footprint = Blueprint.Footprint.Rotated((int)Orientation);
-			if(terrain.CalculateHeightRange(footprint.OverlaidGridSquares(Position, terrain, false)) == 0f)
-			{
-				return footprint.OverlaidGridSquares(Position, terrain, true);
-			}
-			else return null;
-		}
 
 		/// <summary>
 		/// Updates the building based on elapsed time and user input.

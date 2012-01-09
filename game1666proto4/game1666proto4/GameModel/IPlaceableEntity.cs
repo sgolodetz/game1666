@@ -1,22 +1,19 @@
 ﻿/***
  * game1666proto4: IPlaceableEntity.cs
- * Copyright 2011. All rights reserved.
+ * Copyright 2012. All rights reserved.
  ***/
 
-using System.Collections.Generic;
-using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
-using game1666proto4.GameModel.Terrains;
 
 namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can be placed in a playing area.
 	/// </summary>
-	interface IPlaceableEntity : IUpdateableEntity
+	interface IPlaceableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -42,6 +39,11 @@ namespace game1666proto4.GameModel
 		Orientation4 Orientation { get; }
 
 		/// <summary>
+		/// The placement strategy for the entity.
+		/// </summary>
+		IPlacementStrategy PlacementStrategy { get; }
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.
 		/// </summary>
 		Vector2i Position { get; }
@@ -56,21 +58,6 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		/// <returns>The clone.</returns>
 		IPlaceableEntity CloneNew();
-
-		/// <summary>
-		/// Checks whether or not the entity can be validly placed on the specified terrain,
-		/// bearing in mind its position and orientation.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>true, if it can be validly placed, or false otherwise</returns>
-		bool IsValidlyPlaced(Terrain terrain);
-
-		/// <summary>
-		/// Attempts to place the entity on the specified terrain.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise</returns>
-		IEnumerable<Vector2i> Place(Terrain terrain);
 
 		#endregion
 	}

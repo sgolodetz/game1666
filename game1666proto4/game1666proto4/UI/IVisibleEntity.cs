@@ -1,6 +1,6 @@
 ﻿/***
  * game1666proto4: IVisibleEntity.cs
- * Copyright 2011. All rights reserved.
+ * Copyright 2012. All rights reserved.
  ***/
 
 using game1666proto4.Common.Entities;
@@ -10,12 +10,17 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666proto4.UI
 {
 	/// <summary>
-	/// An instance of a class implementing this interface represents an entity that will be drawn on the screen.
+	/// An instance of a class implementing this interface represents an entity that will form part of the game's user interface.
 	/// </summary>
 	interface IVisibleEntity : IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The name of the entity.
+		/// </summary>
+		string Name { get; }
 
 		/// <summary>
 		/// The viewport into which to draw the entity.

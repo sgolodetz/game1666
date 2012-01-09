@@ -4,7 +4,6 @@
  ***/
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
@@ -19,7 +18,7 @@ namespace game1666proto4.GameModel
 	/// <summary>
 	/// An instance of this class represents a city.
 	/// </summary>
-	sealed class City : PlayingArea, IPlaceableEntity
+	sealed class City : IPlaceableEntity, IPlayingArea, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -29,6 +28,11 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		private readonly List<Building> m_buildings = new List<Building>();
 
+		/// <summary>
+		/// The properties of the city.
+		/// </summary>
+		private IDictionary<string,dynamic> m_properties;
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -37,7 +41,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The altitude of the base of the city.
 		/// </summary>
-		public float Altitude { get { return Properties["Altitude"]; } }
+		public float Altitude { get { return m_properties["Altitude"]; } }
 
 		/// <summary>
 		/// The blueprint for the city.
@@ -52,7 +56,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The sub-entities contained within the city.
 		/// </summary>
-		protected override IEnumerable<IUpdateableEntity> Children { get { return m_buildings; } }
+		public IEnumerable<dynamic> Children { get { return m_buildings; } }
 
 		/// <summary>
 		/// The finite state machine for the city.
@@ -60,14 +64,29 @@ namespace game1666proto4.GameModel
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
 
 		/// <summary>
+		/// The name of the city.
+		/// </summary>
+		public string Name { get { return m_properties["Name"]; } }
+
+		/// <summary>
 		/// The 2D axis-aligned orientation of the city.
 		/// </summary>
-		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
+		public Orientation4 Orientation { get { return m_properties["Orientation"]; } }
+
+		/// <summary>
+		/// The placement strategy for the city.
+		/// </summary>
+		public IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
 
 		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the city's hotspot.
 		/// </summary>
-		public Vector2i Position { get { return Properties["Position"]; } }
+		public Vector2i Position { get { return m_properties["Position"]; } }
+
+		/// <summary>
+		/// The city's terrain.
+		/// </summary>
+		public Terrain Terrain	{ get; private set; }
 
 		#endregion
 
@@ -80,8 +99,8 @@ namespace game1666proto4.GameModel
 		/// <param name="properties">The properties of the city.</param>
 		/// <param name="initialStateID">The initial state of the city.</param>
 		public City(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
-		:	base(properties)
 		{
+			m_properties = properties;
 			Initialise();
 
 			// Construct and add the city's finite state machine.
@@ -96,8 +115,9 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		/// <param name="entityElt">The root node of the city's XML representation.</param>
 		public City(XElement entityElt)
-		:	base(entityElt)
 		{
+			m_properties = EntityLoader.LoadProperties(entityElt);
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 			Initialise();
 		}
 
@@ -107,13 +127,27 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
+		/// Adds an entity to the city based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void AddDynamicEntity(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
+		/// <summary>
 		/// Adds a building to the city.
 		/// </summary>
 		/// <param name="building">The building.</param>
 		public void AddEntity(Building building)
 		{
 			m_buildings.Add(building);
-			Terrain.MarkOccupied(building.Place(Terrain));
+			Terrain.MarkOccupied(building.PlacementStrategy.Place(
+				Terrain,
+				building.Blueprint.Footprint,
+				building.Position,
+				building.Orientation
+			));
 		}
 
 		/// <summary>
@@ -123,16 +157,25 @@ namespace game1666proto4.GameModel
 		public void AddEntity(EntityFSM fsm)
 		{
 			FSM = fsm;
-			fsm.EntityProperties = Properties;
+			fsm.EntityProperties = m_properties;
 		}
 
 		/// <summary>
-		/// Adds an entity to the city based on its dynamic type.
+		/// Adds a terrain to the city (note that there can only be one terrain).
+		/// </summary>
+		/// <param name="terrain">The terrain.</param>
+		public void AddEntity(Terrain terrain)
+		{
+			Terrain = terrain;
+		}
+
+		/// <summary>
+		/// Adds a placeable entity to the city.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public override void AddEntityDynamic(dynamic entity)
+		public void AddPlaceableEntity(IPlaceableEntity entity)
 		{
-			AddEntity(entity);
+			AddDynamicEntity(entity);
 		}
 
 		/// <summary>
@@ -141,7 +184,7 @@ namespace game1666proto4.GameModel
 		/// <returns>The clone.</returns>
 		public IPlaceableEntity CloneNew()
 		{
-			return new City(Properties, EntityStateID.IN_CONSTRUCTION);
+			return new City(m_properties, EntityStateID.IN_CONSTRUCTION);
 		}
 
 		/// <summary>
@@ -156,37 +199,10 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Checks whether or not the city can be validly placed on the specified terrain,
-		/// bearing in mind its position and orientation.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>true, if it can be validly placed, or false otherwise</returns>
-		public bool IsValidlyPlaced(Terrain terrain)
-		{
-			IEnumerable<Vector2i> gridSquares = Place(terrain);
-			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
-		}
-
-		/// <summary>
-		/// Attempts to place the city on the specified terrain.
-		/// </summary>
-		/// <param name="terrain">The terrain.</param>
-		/// <returns>A set of grid squares that the city overlays, if it can be validly placed, or null otherwise</returns>
-		public IEnumerable<Vector2i> Place(Terrain terrain)
-		{
-			Footprint footprint = Blueprint.Footprint.Rotated((int)Orientation);
-			if(terrain.CalculateHeightRange(footprint.OverlaidGridSquares(Position, terrain, false)) == 0f)
-			{
-				return footprint.OverlaidGridSquares(Position, terrain, true);
-			}
-			else return null;
-		}
-
-		/// <summary>
 		/// Updates the city based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		public override void Update(GameTime gameTime)
+		public void Update(GameTime gameTime)
 		{
 			FSM.Update(gameTime);
 		}
@@ -201,7 +217,7 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		private void Initialise()
 		{
-			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
+			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
 		}
 
 		#endregion

@@ -9,7 +9,7 @@ using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Terrains;
 
-namespace game1666proto4.Common.Entities2
+namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// An instance of this class represents a placement strategy that enforces the condition that

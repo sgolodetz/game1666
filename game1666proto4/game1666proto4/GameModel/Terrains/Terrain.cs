@@ -18,7 +18,7 @@ namespace game1666proto4.GameModel.Terrains
 	/// <summary>
 	/// An instance of this class represents a heightmap-based terrain.
 	/// </summary>
-	sealed class Terrain : Entity
+	sealed class Terrain
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -32,6 +32,11 @@ namespace game1666proto4.GameModel.Terrains
 		/// The root node of the terrain quadtree (used for picking).
 		/// </summary>
 		private QuadtreeNode m_quadtreeRoot;
+
+		/// <summary>
+		/// The properties of the terrain.
+		/// </summary>
+		private IDictionary<string,dynamic> m_properties;
 
 		#endregion
 
@@ -72,13 +77,14 @@ namespace game1666proto4.GameModel.Terrains
 		/// </summary>
 		/// <param name="entityElt">The root element of the terrain's XML representation.</param>
 		public Terrain(XElement entityElt)
-		:	base(entityElt)
 		{
+			m_properties = EntityLoader.LoadProperties(entityElt);
+
 			float[,] heightmap = null;
-			if(Properties.ContainsKey("AssetHeightmap"))
+			if(m_properties.ContainsKey("AssetHeightmap"))
 			{
 				// Load a heightmap from the specified XNA texture asset.
-				heightmap = LoadHeightmapFromAsset(Properties["AssetHeightmap"]);
+				heightmap = LoadHeightmapFromAsset(m_properties["AssetHeightmap"]);
 			}
 			else
 			{
@@ -196,8 +202,8 @@ namespace game1666proto4.GameModel.Terrains
 		private float[,] CreateHeightmapFromProperties()
 		{
 			// Look up the heightmap and required z-scaling in the properties loaded in from XML.
-			float[,] heightmap = Properties["Heightmap"];
-			float zScaling = Properties["ZScaling"];
+			float[,] heightmap = m_properties["Heightmap"];
+			float zScaling = m_properties["ZScaling"];
 
 			// Determine the dimensions of the heightmap.
 			int height = heightmap.GetLength(0);
@@ -292,7 +298,7 @@ namespace game1666proto4.GameModel.Terrains
 
 			// Create the heightmap from the heightmap data.
 			var heightmap = new float[texture.Height + 1, texture.Width + 1];
-			float zScaling = Properties["ZScaling"];
+			float zScaling = m_properties["ZScaling"];
 			int valueIndex = 0;
 			for(int y = 0; y < texture.Height; ++y)
 			{

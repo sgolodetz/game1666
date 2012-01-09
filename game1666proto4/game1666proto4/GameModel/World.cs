@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.Terrains;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel
 {
 	/// <summary>
 	/// An instance of this class represents a game world.
 	/// </summary>
-	sealed class World : PlayingArea
+	sealed class World : IPlayingArea, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -23,6 +24,11 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
 
+		/// <summary>
+		/// The properties of the world.
+		/// </summary>
+		private IDictionary<string,dynamic> m_properties;
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -31,7 +37,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The sub-entities contained within the world.
 		/// </summary>
-		protected override IEnumerable<IUpdateableEntity> Children { get { return m_cities.Values; } }
+		public IEnumerable<dynamic> Children { get { return m_cities.Values; } }
 
 		/// <summary>
 		/// The cities in the world.
@@ -41,7 +47,12 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The player's home city.
 		/// </summary>
-		public string HomeCity { get { return Properties["HomeCity"]; } }
+		public string HomeCity { get { return m_properties["HomeCity"]; } }
+
+		/// <summary>
+		/// The world's terrain.
+		/// </summary>
+		public Terrain Terrain	{ get; private set; }
 
 		#endregion
 
@@ -53,13 +64,24 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		/// <param name="entityElt">The root element of the world's XML representation.</param>
 		public World(XElement entityElt)
-		:	base(entityElt)
-		{}
+		{
+			m_properties = EntityLoader.LoadProperties(entityElt);
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
+		}
 
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Adds an entity to the world based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void AddDynamicEntity(dynamic entity)
+		{
+			AddEntity(entity);
+		}
 
 		/// <summary>
 		/// Adds a city to the world.
@@ -71,12 +93,21 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Adds an entity to the world based on its dynamic type.
+		/// Adds a terrain to the world (note that there can only be one terrain).
+		/// </summary>
+		/// <param name="terrain">The terrain.</param>
+		public void AddEntity(Terrain terrain)
+		{
+			Terrain = terrain;
+		}
+
+		/// <summary>
+		/// Adds a placeable entity to the world.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public override void AddEntityDynamic(dynamic entity)
+		public void AddPlaceableEntity(IPlaceableEntity entity)
 		{
-			AddEntity(entity);
+			AddDynamicEntity(entity);
 		}
 
 		/// <summary>
@@ -120,6 +151,18 @@ namespace game1666proto4.GameModel
 		{
 			XDocument doc = XDocument.Load(filename);
 			return new World(doc.Element("entity"));
+		}
+
+		/// <summary>
+		/// Updates the world based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public void Update(GameTime gameTime)
+		{
+			foreach(IUpdateableEntity entity in Children)
+			{
+				entity.Update(gameTime);
+			}
 		}
 
 		#endregion

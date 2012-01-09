@@ -15,15 +15,15 @@ namespace game1666proto4.UI
 	/// <summary>
 	/// An instance of this class represents a composite of visible entities in the game, e.g. a sidebar viewer.
 	/// </summary>
-	abstract class CompositeVisibleEntity : CompositeEntity<IVisibleEntity>, IVisibleEntity
+	abstract class CompositeVisibleEntity : VisibleEntity, ICompositeEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The viewport into which to draw the entity.
+		/// The sub-entities contained within the entity.
 		/// </summary>
-		public Viewport Viewport { get; protected set; }
+		public abstract IEnumerable<dynamic> Children { get; }
 
 		#endregion
 
@@ -41,20 +41,18 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		public CompositeVisibleEntity(IDictionary<string,dynamic> properties)
-		:	base(properties)
-		{}
+		{
+			Properties = properties;
+		}
 
 		/// <summary>
 		/// Constructs a composite visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
 		public CompositeVisibleEntity(XElement entityElt)
-		:	base(entityElt)
 		{
-			foreach(dynamic child in EntityLoader.LoadChildEntities(entityElt))
-			{
-				AddEntityDynamic(child);
-			}
+			Properties = EntityLoader.LoadProperties(entityElt);
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
@@ -63,9 +61,18 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
+		/// Adds an entity to the composite based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public virtual void AddDynamicEntity(dynamic entity)
+		{
+			// No-op
+		}
+
+		/// <summary>
 		/// Draws the entity.
 		/// </summary>
-		public virtual void Draw()
+		public override void Draw()
 		{
 			foreach(IVisibleEntity entity in Children)
 			{
@@ -77,7 +84,7 @@ namespace game1666proto4.UI
 		/// Handles mouse moved events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		public virtual void OnMouseMoved(MouseState state)
+		public override void OnMouseMoved(MouseState state)
 		{
 			foreach(IVisibleEntity entity in Children)
 			{
@@ -92,7 +99,7 @@ namespace game1666proto4.UI
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		public virtual void OnMousePressed(MouseState state)
+		public override void OnMousePressed(MouseState state)
 		{
 			foreach(IVisibleEntity entity in Children)
 			{
@@ -107,7 +114,7 @@ namespace game1666proto4.UI
 		/// Updates the entity based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		public virtual void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime)
 		{
 			foreach(IVisibleEntity entity in Children)
 			{

@@ -15,7 +15,7 @@ namespace game1666proto4.GameModel.Blueprints
 	/// <summary>
 	/// An instance of this class represents the 'footprint' of an entity.
 	/// </summary>
-	sealed class Footprint : Entity
+	sealed class Footprint
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -24,6 +24,11 @@ namespace game1666proto4.GameModel.Blueprints
 		/// The locations of the entrances to the entity, e.g. the doors into a building.
 		/// </summary>
 		private readonly IList<Vector2i> m_entrances = new List<Vector2i>();
+
+		/// <summary>
+		/// The properties of the footprint.
+		/// </summary>
+		private IDictionary<string,dynamic> m_properties;
 
 		#endregion
 
@@ -56,8 +61,8 @@ namespace game1666proto4.GameModel.Blueprints
 		/// </summary>
 		/// <param name="entityElt">The root element of the footprint's XML representation.</param>
 		public Footprint(XElement entityElt)
-		:	base(entityElt)
 		{
+			m_properties = EntityLoader.LoadProperties(entityElt);
 			Initialise();
 		}
 
@@ -67,8 +72,8 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <param name="properties">The properties of the footprint.</param>
 		/// <param name="rotations">The number of anti-clockwise 90 degree rotations to perform on the footprint.</param>
 		private Footprint(IDictionary<string,dynamic> properties, int rotations)
-		:	base(properties)
 		{
+			m_properties = properties;
 			Initialise(rotations % 4);
 		}
 
@@ -141,7 +146,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <returns>The clone.</returns>
 		public Footprint Rotated(int rotations)
 		{
-			return new Footprint(new Dictionary<string,dynamic>(Properties), rotations);
+			return new Footprint(new Dictionary<string,dynamic>(m_properties), rotations);
 		}
 
 		#endregion
@@ -158,12 +163,12 @@ namespace game1666proto4.GameModel.Blueprints
 			// Perform the specified number of rotations on the footprint.
 			for(int i = 0; i < rotations; ++i)
 			{
-				int patternHeight = Properties["Pattern"].GetLength(0);
-				Properties["Hotspot"] = RotateHotspot(Properties["Hotspot"], patternHeight);
-				Properties["Pattern"] = RotatePattern(Properties["Pattern"]);
+				int patternHeight = m_properties["Pattern"].GetLength(0);
+				m_properties["Hotspot"] = RotateHotspot(m_properties["Hotspot"], patternHeight);
+				m_properties["Pattern"] = RotatePattern(m_properties["Pattern"]);
 			}
 
-			Hotspot = Properties["Hotspot"];
+			Hotspot = m_properties["Hotspot"];
 
 			/*
 			The footprint pattern specifies which squares are occupied by the entity and where the entrances are:
@@ -171,7 +176,7 @@ namespace game1666proto4.GameModel.Blueprints
 			- 1 means that the square is occupied by the entity, but not an entrance
 			- 2 means that the square is an entrance
 			*/
-			int[,] pattern = Properties["Pattern"];
+			int[,] pattern = m_properties["Pattern"];
 			int height = pattern.GetLength(0);
 			int width = pattern.GetLength(1);
 

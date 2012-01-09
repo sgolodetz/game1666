@@ -1,6 +1,6 @@
 ﻿/***
  * game1666proto4: EntityLoader.cs
- * Copyright 2011. All rights reserved.
+ * Copyright 2012. All rights reserved.
  ***/
 
 using System;
@@ -24,11 +24,23 @@ namespace game1666proto4.Common.Entities
 		#region
 
 		/// <summary>
-		/// Loads the children of an entity from XML.
+		/// Loads the children of a composite entity from XML and adds them to the composite.
 		/// </summary>
-		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		/// <returns>The loaded children.</returns>
-		public static List<dynamic> LoadChildEntities(XElement entityElt)
+		/// <param name="composite">The composite entity.</param>
+		/// <param name="entityElt">The root element of the composite entity's XML representation.</param>
+		public static void LoadAndAddChildEntities(ICompositeEntity composite, XElement entityElt)
+		{
+			foreach(var child in LoadChildEntities(entityElt))
+			{
+				composite.AddDynamicEntity(child);
+			}
+		}
+
+		/// <summary>
+		/// Loads the children of a composite entity from XML.
+		/// </summary>
+		/// <param name="entityElt">The root element of the composite entity's XML representation.</param>
+		public static IEnumerable<dynamic> LoadChildEntities(XElement entityElt)
 		{
 			var children = new List<dynamic>();
 
