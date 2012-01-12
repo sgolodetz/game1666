@@ -165,14 +165,15 @@ namespace game1666proto4.GameModel.Terrains
 		}
 
 		/// <summary>
-		/// Marks a set of grid squares as occupied.
+		/// Marks a set of grid squares as occupied/unoccupied.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares to mark.</param>
-		public void MarkOccupied(IEnumerable<Vector2i> gridSquares)
+		/// <param name="occupied">Whether or not the grid squares are now occupied.</param>
+		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, bool occupied)
 		{
 			foreach(Vector2i s in gridSquares)
 			{
-				m_occupancy[s.Y, s.X] = true;
+				m_occupancy[s.Y, s.X] = occupied;
 			}
 		}
 

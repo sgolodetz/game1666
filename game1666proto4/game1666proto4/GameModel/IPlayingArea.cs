@@ -32,6 +32,12 @@ namespace game1666proto4.GameModel
 		/// <param name="entity">The entity to add.</param>
 		void AddPlaceableEntity(IPlaceableEntity entity);
 
+		/// <summary>
+		/// Deletes a placeable entity from the playing area.
+		/// </summary>
+		/// <param name="entity">The entity to delete.</param>
+		void DeletePlaceableEntity(IPlaceableEntity entity);
+
 		#endregion
 	}
 }

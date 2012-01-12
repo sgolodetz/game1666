@@ -111,6 +111,33 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
+		/// Deletes an entity from the world based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeleteDynamicEntity(dynamic entity)
+		{
+			DeleteEntity(entity);
+		}
+
+		/// <summary>
+		/// Deletes a city from the world.
+		/// </summary>
+		/// <param name="city">The city.</param>
+		public void DeleteEntity(City city)
+		{
+			m_cities.Remove(city.Name);
+		}
+
+		/// <summary>
+		/// Deletes a placeable entity from the world.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeletePlaceableEntity(IPlaceableEntity entity)
+		{
+			DeleteDynamicEntity(entity);
+		}
+
+		/// <summary>
 		/// Gets the city (if any) with the specified name.
 		/// </summary>
 		/// <param name="name">The name of the city.</param>

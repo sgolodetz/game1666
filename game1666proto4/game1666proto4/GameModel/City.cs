@@ -151,12 +151,13 @@ namespace game1666proto4.GameModel
 		public void AddEntity(Building building)
 		{
 			m_buildings.Add(building);
+
 			Terrain.MarkOccupied(building.PlacementStrategy.Place(
 				Terrain,
 				building.Blueprint.Footprint,
 				building.Position,
 				building.Orientation
-			));
+			), true);
 		}
 
 		/// <summary>
@@ -194,6 +195,40 @@ namespace game1666proto4.GameModel
 		public IPlaceableEntity CloneNew()
 		{
 			return new City(m_properties, EntityStateID.IN_CONSTRUCTION);
+		}
+
+		/// <summary>
+		/// Deletes an entity from the city based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeleteDynamicEntity(dynamic entity)
+		{
+			DeleteEntity(entity);
+		}
+
+		/// <summary>
+		/// Deletes a building from the city.
+		/// </summary>
+		/// <param name="building">The building.</param>
+		public void DeleteEntity(Building building)
+		{
+			m_buildings.Remove(building);
+
+			Terrain.MarkOccupied(building.PlacementStrategy.Place(
+				Terrain,
+				building.Blueprint.Footprint,
+				building.Position,
+				building.Orientation
+			), false);
+		}
+
+		/// <summary>
+		/// Deletes a placeable entity from the city.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeletePlaceableEntity(IPlaceableEntity entity)
+		{
+			DeleteDynamicEntity(entity);
 		}
 
 		/// <summary>

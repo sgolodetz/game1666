@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using game1666proto4.Common.Graphics;
 using game1666proto4.GameModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -77,7 +78,20 @@ namespace game1666proto4.UI.Tools
 			Vector3 dir = Vector3.Normalize(far - near);
 			var ray = new Ray(near, dir);
 
-			// TODO
+			// TEMPORARY: Switch to using bounding boxes instead.
+			Entity = null;
+			foreach(IPlaceableEntity entity in m_playingArea.Children)
+			{
+				Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
+				foreach(ModelMesh mesh in model.Meshes)
+				{
+					var boundingSphere = mesh.BoundingSphere.Transform(Matrix.CreateTranslation(new Vector3(entity.Position.X + 0.5f, entity.Position.Y + 0.5f, entity.Altitude)));
+					if(ray.Intersects(boundingSphere) != null)
+					{
+						Entity = entity;
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -91,9 +105,10 @@ namespace game1666proto4.UI.Tools
 		/// <returns>The tool that should be active after the mouse press (generally this or null).</returns>
 		public ITool OnMousePressed(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld)
 		{
-			if(state.LeftButton == ButtonState.Pressed)
+			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				// TODO
+				// TEMPORARY: Entities should be removed over time, not instantaneously.
+				m_playingArea.DeletePlaceableEntity(Entity);
 			}
 			return this;
 		}
