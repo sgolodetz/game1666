@@ -337,7 +337,12 @@ namespace game1666proto4.UI
 
 			// Create the button specifiers.
 			var buttonSpecifiers = new List<ButtonSpecifier>();
-			// TODO
+			buttonSpecifiers.Add(new ButtonSpecifier
+			{
+				IsHighlighted = () => GameViewState.Tool != null && GameViewState.Tool.Name == "Delete",
+				MousePressedHook    = state => GameViewState.Tool = new EntityDeletionTool(m_playingArea),
+				TextureName			= "sidebarelement_Delete"
+			});
 
 			// Create the buttons themselves.
 			m_elementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
