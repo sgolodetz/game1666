@@ -214,6 +214,7 @@
     <Compile Include="UI\PlayingAreaViewer.cs" />
     <Compile Include="UI\SidebarViewer.cs" />
     <Compile Include="UI\GameView.cs" />
+    <Compile Include="UI\Tools\ToolUtil.cs" />
     <Compile Include="UI\ViewHierarchy.cs" />
     <Compile Include="UI\VisibleEntity.cs" />
   </ItemGroup>

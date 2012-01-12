@@ -68,15 +68,8 @@ namespace game1666proto4.UI.Tools
 		/// <param name="matWorld">The current world matrix in that viewer.</param>
 		public void OnMouseMoved(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld)
 		{
-			// Find the point we're hovering over on the near clipping plane.
-			Vector3 near = viewport.Unproject(new Vector3(state.X, state.Y, 0), matProjection, matView, matWorld);
-
-			// Find the point we're hovering over on the far clipping plane.
-			Vector3 far = viewport.Unproject(new Vector3(state.X, state.Y, 1), matProjection, matView, matWorld);
-
-			// Find the ray (in world space) between them.
-			Vector3 dir = Vector3.Normalize(far - near);
-			var ray = new Ray(near, dir);
+			// Determine the 3D world space ray corresponding to the location of the user's mouse in the viewport.
+			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// TEMPORARY: Switch to using bounding boxes instead.
 			Entity = null;
