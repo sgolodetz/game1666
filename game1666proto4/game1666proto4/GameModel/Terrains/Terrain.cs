@@ -29,11 +29,6 @@ namespace game1666proto4.GameModel.Terrains
 		private bool[,] m_occupancy;
 
 		/// <summary>
-		/// The root node of the terrain quadtree (used for picking).
-		/// </summary>
-		private QuadtreeNode m_quadtreeRoot;
-
-		/// <summary>
 		/// The properties of the terrain.
 		/// </summary>
 		private readonly IDictionary<string,dynamic> m_properties;
@@ -52,6 +47,11 @@ namespace game1666proto4.GameModel.Terrains
 		/// The terrain's index buffer (for use when rendering the terrain).
 		/// </summary>
 		public IndexBuffer IndexBuffer { get; private set; }
+
+		/// <summary>
+		/// The root node of the terrain quadtree (used for picking).
+		/// </summary>
+		public QuadtreeNode QuadtreeRoot { get; private set; }
 
 		/// <summary>
 		/// The terrain's vertex buffer (for use when rendering the terrain).
@@ -184,9 +184,9 @@ namespace game1666proto4.GameModel.Terrains
 		/// <returns>The nearest terrain grid square hit by the specified ray (if found), or null otherwise.</returns>
 		public Vector2i? PickGridSquare(Ray ray)
 		{
-			if(ray.Intersects(m_quadtreeRoot.Bounds) != null)
+			if(ray.Intersects(QuadtreeRoot.Bounds) != null)
 			{
-				return m_quadtreeRoot.PickGridSquare(ray);
+				return QuadtreeRoot.PickGridSquare(ray);
 			}
 			else return null;
 		}
@@ -281,7 +281,7 @@ namespace game1666proto4.GameModel.Terrains
 		{
 			Heightmap = heightmap;
 			m_occupancy = new bool[heightmap.GetLength(0) - 1, heightmap.GetLength(1) - 1];
-			m_quadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
+			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
 		}
 
