@@ -24,6 +24,11 @@ namespace game1666proto4.UI.Tools
 		#region
 
 		/// <summary>
+		/// The name of the blueprint specifying the kind of entity to place.
+		/// </summary>
+		private string m_name;
+
+		/// <summary>
 		/// The orientation of the entity currently being placed (if any).
 		/// </summary>
 		private Orientation4 m_placementOrientation = Orientation4.XPOS;
@@ -44,9 +49,9 @@ namespace game1666proto4.UI.Tools
 		public IPlaceableEntity Entity { get; private set; }
 
 		/// <summary>
-		/// The name of the blueprint specifying the kind of entity to place.
+		/// The name of the tool.
 		/// </summary>
-		public string Name { get; private set; }
+		public string Name { get { return "Place:" + m_name; } }
 
 		#endregion
 
@@ -60,7 +65,7 @@ namespace game1666proto4.UI.Tools
 		/// <param name="playingArea">The playing area in which to place the entity.</param>
 		public EntityPlacementTool(string name, IPlayingArea playingArea)
 		{
-			Name = name;
+			m_name = name;
 			m_playingArea = playingArea;
 		}
 
@@ -86,10 +91,10 @@ namespace game1666proto4.UI.Tools
 			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
 
 			Entity = null;
-			if(gridSquare != null && (Name == "Dwelling" || Name == "Mansion" || Name == "Village"))
+			if(gridSquare != null && (m_name == "Dwelling" || m_name == "Mansion" || m_name == "Village"))
 			{
 				// Work out what type of entity we're trying to place.
-				Blueprint blueprint = BlueprintManager.GetBlueprint(Name);
+				Blueprint blueprint = BlueprintManager.GetBlueprint(m_name);
 				Type entityType = blueprint.EntityType;
 
 				// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
@@ -103,7 +108,7 @@ namespace game1666proto4.UI.Tools
 					// Set the properties of the entity.
 					var entityProperties = new Dictionary<string,dynamic>();
 					entityProperties["Altitude"] = altitude;
-					entityProperties["Blueprint"] = Name;
+					entityProperties["Blueprint"] = m_name;
 					entityProperties["Orientation"] = m_placementOrientation;
 					entityProperties["Position"] = gridSquare.Value;
 

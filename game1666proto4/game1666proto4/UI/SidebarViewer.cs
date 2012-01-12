@@ -294,7 +294,7 @@ namespace game1666proto4.UI
 			var buttonSpecifiers = new List<ButtonSpecifier>();
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
-				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name == element,
+				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name == "Place:" + element,
 				MousePressedHook    = state => GameViewState.Tool = new EntityPlacementTool(element, m_playingArea),
 				TextureName			= "sidebarelement_" + element
 			}));

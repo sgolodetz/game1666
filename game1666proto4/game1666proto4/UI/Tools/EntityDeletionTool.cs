@@ -35,7 +35,7 @@ namespace game1666proto4.UI.Tools
 		public IPlaceableEntity Entity { get; private set; }
 
 		/// <summary>
-		/// A name relevant to the type of tool being used.
+		/// The name of the tool.
 		/// </summary>
 		public string Name { get { return "Delete"; } }
 

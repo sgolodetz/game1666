@@ -21,7 +21,7 @@ namespace game1666proto4.UI.Tools
 		IPlaceableEntity Entity { get; }
 
 		/// <summary>
-		/// A name relevant to the type of tool being used (e.g. for entity placement tools, this would specify the relevant blueprint).
+		/// The name of the tool, e.g. "Place:Dwelling" or "Delete".
 		/// </summary>
 		string Name { get; }
 
