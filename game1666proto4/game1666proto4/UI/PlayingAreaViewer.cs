@@ -4,15 +4,14 @@
  ***/
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel;
-using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Terrains;
+using game1666proto4.UI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -96,7 +95,7 @@ namespace game1666proto4.UI
 			Renderer.Setup3D();
 			SetupMatrices();
 
-			DrawPlayingArea((dynamic)m_playingArea);
+			DrawPlayingArea(m_playingArea);
 		}
 
 		/// <summary>
@@ -203,66 +202,37 @@ namespace game1666proto4.UI
 		}
 
 		/// <summary>
-		/// Draws the playing area for a city.
+		/// Draws a playing area.
 		/// </summary>
-		/// <param name="city">The city.</param>
-		private void DrawPlayingArea(City city)
+		/// <param name="playingArea">The playing area.</param>
+		private void DrawPlayingArea(IPlayingArea playingArea)
 		{
-			// Draw the city's underlying terrain.
-			DrawTerrain(city.Terrain);
+			// Draw the playing area's underlying terrain.
+			DrawTerrain(playingArea.Terrain);
 
 			// For debugging purposes only.
-			//DrawTerrainQuadtree(city.Terrain.QuadtreeRoot);
+			//DrawTerrainQuadtree(playingArea.Terrain.QuadtreeRoot);
 
-			// Draw all the buildings in the city.
-			foreach(Building building in city.Buildings)
+			// Draw all the entities in the playing area, making sure that if one is
+			// liable to be deleted, we render it slightly transparently.
+			ITool tool = GameViewState.Tool;
+			foreach(IPlaceableEntity entity in playingArea.Children)
 			{
-				DrawPlaceableEntity(building);
+				float alpha = tool != null && tool.Name == "Delete" && entity == tool.Entity ? 0.35f : 1f;
+				DrawPlaceableEntity(entity, alpha);
 			}
 
-			// Draw the entity associated with the active tool (if any).
-			if(GameViewState.Tool != null && GameViewState.Tool.Entity != null)
+			// Draw the entity (if any) associated with the active tool if we're placing an entity.
+			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
-				IPlaceableEntity entity = GameViewState.Tool.Entity;
+				IPlaceableEntity entity = tool.Entity;
 				float alpha = entity.PlacementStrategy.IsValidlyPlaced(
 					m_playingArea.Terrain,
 					entity.Blueprint.Footprint,
 					entity.Position,
 					entity.Orientation
 				) ? 1f : 0.35f;
-				DrawPlaceableEntity(GameViewState.Tool.Entity, alpha);
-			}
-		}
-
-		/// <summary>
-		/// Draws the playing area for the world.
-		/// </summary>
-		/// <param name="world">The world.</param>
-		private void DrawPlayingArea(World world)
-		{
-			// Draw the world's underlying terrain.
-			DrawTerrain(world.Terrain);
-
-			// For debugging purposes only.
-			//DrawTerrainQuadtree(world.Terrain.QuadtreeRoot);
-
-			// Draw all the cities in the world.
-			foreach(City city in world.Cities)
-			{
-				DrawPlaceableEntity(city);
-			}
-
-			// Draw the entity associated with the active tool (if any).
-			if(GameViewState.Tool != null && GameViewState.Tool.Entity != null)
-			{
-				IPlaceableEntity entity = GameViewState.Tool.Entity;
-				float alpha = entity.PlacementStrategy.IsValidlyPlaced(
-					m_playingArea.Terrain,
-					entity.Blueprint.Footprint,
-					entity.Position,
-					entity.Orientation
-				) ? 1f : 0.35f;
-				DrawPlaceableEntity(GameViewState.Tool.Entity, alpha);
+				DrawPlaceableEntity(entity, alpha);
 			}
 		}
 
