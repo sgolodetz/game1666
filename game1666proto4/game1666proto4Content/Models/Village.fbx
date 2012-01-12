@@ -1762,7 +1762,7 @@ Objects:  {
 		}
 		UseMipMap: 0
 		Filename: "model_Dwelling.png"
-		RelativeFilename: "C:\Documents and Settings\Stuart\My Documents\Visual Studio 2010\Projects\game1666\game1666proto4\game1666proto4Content\Models\fbx\model_Dwelling.png"
+		RelativeFilename: "fbx/model_Dwelling.png"
 	}
 	Texture: "Texture::model_Dwelling_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
@@ -1787,7 +1787,7 @@ Objects:  {
 		}
 		Media: "Video::model_Dwelling_png"
 		FileName: "model_Dwelling.png"
-		RelativeFilename: "C:\Documents and Settings\Stuart\My Documents\Visual Studio 2010\Projects\game1666\game1666proto4\game1666proto4Content\Models\fbx\model_Dwelling.png"
+		RelativeFilename: "fbx/model_Dwelling.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
