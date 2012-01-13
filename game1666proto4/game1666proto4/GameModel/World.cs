@@ -120,12 +120,15 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Deletes a city from the world.
+		/// Deletes a city from the world (provided it is not the player's home city, which must always exist).
 		/// </summary>
 		/// <param name="city">The city.</param>
 		public void DeleteEntity(City city)
 		{
-			m_cities.Remove(city.Name);
+			if(city.Name != HomeCity)
+			{
+				m_cities.Remove(city.Name);
+			}
 		}
 
 		/// <summary>
