@@ -130,7 +130,7 @@ namespace game1666proto4.UI
 		/// <param name="viewport">The viewport.</param>
 		/// <param name="x">The x coordinate of the point.</param>
 		/// <param name="y">The y coordinate of the point.</param>
-		/// <returns>true, if the viewport contains the point, or false otherwise</returns>
+		/// <returns>true, if the viewport contains the point, or false otherwise.</returns>
 		private static bool ViewportContains(Viewport viewport, int x, int y)
 		{
 			return viewport.Bounds.Left <= x && x < viewport.Bounds.Right &&

@@ -134,6 +134,7 @@ namespace game1666proto4.Common.FSMs
 		/// <summary>
 		/// Adds a new transition out of the specified state.
 		/// </summary>
+		/// <typeparam name="State">The type of starting state for the transition.</typeparam>
 		/// <param name="fromStateID">The starting state for the transition.</param>
 		/// <param name="transition">The transition.</param>
 		protected void AddTransition<State>(StateID fromStateID, Transition<State> transition)

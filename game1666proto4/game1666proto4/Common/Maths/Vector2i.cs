@@ -60,7 +60,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="lhs">The left-hand operand of the addition.</param>
 		/// <param name="rhs">The right-hand operand of the addition.</param>
-		/// <returns>lhs + rhs</returns>
+		/// <returns>The result of lhs + rhs.</returns>
 		public static Vector2i operator+(Vector2i lhs, Vector2i rhs)
 		{
 			return new Vector2i(lhs.X + rhs.X, lhs.Y + rhs.Y);
@@ -70,7 +70,7 @@ namespace game1666proto4.Common.Maths
 		/// Returns the negation of a vector.
 		/// </summary>
 		/// <param name="v">The vector.</param>
-		/// <returns>-v</returns>
+		/// <returns>The result of -v.</returns>
 		public static Vector2i operator-(Vector2i v)
 		{
 			return new Vector2i(-v.X, -v.Y);
@@ -81,7 +81,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="lhs">The left-hand operand of the subtraction.</param>
 		/// <param name="rhs">The right-hand operand of the subtraction.</param>
-		/// <returns>lhs - rhs</returns>
+		/// <returns>The result of lhs - rhs.</returns>
 		public static Vector2i operator-(Vector2i lhs, Vector2i rhs)
 		{
 			return new Vector2i(lhs.X - rhs.X, lhs.Y - rhs.Y);
@@ -92,7 +92,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="scaleFactor">The factor by which to scale the vector.</param>
 		/// <param name="v">The vector.</param>
-		/// <returns>v * scaleFactor</returns>
+		/// <returns>The result of v * scaleFactor.</returns>
 		public static Vector2i operator*(int scaleFactor, Vector2i v)
 		{
 			return new Vector2i(v.X * scaleFactor, v.Y * scaleFactor);
@@ -103,7 +103,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="v">The vector.</param>
 		/// <param name="scaleFactor">The factor by which to scale the vector.</param>
-		/// <returns>v * scaleFactor</returns>
+		/// <returns>The result of v * scaleFactor.</returns>
 		public static Vector2i operator*(Vector2i v, int scaleFactor)
 		{
 			return new Vector2i(v.X * scaleFactor, v.Y * scaleFactor);
@@ -114,7 +114,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="v">The vector.</param>
 		/// <param name="divideFactor">The factor by which to divide the vector.</param>
-		/// <returns>v `div` divideFactor</returns>
+		/// <returns>The result of v `div` divideFactor.</returns>
 		public static Vector2i operator/(Vector2i v, int divideFactor)
 		{
 			return new Vector2i(v.X / divideFactor, v.Y / divideFactor);
@@ -125,7 +125,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="lhs">The left-hand operand of the comparison.</param>
 		/// <param name="rhs">The right-hand operand of the comparison.</param>
-		/// <returns>true, if the two vectors are equal, or false otherwise</returns>
+		/// <returns>true, if the two vectors are equal, or false otherwise.</returns>
 		public static bool operator==(Vector2i lhs, Vector2i rhs)
 		{
 			return lhs.Equals(rhs);
@@ -136,7 +136,7 @@ namespace game1666proto4.Common.Maths
 		/// </summary>
 		/// <param name="lhs">The left-hand operand of the comparison.</param>
 		/// <param name="rhs">The right-hand operand of the comparison.</param>
-		/// <returns>true, if the two vectors are unequal, or false otherwise</returns>
+		/// <returns>true, if the two vectors are unequal, or false otherwise.</returns>
 		public static bool operator!=(Vector2i lhs, Vector2i rhs)
 		{
 			return !lhs.Equals(rhs);
@@ -151,7 +151,7 @@ namespace game1666proto4.Common.Maths
 		/// Tests whether or not this vector is equal to another object.
 		/// </summary>
 		/// <param name="rhs">The other object.</param>
-		/// <returns>true, if the other object is a vector equal to this one, or false otherwise</returns>
+		/// <returns>true, if the other object is a vector equal to this one, or false otherwise.</returns>
 		public override bool Equals(object rhs)
 		{
 			if(rhs is Vector2i) return Equals((Vector2i)rhs);
@@ -162,7 +162,7 @@ namespace game1666proto4.Common.Maths
 		/// Tests whether or not this vector is equal to another one.
 		/// </summary>
 		/// <param name="rhs">The other vector.</param>
-		/// <returns>true, if the two vectors are equal, or false otherwise</returns>
+		/// <returns>true, if the two vectors are equal, or false otherwise.</returns>
 		public bool Equals(Vector2i rhs)
 		{
 			return X == rhs.X && Y == rhs.Y;
@@ -171,7 +171,7 @@ namespace game1666proto4.Common.Maths
 		/// <summary>
 		/// Returns the hash code for this vector.
 		/// </summary>
-		/// <returns>The hash code for this vector</returns>
+		/// <returns>The hash code for this vector.</returns>
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();

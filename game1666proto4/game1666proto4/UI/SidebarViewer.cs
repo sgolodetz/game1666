@@ -99,7 +99,7 @@ namespace game1666proto4.UI
 			/// The name of the texture to use when drawing the button.
 			/// </summary>
 			public string TextureName { get; set; }
-		};
+		}
 
 		#endregion
 

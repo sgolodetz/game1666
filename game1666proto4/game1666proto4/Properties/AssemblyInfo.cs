@@ -38,4 +38,4 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 
 // Make the assembly's internals visible to its test project.
-[assembly:InternalsVisibleTo("game1666proto4Test")]
+[assembly: InternalsVisibleTo("game1666proto4Test")]

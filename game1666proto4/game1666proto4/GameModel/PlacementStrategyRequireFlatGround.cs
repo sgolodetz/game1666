@@ -28,7 +28,7 @@ namespace game1666proto4.GameModel
 		/// <param name="footprint">The entity's footprint.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The entity's orientation.</param>
-		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise</returns>
+		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise.</returns>
 		public override IEnumerable<Vector2i> Place(Terrain terrain, Footprint footprint, Vector2i position, Orientation4 orientation)
 		{
 			footprint = footprint.Rotated((int)orientation);

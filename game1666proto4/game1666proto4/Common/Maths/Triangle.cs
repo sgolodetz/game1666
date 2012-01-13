@@ -84,7 +84,7 @@ namespace game1666proto4.Common.Maths
 		/// Tests whether the specified point (in the plane of the triangle) is actually within the triangle.
 		/// </summary>
 		/// <param name="p">The point.</param>
-		/// <returns>true, if the point is within the triangle, or false otherwise</returns>
+		/// <returns>true, if the point is within the triangle, or false otherwise.</returns>
 		public bool Contains(Vector3 p)
 		{
 			// Make sure that the point is in the triangle's plane.

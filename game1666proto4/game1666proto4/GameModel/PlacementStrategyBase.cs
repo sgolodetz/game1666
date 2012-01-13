@@ -29,7 +29,7 @@ namespace game1666proto4.GameModel
 		/// <param name="footprint">The entity's footprint.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The entity's orientation.</param>
-		/// <returns>true, if the entity can be validly placed, or false otherwise</returns>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
 		public bool IsValidlyPlaced(Terrain terrain, Footprint footprint, Vector2i position, Orientation4 orientation)
 		{
 			IEnumerable<Vector2i> gridSquares = Place(terrain, footprint, position, orientation);
@@ -44,7 +44,7 @@ namespace game1666proto4.GameModel
 		/// <param name="footprint">The entity's footprint.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The entity's orientation.</param>
-		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise</returns>
+		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise.</returns>
 		public abstract IEnumerable<Vector2i> Place(Terrain terrain, Footprint footprint, Vector2i position, Orientation4 orientation);
 
 		#endregion

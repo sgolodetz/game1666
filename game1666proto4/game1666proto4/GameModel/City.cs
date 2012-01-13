@@ -152,12 +152,15 @@ namespace game1666proto4.GameModel
 		{
 			m_buildings.Add(building);
 
-			Terrain.MarkOccupied(building.PlacementStrategy.Place(
-				Terrain,
-				building.Blueprint.Footprint,
-				building.Position,
-				building.Orientation
-			), true);
+			Terrain.MarkOccupied(
+				building.PlacementStrategy.Place(
+					Terrain,
+					building.Blueprint.Footprint,
+					building.Position,
+					building.Orientation
+				),
+				true
+			);
 		}
 
 		/// <summary>
@@ -214,12 +217,15 @@ namespace game1666proto4.GameModel
 		{
 			m_buildings.Remove(building);
 
-			Terrain.MarkOccupied(building.PlacementStrategy.Place(
-				Terrain,
-				building.Blueprint.Footprint,
-				building.Position,
-				building.Orientation
-			), false);
+			Terrain.MarkOccupied(
+				building.PlacementStrategy.Place(
+					Terrain,
+					building.Blueprint.Footprint,
+					building.Position,
+					building.Orientation
+				),
+				false
+			);
 		}
 
 		/// <summary>

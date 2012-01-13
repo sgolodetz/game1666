@@ -88,7 +88,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// </summary>
 		/// <param name="hotspotPosition">The position (on the terrain) to place the footprint's hotspot.</param>
 		/// <param name="terrain">The terrain.</param>
-		/// <returns>The average altitude of the footprint, if the footprint is within bounds, or null otherwise</returns>
+		/// <returns>The average altitude of the footprint, if the footprint is within bounds, or null otherwise.</returns>
 		public float? DetermineAverageAltitude(Vector2i hotspotPosition, Terrain terrain)
 		{
 			IEnumerable<Vector2i> gridSquares = OverlaidGridSquares(hotspotPosition, terrain, true);
@@ -109,7 +109,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <param name="hotspotPosition">The position (on the terrain) to place the footprint's hotspot.</param>
 		/// <param name="terrain">The terrain.</param>
 		/// <param name="useOccupancy">Whether or not to take footprint occupancy into account.</param>
-		/// <returns>A set of overlaid grid squares, if the footprint is within bounds, or null otherwise</returns>
+		/// <returns>A set of overlaid grid squares, if the footprint is within bounds, or null otherwise.</returns>
 		public IEnumerable<Vector2i> OverlaidGridSquares(Vector2i hotspotPosition, Terrain terrain, bool useOccupancy)
 		{
 			Vector2i offset = hotspotPosition - Hotspot;

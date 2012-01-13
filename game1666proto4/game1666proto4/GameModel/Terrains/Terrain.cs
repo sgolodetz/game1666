@@ -105,7 +105,7 @@ namespace game1666proto4.GameModel.Terrains
 		/// Checks whether or not any of the specified grid squares are occupied.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares to check.</param>
-		/// <returns>true, if any of the grid squares are occupied, or false otherwise</returns>
+		/// <returns>true, if any of the grid squares are occupied, or false otherwise.</returns>
 		public bool AreOccupied(IEnumerable<Vector2i> gridSquares)
 		{
 			return gridSquares.Any(s => m_occupancy[s.Y, s.X]);

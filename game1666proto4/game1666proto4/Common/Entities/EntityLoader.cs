@@ -40,6 +40,7 @@ namespace game1666proto4.Common.Entities
 		/// Loads the children of a composite entity from XML.
 		/// </summary>
 		/// <param name="entityElt">The root element of the composite entity's XML representation.</param>
+		/// <returns>The children of the composite entity.</returns>
 		public static IEnumerable<dynamic> LoadChildEntities(XElement entityElt)
 		{
 			var children = new List<dynamic>();
