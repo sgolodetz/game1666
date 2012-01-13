@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4
+namespace game1666proto4.UI.Tools
 {
 	/// <summary>
 	/// This class provides utility methods that can be used by the various tools.
