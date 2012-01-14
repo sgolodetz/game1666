@@ -18,6 +18,18 @@ namespace game1666proto4.Common.Maths
 		#region
 
 		/// <summary>
+		/// Returns a normalized copy of the specified Vector3.
+		/// </summary>
+		/// <param name="v">The input vector.</param>
+		/// <returns>A normalized copy of the vector.</returns>
+		public static Vector3 Normalized(this Vector3 v)
+		{
+			Vector3 copy = v;
+			copy.Normalize();
+			return copy;
+		}
+
+		/// <summary>
 		/// Rotates vector v anticlockwise about the specified axis by the specified angle (in degrees).
 		/// </summary>
 		/// <param name="v">The vector to rotate about the axis.</param>

@@ -35,9 +35,7 @@ namespace game1666proto4Test.Common.Maths
 				var v1 = new Vector3(0, 2, 0);
 				var v2 = new Vector3(2, 0, 2);
 				var triangle = new Triangle(v0, v1, v2);
-				var desiredNormal = new Vector3(1, 1, 0);
-				desiredNormal.Normalize();
-				Assert.Equal(triangle.Normal, desiredNormal);
+				Assert.Equal(triangle.Normal, new Vector3(1, 1, 0).Normalized());
 			}
 
 			// A degenerate triangle
