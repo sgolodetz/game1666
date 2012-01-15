@@ -19,7 +19,7 @@ namespace game1666proto4.Common.Communication
 		/// <param name="source">The source in which we're interested.</param>
 		/// <param name="action">The action to take when the source posts a message.</param>
 		/// <returns>The message rule.</returns>
-		public static MessageRule<T> ForSource<T>(dynamic source, Action<T> action)
+		public static MessageRule<T> FromSource<T>(dynamic source, Action<T> action)
 		{
 			return new MessageRule<T>
 			{
