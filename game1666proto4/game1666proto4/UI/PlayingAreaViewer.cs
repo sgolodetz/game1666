@@ -190,8 +190,8 @@ namespace game1666proto4.UI
 				matWorld = Matrix.Multiply(matRot, matWorld);
 			}
 
-			// If the entity is still being constructed, scale the model based on the current state of completion.
-			if(entity.FSM.CurrentStateID == EntityStateID.IN_CONSTRUCTION)
+			// If the entity is being constructed or destructed, scale the model based on the current state of completion.
+			if(entity.FSM.CurrentStateID == EntityStateID.IN_CONSTRUCTION || entity.FSM.CurrentStateID == EntityStateID.IN_DESTRUCTION)
 			{
 				Matrix matScale = Matrix.CreateScale(1, 1, entity.FSM.CurrentState.PercentComplete / 100f);
 				matWorld = Matrix.Multiply(matScale, matWorld);

@@ -68,8 +68,9 @@ namespace game1666proto4.GameModel.FSMs
 		private void Initialise()
 		{
 			// Add the necessary states.
-			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState(Properties["TimeElapsed"]));
+			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState(Properties));
 			AddState(EntityStateID.OPERATING, new EntityOperatingState());
+			AddState(EntityStateID.IN_DESTRUCTION, new EntityInDestructionState(Properties));
 
 			// Add the necessary transitions.
 			AddTransition(

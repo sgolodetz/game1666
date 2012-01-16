@@ -5,6 +5,7 @@
 
 using game1666proto4.Common.Graphics;
 using game1666proto4.GameModel;
+using game1666proto4.GameModel.FSMs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -100,8 +101,7 @@ namespace game1666proto4.UI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				// TEMPORARY: Entities should be removed over time, not instantaneously.
-				m_playingArea.DeletePlaceableEntity(Entity);
+				Entity.FSM.ForceState(EntityStateID.IN_DESTRUCTION);
 			}
 			return this;
 		}

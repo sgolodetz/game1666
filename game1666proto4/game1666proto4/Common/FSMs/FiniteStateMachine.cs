@@ -91,6 +91,15 @@ namespace game1666proto4.Common.FSMs
 		#region
 
 		/// <summary>
+		/// Forces the FSM into a particular state.
+		/// </summary>
+		/// <param name="stateID">The ID of the state into which to force the FSM.</param>
+		public void ForceState(StateID stateID)
+		{
+			CurrentStateID = stateID;
+		}
+
+		/// <summary>
 		/// Updates the finite state machine based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>

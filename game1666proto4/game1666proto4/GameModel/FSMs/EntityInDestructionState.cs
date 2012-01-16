@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityInConstructionState.cs
+ * game1666proto4: EntityInDestructionState.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
-	/// A state representing a time in which the entity is being constructed.
+	/// A state representing a time in which the entity is being destructed.
 	/// </summary>
-	sealed class EntityInConstructionState : IFSMState<EntityStateID>
+	sealed class EntityInDestructionState : IFSMState<EntityStateID>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -25,7 +25,7 @@ namespace game1666proto4.GameModel.FSMs
 		private int ConstructionDone
 		{
 			get	{ return m_fsmProperties["ConstructionDone"]; }
-			set	{ m_fsmProperties["ConstructionDone"] = Math.Min(value, m_timeToConstruct); }
+			set	{ m_fsmProperties["ConstructionDone"] = Math.Max(value, 0); }
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace game1666proto4.GameModel.FSMs
 		/// <summary>
 		/// The ID of the state.
 		/// </summary>
-		public EntityStateID ID { get { return EntityStateID.IN_CONSTRUCTION; } }
+		public EntityStateID ID { get { return EntityStateID.IN_DESTRUCTION; } }
 
 		/// <summary>
 		/// The completeness percentage of the entity.
@@ -71,10 +71,10 @@ namespace game1666proto4.GameModel.FSMs
 		#region
 
 		/// <summary>
-		/// Constructs a new 'entity in construction' state.
+		/// Constructs a new 'entity in destruction' state.
 		/// </summary>
 		/// <param name="fsmProperties">The properties of the FSM that contains this state.</param>
-		public EntityInConstructionState(IDictionary<string,dynamic> fsmProperties)
+		public EntityInDestructionState(IDictionary<string,dynamic> fsmProperties)
 		{
 			m_fsmProperties = fsmProperties;
 		}
@@ -90,7 +90,12 @@ namespace game1666proto4.GameModel.FSMs
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			ConstructionDone += gameTime.ElapsedGameTime.Milliseconds;
+			ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
+			if(ConstructionDone == 0)
+			{
+				Console.WriteLine("Signaling destruction");
+				// TODO
+			}
 		}
 
 		#endregion

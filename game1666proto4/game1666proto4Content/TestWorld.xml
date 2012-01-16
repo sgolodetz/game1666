@@ -12,8 +12,8 @@
     <property name="Orientation" type="Orientation4" value="XPOS"/>
     <property name="Position" type="Vector2i" value="50,30"/>
     <entity type="GameModel.FSMs.EntityFSM">
+      <property name="ConstructionDone" type="int" value="10000"/>
       <property name="CurrentStateID" type="string" value="OPERATING"/>
-      <property name="TimeElapsed" type="int" value="10000"/>
     </entity>
     <entity type="GameModel.Terrains.Terrain">
       <property name="ZScaling" type="float" value="0.25"/>
@@ -32,8 +32,8 @@
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="1,0"/>
       <entity type="GameModel.FSMs.EntityFSM">
+        <property name="ConstructionDone" type="int" value="1000"/>
         <property name="CurrentStateID" type="string" value="OPERATING"/>
-        <property name="TimeElapsed" type="int" value="1000"/>
       </entity>
     </entity>
   </entity>

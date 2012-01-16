@@ -170,6 +170,7 @@
     <Compile Include="Common\Communication\MessageSystem.cs" />
     <Compile Include="Common\Entities\EntityLoader.cs" />
     <Compile Include="Common\Entities\ICompositeEntity.cs" />
+    <Compile Include="GameModel\FSMs\EntityInDestructionState.cs" />
     <Compile Include="GameModel\IPlaceableEntity.cs" />
     <Compile Include="GameModel\IPlacementStrategy.cs" />
     <Compile Include="GameModel\IPlayingArea.cs" />

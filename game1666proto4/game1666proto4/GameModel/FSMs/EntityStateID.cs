@@ -11,6 +11,7 @@ namespace game1666proto4.GameModel.FSMs
 	enum EntityStateID
 	{
 		IN_CONSTRUCTION,
+		IN_DESTRUCTION,
 		OPERATING
 	}
 }

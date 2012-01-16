@@ -79,8 +79,8 @@ namespace game1666proto4.GameModel
 
 			// Construct and add the building's finite state machine.
 			var fsmProperties = new Dictionary<string,dynamic>();
+			fsmProperties["ConstructionDone"] = 0;	// this is a new building, so no construction has yet started
 			fsmProperties["CurrentStateID"] = initialStateID.ToString();
-			fsmProperties["TimeElapsed"] = 0;	// this is a new building, so no construction time has yet elapsed
 			AddEntity(new EntityFSM(fsmProperties));
 		}
 

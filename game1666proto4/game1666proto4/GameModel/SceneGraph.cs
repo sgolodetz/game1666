@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using game1666proto4.Common.Communication;
 
 namespace game1666proto4.GameModel
 {
@@ -17,6 +18,16 @@ namespace game1666proto4.GameModel
 		#region
 
 		private static World s_world;
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The scene graph's message system (for dispatching messages between game entities).
+		/// </summary>
+		public static MessageSystem MessageSystem { get; set; }
 
 		#endregion
 
