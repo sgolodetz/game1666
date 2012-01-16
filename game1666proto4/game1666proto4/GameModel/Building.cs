@@ -145,6 +145,7 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		private void Initialise()
 		{
+			Properties["Self"] = this;
 			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 

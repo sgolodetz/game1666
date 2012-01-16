@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using game1666proto4.Common.Communication;
 using game1666proto4.Common.FSMs;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Messages;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.FSMs
@@ -29,6 +31,11 @@ namespace game1666proto4.GameModel.FSMs
 		}
 
 		/// <summary>
+		/// The properties of the entity that contains the FSM.
+		/// </summary>
+		private IDictionary<string,dynamic> m_entityProperties;
+
+		/// <summary>
 		/// The properties of the FSM that contains this state.
 		/// </summary>
 		private IDictionary<string,dynamic> m_fsmProperties;
@@ -48,9 +55,15 @@ namespace game1666proto4.GameModel.FSMs
 		/// </summary>
 		public IDictionary<string,dynamic> EntityProperties
 		{
+			private get
+			{
+				return m_entityProperties;
+			}
+
 			set
 			{
-				Blueprint blueprint = BlueprintManager.GetBlueprint(value["Blueprint"]);
+				m_entityProperties = value;
+				Blueprint blueprint = BlueprintManager.GetBlueprint(m_entityProperties["Blueprint"]);
 				m_timeToConstruct = blueprint.TimeToConstruct;
 			}
 		}
@@ -93,8 +106,7 @@ namespace game1666proto4.GameModel.FSMs
 			ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 			if(ConstructionDone == 0)
 			{
-				Console.WriteLine("Signaling destruction");
-				// TODO
+				SceneGraph.MessageSystem.PostMessage(new EntityDestructionMessage(EntityProperties["Self"]));
 			}
 		}
 

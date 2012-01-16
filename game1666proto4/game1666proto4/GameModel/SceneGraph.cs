@@ -17,6 +17,7 @@ namespace game1666proto4.GameModel
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		private static MessageSystem s_messageSystem = new MessageSystem();
 		private static World s_world;
 
 		#endregion
@@ -27,7 +28,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The scene graph's message system (for dispatching messages between game entities).
 		/// </summary>
-		public static MessageSystem MessageSystem { get; set; }
+		public static MessageSystem MessageSystem { get { return s_messageSystem; } }
 
 		#endregion
 

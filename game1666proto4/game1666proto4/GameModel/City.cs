@@ -5,11 +5,13 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Communication;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Messages;
 using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 
@@ -161,6 +163,11 @@ namespace game1666proto4.GameModel
 				),
 				true
 			);
+
+			/*SceneGraph.MessageSystem.RegisterRule(MessageRuleFactory.FromSource(
+				building,
+				(EntityDestructionMessage msg) => DeleteEntity(building)
+			));*/
 		}
 
 		/// <summary>
@@ -272,6 +279,7 @@ namespace game1666proto4.GameModel
 		/// </summary>
 		private void Initialise()
 		{
+			m_properties["Self"] = this;
 			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
 		}
 
