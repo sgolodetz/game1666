@@ -24,12 +24,12 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The cities in the world.
 		/// </summary>
-		private IDictionary<string,City> m_cities = new Dictionary<string,City>();
+		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
 
 		/// <summary>
 		/// The world's playing area.
 		/// </summary>
-		private PlayingArea m_playingArea = new PlayingArea();
+		private readonly PlayingArea m_playingArea = new PlayingArea();
 
 		/// <summary>
 		/// The properties of the world.

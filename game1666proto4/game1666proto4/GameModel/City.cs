@@ -27,7 +27,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The city's playing area.
 		/// </summary>
-		private PlayingArea m_playingArea = new PlayingArea();
+		private readonly PlayingArea m_playingArea = new PlayingArea();
 
 		/// <summary>
 		/// The properties of the city.

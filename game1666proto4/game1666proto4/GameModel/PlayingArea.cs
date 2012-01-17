@@ -26,7 +26,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The message rules that have been registered by the playing area for the purpose of destructing entities.
 		/// </summary>
-		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
+		private readonly IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
 
 		#endregion
 
