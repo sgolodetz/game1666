@@ -17,6 +17,11 @@ namespace game1666proto4.Common.Communication
 		#region
 
 		/// <summary>
+		/// A queue of messages to be dispatched on request.
+		/// </summary>
+		private Queue<IMessage> m_messageQueue = new Queue<IMessage>();
+
+		/// <summary>
 		/// A set of rules that control how messages are dispatched.
 		/// </summary>
 		private ISet<MessageRule<dynamic>> m_rules = new HashSet<MessageRule<dynamic>>();
@@ -27,18 +32,31 @@ namespace game1666proto4.Common.Communication
 		#region
 
 		/// <summary>
-		/// Posts a new message to any interested parties. (Interest is determined using the dispatch rules.)
+		/// Adds a new message to the queue.
 		/// </summary>
 		/// <param name="message">The message.</param>
 		public void PostMessage(IMessage message)
 		{
-			foreach(MessageRule<dynamic> rule in m_rules)
+			m_messageQueue.Enqueue(message);
+		}
+
+		/// <summary>
+		/// Processes and clears the message queue, alerting any interested parties for each message.
+		/// (Interest is determined using the dispatch rules).
+		/// </summary>
+		public void ProcessMessageQueue()
+		{
+			foreach(IMessage message in m_messageQueue)
 			{
-				if(rule.Filter(message))
+				foreach(MessageRule<dynamic> rule in m_rules)
 				{
-					rule.Action(message);
+					if(rule.Filter(message))
+					{
+						rule.Action(message);
+					}
 				}
 			}
+			m_messageQueue.Clear();
 		}
 
 		/// <summary>

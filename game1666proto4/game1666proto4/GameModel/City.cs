@@ -164,10 +164,10 @@ namespace game1666proto4.GameModel
 				true
 			);
 
-			/*SceneGraph.MessageSystem.RegisterRule(MessageRuleFactory.FromSource(
+			SceneGraph.MessageSystem.RegisterRule(MessageRuleFactory.FromSource(
 				building,
 				(EntityDestructionMessage msg) => DeleteEntity(building)
-			));*/
+			));
 		}
 
 		/// <summary>

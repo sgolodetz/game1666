@@ -193,6 +193,8 @@ namespace game1666proto4.GameModel
 			{
 				entity.Update(gameTime);
 			}
+
+			SceneGraph.MessageSystem.ProcessMessageQueue();
 		}
 
 		#endregion

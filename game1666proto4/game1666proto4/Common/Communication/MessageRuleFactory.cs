@@ -24,7 +24,7 @@ namespace game1666proto4.Common.Communication
 			return new MessageRule<T>
 			{
 				Action = action,
-				Filter = msg => msg.GetType() == typeof(T) && msg.Source == source
+				Filter = msg => msg.GetType() == typeof(T) && msg.Source.GetType() == source.GetType() && msg.Source == source
 			};
 		}
 	}
