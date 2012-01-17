@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using game1666proto4.Common.Communication;
 
 namespace game1666proto4.GameModel
 {
