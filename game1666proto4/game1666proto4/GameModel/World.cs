@@ -98,7 +98,7 @@ namespace game1666proto4.GameModel
 		{
 			m_cities[city.Name] = city;
 
-			m_destructionRules[city] = SceneGraph.MessageSystem.RegisterRule(
+			m_destructionRules[city] = MessageSystem.RegisterRule(
 				MessageRuleFactory.FromSource(
 					city,
 					(EntityDestructionMessage msg) => DeleteEntity(city)
@@ -209,7 +209,7 @@ namespace game1666proto4.GameModel
 				entity.Update(gameTime);
 			}
 
-			SceneGraph.MessageSystem.ProcessMessageQueue();
+			MessageSystem.ProcessMessageQueue();
 		}
 
 		#endregion

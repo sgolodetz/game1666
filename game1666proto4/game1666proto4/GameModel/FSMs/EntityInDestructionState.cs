@@ -106,7 +106,7 @@ namespace game1666proto4.GameModel.FSMs
 			ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 			if(ConstructionDone == 0)
 			{
-				SceneGraph.MessageSystem.PostMessage(new EntityDestructionMessage(EntityProperties["Self"]));
+				MessageSystem.PostMessage(new EntityDestructionMessage(EntityProperties["Self"]));
 			}
 		}
 

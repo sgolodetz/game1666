@@ -9,9 +9,9 @@ using System.Collections.Generic;
 namespace game1666proto4.Common.Communication
 {
 	/// <summary>
-	/// An instance of this class represents a message system, used to dispatch messages across the game.
+	/// This class implements a message system, used to dispatch messages across the game.
 	/// </summary>
-	sealed class MessageSystem
+	static class MessageSystem
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -19,12 +19,12 @@ namespace game1666proto4.Common.Communication
 		/// <summary>
 		/// A queue of messages to be dispatched on request.
 		/// </summary>
-		private Queue<IMessage> m_messageQueue = new Queue<IMessage>();
+		private static Queue<IMessage> s_messageQueue = new Queue<IMessage>();
 
 		/// <summary>
 		/// A set of rules that control how messages are dispatched.
 		/// </summary>
-		private ISet<MessageRule<dynamic>> m_rules = new HashSet<MessageRule<dynamic>>();
+		private static ISet<MessageRule<dynamic>> s_rules = new HashSet<MessageRule<dynamic>>();
 
 		#endregion
 
@@ -35,20 +35,20 @@ namespace game1666proto4.Common.Communication
 		/// Adds a new message to the queue.
 		/// </summary>
 		/// <param name="message">The message.</param>
-		public void PostMessage(IMessage message)
+		public static void PostMessage(IMessage message)
 		{
-			m_messageQueue.Enqueue(message);
+			s_messageQueue.Enqueue(message);
 		}
 
 		/// <summary>
 		/// Processes and clears the message queue, alerting any interested parties for each message.
 		/// (Interest is determined using the dispatch rules).
 		/// </summary>
-		public void ProcessMessageQueue()
+		public static void ProcessMessageQueue()
 		{
-			foreach(IMessage message in m_messageQueue)
+			foreach(IMessage message in s_messageQueue)
 			{
-				foreach(MessageRule<dynamic> rule in m_rules)
+				foreach(MessageRule<dynamic> rule in s_rules)
 				{
 					if(rule.Filter(message))
 					{
@@ -56,7 +56,7 @@ namespace game1666proto4.Common.Communication
 					}
 				}
 			}
-			m_messageQueue.Clear();
+			s_messageQueue.Clear();
 		}
 
 		/// <summary>
@@ -66,14 +66,14 @@ namespace game1666proto4.Common.Communication
 		/// <param name="filter">A filter that determines whether or not a given message is interesting.</param>
 		/// <param name="action">An action to run on the message if it is interesting.</param>
 		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
-		public MessageRule<dynamic> RegisterRule<T>(Func<IMessage,bool> filter, Action<T> action)
+		public static MessageRule<dynamic> RegisterRule<T>(Func<IMessage,bool> filter, Action<T> action)
 		{
 			MessageRule<dynamic> rule = new MessageRule<dynamic>
 			{
 				Action = msg => action(msg),
 				Filter = msg => filter(msg)
 			};
-			m_rules.Add(rule);
+			s_rules.Add(rule);
 			return rule;
 		}
 
@@ -83,7 +83,7 @@ namespace game1666proto4.Common.Communication
 		/// <typeparam name="T">The type of message with which the rule deals.</typeparam>
 		/// <param name="rule">The rule to register.</param>
 		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
-		public MessageRule<dynamic> RegisterRule<T>(MessageRule<T> rule)
+		public static MessageRule<dynamic> RegisterRule<T>(MessageRule<T> rule)
 		{
 			return RegisterRule(rule.Filter, rule.Action);
 		}
@@ -92,9 +92,9 @@ namespace game1666proto4.Common.Communication
 		/// Unregisters a message dispatch rule.
 		/// </summary>
 		/// <param name="rule">The rule to unregister.</param>
-		public void UnregisterRule(MessageRule<dynamic> rule)
+		public static void UnregisterRule(MessageRule<dynamic> rule)
 		{
-			m_rules.Remove(rule);
+			s_rules.Remove(rule);
 		}
 
 		#endregion

@@ -169,7 +169,7 @@ namespace game1666proto4.GameModel
 				true
 			);
 
-			m_destructionRules[building] = SceneGraph.MessageSystem.RegisterRule(
+			m_destructionRules[building] = MessageSystem.RegisterRule(
 				MessageRuleFactory.FromSource(
 					building,
 					(EntityDestructionMessage msg) => DeleteEntity(building)
