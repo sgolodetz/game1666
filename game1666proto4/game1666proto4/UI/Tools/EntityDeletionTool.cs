@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System.Linq;
 using game1666proto4.Common.Graphics;
 using game1666proto4.GameModel;
 using game1666proto4.GameModel.FSMs;
@@ -74,7 +75,7 @@ namespace game1666proto4.UI.Tools
 
 			// TEMPORARY: Switch to using bounding boxes instead.
 			Entity = null;
-			foreach(IPlaceableEntity entity in m_playingArea.Children)
+			foreach(IPlaceableEntity entity in m_playingArea.Children.Where(c => c.Destructible))
 			{
 				Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
 				foreach(ModelMesh mesh in model.Meshes)

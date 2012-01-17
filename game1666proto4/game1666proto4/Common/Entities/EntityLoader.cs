@@ -78,6 +78,7 @@ namespace game1666proto4.Common.Entities
 			var parsers = new Dictionary<string,Func<string,dynamic>>();
 			parsers["Array2D[float]"] = s => ParseArray2D(s, Convert.ToSingle);
 			parsers["Array2D[int]"] = s => ParseArray2D(s, Convert.ToInt32);
+			parsers["bool"] = s => Convert.ToBoolean(s);
 			parsers["float"] = s => Convert.ToSingle(s);
 			parsers["int"] = s => Convert.ToInt32(s);
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);

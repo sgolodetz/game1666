@@ -29,6 +29,11 @@ namespace game1666proto4.GameModel
 		Blueprint Blueprint { get; }
 
 		/// <summary>
+		/// Whether or not the entity can be destroyed.
+		/// </summary>
+		bool Destructible { get; }
+
+		/// <summary>
 		/// The finite state machine for the entity.
 		/// </summary>
 		FiniteStateMachine<EntityStateID> FSM { get; }

@@ -102,11 +102,13 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Deletes a placeable entity from the playing area.
+		/// Deletes a placeable entity from the playing area (provided it's destructible).
 		/// </summary>
 		/// <param name="entity">The entity to delete.</param>
 		public void DeleteEntity(IPlaceableEntity entity)
 		{
+			if(!entity.Destructible) return;
+
 			m_children.Remove(entity.Name);
 
 			Terrain.MarkOccupied(

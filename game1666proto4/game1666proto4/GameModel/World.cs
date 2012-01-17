@@ -113,13 +113,16 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Deletes a city from the world.
+		/// Deletes a city from the world (provided that it's destructible).
 		/// </summary>
 		/// <param name="city">The city.</param>
 		public void DeleteEntity(City city)
 		{
-			m_cities.Remove(city.Name);
-			m_playingArea.DeleteEntity(city);
+			if(city.Destructible)
+			{
+				m_cities.Remove(city.Name);
+				m_playingArea.DeleteEntity(city);
+			}
 		}
 
 		/// <summary>

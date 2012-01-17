@@ -55,6 +55,18 @@ namespace game1666proto4.GameModel
 		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
+		/// Whether or not the city is destructible.
+		/// </summary>
+		public bool Destructible
+		{
+			get
+			{
+				dynamic destructible;
+				return m_properties.TryGetValue("Destructible", out destructible) ? destructible : true;
+			}
+		}
+
+		/// <summary>
 		/// The finite state machine for the city.
 		/// </summary>
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }

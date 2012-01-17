@@ -39,6 +39,18 @@ namespace game1666proto4.GameModel
 		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
 
 		/// <summary>
+		/// Whether or not the building is destructible.
+		/// </summary>
+		public bool Destructible
+		{
+			get
+			{
+				dynamic destructible;
+				return Properties.TryGetValue("Destructible", out destructible) ? destructible : true;
+			}
+		}
+
+		/// <summary>
 		/// The finite state machine for the building.
 		/// </summary>
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
