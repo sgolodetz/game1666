@@ -31,7 +31,7 @@ namespace game1666proto4.GameModel
 		private readonly List<Building> m_buildings = new List<Building>();
 
 		/// <summary>
-		/// The message rules that have been registered by this city for the purpose of destructing entities.
+		/// The message rules that have been registered by the city for the purpose of destructing entities.
 		/// </summary>
 		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
 

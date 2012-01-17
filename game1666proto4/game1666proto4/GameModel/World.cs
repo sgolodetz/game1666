@@ -5,7 +5,9 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Communication;
 using game1666proto4.Common.Entities;
+using game1666proto4.GameModel.Messages;
 using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 
@@ -23,6 +25,11 @@ namespace game1666proto4.GameModel
 		/// The cities in the game world.
 		/// </summary>
 		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
+
+		/// <summary>
+		/// The message rules that have been registered by the world for the purpose of destructing entities.
+		/// </summary>
+		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
 
 		/// <summary>
 		/// The properties of the world.
@@ -90,6 +97,13 @@ namespace game1666proto4.GameModel
 		public void AddEntity(City city)
 		{
 			m_cities[city.Name] = city;
+
+			m_destructionRules[city] = SceneGraph.MessageSystem.RegisterRule(
+				MessageRuleFactory.FromSource(
+					city,
+					(EntityDestructionMessage msg) => DeleteEntity(city)
+				)
+			);
 		}
 
 		/// <summary>
@@ -128,6 +142,7 @@ namespace game1666proto4.GameModel
 			if(city.Name != HomeCity)
 			{
 				m_cities.Remove(city.Name);
+				m_destructionRules.Remove(city);
 			}
 		}
 
