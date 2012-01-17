@@ -176,6 +176,7 @@
     <Compile Include="GameModel\IPlayingArea.cs" />
     <Compile Include="Common\Entities\IUpdateableEntity.cs" />
     <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
+    <Compile Include="GameModel\PlayingArea.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />
     <Compile Include="GameModel\PlacementStrategyBase.cs" />
     <Compile Include="GameModel\PlacementStrategyRequireFlatGround.cs" />

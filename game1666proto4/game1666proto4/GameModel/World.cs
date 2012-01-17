@@ -116,15 +116,6 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Adds a placeable entity to the world.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public void AddPlaceableEntity(IPlaceableEntity entity)
-		{
-			AddDynamicEntity(entity);
-		}
-
-		/// <summary>
 		/// Deletes an entity from the world based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
@@ -144,15 +135,6 @@ namespace game1666proto4.GameModel
 				m_cities.Remove(city.Name);
 				m_destructionRules.Remove(city);
 			}
-		}
-
-		/// <summary>
-		/// Deletes a placeable entity from the world.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public void DeletePlaceableEntity(IPlaceableEntity entity)
-		{
-			DeleteDynamicEntity(entity);
 		}
 
 		/// <summary>

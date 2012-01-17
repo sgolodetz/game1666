@@ -138,7 +138,7 @@ namespace game1666proto4.UI.Tools
 					Entity.Orientation
 				))
 				{
-					m_playingArea.AddPlaceableEntity(Entity.CloneNew());
+					m_playingArea.AddDynamicEntity(Entity.CloneNew());
 					return null;
 				}
 			}

@@ -27,16 +27,10 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
-		/// Adds a placeable entity to the playing area.
-		/// </summary>
-		/// <param name="entity">The entity to add.</param>
-		void AddPlaceableEntity(IPlaceableEntity entity);
-
-		/// <summary>
-		/// Deletes a placeable entity from the playing area.
+		/// Deletes an entity from the playing area based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity to delete.</param>
-		void DeletePlaceableEntity(IPlaceableEntity entity);
+		void DeleteDynamicEntity(dynamic entity);
 
 		#endregion
 	}

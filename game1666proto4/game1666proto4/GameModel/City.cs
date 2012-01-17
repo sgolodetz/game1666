@@ -197,15 +197,6 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Adds a placeable entity to the city.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public void AddPlaceableEntity(IPlaceableEntity entity)
-		{
-			AddDynamicEntity(entity);
-		}
-
-		/// <summary>
 		/// Makes a clone of this city that is in the 'in construction' state.
 		/// </summary>
 		/// <returns>The clone.</returns>
@@ -242,15 +233,6 @@ namespace game1666proto4.GameModel
 			);
 
 			m_destructionRules.Remove(building);
-		}
-
-		/// <summary>
-		/// Deletes a placeable entity from the city.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public void DeletePlaceableEntity(IPlaceableEntity entity)
-		{
-			DeleteDynamicEntity(entity);
 		}
 
 		/// <summary>
