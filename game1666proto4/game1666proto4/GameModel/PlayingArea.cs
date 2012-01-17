@@ -19,6 +19,11 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
+		/// The entities contained within the playing area.
+		/// </summary>
+		private readonly IDictionary<string,dynamic> m_children = new Dictionary<string,dynamic>();
+
+		/// <summary>
 		/// The message rules that have been registered by the playing area for the purpose of destructing entities.
 		/// </summary>
 		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
@@ -29,16 +34,9 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
-		/// The sub-entities contained within the playing area.
+		/// The entities contained within the playing area.
 		/// </summary>
-		public IEnumerable<dynamic> Children
-		{
-			get
-			{
-				// TODO
-				return null;
-			}
-		}
+		public IEnumerable<dynamic> Children { get { return m_children.Values; } }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -65,7 +63,7 @@ namespace game1666proto4.GameModel
 		/// <param name="entity">The entity to add.</param>
 		public void AddEntity(IPlaceableEntity entity)
 		{
-			//m_buildings.Add(building);
+			m_children.Add(entity.Name, entity);
 
 			Terrain.MarkOccupied(
 				entity.PlacementStrategy.Place(
@@ -109,7 +107,7 @@ namespace game1666proto4.GameModel
 		/// <param name="entity">The entity to delete.</param>
 		public void DeleteEntity(IPlaceableEntity entity)
 		{
-			//m_buildings.Remove(building);
+			m_children.Remove(entity.Name);
 
 			Terrain.MarkOccupied(
 				entity.PlacementStrategy.Place(

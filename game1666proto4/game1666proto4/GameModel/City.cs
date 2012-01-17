@@ -6,13 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using game1666proto4.Common.Communication;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
-using game1666proto4.GameModel.Messages;
 using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 
@@ -27,14 +25,9 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
-		/// The buildings in the city.
+		/// The city's playing area.
 		/// </summary>
-		private readonly IDictionary<string,Building> m_buildings = new Dictionary<string,Building>();
-
-		/// <summary>
-		/// The message rules that have been registered by the city for the purpose of destructing entities.
-		/// </summary>
-		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
+		private PlayingArea m_playingArea = new PlayingArea();
 
 		/// <summary>
 		/// The properties of the city.
@@ -57,14 +50,9 @@ namespace game1666proto4.GameModel
 		public Blueprint Blueprint { get; private set; }
 
 		/// <summary>
-		/// The buildings in the city.
-		/// </summary>
-		public IEnumerable<Building> Buildings { get { return m_buildings.Values; } }
-
-		/// <summary>
 		/// The sub-entities contained within the city.
 		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_buildings.Values; } }
+		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
 		/// The finite state machine for the city.
@@ -94,7 +82,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The city's terrain.
 		/// </summary>
-		public Terrain Terrain	{ get; private set; }
+		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }
 
 		#endregion
 
@@ -145,32 +133,6 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Adds a building to the city.
-		/// </summary>
-		/// <param name="building">The building.</param>
-		public void AddEntity(Building building)
-		{
-			m_buildings.Add(building.Name, building);
-
-			Terrain.MarkOccupied(
-				building.PlacementStrategy.Place(
-					Terrain,
-					building.Blueprint.Footprint,
-					building.Position,
-					building.Orientation
-				),
-				true
-			);
-
-			m_destructionRules[building] = MessageSystem.RegisterRule(
-				MessageRuleFactory.FromSource(
-					building,
-					(EntityDestructionMessage msg) => DeleteEntity(building)
-				)
-			);
-		}
-
-		/// <summary>
 		/// Adds a finite state machine (FSM) to the city (note that there can only be one FSM).
 		/// </summary>
 		/// <param name="fsm">The FSM.</param>
@@ -181,12 +143,21 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
+		/// Adds a placeable entity to the city.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void AddEntity(IPlaceableEntity entity)
+		{
+			m_playingArea.AddEntity(entity);
+		}
+
+		/// <summary>
 		/// Adds a terrain to the city (note that there can only be one terrain).
 		/// </summary>
 		/// <param name="terrain">The terrain.</param>
 		public void AddEntity(Terrain terrain)
 		{
-			Terrain = terrain;
+			m_playingArea.AddEntity(terrain);
 		}
 
 		/// <summary>
@@ -204,28 +175,7 @@ namespace game1666proto4.GameModel
 		/// <param name="entity">The entity.</param>
 		public void DeleteDynamicEntity(dynamic entity)
 		{
-			DeleteEntity(entity);
-		}
-
-		/// <summary>
-		/// Deletes a building from the city.
-		/// </summary>
-		/// <param name="building">The building.</param>
-		public void DeleteEntity(Building building)
-		{
-			m_buildings.Remove(building.Name);
-
-			Terrain.MarkOccupied(
-				building.PlacementStrategy.Place(
-					Terrain,
-					building.Blueprint.Footprint,
-					building.Position,
-					building.Orientation
-				),
-				false
-			);
-
-			m_destructionRules.Remove(building);
+			m_playingArea.DeleteDynamicEntity(entity);
 		}
 
 		/// <summary>
@@ -268,7 +218,7 @@ namespace game1666proto4.GameModel
 			dynamic name;
 			if(!m_properties.TryGetValue("Name", out name))
 			{
-				m_properties["Name"] = Guid.NewGuid().ToString();
+				m_properties["Name"] = "city:" + Guid.NewGuid().ToString();
 			}
 
 			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);

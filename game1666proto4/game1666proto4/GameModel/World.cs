@@ -22,14 +22,14 @@ namespace game1666proto4.GameModel
 		#region
 
 		/// <summary>
-		/// The cities in the game world.
+		/// The cities in the world.
 		/// </summary>
-		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
+		private IDictionary<string,City> m_cities = new Dictionary<string,City>();
 
 		/// <summary>
-		/// The message rules that have been registered by the world for the purpose of destructing entities.
+		/// The world's playing area.
 		/// </summary>
-		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
+		private PlayingArea m_playingArea = new PlayingArea();
 
 		/// <summary>
 		/// The properties of the world.
@@ -44,12 +44,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The sub-entities contained within the world.
 		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_cities.Values; } }
-
-		/// <summary>
-		/// The cities in the world.
-		/// </summary>
-		public IEnumerable<City> Cities { get { return m_cities.Values; } }
+		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
 		/// The player's home city.
@@ -59,7 +54,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The world's terrain.
 		/// </summary>
-		public Terrain Terrain	{ get; private set; }
+		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }
 
 		#endregion
 
@@ -90,20 +85,13 @@ namespace game1666proto4.GameModel
 			AddEntity(entity);
 		}
 
-		/// <summary>
 		/// Adds a city to the world.
 		/// </summary>
 		/// <param name="city">The city.</param>
 		public void AddEntity(City city)
 		{
-			m_cities[city.Name] = city;
-
-			m_destructionRules[city] = MessageSystem.RegisterRule(
-				MessageRuleFactory.FromSource(
-					city,
-					(EntityDestructionMessage msg) => DeleteEntity(city)
-				)
-			);
+			m_cities.Add(city.Name, city);
+			m_playingArea.AddEntity(city);
 		}
 
 		/// <summary>
@@ -112,7 +100,7 @@ namespace game1666proto4.GameModel
 		/// <param name="terrain">The terrain.</param>
 		public void AddEntity(Terrain terrain)
 		{
-			Terrain = terrain;
+			m_playingArea.AddEntity(terrain);
 		}
 
 		/// <summary>
@@ -125,28 +113,13 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
-		/// Deletes a city from the world (provided it is not the player's home city, which must always exist).
+		/// Deletes a city from the world.
 		/// </summary>
 		/// <param name="city">The city.</param>
 		public void DeleteEntity(City city)
 		{
-			if(city.Name != HomeCity)
-			{
-				m_cities.Remove(city.Name);
-				m_destructionRules.Remove(city);
-			}
-		}
-
-		/// <summary>
-		/// Gets the city (if any) with the specified name.
-		/// </summary>
-		/// <param name="name">The name of the city.</param>
-		/// <returns>The city, if it exists, or null otherwise.</returns>
-		public City GetCity(string name)
-		{
-			City city;
-			m_cities.TryGetValue(name, out city);
-			return city;
+			m_cities.Remove(city.Name);
+			m_playingArea.DeleteEntity(city);
 		}
 
 		/// <summary>
@@ -192,6 +165,23 @@ namespace game1666proto4.GameModel
 			}
 
 			MessageSystem.ProcessMessageQueue();
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Gets the city (if any) with the specified name.
+		/// </summary>
+		/// <param name="name">The name of the city.</param>
+		/// <returns>The city, if it exists, or null otherwise.</returns>
+		private City GetCity(string name)
+		{
+			City city;
+			m_cities.TryGetValue(name, out city);
+			return city;
 		}
 
 		#endregion

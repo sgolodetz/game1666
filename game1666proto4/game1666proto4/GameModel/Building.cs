@@ -152,7 +152,7 @@ namespace game1666proto4.GameModel
 		private void Initialise()
 		{
 			Properties["Self"] = this;
-			Properties["Name"] = Guid.NewGuid().ToString();
+			Properties["Name"] = "building:" + Guid.NewGuid().ToString();
 			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 
