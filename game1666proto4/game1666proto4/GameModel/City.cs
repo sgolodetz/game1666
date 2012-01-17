@@ -145,6 +145,15 @@ namespace game1666proto4.GameModel
 		}
 
 		/// <summary>
+		/// Adds a building to the city.
+		/// </summary>
+		/// <param name="building">The building.</param>
+		public void AddEntity(Building building)
+		{
+			m_playingArea.AddEntity(building);
+		}
+
+		/// <summary>
 		/// Adds a finite state machine (FSM) to the city (note that there can only be one FSM).
 		/// </summary>
 		/// <param name="fsm">The FSM.</param>
@@ -152,15 +161,6 @@ namespace game1666proto4.GameModel
 		{
 			FSM = fsm;
 			fsm.EntityProperties = m_properties;
-		}
-
-		/// <summary>
-		/// Adds a placeable entity to the city.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public void AddEntity(IPlaceableEntity entity)
-		{
-			m_playingArea.AddEntity(entity);
 		}
 
 		/// <summary>

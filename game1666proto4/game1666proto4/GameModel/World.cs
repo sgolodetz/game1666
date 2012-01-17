@@ -85,6 +85,7 @@ namespace game1666proto4.GameModel
 			AddEntity(entity);
 		}
 
+		/// <summary>
 		/// Adds a city to the world.
 		/// </summary>
 		/// <param name="city">The city.</param>
