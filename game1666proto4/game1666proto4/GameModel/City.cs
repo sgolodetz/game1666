@@ -31,6 +31,11 @@ namespace game1666proto4.GameModel
 		private readonly List<Building> m_buildings = new List<Building>();
 
 		/// <summary>
+		/// The message rules that have been registered by this city for the purpose of destructing entities.
+		/// </summary>
+		private IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
+
+		/// <summary>
 		/// The properties of the city.
 		/// </summary>
 		private readonly IDictionary<string,dynamic> m_properties;
@@ -164,10 +169,12 @@ namespace game1666proto4.GameModel
 				true
 			);
 
-			SceneGraph.MessageSystem.RegisterRule(MessageRuleFactory.FromSource(
-				building,
-				(EntityDestructionMessage msg) => DeleteEntity(building)
-			));
+			m_destructionRules[building] = SceneGraph.MessageSystem.RegisterRule(
+				MessageRuleFactory.FromSource(
+					building,
+					(EntityDestructionMessage msg) => DeleteEntity(building)
+				)
+			);
 		}
 
 		/// <summary>
@@ -233,6 +240,8 @@ namespace game1666proto4.GameModel
 				),
 				false
 			);
+
+			m_destructionRules.Remove(building);
 		}
 
 		/// <summary>
