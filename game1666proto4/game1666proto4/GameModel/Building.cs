@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
@@ -41,6 +42,11 @@ namespace game1666proto4.GameModel
 		/// The finite state machine for the building.
 		/// </summary>
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
+
+		/// <summary>
+		/// The name of the building (must be unique within its playing area).
+		/// </summary>
+		public string Name { get { return Properties["Name"]; } }
 
 		/// <summary>
 		/// The 2D axis-aligned orientation of the building.
@@ -146,6 +152,7 @@ namespace game1666proto4.GameModel
 		private void Initialise()
 		{
 			Properties["Self"] = this;
+			Properties["Name"] = Guid.NewGuid().ToString();
 			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 

@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Communication;
@@ -28,7 +29,7 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The buildings in the city.
 		/// </summary>
-		private readonly List<Building> m_buildings = new List<Building>();
+		private readonly IDictionary<string,Building> m_buildings = new Dictionary<string,Building>();
 
 		/// <summary>
 		/// The message rules that have been registered by the city for the purpose of destructing entities.
@@ -58,12 +59,12 @@ namespace game1666proto4.GameModel
 		/// <summary>
 		/// The buildings in the city.
 		/// </summary>
-		public IEnumerable<Building> Buildings { get { return m_buildings; } }
+		public IEnumerable<Building> Buildings { get { return m_buildings.Values; } }
 
 		/// <summary>
 		/// The sub-entities contained within the city.
 		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_buildings; } }
+		public IEnumerable<dynamic> Children { get { return m_buildings.Values; } }
 
 		/// <summary>
 		/// The finite state machine for the city.
@@ -71,17 +72,9 @@ namespace game1666proto4.GameModel
 		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
 
 		/// <summary>
-		/// The name of the city.
+		/// The name of the city (must be unique within its playing area).
 		/// </summary>
-		public string Name
-		{
-			get
-			{
-				// FIXME: Cities need to be given names when they are created.
-				dynamic name;
-				return m_properties.TryGetValue("Name", out name) ? name : "";
-			}
-		}
+		public string Name { get { return m_properties["Name"]; } }
 
 		/// <summary>
 		/// The 2D axis-aligned orientation of the city.
@@ -157,7 +150,7 @@ namespace game1666proto4.GameModel
 		/// <param name="building">The building.</param>
 		public void AddEntity(Building building)
 		{
-			m_buildings.Add(building);
+			m_buildings.Add(building.Name, building);
 
 			Terrain.MarkOccupied(
 				building.PlacementStrategy.Place(
@@ -220,7 +213,7 @@ namespace game1666proto4.GameModel
 		/// <param name="building">The building.</param>
 		public void DeleteEntity(Building building)
 		{
-			m_buildings.Remove(building);
+			m_buildings.Remove(building.Name);
 
 			Terrain.MarkOccupied(
 				building.PlacementStrategy.Place(
@@ -271,6 +264,13 @@ namespace game1666proto4.GameModel
 		private void Initialise()
 		{
 			m_properties["Self"] = this;
+
+			dynamic name;
+			if(!m_properties.TryGetValue("Name", out name))
+			{
+				m_properties["Name"] = Guid.NewGuid().ToString();
+			}
+
 			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
 		}
 

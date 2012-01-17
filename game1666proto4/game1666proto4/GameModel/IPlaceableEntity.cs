@@ -34,6 +34,11 @@ namespace game1666proto4.GameModel
 		FiniteStateMachine<EntityStateID> FSM { get; }
 
 		/// <summary>
+		/// The name of the entity (must be unique within its playing area).
+		/// </summary>
+		string Name { get; }
+
+		/// <summary>
 		/// The 2D axis-aligned orientation of the entity.
 		/// </summary>
 		Orientation4 Orientation { get; }
