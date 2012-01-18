@@ -75,15 +75,19 @@ namespace game1666proto4.UI.Tools
 
 			// TEMPORARY: Switch to using bounding boxes instead.
 			Entity = null;
+			float nearestHitDistance = float.MaxValue;
+
 			foreach(IPlaceableEntity entity in m_playingArea.Children.Where(c => c.Destructible))
 			{
 				Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
 				foreach(ModelMesh mesh in model.Meshes)
 				{
 					var boundingSphere = mesh.BoundingSphere.Transform(Matrix.CreateTranslation(new Vector3(entity.Position.X + 0.5f, entity.Position.Y + 0.5f, entity.Altitude)));
-					if(ray.Intersects(boundingSphere) != null)
+					float? hitDistance = ray.Intersects(boundingSphere);
+					if(hitDistance != null && hitDistance.Value < nearestHitDistance)
 					{
 						Entity = entity;
+						nearestHitDistance = hitDistance.Value;
 					}
 				}
 			}
