@@ -111,11 +111,13 @@ namespace game1666proto4.GameModel.Terrains
 		#region
 
 		/// <summary>
-		/// Searching the subtree below this quadtree node, find the terrain grid square (if any) hit by the specified ray.
+		/// Searching the subtree below this quadtree node, find the terrain grid square (if any) hit by the specified ray,
+		/// and the distance to the intersection point.
 		/// </summary>
 		/// <param name="ray">The ray.</param>
-		/// <returns>The nearest terrain grid square hit by the specified ray (if found), or null otherwise.</returns>
-		public Vector2i? PickGridSquare(Ray ray)
+		/// <returns>The nearest terrain grid square hit by the specified ray (if found) and the distance to the intersection
+		/// point, or null otherwise.</returns>
+		public Tuple<Vector2i,float> PickGridSquare(Ray ray)
 		{
 			if(m_children != null)
 			{
@@ -147,7 +149,7 @@ namespace game1666proto4.GameModel.Terrains
 				{
 					foreach(QuadtreeNode boundingHit in kv.Value)
 					{
-						Vector2i? result = boundingHit.PickGridSquare(ray);
+						Tuple<Vector2i,float> result = boundingHit.PickGridSquare(ray);
 						if(result != null) return result;
 					}
 				}
@@ -172,7 +174,10 @@ namespace game1666proto4.GameModel.Terrains
 						}
 					}
 				}
-				return bestGridSquare;
+
+				// Return the grid square containing the nearest triangle (if any) and the distance to the
+				// intersection point. If no triangle was hit by the ray, return null.
+				return bestGridSquare != null ? Tuple.Create(bestGridSquare.Value, bestDistance) : null;
 			}
 		}
 

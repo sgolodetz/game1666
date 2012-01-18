@@ -88,7 +88,8 @@ namespace game1666proto4.UI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// Determine which grid square we're hovering over (if any).
-			Vector2i? gridSquare = m_playingArea.Terrain.PickGridSquare(ray);
+			Tuple<Vector2i,float> gridSquareAndDistance = m_playingArea.Terrain.PickGridSquare(ray);
+			Vector2i? gridSquare = gridSquareAndDistance != null ? gridSquareAndDistance.Item1 : (Vector2i?)null;
 
 			Entity = null;
 			if(gridSquare != null && (m_name == "Dwelling" || m_name == "Mansion" || m_name == "Village"))

@@ -3,8 +3,10 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Linq;
 using game1666proto4.Common.Graphics;
+using game1666proto4.Common.Maths;
 using game1666proto4.GameModel;
 using game1666proto4.GameModel.FSMs;
 using Microsoft.Xna.Framework;
@@ -74,9 +76,14 @@ namespace game1666proto4.UI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// TEMPORARY: Switch to using bounding boxes instead.
-			Entity = null;
-			float nearestHitDistance = float.MaxValue;
 
+			// Find the distance at which the ray hits the terrain, if it does so.
+			Tuple<Vector2i,float> gridSquareAndDistance = m_playingArea.Terrain.PickGridSquare(ray);
+			float nearestHitDistance = gridSquareAndDistance != null ? gridSquareAndDistance.Item2 : float.MaxValue;
+
+			// Find the nearest entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray and (c) destructible,
+			// and mark it for deletion.
+			Entity = null;
 			foreach(IPlaceableEntity entity in m_playingArea.Children.Where(c => c.Destructible))
 			{
 				Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
