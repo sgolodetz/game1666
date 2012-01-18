@@ -75,8 +75,6 @@ namespace game1666proto4.UI.Tools
 			// Determine the 3D world space ray corresponding to the location of the user's mouse in the viewport.
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
-			// TEMPORARY: Switch to using bounding boxes instead.
-
 			// Find the distance at which the ray hits the terrain, if it does so.
 			Tuple<Vector2i,float> gridSquareAndDistance = m_playingArea.Terrain.PickGridSquare(ray);
 			float nearestHitDistance = gridSquareAndDistance != null ? gridSquareAndDistance.Item2 : float.MaxValue;
