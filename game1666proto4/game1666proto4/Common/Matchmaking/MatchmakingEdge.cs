@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: Edge.cs
+ * game1666proto4: MatchmakingEdge.cs
  * Copyright 2012. All rights reserved.
  ***/
 
