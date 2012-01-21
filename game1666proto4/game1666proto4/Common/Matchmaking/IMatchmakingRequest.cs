@@ -25,7 +25,7 @@ namespace game1666proto4.Common.Matchmaking
 		#region
 
 		/// <summary>
-		/// Quantifies the quality of an offer (i.e. the extent to which it satisfies the request).
+		/// Quantifies the quality of the specified offer (i.e. the extent to which it satisfies the request).
 		/// </summary>
 		/// <param name="offer">The offer to quantify.</param>
 		/// <returns>A number indicating the quality of the offer, on a scale from 0 (useless) to 10 (bite their arm off).</returns>
