@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: Vector2iTest.cs
+ * game1666proto4Test: Vector2iTest.cs
  * Copyright 2011. All rights reserved.
  ***/
 

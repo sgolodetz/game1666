@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: TriangleTest.cs
+ * game1666proto4Test: TriangleTest.cs
  * Copyright 2012. All rights reserved.
  ***/
 

@@ -63,5 +63,45 @@ namespace game1666proto4.Common.Matchmaking
 		}
 
 		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Tests whether or not this edge is equal to another object.
+		/// </summary>
+		/// <param name="rhs">The other object.</param>
+		/// <returns>true, if the other object is a edge equal to this one, or false otherwise.</returns>
+		public override bool Equals(object rhs)
+		{
+			if(rhs is Edge) return Equals((Edge)rhs);
+			else return false;
+		}
+
+		/// <summary>
+		/// Tests whether or not this edge is equal to another one.
+		/// </summary>
+		/// <param name="rhs">The other edge.</param>
+		/// <returns>true, if the two edges are equal, or false otherwise.</returns>
+		public bool Equals(Edge rhs)
+		{
+			return Source == rhs.Source && Destination == rhs.Destination && Weight == rhs.Weight;
+		}
+
+		/// <summary>
+		/// Returns the hash code for this edge.
+		/// </summary>
+		/// <returns>The hash code for this edge.</returns>
+		public override int GetHashCode()
+		{
+			// Note: This is the type of hash recommended in Effective Java (the goodness of hash functions is language-independent).
+			int hash = 17;
+			hash = hash * 37 + Source.GetHashCode();
+			hash = hash * 37 + Destination.GetHashCode();
+			hash = hash * 37 + Weight.GetHashCode();
+			return hash;
+		}
+
+		#endregion
 	}
 }
