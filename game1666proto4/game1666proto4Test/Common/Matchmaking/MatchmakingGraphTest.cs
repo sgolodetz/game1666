@@ -17,21 +17,44 @@ namespace game1666proto4Test.Common.Matchmaking
 		[TestMethod]
 		public void FindBestMatchingTest()
 		{
-			var graph = new MatchmakingGraph(3, 3);
-			graph.AddEdge(0, 0, 5);
-			graph.AddEdge(0, 1, 5);
-			graph.AddEdge(0, 2, 4);
-			graph.AddEdge(1, 0, 4);
-			graph.AddEdge(1, 1, 6);
-			graph.AddEdge(2, 1, 7);
-			graph.AddEdge(2, 2, 3);
-			graph.FindBestMatching();
+			{
+				var graph = new MatchmakingGraph(3, 3);
+				graph.AddEdge(0, 0, 5);
+				graph.AddEdge(0, 1, 5);
+				graph.AddEdge(0, 2, 4);
+				graph.AddEdge(1, 0, 4);
+				graph.AddEdge(1, 1, 6);
+				graph.AddEdge(2, 1, 7);
+				graph.AddEdge(2, 2, 3);
+				graph.FindBestMatching();
 
-			List<Edge> matchingEdges = graph.MatchingEdges.ToList();
-			Assert.True(matchingEdges.Count == 3);
-			Assert.True(matchingEdges.Contains(new Edge(0, 2, 4)));
-			Assert.True(matchingEdges.Contains(new Edge(1, 0, 4)));
-			Assert.True(matchingEdges.Contains(new Edge(2, 1, 7)));
+				List<Edge> matchingEdges = graph.MatchingEdges.ToList();
+				Assert.True(matchingEdges.Count == 3);
+				Assert.True(matchingEdges.Contains(new Edge(0, 2, 4)));
+				Assert.True(matchingEdges.Contains(new Edge(1, 0, 4)));
+				Assert.True(matchingEdges.Contains(new Edge(2, 1, 7)));
+			}
+
+			{
+				var graph = new MatchmakingGraph(5, 5);
+				graph.AddEdge(0, 1, 1);
+				graph.AddEdge(1, 0, 4);
+				graph.AddEdge(1, 2, 3);
+				graph.AddEdge(2, 1, 10);
+				graph.AddEdge(2, 3, 9);
+				graph.AddEdge(3, 2, 6);
+				graph.AddEdge(3, 3, 4);
+				graph.AddEdge(3, 4, 5);
+				graph.AddEdge(4, 3, 3);
+				graph.FindBestMatching();
+
+				List<Edge> matchingEdges = graph.MatchingEdges.ToList();
+				Assert.True(matchingEdges.Count == 4);
+				Assert.True(matchingEdges.Contains(new Edge(1, 0, 4)));
+				Assert.True(matchingEdges.Contains(new Edge(2, 1, 10)));
+				Assert.True(matchingEdges.Contains(new Edge(3, 2, 6)));
+				Assert.True(matchingEdges.Contains(new Edge(4, 3, 3)));
+			}
 		}
 	}
 }
