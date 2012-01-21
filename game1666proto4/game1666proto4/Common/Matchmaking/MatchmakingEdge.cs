@@ -8,7 +8,7 @@ namespace game1666proto4.Common.Matchmaking
 	/// <summary>
 	/// This enum represents the flag on an edge. An edge is currently part of the matching iff it is marked.
 	/// </summary>
-	enum EdgeFlag
+	enum MatchmakingEdgeFlag
 	{
 		UNMARKED,
 		MARKED
@@ -17,7 +17,7 @@ namespace game1666proto4.Common.Matchmaking
 	/// <summary>
 	/// An instance of this class represents an edge in the matchmaking graph.
 	/// </summary>
-	class Edge
+	class MatchmakingEdge
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -30,7 +30,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// <summary>
 		/// The flag on the edge, indicating whether or not it is currently part of the matching.
 		/// </summary>
-		public EdgeFlag Flag { get; set; }
+		public MatchmakingEdgeFlag Flag { get; set; }
 
 		/// <summary>
 		/// The index of the source node (the one in the left-hand column of the bipartite matchmaking graph).
@@ -53,13 +53,13 @@ namespace game1666proto4.Common.Matchmaking
 		/// <param name="source">The index of the source node.</param>
 		/// <param name="destination">The index of the destination node.</param>
 		/// <param name="weight">The weight on the edge.</param>
-		public Edge(int source, int destination, int weight)
+		public MatchmakingEdge(int source, int destination, int weight)
 		{
 			Source = source;
 			Destination = destination;
 			Weight = weight;
 
-			Flag = EdgeFlag.UNMARKED;
+			Flag = MatchmakingEdgeFlag.UNMARKED;
 		}
 
 		#endregion
@@ -74,7 +74,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// <returns>true, if the other object is a edge equal to this one, or false otherwise.</returns>
 		public override bool Equals(object rhs)
 		{
-			if(rhs is Edge) return Equals((Edge)rhs);
+			if(rhs is MatchmakingEdge) return Equals((MatchmakingEdge)rhs);
 			else return false;
 		}
 
@@ -83,7 +83,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// </summary>
 		/// <param name="rhs">The other edge.</param>
 		/// <returns>true, if the two edges are equal, or false otherwise.</returns>
-		public bool Equals(Edge rhs)
+		public bool Equals(MatchmakingEdge rhs)
 		{
 			return Source == rhs.Source && Destination == rhs.Destination && Weight == rhs.Weight;
 		}

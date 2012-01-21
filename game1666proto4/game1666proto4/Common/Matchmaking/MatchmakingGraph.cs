@@ -33,12 +33,12 @@ namespace game1666proto4.Common.Matchmaking
 			/// <summary>
 			/// The edges in the path (irrespective of order), including the last edge added.
 			/// </summary>
-			public HashSet<Edge> Edges { get; set; }
+			public HashSet<MatchmakingEdge> Edges { get; set; }
 
 			/// <summary>
 			/// The last edge added to the path.
 			/// </summary>
-			public Edge LastEdge { get; set; }
+			public MatchmakingEdge LastEdge { get; set; }
 
 			/// <summary>
 			/// The current "score" of the path. This equals the result of subtracting the
@@ -60,12 +60,12 @@ namespace game1666proto4.Common.Matchmaking
 		/// <summary>
 		/// A table specifying the lists of edges connected to each of the destination nodes.
 		/// </summary>
-		private List<Edge>[] m_destinationEdges;
+		private List<MatchmakingEdge>[] m_destinationEdges;
 
 		/// <summary>
 		/// A table specifying the lists of edges connected to each of the source nodes.
 		/// </summary>
-		private List<Edge>[] m_sourceEdges;
+		private List<MatchmakingEdge>[] m_sourceEdges;
 
 		#endregion
 
@@ -75,15 +75,15 @@ namespace game1666proto4.Common.Matchmaking
 		/// <summary>
 		/// Gets the sequence of edges that are currently part of the matching.
 		/// </summary>
-		public IEnumerable<Edge> MatchingEdges
+		public IEnumerable<MatchmakingEdge> MatchingEdges
 		{
 			get
 			{
-				foreach(List<Edge> edgeList in m_sourceEdges)
+				foreach(List<MatchmakingEdge> edgeList in m_sourceEdges)
 				{
-					foreach(Edge edge in edgeList)
+					foreach(MatchmakingEdge edge in edgeList)
 					{
-						if(edge.Flag == EdgeFlag.MARKED)
+						if(edge.Flag == MatchmakingEdgeFlag.MARKED)
 						{
 							yield return edge;
 						}
@@ -104,16 +104,16 @@ namespace game1666proto4.Common.Matchmaking
 		/// <param name="destinationCount">The number of destination nodes in the graph.</param>
 		public MatchmakingGraph(int sourceCount, int destinationCount)
 		{
-			m_sourceEdges = new List<Edge>[sourceCount];
+			m_sourceEdges = new List<MatchmakingEdge>[sourceCount];
 			for(int i = 0; i < sourceCount; ++i)
 			{
-				m_sourceEdges[i] = new List<Edge>();
+				m_sourceEdges[i] = new List<MatchmakingEdge>();
 			}
 
-			m_destinationEdges = new List<Edge>[destinationCount];
+			m_destinationEdges = new List<MatchmakingEdge>[destinationCount];
 			for(int i = 0; i < destinationCount; ++i)
 			{
-				m_destinationEdges[i] = new List<Edge>();
+				m_destinationEdges[i] = new List<MatchmakingEdge>();
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// <param name="weight">The weight on the edge.</param>
 		public void AddEdge(int source, int destination, int weight)
 		{
-			var edge = new Edge(source, destination, weight);
+			var edge = new MatchmakingEdge(source, destination, weight);
 			m_sourceEdges[source].Add(edge);
 			m_destinationEdges[destination].Add(edge);
 		}
@@ -162,13 +162,13 @@ namespace game1666proto4.Common.Matchmaking
 			// The algorithm used here is to initially match each source node to the
 			// first unused destination node to which it is connected.
 			var used = new HashSet<int>();
-			foreach(List<Edge> edgeList in m_sourceEdges)
+			foreach(List<MatchmakingEdge> edgeList in m_sourceEdges)
 			{
-				foreach (Edge edge in edgeList)
+				foreach (MatchmakingEdge edge in edgeList)
 				{
 					if (!used.Contains(edge.Source) && !used.Contains(edge.Destination))
 					{
-						edge.Flag = EdgeFlag.MARKED;
+						edge.Flag = MatchmakingEdgeFlag.MARKED;
 						used.Add(edge.Source);
 						used.Add(edge.Destination);
 						break;
@@ -186,20 +186,20 @@ namespace game1666proto4.Common.Matchmaking
 			var pathQueue = new Queue<Path>();
 
 			// Initialise the queue.
-			foreach(List<Edge> edgeList in m_sourceEdges)
+			foreach(List<MatchmakingEdge> edgeList in m_sourceEdges)
 			{
 				// If there is a marked edge leading out of this source node, use it and ignore all
 				// the other edges (since there can be no marked edge leading out of the start of
 				// the path that is not itself part of the path, if the path is to be usable later).
 				// Otherwise, queue up paths for each edge leading out of this source node.
-				Edge marked = edgeList.SingleOrDefault(e => e.Flag == EdgeFlag.MARKED);
+				MatchmakingEdge marked = edgeList.SingleOrDefault(e => e.Flag == MatchmakingEdgeFlag.MARKED);
 				if(marked != null)
 				{
 					pathQueue.Enqueue(MakeSingletonPath(marked));
 				}
 				else
 				{
-					foreach(Edge edge in edgeList)
+					foreach(MatchmakingEdge edge in edgeList)
 					{
 						pathQueue.Enqueue(MakeSingletonPath(edge));
 					}
@@ -227,7 +227,7 @@ namespace game1666proto4.Common.Matchmaking
 				{
 					// The last node in the path is a source, so we're looking for an unseen source -> destination
 					// edge with the opposite flag to the last edge.
-					foreach(Edge e in m_sourceEdges[path.LastEdge.Source].Where(e => e.Flag != path.LastEdge.Flag && !path.Edges.Contains(e)))
+					foreach(MatchmakingEdge e in m_sourceEdges[path.LastEdge.Source].Where(e => e.Flag != path.LastEdge.Flag && !path.Edges.Contains(e)))
 					{
 						pathQueue.Enqueue(MakeAugmentedPath(path, e));
 					}
@@ -236,7 +236,7 @@ namespace game1666proto4.Common.Matchmaking
 				{
 					// The last node in the path is a destination, so we're looking for an unseen destination -> source
 					// edge with the opposite flag to the last edge.
-					foreach(Edge e in m_destinationEdges[path.LastEdge.Destination].Where(e => e.Flag != path.LastEdge.Flag && !path.Edges.Contains(e)))
+					foreach(MatchmakingEdge e in m_destinationEdges[path.LastEdge.Destination].Where(e => e.Flag != path.LastEdge.Flag && !path.Edges.Contains(e)))
 					{
 						pathQueue.Enqueue(MakeAugmentedPath(path, e));
 					}
@@ -255,16 +255,16 @@ namespace game1666proto4.Common.Matchmaking
 		/// <param name="path">The existing path.</param>
 		/// <param name="edge">The new edge.</param>
 		/// <returns>The augmented path.</returns>
-		private static Path MakeAugmentedPath(Path path, Edge edge)
+		private static Path MakeAugmentedPath(Path path, MatchmakingEdge edge)
 		{
-			var edges = new HashSet<Edge>(path.Edges);
+			var edges = new HashSet<MatchmakingEdge>(path.Edges);
 			edges.Add(edge);
 
 			return new Path
 			{
 				Edges = edges,
 				LastEdge = edge,
-				Score = path.Score + edge.Weight * (edge.Flag == EdgeFlag.UNMARKED ? 1 : -1)
+				Score = path.Score + edge.Weight * (edge.Flag == MatchmakingEdgeFlag.UNMARKED ? 1 : -1)
 			};
 		}
 
@@ -273,16 +273,16 @@ namespace game1666proto4.Common.Matchmaking
 		/// </summary>
 		/// <param name="edge">The edge in question.</param>
 		/// <returns>The constructed path.</returns>
-		private static Path MakeSingletonPath(Edge edge)
+		private static Path MakeSingletonPath(MatchmakingEdge edge)
 		{
-			var edges = new HashSet<Edge>();
+			var edges = new HashSet<MatchmakingEdge>();
 			edges.Add(edge);
 
 			return new Path
 			{
 				Edges = edges,
 				LastEdge = edge,
-				Score = edge.Weight * (edge.Flag == EdgeFlag.UNMARKED ? 1 : -1)
+				Score = edge.Weight * (edge.Flag == MatchmakingEdgeFlag.UNMARKED ? 1 : -1)
 			};
 		}
 
@@ -308,7 +308,7 @@ namespace game1666proto4.Common.Matchmaking
 			{
 				// The last node in the path is a source, so we need to check that no marked,
 				// unseen source -> destination edge leads out of the source of the last edge.
-				if(m_sourceEdges[path.LastEdge.Source].Any(e => e.Flag == EdgeFlag.MARKED && !path.Edges.Contains(e)))
+				if(m_sourceEdges[path.LastEdge.Source].Any(e => e.Flag == MatchmakingEdgeFlag.MARKED && !path.Edges.Contains(e)))
 				{
 					return false;
 				}
@@ -317,16 +317,16 @@ namespace game1666proto4.Common.Matchmaking
 			{
 				// The last node in the path is a destination, so we need to check that no marked,
 				// unseen destination -> source edge leads out of the destination of the last edge.
-				if(m_destinationEdges[path.LastEdge.Destination].Any(e => e.Flag == EdgeFlag.MARKED && !path.Edges.Contains(e)))
+				if(m_destinationEdges[path.LastEdge.Destination].Any(e => e.Flag == MatchmakingEdgeFlag.MARKED && !path.Edges.Contains(e)))
 				{
 					return false;
 				}
 			}
 
 			// If we get here, the path is both useful and valid, so we flip the flags on all the edges in the path.
-			foreach(Edge edge in path.Edges)
+			foreach(MatchmakingEdge edge in path.Edges)
 			{
-				edge.Flag = edge.Flag == EdgeFlag.UNMARKED ? EdgeFlag.MARKED : EdgeFlag.UNMARKED;
+				edge.Flag = edge.Flag == MatchmakingEdgeFlag.UNMARKED ? MatchmakingEdgeFlag.MARKED : MatchmakingEdgeFlag.UNMARKED;
 			}
 
 			return true;
