@@ -34,7 +34,7 @@ namespace game1666proto4.Common.Matchmaking
 			/// <summary>
 			/// The source of the offer.
 			/// </summary>
-			private readonly dynamic m_source;
+			private readonly IMatchmakingEntity<OfferType, RequestType> m_source;
 
 			#endregion
 
@@ -49,7 +49,7 @@ namespace game1666proto4.Common.Matchmaking
 			/// <summary>
 			/// The source of the offer.
 			/// </summary>
-			public dynamic Source { get { return m_source; } }
+			public IMatchmakingEntity<OfferType, RequestType> Source { get { return m_source; } }
 
 			#endregion
 
@@ -61,7 +61,7 @@ namespace game1666proto4.Common.Matchmaking
 			/// </summary>
 			/// <param name="offer">The offer.</param>
 			/// <param name="source">The source of the offer.</param>
-			public SourcedOffer(OfferType offer, dynamic source)
+			public SourcedOffer(OfferType offer, IMatchmakingEntity<OfferType, RequestType> source)
 			{
 				m_offer = offer;
 				m_source = source;
@@ -87,7 +87,7 @@ namespace game1666proto4.Common.Matchmaking
 			/// <summary>
 			/// The source of the request.
 			/// </summary>
-			private readonly dynamic m_source;
+			private readonly IMatchmakingEntity<OfferType, RequestType> m_source;
 
 			#endregion
 
@@ -102,7 +102,7 @@ namespace game1666proto4.Common.Matchmaking
 			/// <summary>
 			/// The source of the request.
 			/// </summary>
-			public dynamic Source { get { return m_source; } }
+			public IMatchmakingEntity<OfferType, RequestType> Source { get { return m_source; } }
 
 			#endregion
 
@@ -114,7 +114,7 @@ namespace game1666proto4.Common.Matchmaking
 			/// </summary>
 			/// <param name="request">The request.</param>
 			/// <param name="source">The source of the request.</param>
-			public SourcedRequest(RequestType request, dynamic source)
+			public SourcedRequest(RequestType request, IMatchmakingEntity<OfferType, RequestType> source)
 			{
 				m_request = request;
 				m_source = source;
@@ -187,7 +187,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// </summary>
 		/// <param name="offer">The offer.</param>
 		/// <param name="source">The source of the offer.</param>
-		public void PostOffer(OfferType offer, dynamic source)
+		public void PostOffer(OfferType offer, IMatchmakingEntity<OfferType, RequestType> source)
 		{
 			m_sourcedOffers.Add(new SourcedOffer(offer, source));
 		}
@@ -197,7 +197,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <param name="source">The source of the request.</param>
-		public void PostRequest(RequestType request, dynamic source)
+		public void PostRequest(RequestType request, IMatchmakingEntity<OfferType, RequestType> source)
 		{
 			m_sourcedRequests.Add(new SourcedRequest(request, source));
 		}

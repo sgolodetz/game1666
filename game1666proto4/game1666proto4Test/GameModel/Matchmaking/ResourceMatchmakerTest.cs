@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using game1666proto4.Common.Matchmaking;
 using game1666proto4.GameModel.Matchmaking;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
@@ -15,21 +16,27 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		//#################### HELPER CLASSES ####################
 		#region
 
-		public sealed class House
+		public sealed class House : IMatchmakingEntity<ResourceOffer, ResourceRequest>
 		{
-			public dynamic OfferSource { get; private set; }
+			public IMatchmakingEntity<ResourceOffer, ResourceRequest> OfferSource { get; private set; }
 
-			public void PostOffer(ResourceOffer offer, dynamic source)
+			public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 			{
 				OfferSource = source;
 			}
+
+			public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+			{}
 		}
 
-		public sealed class Walker
+		public sealed class Walker : IMatchmakingEntity<ResourceOffer, ResourceRequest>
 		{
-			public dynamic RequestSource { get; private set; }
+			public IMatchmakingEntity<ResourceOffer, ResourceRequest> RequestSource { get; private set; }
 
-			public void PostRequest(ResourceRequest request, dynamic source)
+			public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+			{}
+
+			public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 			{
 				RequestSource = source;
 			}

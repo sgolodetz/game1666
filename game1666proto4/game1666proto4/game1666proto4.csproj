@@ -170,6 +170,7 @@
     <Compile Include="Common\Communication\MessageSystem.cs" />
     <Compile Include="Common\Entities\EntityLoader.cs" />
     <Compile Include="Common\Entities\ICompositeEntity.cs" />
+    <Compile Include="Common\Matchmaking\IMatchmakingEntity.cs" />
     <Compile Include="Common\Matchmaking\IMatchmakingRequest.cs" />
     <Compile Include="Common\Matchmaking\Matchmaker.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingEdge.cs" />
