@@ -31,11 +31,6 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// </summary>
 		public Resource Resource { get; set; }
 
-		/// <summary>
-		/// The source of the request.
-		/// </summary>
-		public dynamic Source { get; set; }
-
 		#endregion
 
 		//#################### PUBLIC METHODS ####################

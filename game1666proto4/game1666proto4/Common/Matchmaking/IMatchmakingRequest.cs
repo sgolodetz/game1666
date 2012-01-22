@@ -11,16 +11,6 @@ namespace game1666proto4.Common.Matchmaking
 	/// <typeparam name="OfferType">The type of matchmaking offer that corresponds to the class implementing this interface.</typeparam>
 	interface IMatchmakingRequest<OfferType>
 	{
-		//#################### PROPERTIES ####################
-		#region
-
-		/// <summary>
-		/// The source of the request.
-		/// </summary>
-		dynamic Source { get; }
-
-		#endregion
-
 		//#################### PUBLIC METHODS ####################
 		#region
 

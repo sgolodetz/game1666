@@ -3,14 +3,12 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using game1666proto4.Common.Matchmaking;
-
 namespace game1666proto4.GameModel.Matchmaking
 {
 	/// <summary>
 	/// An instance of this class is used to offer resources via the matchmaker.
 	/// </summary>
-	public sealed class ResourceOffer : IMatchmakingOffer
+	public sealed class ResourceOffer
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -24,11 +22,6 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// The type of resource offered.
 		/// </summary>
 		public Resource Resource { get; set; }
-
-		/// <summary>
-		/// The source of the offer.
-		/// </summary>
-		public dynamic Source { get; set; }
 
 		#endregion
 	}

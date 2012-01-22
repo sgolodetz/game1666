@@ -19,9 +19,9 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		{
 			public dynamic OfferSource { get; private set; }
 
-			public void PostOffer(ResourceOffer offer)
+			public void PostOffer(ResourceOffer offer, dynamic source)
 			{
-				OfferSource = offer.Source;
+				OfferSource = source;
 			}
 		}
 
@@ -29,9 +29,9 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		{
 			public dynamic RequestSource { get; private set; }
 
-			public void PostRequest(ResourceRequest request)
+			public void PostRequest(ResourceRequest request, dynamic source)
 			{
-				RequestSource = request.Source;
+				RequestSource = source;
 			}
 		}
 
@@ -51,20 +51,20 @@ namespace game1666proto4Test.GameModel.Matchmaking
 			(
 				new ResourceRequest
 				{
-					Source = house,
 					Resource = Resource.OCCUPANCY,
 					DesiredQuantity = 2,
 					MinimumQuantity = 1
-				}
+				},
+				house
 			);
 			matchmaker.PostOffer
 			(
 				new ResourceOffer
 				{
-					Source = walker,
 					Resource = Resource.OCCUPANCY,
 					AvailableQuantity = 1
-				}
+				},
+				walker
 			);
 			matchmaker.Match();
 
