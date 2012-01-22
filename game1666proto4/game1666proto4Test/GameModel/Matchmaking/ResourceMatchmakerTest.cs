@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4Test: GameMatchmakerTest.cs
+ * game1666proto4Test: ResourceMatchmakerTest.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -10,7 +10,7 @@ using Assert = Xunit.Assert;
 namespace game1666proto4Test.GameModel.Matchmaking
 {
 	[TestClass]
-	public sealed class GameMatchmakerTest
+	public sealed class ResourceMatchmakerTest
 	{
 		//#################### HELPER CLASSES ####################
 		#region
@@ -19,7 +19,7 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		{
 			public dynamic OfferSource { get; private set; }
 
-			public void PostOffer(GameMatchmakingOffer offer)
+			public void PostOffer(ResourceOffer offer)
 			{
 				OfferSource = offer.Source;
 			}
@@ -29,7 +29,7 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		{
 			public dynamic RequestSource { get; private set; }
 
-			public void PostRequest(GameMatchmakingRequest request)
+			public void PostRequest(ResourceRequest request)
 			{
 				RequestSource = request.Source;
 			}
@@ -46,23 +46,23 @@ namespace game1666proto4Test.GameModel.Matchmaking
 			var house = new House();
 			var walker = new Walker();
 
-			var matchmaker = new GameMatchmaker();
+			var matchmaker = new ResourceMatchmaker();
 			matchmaker.PostRequest
 			(
-				new GameMatchmakingRequest
+				new ResourceRequest
 				{
 					Source = house,
-					Resource = GameResource.OCCUPANCY,
+					Resource = Resource.OCCUPANCY,
 					DesiredQuantity = 2,
 					MinimumQuantity = 1
 				}
 			);
 			matchmaker.PostOffer
 			(
-				new GameMatchmakingOffer
+				new ResourceOffer
 				{
 					Source = walker,
-					Resource = GameResource.OCCUPANCY,
+					Resource = Resource.OCCUPANCY,
 					AvailableQuantity = 1
 				}
 			);

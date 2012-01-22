@@ -50,7 +50,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameModel\Matchmaking\GameMatchmakerTest.cs" />
+    <Compile Include="GameModel\Matchmaking\ResourceMatchmakerTest.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingGraphTest.cs" />
     <Compile Include="Common\Maths\TriangleTest.cs" />
     <Compile Include="Common\Maths\Vector2iTest.cs" />

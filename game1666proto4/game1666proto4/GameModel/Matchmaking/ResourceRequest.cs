@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: GameMatchmakingRequest.cs
+ * game1666proto4: ResourceRequest.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -11,7 +11,7 @@ namespace game1666proto4.GameModel.Matchmaking
 	/// <summary>
 	/// An instance of this class is used to request resources via the matchmaker.
 	/// </summary>
-	public sealed class GameMatchmakingRequest : IMatchmakingRequest<GameMatchmakingOffer>
+	public sealed class ResourceRequest : IMatchmakingRequest<ResourceOffer>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -29,7 +29,7 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// <summary>
 		/// The type of resource requested.
 		/// </summary>
-		public GameResource Resource { get; set; }
+		public Resource Resource { get; set; }
 
 		/// <summary>
 		/// The source of the request.
@@ -46,7 +46,7 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// </summary>
 		/// <param name="offer">The offer to quantify.</param>
 		/// <returns>A number indicating the quality of the offer, on a scale from 0 (useless) to 10 (bite their arm off).</returns>
-		public int QuantifyOffer(GameMatchmakingOffer offer)
+		public int QuantifyOffer(ResourceOffer offer)
 		{
 			if(offer.Resource == Resource && offer.AvailableQuantity >= MinimumQuantity)
 			{

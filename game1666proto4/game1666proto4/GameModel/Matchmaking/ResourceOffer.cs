@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: GameMatchmakingOffer.cs
+ * game1666proto4: ResourceOffer.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -10,7 +10,7 @@ namespace game1666proto4.GameModel.Matchmaking
 	/// <summary>
 	/// An instance of this class is used to offer resources via the matchmaker.
 	/// </summary>
-	public sealed class GameMatchmakingOffer : IMatchmakingOffer
+	public sealed class ResourceOffer : IMatchmakingOffer
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -23,7 +23,7 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// <summary>
 		/// The type of resource offered.
 		/// </summary>
-		public GameResource Resource { get; set; }
+		public Resource Resource { get; set; }
 
 		/// <summary>
 		/// The source of the offer.
