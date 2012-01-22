@@ -60,7 +60,14 @@ namespace game1666proto4.Common.Matchmaking
 			// Run the graph matching algorithm to find an optimal matching.
 			graph.FindBestMatching();
 
-			// TODO: Inform the relevant parties that they have been successfully matched.
+			// Inform the relevant parties that they have been successfully matched.
+			foreach(MatchmakingEdge edge in graph.MatchingEdges)
+			{
+				OfferType offer = m_offers[edge.Source];
+				RequestType request = m_requests[edge.Destination];
+				offer.Source.PostRequest(request);
+				request.Source.PostOffer(offer);
+			}
 
 			// Clear all unresolved offers and requests - they will have to be resubmitted to the matchmaker next time.
 			Reset();

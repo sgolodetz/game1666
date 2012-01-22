@@ -183,7 +183,7 @@
     <Compile Include="GameModel\Matchmaking\GameMatchmaker.cs" />
     <Compile Include="GameModel\Matchmaking\GameMatchmakingOffer.cs" />
     <Compile Include="GameModel\Matchmaking\GameMatchmakingRequest.cs" />
-    <Compile Include="GameModel\Matchmaking\GameMatchmakingResource.cs" />
+    <Compile Include="GameModel\Matchmaking\GameResource.cs" />
     <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
     <Compile Include="GameModel\PlayingArea.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />

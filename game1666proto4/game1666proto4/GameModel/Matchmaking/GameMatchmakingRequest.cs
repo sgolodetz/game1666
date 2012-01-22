@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using game1666proto4.Common.Matchmaking;
 
 namespace game1666proto4.GameModel.Matchmaking
@@ -10,7 +11,7 @@ namespace game1666proto4.GameModel.Matchmaking
 	/// <summary>
 	/// An instance of this class is used to request resources via the matchmaker.
 	/// </summary>
-	sealed class GameMatchmakingRequest : IMatchmakingRequest<GameMatchmakingOffer>
+	public sealed class GameMatchmakingRequest : IMatchmakingRequest<GameMatchmakingOffer>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -21,9 +22,14 @@ namespace game1666proto4.GameModel.Matchmaking
 		public int DesiredQuantity { get; set; }
 
 		/// <summary>
+		/// The quantity of the resource that is absolutely necessary.
+		/// </summary>
+		public int MinimumQuantity { get; set; }
+
+		/// <summary>
 		/// The type of resource requested.
 		/// </summary>
-		public GameMatchmakingResource Resource { get; set; }
+		public GameResource Resource { get; set; }
 
 		/// <summary>
 		/// The source of the request.
@@ -42,8 +48,11 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// <returns>A number indicating the quality of the offer, on a scale from 0 (useless) to 10 (bite their arm off).</returns>
 		public int QuantifyOffer(GameMatchmakingOffer offer)
 		{
-			// The simplest possible implementation: "if enough of the correct resource is being offered, take it, otherwise refuse."
-			return offer.Resource == Resource && offer.AvailableQuantity >= DesiredQuantity ? 10 : 0;
+			if(offer.Resource == Resource && offer.AvailableQuantity >= MinimumQuantity)
+			{
+				return Math.Min(10 * offer.AvailableQuantity / DesiredQuantity, 10);
+			}
+			else return 0;
 		}
 
 		#endregion

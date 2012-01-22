@@ -10,7 +10,7 @@ namespace game1666proto4.GameModel.Matchmaking
 	/// <summary>
 	/// An instance of this class is used to offer resources via the matchmaker.
 	/// </summary>
-	sealed class GameMatchmakingOffer : IMatchmakingOffer
+	public sealed class GameMatchmakingOffer : IMatchmakingOffer
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -23,7 +23,7 @@ namespace game1666proto4.GameModel.Matchmaking
 		/// <summary>
 		/// The type of resource offered.
 		/// </summary>
-		public GameMatchmakingResource Resource { get; set; }
+		public GameResource Resource { get; set; }
 
 		/// <summary>
 		/// The source of the offer.
