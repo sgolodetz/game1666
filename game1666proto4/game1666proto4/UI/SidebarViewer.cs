@@ -172,13 +172,14 @@ namespace game1666proto4.UI
 		/// Constructs a sidebar viewer from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the viewer's XML representation.</param>
-		public SidebarViewer(XElement entityElt)
-		:	base(entityElt)
+		/// <param name="world">The world that is being viewed.</param>
+		public SidebarViewer(XElement entityElt, World world)
+		:	base(entityElt, world)
 		{
 			// Enforce the postcondition.
 			Contract.Ensures(m_playingArea != null);
 
-			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
+			m_playingArea = World.GetEntityByPath(Properties["PlayingArea"]);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_texture = Renderer.Content.Load<Texture2D>("Textures/sidebarbackground");
 			Viewport = Properties["Viewport"];

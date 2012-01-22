@@ -28,9 +28,10 @@ namespace game1666proto4.Common.Entities
 		/// </summary>
 		/// <param name="composite">The composite entity.</param>
 		/// <param name="entityElt">The root element of the composite entity's XML representation.</param>
-		public static void LoadAndAddChildEntities(ICompositeEntity composite, XElement entityElt)
+		/// <param name="additionalArguments">Any additional arguments to pass to each child entity's constructor.</param>
+		public static void LoadAndAddChildEntities(ICompositeEntity composite, XElement entityElt, params object[] additionalArguments)
 		{
-			foreach(var child in LoadChildEntities(entityElt))
+			foreach(var child in LoadChildEntities(entityElt, additionalArguments))
 			{
 				composite.AddDynamicEntity(child);
 			}
@@ -40,8 +41,9 @@ namespace game1666proto4.Common.Entities
 		/// Loads the children of a composite entity from XML.
 		/// </summary>
 		/// <param name="entityElt">The root element of the composite entity's XML representation.</param>
+		/// <param name="additionalArguments">Any additional arguments to pass to each child entity's constructor.</param>
 		/// <returns>The children of the composite entity.</returns>
-		public static IEnumerable<dynamic> LoadChildEntities(XElement entityElt)
+		public static IEnumerable<dynamic> LoadChildEntities(XElement entityElt, params object[] additionalArguments)
 		{
 			var children = new List<dynamic>();
 
@@ -53,8 +55,13 @@ namespace game1666proto4.Common.Entities
 
 				if(childType != null)
 				{
+					// Construct the array of arguments to pass to the child entity's constructor.
+					var arguments = new object[additionalArguments.Length + 1];
+					arguments[0] = childElt;
+					additionalArguments.CopyTo(arguments, 1);
+					
 					// Construct the child entity and add it to the list.
-					children.Add(Activator.CreateInstance(childType, childElt));
+					children.Add(Activator.CreateInstance(childType, arguments));
 				}
 				else
 				{

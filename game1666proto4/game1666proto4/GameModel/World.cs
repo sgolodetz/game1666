@@ -4,10 +4,10 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Communication;
 using game1666proto4.Common.Entities;
-using game1666proto4.GameModel.Messages;
 using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 
@@ -144,6 +144,25 @@ namespace game1666proto4.GameModel
 				else return null;
 			}
 			else return this;
+		}
+
+		/// <summary>
+		/// Gets an entity in the world by its (relative) path, e.g. "world/city:Stuartopolis".
+		/// </summary>
+		/// <param name="pathString">The path, as a string.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
+		public dynamic GetEntityByPath(string pathString)
+		{
+			var path = new Queue<string>(pathString.Split('/').Where(s => !string.IsNullOrEmpty(s)));
+			if(path.Count != 0)
+			{
+				switch(path.Dequeue())
+				{
+					case "world":
+						return GetEntityByPath(path);
+				}
+			}
+			return null;
 		}
 
 		/// <summary>

@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Input;
+using game1666proto4.GameModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -53,8 +54,9 @@ namespace game1666proto4.UI
 		/// Constructs a view hierarchy from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the hierarchy's XML representation.</param>
-		public ViewHierarchy(XElement entityElt)
-		:	base(entityElt)
+		/// <param name="world">The world that is being viewed.</param>
+		public ViewHierarchy(XElement entityElt, World world)
+		:	base(entityElt, world)
 		{
 			// Register input handlers.
 			MouseEventManager.OnMouseMoved += OnMouseMoved;

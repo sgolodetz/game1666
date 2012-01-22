@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.GameModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -35,6 +36,11 @@ namespace game1666proto4.UI
 		/// </summary>
 		public Viewport Viewport { get; protected set; }
 
+		/// <summary>
+		/// The world that is being viewed.
+		/// </summary>
+		protected World World { get; private set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -43,26 +49,33 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// Constructs a visible entity without any properties.
 		/// </summary>
-		public VisibleEntity()
+		/// <param name="world">The world that is being viewed.</param>
+		public VisibleEntity(World world)
 		:	base()
-		{}
+		{
+			World = world;
+		}
 
 		/// <summary>
 		/// Constructs a visible entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public VisibleEntity(IDictionary<string,dynamic> properties)
+		/// <param name="world">The world that is being viewed.</param>
+		public VisibleEntity(IDictionary<string,dynamic> properties, World world)
 		{
 			Properties = properties;
+			World = world;
 		}
 
 		/// <summary>
 		/// Constructs a visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		public VisibleEntity(XElement entityElt)
+		/// <param name="world">The world that is being viewed.</param>
+		public VisibleEntity(XElement entityElt, World world)
 		{
 			Properties = EntityLoader.LoadProperties(entityElt);
+			World = world;
 		}
 
 		#endregion

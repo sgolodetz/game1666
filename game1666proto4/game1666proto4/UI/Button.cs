@@ -66,6 +66,7 @@ namespace game1666proto4.UI
 		/// <param name="textureName">The name of the texture to use when drawing the button.</param>
 		/// <param name="viewport">The viewport specifying the area taken up by the button on the screen.</param>
 		public Button(string textureName, Viewport viewport)
+		:	base(null)
 		{
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_texture = Renderer.Content.Load<Texture2D>("Textures/" + textureName);

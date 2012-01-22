@@ -82,14 +82,11 @@ namespace game1666proto4
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Load the world from an XML file.
-			SceneGraph.LoadWorld(@"Content\TestWorld.xml");
-
-			// Look up the world in the scene graph.
-			m_world = SceneGraph.GetEntityByPath("world");
+			m_world = World.LoadFromFile(@"Content\TestWorld.xml");
 
 			// Load the view hierarchy from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			m_viewHierarchy = new ViewHierarchy(doc.XPathSelectElement("config/views"));
+			m_viewHierarchy = new ViewHierarchy(doc.XPathSelectElement("config/views"), m_world);
 
 			base.Initialize();
 		}

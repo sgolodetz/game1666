@@ -70,14 +70,15 @@ namespace game1666proto4.UI
 		/// Constructs a playing area viewer from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the viewer's XML representation.</param>
-		public PlayingAreaViewer(XElement entityElt)
-		:	base(entityElt)
+		/// <param name="world">The world that is being viewed.</param>
+		public PlayingAreaViewer(XElement entityElt, World world)
+		:	base(entityElt, world)
 		{
 			// Enforce the postcondition.
 			Contract.Ensures(m_playingArea != null);
 
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
-			m_playingArea = SceneGraph.GetEntityByPath(Properties["PlayingArea"]);
+			m_playingArea = World.GetEntityByPath(Properties["PlayingArea"]);
 			Viewport = Properties["Viewport"];
 		}
 

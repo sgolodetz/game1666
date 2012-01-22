@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.GameModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -33,26 +34,29 @@ namespace game1666proto4.UI
 		/// <summary>
 		/// Constructs a composite visible entity without any properties.
 		/// </summary>
-		public CompositeVisibleEntity()
+		/// <param name="world">The world that is being viewed.</param>
+		public CompositeVisibleEntity(World world)
+		:	base(world)
 		{}
 
 		/// <summary>
 		/// Constructs a composite visible entity directly from a set of properties.
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
-		public CompositeVisibleEntity(IDictionary<string,dynamic> properties)
-		{
-			Properties = properties;
-		}
+		/// <param name="world">The world that is being viewed.</param>
+		public CompositeVisibleEntity(IDictionary<string,dynamic> properties, World world)
+		:	base(properties, world)
+		{}
 
 		/// <summary>
 		/// Constructs a composite visible entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
-		public CompositeVisibleEntity(XElement entityElt)
+		/// <param name="world">The world that is being viewed.</param>
+		public CompositeVisibleEntity(XElement entityElt, World world)
+		:	base(entityElt, world)
 		{
-			Properties = EntityLoader.LoadProperties(entityElt);
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
+			EntityLoader.LoadAndAddChildEntities(this, entityElt, world);
 		}
 
 		#endregion

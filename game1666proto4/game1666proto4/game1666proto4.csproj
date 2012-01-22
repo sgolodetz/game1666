@@ -225,7 +225,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Common\Graphics\Renderer.cs" />
-    <Compile Include="GameModel\SceneGraph.cs" />
     <Compile Include="Common\Graphics\Camera.cs" />
     <Compile Include="UI\PlayingAreaViewer.cs" />
     <Compile Include="UI\SidebarViewer.cs" />

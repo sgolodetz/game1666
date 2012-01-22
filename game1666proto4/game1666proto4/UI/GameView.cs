@@ -5,8 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using game1666proto4.GameModel;
 
 namespace game1666proto4.UI
 {
@@ -47,8 +46,9 @@ namespace game1666proto4.UI
 		/// Constructs a view from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the view's XML representation.</param>
-		public GameView(XElement entityElt)
-		:	base(entityElt)
+		/// <param name="world">The world that is being viewed.</param>
+		public GameView(XElement entityElt, World world)
+		:	base(entityElt, world)
 		{}
 
 		#endregion
