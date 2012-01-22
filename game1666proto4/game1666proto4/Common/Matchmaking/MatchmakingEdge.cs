@@ -17,7 +17,7 @@ namespace game1666proto4.Common.Matchmaking
 	/// <summary>
 	/// An instance of this class represents an edge in the matchmaking graph.
 	/// </summary>
-	class MatchmakingEdge
+	sealed class MatchmakingEdge
 	{
 		//#################### PROPERTIES ####################
 		#region

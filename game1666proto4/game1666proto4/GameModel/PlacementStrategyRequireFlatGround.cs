@@ -15,7 +15,7 @@ namespace game1666proto4.GameModel
 	/// An instance of this class represents a placement strategy that enforces the condition that
 	/// an entity can only be placed on flat terrain.
 	/// </summary>
-	class PlacementStrategyRequireFlatGround : PlacementStrategyBase
+	sealed class PlacementStrategyRequireFlatGround : PlacementStrategyBase
 	{
 		//#################### PUBLIC METHODS ####################
 		#region

@@ -25,7 +25,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// (that is, one whose edges alternate between having a marked and an unmarked flag).
 		/// Alternating paths are used when trying to improve the existing matching.
 		/// </summary>
-		private class Path
+		private sealed class Path
 		{
 			//#################### PROPERTIES ####################
 			#region
