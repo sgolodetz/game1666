@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -88,6 +89,52 @@ namespace game1666proto4.Common.Graphics
 		}
 
 		/// <summary>
+		/// Draws a triple-circle representation of a 3D bounding sphere.
+		/// </summary>
+		/// <param name="boundingSphere">The bounding sphere.</param>
+		/// <param name="effect">The effect to use when drawing.</param>
+		/// <param name="points">The number of vertices to use when drawing each of the three circles.</param>
+		public static void DrawBoundingSphere(BoundingSphere boundingSphere, Effect effect, int points = 50)
+		{
+			Vector3 c = boundingSphere.Center;
+			float r = boundingSphere.Radius;
+			DrawEllipse(c, new Vector3(r, 0, 0), new Vector3(0, r, 0), effect, Color.Red, points);
+			DrawEllipse(c, new Vector3(r, 0, 0), new Vector3(0, 0, r), effect, Color.Lime, points);
+			DrawEllipse(c, new Vector3(0, r, 0), new Vector3(0, 0, r), effect, Color.Blue, points);
+		}
+
+		/// <summary>
+		/// Draws an ellipse in 3D.
+		/// </summary>
+		/// <param name="centre">The centre of the ellipse.</param>
+		/// <param name="uAxis">The major axis of the ellipse.</param>
+		/// <param name="vAxis">The minor axis of the ellipse.</param>
+		/// <param name="effect">The effect to use when drawing.</param>
+		/// <param name="colour">The colour to use for the ellipse.</param>
+		/// <param name="points">The number of vertices to use when drawing the ellipse.</param>
+		public static void DrawEllipse(Vector3 centre, Vector3 uAxis, Vector3 vAxis, Effect effect, Color colour, int points = 50)
+		{
+			// Construct the vertex and index buffers required to draw the ellipse.
+			var vertices = new VertexPositionColor[points];
+			var indices = new short[points+1];
+			float angle = 0f;
+			float deltaAngle = MathHelper.TwoPi / points;
+			for(int i = 0; i < points; ++i, angle +=deltaAngle)
+			{
+				vertices[i] = new VertexPositionColor(centre + uAxis * (float)Math.Cos(angle) + vAxis * (float)Math.Sin(angle), colour);
+				indices[i] = (short)i;
+			}
+			indices[points] = 0;
+
+			// Actually draw the ellipse.
+			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
+			{
+				pass.Apply();
+				GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineStrip, vertices, 0, vertices.Length, indices, 0, indices.Length - 1);
+			}
+		}
+
+		/// <summary>
 		/// Draws a 2D line.
 		/// </summary>
 		/// <param name="v1">One end of the line.</param>
@@ -101,11 +148,10 @@ namespace game1666proto4.Common.Graphics
 				new VertexPositionColor(new Vector3(v1.X, v1.Y, 0), colour),
 				new VertexPositionColor(new Vector3(v2.X, v2.Y, 0), colour)
 			};
-			var indices = new short[] { 0, 1 };
 			foreach(EffectPass pass in effect.CurrentTechnique.Passes)
 			{
 				pass.Apply();
-				GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, vertices, 0, 2, indices, 0, 1);
+				GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
 			}
 		}
 
@@ -125,6 +171,13 @@ namespace game1666proto4.Common.Graphics
 			newRasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
 			GraphicsDevice.RasterizerState = newRasterizerState;
 
+			// Create an effect for drawing the bounding spheres in the model (for debugging purposes only).
+			/*var sphereEffect = new BasicEffect(GraphicsDevice);
+			sphereEffect.World = matWorld;
+			sphereEffect.View = matView;
+			sphereEffect.Projection = matProjection;
+			sphereEffect.VertexColorEnabled = true;*/
+
 			foreach(ModelMesh mesh in model.Meshes)
 			{
 				foreach(BasicEffect effect in mesh.Effects)
@@ -135,6 +188,9 @@ namespace game1666proto4.Common.Graphics
 					effect.Alpha = alpha;
 				}
 				mesh.Draw();
+
+				// Draw the bounding sphere of the mesh (for debugging purposes only).
+				//DrawBoundingSphere(mesh.BoundingSphere, sphereEffect);
 			}
 
 			// Restore the previous rasterizer state.
