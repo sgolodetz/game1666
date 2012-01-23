@@ -91,32 +91,8 @@ namespace game1666proto4.UI.Tools
 			Tuple<Vector2i,float> gridSquareAndDistance = m_playingArea.Terrain.PickGridSquare(ray);
 			Vector2i? gridSquare = gridSquareAndDistance != null ? gridSquareAndDistance.Item1 : (Vector2i?)null;
 
-			Entity = null;
-			if(gridSquare != null && (m_name == "Dwelling" || m_name == "Mansion" || m_name == "Village"))
-			{
-				// Work out what type of entity we're trying to place.
-				Blueprint blueprint = BlueprintManager.GetBlueprint(m_name);
-				Type entityType = blueprint.EntityType;
-
-				// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
-				// Note that this will return null if the entity can't be validly placed.
-				Footprint footprint = blueprint.Footprint.Rotated((int)m_placementOrientation);
-				float? altitude = footprint.DetermineAverageAltitude(gridSquare.Value, m_playingArea.Terrain);
-
-				// Provided the altitude could be determined, continue with entity creation.
-				if(altitude != null)
-				{
-					// Set the properties of the entity.
-					var entityProperties = new Dictionary<string,dynamic>();
-					entityProperties["Altitude"] = altitude;
-					entityProperties["Blueprint"] = m_name;
-					entityProperties["Orientation"] = m_placementOrientation;
-					entityProperties["Position"] = gridSquare.Value;
-
-					// Create the new entity, and set it as the entity to be placed if it's valid.
-					Entity = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
-				}
-			}
+			// Try to create an entity to be placed at the specified grid square.
+			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, m_placementOrientation, m_playingArea.Terrain);
 		}
 
 		/// <summary>

@@ -3,6 +3,13 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
+using System.Collections.Generic;
+using game1666proto4.Common.Maths;
+using game1666proto4.GameModel;
+using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -34,6 +41,44 @@ namespace game1666proto4.UI.Tools
 			// Find the ray (in world space) between them and return it.
 			Vector3 dir = Vector3.Normalize(far - near);
 			return new Ray(near, dir);
+		}
+
+		/// <summary>
+		/// Tries to create an entity to be placed at the specified grid square.
+		/// </summary>
+		/// <param name="blueprintName">The name of the blueprint specifying the type of entity to create.</param>
+		/// <param name="gridSquare">The terrain grid square on which to place the entity's hotspot.</param>
+		/// <param name="orientation">The orientation of the entity.</param>
+		/// <param name="terrain">The terrain on which the entity is to be placed.</param>
+		/// <returns>The entity, if it can be created, or null otherwise.</returns>
+		public static IPlaceableEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain)
+		{
+			IPlaceableEntity entity = null;
+			if(gridSquare != null && (blueprintName == "Dwelling" || blueprintName == "Mansion" || blueprintName == "Village"))
+			{
+				// Work out what type of entity we're trying to place.
+				Blueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);
+				Type entityType = blueprint.EntityType;
+
+				// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
+				// Note that this will return null if the entity can't be validly placed.
+				float? altitude = blueprint.Footprint.DetermineAverageAltitude(gridSquare.Value, terrain);
+
+				// Provided the altitude could be determined, continue with entity creation.
+				if(altitude != null)
+				{
+					// Set the properties of the entity.
+					var entityProperties = new Dictionary<string,dynamic>();
+					entityProperties["Altitude"] = altitude;
+					entityProperties["Blueprint"] = blueprintName;
+					entityProperties["Orientation"] = orientation;
+					entityProperties["Position"] = gridSquare.Value;
+
+					// Create the entity.
+					entity = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+				}
+			}
+			return entity;
 		}
 	}
 }
