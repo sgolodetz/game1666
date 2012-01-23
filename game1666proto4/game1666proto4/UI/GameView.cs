@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
-using game1666proto4.GameModel;
+using game1666proto4.GameModel.Entities;
 
 namespace game1666proto4.UI
 {

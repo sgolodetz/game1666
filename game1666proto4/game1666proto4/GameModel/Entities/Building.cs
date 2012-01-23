@@ -11,9 +11,10 @@ using game1666proto4.Common.FSMs;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Placement;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel
+namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
 	/// An instance of this class represents a building.

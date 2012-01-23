@@ -3,7 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using game1666proto4.GameModel;
+using game1666proto4.GameModel.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

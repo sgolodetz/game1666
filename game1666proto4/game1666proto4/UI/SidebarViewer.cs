@@ -10,7 +10,7 @@ using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Input;
-using game1666proto4.GameModel;
+using game1666proto4.GameModel.Entities;
 using game1666proto4.UI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

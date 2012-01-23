@@ -6,7 +6,7 @@
 using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.Terrains;
 
-namespace game1666proto4.GameModel
+namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents a playing area in the game.

@@ -8,7 +8,7 @@ using game1666proto4.Common.Communication;
 using game1666proto4.GameModel.Messages;
 using game1666proto4.GameModel.Terrains;
 
-namespace game1666proto4.GameModel
+namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
 	/// An instance of this class represents a playing area in the game.

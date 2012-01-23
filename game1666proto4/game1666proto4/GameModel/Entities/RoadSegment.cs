@@ -5,7 +5,7 @@
 
 using game1666proto4.GameModel.Blueprints;
 
-namespace game1666proto4.GameModel
+namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
 	/// An instance of this class represents a road segment.
