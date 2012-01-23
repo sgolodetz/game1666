@@ -4,11 +4,8 @@
  ***/
 
 using System;
-using System.Collections.Generic;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel;
-using game1666proto4.GameModel.Blueprints;
-using game1666proto4.GameModel.FSMs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
