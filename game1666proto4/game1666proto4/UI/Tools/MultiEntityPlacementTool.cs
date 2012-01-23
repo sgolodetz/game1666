@@ -89,19 +89,10 @@ namespace game1666proto4.UI.Tools
 			// Try to create an entity to be placed at the specified grid square.
 			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, Orientation4.XPOS, m_playingArea.Terrain);
 
-			// If the left mouse button is pressed, try and place the entity in the playing area.
-			if(state.LeftButton == ButtonState.Pressed)
+			// If the left mouse button is pressed and there is an entity to place, try and place it in the playing area.
+			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				if(Entity != null && Entity.PlacementStrategy.IsValidlyPlaced
-				(
-					m_playingArea.Terrain,
-					Entity.Blueprint.Footprint,
-					Entity.Position,
-					Entity.Orientation
-				))
-				{
-					m_playingArea.AddDynamicEntity(Entity.CloneNew());
-				}
+				ToolUtil.TryPlaceEntity(Entity, m_playingArea);
 			}
 		}
 

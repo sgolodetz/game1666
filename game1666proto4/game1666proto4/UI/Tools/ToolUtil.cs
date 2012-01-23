@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel;
 using game1666proto4.GameModel.Blueprints;
@@ -79,6 +80,35 @@ namespace game1666proto4.UI.Tools
 				}
 			}
 			return entity;
+		}
+
+		/// <summary>
+		/// Tries to place an entity in a playing area, based on whether or not it is validly placed
+		/// according to its own placement strategy.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		/// <param name="playingArea">The playing area.</param>
+		/// <returns>true, if the placement succeeded, or false otherwise</returns>
+		public static bool TryPlaceEntity(IPlaceableEntity entity, IPlayingArea playingArea)
+		{
+			Contract.Requires(entity != null);
+			Contract.Requires(playingArea != null);
+
+			if(entity.PlacementStrategy.IsValidlyPlaced
+			(
+				playingArea.Terrain,
+				entity.Blueprint.Footprint,
+				entity.Position,
+				entity.Orientation
+			))
+			{
+				playingArea.AddDynamicEntity(entity.CloneNew());
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }

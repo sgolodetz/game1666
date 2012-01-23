@@ -108,15 +108,8 @@ namespace game1666proto4.UI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed)
 			{
-				if(Entity != null && Entity.PlacementStrategy.IsValidlyPlaced
-				(
-					m_playingArea.Terrain,
-					Entity.Blueprint.Footprint,
-					Entity.Position,
-					Entity.Orientation
-				))
+				if(Entity != null && ToolUtil.TryPlaceEntity(Entity, m_playingArea))
 				{
-					m_playingArea.AddDynamicEntity(Entity.CloneNew());
 					return null;
 				}
 			}
