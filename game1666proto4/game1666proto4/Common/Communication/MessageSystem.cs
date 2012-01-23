@@ -19,12 +19,12 @@ namespace game1666proto4.Common.Communication
 		/// <summary>
 		/// A queue of messages to be dispatched on request.
 		/// </summary>
-		private static Queue<IMessage> s_messageQueue = new Queue<IMessage>();
+		private static readonly Queue<IMessage> s_messageQueue = new Queue<IMessage>();
 
 		/// <summary>
 		/// A set of rules that control how messages are dispatched.
 		/// </summary>
-		private static ISet<MessageRule<dynamic>> s_rules = new HashSet<MessageRule<dynamic>>();
+		private static readonly ISet<MessageRule<dynamic>> s_rules = new HashSet<MessageRule<dynamic>>();
 
 		#endregion
 

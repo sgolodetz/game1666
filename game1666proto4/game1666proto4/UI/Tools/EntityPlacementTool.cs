@@ -23,7 +23,7 @@ namespace game1666proto4.UI.Tools
 		/// <summary>
 		/// The name of the blueprint specifying the kind of entity to place.
 		/// </summary>
-		private string m_name;
+		private readonly string m_name;
 
 		/// <summary>
 		/// The orientation of the entity currently being placed (if any).

@@ -40,9 +40,9 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
-		/// An instance of this struct represents the way in which a set of buttons should be laid out (in a grid).
+		/// An instance of this class represents the way in which a set of buttons should be laid out (in a grid).
 		/// </summary>
-		private struct ButtonLayout
+		private sealed class ButtonLayout
 		{
 			/// <summary>
 			/// The height of each button.
@@ -81,9 +81,9 @@ namespace game1666proto4.UI
 		}
 
 		/// <summary>
-		/// An instance of this struct specifies all the information necessary to construct a button.
+		/// An instance of this class specifies all the information necessary to construct a button.
 		/// </summary>
-		private struct ButtonSpecifier
+		private sealed class ButtonSpecifier
 		{
 			/// <summary>
 			/// A hook that the button can use to check whether or not it should be drawn highlighted.

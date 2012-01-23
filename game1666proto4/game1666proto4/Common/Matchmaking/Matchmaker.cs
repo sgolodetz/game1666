@@ -131,12 +131,12 @@ namespace game1666proto4.Common.Matchmaking
 		/// <summary>
 		/// A list of outstanding offers to supply resources.
 		/// </summary>
-		private IList<SourcedOffer> m_sourcedOffers = new List<SourcedOffer>();
+		private readonly IList<SourcedOffer> m_sourcedOffers = new List<SourcedOffer>();
 
 		/// <summary>
 		/// A list of outstanding requests to consume resources.
 		/// </summary>
-		private IList<SourcedRequest> m_sourcedRequests = new List<SourcedRequest>();
+		private readonly IList<SourcedRequest> m_sourcedRequests = new List<SourcedRequest>();
 
 		#endregion
 

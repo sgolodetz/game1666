@@ -60,12 +60,12 @@ namespace game1666proto4.Common.Matchmaking
 		/// <summary>
 		/// A table specifying the lists of edges connected to each of the destination nodes.
 		/// </summary>
-		private List<MatchmakingEdge>[] m_destinationEdges;
+		private readonly List<MatchmakingEdge>[] m_destinationEdges;
 
 		/// <summary>
 		/// A table specifying the lists of edges connected to each of the source nodes.
 		/// </summary>
-		private List<MatchmakingEdge>[] m_sourceEdges;
+		private readonly List<MatchmakingEdge>[] m_sourceEdges;
 
 		#endregion
 

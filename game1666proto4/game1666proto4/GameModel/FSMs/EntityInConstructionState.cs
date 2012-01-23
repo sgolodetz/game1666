@@ -31,7 +31,7 @@ namespace game1666proto4.GameModel.FSMs
 		/// <summary>
 		/// The properties of the FSM that contains this state.
 		/// </summary>
-		private IDictionary<string,dynamic> m_fsmProperties;
+		private readonly IDictionary<string,dynamic> m_fsmProperties;
 
 		/// <summary>
 		/// The time (in milliseconds) that it takes to construct the entity.
