@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityPlacementTool.cs
+ * game1666proto4: MultiEntityPlacementTool.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -16,9 +16,9 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666proto4.UI.Tools
 {
 	/// <summary>
-	/// An instance of this class can be used to place entities in a playing area.
+	/// An instance of this class can be used to place multiple entities in a playing area with a single drag of the mouse.
 	/// </summary>
-	sealed class EntityPlacementTool : ITool
+	sealed class MultiEntityPlacementTool : ITool
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -27,11 +27,6 @@ namespace game1666proto4.UI.Tools
 		/// The name of the blueprint specifying the kind of entity to place.
 		/// </summary>
 		private string m_name;
-
-		/// <summary>
-		/// The orientation of the entity currently being placed (if any).
-		/// </summary>
-		private Orientation4 m_placementOrientation = Orientation4.XPOS;
 
 		/// <summary>
 		/// The playing area in which to place the entity.
@@ -59,11 +54,11 @@ namespace game1666proto4.UI.Tools
 		#region
 
 		/// <summary>
-		/// Constructs a new entity placement tool.
+		/// Constructs a new multi-entity placement tool.
 		/// </summary>
 		/// <param name="name">The name of the blueprint specifying the kind of entity to place.</param>
-		/// <param name="playingArea">The playing area in which to place the entity.</param>
-		public EntityPlacementTool(string name, IPlayingArea playingArea)
+		/// <param name="playingArea">The playing area in which to place the entities.</param>
+		public MultiEntityPlacementTool(string name, IPlayingArea playingArea)
 		{
 			m_name = name;
 			m_playingArea = playingArea;
@@ -100,8 +95,7 @@ namespace game1666proto4.UI.Tools
 
 				// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
 				// Note that this will return null if the entity can't be validly placed.
-				Footprint footprint = blueprint.Footprint.Rotated((int)m_placementOrientation);
-				float? altitude = footprint.DetermineAverageAltitude(gridSquare.Value, m_playingArea.Terrain);
+				float? altitude = blueprint.Footprint.DetermineAverageAltitude(gridSquare.Value, m_playingArea.Terrain);
 
 				// Provided the altitude could be determined, continue with entity creation.
 				if(altitude != null)
@@ -110,11 +104,26 @@ namespace game1666proto4.UI.Tools
 					var entityProperties = new Dictionary<string,dynamic>();
 					entityProperties["Altitude"] = altitude;
 					entityProperties["Blueprint"] = m_name;
-					entityProperties["Orientation"] = m_placementOrientation;
+					entityProperties["Orientation"] = Orientation4.XPOS;
 					entityProperties["Position"] = gridSquare.Value;
 
 					// Create the new entity, and set it as the entity to be placed if it's valid.
 					Entity = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+				}
+			}
+
+			// If the left mouse button is pressed, try and place the entity in the playing area.
+			if(state.LeftButton == ButtonState.Pressed)
+			{
+				if(Entity != null && Entity.PlacementStrategy.IsValidlyPlaced
+				(
+					m_playingArea.Terrain,
+					Entity.Blueprint.Footprint,
+					Entity.Position,
+					Entity.Orientation
+				))
+				{
+					m_playingArea.AddDynamicEntity(Entity.CloneNew());
 				}
 			}
 		}
@@ -130,29 +139,7 @@ namespace game1666proto4.UI.Tools
 		/// <returns>The tool that should be active after the mouse press (generally this or null).</returns>
 		public ITool OnMousePressed(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld)
 		{
-			if(state.LeftButton == ButtonState.Pressed)
-			{
-				if(Entity != null && Entity.PlacementStrategy.IsValidlyPlaced
-				(
-					m_playingArea.Terrain,
-					Entity.Blueprint.Footprint,
-					Entity.Position,
-					Entity.Orientation
-				))
-				{
-					m_playingArea.AddDynamicEntity(Entity.CloneNew());
-					return null;
-				}
-			}
-			else if(state.RightButton == ButtonState.Pressed)
-			{
-				int placementOrientation = (int)m_placementOrientation;
-				placementOrientation = (placementOrientation + 1) % 4;
-				m_placementOrientation = (Orientation4)placementOrientation;
-
-				// Call the mouse moved handler to update the entity being placed.
-				OnMouseMoved(state, viewport, matProjection, matView, matWorld);
-			}
+			// All the action for the multi-entity placement tool happens in the mouse moved event.
 			return this;
 		}
 
