@@ -5,7 +5,7 @@
 
 using System;
 
-namespace game1666proto4.Common.Communication
+namespace game1666proto4.Common.Messages
 {
 	/// <summary>
 	/// This class provides methods to create commonly-used types of message rule.

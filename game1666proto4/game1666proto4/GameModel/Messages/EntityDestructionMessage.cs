@@ -3,7 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using game1666proto4.Common.Communication;
+using game1666proto4.Common.Messages;
 
 namespace game1666proto4.GameModel.Messages
 {

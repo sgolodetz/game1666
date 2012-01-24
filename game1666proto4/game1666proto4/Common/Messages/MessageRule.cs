@@ -5,7 +5,7 @@
 
 using System;
 
-namespace game1666proto4.Common.Communication
+namespace game1666proto4.Common.Messages
 {
 	/// <summary>
 	/// An instance of this class represents a message rule.

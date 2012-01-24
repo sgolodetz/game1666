@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace game1666proto4.Common.Communication
+namespace game1666proto4.Common.Messages
 {
 	/// <summary>
 	/// This class implements a message system, used to dispatch messages across the game.

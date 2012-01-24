@@ -3,7 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-namespace game1666proto4.Common.Communication
+namespace game1666proto4.Common.Messages
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents a game message.

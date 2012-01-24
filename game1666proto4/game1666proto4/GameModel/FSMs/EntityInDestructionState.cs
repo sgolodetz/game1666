@@ -5,8 +5,8 @@
 
 using System;
 using System.Collections.Generic;
-using game1666proto4.Common.Communication;
 using game1666proto4.Common.FSMs;
+using game1666proto4.Common.Messages;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Messages;
 using Microsoft.Xna.Framework;

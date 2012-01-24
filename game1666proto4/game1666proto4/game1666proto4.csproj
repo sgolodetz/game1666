@@ -164,10 +164,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Communication\IMessage.cs" />
-    <Compile Include="Common\Communication\MessageRule.cs" />
-    <Compile Include="Common\Communication\MessageRuleFactory.cs" />
-    <Compile Include="Common\Communication\MessageSystem.cs" />
+    <Compile Include="Common\Messages\IMessage.cs" />
+    <Compile Include="Common\Messages\MessageRule.cs" />
+    <Compile Include="Common\Messages\MessageRuleFactory.cs" />
+    <Compile Include="Common\Messages\MessageSystem.cs" />
     <Compile Include="Common\Entities\EntityLoader.cs" />
     <Compile Include="Common\Entities\ICompositeEntity.cs" />
     <Compile Include="Common\Matchmaking\IMatchmakingEntity.cs" />
