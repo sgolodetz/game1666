@@ -457,7 +457,7 @@ namespace game1666proto4.UI
 
 			// If the type was found, create a mouse event that will set the current tool to a
 			// new instance of the type when invoked.
-			return state => GameViewState.Tool = (dynamic)Activator.CreateInstance(toolType, name, m_playingArea);
+			return state => GameViewState.Tool = Activator.CreateInstance(toolType, name, m_playingArea) as ITool;
 		}
 
 		#endregion
