@@ -313,7 +313,7 @@ namespace game1666proto4.UI
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
 				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name.EndsWith(":" + element.Name),
-				MousePressedHook    = UseToolHook(element.Tool, element.Name),
+				MousePressedHook	= UseToolHook(element.Tool, element.Name),
 				TextureName			= "sidebarelement_" + element.Name
 			}));
 
