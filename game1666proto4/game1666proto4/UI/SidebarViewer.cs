@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
@@ -101,30 +102,46 @@ namespace game1666proto4.UI
 			public string TextureName { get; set; }
 		}
 
+		/// <summary>
+		/// An instance of this class specifies all the information necessary to describe what an element button should do.
+		/// </summary>
+		private sealed class ElementSpecifier
+		{
+			/// <summary>
+			/// The name to pass to the tool (e.g. the entity blueprint name for tools that place entities).
+			/// </summary>
+			public string Name { get; set; }
+
+			/// <summary>
+			/// The name of the tool this button will use (e.g. "EntityPlacementTool").
+			/// </summary>
+			public string Tool { get; set; }
+		}
+
 		#endregion
 
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
-		/// The current group of entities that the player can manipulate.
+		/// The currently-selected sidebar group.
 		/// </summary>
 		private string m_currentGroup;
 
 		/// <summary>
-		/// The buttons for the individual entities in the current group that the player can manipulate.
+		/// The individual buttons in the currently-selected sidebar group.
 		/// </summary>
 		private IList<Button> m_elementButtons = new List<Button>();
 
 		/// <summary>
-		/// The buttons for the groups of entity that the player can manipulate.
+		/// The buttons for the sidebar groups.
 		/// </summary>
 		private IList<Button> m_groupButtons = new List<Button>();
 
 		/// <summary>
-		/// The groups of entity that the player can manipulate.
+		/// The groups of element specifiers that describe the functionality of the sidebar.
 		/// </summary>
-		private readonly IDictionary<string,List<string>> m_groups = new Dictionary<string,List<string>>();
+		private readonly IDictionary<string,List<ElementSpecifier>> m_groups = new Dictionary<string,List<ElementSpecifier>>();
 
 		/// <summary>
 		/// The playing area whose entities this sidebar is used to manipulate.
@@ -295,9 +312,9 @@ namespace game1666proto4.UI
 			var buttonSpecifiers = new List<ButtonSpecifier>();
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
-				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name == "Place:" + element,
-				MousePressedHook    = state => GameViewState.Tool = new EntityPlacementTool(element, m_playingArea),
-				TextureName			= "sidebarelement_" + element
+				IsHighlighted		= () => GameViewState.Tool != null && GameViewState.Tool.Name.EndsWith(":" + element.Name),
+				MousePressedHook    = UseToolHook(element.Tool, element.Name),
+				TextureName			= "sidebarelement_" + element.Name
 			}));
 
 			// Create the buttons themselves.
@@ -311,12 +328,6 @@ namespace game1666proto4.UI
 		{
 			// Create the button specifiers.
 			var buttonSpecifiers = new List<ButtonSpecifier>();
-			buttonSpecifiers.Add(new ButtonSpecifier
-			{
-				IsHighlighted		= () => m_currentGroup == "Special",
-				MousePressedHook	= state => { GameViewState.Tool = null; CreateSpecialElementButtons(); },
-				TextureName			= "sidebargroup_Special"
-			});
 			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_currentGroup == group,
@@ -326,27 +337,6 @@ namespace game1666proto4.UI
 
 			// Create the buttons themselves.
 			m_groupButtons = CreateButtons(GroupButtonsViewport(), 2, buttonSpecifiers);
-		}
-
-		/// <summary>
-		/// Creates buttons for the individual entities in the Special group.
-		/// </summary>
-		private void CreateSpecialElementButtons()
-		{
-			// Set the current group.
-			m_currentGroup = "Special";
-
-			// Create the button specifiers.
-			var buttonSpecifiers = new List<ButtonSpecifier>();
-			buttonSpecifiers.Add(new ButtonSpecifier
-			{
-				IsHighlighted = () => GameViewState.Tool != null && GameViewState.Tool.Name == "Delete",
-				MousePressedHook    = state => GameViewState.Tool = new EntityDeletionTool(m_playingArea),
-				TextureName			= "sidebarelement_Delete"
-			});
-
-			// Create the buttons themselves.
-			m_elementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
 		}
 
 		/// <summary>
@@ -426,14 +416,48 @@ namespace game1666proto4.UI
 			foreach(XElement group in entityElt.Elements("group"))
 			{
 				string groupName = group.Attribute("name").Value;
-				m_groups[groupName] = new List<string>();
+				m_groups[groupName] = new List<ElementSpecifier>();
 
 				foreach(XElement element in group.Elements("element"))
 				{
-					string elementName = element.Attribute("name").Value;
-					m_groups[groupName].Add(elementName);
+					XAttribute nameAttribute = element.Attribute("name");
+					XAttribute toolAttribute = element.Attribute("tool");
+					if(nameAttribute == null) continue;
+
+					m_groups[groupName].Add(new ElementSpecifier
+					{
+						Name = nameAttribute.Value,
+						Tool = toolAttribute != null ? toolAttribute.Value : (string)null
+					});
 				}
 			}
+		}
+
+		/// <summary>
+		/// Returns a mouse event that sets the current tool to a new instance of the specified type when invoked.
+		/// </summary>
+		/// <param name="tool">The (unqualified) name of the tool type, e.g. "EntityPlacementTool".</param>
+		/// <param name="name">The name argument to pass to the tool's constructor, e.g. "Dwelling".</param>
+		/// <returns>A mouse event that sets the current tool to a new instance of the specified type when invoked.</returns>
+		private MouseEvent UseToolHook(string tool, string name)
+		{
+			// If no tool was specified, return a mouse event that will do nothing when called.
+			if(tool == null)
+			{
+				return state => {};
+			}
+
+			// If a tool was specified, look up its type.
+			string toolTypename = "game1666proto4.UI.Tools." + tool;
+			Type toolType = Type.GetType(toolTypename);
+			if(toolType == null)
+			{
+				throw new InvalidDataException("No such tool type: " + toolTypename);
+			}
+
+			// If the type was found, create a mouse event that will set the current tool to a
+			// new instance of the type when invoked.
+			return state => GameViewState.Tool = (dynamic)Activator.CreateInstance(toolType, name, m_playingArea);
 		}
 
 		#endregion

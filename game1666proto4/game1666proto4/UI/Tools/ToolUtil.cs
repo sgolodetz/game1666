@@ -55,7 +55,7 @@ namespace game1666proto4.UI.Tools
 		public static IPlaceableEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain)
 		{
 			IPlaceableEntity entity = null;
-			if(gridSquare != null && (blueprintName == "Dwelling" || blueprintName == "Mansion" || blueprintName == "Village"))
+			if(gridSquare != null)
 			{
 				// Work out what type of entity we're trying to place.
 				Blueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);

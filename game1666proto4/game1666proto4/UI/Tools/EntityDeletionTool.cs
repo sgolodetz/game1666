@@ -41,7 +41,7 @@ namespace game1666proto4.UI.Tools
 		/// <summary>
 		/// The name of the tool.
 		/// </summary>
-		public string Name { get { return "Delete"; } }
+		public string Name { get { return "Delete:Delete"; } }
 
 		#endregion
 
@@ -51,8 +51,9 @@ namespace game1666proto4.UI.Tools
 		/// <summary>
 		/// Constructs a new entity deletion tool.
 		/// </summary>
+		/// <param name="name">The name of the tool (dummy parameter).</param>
 		/// <param name="playingArea">The playing area from which to delete the entity.</param>
-		public EntityDeletionTool(IPlayingArea playingArea)
+		public EntityDeletionTool(string name, IPlayingArea playingArea)
 		{
 			m_playingArea = playingArea;
 		}

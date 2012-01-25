@@ -219,7 +219,7 @@ namespace game1666proto4.UI
 			ITool tool = GameViewState.Tool;
 			foreach(IPlaceableEntity entity in playingArea.Children)
 			{
-				float alpha = tool != null && tool.Name == "Delete" && entity == tool.Entity ? 0.35f : 1f;
+				float alpha = tool != null && tool.Name == "Delete:Delete" && entity == tool.Entity ? 0.35f : 1f;
 				DrawPlaceableEntity(entity, alpha);
 			}
 

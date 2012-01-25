@@ -67,9 +67,12 @@
         <property name="Name" type="string" value="SidebarViewer"/>
         <property name="PlayingArea" type="string" value="world/city:Home"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
+        <group name="Special">
+          <element name="Delete" tool="EntityDeletionTool"/>
+        </group>
         <group name="Houses">
-          <element name="Dwelling"/>
-          <element name="Mansion"/>
+          <element name="Dwelling" tool="EntityPlacementTool"/>
+          <element name="Mansion" tool="EntityPlacementTool"/>
         </group>
         <group name="Roads">
           <element name="DirtTrack"/>
@@ -87,8 +90,11 @@
         <property name="Name" type="string" value="SidebarViewer"/>
         <property name="PlayingArea" type="string" value="world"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
+        <group name="Special">
+          <element name="Delete" tool="EntityDeletionTool"/>
+        </group>
         <group name="Cities">
-          <element name="Village"/>
+          <element name="Village" tool="EntityPlacementTool"/>
         </group>
         <group name="Roads">
           <element name="DirtTrack"/>
