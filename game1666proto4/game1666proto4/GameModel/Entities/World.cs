@@ -96,6 +96,15 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Adds a road segment to the world.
+		/// </summary>
+		/// <param name="roadSegment">The road segment.</param>
+		public void AddEntity(RoadSegment roadSegment)
+		{
+			m_playingArea.AddEntity(roadSegment);
+		}
+
+		/// <summary>
 		/// Adds a terrain to the world (note that there can only be one terrain).
 		/// </summary>
 		/// <param name="terrain">The terrain.</param>

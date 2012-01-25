@@ -76,7 +76,13 @@ namespace game1666proto4.GameModel.FSMs
 		/// <summary>
 		/// The completeness percentage of the entity.
 		/// </summary>
-		public int PercentComplete { get { return ConstructionDone * 100 / m_timeToConstruct; } }
+		public int PercentComplete
+		{
+			get
+			{
+				return m_timeToConstruct != 0 ? ConstructionDone * 100 / m_timeToConstruct : 100;
+			}
+		}
 
 		#endregion
 
