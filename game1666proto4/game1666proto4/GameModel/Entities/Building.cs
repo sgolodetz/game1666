@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
-using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Placement;
 using Microsoft.Xna.Framework;
@@ -43,15 +42,9 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="properties">The properties of the building.</param>
 		/// <param name="initialStateID">The initial state of the building.</param>
 		public Building(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		:	base(properties, initialStateID)
 		{
-			Properties = properties;
-			Initialise();
-
-			// Construct and add the building's finite state machine.
-			var fsmProperties = new Dictionary<string,dynamic>();
-			fsmProperties["ConstructionDone"] = 0;	// this is a new building, so no construction has yet started
-			fsmProperties["CurrentStateID"] = initialStateID.ToString();
-			AddEntity(new EntityFSM(fsmProperties));
+			SetName();
 		}
 
 		/// <summary>
@@ -59,10 +52,9 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="entityElt">The root node of the building's XML representation.</param>
 		public Building(XElement entityElt)
+		:	base(entityElt)
 		{
-			Properties = EntityLoader.LoadProperties(entityElt);
-			Initialise();
-
+			SetName();
 			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
@@ -70,16 +62,6 @@ namespace game1666proto4.GameModel.Entities
 
 		//#################### PUBLIC METHODS ####################
 		#region
-
-		/// <summary>
-		/// Adds a finite state machine (FSM) to the building (note that there can only be one FSM).
-		/// </summary>
-		/// <param name="fsm">The FSM.</param>
-		public void AddEntity(EntityFSM fsm)
-		{
-			FSM = fsm;
-			fsm.EntityProperties = Properties;
-		}
 
 		/// <summary>
 		/// Adds an entity to the building based on its dynamic type.
@@ -105,13 +87,11 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Initialises the building from its properties.
+		/// Makes sure that the building has an appropriate name.
 		/// </summary>
-		private void Initialise()
+		private void SetName()
 		{
-			Properties["Self"] = this;
 			Properties["Name"] = "building:" + Guid.NewGuid().ToString();
-			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 
 		#endregion

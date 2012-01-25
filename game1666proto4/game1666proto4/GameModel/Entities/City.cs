@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
-using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Placement;
 using game1666proto4.GameModel.Terrains;
@@ -59,15 +58,9 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="properties">The properties of the city.</param>
 		/// <param name="initialStateID">The initial state of the city.</param>
 		public City(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		:	base(properties, initialStateID)
 		{
-			Properties = properties;
-			Initialise();
-
-			// Construct and add the city's finite state machine.
-			var fsmProperties = new Dictionary<string,dynamic>();
-			fsmProperties["ConstructionDone"] = 0;	// this is a new city, so no construction has yet started
-			fsmProperties["CurrentStateID"] = initialStateID.ToString();
-			AddEntity(new EntityFSM(fsmProperties));
+			SetName();
 		}
 
 		/// <summary>
@@ -75,10 +68,9 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="entityElt">The root node of the city's XML representation.</param>
 		public City(XElement entityElt)
+		:	base(entityElt)
 		{
-			Properties = EntityLoader.LoadProperties(entityElt);
-			Initialise();
-
+			SetName();
 			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
@@ -103,16 +95,6 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Building building)
 		{
 			m_playingArea.AddEntity(building);
-		}
-
-		/// <summary>
-		/// Adds a finite state machine (FSM) to the city (note that there can only be one FSM).
-		/// </summary>
-		/// <param name="fsm">The FSM.</param>
-		public void AddEntity(EntityFSM fsm)
-		{
-			FSM = fsm;
-			fsm.EntityProperties = Properties;
 		}
 
 		/// <summary>
@@ -173,19 +155,15 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Initialises the city from its properties.
+		/// Makes sure that the city has an appropriate name.
 		/// </summary>
-		private void Initialise()
+		private void SetName()
 		{
-			Properties["Self"] = this;
-
 			dynamic name;
 			if(!Properties.TryGetValue("Name", out name))
 			{
 				Properties["Name"] = "city:" + Guid.NewGuid().ToString();
 			}
-
-			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 
 		#endregion
