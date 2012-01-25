@@ -75,7 +75,7 @@
           <element name="Mansion" tool="EntityPlacementTool"/>
         </group>
         <group name="Roads">
-          <element name="DirtTrack" tool="EntityPlacementTool"/>
+          <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
         </group>
       </entity>
     </entity>
@@ -97,7 +97,7 @@
           <element name="Village" tool="EntityPlacementTool"/>
         </group>
         <group name="Roads">
-          <element name="DirtTrack" tool="EntityPlacementTool"/>
+          <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
         </group>
       </entity>
     </entity>

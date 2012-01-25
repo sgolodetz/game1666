@@ -87,10 +87,7 @@ namespace game1666proto4.UI.Tools
 			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, Orientation4.XPOS, m_playingArea.Terrain);
 
 			// If the left mouse button is pressed and there is an entity to place, try and place it in the playing area.
-			if(state.LeftButton == ButtonState.Pressed && Entity != null)
-			{
-				ToolUtil.TryPlaceEntity(Entity, m_playingArea);
-			}
+			TryPlaceEntity(state);
 		}
 
 		/// <summary>
@@ -104,8 +101,26 @@ namespace game1666proto4.UI.Tools
 		/// <returns>The tool that should be active after the mouse press (generally this or null).</returns>
 		public ITool OnMousePressed(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld)
 		{
-			// All the action for the multi-entity placement tool happens in the mouse moved event.
+			// All the real action for the multi-entity placement tool happens in the mouse moved event.
+			TryPlaceEntity(state);
 			return this;
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// If the left mouse button is pressed and there is an entity to place, try and place it in the playing area.
+		/// </summary>
+		/// <param name="state">The mouse state at the point at which the mouse check for the calling event was made.</param>
+		private void TryPlaceEntity(MouseState state)
+		{
+			if(state.LeftButton == ButtonState.Pressed && Entity != null)
+			{
+				ToolUtil.TryPlaceEntity(Entity, m_playingArea);
+			}
 		}
 
 		#endregion
