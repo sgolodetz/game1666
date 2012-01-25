@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
-using game1666proto4.Common.FSMs;
-using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Placement;
@@ -20,7 +18,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a city.
 	/// </summary>
-	sealed class City : IPlaceableEntity, IPlayingArea, IUpdateableEntity
+	sealed class City : PlaceableEntity, IPlayingArea, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -30,25 +28,10 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		private readonly PlayingArea m_playingArea = new PlayingArea();
 
-		/// <summary>
-		/// The properties of the city.
-		/// </summary>
-		private readonly IDictionary<string,dynamic> m_properties;
-
 		#endregion
 
 		//#################### PROPERTIES ####################
 		#region
-
-		/// <summary>
-		/// The altitude of the base of the city.
-		/// </summary>
-		public float Altitude { get { return m_properties["Altitude"]; } }
-
-		/// <summary>
-		/// The blueprint for the city.
-		/// </summary>
-		public Blueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// The sub-entities contained within the city.
@@ -56,41 +39,9 @@ namespace game1666proto4.GameModel.Entities
 		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
-		/// Whether or not the city is destructible.
-		/// </summary>
-		public bool Destructible
-		{
-			get
-			{
-				dynamic destructible;
-				return m_properties.TryGetValue("Destructible", out destructible) ? destructible : true;
-			}
-		}
-
-		/// <summary>
-		/// The finite state machine for the city.
-		/// </summary>
-		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
-
-		/// <summary>
-		/// The name of the city (must be unique within its playing area).
-		/// </summary>
-		public string Name { get { return m_properties["Name"]; } }
-
-		/// <summary>
-		/// The 2D axis-aligned orientation of the city.
-		/// </summary>
-		public Orientation4 Orientation { get { return m_properties["Orientation"]; } }
-
-		/// <summary>
 		/// The placement strategy for the city.
 		/// </summary>
-		public IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
-
-		/// <summary>
-		/// The position (relative to the origin of the containing entity) of the city's hotspot.
-		/// </summary>
-		public Vector2i Position { get { return m_properties["Position"]; } }
+		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
 
 		/// <summary>
 		/// The city's terrain.
@@ -109,7 +60,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="initialStateID">The initial state of the city.</param>
 		public City(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
 		{
-			m_properties = properties;
+			Properties = properties;
 			Initialise();
 
 			// Construct and add the city's finite state machine.
@@ -125,7 +76,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the city's XML representation.</param>
 		public City(XElement entityElt)
 		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
+			Properties = EntityLoader.LoadProperties(entityElt);
 			Initialise();
 
 			EntityLoader.LoadAndAddChildEntities(this, entityElt);
@@ -161,7 +112,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(EntityFSM fsm)
 		{
 			FSM = fsm;
-			fsm.EntityProperties = m_properties;
+			fsm.EntityProperties = Properties;
 		}
 
 		/// <summary>
@@ -177,9 +128,9 @@ namespace game1666proto4.GameModel.Entities
 		/// Makes a clone of this city that is in the 'in construction' state.
 		/// </summary>
 		/// <returns>The clone.</returns>
-		public IPlaceableEntity CloneNew()
+		public override IPlaceableEntity CloneNew()
 		{
-			return new City(m_properties, EntityStateID.IN_CONSTRUCTION);
+			return new City(Properties, EntityStateID.IN_CONSTRUCTION);
 		}
 
 		/// <summary>
@@ -226,15 +177,15 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		private void Initialise()
 		{
-			m_properties["Self"] = this;
+			Properties["Self"] = this;
 
 			dynamic name;
-			if(!m_properties.TryGetValue("Name", out name))
+			if(!Properties.TryGetValue("Name", out name))
 			{
-				m_properties["Name"] = "city:" + Guid.NewGuid().ToString();
+				Properties["Name"] = "city:" + Guid.NewGuid().ToString();
 			}
 
-			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 
 		#endregion

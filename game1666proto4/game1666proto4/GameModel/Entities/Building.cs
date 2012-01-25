@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
-using game1666proto4.Common.FSMs;
-using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Placement;
@@ -19,20 +17,10 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : ICompositeEntity, IPlaceableEntity, IUpdateableEntity
+	abstract class Building : PlaceableEntity, ICompositeEntity, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
-
-		/// <summary>
-		/// The altitude of the base of the building.
-		/// </summary>
-		public float Altitude { get { return Properties["Altitude"]; } }
-
-		/// <summary>
-		/// The blueprint for the building.
-		/// </summary>
-		public Blueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// The sub-entities of the building (not relevant to the rest of the game).
@@ -40,46 +28,9 @@ namespace game1666proto4.GameModel.Entities
 		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
 
 		/// <summary>
-		/// Whether or not the building is destructible.
-		/// </summary>
-		public bool Destructible
-		{
-			get
-			{
-				dynamic destructible;
-				return Properties.TryGetValue("Destructible", out destructible) ? destructible : true;
-			}
-		}
-
-		/// <summary>
-		/// The finite state machine for the building.
-		/// </summary>
-		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
-
-		/// <summary>
-		/// The name of the building (must be unique within its playing area).
-		/// </summary>
-		public string Name { get { return Properties["Name"]; } }
-
-		/// <summary>
-		/// The 2D axis-aligned orientation of the building.
-		/// </summary>
-		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
-
-		/// <summary>
 		/// The placement strategy for the building.
 		/// </summary>
-		public IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
-
-		/// <summary>
-		/// The position (relative to the origin of the containing entity) of the building's hotspot.
-		/// </summary>
-		public Vector2i Position { get { return Properties["Position"]; } }
-
-		/// <summary>
-		/// The properties of the building.
-		/// </summary>
-		protected IDictionary<string,dynamic> Properties { get; private set; }
+		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
 
 		#endregion
 
@@ -138,12 +89,6 @@ namespace game1666proto4.GameModel.Entities
 		{
 			AddEntity(entity);
 		}
-
-		/// <summary>
-		/// Makes a clone of this building that is in the 'in construction' state.
-		/// </summary>
-		/// <returns>The clone.</returns>
-		public abstract IPlaceableEntity CloneNew();
 
 		/// <summary>
 		/// Updates the building based on elapsed time and user input.
