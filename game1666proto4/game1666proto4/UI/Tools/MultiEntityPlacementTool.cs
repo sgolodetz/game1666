@@ -101,8 +101,9 @@ namespace game1666proto4.UI.Tools
 		/// <returns>The tool that should be active after the mouse press (generally this or null).</returns>
 		public ITool OnMousePressed(MouseState state, Viewport viewport, Matrix matProjection, Matrix matView, Matrix matWorld)
 		{
-			// All the real action for the multi-entity placement tool happens in the mouse moved event.
+			// If the left mouse button is pressed and there is an entity to place, try and place it in the playing area.
 			TryPlaceEntity(state);
+
 			return this;
 		}
 
