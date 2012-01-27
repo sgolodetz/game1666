@@ -68,7 +68,7 @@ namespace game1666proto4.Common.Matchmaking
 			}
 
 			#endregion
-		};
+		}
 
 		/// <summary>
 		/// An instance of this struct is used to pair a request with its source. The
@@ -121,7 +121,7 @@ namespace game1666proto4.Common.Matchmaking
 			}
 
 			#endregion
-		};
+		}
 
 		#endregion
 
