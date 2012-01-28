@@ -35,6 +35,11 @@ namespace game1666proto4.GameModel.Entities
 		public Blueprint Blueprint { get; protected set; }
 
 		/// <summary>
+		/// The sub-entities contained within this entity.
+		/// </summary>
+		public virtual IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
+
+		/// <summary>
 		/// Whether or not the entity can be destroyed.
 		/// </summary>
 		public bool Destructible
@@ -106,12 +111,19 @@ namespace game1666proto4.GameModel.Entities
 		{
 			Properties = EntityLoader.LoadProperties(entityElt);
 			Initialise();
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
 
 		//#################### PUBLIC ABSTRACT METHODS ####################
 		#region
+
+		/// <summary>
+		/// Adds an entity to this entity based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity to add.</param>
+		public abstract void AddDynamicEntity(dynamic entity);
 
 		/// <summary>
 		/// Makes a clone of this entity that is in the 'in construction' state.

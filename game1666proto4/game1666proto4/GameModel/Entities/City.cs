@@ -35,7 +35,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The sub-entities contained within the city.
 		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
+		public override IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
 		/// The placement strategy for the city.
@@ -71,7 +71,6 @@ namespace game1666proto4.GameModel.Entities
 		:	base(entityElt)
 		{
 			SetName();
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
@@ -83,7 +82,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Adds an entity to the city based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public void AddDynamicEntity(dynamic entity)
+		public override void AddDynamicEntity(dynamic entity)
 		{
 			AddEntity(entity);
 		}

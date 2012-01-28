@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
@@ -14,7 +15,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can be placed in a playing area.
 	/// </summary>
-	interface IPlaceableEntity
+	interface IPlaceableEntity : ICompositeEntity
 	{
 		//#################### PROPERTIES ####################
 		#region

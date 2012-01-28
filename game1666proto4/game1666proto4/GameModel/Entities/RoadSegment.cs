@@ -58,6 +58,15 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// Adds an entity to the road segment based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddDynamicEntity(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
+		/// <summary>
 		/// Makes a clone of this road segment that is in the 'in construction' state.
 		/// </summary>
 		/// <returns>The clone.</returns>

@@ -37,5 +37,15 @@
         <property name="CurrentStateID" type="string" value="OPERATING"/>
       </entity>
     </entity>
+    <entity type="GameModel.Entities.RoadSegment">
+      <property name="Altitude" type="float" value="0.25"/>
+      <property name="Blueprint" type="string" value="DirtTrack"/>
+      <property name="Orientation" type="Orientation4" value="XPOS"/>
+      <property name="Position" type="Vector2i" value="0,0"/>
+      <entity type="GameModel.FSMs.EntityFSM">
+        <property name="ConstructionDone" type="int" value="1000"/>
+        <property name="CurrentStateID" type="string" value="OPERATING"/>
+      </entity>
+    </entity>
   </entity>
 </entity>

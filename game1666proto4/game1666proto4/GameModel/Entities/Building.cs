@@ -22,11 +22,6 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The sub-entities of the building (not relevant to the rest of the game).
-		/// </summary>
-		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
-
-		/// <summary>
 		/// The placement strategy for the building.
 		/// </summary>
 		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
@@ -55,7 +50,6 @@ namespace game1666proto4.GameModel.Entities
 		:	base(entityElt)
 		{
 			SetName();
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
@@ -67,7 +61,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Adds an entity to the building based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public void AddDynamicEntity(dynamic entity)
+		public override void AddDynamicEntity(dynamic entity)
 		{
 			AddEntity(entity);
 		}
