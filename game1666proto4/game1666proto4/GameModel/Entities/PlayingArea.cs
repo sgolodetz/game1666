@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using game1666proto4.Common.Messages;
 using game1666proto4.GameModel.Messages;
+using game1666proto4.GameModel.Navigation;
 using game1666proto4.GameModel.Terrains;
 
 namespace game1666proto4.GameModel.Entities
@@ -37,6 +38,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The entities contained within the playing area.
 		/// </summary>
 		public IEnumerable<dynamic> Children { get { return m_children.Values; } }
+
+		/// <summary>
+		/// The playing area's navigation map.
+		/// </summary>
+		public NavigationMap NavigationMap { get; private set; }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -81,6 +87,26 @@ namespace game1666proto4.GameModel.Entities
 					(EntityDestructionMessage msg) => DeleteEntity(entity)
 				)
 			);
+		}
+
+		/// <summary>
+		/// Adds a navigation map to the playing area (note that there can only be one navigation map).
+		/// </summary>
+		/// <param name="navigationMap">The navigation map.</param>
+		public void AddEntity(NavigationMap navigationMap)
+		{
+			NavigationMap = navigationMap;
+			NavigationMap.Terrain = Terrain;
+		}
+
+		/// <summary>
+		/// Adds a road segment to the playing area.
+		/// </summary>
+		/// <param name="roadSegment">The road segment.</param>
+		public void AddEntity(RoadSegment roadSegment)
+		{
+			AddEntity(roadSegment as IPlaceableEntity);
+			NavigationMap.AddEntity(roadSegment);
 		}
 
 		/// <summary>

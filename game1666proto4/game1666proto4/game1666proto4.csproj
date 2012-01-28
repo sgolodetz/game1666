@@ -178,6 +178,7 @@
     <Compile Include="GameModel\Entities\PlaceableEntity.cs" />
     <Compile Include="GameModel\FSMs\EntityInDestructionState.cs" />
     <Compile Include="GameModel\Entities\IPlaceableEntity.cs" />
+    <Compile Include="GameModel\Navigation\NavigationMap.cs" />
     <Compile Include="GameModel\Placement\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\IPlayingArea.cs" />
     <Compile Include="Common\Entities\IUpdateableEntity.cs" />

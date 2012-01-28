@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Navigation;
 using game1666proto4.GameModel.Placement;
 using game1666proto4.GameModel.Terrains;
 using Microsoft.Xna.Framework;
@@ -95,6 +96,15 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Building building)
 		{
 			m_playingArea.AddEntity(building);
+		}
+
+		/// <summary>
+		/// Adds a navigation map to the city (note that there can only be one navigation map).
+		/// </summary>
+		/// <param name="navigationMap">The navigation map.</param>
+		public void AddEntity(NavigationMap navigationMap)
+		{
+			m_playingArea.AddEntity(navigationMap);
 		}
 
 		/// <summary>

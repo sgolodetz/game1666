@@ -27,6 +27,9 @@
         2,2,2,2,3,2,1,1,1,1
       </property>
     </entity>
+    <entity type="GameModel.Navigation.NavigationMap">
+      <!-- TODO -->
+    </entity>
     <entity type="GameModel.Entities.House">
       <property name="Altitude" type="float" value="0.25"/>
       <property name="Blueprint" type="string" value="Dwelling"/>
