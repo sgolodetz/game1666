@@ -38,6 +38,11 @@ namespace game1666proto4.GameModel.Entities
 		public override IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
+		/// The city's navigation map.
+		/// </summary>
+		public NavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
+
+		/// <summary>
 		/// The placement strategy for the city.
 		/// </summary>
 		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }

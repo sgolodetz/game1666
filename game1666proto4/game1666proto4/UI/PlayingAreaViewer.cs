@@ -171,6 +171,28 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
+		/// Determines the model to use when drawing the specified entity.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		/// <returns>The name of the model to use.</returns>
+		private string DetermineModel(IPlaceableEntity entity)
+		{
+			return entity.Blueprint.Model;
+		}
+
+		/// <summary>
+		/// Determines the model to use when drawing the specified road segment.
+		/// </summary>
+		/// <param name="roadSegment">The road segment.</param>
+		/// <returns>The name of the model to use.</returns>
+		private string DetermineModel(RoadSegment roadSegment)
+		{
+			NavigationMap navigationMap = m_playingArea.NavigationMap;
+			// TODO: Determine which model to use based on the positions of other road segments.
+			return roadSegment.Blueprint.Model;
+		}
+
+		/// <summary>
 		/// Draws a placeable entity.
 		/// </summary>
 		/// <param name="entity">The entity to draw.</param>
@@ -178,7 +200,7 @@ namespace game1666proto4.UI
 		private void DrawPlaceableEntity(IPlaceableEntity entity, float alpha = 1f)
 		{
 			// Load the model.
-			Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
+			Model model = Renderer.Content.Load<Model>("Models/" + DetermineModel((dynamic)entity));
 
 			// Move the model to the correct position.
 			Matrix matWorld = Matrix.CreateTranslation(entity.Position.X + 0.5f, entity.Position.Y + 0.5f, entity.Altitude);

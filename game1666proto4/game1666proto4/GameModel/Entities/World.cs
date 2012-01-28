@@ -52,6 +52,11 @@ namespace game1666proto4.GameModel.Entities
 		public string HomeCity { get { return m_properties["HomeCity"]; } }
 
 		/// <summary>
+		/// The world's navigation map.
+		/// </summary>
+		public NavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
+
+		/// <summary>
 		/// The world's terrain.
 		/// </summary>
 		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }

@@ -17,6 +17,11 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The playing area's navigation map.
+		/// </summary>
+		NavigationMap NavigationMap { get; }
+
+		/// <summary>
 		/// The playing area's terrain.
 		/// </summary>
 		Terrain Terrain { get; }
