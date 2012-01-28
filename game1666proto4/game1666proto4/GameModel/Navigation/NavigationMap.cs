@@ -16,16 +16,6 @@ namespace game1666proto4.GameModel.Navigation
 	/// </summary>
 	sealed class NavigationMap
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The properties of the navigation map.
-		/// </summary>
-		private readonly IDictionary<string,dynamic> m_properties;
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -33,20 +23,6 @@ namespace game1666proto4.GameModel.Navigation
 		/// The terrain over which entities will be navigating.
 		/// </summary>
 		public Terrain Terrain { private get; set; }
-
-		#endregion
-
-		//#################### CONSTRUCTORS ####################
-		#region
-
-		/// <summary>
-		/// Constructs a navigation map from its XML representation.
-		/// </summary>
-		/// <param name="entityElt">The root node of the navigation map's XML representation.</param>
-		public NavigationMap(XElement entityElt)
-		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
-		}
 
 		#endregion
 

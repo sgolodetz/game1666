@@ -29,6 +29,11 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		private readonly IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
 
+		/// <summary>
+		/// The playing area's navigation map.
+		/// </summary>
+		private readonly NavigationMap m_navigationMap = new NavigationMap();
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -42,7 +47,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		public NavigationMap NavigationMap { get; private set; }
+		public NavigationMap NavigationMap { get { return m_navigationMap; } }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -90,16 +95,6 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Adds a navigation map to the playing area (note that there can only be one navigation map).
-		/// </summary>
-		/// <param name="navigationMap">The navigation map.</param>
-		public void AddEntity(NavigationMap navigationMap)
-		{
-			NavigationMap = navigationMap;
-			NavigationMap.Terrain = Terrain;
-		}
-
-		/// <summary>
 		/// Adds a road segment to the playing area.
 		/// </summary>
 		/// <param name="roadSegment">The road segment.</param>
@@ -116,6 +111,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Terrain terrain)
 		{
 			Terrain = terrain;
+			NavigationMap.Terrain = terrain;
 		}
 
 		/// <summary>

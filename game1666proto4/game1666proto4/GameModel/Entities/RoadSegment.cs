@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Placement;
@@ -37,6 +38,16 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="initialStateID">The initial state of the road segment.</param>
 		public RoadSegment(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
 		:	base(properties, initialStateID)
+		{
+			Properties["Name"] = Guid.NewGuid().ToString();
+		}
+
+		/// <summary>
+		/// Constructs a road segment from its XML representation.
+		/// </summary>
+		/// <param name="entityElt">The root node of the road segment's XML representation.</param>
+		public RoadSegment(XElement entityElt)
+		:	base(entityElt)
 		{
 			Properties["Name"] = Guid.NewGuid().ToString();
 		}
