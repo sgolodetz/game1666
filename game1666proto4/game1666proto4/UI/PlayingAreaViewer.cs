@@ -187,7 +187,7 @@ namespace game1666proto4.UI
 		/// <returns>The name of the model to use.</returns>
 		private string DetermineModel(RoadSegment roadSegment)
 		{
-			NavigationMap navigationMap = m_playingArea.NavigationMap;
+			OccupancyMap occupancyMap = m_playingArea.OccupancyMap;
 			// TODO: Determine which model to use based on the positions of other road segments.
 			return roadSegment.Blueprint.Model;
 		}

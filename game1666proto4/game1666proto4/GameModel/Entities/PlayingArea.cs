@@ -29,9 +29,9 @@ namespace game1666proto4.GameModel.Entities
 		private readonly IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
 
 		/// <summary>
-		/// The playing area's navigation map.
+		/// The playing area's occupancy map.
 		/// </summary>
-		private readonly NavigationMap m_navigationMap = new NavigationMap();
+		private readonly OccupancyMap m_occupancyMap = new OccupancyMap();
 
 		#endregion
 
@@ -44,9 +44,9 @@ namespace game1666proto4.GameModel.Entities
 		public IEnumerable<dynamic> Children { get { return m_children.Values; } }
 
 		/// <summary>
-		/// The playing area's navigation map.
+		/// The playing area's occupancy map.
 		/// </summary>
-		public NavigationMap NavigationMap { get { return m_navigationMap; } }
+		public OccupancyMap OccupancyMap { get { return m_occupancyMap; } }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -100,7 +100,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(RoadSegment roadSegment)
 		{
 			AddEntity(roadSegment as IPlaceableEntity);
-			NavigationMap.AddEntity(roadSegment);
+			OccupancyMap.AddEntity(roadSegment);
 		}
 
 		/// <summary>
@@ -110,7 +110,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Terrain terrain)
 		{
 			Terrain = terrain;
-			NavigationMap.Terrain = terrain;
+			OccupancyMap.Terrain = terrain;
 		}
 
 		/// <summary>

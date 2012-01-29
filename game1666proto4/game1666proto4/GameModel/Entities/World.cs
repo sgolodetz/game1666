@@ -52,9 +52,9 @@ namespace game1666proto4.GameModel.Entities
 		public string HomeCity { get { return m_properties["HomeCity"]; } }
 
 		/// <summary>
-		/// The world's navigation map.
+		/// The world's occupancy map.
 		/// </summary>
-		public NavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
+		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }
 
 		/// <summary>
 		/// The world's terrain.

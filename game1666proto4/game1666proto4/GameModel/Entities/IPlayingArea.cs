@@ -17,9 +17,9 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The playing area's navigation map.
+		/// The playing area's occupancy map.
 		/// </summary>
-		NavigationMap NavigationMap { get; }
+		OccupancyMap OccupancyMap { get; }
 
 		/// <summary>
 		/// The playing area's terrain.

@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: NavigationMap.cs
+ * game1666proto4: OccupancyMap.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -8,15 +8,15 @@ using game1666proto4.GameModel.Terrains;
 namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
-	/// An instance of this class represents a map that entities can use to navigate a terrain.
+	/// An instance of this class stores occupancy information for a terrain.
 	/// </summary>
-	sealed class NavigationMap
+	sealed class OccupancyMap
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The terrain over which entities will be navigating.
+		/// The terrain for which to store occupancy information.
 		/// </summary>
 		public Terrain Terrain { private get; set; }
 
@@ -26,7 +26,7 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Adds a road segment to the navigation map.
+		/// Adds a road segment to the occupancy map.
 		/// </summary>
 		/// <param name="roadSegment">The road segment.</param>
 		public void AddEntity(RoadSegment roadSegment)
