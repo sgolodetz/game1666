@@ -20,9 +20,9 @@ namespace game1666proto4.GameModel.Placement
 		#region
 
 		/// <summary>
-		/// An occupancy grid indicating which grid squares are currently occupied, e.g. by buildings.
+		/// An occupancy grid indicating the current occupancy of each grid square (e.g. a square might be occupied by a building).
 		/// </summary>
-		private bool[,] m_occupancy;
+		private IPlaceableEntity[,] m_occupancy;
 
 		/// <summary>
 		/// The terrain for which to store occupancy information.
@@ -47,7 +47,7 @@ namespace game1666proto4.GameModel.Placement
 			set
 			{
 				m_terrain = value;
-				m_occupancy = new bool[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
+				m_occupancy = new IPlaceableEntity[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
 			}
 		}
 
@@ -63,19 +63,36 @@ namespace game1666proto4.GameModel.Placement
 		/// <returns>true, if any of the grid squares are occupied, or false otherwise.</returns>
 		public bool AreOccupied(IEnumerable<Vector2i> gridSquares)
 		{
-			return gridSquares.Any(s => m_occupancy[s.Y, s.X]);
+			return gridSquares.Any(s => m_occupancy[s.Y, s.X] != null);
 		}
 
 		/// <summary>
-		/// Marks a set of grid squares as occupied/unoccupied.
+		/// Checks whether or not an entity can be validly placed on the terrain,
+		/// bearing in mind its footprint, position and orientation.
+		/// </summary>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
+		public bool IsValidlyPlaced(IPlaceableEntity entity)
+		{
+			IEnumerable<Vector2i> gridSquares = entity.PlacementStrategy.Place
+			(
+				Terrain,
+				entity.Blueprint.Footprint,
+				entity.Position,
+				entity.Orientation
+			);
+			return gridSquares != null && gridSquares.Any() && !AreOccupied(gridSquares);
+		}
+
+		/// <summary>
+		/// Marks a set of grid squares with the entity they contain (if any).
 		/// </summary>
 		/// <param name="gridSquares">The grid squares to mark.</param>
-		/// <param name="occupied">Whether or not the grid squares are now occupied.</param>
-		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, bool occupied)
+		/// <param name="entity">The entity they contain (if any).</param>
+		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, IPlaceableEntity entity)
 		{
 			foreach(Vector2i s in gridSquares)
 			{
-				m_occupancy[s.Y, s.X] = occupied;
+				m_occupancy[s.Y, s.X] = entity;
 			}
 		}
 

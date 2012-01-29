@@ -14,7 +14,7 @@ namespace game1666proto4.GameModel.Placement
 	/// An instance of this class represents a placement strategy that enforces the condition that
 	/// an entity can only be placed on flat terrain.
 	/// </summary>
-	sealed class PlacementStrategyRequireFlatGround : PlacementStrategyBase
+	sealed class PlacementStrategyRequireFlatGround : IPlacementStrategy
 	{
 		//#################### PUBLIC METHODS ####################
 		#region
@@ -28,7 +28,7 @@ namespace game1666proto4.GameModel.Placement
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The entity's orientation.</param>
 		/// <returns>A set of grid squares that the entity overlays, if it can be validly placed, or null otherwise.</returns>
-		public override IEnumerable<Vector2i> Place(Terrain terrain, Footprint footprint, Vector2i position, Orientation4 orientation)
+		public IEnumerable<Vector2i> Place(Terrain terrain, Footprint footprint, Vector2i position, Orientation4 orientation)
 		{
 			footprint = footprint.Rotated((int)orientation);
 			if(terrain.CalculateHeightRange(footprint.OverlaidGridSquares(position, terrain, false)) == 0f)

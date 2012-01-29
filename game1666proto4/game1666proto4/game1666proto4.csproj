@@ -189,7 +189,6 @@
     <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\PlayingArea.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />
-    <Compile Include="GameModel\Placement\PlacementStrategyBase.cs" />
     <Compile Include="GameModel\Placement\PlacementStrategyRequireFlatGround.cs" />
     <Compile Include="GameModel\Entities\Building.cs" />
     <Compile Include="GameModel\Entities\City.cs" />

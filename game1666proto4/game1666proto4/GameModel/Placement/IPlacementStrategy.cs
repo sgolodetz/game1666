@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
-using game1666proto4.GameModel.Entities;
 
 namespace game1666proto4.GameModel.Placement
 {
@@ -19,17 +18,6 @@ namespace game1666proto4.GameModel.Placement
 	{
 		//#################### PUBLIC METHODS ####################
 		#region
-
-		/// <summary>
-		/// Checks whether or not an entity can be validly placed on a terrain,
-		/// bearing in mind its footprint, position and orientation.
-		/// </summary>
-		/// <param name="occupancyMap">The occupancy map for the terrain.</param>
-		/// <param name="footprint">The entity's footprint.</param>
-		/// <param name="position">The position of the entity's hotspot.</param>
-		/// <param name="orientation">The entity's orientation.</param>
-		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
-		bool IsValidlyPlaced(OccupancyMap occupancyMap, Footprint footprint, Vector2i position, Orientation4 orientation);
 
 		/// <summary>
 		/// Attempts to place an entity on the specified terrain, bearing in mind its footprint,

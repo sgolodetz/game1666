@@ -83,7 +83,7 @@ namespace game1666proto4.GameModel.Entities
 					entity.Position,
 					entity.Orientation
 				),
-				true
+				entity
 			);
 
 			m_destructionRules[entity] = MessageSystem.RegisterRule(
@@ -130,7 +130,7 @@ namespace game1666proto4.GameModel.Entities
 					entity.Position,
 					entity.Orientation
 				),
-				false
+				null
 			);
 
 			m_destructionRules.Remove(entity);
