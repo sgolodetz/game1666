@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <entity type="GameModel.Entities.World">
   <property name="HomeCity" type="string" value="Stuartopolis"/>
-  <entity type="GameModel.Terrains.Terrain">
+  <entity type="Common.Terrains.Terrain">
     <property name="ZScaling" type="float" value="0.1"/>
     <property name="AssetHeightmap" type="string" value="TestWorld"/>
   </entity>
@@ -16,7 +16,7 @@
       <property name="ConstructionDone" type="int" value="10000"/>
       <property name="CurrentStateID" type="string" value="OPERATING"/>
     </entity>
-    <entity type="GameModel.Terrains.Terrain">
+    <entity type="Common.Terrains.Terrain">
       <property name="ZScaling" type="float" value="0.25"/>
       <property name="Heightmap" type="Array2D[float]">
         [9,5]

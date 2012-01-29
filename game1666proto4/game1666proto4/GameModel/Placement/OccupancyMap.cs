@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
+using game1666proto4.GameModel.Entities;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Placement
 {
 	/// <summary>
 	/// An instance of this class stores occupancy information for a terrain.
@@ -54,15 +55,6 @@ namespace game1666proto4.GameModel.Entities
 
 		//#################### PUBLIC METHODS ####################
 		#region
-
-		/// <summary>
-		/// Adds a road segment to the occupancy map.
-		/// </summary>
-		/// <param name="roadSegment">The road segment.</param>
-		public void AddEntity(RoadSegment roadSegment)
-		{
-			// TODO
-		}
 
 		/// <summary>
 		/// Checks whether or not any of the specified grid squares are occupied.

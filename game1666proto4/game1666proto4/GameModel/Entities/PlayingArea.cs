@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Messages;
+using game1666proto4.GameModel.Placement;
 
 namespace game1666proto4.GameModel.Entities
 {
@@ -91,16 +92,6 @@ namespace game1666proto4.GameModel.Entities
 					(EntityDestructionMessage msg) => DeleteEntity(entity)
 				)
 			);
-		}
-
-		/// <summary>
-		/// Adds a road segment to the playing area.
-		/// </summary>
-		/// <param name="roadSegment">The road segment.</param>
-		public void AddEntity(RoadSegment roadSegment)
-		{
-			AddEntity(roadSegment as IPlaceableEntity);
-			OccupancyMap.AddEntity(roadSegment);
 		}
 
 		/// <summary>

@@ -11,6 +11,7 @@ using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Entities;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Placement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

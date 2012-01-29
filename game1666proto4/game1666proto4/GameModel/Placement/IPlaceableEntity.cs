@@ -10,7 +10,7 @@ using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Placement;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Placement
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can be placed in a playing area.
