@@ -172,59 +172,6 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
-		/// Determines the model and orientation to use when drawing the specified entity.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		/// <returns>The model and orientation to use.</returns>
-		private Tuple<string,Orientation4> DetermineModelNameAndOrientation(IPlaceableEntity entity)
-		{
-			return Tuple.Create(entity.Blueprint.Model, entity.Orientation);
-		}
-
-		/// <summary>
-		/// Determines the model and orientation to use when drawing the specified road segment.
-		/// </summary>
-		/// <param name="roadSegment">The road segment.</param>
-		/// <returns>The model and orientation to use.</returns>
-		private Tuple<string,Orientation4> DetermineModelNameAndOrientation(RoadSegment roadSegment)
-		{
-			OccupancyMap occupancyMap = m_playingArea.OccupancyMap;
-			int x = roadSegment.Position.X;
-			int y = roadSegment.Position.Y;
-
-			int which = 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x, y - 1)) != null ? 1 : 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x - 1, y)) != null ? 2 : 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x + 1, y)) != null ? 4 : 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x, y + 1)) != null ? 8 : 0;
-
-			string suffix = "";
-			Orientation4 orientation = roadSegment.Orientation;
-
-			switch(which)
-			{
-				case 0:		suffix = "_Single";		orientation = Orientation4.XPOS; break;
-				case 1:		suffix = "_End";		orientation = Orientation4.YNEG; break;
-				case 2:		suffix = "_End";		orientation = Orientation4.XNEG; break;
-				case 3:		suffix = "_Corner";		orientation = Orientation4.XNEG; break;
-				case 4:		suffix = "_End";		orientation = Orientation4.XPOS; break;
-				case 5:		suffix = "_Corner";		orientation = Orientation4.YNEG; break;
-				case 6:		suffix = "_Straight";	orientation = Orientation4.XPOS; break;
-				case 7:		suffix = "_TJunction";	orientation = Orientation4.YNEG; break;
-				case 8:		suffix = "_End";		orientation = Orientation4.YPOS; break;
-				case 9:		suffix = "_Straight";	orientation = Orientation4.YPOS; break;
-				case 10:	suffix = "_Corner";		orientation = Orientation4.YPOS; break;
-				case 11:	suffix = "_TJunction";	orientation = Orientation4.XNEG; break;
-				case 12:	suffix = "_Corner";		orientation = Orientation4.XPOS; break;
-				case 13:	suffix = "_TJunction";	orientation = Orientation4.XPOS; break;
-				case 14:	suffix = "_TJunction";	orientation = Orientation4.YPOS; break;
-				case 15:	suffix = "_Crossroads";	orientation = Orientation4.XPOS; break;
-			}
-
-			return Tuple.Create(roadSegment.Blueprint.Model + suffix, orientation);
-		}
-
-		/// <summary>
 		/// Draws a placeable entity.
 		/// </summary>
 		/// <param name="entity">The entity to draw.</param>
@@ -234,7 +181,7 @@ namespace game1666proto4.UI
 			// Determine the model name and orientation to use - this is a hook so that we can override
 			// the default behaviour when drawing things like road segments. For most entities, we use
 			// the default implementation, which just returns the entity's model name and orientation.
-			Tuple<string,Orientation4> result = DetermineModelNameAndOrientation((dynamic)entity);
+			Tuple<string,Orientation4> result = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.OccupancyMap);
 			string modelName = result.Item1;
 			Orientation4 orientation = result.Item2;
 

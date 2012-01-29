@@ -175,6 +175,7 @@
     <Compile Include="Common\Matchmaking\Matchmaker.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingEdge.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingGraph.cs" />
+    <Compile Include="GameModel\Entities\EntityUtil.cs" />
     <Compile Include="GameModel\Placement\PlaceableEntity.cs" />
     <Compile Include="GameModel\FSMs\EntityInDestructionState.cs" />
     <Compile Include="GameModel\Placement\IPlaceableEntity.cs" />
