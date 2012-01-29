@@ -67,6 +67,21 @@ namespace game1666proto4.GameModel.Placement
 		}
 
 		/// <summary>
+		/// Looks up the entity (if any) that occupies the specified grid square.
+		/// </summary>
+		/// <param name="gridSquare">The grid square.</param>
+		/// <returns>The entity occupying it, if any, or null otherwise.</returns>
+		public IPlaceableEntity LookupEntity(Vector2i gridSquare)
+		{
+			if(0 <= gridSquare.Y && gridSquare.Y < m_occupancy.GetLength(0) &&
+			   0 <= gridSquare.X && gridSquare.X < m_occupancy.GetLength(1))
+			{
+				return m_occupancy[gridSquare.Y, gridSquare.X];
+			}
+			else return null;
+		}
+
+		/// <summary>
 		/// Checks whether or not an entity can be validly placed on the terrain,
 		/// bearing in mind its footprint, position and orientation.
 		/// </summary>

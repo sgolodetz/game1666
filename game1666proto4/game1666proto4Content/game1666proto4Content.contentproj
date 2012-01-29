@@ -56,6 +56,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Models\DirtTrack.fbx">
+      <Name>DirtTrack</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Textures\landscape.jpg">
       <Name>landscape</Name>
       <Importer>TextureImporter</Importer>
@@ -83,8 +88,33 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\DirtTrack.fbx">
-      <Name>DirtTrack</Name>
+    <Compile Include="Models\DirtTrack_Straight.fbx">
+      <Name>DirtTrack_Straight</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\DirtTrack_Corner.fbx">
+      <Name>DirtTrack_Corner</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\DirtTrack_End.fbx">
+      <Name>DirtTrack_End</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\DirtTrack_TJunction.fbx">
+      <Name>DirtTrack_TJunction</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\DirtTrack_Crossroads.fbx">
+      <Name>DirtTrack_Crossroads</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\DirtTrack_Single.fbx">
+      <Name>DirtTrack_Single</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
