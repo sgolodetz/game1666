@@ -250,7 +250,7 @@ namespace game1666proto4.UI
 			{
 				IPlaceableEntity entity = tool.Entity;
 				float alpha = entity.PlacementStrategy.IsValidlyPlaced(
-					m_playingArea.Terrain,
+					m_playingArea.OccupancyMap,
 					entity.Blueprint.Footprint,
 					entity.Position,
 					entity.Orientation

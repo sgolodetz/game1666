@@ -75,7 +75,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_children.Add(entity.Name, entity);
 
-			Terrain.MarkOccupied(
+			OccupancyMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
 					Terrain,
 					entity.Blueprint.Footprint,
@@ -132,7 +132,7 @@ namespace game1666proto4.GameModel.Entities
 
 			m_children.Remove(entity.Name);
 
-			Terrain.MarkOccupied(
+			OccupancyMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
 					Terrain,
 					entity.Blueprint.Footprint,

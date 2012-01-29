@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities;
 using game1666proto4.GameModel.Terrains;
 
 namespace game1666proto4.GameModel.Placement
@@ -22,18 +23,18 @@ namespace game1666proto4.GameModel.Placement
 		#region
 
 		/// <summary>
-		/// Checks whether or not an entity can be validly placed on the specified terrain,
+		/// Checks whether or not an entity can be validly placed on a terrain,
 		/// bearing in mind its footprint, position and orientation.
 		/// </summary>
-		/// <param name="terrain">The terrain.</param>
+		/// <param name="occupancyMap">The occupancy map for the terrain.</param>
 		/// <param name="footprint">The entity's footprint.</param>
 		/// <param name="position">The position of the entity's hotspot.</param>
 		/// <param name="orientation">The entity's orientation.</param>
 		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
-		public bool IsValidlyPlaced(Terrain terrain, Footprint footprint, Vector2i position, Orientation4 orientation)
+		public bool IsValidlyPlaced(OccupancyMap occupancyMap, Footprint footprint, Vector2i position, Orientation4 orientation)
 		{
-			IEnumerable<Vector2i> gridSquares = Place(terrain, footprint, position, orientation);
-			return gridSquares != null && gridSquares.Any() && !terrain.AreOccupied(gridSquares);
+			IEnumerable<Vector2i> gridSquares = Place(occupancyMap.Terrain, footprint, position, orientation);
+			return gridSquares != null && gridSquares.Any() && !occupancyMap.AreOccupied(gridSquares);
 		}
 
 		/// <summary>

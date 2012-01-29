@@ -96,7 +96,7 @@ namespace game1666proto4.UI.Tools
 
 			if(entity.PlacementStrategy.IsValidlyPlaced
 			(
-				playingArea.Terrain,
+				playingArea.OccupancyMap,
 				entity.Blueprint.Footprint,
 				entity.Position,
 				entity.Orientation
