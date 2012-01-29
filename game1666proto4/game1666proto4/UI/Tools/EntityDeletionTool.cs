@@ -86,7 +86,8 @@ namespace game1666proto4.UI.Tools
 			Entity = null;
 			foreach(IPlaceableEntity entity in m_playingArea.Children.Where(c => c.Destructible))
 			{
-				Model model = Renderer.Content.Load<Model>("Models/" + entity.Blueprint.Model);
+				string modelName = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.OccupancyMap).Item1;
+				Model model = Renderer.Content.Load<Model>("Models/" + modelName);
 				foreach(ModelMesh mesh in model.Meshes)
 				{
 					var boundingSphere = mesh.BoundingSphere.Transform(Matrix.CreateTranslation(new Vector3(entity.Position.X + 0.5f, entity.Position.Y + 0.5f, entity.Altitude)));

@@ -56,11 +56,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\DirtTrack.fbx">
-      <Name>DirtTrack</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Textures\landscape.jpg">
       <Name>landscape</Name>
       <Importer>TextureImporter</Importer>
