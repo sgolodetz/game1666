@@ -5,9 +5,9 @@
 
 using System.Collections.Generic;
 using game1666proto4.Common.Maths;
+using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Entities;
-using game1666proto4.GameModel.Terrains;
 
 namespace game1666proto4.GameModel.Placement
 {

@@ -5,8 +5,8 @@
 
 using System.Collections.Generic;
 using game1666proto4.Common.Messages;
+using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Messages;
-using game1666proto4.GameModel.Terrains;
 
 namespace game1666proto4.GameModel.Entities
 {

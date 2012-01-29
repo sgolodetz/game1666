@@ -12,7 +12,7 @@ using game1666proto4.Common.Maths;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666proto4.GameModel.Terrains
+namespace game1666proto4.Common.Terrains
 {
 	/// <summary>
 	/// An instance of this class represents a heightmap-based terrain.
