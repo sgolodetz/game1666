@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.GameModel.FSMs;
-using game1666proto4.GameModel.Placement;
 
 namespace game1666proto4.GameModel.Entities
 {

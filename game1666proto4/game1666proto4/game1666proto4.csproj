@@ -176,11 +176,11 @@
     <Compile Include="Common\Matchmaking\MatchmakingEdge.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingGraph.cs" />
     <Compile Include="GameModel\Entities\EntityUtil.cs" />
-    <Compile Include="GameModel\Placement\PlaceableEntity.cs" />
+    <Compile Include="GameModel\Entities\PlaceableEntity.cs" />
     <Compile Include="GameModel\FSMs\EntityInDestructionState.cs" />
-    <Compile Include="GameModel\Placement\IPlaceableEntity.cs" />
-    <Compile Include="GameModel\Placement\OccupancyMap.cs" />
-    <Compile Include="GameModel\Placement\IPlacementStrategy.cs" />
+    <Compile Include="GameModel\Entities\IPlaceableEntity.cs" />
+    <Compile Include="GameModel\Entities\OccupancyMap.cs" />
+    <Compile Include="GameModel\Entities\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\IPlayingArea.cs" />
     <Compile Include="Common\Entities\IUpdateableEntity.cs" />
     <Compile Include="GameModel\Matchmaking\ResourceMatchmaker.cs" />
@@ -190,7 +190,7 @@
     <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\PlayingArea.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />
-    <Compile Include="GameModel\Placement\PlacementStrategyRequireFlatGround.cs" />
+    <Compile Include="GameModel\Entities\PlacementStrategyRequireFlatGround.cs" />
     <Compile Include="GameModel\Entities\Building.cs" />
     <Compile Include="GameModel\Entities\City.cs" />
     <Compile Include="GameModel\Entities\World.cs" />

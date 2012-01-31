@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.FSMs;
-using game1666proto4.GameModel.Placement;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
