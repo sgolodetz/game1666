@@ -59,7 +59,7 @@ namespace game1666proto4.UI.Tools
 			if(gridSquare != null)
 			{
 				// Work out what type of entity we're trying to place.
-				Blueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);
+				PlaceableEntityBlueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);
 				Type entityType = blueprint.EntityType;
 
 				// Attempt to determine the average altitude of the terrain beneath the entity's footprint.

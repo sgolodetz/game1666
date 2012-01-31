@@ -28,7 +28,7 @@ namespace game1666proto4.GameModel.Placement
 		/// <summary>
 		/// The blueprint for the entity.
 		/// </summary>
-		Blueprint Blueprint { get; }
+		PlaceableEntityBlueprint Blueprint { get; }
 
 		/// <summary>
 		/// Whether or not the entity can be destroyed.

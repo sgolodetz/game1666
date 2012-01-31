@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: Blueprint.cs
+ * game1666proto4: PlaceableEntityBlueprint.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -11,9 +11,9 @@ using game1666proto4.Common.Entities;
 namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
-	/// An instance of this class represents a blueprint for building an entity.
+	/// An instance of this class represents a blueprint for building a placeable entity.
 	/// </summary>
-	abstract class Blueprint : ICompositeEntity
+	abstract class PlaceableEntityBlueprint : ICompositeEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -68,10 +68,10 @@ namespace game1666proto4.GameModel.Blueprints
 		#region
 
 		/// <summary>
-		/// Constructs a blueprint from its XML representation.
+		/// Constructs a placeable entity blueprint from its XML representation.
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
-		public Blueprint(XElement blueprintElt)
+		public PlaceableEntityBlueprint(XElement blueprintElt)
 		{
 			Properties = EntityLoader.LoadProperties(blueprintElt);
 			EntityLoader.LoadAndAddChildEntities(this, blueprintElt);

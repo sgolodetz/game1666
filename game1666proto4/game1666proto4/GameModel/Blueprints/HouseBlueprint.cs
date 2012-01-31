@@ -10,7 +10,7 @@ namespace game1666proto4.GameModel.Blueprints
 	/// <summary>
 	/// An instance of this class represents a blueprint for building a house.
 	/// </summary>
-	sealed class HouseBlueprint : Blueprint
+	sealed class HouseBlueprint : PlaceableEntityBlueprint
 	{
 		//#################### PROPERTIES ####################
 		#region

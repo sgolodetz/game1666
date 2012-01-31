@@ -10,7 +10,7 @@ namespace game1666proto4.GameModel.Blueprints
 	/// <summary>
 	/// An instance of this class represents a blueprint for building a road segment.
 	/// </summary>
-	sealed class RoadSegmentBlueprint : Blueprint
+	sealed class RoadSegmentBlueprint : PlaceableEntityBlueprint
 	{
 		//#################### CONSTRUCTORS ####################
 		#region

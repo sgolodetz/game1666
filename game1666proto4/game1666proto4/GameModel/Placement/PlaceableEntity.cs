@@ -32,7 +32,7 @@ namespace game1666proto4.GameModel.Placement
 		/// <summary>
 		/// The blueprint for the entity.
 		/// </summary>
-		public Blueprint Blueprint { get; protected set; }
+		public PlaceableEntityBlueprint Blueprint { get; protected set; }
 
 		/// <summary>
 		/// The sub-entities contained within this entity.

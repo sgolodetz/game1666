@@ -63,7 +63,7 @@ namespace game1666proto4.GameModel.FSMs
 			set
 			{
 				m_entityProperties = value;
-				Blueprint blueprint = BlueprintManager.GetBlueprint(m_entityProperties["Blueprint"]);
+				PlaceableEntityBlueprint blueprint = BlueprintManager.GetBlueprint(m_entityProperties["Blueprint"]);
 				m_timeToConstruct = blueprint.TimeToConstruct;
 			}
 		}

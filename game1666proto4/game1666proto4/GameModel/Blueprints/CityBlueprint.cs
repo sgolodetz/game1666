@@ -10,7 +10,7 @@ namespace game1666proto4.GameModel.Blueprints
 	/// <summary>
 	/// An instance of this class represents a blueprint for building a city.
 	/// </summary>
-	sealed class CityBlueprint : Blueprint
+	sealed class CityBlueprint : PlaceableEntityBlueprint
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
