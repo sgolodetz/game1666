@@ -35,7 +35,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the building.</param>
 		/// <param name="initialStateID">The initial state of the building.</param>
-		public Building(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		public Building(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
 		{
 			SetName();

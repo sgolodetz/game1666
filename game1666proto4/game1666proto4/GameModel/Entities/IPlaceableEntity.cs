@@ -37,7 +37,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The finite state machine for the entity.
 		/// </summary>
-		FiniteStateMachine<EntityStateID> FSM { get; }
+		FiniteStateMachine<PlaceableEntityStateID> FSM { get; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its playing area).

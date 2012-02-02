@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityInDestructionState.cs
+ * game1666proto4: PlaceableEntityInDestructionState.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -14,9 +14,9 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
-	/// A state representing a time in which the entity is being destructed.
+	/// A state representing a time in which a placeable entity is being destructed.
 	/// </summary>
-	sealed class EntityInDestructionState : IFSMState<EntityStateID>
+	sealed class PlaceableEntityInDestructionState : IFSMState<PlaceableEntityStateID>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -71,7 +71,7 @@ namespace game1666proto4.GameModel.FSMs
 		/// <summary>
 		/// The ID of the state.
 		/// </summary>
-		public EntityStateID ID { get { return EntityStateID.IN_DESTRUCTION; } }
+		public PlaceableEntityStateID ID { get { return PlaceableEntityStateID.IN_DESTRUCTION; } }
 
 		/// <summary>
 		/// The completeness percentage of the entity.
@@ -90,10 +90,10 @@ namespace game1666proto4.GameModel.FSMs
 		#region
 
 		/// <summary>
-		/// Constructs a new 'entity in destruction' state.
+		/// Constructs a new 'placeable entity in destruction' state.
 		/// </summary>
 		/// <param name="fsmProperties">The properties of the FSM that contains this state.</param>
-		public EntityInDestructionState(IDictionary<string,dynamic> fsmProperties)
+		public PlaceableEntityInDestructionState(IDictionary<string,dynamic> fsmProperties)
 		{
 			m_fsmProperties = fsmProperties;
 		}

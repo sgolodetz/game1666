@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityOperatingState.cs
+ * game1666proto4: PlaceableEntityOperatingState.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -10,9 +10,9 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
-	/// A state representing a time in which the entity is operational.
+	/// A state representing a time in which a placeable entity is operational.
 	/// </summary>
-	sealed class EntityOperatingState : IFSMState<EntityStateID>
+	sealed class PlaceableEntityOperatingState : IFSMState<PlaceableEntityStateID>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -25,7 +25,7 @@ namespace game1666proto4.GameModel.FSMs
 		/// <summary>
 		/// The ID of the state.
 		/// </summary>
-		public EntityStateID ID { get { return EntityStateID.OPERATING; } }
+		public PlaceableEntityStateID ID { get { return PlaceableEntityStateID.OPERATING; } }
 
 		#endregion
 

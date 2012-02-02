@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityInConstructionState.cs
+ * game1666proto4: PlaceableEntityInConstructionState.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
-	/// A state representing a time in which the entity is being constructed.
+	/// A state representing a time in which a placeable entity is being constructed.
 	/// </summary>
-	sealed class EntityInConstructionState : IFSMState<EntityStateID>
+	sealed class PlaceableEntityInConstructionState : IFSMState<PlaceableEntityStateID>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -58,7 +58,7 @@ namespace game1666proto4.GameModel.FSMs
 		/// <summary>
 		/// The ID of the state.
 		/// </summary>
-		public EntityStateID ID { get { return EntityStateID.IN_CONSTRUCTION; } }
+		public PlaceableEntityStateID ID { get { return PlaceableEntityStateID.IN_CONSTRUCTION; } }
 
 		/// <summary>
 		/// The completeness percentage of the entity.
@@ -77,10 +77,10 @@ namespace game1666proto4.GameModel.FSMs
 		#region
 
 		/// <summary>
-		/// Constructs a new 'entity in construction' state.
+		/// Constructs a new 'placeable entity in construction' state.
 		/// </summary>
 		/// <param name="fsmProperties">The properties of the FSM that contains this state.</param>
-		public EntityInConstructionState(IDictionary<string,dynamic> fsmProperties)
+		public PlaceableEntityInConstructionState(IDictionary<string,dynamic> fsmProperties)
 		{
 			m_fsmProperties = fsmProperties;
 		}

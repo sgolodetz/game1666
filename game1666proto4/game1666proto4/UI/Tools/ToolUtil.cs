@@ -76,7 +76,7 @@ namespace game1666proto4.UI.Tools
 					entityProperties["Position"] = gridSquare.Value;
 
 					// Create the entity.
-					entity = Activator.CreateInstance(entityType, entityProperties, EntityStateID.OPERATING) as IPlaceableEntity;
+					entity = Activator.CreateInstance(entityType, entityProperties, PlaceableEntityStateID.OPERATING) as IPlaceableEntity;
 				}
 			}
 			return entity;

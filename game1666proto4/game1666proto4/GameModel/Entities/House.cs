@@ -22,7 +22,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the house.</param>
 		/// <param name="initialStateID">The initial state of the house.</param>
-		public House(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		public House(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
 		{}
 
@@ -45,7 +45,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The clone.</returns>
 		public override IPlaceableEntity CloneNew()
 		{
-			return new House(Properties, EntityStateID.IN_CONSTRUCTION);
+			return new House(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
 		}
 
 		#endregion

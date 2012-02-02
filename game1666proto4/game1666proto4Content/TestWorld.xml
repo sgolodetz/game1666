@@ -12,7 +12,7 @@
     <property name="Destructible" type="bool" value="false"/>
     <property name="Orientation" type="Orientation4" value="XPOS"/>
     <property name="Position" type="Vector2i" value="50,30"/>
-    <entity type="GameModel.FSMs.EntityFSM">
+    <entity type="GameModel.FSMs.PlaceableEntityFSM">
       <property name="ConstructionDone" type="int" value="10000"/>
       <property name="CurrentStateID" type="string" value="OPERATING"/>
     </entity>
@@ -32,7 +32,7 @@
       <property name="Blueprint" type="string" value="Dwelling"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="1,0"/>
-      <entity type="GameModel.FSMs.EntityFSM">
+      <entity type="GameModel.FSMs.PlaceableEntityFSM">
         <property name="ConstructionDone" type="int" value="1000"/>
         <property name="CurrentStateID" type="string" value="OPERATING"/>
       </entity>
@@ -42,7 +42,7 @@
       <property name="Blueprint" type="string" value="DirtTrack"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="0,0"/>
-      <entity type="GameModel.FSMs.EntityFSM">
+      <entity type="GameModel.FSMs.PlaceableEntityFSM">
         <property name="ConstructionDone" type="int" value="1000"/>
         <property name="CurrentStateID" type="string" value="OPERATING"/>
       </entity>

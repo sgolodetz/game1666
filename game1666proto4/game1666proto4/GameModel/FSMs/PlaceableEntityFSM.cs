@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityFSM.cs
+ * game1666proto4: PlaceableEntityFSM.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -11,9 +11,9 @@ using game1666proto4.Common.FSMs;
 namespace game1666proto4.GameModel.FSMs
 {
 	/// <summary>
-	/// An instance of this class is used to manage the state of an entity over time.
+	/// An instance of this class is used to manage the state of a placeable entity over time.
 	/// </summary>
-	sealed class EntityFSM : FiniteStateMachine<EntityStateID>
+	sealed class PlaceableEntityFSM : FiniteStateMachine<PlaceableEntityStateID>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -38,20 +38,20 @@ namespace game1666proto4.GameModel.FSMs
 		#region
 
 		/// <summary>
-		/// Constructs an entity FSM directly from its properties.
+		/// Constructs a placeable entity FSM directly from its properties.
 		/// </summary>
 		/// <param name="properties">The properties of the FSM.</param>
-		public EntityFSM(IDictionary<string,dynamic> properties)
+		public PlaceableEntityFSM(IDictionary<string,dynamic> properties)
 		:	base(properties)
 		{
 			Initialise();
 		}
 
 		/// <summary>
-		/// Constructs an entity FSM from its XML representation.
+		/// Constructs a placeable entity FSM from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the FSM's XML representation.</param>
-		public EntityFSM(XElement entityElt)
+		public PlaceableEntityFSM(XElement entityElt)
 		:	base(entityElt)
 		{
 			Initialise();
@@ -68,25 +68,27 @@ namespace game1666proto4.GameModel.FSMs
 		private void Initialise()
 		{
 			// Add the necessary states.
-			AddState(EntityStateID.IN_CONSTRUCTION, new EntityInConstructionState(Properties));
-			AddState(EntityStateID.OPERATING, new EntityOperatingState());
-			AddState(EntityStateID.IN_DESTRUCTION, new EntityInDestructionState(Properties));
+			AddState(PlaceableEntityStateID.IN_CONSTRUCTION, new PlaceableEntityInConstructionState(Properties));
+			AddState(PlaceableEntityStateID.OPERATING, new PlaceableEntityOperatingState());
+			AddState(PlaceableEntityStateID.IN_DESTRUCTION, new PlaceableEntityInDestructionState(Properties));
 
 			// Add the necessary transitions.
-			AddTransition(
-				EntityStateID.IN_CONSTRUCTION,
-				(EntityInConstructionState s) => s.PercentComplete >= 100 ? EntityStateID.OPERATING : EntityStateID.IN_CONSTRUCTION
+			AddTransition
+			(
+				PlaceableEntityStateID.IN_CONSTRUCTION,
+				(PlaceableEntityInConstructionState s) =>
+					s.PercentComplete >= 100 ? PlaceableEntityStateID.OPERATING : PlaceableEntityStateID.IN_CONSTRUCTION
 			);
 
 			// Set the starting state.
-			EntityStateID currentStateID;
+			PlaceableEntityStateID currentStateID;
 			if(Enum.TryParse(Properties["CurrentStateID"], out currentStateID))
 			{
 				CurrentStateID = currentStateID;
 			}
 			else
 			{
-				CurrentStateID = EntityStateID.OPERATING;
+				CurrentStateID = PlaceableEntityStateID.OPERATING;
 			}
 		}
 

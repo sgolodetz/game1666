@@ -113,7 +113,7 @@ namespace game1666proto4.UI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				Entity.FSM.ForceState(EntityStateID.IN_DESTRUCTION);
+				Entity.FSM.ForceState(PlaceableEntityStateID.IN_DESTRUCTION);
 			}
 			return this;
 		}

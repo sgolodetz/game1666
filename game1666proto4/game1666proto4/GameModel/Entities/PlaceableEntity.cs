@@ -53,7 +53,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The finite state machine for the entity.
 		/// </summary>
-		public FiniteStateMachine<EntityStateID> FSM { get; private set; }
+		public FiniteStateMachine<PlaceableEntityStateID> FSM { get; private set; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its playing area).
@@ -90,7 +90,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		/// <param name="initialStateID">The initial state of the entity.</param>
-		public PlaceableEntity(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		public PlaceableEntity(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		{
 			Properties = properties;
 			Initialise();
@@ -99,7 +99,7 @@ namespace game1666proto4.GameModel.Entities
 			var fsmProperties = new Dictionary<string,dynamic>();
 			fsmProperties["ConstructionDone"] = 0;	// this is a new entity, so no construction has yet started
 			fsmProperties["CurrentStateID"] = initialStateID.ToString();
-			AddEntity(new EntityFSM(fsmProperties));
+			AddEntity(new PlaceableEntityFSM(fsmProperties));
 		}
 
 		/// <summary>
@@ -139,7 +139,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Adds a finite state machine (FSM) to the entity (note that there can only be one FSM).
 		/// </summary>
 		/// <param name="fsm">The FSM.</param>
-		public void AddEntity(EntityFSM fsm)
+		public void AddEntity(PlaceableEntityFSM fsm)
 		{
 			FSM = fsm;
 			fsm.EntityProperties = Properties;

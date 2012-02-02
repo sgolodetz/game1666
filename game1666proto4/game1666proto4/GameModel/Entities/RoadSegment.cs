@@ -35,7 +35,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the road segment.</param>
 		/// <param name="initialStateID">The initial state of the road segment.</param>
-		public RoadSegment(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		public RoadSegment(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
 		{
 			Properties["Name"] = Guid.NewGuid().ToString();
@@ -71,7 +71,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The clone.</returns>
 		public override IPlaceableEntity CloneNew()
 		{
-			return new RoadSegment(Properties, EntityStateID.IN_CONSTRUCTION);
+			return new RoadSegment(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
 		}
 
 		/// <summary>

@@ -61,7 +61,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the city.</param>
 		/// <param name="initialStateID">The initial state of the city.</param>
-		public City(IDictionary<string,dynamic> properties, EntityStateID initialStateID)
+		public City(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
 		{
 			SetName();
@@ -124,7 +124,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The clone.</returns>
 		public override IPlaceableEntity CloneNew()
 		{
-			return new City(Properties, EntityStateID.IN_CONSTRUCTION);
+			return new City(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
 		}
 
 		/// <summary>
