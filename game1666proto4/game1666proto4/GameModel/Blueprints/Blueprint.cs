@@ -13,15 +13,10 @@ namespace game1666proto4.GameModel.Blueprints
 	/// <summary>
 	/// An instance of this class represents a blueprint for constructing an entity.
 	/// </summary>
-	abstract class Blueprint : ICompositeEntity
+	abstract class Blueprint
 	{
 		//#################### PROPERTIES ####################
 		#region
-
-		/// <summary>
-		/// The sub-entities contained within the blueprint (not relevant).
-		/// </summary>
-		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
 
 		/// <summary>
 		/// The type of entity this blueprint can be used to build.
@@ -50,33 +45,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <summary>
 		/// The properties of the blueprint.
 		/// </summary>
-		protected IDictionary<string,dynamic> Properties { get; private set; }
-
-		#endregion
-
-		//#################### CONSTRUCTORS ####################
-		#region
-
-		/// <summary>
-		/// Constructs a blueprint from its XML representation.
-		/// </summary>
-		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
-		public Blueprint(XElement blueprintElt)
-		{
-			Properties = EntityLoader.LoadProperties(blueprintElt);
-			EntityLoader.LoadAndAddChildEntities(this, blueprintElt);
-		}
-
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		/// <summary>
-		/// Adds an entity to the blueprint based on its dynamic type.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public abstract void AddDynamicEntity(dynamic entity);
+		protected IDictionary<string,dynamic> Properties { get; set; }
 
 		#endregion
 	}

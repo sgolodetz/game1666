@@ -3,17 +3,24 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 
 namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
 	/// An instance of this class represents a blueprint for constructing a placeable entity.
 	/// </summary>
-	abstract class PlaceableEntityBlueprint : Blueprint
+	abstract class PlaceableEntityBlueprint : Blueprint, ICompositeEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The sub-entities contained within the blueprint (not relevant).
+		/// </summary>
+		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
 
 		/// <summary>
 		/// The footprint for the type of entity to be built.
@@ -35,8 +42,10 @@ namespace game1666proto4.GameModel.Blueprints
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		public PlaceableEntityBlueprint(XElement blueprintElt)
-		:	base(blueprintElt)
-		{}
+		{
+			Properties = EntityLoader.LoadProperties(blueprintElt);
+			EntityLoader.LoadAndAddChildEntities(this, blueprintElt);
+		}
 
 		#endregion
 
@@ -47,7 +56,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// Adds an entity to the blueprint based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		public override void AddDynamicEntity(dynamic entity)
+		public void AddDynamicEntity(dynamic entity)
 		{
 			AddEntity(entity);
 		}

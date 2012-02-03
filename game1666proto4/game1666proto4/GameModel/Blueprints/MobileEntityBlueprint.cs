@@ -4,6 +4,7 @@
  ***/
 
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 
 namespace game1666proto4.GameModel.Blueprints
 {
@@ -15,7 +16,10 @@ namespace game1666proto4.GameModel.Blueprints
 		//#################### PROPERTIES ####################
 		#region
 
-		// TODO: Things like the animation speed.
+		/// <summary>
+		/// The speed at which the entity's animation should be played (relative to the normal speed, i.e. 2.0 means twice normal speed).
+		/// </summary>
+		float AnimationSpeed { get { return Properties["AnimationSpeed"]; } }
 
 		#endregion
 
@@ -27,21 +31,8 @@ namespace game1666proto4.GameModel.Blueprints
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		public MobileEntityBlueprint(XElement blueprintElt)
-		:	base(blueprintElt)
-		{}
-
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		/// <summary>
-		/// Adds an entity to the blueprint based on its dynamic type.
-		/// </summary>
-		/// <param name="entity">The entity.</param>
-		public override void AddDynamicEntity(dynamic entity)
 		{
-			// TODO
+			Properties = EntityLoader.LoadProperties(blueprintElt);
 		}
 
 		#endregion
