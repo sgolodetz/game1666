@@ -15,7 +15,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a building.
 	/// </summary>
-	abstract class Building : PlaceableEntity, ICompositeEntity, IUpdateableEntity
+	abstract class Building : PlaceableEntity, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region

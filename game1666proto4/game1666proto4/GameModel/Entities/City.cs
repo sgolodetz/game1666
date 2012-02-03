@@ -119,6 +119,15 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Adds a walker to the city.
+		/// </summary>
+		/// <param name="walker">The walker.</param>
+		public void AddEntity(Walker walker)
+		{
+			m_playingArea.AddEntity(walker);
+		}
+
+		/// <summary>
 		/// Makes a clone of this city that is in the 'in construction' state.
 		/// </summary>
 		/// <returns>The clone.</returns>

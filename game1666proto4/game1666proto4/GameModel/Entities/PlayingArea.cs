@@ -68,6 +68,15 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Adds a mobile entity to the playing area.
+		/// </summary>
+		/// <param name="entity">The entity to add.</param>
+		public void AddEntity(IMobileEntity entity)
+		{
+			// TODO
+		}
+
+		/// <summary>
 		/// Adds a placeable entity to the playing area.
 		/// </summary>
 		/// <param name="entity">The entity to add.</param>

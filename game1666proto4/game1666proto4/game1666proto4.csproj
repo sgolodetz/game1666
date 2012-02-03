@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Maths\Orientation8.cs" />
     <Compile Include="Common\Messages\IMessage.cs" />
     <Compile Include="Common\Messages\MessageRule.cs" />
     <Compile Include="Common\Messages\MessageRuleFactory.cs" />
@@ -176,8 +177,12 @@
     <Compile Include="Common\Matchmaking\MatchmakingEdge.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingGraph.cs" />
     <Compile Include="GameModel\Blueprints\Blueprint.cs" />
+    <Compile Include="GameModel\Blueprints\MobileEntityBlueprint.cs" />
+    <Compile Include="GameModel\Blueprints\WalkerBlueprint.cs" />
     <Compile Include="GameModel\Entities\EntityUtil.cs" />
+    <Compile Include="GameModel\Entities\IMobileEntity.cs" />
     <Compile Include="GameModel\Entities\PlaceableEntity.cs" />
+    <Compile Include="GameModel\Entities\Walker.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityInDestructionState.cs" />
     <Compile Include="GameModel\Entities\IPlaceableEntity.cs" />
     <Compile Include="GameModel\Entities\OccupancyMap.cs" />

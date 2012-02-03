@@ -54,6 +54,10 @@
         </property>
       </entity>
     </entity>
+    <entity type="GameModel.Blueprints.WalkerBlueprint">
+      <property name="Name" type="string" value="Citizen"/>
+      <property name="Model" type="string" value="Citizen"/>
+    </entity>
   </blueprints>
   <views>
     <entity type="UI.GameView">
