@@ -37,6 +37,11 @@ namespace game1666proto4.GameModel.Entities
 		public override IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
+		/// The mobile entities contained within the city.
+		/// </summary>
+		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
+
+		/// <summary>
 		/// The city's occupancy map.
 		/// </summary>
 		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }

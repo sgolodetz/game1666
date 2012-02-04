@@ -171,6 +171,25 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
+		/// Draws a mobile entity.
+		/// </summary>
+		/// <param name="entity">The entity to draw.</param>
+		private void DrawMobileEntity(IMobileEntity entity)
+		{
+			// TEMPORARY
+			var offset = new Vector3(0.1f, 0.1f, 0.1f);
+			var bounds = new BoundingBox(entity.Position - offset, entity.Position + offset);
+
+			var effect = new BasicEffect(Renderer.GraphicsDevice);
+			effect.World = m_matWorld;
+			effect.View = m_matView;
+			effect.Projection = m_matProjection;
+			effect.VertexColorEnabled = true;
+
+			Renderer.DrawBoundingBox(bounds, effect, Color.Red);
+		}
+
+		/// <summary>
 		/// Draws a placeable entity.
 		/// </summary>
 		/// <param name="entity">The entity to draw.</param>
@@ -237,6 +256,12 @@ namespace game1666proto4.UI
 				IPlaceableEntity entity = tool.Entity;
 				float alpha = playingArea.OccupancyMap.IsValidlyPlaced(entity) ? 1f : 0.35f;
 				DrawPlaceableEntity(entity, alpha);
+			}
+
+			// Draw all the mobile entities in the playing area.
+			foreach(IMobileEntity entity in playingArea.Mobiles)
+			{
+				DrawMobileEntity(entity);
 			}
 		}
 

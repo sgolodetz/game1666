@@ -18,6 +18,11 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The mobile entities contained within the playing area.
+		/// </summary>
+		IEnumerable<IMobileEntity> Mobiles { get; }
+
+		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
 		OccupancyMap OccupancyMap { get; }

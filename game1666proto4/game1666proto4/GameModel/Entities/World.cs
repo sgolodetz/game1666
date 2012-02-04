@@ -52,6 +52,11 @@ namespace game1666proto4.GameModel.Entities
 		public string HomeCity { get { return m_properties["HomeCity"]; } }
 
 		/// <summary>
+		/// The mobile entities contained within the world.
+		/// </summary>
+		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
+
+		/// <summary>
 		/// The world's occupancy map.
 		/// </summary>
 		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }

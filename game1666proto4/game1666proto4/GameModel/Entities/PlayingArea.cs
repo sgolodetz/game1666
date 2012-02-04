@@ -63,6 +63,11 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// The mobile entities contained within the playing area.
+		/// </summary>
+		public IEnumerable<IMobileEntity> Mobiles { get { return m_mobiles.Values; } }
+
+		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
 		public OccupancyMap OccupancyMap { get { return m_occupancyMap; } }
