@@ -35,7 +35,10 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		public MobileEntityBlueprint Blueprint { get; set; }
 
-		// TODO: MobileEntityFSM
+		/// <summary>
+		/// The movement strategy for the entity.
+		/// </summary>
+		public IMovementStrategy MovementStrategy { private get; set; }
 
 		/// <summary>
 		/// The name of the walker (must be unique within its playing area).
@@ -77,7 +80,10 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			// TODO
+			if(MovementStrategy != null)
+			{
+				MovementStrategy.Move(gameTime);
+			}
 		}
 
 		#endregion

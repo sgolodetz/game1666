@@ -22,7 +22,10 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		MobileEntityBlueprint Blueprint { get; set; }
 
-		// TODO: MobileEntityFSM
+		/// <summary>
+		/// The movement strategy for the entity.
+		/// </summary>
+		IMovementStrategy MovementStrategy { set; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its playing area).

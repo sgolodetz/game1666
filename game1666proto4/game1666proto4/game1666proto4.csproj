@@ -181,6 +181,7 @@
     <Compile Include="GameModel\Blueprints\WalkerBlueprint.cs" />
     <Compile Include="GameModel\Entities\EntityUtil.cs" />
     <Compile Include="GameModel\Entities\IMobileEntity.cs" />
+    <Compile Include="GameModel\Entities\IMovementStrategy.cs" />
     <Compile Include="GameModel\Entities\PlaceableEntity.cs" />
     <Compile Include="GameModel\Entities\Walker.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityInDestructionState.cs" />
