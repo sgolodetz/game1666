@@ -57,6 +57,11 @@ namespace game1666proto4.GameModel.Entities
 		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }
 
 		/// <summary>
+		/// The placeable entities contained within the world.
+		/// </summary>
+		public IEnumerable<IPlaceableEntity> Placeables { get { return m_playingArea.Placeables; } }
+
+		/// <summary>
 		/// The world's terrain.
 		/// </summary>
 		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }

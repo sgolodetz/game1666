@@ -222,16 +222,16 @@ namespace game1666proto4.UI
 			// For debugging purposes only.
 			//DrawTerrainQuadtree(playingArea.Terrain.QuadtreeRoot);
 
-			// Draw all the entities in the playing area, making sure that if one is
+			// Draw all the placeable entities in the playing area, making sure that if one is
 			// liable to be deleted, we render it slightly transparently.
 			ITool tool = GameViewState.Tool;
-			foreach(IPlaceableEntity entity in playingArea.Children)
+			foreach(IPlaceableEntity entity in playingArea.Placeables)
 			{
 				float alpha = tool != null && tool.Name == "Delete:Delete" && entity == tool.Entity ? 0.35f : 1f;
 				DrawPlaceableEntity(entity, alpha);
 			}
 
-			// Draw the entity (if any) associated with the active tool if we're placing an entity.
+			// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.
 			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
 				IPlaceableEntity entity = tool.Entity;

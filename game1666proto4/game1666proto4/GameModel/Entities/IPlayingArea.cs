@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Terrains;
 
@@ -20,6 +21,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The playing area's occupancy map.
 		/// </summary>
 		OccupancyMap OccupancyMap { get; }
+
+		/// <summary>
+		/// The placeable entities contained within the playing area.
+		/// </summary>
+		IEnumerable<IPlaceableEntity> Placeables { get; }
 
 		/// <summary>
 		/// The playing area's terrain.

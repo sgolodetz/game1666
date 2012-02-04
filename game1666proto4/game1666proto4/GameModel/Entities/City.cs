@@ -42,6 +42,11 @@ namespace game1666proto4.GameModel.Entities
 		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }
 
 		/// <summary>
+		/// The placeable entities contained within the city.
+		/// </summary>
+		public IEnumerable<IPlaceableEntity> Placeables { get { return m_playingArea.Placeables; } }
+
+		/// <summary>
 		/// The placement strategy for the city.
 		/// </summary>
 		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }

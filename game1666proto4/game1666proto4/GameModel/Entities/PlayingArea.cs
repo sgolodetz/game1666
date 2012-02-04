@@ -19,19 +19,24 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The entities contained within the playing area.
-		/// </summary>
-		private readonly IDictionary<string,dynamic> m_children = new Dictionary<string,dynamic>();
-
-		/// <summary>
 		/// The message rules that have been registered by the playing area for the purpose of destructing entities.
 		/// </summary>
 		private readonly IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
 
 		/// <summary>
+		/// The mobile entities contained within the playing area.
+		/// </summary>
+		private readonly IDictionary<string,IMobileEntity> m_mobiles = new Dictionary<string,IMobileEntity>();
+
+		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
 		private readonly OccupancyMap m_occupancyMap = new OccupancyMap();
+
+		/// <summary>
+		/// The placeable entities contained within the playing area.
+		/// </summary>
+		private readonly IDictionary<string,IPlaceableEntity> m_placeables = new Dictionary<string,IPlaceableEntity>();
 
 		#endregion
 
@@ -41,12 +46,31 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The entities contained within the playing area.
 		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_children.Values; } }
+		public IEnumerable<dynamic> Children
+		{
+			get
+			{
+				foreach(IMobileEntity e in m_mobiles.Values)
+				{
+					yield return e;
+				}
+
+				foreach(IPlaceableEntity e in m_placeables.Values)
+				{
+					yield return e;
+				}
+			}
+		}
 
 		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
 		public OccupancyMap OccupancyMap { get { return m_occupancyMap; } }
+
+		/// <summary>
+		/// The placeable entities contained within the playing area.
+		/// </summary>
+		public IEnumerable<IPlaceableEntity> Placeables { get { return m_placeables.Values; } }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -73,6 +97,8 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity to add.</param>
 		public void AddEntity(IMobileEntity entity)
 		{
+			m_mobiles.Add(entity.Name, entity);
+
 			// TODO
 		}
 
@@ -82,7 +108,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity to add.</param>
 		public void AddEntity(IPlaceableEntity entity)
 		{
-			m_children.Add(entity.Name, entity);
+			m_placeables.Add(entity.Name, entity);
 
 			OccupancyMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
@@ -129,7 +155,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			if(!entity.Destructible) return;
 
-			m_children.Remove(entity.Name);
+			m_placeables.Remove(entity.Name);
 
 			OccupancyMap.MarkOccupied(
 				entity.PlacementStrategy.Place(

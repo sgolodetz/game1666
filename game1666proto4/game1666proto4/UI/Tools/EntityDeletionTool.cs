@@ -80,10 +80,10 @@ namespace game1666proto4.UI.Tools
 			Tuple<Vector2i,float> gridSquareAndDistance = m_playingArea.Terrain.PickGridSquare(ray);
 			float nearestHitDistance = gridSquareAndDistance != null ? gridSquareAndDistance.Item2 : float.MaxValue;
 
-			// Find the nearest entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray and (c) destructible,
+			// Find the nearest placeable entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray and (c) destructible,
 			// and mark it for deletion.
 			Entity = null;
-			foreach(IPlaceableEntity entity in m_playingArea.Children.Where(c => c.Destructible))
+			foreach(IPlaceableEntity entity in m_playingArea.Placeables.Where(c => c.Destructible))
 			{
 				string modelName = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.OccupancyMap).Item1;
 				Model model = Renderer.Content.Load<Model>("Models/" + modelName);
