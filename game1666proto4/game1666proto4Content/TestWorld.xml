@@ -48,7 +48,9 @@
       </entity>
     </entity>
     <entity type="GameModel.Entities.Walker">
-      <!-- TODO -->
+      <property name="Name" type="string" value="Dawlish"/>
+      <property name="Orientation" type="Orientation8" value="XPOS"/>
+      <property name="Position" type="Vector3" value="0.5,1.5,0.25"/>
     </entity>
   </entity>
 </entity>

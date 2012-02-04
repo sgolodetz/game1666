@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Maths;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666proto4.Common.Entities
@@ -91,8 +92,10 @@ namespace game1666proto4.Common.Entities
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
 			parsers["List[float]"] = s => ParseList(s, Convert.ToSingle);
 			parsers["Orientation4"] = s => Enum.Parse(typeof(Orientation4), s);
+			parsers["Orientation8"] = s => Enum.Parse(typeof(Orientation8), s);
 			parsers["string"] = s => s;
 			parsers["Vector2i"] = s => ParseVector2iSpecifier(s);
+			parsers["Vector3"] = s => ParseVector3Specifier(s);
 			parsers["Viewport"] = s => ParseViewportSpecifier(s);
 
 			foreach(XElement propertyElt in entityElt.Elements("property"))
@@ -186,6 +189,26 @@ namespace game1666proto4.Common.Entities
 			if(values.Length == 2)
 			{
 				return new Vector2i(values[0], values[1]);
+			}
+			else throw new InvalidDataException("The vector specifier '" + vectorSpecifier + "' does not have the right number of components.");
+		}
+
+		/// <summary>
+		/// Parses the string representation of a Vector3 in order to construct the Vector3 itself.
+		/// </summary>
+		/// <param name="vectorSpecifier">The string representation of a Vector3.</param>
+		/// <returns>The Vector3.</returns>
+		private static Vector3 ParseVector3Specifier(string vectorSpecifier)
+		{
+			float[] values = vectorSpecifier
+				.Split(',')
+				.Where(v => !string.IsNullOrWhiteSpace(v))
+				.Select(v => Convert.ToSingle(v.Trim()))
+				.ToArray();
+
+			if(values.Length == 3)
+			{
+				return new Vector3(values[0], values[1], values[2]);
 			}
 			else throw new InvalidDataException("The vector specifier '" + vectorSpecifier + "' does not have the right number of components.");
 		}

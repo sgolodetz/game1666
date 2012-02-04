@@ -63,7 +63,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the walker's XML representation.</param>
 		public Walker(XElement entityElt)
 		{
-			// TODO
+			m_properties = EntityLoader.LoadProperties(entityElt);
 		}
 
 		#endregion
