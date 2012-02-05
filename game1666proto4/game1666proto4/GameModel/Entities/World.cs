@@ -129,6 +129,15 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Adds a walker to the world.
+		/// </summary>
+		/// <param name="walker">The walker.</param>
+		public void AddEntity(Walker walker)
+		{
+			m_playingArea.AddEntity(walker);
+		}
+
+		/// <summary>
 		/// Deletes an entity from the world based on its dynamic type.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
