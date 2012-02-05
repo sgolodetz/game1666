@@ -34,7 +34,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The sub-entities contained within the city.
 		/// </summary>
-		public override IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
+		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
 
 		/// <summary>
 		/// The mobile entities contained within the city.

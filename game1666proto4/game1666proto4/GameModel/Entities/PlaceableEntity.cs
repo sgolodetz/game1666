@@ -34,11 +34,6 @@ namespace game1666proto4.GameModel.Entities
 		public PlaceableEntityBlueprint Blueprint { get; protected set; }
 
 		/// <summary>
-		/// The sub-entities contained within this entity.
-		/// </summary>
-		public virtual IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
-
-		/// <summary>
 		/// Whether or not the entity can be destroyed.
 		/// </summary>
 		public bool Destructible

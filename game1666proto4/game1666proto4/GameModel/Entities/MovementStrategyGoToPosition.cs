@@ -4,6 +4,8 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using Microsoft.Xna.Framework;
@@ -19,9 +21,9 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The position towards which the entity should head.
+		/// The properties of the movement strategy.
 		/// </summary>
-		private Vector3 m_targetPosition;
+		private IDictionary<string,dynamic> m_properties;
 
 		#endregion
 
@@ -39,12 +41,12 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Constructs a new 'go to position' movement strategy.
+		/// Constructs a 'go to position' movement strategy from its XML representation.
 		/// </summary>
-		/// <param name="targetPosition">The position towards which the entity should head.</param>
-		public MovementStrategyGoToPosition(Vector3 targetPosition)
+		/// <param name="entityElt">The root node of the strategy's XML representation.</param>
+		public MovementStrategyGoToPosition(XElement entityElt)
 		{
-			m_targetPosition = targetPosition;
+			m_properties = EntityLoader.LoadProperties(entityElt);
 		}
 
 		#endregion
@@ -60,7 +62,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			MobileEntityBlueprint blueprint = BlueprintManager.GetBlueprint(EntityProperties["Blueprint"]);
 
-			Vector3 offset = m_targetPosition - EntityProperties["Position"];
+			Vector3 offset = m_properties["TargetPosition"] - EntityProperties["Position"];
 			if(offset.Length() > Constants.EPSILON)
 			{
 				offset.Normalize();

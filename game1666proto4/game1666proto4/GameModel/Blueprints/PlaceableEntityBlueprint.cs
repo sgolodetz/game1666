@@ -18,11 +18,6 @@ namespace game1666proto4.GameModel.Blueprints
 		#region
 
 		/// <summary>
-		/// The sub-entities contained within the blueprint (not relevant).
-		/// </summary>
-		public IEnumerable<dynamic> Children { get { return new List<dynamic>(); } }
-
-		/// <summary>
 		/// The footprint for the type of entity to be built.
 		/// </summary>
 		public Footprint Footprint { get; private set; }

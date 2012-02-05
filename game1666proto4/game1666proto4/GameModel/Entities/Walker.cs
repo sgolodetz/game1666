@@ -15,7 +15,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a walker, e.g. a citizen walking around the city.
 	/// </summary>
-	sealed class Walker : IMobileEntity, IUpdateableEntity
+	sealed class Walker : ICompositeEntity, IMobileEntity, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -67,16 +67,32 @@ namespace game1666proto4.GameModel.Entities
 		public Walker(XElement entityElt)
 		{
 			m_properties = EntityLoader.LoadProperties(entityElt);
-
-			// TEMPORARY
-			MovementStrategy = new MovementStrategyGoToPosition(new Vector3(1.5f, 1.5f, 0.25f));
-			MovementStrategy.EntityProperties = m_properties;
+			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Adds an entity to the walker based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity to add.</param>
+		public void AddDynamicEntity(dynamic entity)
+		{
+			AddEntity(entity);
+		}
+
+		/// <summary>
+		/// Adds a movement strategy to the walker (note that there can only be one).
+		/// </summary>
+		/// <param name="movementStrategy">The movement strategy.</param>
+		public void AddEntity(IMovementStrategy movementStrategy)
+		{
+			MovementStrategy = movementStrategy;
+			MovementStrategy.EntityProperties = m_properties;
+		}
 
 		/// <summary>
 		/// Updates the walker based on elapsed time and user input.

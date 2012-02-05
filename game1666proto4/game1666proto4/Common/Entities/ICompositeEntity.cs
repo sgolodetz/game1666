@@ -3,8 +3,6 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using System.Collections.Generic;
-
 namespace game1666proto4.Common.Entities
 {
 	/// <summary>
@@ -12,16 +10,6 @@ namespace game1666proto4.Common.Entities
 	/// </summary>
 	interface ICompositeEntity
 	{
-		//#################### PROPERTIES ####################
-		#region
-
-		/// <summary>
-		/// The sub-entities contained within the composite.
-		/// </summary>
-		IEnumerable<dynamic> Children { get; }
-
-		#endregion
-
 		//#################### PUBLIC METHODS ####################
 		#region
 
