@@ -23,7 +23,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The properties of the movement strategy.
 		/// </summary>
-		private IDictionary<string,dynamic> m_properties;
+		private readonly IDictionary<string,dynamic> m_properties;
 
 		#endregion
 
