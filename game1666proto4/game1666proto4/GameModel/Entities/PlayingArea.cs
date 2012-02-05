@@ -147,6 +147,16 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Deletes a mobile entity from the playing area.
+		/// </summary>
+		/// <param name="entity">The entity to delete.</param>
+		public void DeleteEntity(IMobileEntity entity)
+		{
+			m_mobiles.Remove(entity.Name);
+			m_destructionRules.Remove(entity);
+		}
+
+		/// <summary>
 		/// Deletes a placeable entity from the playing area (provided it's destructible).
 		/// </summary>
 		/// <param name="entity">The entity to delete.</param>
@@ -155,6 +165,7 @@ namespace game1666proto4.GameModel.Entities
 			if(!entity.Destructible) return;
 
 			m_placeables.Remove(entity.Name);
+			m_destructionRules.Remove(entity);
 
 			OccupancyMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
@@ -165,8 +176,6 @@ namespace game1666proto4.GameModel.Entities
 				),
 				null
 			);
-
-			m_destructionRules.Remove(entity);
 		}
 
 		#endregion

@@ -25,10 +25,8 @@ namespace game1666proto4.GameModel.Blueprints
 		{
 			get
 			{
-				Type blueprintType = this.GetType();
-				string blueprintTypeName = blueprintType.Name;
-				string entityTypeName = blueprintTypeName.Substring(0, blueprintTypeName.Length - "Blueprint".Length);
-				return Type.GetType("game1666proto4.GameModel.Entities." + entityTypeName);
+				string entityTypename = "game1666proto4." + Properties["EntityType"];
+				return Type.GetType(entityTypename);
 			}
 		}
 

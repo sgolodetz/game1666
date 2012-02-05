@@ -178,7 +178,6 @@
     <Compile Include="Common\Matchmaking\MatchmakingGraph.cs" />
     <Compile Include="GameModel\Blueprints\Blueprint.cs" />
     <Compile Include="GameModel\Blueprints\MobileEntityBlueprint.cs" />
-    <Compile Include="GameModel\Blueprints\WalkerBlueprint.cs" />
     <Compile Include="GameModel\Entities\EntityUtil.cs" />
     <Compile Include="GameModel\Entities\IMobileEntity.cs" />
     <Compile Include="GameModel\Entities\IMovementStrategy.cs" />
@@ -201,7 +200,6 @@
     <Compile Include="GameModel\Entities\Building.cs" />
     <Compile Include="GameModel\Entities\City.cs" />
     <Compile Include="GameModel\Entities\World.cs" />
-    <Compile Include="GameModel\Blueprints\CityBlueprint.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityInConstructionState.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityOperatingState.cs" />
     <Compile Include="UI\GameViewState.cs" />
@@ -220,7 +218,6 @@
     <Compile Include="Common\Input\MouseEventManager.cs" />
     <Compile Include="Common\Maths\MathUtil.cs" />
     <Compile Include="GameModel\Blueprints\BlueprintManager.cs" />
-    <Compile Include="GameModel\Blueprints\RoadSegmentBlueprint.cs" />
     <Compile Include="Common\Maths\Constants.cs" />
     <Compile Include="Common\Maths\Triangle.cs" />
     <Compile Include="Common\Maths\Vector2i.cs" />
