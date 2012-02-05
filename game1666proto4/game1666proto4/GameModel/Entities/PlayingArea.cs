@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
@@ -103,8 +104,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IMobileEntity entity)
 		{
 			m_mobiles.Add(entity.Name, entity);
-
-			// TODO
+			RegisterEntityDestructionRule(entity);
 		}
 
 		/// <summary>
@@ -114,6 +114,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_placeables.Add(entity.Name, entity);
+			RegisterEntityDestructionRule(entity);
 
 			OccupancyMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
@@ -123,13 +124,6 @@ namespace game1666proto4.GameModel.Entities
 					entity.Orientation
 				),
 				entity
-			);
-
-			m_destructionRules[entity] = MessageSystem.RegisterRule(
-				MessageRuleFactory.FromSource(
-					entity,
-					(EntityDestructionMessage msg) => DeleteEntity(entity)
-				)
 			);
 		}
 
@@ -173,6 +167,25 @@ namespace game1666proto4.GameModel.Entities
 			);
 
 			m_destructionRules.Remove(entity);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Registers a message rule that responds to the destruction of an entity by deleting it from the playing area.
+		/// </summary>
+		/// <param name="entity">The entity in whose destruction we're interested.</param>
+		private void RegisterEntityDestructionRule(dynamic entity)
+		{
+			m_destructionRules[entity] = MessageSystem.RegisterRule(
+				MessageRuleFactory.FromSource(
+					entity,
+					new Action<EntityDestructionMessage>(msg => DeleteEntity(entity))
+				)
+			);
 		}
 
 		#endregion
