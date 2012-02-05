@@ -43,7 +43,7 @@
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="0,0"/>
       <entity type="GameModel.FSMs.PlaceableEntityFSM">
-        <property name="ConstructionDone" type="int" value="1000"/>
+        <property name="ConstructionDone" type="int" value="0"/>
         <property name="CurrentStateID" type="string" value="OPERATING"/>
       </entity>
     </entity>
