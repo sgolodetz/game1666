@@ -177,8 +177,7 @@ namespace game1666proto4.UI
 		private void DrawMobileEntity(IMobileEntity entity)
 		{
 			// TEMPORARY
-			var offset = new Vector3(0.1f, 0.1f, 0.1f);
-			var bounds = new BoundingBox(entity.Position - offset, entity.Position + offset);
+			var bounds = new BoundingBox(entity.Position - new Vector3(0.1f, 0.1f, 0f), entity.Position + new Vector3(0.1f, 0.1f, 0.2f));
 
 			var effect = new BasicEffect(Renderer.GraphicsDevice);
 			effect.World = m_matWorld;
