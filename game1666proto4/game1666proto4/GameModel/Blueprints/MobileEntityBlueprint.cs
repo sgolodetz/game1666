@@ -19,12 +19,12 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <summary>
 		/// The speed at which the entity's animation should be played (relative to the normal speed, i.e. 2.0 means twice normal speed).
 		/// </summary>
-		float AnimationSpeed { get { return Properties["AnimationSpeed"]; } }
+		public float AnimationSpeed { get { return Properties["AnimationSpeed"]; } }
 
 		/// <summary>
 		/// The speed of the entity (in units/s).
 		/// </summary>
-		float MovementSpeed { get { return Properties["MovementSpeed"]; } }
+		public float MovementSpeed { get { return Properties["MovementSpeed"]; } }
 
 		#endregion
 

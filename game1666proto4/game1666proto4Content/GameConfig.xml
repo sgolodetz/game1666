@@ -63,7 +63,7 @@
       <property name="Name" type="string" value="Citizen"/>
       <property name="AnimationSpeed" type="float" value="1.0"/>
       <property name="Model" type="string" value="Citizen"/>
-      <property name="MovementSpeed" type="float" value="1.0"/>
+      <property name="MovementSpeed" type="float" value="0.1"/>
     </entity>
   </blueprints>
   <views>

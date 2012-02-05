@@ -67,6 +67,10 @@ namespace game1666proto4.GameModel.Entities
 		public Walker(XElement entityElt)
 		{
 			m_properties = EntityLoader.LoadProperties(entityElt);
+
+			// TEMPORARY
+			MovementStrategy = new MovementStrategyGoToPosition(new Vector3(1.5f, 1.5f, 0.25f));
+			MovementStrategy.EntityProperties = m_properties;
 		}
 
 		#endregion
