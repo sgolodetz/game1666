@@ -123,6 +123,46 @@ namespace game1666proto4.Common.Terrains
 		}
 
 		/// <summary>
+		/// Determines the altitude of the terrain at the given position.
+		/// </summary>
+		/// <param name="pos">The position.</param>
+		/// <returns>The altitude at the position, as specified.</returns>
+		public float DetermineAltitude(Vector2 pos)
+		{
+			var gridSquare = new Vector2i((int)Math.Floor(pos.X), (int)Math.Floor(pos.Y));
+			var offset = new Vector2(pos.X - gridSquare.X, pos.Y - gridSquare.Y);
+
+			if(offset.X + offset.Y <= 1)
+			{
+				// We're in the first triangle of the grid square.
+
+				// Calculate the barycentric coordinates of the point within the triangle.
+				float lambda0 = 1 - offset.X - offset.Y;
+				float lambda1 = offset.X;
+				float lambda2 = offset.Y;
+
+				// Use them to interpolate and find the altitude.
+				return	lambda0 * Heightmap[gridSquare.Y, gridSquare.X] +
+						lambda1 * Heightmap[gridSquare.Y, gridSquare.X + 1] +
+						lambda2 * Heightmap[gridSquare.Y + 1, gridSquare.X];
+			}
+			else
+			{
+				// We're in the second triangle of the grid square.
+
+				// Calculate the barycentric coordinates of the point within the triangle.
+				float lambda0 = 1 - offset.Y;
+				float lambda1 = offset.X + offset.Y - 1;
+				float lambda2 = 1 - offset.X;
+
+				// Use them to interpolate and find the altitude.
+				return	lambda0 * Heightmap[gridSquare.Y, gridSquare.X + 1] +
+						lambda1 * Heightmap[gridSquare.Y + 1, gridSquare.X + 1] +
+						lambda2 * Heightmap[gridSquare.Y + 1, gridSquare.X];
+			}
+		}
+
+		/// <summary>
 		/// Determines the average altitude of a non-empty set of grid squares.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares.</param>

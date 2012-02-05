@@ -4,6 +4,7 @@
  ***/
 
 using game1666proto4.Common.Maths;
+using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using Microsoft.Xna.Framework;
 
@@ -41,6 +42,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The position of the entity (relative to the origin of the containing entity).
 		/// </summary>
 		Vector3 Position { get; }
+
+		/// <summary>
+		/// The terrain on which the entity is moving.
+		/// </summary>
+		Terrain Terrain { set; }
 
 		#endregion
 	}

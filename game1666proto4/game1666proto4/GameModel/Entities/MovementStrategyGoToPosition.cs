@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
+using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using Microsoft.Xna.Framework;
 
@@ -35,6 +36,11 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		public IDictionary<string,dynamic> EntityProperties { private get; set; }
 
+		/// <summary>
+		/// The terrain on which the entity is moving.
+		/// </summary>
+		public Terrain Terrain { private get; set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -62,12 +68,19 @@ namespace game1666proto4.GameModel.Entities
 		{
 			MobileEntityBlueprint blueprint = BlueprintManager.GetBlueprint(EntityProperties["Blueprint"]);
 
-			Vector3 offset = m_properties["TargetPosition"] - EntityProperties["Position"];
+			Vector3 pos = EntityProperties["Position"];
+			Vector2 offset = m_properties["TargetPosition"] - pos.XY();
+
 			if(offset.Length() > Constants.EPSILON)
 			{
 				offset.Normalize();
 				offset *= blueprint.MovementSpeed * gameTime.ElapsedGameTime.Milliseconds / 1000f;
-				EntityProperties["Position"] += offset;
+
+				pos.X += offset.X;
+				pos.Y += offset.Y;
+				pos.Z = Terrain.DetermineAltitude(pos.XY());
+
+				EntityProperties["Position"] = pos;
 			}
 		}
 

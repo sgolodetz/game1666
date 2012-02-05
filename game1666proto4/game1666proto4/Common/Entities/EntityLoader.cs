@@ -94,6 +94,7 @@ namespace game1666proto4.Common.Entities
 			parsers["Orientation4"] = s => Enum.Parse(typeof(Orientation4), s);
 			parsers["Orientation8"] = s => Enum.Parse(typeof(Orientation8), s);
 			parsers["string"] = s => s;
+			parsers["Vector2"] = s => ParseVector2Specifier(s);
 			parsers["Vector2i"] = s => ParseVector2iSpecifier(s);
 			parsers["Vector3"] = s => ParseVector3Specifier(s);
 			parsers["Viewport"] = s => ParseViewportSpecifier(s);
@@ -171,6 +172,26 @@ namespace game1666proto4.Common.Entities
 		private static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser)
 		{
 			return listSpecifier.Split(',').Select(s => elementParser(s.Trim())).ToList();
+		}
+
+		/// <summary>
+		/// Parses the string representation of a Vector2 in order to construct the Vector2 itself.
+		/// </summary>
+		/// <param name="vectorSpecifier">The string representation of a Vector2.</param>
+		/// <returns>The Vector2.</returns>
+		private static Vector2 ParseVector2Specifier(string vectorSpecifier)
+		{
+			float[] values = vectorSpecifier
+				.Split(',')
+				.Where(v => !string.IsNullOrWhiteSpace(v))
+				.Select(v => Convert.ToSingle(v.Trim()))
+				.ToArray();
+
+			if(values.Length == 2)
+			{
+				return new Vector2(values[0], values[1]);
+			}
+			else throw new InvalidDataException("The vector specifier '" + vectorSpecifier + "' does not have the right number of components.");
 		}
 
 		/// <summary>

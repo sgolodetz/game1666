@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
+using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using Microsoft.Xna.Framework;
 
@@ -23,7 +24,12 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The properties of the walker.
 		/// </summary>
-		private IDictionary<string,dynamic> m_properties;
+		private readonly IDictionary<string,dynamic> m_properties;
+
+		/// <summary>
+		/// The terrain on which the walker is moving.
+		/// </summary>
+		private Terrain m_terrain;
 
 		#endregion
 
@@ -54,6 +60,23 @@ namespace game1666proto4.GameModel.Entities
 		/// The position of the walker (relative to the origin of the containing entity).
 		/// </summary>
 		public Vector3 Position { get { return m_properties["Position"]; } }
+
+		/// <summary>
+		/// The terrain on which the walker is moving.
+		/// </summary>
+		public Terrain Terrain
+		{
+			private get
+			{
+				return m_terrain;
+			}
+
+			set
+			{
+				m_terrain = value;
+				if(MovementStrategy != null) MovementStrategy.Terrain = value;
+			}
+		}
 
 		#endregion
 
@@ -92,6 +115,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			MovementStrategy = movementStrategy;
 			MovementStrategy.EntityProperties = m_properties;
+			MovementStrategy.Terrain = Terrain;
 		}
 
 		/// <summary>

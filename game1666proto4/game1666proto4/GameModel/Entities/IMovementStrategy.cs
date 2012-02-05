@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using game1666proto4.Common.Terrains;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
@@ -20,6 +21,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The properties of the mobile entity.
 		/// </summary>
 		IDictionary<string,dynamic> EntityProperties { set; }
+
+		/// <summary>
+		/// The terrain on which the entity is moving.
+		/// </summary>
+		Terrain Terrain { set; }
 
 		#endregion
 

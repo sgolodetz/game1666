@@ -50,6 +50,16 @@ namespace game1666proto4.Common.Maths
 			return v * cosAngle + aCROSSv * sinAngle + axis * Vector3.Dot(axis, v) * (1 - cosAngle);
 		}
 
+		/// <summary>
+		/// Returns the x-y portion of the specified Vector3, i.e. slices (x,y,z) -> (x,y).
+		/// </summary>
+		/// <param name="v">The input vector.</param>
+		/// <returns>The x-y portion of the vector.</returns>
+		public static Vector2 XY(this Vector3 v)
+		{
+			return new Vector2(v.X, v.Y);
+		}
+
 		#endregion
 	}
 }

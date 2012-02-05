@@ -53,7 +53,7 @@
       <property name="Orientation" type="Orientation8" value="XPOS"/>
       <property name="Position" type="Vector3" value="0.5,1.5,0.25"/>
       <entity type="GameModel.Entities.MovementStrategyGoToPosition">
-        <property name="TargetPosition" type="Vector3" value="1.5,1.5,0.25"/>
+        <property name="TargetPosition" type="Vector2" value="2.5,1.5"/>
       </entity>
     </entity>
   </entity>
