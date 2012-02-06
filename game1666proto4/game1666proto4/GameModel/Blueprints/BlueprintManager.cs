@@ -34,7 +34,7 @@ namespace game1666proto4.GameModel.Blueprints
 		static BlueprintManager()
 		{
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
-			foreach(dynamic blueprint in EntityLoader.LoadChildEntities(doc.XPathSelectElement("config/blueprints")))
+			foreach(dynamic blueprint in EntityPersister.LoadChildEntities(doc.XPathSelectElement("config/blueprints")))
 			{
 				AddBlueprint(blueprint);
 			}

@@ -37,7 +37,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		public MobileEntityBlueprint(XElement blueprintElt)
 		{
-			Properties = EntityLoader.LoadProperties(blueprintElt);
+			Properties = EntityPersister.LoadProperties(blueprintElt);
 		}
 
 		#endregion

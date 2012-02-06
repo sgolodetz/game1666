@@ -56,7 +56,7 @@ namespace game1666proto4.UI
 		public CompositeVisibleEntity(XElement entityElt, World world)
 		:	base(entityElt, world)
 		{
-			EntityLoader.LoadAndAddChildEntities(this, entityElt, world);
+			EntityPersister.LoadAndAddChildEntities(this, entityElt, world);
 		}
 
 		#endregion

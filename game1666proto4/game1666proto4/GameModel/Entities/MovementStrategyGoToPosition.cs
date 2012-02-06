@@ -52,7 +52,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the strategy's XML representation.</param>
 		public MovementStrategyGoToPosition(XElement entityElt)
 		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
+			m_properties = EntityPersister.LoadProperties(entityElt);
 		}
 
 		#endregion

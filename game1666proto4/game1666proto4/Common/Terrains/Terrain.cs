@@ -72,7 +72,7 @@ namespace game1666proto4.Common.Terrains
 		/// <param name="entityElt">The root element of the terrain's XML representation.</param>
 		public Terrain(XElement entityElt)
 		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
+			m_properties = EntityPersister.LoadProperties(entityElt);
 
 			float[,] heightmap = null;
 			if(m_properties.ContainsKey("AssetHeightmap"))

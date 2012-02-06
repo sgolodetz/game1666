@@ -74,7 +74,7 @@ namespace game1666proto4.UI
 		/// <param name="world">The world that is being viewed.</param>
 		public VisibleEntity(XElement entityElt, World world)
 		{
-			Properties = EntityLoader.LoadProperties(entityElt);
+			Properties = EntityPersister.LoadProperties(entityElt);
 			World = world;
 		}
 

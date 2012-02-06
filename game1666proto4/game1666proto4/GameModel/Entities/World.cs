@@ -16,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a game world.
 	/// </summary>
-	sealed class World : IPlayingArea, IUpdateableEntity
+	sealed class World : IPersistableEntity, IPlayingArea, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -82,8 +82,8 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root element of the world's XML representation.</param>
 		public World(XElement entityElt)
 		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
+			m_properties = EntityPersister.LoadProperties(entityElt);
+			EntityPersister.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion
@@ -207,6 +207,18 @@ namespace game1666proto4.GameModel.Entities
 		{
 			XDocument doc = XDocument.Load(filename);
 			return new World(doc.Element("entity"));
+		}
+
+		/// <summary>
+		/// Saves the world to XML.
+		/// </summary>
+		/// <returns>An XML representation of the world.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, m_properties);
+			// TODO
+			return entityElt;
 		}
 
 		/// <summary>

@@ -103,9 +103,9 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
 		public PlaceableEntity(XElement entityElt)
 		{
-			Properties = EntityLoader.LoadProperties(entityElt);
+			Properties = EntityPersister.LoadProperties(entityElt);
 			Initialise();
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
+			EntityPersister.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion

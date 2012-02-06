@@ -100,12 +100,12 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the walker's XML representation.</param>
 		public Walker(XElement entityElt)
 		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
+			m_properties = EntityPersister.LoadProperties(entityElt);
 
 			// Walker positions are specified in 2D in the XML, so we need to convert them to 3D here.
 			m_properties["Position"] = MathUtil.FromXY(m_properties["Position"]);
 
-			EntityLoader.LoadAndAddChildEntities(this, entityElt);
+			EntityPersister.LoadAndAddChildEntities(this, entityElt);
 		}
 
 		#endregion

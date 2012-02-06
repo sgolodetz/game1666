@@ -38,8 +38,8 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		public PlaceableEntityBlueprint(XElement blueprintElt)
 		{
-			Properties = EntityLoader.LoadProperties(blueprintElt);
-			EntityLoader.LoadAndAddChildEntities(this, blueprintElt);
+			Properties = EntityPersister.LoadProperties(blueprintElt);
+			EntityPersister.LoadAndAddChildEntities(this, blueprintElt);
 		}
 
 		#endregion

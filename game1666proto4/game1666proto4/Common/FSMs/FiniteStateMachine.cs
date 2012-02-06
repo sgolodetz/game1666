@@ -82,7 +82,7 @@ namespace game1666proto4.Common.FSMs
 		/// <param name="entityElt">The root element of the FSM's XML representation.</param>
 		public FiniteStateMachine(XElement entityElt)
 		{
-			Properties = EntityLoader.LoadProperties(entityElt);
+			Properties = EntityPersister.LoadProperties(entityElt);
 		}
 
 		#endregion

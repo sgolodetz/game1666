@@ -62,7 +62,7 @@ namespace game1666proto4.GameModel.Blueprints
 		/// <param name="entityElt">The root element of the footprint's XML representation.</param>
 		public Footprint(XElement entityElt)
 		{
-			m_properties = EntityLoader.LoadProperties(entityElt);
+			m_properties = EntityPersister.LoadProperties(entityElt);
 			Initialise();
 		}
 

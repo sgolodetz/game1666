@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityLoader.cs
+ * game1666proto4: EntityPersister.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -17,12 +17,24 @@ using Microsoft.Xna.Framework.Graphics;
 namespace game1666proto4.Common.Entities
 {
 	/// <summary>
-	/// This class contains utility functions for loading entities from XML.
+	/// This class contains utility functions for loading and saving entities from XML.
 	/// </summary>
-	static class EntityLoader
+	static class EntityPersister
 	{
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a new entity element of the specified type.
+		/// </summary>
+		/// <param name="entityType">The type of entity element to create.</param>
+		/// <returns>The constructed element.</returns>
+		public static XElement ConstructEntityElement(Type entityType)
+		{
+			var entityElt = new XElement("entity");
+			entityElt.Add(new XAttribute("type", entityType.FullName.Substring("game1666proto4.".Length)));
+			return entityElt;
+		}
 
 		/// <summary>
 		/// Loads the children of a composite entity from XML and adds them to the composite.
@@ -120,6 +132,48 @@ namespace game1666proto4.Common.Entities
 			}
 
 			return properties;
+		}
+
+		/// <summary>
+		/// Saves a set of child entities as children of an XML element.
+		/// </summary>
+		/// <param name="entityElt">The XML element to which to save the child entities.</param>
+		/// <param name="children">The child entities.</param>
+		/// <returns>The XML element.</returns>
+		public static XElement SaveChildEntities(XElement entityElt, IEnumerable<IPersistableEntity> children)
+		{
+			foreach(IPersistableEntity child in children)
+			{
+				entityElt.Add(child.SaveToXML());
+			}
+			return entityElt;
+		}
+
+		/// <summary>
+		/// Saves a set of properties as children of an XML element.
+		/// </summary>
+		/// <param name="entityElt">The XML element to which to save the properties.</param>
+		/// <param name="properties">The properties to save.</param>
+		/// <returns>The XML element.</returns>
+		public static XElement SaveProperties(XElement entityElt, IEnumerable<KeyValuePair<string,dynamic>> properties)
+		{
+			// Set up the savers for the various supported types.
+			var savers = new Dictionary<Type,Tuple<string,Func<dynamic,string>>>();
+			savers[typeof(string)] = Tuple.Create("string", new Func<dynamic,string>(t => t));
+			// TODO: More savers needed.
+
+			foreach(var kv in properties)
+			{
+				Tuple<string,Func<dynamic,string>> saver = savers[kv.Value.GetType()];
+
+				var propertyElt = new XElement("property");
+				propertyElt.Add(new XAttribute("name", kv.Key));
+				propertyElt.Add(new XAttribute("type", saver.Item1));
+				propertyElt.Add(new XAttribute("value", saver.Item2(kv.Value)));
+				entityElt.Add(propertyElt);
+			}
+
+			return entityElt;
 		}
 
 		#endregion
