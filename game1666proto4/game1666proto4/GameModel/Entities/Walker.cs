@@ -59,7 +59,11 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The position of the walker (relative to the origin of the containing entity).
 		/// </summary>
-		public Vector3 Position { get { return m_properties["Position"]; } }
+		public Vector3 Position
+		{
+			get			{ return m_properties["Position"]; }
+			private set	{ m_properties["Position"] = value; }
+		}
 
 		/// <summary>
 		/// The terrain on which the walker is moving.
@@ -74,7 +78,14 @@ namespace game1666proto4.GameModel.Entities
 			set
 			{
 				m_terrain = value;
-				if(MovementStrategy != null) MovementStrategy.Terrain = value;
+
+				// Since we're now on a new terrain, change the altitude of the walker accordingly.
+				Vector3 pos = Position;
+				pos.Z = m_terrain.DetermineAltitude(pos.XY());
+				Position = pos;
+
+				// If there's a movement strategy in force, update its terrain reference.
+				if(MovementStrategy != null) MovementStrategy.Terrain = m_terrain;
 			}
 		}
 
@@ -90,6 +101,10 @@ namespace game1666proto4.GameModel.Entities
 		public Walker(XElement entityElt)
 		{
 			m_properties = EntityLoader.LoadProperties(entityElt);
+
+			// Walker positions are specified in 2D in the XML, so we need to convert them to 3D here.
+			m_properties["Position"] = MathUtil.FromXY(m_properties["Position"]);
+
 			EntityLoader.LoadAndAddChildEntities(this, entityElt);
 		}
 

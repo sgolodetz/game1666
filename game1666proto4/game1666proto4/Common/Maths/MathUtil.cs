@@ -18,6 +18,16 @@ namespace game1666proto4.Common.Maths
 		#region
 
 		/// <summary>
+		/// Returns a Vector3 with the same x and y components as the input Vector2 and a z component of zero.
+		/// </summary>
+		/// <param name="v">The input vector (x,y).</param>
+		/// <returns>The vector (x,y,0).</returns>
+		public static Vector3 FromXY(Vector2 v)
+		{
+			return new Vector3(v.X, v.Y, 0f);
+		}
+
+		/// <summary>
 		/// Returns a normalized copy of the specified Vector3.
 		/// </summary>
 		/// <param name="v">The input vector.</param>
