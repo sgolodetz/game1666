@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Terrains;
@@ -16,7 +17,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a city.
 	/// </summary>
-	sealed class City : PlaceableEntity, IPlayingArea, IUpdateableEntity
+	sealed class City : PlaceableEntity, IPersistableEntity, IPlayingArea, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -32,11 +33,6 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The sub-entities contained within the city.
-		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
-
-		/// <summary>
 		/// The mobile entities contained within the city.
 		/// </summary>
 		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
@@ -45,6 +41,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The city's occupancy map.
 		/// </summary>
 		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }
+
+		/// <summary>
+		/// The persistable entities contained within the city.
+		/// </summary>
+		public IEnumerable<IPersistableEntity> Persistables { get { return m_playingArea.Persistables; } }
 
 		/// <summary>
 		/// The placeable entities contained within the city.
@@ -60,6 +61,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The city's terrain.
 		/// </summary>
 		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }
+
+		/// <summary>
+		/// The updateable entities contained within the city.
+		/// </summary>
+		public IEnumerable<IUpdateableEntity> Updateables { get { return m_playingArea.Updateables; } }
 
 		#endregion
 
@@ -167,6 +173,18 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Saves the city to XML.
+		/// </summary>
+		/// <returns>An XML representation of the city.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, Properties);
+			EntityPersister.SaveChildEntities(entityElt, Persistables);
+			return entityElt;
+		}
+
+		/// <summary>
 		/// Updates the city based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
@@ -174,7 +192,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			FSM.Update(gameTime);
 
-			foreach(IUpdateableEntity entity in Children)
+			foreach(IUpdateableEntity entity in Updateables)
 			{
 				entity.Update(gameTime);
 			}

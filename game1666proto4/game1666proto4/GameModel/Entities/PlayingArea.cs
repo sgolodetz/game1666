@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Messages;
@@ -47,16 +49,18 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The entities contained within the playing area.
 		/// </summary>
-		public IEnumerable<dynamic> Children
+		private IEnumerable<dynamic> Children
 		{
 			get
 			{
-				foreach(IMobileEntity e in m_mobiles.Values)
+				yield return Terrain;
+
+				foreach(IPlaceableEntity e in m_placeables.Values)
 				{
 					yield return e;
 				}
 
-				foreach(IPlaceableEntity e in m_placeables.Values)
+				foreach(IMobileEntity e in m_mobiles.Values)
 				{
 					yield return e;
 				}
@@ -74,6 +78,17 @@ namespace game1666proto4.GameModel.Entities
 		public OccupancyMap OccupancyMap { get { return m_occupancyMap; } }
 
 		/// <summary>
+		/// The persistable entities contained within the playing area.
+		/// </summary>
+		public IEnumerable<IPersistableEntity> Persistables
+		{
+			get
+			{
+				return Children.Where(c => c as IPersistableEntity != null).Cast<IPersistableEntity>();
+			}
+		}
+
+		/// <summary>
 		/// The placeable entities contained within the playing area.
 		/// </summary>
 		public IEnumerable<IPlaceableEntity> Placeables { get { return m_placeables.Values; } }
@@ -82,6 +97,17 @@ namespace game1666proto4.GameModel.Entities
 		/// The playing area's terrain.
 		/// </summary>
 		public Terrain Terrain	{ get; private set; }
+
+		/// <summary>
+		/// The updateable entities contained within the playing area.
+		/// </summary>
+		public IEnumerable<IUpdateableEntity> Updateables
+		{
+			get
+			{
+				return Children.Where(c => c as IUpdateableEntity != null).Cast<IUpdateableEntity>();
+			}
+		}
 
 		#endregion
 

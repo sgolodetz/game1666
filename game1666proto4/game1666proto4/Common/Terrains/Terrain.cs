@@ -17,7 +17,7 @@ namespace game1666proto4.Common.Terrains
 	/// <summary>
 	/// An instance of this class represents a heightmap-based terrain.
 	/// </summary>
-	sealed class Terrain
+	sealed class Terrain : IPersistableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -203,6 +203,17 @@ namespace game1666proto4.Common.Terrains
 			else return null;
 		}
 
+		/// <summary>
+		/// Saves the terrain to XML.
+		/// </summary>
+		/// <returns>An XML representation of the terrain.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, m_properties);
+			return entityElt;
+		}
+
 		#endregion
 
 		//#################### PRIVATE METHODS ####################
@@ -230,6 +241,13 @@ namespace game1666proto4.Common.Terrains
 					heightmap[y,x] *= zScaling;
 				}
 			}
+
+			// Having applied the scaling to the heightmap, the z-scaling factor must now be reset to 1.
+			// This is important for saving the heightmap, since otherwise the z-scaling would be
+			// applied to a saved heightmap again on the next load. Note that the z-scaling should not
+			// be reset for asset heightmaps, since their height data is loaded from an external file
+			// that will remain unaffected by the scaling done in-game.
+			m_properties["ZScaling"] = 1f;
 
 			return heightmap;
 		}

@@ -22,7 +22,7 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
-		/// The sub-entities contained within the entity.
+		/// The sub-entities contained within the composite.
 		/// </summary>
 		public abstract IEnumerable<dynamic> Children { get; }
 

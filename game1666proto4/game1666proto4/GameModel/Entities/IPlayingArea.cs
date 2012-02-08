@@ -28,6 +28,11 @@ namespace game1666proto4.GameModel.Entities
 		OccupancyMap OccupancyMap { get; }
 
 		/// <summary>
+		/// The persistable entities contained within the playing area.
+		/// </summary>
+		IEnumerable<IPersistableEntity> Persistables { get; }
+
+		/// <summary>
 		/// The placeable entities contained within the playing area.
 		/// </summary>
 		IEnumerable<IPlaceableEntity> Placeables { get; }
@@ -36,6 +41,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The playing area's terrain.
 		/// </summary>
 		Terrain Terrain { get; }
+
+		/// <summary>
+		/// The updateable entities contained within the playing area.
+		/// </summary>
+		IEnumerable<IUpdateableEntity> Updateables { get; }
 
 		#endregion
 

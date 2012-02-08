@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using game1666proto4.Common.Graphics;
@@ -159,10 +160,15 @@ namespace game1666proto4.Common.Entities
 		{
 			// Set up the savers for the various supported types.
 			var savers = new Dictionary<Type,Tuple<string,Func<dynamic,string>>>();
-			savers[typeof(string)] = Tuple.Create("string", new Func<dynamic,string>(t => t));
-			// TODO: More savers needed.
+			var toStringSaver = new Func<dynamic,string>(v => v.ToString());
+			savers[typeof(bool)] = Tuple.Create("bool", toStringSaver);
+			savers[typeof(float)] = Tuple.Create("float", toStringSaver);
+			savers[typeof(float[,])] = Tuple.Create("Array2D[float]", new Func<dynamic,string>(v => SaveArray2D<float>(v)));
+			savers[typeof(Orientation4)] = Tuple.Create("Orientation4", toStringSaver);
+			savers[typeof(string)] = Tuple.Create("string", new Func<dynamic,string>(v => v));
+			savers[typeof(Vector2i)] = Tuple.Create("Vector2i", toStringSaver);
 
-			foreach(var kv in properties)
+			foreach(var kv in properties.Where(p => p.Key != "Self"))
 			{
 				Tuple<string,Func<dynamic,string>> saver = savers[kv.Value.GetType()];
 
@@ -312,6 +318,30 @@ namespace game1666proto4.Common.Entities
 				);
 			}
 			else throw new InvalidDataException("The viewport specifier '" + viewportSpecifier + "' does not have the right number of components.");
+		}
+
+		/// <summary>
+		/// Saves a 2D array to a string of the form "[width,height]elt00,elt01,...,eltmn".
+		/// </summary>
+		/// <typeparam name="T">The type of array element.</typeparam>
+		/// <param name="arr">The array.</param>
+		/// <returns>A string representation of the 2D array.</returns>
+		private static string SaveArray2D<T>(T[,] arr)
+		{
+			int width = arr.GetLength(1);
+			int height = arr.GetLength(0);
+
+			var sb = new StringBuilder();
+			sb.Append("[" + width + "," + height + "]");
+			for(int y = 0; y < height; ++y)
+			{
+				for(int x = 0; x < width; ++x)
+				{
+					sb.Append(arr[y,x]);
+					if(!(y == height - 1 && x == width - 1)) sb.Append(",");
+				}
+			}
+			return sb.ToString();
 		}
 
 		#endregion

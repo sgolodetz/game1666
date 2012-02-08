@@ -20,11 +20,11 @@
       <property name="ZScaling" type="float" value="0.25"/>
       <property name="Heightmap" type="Array2D[float]">
         [9,5]
-        1,1,1,2,5,4,4,3,2,1,
-        1,1,2,2,5,4,3,3,1,1,
-        4,4,4,4,5,4,3,2,1,1,
-        3,3,3,3,4,3,2,1,1,1,
-        2,2,2,2,3,2,1,1,1,1
+        1,1,1,2,5,4,4,3,2,
+        1,1,1,2,2,5,4,3,3,
+        1,1,4,4,4,4,5,4,3,
+        2,1,1,3,3,3,3,4,3,
+        2,1,1,1,2,2,2,2,3
       </property>
     </entity>
     <entity type="GameModel.Entities.House">

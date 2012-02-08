@@ -42,11 +42,6 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The sub-entities contained within the world.
-		/// </summary>
-		public IEnumerable<dynamic> Children { get { return m_playingArea.Children; } }
-
-		/// <summary>
 		/// The player's home city.
 		/// </summary>
 		public string HomeCity { get { return m_properties["HomeCity"]; } }
@@ -62,6 +57,11 @@ namespace game1666proto4.GameModel.Entities
 		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }
 
 		/// <summary>
+		/// The persistable entities contained within the world.
+		/// </summary>
+		public IEnumerable<IPersistableEntity> Persistables { get { return m_playingArea.Persistables; } }
+
+		/// <summary>
 		/// The placeable entities contained within the world.
 		/// </summary>
 		public IEnumerable<IPlaceableEntity> Placeables { get { return m_playingArea.Placeables; } }
@@ -70,6 +70,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The world's terrain.
 		/// </summary>
 		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }
+
+		/// <summary>
+		/// The updateable entities contained within the world.
+		/// </summary>
+		public IEnumerable<IUpdateableEntity> Updateables { get { return m_playingArea.Updateables; } }
 
 		#endregion
 
@@ -217,7 +222,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
 			EntityPersister.SaveProperties(entityElt, m_properties);
-			// TODO
+			EntityPersister.SaveChildEntities(entityElt, Persistables);
 			return entityElt;
 		}
 
@@ -227,7 +232,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			foreach(IUpdateableEntity entity in Children)
+			foreach(IUpdateableEntity entity in Updateables)
 			{
 				entity.Update(gameTime);
 			}

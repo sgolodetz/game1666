@@ -104,6 +104,8 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity they contain (if any).</param>
 		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, IPlaceableEntity entity)
 		{
+			if(gridSquares == null) return;
+
 			foreach(Vector2i s in gridSquares)
 			{
 				m_occupancy[s.Y, s.X] = entity;

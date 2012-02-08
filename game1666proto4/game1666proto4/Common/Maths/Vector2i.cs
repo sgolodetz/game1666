@@ -177,6 +177,15 @@ namespace game1666proto4.Common.Maths
 			return base.GetHashCode();
 		}
 
+		/// <summary>
+		/// Returns a string representation of this vector.
+		/// </summary>
+		/// <returns>A string representation of this vector.</returns>
+		public override string ToString()
+		{
+			return m_x.ToString() + "," + m_y.ToString();
+		}
+
 		#endregion
 	}
 }
