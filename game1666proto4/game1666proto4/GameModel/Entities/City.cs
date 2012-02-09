@@ -45,7 +45,18 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The persistable entities contained within the city.
 		/// </summary>
-		public IEnumerable<IPersistableEntity> Persistables { get { return m_playingArea.Persistables; } }
+		public override IEnumerable<IPersistableEntity> Persistables
+		{
+			get
+			{
+				yield return FSM;
+
+				foreach(IPersistableEntity entity in m_playingArea.Persistables)
+				{
+					yield return entity;
+				}
+			}
+		}
 
 		/// <summary>
 		/// The placeable entities contained within the city.
@@ -170,18 +181,6 @@ namespace game1666proto4.GameModel.Entities
 		{
 			if(path.Count != 0) return null;
 			else return this;
-		}
-
-		/// <summary>
-		/// Saves the city to XML.
-		/// </summary>
-		/// <returns>An XML representation of the city.</returns>
-		public XElement SaveToXML()
-		{
-			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
-			EntityPersister.SaveProperties(entityElt, Properties);
-			EntityPersister.SaveChildEntities(entityElt, Persistables);
-			return entityElt;
 		}
 
 		/// <summary>

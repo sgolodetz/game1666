@@ -162,6 +162,7 @@ namespace game1666proto4.Common.Entities
 			var savers = new Dictionary<Type,Tuple<string,Func<dynamic,string>>>();
 			var toStringSaver = new Func<dynamic,string>(v => v.ToString());
 			savers[typeof(bool)] = Tuple.Create("bool", toStringSaver);
+			savers[typeof(int)] = Tuple.Create("int", toStringSaver);
 			savers[typeof(float)] = Tuple.Create("float", toStringSaver);
 			savers[typeof(float[,])] = Tuple.Create("Array2D[float]", new Func<dynamic,string>(v => SaveArray2D<float>(v)));
 			savers[typeof(Orientation4)] = Tuple.Create("Orientation4", toStringSaver);

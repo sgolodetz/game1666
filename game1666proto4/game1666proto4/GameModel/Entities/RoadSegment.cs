@@ -75,18 +75,6 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Saves the road segment to XML.
-		/// </summary>
-		/// <returns>An XML representation of the road segment.</returns>
-		public XElement SaveToXML()
-		{
-			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
-			EntityPersister.SaveProperties(entityElt, Properties);
-			// TODO
-			return entityElt;
-		}
-
-		/// <summary>
 		/// Updates the road segment based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>

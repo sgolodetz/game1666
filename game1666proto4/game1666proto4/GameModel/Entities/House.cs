@@ -49,18 +49,6 @@ namespace game1666proto4.GameModel.Entities
 			return new House(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
 		}
 
-		/// <summary>
-		/// Saves the house to XML.
-		/// </summary>
-		/// <returns>An XML representation of the house.</returns>
-		public XElement SaveToXML()
-		{
-			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
-			EntityPersister.SaveProperties(entityElt, Properties);
-			// TODO
-			return entityElt;
-		}
-
 		#endregion
 	}
 }

@@ -18,7 +18,7 @@ namespace game1666proto4.GameModel.Entities
 	/// The major purpose of the class is to provide an implementation of the necessary properties in order to
 	/// make it easier to add new types of placeable entity.
 	/// </summary>
-	abstract class PlaceableEntity : IPlaceableEntity
+	abstract class PlaceableEntity : IPersistableEntity, IPlaceableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -48,7 +48,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The finite state machine for the entity.
 		/// </summary>
-		public FiniteStateMachine<PlaceableEntityStateID> FSM { get; private set; }
+		public PlaceableEntityFSM FSM { get; private set; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its playing area).
@@ -59,6 +59,17 @@ namespace game1666proto4.GameModel.Entities
 		/// The 2D axis-aligned orientation of the entity.
 		/// </summary>
 		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
+
+		/// <summary>
+		/// The persistable entities contained within the entity.
+		/// </summary>
+		public virtual IEnumerable<IPersistableEntity> Persistables
+		{
+			get
+			{
+				yield return FSM;
+			}
+		}
 
 		/// <summary>
 		/// The placement strategy for the entity.
@@ -138,6 +149,18 @@ namespace game1666proto4.GameModel.Entities
 		{
 			FSM = fsm;
 			fsm.EntityProperties = Properties;
+		}
+
+		/// <summary>
+		/// Saves the entity to XML.
+		/// </summary>
+		/// <returns>An XML representation of the entity.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, Properties);
+			EntityPersister.SaveChildEntities(entityElt, Persistables);
+			return entityElt;
 		}
 
 		#endregion

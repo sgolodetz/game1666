@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 
 namespace game1666proto4.GameModel.FSMs
@@ -13,7 +14,7 @@ namespace game1666proto4.GameModel.FSMs
 	/// <summary>
 	/// An instance of this class is used to manage the state of a placeable entity over time.
 	/// </summary>
-	sealed class PlaceableEntityFSM : FiniteStateMachine<PlaceableEntityStateID>
+	sealed class PlaceableEntityFSM : FiniteStateMachine<PlaceableEntityStateID>, IPersistableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -55,6 +56,22 @@ namespace game1666proto4.GameModel.FSMs
 		:	base(entityElt)
 		{
 			Initialise();
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Saves the FSM to XML.
+		/// </summary>
+		/// <returns>An XML representation of the FSM.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, Properties);
+			return entityElt;
 		}
 
 		#endregion
