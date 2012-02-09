@@ -69,6 +69,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Checks whether or not an entity can be validly placed on the terrain,
 		/// bearing in mind its footprint, position and orientation.
 		/// </summary>
+		/// <param name="entity">The entity to be checked.</param>
 		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
 		public bool IsValidlyPlaced(IPlaceableEntity entity)
 		{

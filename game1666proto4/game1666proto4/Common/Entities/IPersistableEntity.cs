@@ -18,6 +18,7 @@ namespace game1666proto4.Common.Entities
 		/// <summary>
 		/// Saves the entity to XML.
 		/// </summary>
+		/// <returns>An XML representation of the entity.</returns>
 		XElement SaveToXML();
 
 		#endregion

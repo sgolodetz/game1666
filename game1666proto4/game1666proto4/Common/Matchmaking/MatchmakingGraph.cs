@@ -180,7 +180,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// <summary>
 		/// Attempts to incrementally improve the existing matching.
 		/// </summary>
-		/// <returns>true, if an improved matching was generated, or false otherwise</returns>
+		/// <returns>true, if an improved matching was generated, or false otherwise.</returns>
 		private bool ImproveMatch()
 		{
 			var pathQueue = new Queue<Path>();
@@ -290,7 +290,7 @@ namespace game1666proto4.Common.Matchmaking
 		/// Checks whether the specified path is usable, and flips the flags of all the edges in the path if so.
 		/// </summary>
 		/// <param name="path">The path.</param>
-		/// <returns>true, if the path was used, or false otherwise</returns>
+		/// <returns>true, if the path was used, or false otherwise.</returns>
 		private bool UsePath(Path path)
 		{
 			// If using the path would not improve our matching, early out.

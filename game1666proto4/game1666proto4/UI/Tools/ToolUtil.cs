@@ -88,7 +88,7 @@ namespace game1666proto4.UI.Tools
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="playingArea">The playing area.</param>
-		/// <returns>true, if the placement succeeded, or false otherwise</returns>
+		/// <returns>true, if the placement succeeded, or false otherwise.</returns>
 		public static bool TryPlaceEntity(IPlaceableEntity entity, IPlayingArea playingArea)
 		{
 			Contract.Requires(entity != null);
