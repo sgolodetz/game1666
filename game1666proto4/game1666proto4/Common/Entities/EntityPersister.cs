@@ -165,8 +165,10 @@ namespace game1666proto4.Common.Entities
 			savers[typeof(float)] = Tuple.Create("float", toStringSaver);
 			savers[typeof(float[,])] = Tuple.Create("Array2D[float]", new Func<dynamic,string>(v => SaveArray2D<float>(v)));
 			savers[typeof(Orientation4)] = Tuple.Create("Orientation4", toStringSaver);
+			savers[typeof(Orientation8)] = Tuple.Create("Orientation8", toStringSaver);
 			savers[typeof(string)] = Tuple.Create("string", new Func<dynamic,string>(v => v));
 			savers[typeof(Vector2i)] = Tuple.Create("Vector2i", toStringSaver);
+			savers[typeof(Vector3)] = Tuple.Create("Vector3", new Func<dynamic,string>(v => v.X + "," + v.Y + "," + v.Z));
 
 			foreach(var kv in properties.Where(p => p.Key != "Self"))
 			{

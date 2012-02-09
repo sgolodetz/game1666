@@ -16,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a walker, e.g. a citizen walking around the city.
 	/// </summary>
-	sealed class Walker : ICompositeEntity, IMobileEntity, IUpdateableEntity
+	sealed class Walker : ICompositeEntity, IMobileEntity, IPersistableEntity, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -131,6 +131,18 @@ namespace game1666proto4.GameModel.Entities
 			MovementStrategy = movementStrategy;
 			MovementStrategy.EntityProperties = m_properties;
 			MovementStrategy.Terrain = Terrain;
+		}
+
+		/// <summary>
+		/// Saves the walker to XML.
+		/// </summary>
+		/// <returns>An XML representation of the walker.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, m_properties);
+			// TODO
+			return entityElt;
 		}
 
 		/// <summary>

@@ -15,7 +15,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a road segment.
 	/// </summary>
-	sealed class RoadSegment : PlaceableEntity, IUpdateableEntity
+	sealed class RoadSegment : PlaceableEntity, IPersistableEntity, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -38,7 +38,7 @@ namespace game1666proto4.GameModel.Entities
 		public RoadSegment(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
 		{
-			Properties["Name"] = Guid.NewGuid().ToString();
+			Properties["Name"] = "roadsegment:" + Guid.NewGuid().ToString();
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace game1666proto4.GameModel.Entities
 		public RoadSegment(XElement entityElt)
 		:	base(entityElt)
 		{
-			Properties["Name"] = Guid.NewGuid().ToString();
+			Properties["Name"] = "roadsegment:" + Guid.NewGuid().ToString();
 		}
 
 		#endregion
@@ -72,6 +72,18 @@ namespace game1666proto4.GameModel.Entities
 		public override IPlaceableEntity CloneNew()
 		{
 			return new RoadSegment(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
+		}
+
+		/// <summary>
+		/// Saves the road segment to XML.
+		/// </summary>
+		/// <returns>An XML representation of the road segment.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, Properties);
+			// TODO
+			return entityElt;
 		}
 
 		/// <summary>

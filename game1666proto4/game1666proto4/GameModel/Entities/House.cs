@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.FSMs;
 
 namespace game1666proto4.GameModel.Entities
@@ -12,7 +13,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a house.
 	/// </summary>
-	sealed class House : Building
+	sealed class House : Building, IPersistableEntity
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
@@ -46,6 +47,18 @@ namespace game1666proto4.GameModel.Entities
 		public override IPlaceableEntity CloneNew()
 		{
 			return new House(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
+		}
+
+		/// <summary>
+		/// Saves the house to XML.
+		/// </summary>
+		/// <returns>An XML representation of the house.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, Properties);
+			// TODO
+			return entityElt;
 		}
 
 		#endregion
