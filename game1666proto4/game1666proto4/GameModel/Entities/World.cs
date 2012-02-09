@@ -215,6 +215,15 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Saves the world to an XML file.
+		/// </summary>
+		/// <param name="filename">The name of the XML file.</param>
+		public void SaveToFile(string filename)
+		{
+			new XDocument(SaveToXML()).Save(filename);
+		}
+
+		/// <summary>
 		/// Saves the world to XML.
 		/// </summary>
 		/// <returns>An XML representation of the world.</returns>
