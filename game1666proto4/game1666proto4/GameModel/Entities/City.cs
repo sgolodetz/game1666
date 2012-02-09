@@ -49,7 +49,10 @@ namespace game1666proto4.GameModel.Entities
 		{
 			get
 			{
-				yield return FSM;
+				foreach(IPersistableEntity entity in base.Persistables)
+				{
+					yield return entity;
+				}
 
 				foreach(IPersistableEntity entity in m_playingArea.Persistables)
 				{

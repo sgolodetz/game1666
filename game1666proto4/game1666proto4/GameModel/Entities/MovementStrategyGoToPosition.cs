@@ -84,6 +84,17 @@ namespace game1666proto4.GameModel.Entities
 			}
 		}
 
+		/// <summary>
+		/// Saves the movement strategy to XML.
+		/// </summary>
+		/// <returns>An XML representation of the movement strategy.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+			EntityPersister.SaveProperties(entityElt, m_properties);
+			return entityElt;
+		}
+
 		#endregion
 	}
 }

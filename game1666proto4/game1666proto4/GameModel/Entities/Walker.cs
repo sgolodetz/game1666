@@ -141,7 +141,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
 			EntityPersister.SaveProperties(entityElt, m_properties);
-			// TODO
+			EntityPersister.SaveChildEntities(entityElt, new List<IPersistableEntity> { MovementStrategy });
 			return entityElt;
 		}
 

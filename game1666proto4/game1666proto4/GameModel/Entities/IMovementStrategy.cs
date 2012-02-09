@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Terrains;
 using Microsoft.Xna.Framework;
 
@@ -12,7 +13,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of a class implementing this interface represents a movement strategy for a mobile entity (e.g. "Go To Position").
 	/// </summary>
-	interface IMovementStrategy
+	interface IMovementStrategy : IPersistableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region

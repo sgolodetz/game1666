@@ -168,6 +168,7 @@ namespace game1666proto4.Common.Entities
 			savers[typeof(Orientation4)] = Tuple.Create("Orientation4", toStringSaver);
 			savers[typeof(Orientation8)] = Tuple.Create("Orientation8", toStringSaver);
 			savers[typeof(string)] = Tuple.Create("string", new Func<dynamic,string>(v => v));
+			savers[typeof(Vector2)] = Tuple.Create("Vector2", new Func<dynamic,string>(v => v.X + "," + v.Y));
 			savers[typeof(Vector2i)] = Tuple.Create("Vector2i", toStringSaver);
 			savers[typeof(Vector3)] = Tuple.Create("Vector3", new Func<dynamic,string>(v => v.X + "," + v.Y + "," + v.Z));
 
