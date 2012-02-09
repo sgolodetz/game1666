@@ -140,7 +140,16 @@ namespace game1666proto4.GameModel.Entities
 		public XElement SaveToXML()
 		{
 			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
+
+			// Walker positions are specified in 2D in the XML, so we need to make sure that we save them that way here.
+			Vector3 position = m_properties["Position"];
+			m_properties["Position"] = position.XY();
+
 			EntityPersister.SaveProperties(entityElt, m_properties);
+
+			// Restore the 3D position as before.
+			m_properties["Position"] = position;
+
 			EntityPersister.SaveChildEntities(entityElt, new List<IPersistableEntity> { MovementStrategy });
 			return entityElt;
 		}
