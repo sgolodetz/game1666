@@ -15,7 +15,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a road segment.
 	/// </summary>
-	sealed class RoadSegment : PlaceableEntity, IPersistableEntity, IUpdateableEntity
+	sealed class RoadSegment : PlaceableEntity, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
