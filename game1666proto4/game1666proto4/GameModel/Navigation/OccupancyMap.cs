@@ -13,7 +13,7 @@ namespace game1666proto4.GameModel.Navigation
 	/// <summary>
 	/// An instance of this class stores occupancy information for a terrain.
 	/// </summary>
-	sealed class OccupancyMap<EntityType> where EntityType : class
+	sealed class OccupancyMap<PlaceableEntityType> where PlaceableEntityType : class
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -21,7 +21,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// <summary>
 		/// An occupancy grid indicating the current occupancy of each grid square (e.g. a square might be occupied by a building).
 		/// </summary>
-		private EntityType[,] m_occupancy;
+		private PlaceableEntityType[,] m_occupancy;
 
 		/// <summary>
 		/// The terrain for which to store occupancy information.
@@ -46,7 +46,7 @@ namespace game1666proto4.GameModel.Navigation
 			set
 			{
 				m_terrain = value;
-				m_occupancy = new EntityType[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
+				m_occupancy = new PlaceableEntityType[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
 			}
 		}
 
@@ -70,7 +70,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// </summary>
 		/// <param name="gridSquare">The grid square.</param>
 		/// <returns>The entity occupying it, if any, or null otherwise.</returns>
-		public EntityType LookupEntity(Vector2i gridSquare)
+		public PlaceableEntityType LookupEntity(Vector2i gridSquare)
 		{
 			if(0 <= gridSquare.Y && gridSquare.Y < m_occupancy.GetLength(0) &&
 			   0 <= gridSquare.X && gridSquare.X < m_occupancy.GetLength(1))
@@ -85,7 +85,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// </summary>
 		/// <param name="gridSquares">The grid squares to mark.</param>
 		/// <param name="entity">The entity they contain (if any).</param>
-		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, EntityType entity)
+		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, PlaceableEntityType entity)
 		{
 			if(gridSquares == null) return;
 
