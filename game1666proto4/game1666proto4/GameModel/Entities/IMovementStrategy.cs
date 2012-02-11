@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using game1666proto4.Common.Entities;
-using game1666proto4.Common.Terrains;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities

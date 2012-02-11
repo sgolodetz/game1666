@@ -4,7 +4,6 @@
  ***/
 
 using game1666proto4.Common.Maths;
-using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using Microsoft.Xna.Framework;
 
