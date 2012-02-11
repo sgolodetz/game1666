@@ -132,7 +132,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_mobiles.Add(entity.Name, entity);
 			RegisterEntityDestructionRule(entity);
-			entity.Terrain = Terrain;
+			entity.OccupancyMap = OccupancyMap;
 		}
 
 		/// <summary>

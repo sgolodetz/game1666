@@ -37,9 +37,9 @@ namespace game1666proto4.GameModel.Entities
 		public IDictionary<string,dynamic> EntityProperties { private get; set; }
 
 		/// <summary>
-		/// The terrain on which the entity is moving.
+		/// The occupancy map for the terrain on which the entity is moving.
 		/// </summary>
-		public Terrain Terrain { private get; set; }
+		public OccupancyMap<IPlaceableEntity> OccupancyMap { private get; set; }
 
 		#endregion
 
@@ -78,7 +78,7 @@ namespace game1666proto4.GameModel.Entities
 
 				pos.X += offset.X;
 				pos.Y += offset.Y;
-				pos.Z = Terrain.DetermineAltitude(pos.XY());
+				pos.Z = OccupancyMap.Terrain.DetermineAltitude(pos.XY());
 
 				EntityProperties["Position"] = pos;
 			}

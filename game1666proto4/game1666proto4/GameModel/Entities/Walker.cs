@@ -22,14 +22,14 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The occupancy map for the terrain on which the walker is moving.
+		/// </summary>
+		private OccupancyMap<IPlaceableEntity> m_occupancyMap;
+
+		/// <summary>
 		/// The properties of the walker.
 		/// </summary>
 		private readonly IDictionary<string,dynamic> m_properties;
-
-		/// <summary>
-		/// The terrain on which the walker is moving.
-		/// </summary>
-		private Terrain m_terrain;
 
 		#endregion
 
@@ -52,6 +52,32 @@ namespace game1666proto4.GameModel.Entities
 		public string Name { get { return m_properties["Name"]; } }
 
 		/// <summary>
+		/// The occupancy map for the terrain on which the walker is moving.
+		/// </summary>
+		public OccupancyMap<IPlaceableEntity> OccupancyMap
+		{
+			private get
+			{
+				return m_occupancyMap;
+			}
+
+			set
+			{
+				m_occupancyMap = value;
+
+				// Since we're now on a new terrain, change the altitude of the walker accordingly.
+				Vector3 pos = Position;
+				pos.Z = m_occupancyMap.Terrain.DetermineAltitude(pos.XY());
+				Position = pos;
+
+				// If there's a movement strategy in force, update its occupancy map reference.
+				if(MovementStrategy != null) MovementStrategy.OccupancyMap = m_occupancyMap;
+			}
+		}
+
+		#endregion
+
+		/// <summary>
 		/// The 2D 45-degree orientation of the walker.
 		/// </summary>
 		public Orientation8 Orientation { get { return m_properties["Orientation"]; } }
@@ -64,32 +90,6 @@ namespace game1666proto4.GameModel.Entities
 			get			{ return m_properties["Position"]; }
 			private set	{ m_properties["Position"] = value; }
 		}
-
-		/// <summary>
-		/// The terrain on which the walker is moving.
-		/// </summary>
-		public Terrain Terrain
-		{
-			private get
-			{
-				return m_terrain;
-			}
-
-			set
-			{
-				m_terrain = value;
-
-				// Since we're now on a new terrain, change the altitude of the walker accordingly.
-				Vector3 pos = Position;
-				pos.Z = m_terrain.DetermineAltitude(pos.XY());
-				Position = pos;
-
-				// If there's a movement strategy in force, update its terrain reference.
-				if(MovementStrategy != null) MovementStrategy.Terrain = m_terrain;
-			}
-		}
-
-		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
@@ -130,7 +130,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			MovementStrategy = movementStrategy;
 			MovementStrategy.EntityProperties = m_properties;
-			MovementStrategy.Terrain = Terrain;
+			MovementStrategy.OccupancyMap = OccupancyMap;
 		}
 
 		/// <summary>

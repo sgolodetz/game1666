@@ -34,6 +34,11 @@ namespace game1666proto4.GameModel.Entities
 		string Name { get; }
 
 		/// <summary>
+		/// The occupancy map for the terrain on which the entity is moving.
+		/// </summary>
+		OccupancyMap<IPlaceableEntity> OccupancyMap { set; }
+
+		/// <summary>
 		/// The 2D 45-degree orientation of the entity.
 		/// </summary>
 		Orientation8 Orientation { get; }
@@ -42,11 +47,6 @@ namespace game1666proto4.GameModel.Entities
 		/// The position of the entity (relative to the origin of the containing entity).
 		/// </summary>
 		Vector3 Position { get; }
-
-		/// <summary>
-		/// The terrain on which the entity is moving.
-		/// </summary>
-		Terrain Terrain { set; }
 
 		#endregion
 	}
