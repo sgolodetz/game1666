@@ -187,7 +187,7 @@
     <Compile Include="GameModel\Entities\Walker.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityInDestructionState.cs" />
     <Compile Include="GameModel\Entities\IPlaceableEntity.cs" />
-    <Compile Include="GameModel\Entities\OccupancyMap.cs" />
+    <Compile Include="GameModel\Navigation\OccupancyMap.cs" />
     <Compile Include="GameModel\Entities\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\IPlayingArea.cs" />
     <Compile Include="Common\Entities\IUpdateableEntity.cs" />

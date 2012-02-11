@@ -11,6 +11,7 @@ using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Messages;
+using game1666proto4.GameModel.Navigation;
 
 namespace game1666proto4.GameModel.Entities
 {

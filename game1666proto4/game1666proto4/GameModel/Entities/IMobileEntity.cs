@@ -5,6 +5,7 @@
 
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Navigation;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities

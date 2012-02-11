@@ -5,11 +5,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Navigation;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
