@@ -23,7 +23,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity.</param>
 		/// <param name="occupancyMap">The occupancy map associated with the terrain on which the entity sits.</param>
 		/// <returns>The model and orientation to use.</returns>
-		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(IPlaceableEntity entity, OccupancyMap occupancyMap)
+		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(IPlaceableEntity entity, OccupancyMap<IPlaceableEntity> occupancyMap)
 		{
 			return Tuple.Create(entity.Blueprint.Model, entity.Orientation);
 		}
@@ -34,7 +34,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="roadSegment">The road segment.</param>
 		/// /// <param name="occupancyMap">The occupancy map associated with the terrain on which the road segment sits.</param>
 		/// <returns>The model and orientation to use.</returns>
-		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(RoadSegment roadSegment, OccupancyMap occupancyMap)
+		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(RoadSegment roadSegment, OccupancyMap<IPlaceableEntity> occupancyMap)
 		{
 			int x = roadSegment.Position.X;
 			int y = roadSegment.Position.Y;

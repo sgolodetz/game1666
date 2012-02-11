@@ -40,7 +40,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The city's occupancy map.
 		/// </summary>
-		public OccupancyMap OccupancyMap { get { return m_playingArea.OccupancyMap; } }
+		public OccupancyMap<IPlaceableEntity> OccupancyMap { get { return m_playingArea.OccupancyMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the city.
@@ -184,6 +184,17 @@ namespace game1666proto4.GameModel.Entities
 		{
 			if(path.Count != 0) return null;
 			else return this;
+		}
+
+		/// <summary>
+		/// Checks whether or not an entity can be validly placed on the terrain,
+		/// bearing in mind its footprint, position and orientation.
+		/// </summary>
+		/// <param name="entity">The entity to be checked.</param>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
+		public bool IsValidlyPlaced(IPlaceableEntity entity)
+		{
+			return m_playingArea.IsValidlyPlaced(entity);
 		}
 
 		/// <summary>

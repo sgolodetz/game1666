@@ -25,7 +25,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
-		OccupancyMap OccupancyMap { get; }
+		OccupancyMap<IPlaceableEntity> OccupancyMap { get; }
 
 		/// <summary>
 		/// The persistable entities contained within the playing area.
@@ -57,6 +57,14 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="entity">The entity to delete.</param>
 		void DeleteDynamicEntity(dynamic entity);
+
+		/// <summary>
+		/// Checks whether or not an entity can be validly placed on the terrain,
+		/// bearing in mind its footprint, position and orientation.
+		/// </summary>
+		/// <param name="entity">The entity to be checked.</param>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
+		bool IsValidlyPlaced(IPlaceableEntity entity);
 
 		#endregion
 	}

@@ -94,7 +94,7 @@ namespace game1666proto4.UI.Tools
 			Contract.Requires(entity != null);
 			Contract.Requires(playingArea != null);
 
-			if(playingArea.OccupancyMap.IsValidlyPlaced(entity))
+			if(playingArea.IsValidlyPlaced(entity))
 			{
 				playingArea.AddDynamicEntity(entity.CloneNew());
 				return true;

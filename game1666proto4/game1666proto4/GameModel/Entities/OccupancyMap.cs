@@ -13,7 +13,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class stores occupancy information for a terrain.
 	/// </summary>
-	sealed class OccupancyMap
+	sealed class OccupancyMap<EntityType> where EntityType : class
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -21,7 +21,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// An occupancy grid indicating the current occupancy of each grid square (e.g. a square might be occupied by a building).
 		/// </summary>
-		private IPlaceableEntity[,] m_occupancy;
+		private EntityType[,] m_occupancy;
 
 		/// <summary>
 		/// The terrain for which to store occupancy information.
@@ -46,7 +46,7 @@ namespace game1666proto4.GameModel.Entities
 			set
 			{
 				m_terrain = value;
-				m_occupancy = new IPlaceableEntity[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
+				m_occupancy = new EntityType[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
 			}
 		}
 
@@ -66,29 +66,11 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Checks whether or not an entity can be validly placed on the terrain,
-		/// bearing in mind its footprint, position and orientation.
-		/// </summary>
-		/// <param name="entity">The entity to be checked.</param>
-		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
-		public bool IsValidlyPlaced(IPlaceableEntity entity)
-		{
-			IEnumerable<Vector2i> gridSquares = entity.PlacementStrategy.Place
-			(
-				Terrain,
-				entity.Blueprint.Footprint,
-				entity.Position,
-				entity.Orientation
-			);
-			return gridSquares != null && gridSquares.Any() && !AreOccupied(gridSquares);
-		}
-
-		/// <summary>
 		/// Looks up the entity (if any) that occupies the specified grid square.
 		/// </summary>
 		/// <param name="gridSquare">The grid square.</param>
 		/// <returns>The entity occupying it, if any, or null otherwise.</returns>
-		public IPlaceableEntity LookupEntity(Vector2i gridSquare)
+		public EntityType LookupEntity(Vector2i gridSquare)
 		{
 			if(0 <= gridSquare.Y && gridSquare.Y < m_occupancy.GetLength(0) &&
 			   0 <= gridSquare.X && gridSquare.X < m_occupancy.GetLength(1))
@@ -103,7 +85,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="gridSquares">The grid squares to mark.</param>
 		/// <param name="entity">The entity they contain (if any).</param>
-		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, IPlaceableEntity entity)
+		public void MarkOccupied(IEnumerable<Vector2i> gridSquares, EntityType entity)
 		{
 			if(gridSquares == null) return;
 

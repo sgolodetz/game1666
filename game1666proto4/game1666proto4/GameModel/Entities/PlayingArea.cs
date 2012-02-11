@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Messages;
@@ -34,7 +35,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
-		private readonly OccupancyMap m_occupancyMap = new OccupancyMap();
+		private readonly OccupancyMap<IPlaceableEntity> m_occupancyMap = new OccupancyMap<IPlaceableEntity>();
 
 		/// <summary>
 		/// The placeable entities contained within the playing area.
@@ -75,7 +76,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's occupancy map.
 		/// </summary>
-		public OccupancyMap OccupancyMap { get { return m_occupancyMap; } }
+		public OccupancyMap<IPlaceableEntity> OccupancyMap { get { return m_occupancyMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the playing area.
@@ -203,6 +204,24 @@ namespace game1666proto4.GameModel.Entities
 				),
 				null
 			);
+		}
+
+		/// <summary>
+		/// Checks whether or not an entity can be validly placed on the terrain,
+		/// bearing in mind its footprint, position and orientation.
+		/// </summary>
+		/// <param name="entity">The entity to be checked.</param>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
+		public bool IsValidlyPlaced(IPlaceableEntity entity)
+		{
+			IEnumerable<Vector2i> gridSquares = entity.PlacementStrategy.Place
+			(
+				Terrain,
+				entity.Blueprint.Footprint,
+				entity.Position,
+				entity.Orientation
+			);
+			return gridSquares != null && gridSquares.Any() && !OccupancyMap.AreOccupied(gridSquares);
 		}
 
 		#endregion

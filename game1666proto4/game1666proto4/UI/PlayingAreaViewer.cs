@@ -253,7 +253,7 @@ namespace game1666proto4.UI
 			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
 				IPlaceableEntity entity = tool.Entity;
-				float alpha = playingArea.OccupancyMap.IsValidlyPlaced(entity) ? 1f : 0.35f;
+				float alpha = playingArea.IsValidlyPlaced(entity) ? 1f : 0.35f;
 				DrawPlaceableEntity(entity, alpha);
 			}
 
