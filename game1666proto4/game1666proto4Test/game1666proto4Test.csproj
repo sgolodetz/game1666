@@ -40,6 +40,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="xunit">
       <HintPath>..\..\libraries\xunit-1.9\xunit.dll</HintPath>
     </Reference>
@@ -54,6 +56,7 @@
     <Compile Include="Common\Matchmaking\MatchmakingGraphTest.cs" />
     <Compile Include="Common\Maths\TriangleTest.cs" />
     <Compile Include="Common\Maths\Vector2iTest.cs" />
+    <Compile Include="Common\AStar\AStarSearcherTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

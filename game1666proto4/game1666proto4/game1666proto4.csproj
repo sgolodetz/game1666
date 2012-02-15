@@ -164,6 +164,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AStar\AStarSearcher.cs" />
+    <Compile Include="Common\AStar\AStarNode.cs" />
     <Compile Include="Common\Entities\IPersistableEntity.cs" />
     <Compile Include="Common\Maths\Orientation8.cs" />
     <Compile Include="Common\Messages\IMessage.cs" />

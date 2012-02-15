@@ -1,9 +1,12 @@
 ﻿/***
  * game1666proto4: Pathfinder.cs
- * Copyright 2011. All rights reserved.
+ * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using game1666proto4.Common.Maths;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Navigation
@@ -42,13 +45,16 @@ namespace game1666proto4.GameModel.Navigation
 		#region
 
 		/// <summary>
-		/// Finds a path from the specified source to the specified destination over the terrain.
+		/// Finds a path from the specified source to the nearest of the specified destinations over the terrain.
 		/// </summary>
 		/// <param name="source">The source.</param>
-		/// <param name="destination">The destination.</param>
-		/// <returns>The path, as a list of points to traverse.</returns>
-		public List<Vector2> FindPath(Vector2 source, Vector2 destination)
+		/// <param name="destinations">The destinations.</param>
+		/// <returns>The path, as a list of points to traverse, or null if no path can be found.</returns>
+		public List<Vector2> FindPath(Vector2 source, List<Vector2> destinations)
 		{
+			var sourceSquare = source.Discretize();
+			var destinationSquares = destinations.Select(v => v.Discretize()).ToList();
+
 			// TODO
 			return null;
 		}
