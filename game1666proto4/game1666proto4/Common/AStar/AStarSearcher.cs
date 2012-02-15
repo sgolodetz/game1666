@@ -11,7 +11,7 @@ namespace game1666proto4.Common.AStar
 	/// This class implements generic A* search.
 	/// </summary>
 	/// <typeparam name="T">The type of arbitrary data associated with the nodes used in the search.</typeparam>
-	static class AStarSearcher<T>
+	public static class AStarSearcher<T>
 	{
 		//#################### NESTED CLASSES ####################
 		#region
@@ -44,12 +44,13 @@ namespace game1666proto4.Common.AStar
 		/// <param name="source">The source.</param>
 		/// <param name="destinations">The destinations.</param>
 		/// <returns>The path, as a list of nodes to traverse, or null if no path can be found.</returns>
-		public static LinkedList<AStarNode<T>> FindPath(AStarNode<T> source, List<AStarNode<T>> destinations)
+		public static LinkedList<AStarNode<T>> FindPath(AStarNode<T> source, ICollection<AStarNode<T>> destinations)
 		{
 			var openList = new SortedSet<AStarNode<T>>(new AStarNodeComparer());
-			var closedList = new SortedSet<AStarNode<T>>(new AStarNodeComparer());
+			var closedList = new HashSet<AStarNode<T>>();
 
 			source.G = 0f;
+			source.CalculateH(destinations);
 			openList.Add(source);
 
 			while(openList.Count != 0)
@@ -71,9 +72,10 @@ namespace game1666proto4.Common.AStar
 
 					if(!openList.Contains(neighbour))
 					{
-						openList.Add(neighbour);
 						neighbour.G = tentativeG;
+						neighbour.CalculateH(destinations);
 						neighbour.From = cur;
+						openList.Add(neighbour);
 					}
 					else if(tentativeG < neighbour.G)
 					{
@@ -106,6 +108,7 @@ namespace game1666proto4.Common.AStar
 			while(cur.From != null)
 			{
 				result.AddFirst(cur);
+				cur = cur.From;
 			}
 
 			return result;

@@ -11,7 +11,7 @@ namespace game1666proto4.Common.AStar
 	/// An instance of a class deriving from this one represents a node in an A* search space.
 	/// </summary>
 	/// <typeparam name="T">The type of arbitrary data associated with the node.</typeparam>
-	abstract class AStarNode<T>
+	public abstract class AStarNode<T>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -19,7 +19,7 @@ namespace game1666proto4.Common.AStar
 		/// <summary>
 		/// Arbitrary data associated with the node (e.g. its position).
 		/// </summary>
-		public abstract T Data { get; }
+		public T Data { get; protected set; }
 
 		/// <summary>
 		/// The estimated total cost of the path through this node.
@@ -30,7 +30,7 @@ namespace game1666proto4.Common.AStar
 		/// A pointer to the preceding node in the path (initially null).
 		/// Used for finding the path at the end of the search.
 		/// </summary>
-		public abstract AStarNode<T> From { get; set; }
+		public AStarNode<T> From { get; set; }
 
 		/// <summary>
 		/// The cost of the sub-path from the source to this node.
@@ -40,7 +40,7 @@ namespace game1666proto4.Common.AStar
 		/// <summary>
 		/// The estimated cost of the sub-path from this node to the goal.
 		/// </summary>
-		public abstract float H { get; }
+		public float H { get; protected set; }
 
 		/// <summary>
 		/// The neighbours of this node in the search space.
@@ -53,18 +53,17 @@ namespace game1666proto4.Common.AStar
 		#region
 
 		/// <summary>
+		/// Calculates the estimated cost of the sub-path from this node to the goal.
+		/// </summary>
+		/// <param name="destinations">The destination nodes.</param>
+		public abstract void CalculateH(ICollection<AStarNode<T>> destinations);
+
+		/// <summary>
 		/// Determines the cost of going from this node to the specified neighbouring node.
 		/// </summary>
 		/// <param name="neighbour">The neighbouring node.</param>
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
 		public abstract float CostToNeighbour(AStarNode<T> neighbour);
-
-		/// <summary>
-		/// Determines whether or not this node is equal to another one.
-		/// </summary>
-		/// <param name="rhs">The other node.</param>
-		/// <returns>true, if the two nodes are equal, or false otherwise.</returns>
-		public abstract bool Equals(AStarNode<T> rhs);
 
 		#endregion
 	}
