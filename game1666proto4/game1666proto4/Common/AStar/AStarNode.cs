@@ -71,6 +71,11 @@ namespace game1666proto4.Common.AStar
 		//#################### PUBLIC METHODS ####################
 		#region
 
+		/// <summary>
+		/// Determines whether or not this AStarNode is equal to another one.
+		/// </summary>
+		/// <param name="rhs">The other AStarNode.</param>
+		/// <returns>true, if the two nodes are equal, or false otherwise.</returns>
 		public bool Equals(AStarNode<T> rhs)
 		{
 			return object.Equals(this, rhs);
