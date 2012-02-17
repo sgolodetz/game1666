@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ADTs\PriorityQueue.cs" />
     <Compile Include="Common\AStar\AStarSearcher.cs" />
     <Compile Include="Common\AStar\AStarNode.cs" />
     <Compile Include="Common\Entities\IPersistableEntity.cs" />

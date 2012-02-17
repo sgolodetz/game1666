@@ -13,83 +13,63 @@ using Assert = Xunit.Assert;
 
 namespace game1666proto4Test.Common.AStar
 {
-	//#################### HELPER CLASSES ####################
-	#region
-
-	sealed class TestAStarNode : AStarNode<Vector2i>
-	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		private AStarNode<Vector2i>[,] m_grid;
-
-		#endregion
-
-		//#################### PROPERTIES ####################
-		#region
-
-		public override IEnumerable<AStarNode<Vector2i>> Neighbours
-		{
-			get
-			{
-				return NeighbourPositions.Where(pos =>
-						0 <= pos.X && pos.X < m_grid.GetLength(1) &&
-						0 <= pos.Y && pos.Y < m_grid.GetLength(0) &&
-						m_grid[pos.Y, pos.X] != null
-					)
-					.Select(pos => m_grid[pos.Y, pos.X]);
-			}
-		}
-
-		private IEnumerable<Vector2i> NeighbourPositions
-		{
-			get
-			{
-				int x = Data.X, y = Data.Y;
-				yield return new Vector2i(x, y-1);
-				yield return new Vector2i(x-1, y);
-				yield return new Vector2i(x+1, y);
-				yield return new Vector2i(x, y+1);
-			}
-		}
-
-		#endregion
-
-		//#################### CONSTRUCTORS ####################
-		#region
-
-		public TestAStarNode(Vector2i position, AStarNode<Vector2i>[,] grid)
-		{
-			Data = position;
-			m_grid = grid;
-		}
-
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		public override void CalculateH(ICollection<AStarNode<Vector2i>> destinations)
-		{
-			H = destinations.Select(n => CostToNeighbour(n)).Min();
-		}
-
-		public override float CostToNeighbour(AStarNode<Vector2i> neighbour)
-		{
-			return Math.Abs(Data.X - neighbour.Data.X) + Math.Abs(Data.Y - neighbour.Data.Y);
-		}
-
-		#endregion
-	}
-
-	#endregion
-
-	//#################### TEST METHODS ####################
-	#region
-
 	[TestClass]
 	public sealed class AStarSearcherTest
 	{
+		//#################### HELPER CLASSES ####################
+		#region
+
+		sealed class TestAStarNode : AStarNode<Vector2i>
+		{
+			private AStarNode<Vector2i>[,] m_grid;
+
+			public override IEnumerable<AStarNode<Vector2i>> Neighbours
+			{
+				get
+				{
+					return NeighbourPositions.Where(pos =>
+							0 <= pos.X && pos.X < m_grid.GetLength(1) &&
+							0 <= pos.Y && pos.Y < m_grid.GetLength(0) &&
+							m_grid[pos.Y, pos.X] != null
+						)
+						.Select(pos => m_grid[pos.Y, pos.X]);
+				}
+			}
+
+			private IEnumerable<Vector2i> NeighbourPositions
+			{
+				get
+				{
+					int x = Data.X, y = Data.Y;
+					yield return new Vector2i(x, y-1);
+					yield return new Vector2i(x-1, y);
+					yield return new Vector2i(x+1, y);
+					yield return new Vector2i(x, y+1);
+				}
+			}
+
+			public TestAStarNode(Vector2i position, AStarNode<Vector2i>[,] grid)
+			{
+				Data = position;
+				m_grid = grid;
+			}
+
+			public override void CalculateH(ICollection<AStarNode<Vector2i>> destinations)
+			{
+				H = destinations.Select(n => CostToNeighbour(n)).Min();
+			}
+
+			public override float CostToNeighbour(AStarNode<Vector2i> neighbour)
+			{
+				return Math.Abs(Data.X - neighbour.Data.X) + Math.Abs(Data.Y - neighbour.Data.Y);
+			}
+		}
+
+		#endregion
+
+		//#################### TEST METHODS ####################
+		#region
+
 		[TestMethod]
 		public void FindPathTest()
 		{
@@ -115,7 +95,7 @@ namespace game1666proto4Test.Common.AStar
 		{
 			grid[y,x] = new TestAStarNode(new Vector2i(x,y), grid);
 		}
-	}
 
-	#endregion
+		#endregion
+	}
 }
