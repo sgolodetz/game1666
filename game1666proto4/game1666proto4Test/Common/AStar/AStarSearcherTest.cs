@@ -61,7 +61,14 @@ namespace game1666proto4Test.Common.AStar
 
 			public override float CostToNeighbour(AStarNode<Vector2i> neighbour)
 			{
-				return Math.Abs(Data.X - neighbour.Data.X) + Math.Abs(Data.Y - neighbour.Data.Y);
+				if(Data.X == 0 && Data.Y == 1 && neighbour.Data.X == 1 && neighbour.Data.Y == 1)
+				{
+					return 0;
+				}
+				else
+				{
+					return Math.Abs(Data.X - neighbour.Data.X) + Math.Abs(Data.Y - neighbour.Data.Y);
+				}
 			}
 		}
 
@@ -75,6 +82,7 @@ namespace game1666proto4Test.Common.AStar
 		{
 			var grid = new AStarNode<Vector2i>[3,3];
 			AddNode(0, 0, grid);
+			AddNode(0, 1, grid);
 			AddNode(1, 0, grid);
 			AddNode(1, 1, grid);
 			AddNode(2, 0, grid);

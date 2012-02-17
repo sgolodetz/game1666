@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using game1666proto4.Common.ADTs;
 
 namespace game1666proto4.Common.AStar
 {
@@ -13,28 +14,6 @@ namespace game1666proto4.Common.AStar
 	/// <typeparam name="T">The type of arbitrary data associated with the nodes used in the search.</typeparam>
 	public static class AStarSearcher<T>
 	{
-		//#################### NESTED CLASSES ####################
-		#region
-
-		/// <summary>
-		/// An instance of this class is used to compare AStarNode instances.
-		/// </summary>
-		private class AStarNodeComparer : IComparer<AStarNode<T>>
-		{
-			/// <summary>
-			/// Compares one AStarNode to another.
-			/// </summary>
-			/// <param name="lhs">The left-hand operand of the comparison.</param>
-			/// <param name="rhs">The right-hand operand of the comparison.</param>
-			/// <returns>A -ve value if lhs is less than rhs, a +ve value if rhs is less than lhs, or 0 if they're equal.</returns>
-			public int Compare(AStarNode<T> lhs, AStarNode<T> rhs)
-			{
-				return lhs.F.CompareTo(rhs.F);
-			}
-		}
-
-		#endregion
-
 		//#################### PUBLIC METHODS ####################
 		#region
 
@@ -46,22 +25,22 @@ namespace game1666proto4.Common.AStar
 		/// <returns>The path, as a list of nodes to traverse, or null if no path can be found.</returns>
 		public static LinkedList<AStarNode<T>> FindPath(AStarNode<T> source, ICollection<AStarNode<T>> destinations)
 		{
-			var openList = new SortedSet<AStarNode<T>>(new AStarNodeComparer());
+			var openList = new PriorityQueue<AStarNode<T>, float, int?>(Comparer<float>.Default);
 			var closedList = new HashSet<AStarNode<T>>();
 
 			source.G = 0f;
 			source.CalculateH(destinations);
-			openList.Add(source);
+			openList.Insert(source, source.F, null);
 
 			while(openList.Count != 0)
 			{
-				AStarNode<T> cur = openList.Min;
+				AStarNode<T> cur = openList.Top.ID;
 				if(destinations.Contains(cur))
 				{
 					return ConstructPath(cur);
 				}
 
-				openList.Remove(cur);
+				openList.Pop();
 				closedList.Add(cur);
 
 				foreach(AStarNode<T> neighbour in cur.Neighbours)
@@ -75,12 +54,13 @@ namespace game1666proto4.Common.AStar
 						neighbour.G = tentativeG;
 						neighbour.CalculateH(destinations);
 						neighbour.From = cur;
-						openList.Add(neighbour);
+						openList.Insert(neighbour, neighbour.F, null);
 					}
 					else if(tentativeG < neighbour.G)
 					{
 						neighbour.G = tentativeG;
 						neighbour.From = cur;
+						openList.UpdateKey(neighbour, neighbour.F);
 					}
 				}
 			}

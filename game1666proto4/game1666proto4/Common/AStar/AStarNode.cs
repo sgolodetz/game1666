@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 
 namespace game1666proto4.Common.AStar
@@ -11,7 +12,7 @@ namespace game1666proto4.Common.AStar
 	/// An instance of a class deriving from this one represents a node in an A* search space.
 	/// </summary>
 	/// <typeparam name="T">The type of arbitrary data associated with the node.</typeparam>
-	public abstract class AStarNode<T>
+	public abstract class AStarNode<T> : IEquatable<AStarNode<T>>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -64,6 +65,16 @@ namespace game1666proto4.Common.AStar
 		/// <param name="neighbour">The neighbouring node.</param>
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
 		public abstract float CostToNeighbour(AStarNode<T> neighbour);
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		public bool Equals(AStarNode<T> rhs)
+		{
+			return object.Equals(this, rhs);
+		}
 
 		#endregion
 	}
