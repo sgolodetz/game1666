@@ -19,11 +19,12 @@ namespace game1666proto4Test.Common.AStar
 		//#################### HELPER CLASSES ####################
 		#region
 
-		sealed class TestAStarNode : AStarNode<Vector2i>
+		sealed class TestAStarNode : AStarNode<TestAStarNode>
 		{
-			private AStarNode<Vector2i>[,] m_grid;
+			private TestAStarNode[,] m_grid;
+			private Vector2i m_position;
 
-			public override IEnumerable<AStarNode<Vector2i>> Neighbours
+			public override IEnumerable<TestAStarNode> Neighbours
 			{
 				get
 				{
@@ -40,7 +41,7 @@ namespace game1666proto4Test.Common.AStar
 			{
 				get
 				{
-					int x = Data.X, y = Data.Y;
+					int x = m_position.X, y = m_position.Y;
 					yield return new Vector2i(x, y-1);
 					yield return new Vector2i(x-1, y);
 					yield return new Vector2i(x+1, y);
@@ -48,26 +49,26 @@ namespace game1666proto4Test.Common.AStar
 				}
 			}
 
-			public TestAStarNode(Vector2i position, AStarNode<Vector2i>[,] grid)
+			public TestAStarNode(Vector2i position, TestAStarNode[,] grid)
 			{
-				Data = position;
+				m_position = position;
 				m_grid = grid;
 			}
 
-			public override void CalculateH(ICollection<AStarNode<Vector2i>> destinations)
+			public override void CalculateH(ICollection<TestAStarNode> destinations)
 			{
 				H = destinations.Select(n => CostToNeighbour(n)).Min();
 			}
 
-			public override float CostToNeighbour(AStarNode<Vector2i> neighbour)
+			public override float CostToNeighbour(TestAStarNode neighbour)
 			{
-				if(Data.X == 0 && Data.Y == 1 && neighbour.Data.X == 1 && neighbour.Data.Y == 1)
+				if(m_position.X == 0 && m_position.Y == 1 && neighbour.m_position.X == 1 && neighbour.m_position.Y == 1)
 				{
 					return 0;
 				}
 				else
 				{
-					return Math.Abs(Data.X - neighbour.Data.X) + Math.Abs(Data.Y - neighbour.Data.Y);
+					return Math.Abs(m_position.X - neighbour.m_position.X) + Math.Abs(m_position.Y - neighbour.m_position.Y);
 				}
 			}
 		}
@@ -80,7 +81,7 @@ namespace game1666proto4Test.Common.AStar
 		[TestMethod]
 		public void FindPathTest()
 		{
-			var grid = new AStarNode<Vector2i>[3,3];
+			var grid = new TestAStarNode[3,3];
 			AddNode(0, 0, grid);
 			AddNode(0, 1, grid);
 			AddNode(1, 0, grid);
@@ -89,17 +90,17 @@ namespace game1666proto4Test.Common.AStar
 			AddNode(2, 1, grid);
 			AddNode(2, 2, grid);
 
-			var destinations = new List<AStarNode<Vector2i>>
+			var destinations = new List<TestAStarNode>
 			{
 				grid[2,2]
 			};
 
-			LinkedList<AStarNode<Vector2i>> path = AStarSearcher<Vector2i>.FindPath(grid[0,0], destinations);
+			LinkedList<TestAStarNode> path = AStarSearcher<TestAStarNode>.FindPath(grid[0,0], destinations);
 
 			// TODO
 		}
 
-		private void AddNode(int x, int y, AStarNode<Vector2i>[,] grid)
+		private void AddNode(int x, int y, TestAStarNode[,] grid)
 		{
 			grid[y,x] = new TestAStarNode(new Vector2i(x,y), grid);
 		}

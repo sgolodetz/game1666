@@ -11,8 +11,8 @@ namespace game1666proto4.Common.AStar
 	/// <summary>
 	/// This class implements generic A* search.
 	/// </summary>
-	/// <typeparam name="T">The type of arbitrary data associated with the nodes used in the search.</typeparam>
-	public static class AStarSearcher<T>
+	/// <typeparam name="NodeType">The type of node used in the search.</typeparam>
+	public static class AStarSearcher<NodeType> where NodeType : AStarNode<NodeType>
 	{
 		//#################### PUBLIC METHODS ####################
 		#region
@@ -23,10 +23,10 @@ namespace game1666proto4.Common.AStar
 		/// <param name="source">The source.</param>
 		/// <param name="destinations">The destinations.</param>
 		/// <returns>The path, as a list of nodes to traverse, or null if no path can be found.</returns>
-		public static LinkedList<AStarNode<T>> FindPath(AStarNode<T> source, ICollection<AStarNode<T>> destinations)
+		public static LinkedList<NodeType> FindPath(NodeType source, ICollection<NodeType> destinations)
 		{
-			var openList = new PriorityQueue<AStarNode<T>, float, int?>(Comparer<float>.Default);
-			var closedList = new HashSet<AStarNode<T>>();
+			var openList = new PriorityQueue<NodeType, float, int?>(Comparer<float>.Default);
+			var closedList = new HashSet<NodeType>();
 
 			source.G = 0f;
 			source.CalculateH(destinations);
@@ -34,7 +34,7 @@ namespace game1666proto4.Common.AStar
 
 			while(openList.Count != 0)
 			{
-				AStarNode<T> cur = openList.Top.ID;
+				NodeType cur = openList.Top.ID;
 				if(destinations.Contains(cur))
 				{
 					return ConstructPath(cur);
@@ -43,7 +43,7 @@ namespace game1666proto4.Common.AStar
 				openList.Pop();
 				closedList.Add(cur);
 
-				foreach(AStarNode<T> neighbour in cur.Neighbours)
+				foreach(NodeType neighbour in cur.Neighbours)
 				{
 					if(closedList.Contains(neighbour)) continue;
 
@@ -80,11 +80,11 @@ namespace game1666proto4.Common.AStar
 		/// </summary>
 		/// <param name="destination">The destination at the end of the path.</param>
 		/// <returns>The nodes in the path as a list.</returns>
-		private static LinkedList<AStarNode<T>> ConstructPath(AStarNode<T> destination)
+		private static LinkedList<NodeType> ConstructPath(NodeType destination)
 		{
-			var result = new LinkedList<AStarNode<T>>();
+			var result = new LinkedList<NodeType>();
 
-			AStarNode<T> cur = destination;
+			NodeType cur = destination;
 			while(cur.From != null)
 			{
 				result.AddFirst(cur);
