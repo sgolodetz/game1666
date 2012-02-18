@@ -190,6 +190,7 @@
     <Compile Include="GameModel\Entities\Walker.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityInDestructionState.cs" />
     <Compile Include="GameModel\Entities\IPlaceableEntity.cs" />
+    <Compile Include="GameModel\Navigation\IOccupancyMap.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />
     <Compile Include="GameModel\Entities\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\IPlayingArea.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="GameModel\Matchmaking\Resource.cs" />
     <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\PlayingArea.cs" />
+    <Compile Include="GameModel\Navigation\NavigationNode.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategyRequireFlatGround.cs" />
     <Compile Include="GameModel\Entities\Building.cs" />

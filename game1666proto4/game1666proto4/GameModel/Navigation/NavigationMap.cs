@@ -1,6 +1,6 @@
 ﻿/***
  * game1666proto4: NavigationMap.cs
- * Copyright 2011. All rights reserved.
+ * Copyright 2012. All rights reserved.
  ***/
 
 using System.Collections.Generic;
@@ -14,7 +14,8 @@ namespace game1666proto4.GameModel.Navigation
 	/// <summary>
 	/// An instance of this class handles navigation for a terrain.
 	/// </summary>
-	sealed class NavigationMap<PlaceableEntityType> where PlaceableEntityType : class
+	/// <typeparam name="PlaceableEntityType">The type of entity that gets placed on the terrain.</typeparam>
+	sealed class NavigationMap<PlaceableEntityType> : IOccupancyMap where PlaceableEntityType : class
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -79,6 +80,16 @@ namespace game1666proto4.GameModel.Navigation
 
 			// TODO
 			return null;
+		}
+
+		/// <summary>
+		/// Checks whether or not the specified grid square is occupied.
+		/// </summary>
+		/// <param name="gridSquare">The grid square to check.</param>
+		/// <returns>true, if the grid square is occupied, or false otherwise.</returns>
+		public bool IsOccupied(Vector2i gridSquare)
+		{
+			return m_occupancy[gridSquare.Y, gridSquare.X] != null;
 		}
 
 		/// <summary>

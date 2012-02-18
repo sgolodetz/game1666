@@ -29,11 +29,11 @@ namespace game1666proto4Test.Common.AStar
 				get
 				{
 					return NeighbourPositions.Where(pos =>
-							0 <= pos.X && pos.X < m_grid.GetLength(1) &&
-							0 <= pos.Y && pos.Y < m_grid.GetLength(0) &&
-							m_grid[pos.Y, pos.X] != null
-						)
-						.Select(pos => m_grid[pos.Y, pos.X]);
+						0 <= pos.X && pos.X < m_grid.GetLength(1) &&
+						0 <= pos.Y && pos.Y < m_grid.GetLength(0) &&
+						m_grid[pos.Y, pos.X] != null
+					)
+					.Select(pos => m_grid[pos.Y, pos.X]);
 				}
 			}
 
