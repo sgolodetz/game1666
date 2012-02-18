@@ -24,9 +24,9 @@ namespace game1666proto4.GameModel.Entities
 		IDictionary<string,dynamic> EntityProperties { set; }
 
 		/// <summary>
-		/// The occupancy map for the terrain on which the entity is moving.
+		/// The navigation map for the terrain on which the entity is moving.
 		/// </summary>
-		OccupancyMap<IPlaceableEntity> OccupancyMap { set; }
+		NavigationMap<IPlaceableEntity> NavigationMap { set; }
 
 		#endregion
 

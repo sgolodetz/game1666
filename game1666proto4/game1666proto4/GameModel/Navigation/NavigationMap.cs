@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: OccupancyMap.cs
+ * game1666proto4: NavigationMap.cs
  * Copyright 2011. All rights reserved.
  ***/
 
@@ -11,9 +11,9 @@ using game1666proto4.Common.Terrains;
 namespace game1666proto4.GameModel.Navigation
 {
 	/// <summary>
-	/// An instance of this class stores occupancy information for a terrain.
+	/// An instance of this class handles navigation for a terrain.
 	/// </summary>
-	sealed class OccupancyMap<PlaceableEntityType> where PlaceableEntityType : class
+	sealed class NavigationMap<PlaceableEntityType> where PlaceableEntityType : class
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -24,7 +24,7 @@ namespace game1666proto4.GameModel.Navigation
 		private PlaceableEntityType[,] m_occupancy;
 
 		/// <summary>
-		/// The terrain for which to store occupancy information.
+		/// The terrain for which to handle navigation.
 		/// </summary>
 		private Terrain m_terrain;
 
@@ -34,7 +34,7 @@ namespace game1666proto4.GameModel.Navigation
 		#region
 
 		/// <summary>
-		/// The terrain for which to store occupancy information.
+		/// The terrain for which to handle navigation.
 		/// </summary>
 		public Terrain Terrain
 		{

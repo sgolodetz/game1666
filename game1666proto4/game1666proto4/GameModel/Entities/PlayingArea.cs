@@ -34,9 +34,9 @@ namespace game1666proto4.GameModel.Entities
 		private readonly IDictionary<string,IMobileEntity> m_mobiles = new Dictionary<string,IMobileEntity>();
 
 		/// <summary>
-		/// The playing area's occupancy map.
+		/// The playing area's navigation map.
 		/// </summary>
-		private readonly OccupancyMap<IPlaceableEntity> m_occupancyMap = new OccupancyMap<IPlaceableEntity>();
+		private readonly NavigationMap<IPlaceableEntity> m_navigationMap = new NavigationMap<IPlaceableEntity>();
 
 		/// <summary>
 		/// The placeable entities contained within the playing area.
@@ -75,9 +75,9 @@ namespace game1666proto4.GameModel.Entities
 		public IEnumerable<IMobileEntity> Mobiles { get { return m_mobiles.Values; } }
 
 		/// <summary>
-		/// The playing area's occupancy map.
+		/// The playing area's navigation map.
 		/// </summary>
-		public OccupancyMap<IPlaceableEntity> OccupancyMap { get { return m_occupancyMap; } }
+		public NavigationMap<IPlaceableEntity> NavigationMap { get { return m_navigationMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the playing area.
@@ -133,7 +133,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_mobiles.Add(entity.Name, entity);
 			RegisterEntityDestructionRule(entity);
-			entity.OccupancyMap = OccupancyMap;
+			entity.NavigationMap = NavigationMap;
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace game1666proto4.GameModel.Entities
 			m_placeables.Add(entity.Name, entity);
 			RegisterEntityDestructionRule(entity);
 
-			OccupancyMap.MarkOccupied(
+			NavigationMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
 					Terrain,
 					entity.Blueprint.Footprint,
@@ -163,7 +163,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Terrain terrain)
 		{
 			Terrain = terrain;
-			OccupancyMap.Terrain = terrain;
+			NavigationMap.Terrain = terrain;
 		}
 
 		/// <summary>
@@ -196,7 +196,7 @@ namespace game1666proto4.GameModel.Entities
 			m_placeables.Remove(entity.Name);
 			m_destructionRules.Remove(entity);
 
-			OccupancyMap.MarkOccupied(
+			NavigationMap.MarkOccupied(
 				entity.PlacementStrategy.Place(
 					Terrain,
 					entity.Blueprint.Footprint,
@@ -222,7 +222,7 @@ namespace game1666proto4.GameModel.Entities
 				entity.Position,
 				entity.Orientation
 			);
-			return gridSquares != null && gridSquares.Any() && !OccupancyMap.AreOccupied(gridSquares);
+			return gridSquares != null && gridSquares.Any() && !NavigationMap.AreOccupied(gridSquares);
 		}
 
 		#endregion

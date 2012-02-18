@@ -85,7 +85,7 @@ namespace game1666proto4.UI.Tools
 			Entity = null;
 			foreach(IPlaceableEntity entity in m_playingArea.Placeables.Where(c => c.Destructible))
 			{
-				string modelName = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.OccupancyMap).Item1;
+				string modelName = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.NavigationMap).Item1;
 				Model model = Renderer.Content.Load<Model>("Models/" + modelName);
 				foreach(ModelMesh mesh in model.Meshes)
 				{

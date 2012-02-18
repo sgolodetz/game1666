@@ -22,9 +22,9 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The occupancy map for the terrain on which the walker is moving.
+		/// The navigation map for the terrain on which the walker is moving.
 		/// </summary>
-		private OccupancyMap<IPlaceableEntity> m_occupancyMap;
+		private NavigationMap<IPlaceableEntity> m_navigationMap;
 
 		/// <summary>
 		/// The properties of the walker.
@@ -52,26 +52,26 @@ namespace game1666proto4.GameModel.Entities
 		public string Name { get { return m_properties["Name"]; } }
 
 		/// <summary>
-		/// The occupancy map for the terrain on which the walker is moving.
+		/// The navigation map for the terrain on which the walker is moving.
 		/// </summary>
-		public OccupancyMap<IPlaceableEntity> OccupancyMap
+		public NavigationMap<IPlaceableEntity> NavigationMap
 		{
 			private get
 			{
-				return m_occupancyMap;
+				return m_navigationMap;
 			}
 
 			set
 			{
-				m_occupancyMap = value;
+				m_navigationMap = value;
 
 				// Since we're now on a new terrain, change the altitude of the walker accordingly.
 				Vector3 pos = Position;
-				pos.Z = m_occupancyMap.Terrain.DetermineAltitude(pos.XY());
+				pos.Z = m_navigationMap.Terrain.DetermineAltitude(pos.XY());
 				Position = pos;
 
-				// If there's a movement strategy in force, update its occupancy map reference.
-				if(MovementStrategy != null) MovementStrategy.OccupancyMap = m_occupancyMap;
+				// If there's a movement strategy in force, update its navigation map reference.
+				if(MovementStrategy != null) MovementStrategy.NavigationMap = m_navigationMap;
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			MovementStrategy = movementStrategy;
 			MovementStrategy.EntityProperties = m_properties;
-			MovementStrategy.OccupancyMap = OccupancyMap;
+			MovementStrategy.NavigationMap = NavigationMap;
 		}
 
 		/// <summary>

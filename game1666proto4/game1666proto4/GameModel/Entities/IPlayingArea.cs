@@ -24,9 +24,9 @@ namespace game1666proto4.GameModel.Entities
 		IEnumerable<IMobileEntity> Mobiles { get; }
 
 		/// <summary>
-		/// The playing area's occupancy map.
+		/// The playing area's navigation map.
 		/// </summary>
-		OccupancyMap<IPlaceableEntity> OccupancyMap { get; }
+		NavigationMap<IPlaceableEntity> NavigationMap { get; }
 
 		/// <summary>
 		/// The persistable entities contained within the playing area.

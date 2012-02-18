@@ -38,9 +38,9 @@ namespace game1666proto4.GameModel.Entities
 		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
 
 		/// <summary>
-		/// The city's occupancy map.
+		/// The city's navigation map.
 		/// </summary>
-		public OccupancyMap<IPlaceableEntity> OccupancyMap { get { return m_playingArea.OccupancyMap; } }
+		public NavigationMap<IPlaceableEntity> NavigationMap { get { return m_playingArea.NavigationMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the city.

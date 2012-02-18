@@ -21,9 +21,9 @@ namespace game1666proto4.GameModel.Navigation
 		#region
 
 		/// <summary>
-		/// The occupancy map for the terrain over which we will be finding paths.
+		/// The navigation map for the terrain over which we will be finding paths.
 		/// </summary>
-		private OccupancyMap<PlaceableEntityType> m_occupancyMap;
+		private NavigationMap<PlaceableEntityType> m_navigationMap;
 
 		#endregion
 
@@ -31,12 +31,12 @@ namespace game1666proto4.GameModel.Navigation
 		#region
 
 		/// <summary>
-		/// The occupancy map for the terrain over which we will be finding paths.
+		/// The navigation map for the terrain over which we will be finding paths.
 		/// </summary>
-		/// <param name="occupancyMap"></param>
-		public Pathfinder(OccupancyMap<PlaceableEntityType> occupancyMap)
+		/// <param name="navigationMap"></param>
+		public Pathfinder(NavigationMap<PlaceableEntityType> navigationMap)
 		{
-			m_occupancyMap = occupancyMap;
+			m_navigationMap = navigationMap;
 		}
 
 		#endregion

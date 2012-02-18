@@ -198,7 +198,7 @@ namespace game1666proto4.UI
 			// Determine the model name and orientation to use - this is a hook so that we can override
 			// the default behaviour when drawing things like road segments. For most entities, we use
 			// the default implementation, which just returns the entity's model name and orientation.
-			Tuple<string,Orientation4> result = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.OccupancyMap);
+			Tuple<string,Orientation4> result = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.NavigationMap);
 			string modelName = result.Item1;
 			Orientation4 orientation = result.Item2;
 

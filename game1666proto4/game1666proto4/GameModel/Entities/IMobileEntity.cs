@@ -34,9 +34,9 @@ namespace game1666proto4.GameModel.Entities
 		string Name { get; }
 
 		/// <summary>
-		/// The occupancy map for the terrain on which the entity is moving.
+		/// The navigation map for the terrain on which the entity is moving.
 		/// </summary>
-		OccupancyMap<IPlaceableEntity> OccupancyMap { set; }
+		NavigationMap<IPlaceableEntity> NavigationMap { set; }
 
 		/// <summary>
 		/// The 2D 45-degree orientation of the entity.

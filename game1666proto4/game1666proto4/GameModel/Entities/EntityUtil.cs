@@ -21,9 +21,9 @@ namespace game1666proto4.GameModel.Entities
 		/// Determines the model and orientation to use when drawing the specified entity.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		/// <param name="occupancyMap">The occupancy map associated with the terrain on which the entity sits.</param>
+		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The model and orientation to use.</returns>
-		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(IPlaceableEntity entity, OccupancyMap<IPlaceableEntity> occupancyMap)
+		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(IPlaceableEntity entity, NavigationMap<IPlaceableEntity> navigationMap)
 		{
 			return Tuple.Create(entity.Blueprint.Model, entity.Orientation);
 		}
@@ -32,18 +32,18 @@ namespace game1666proto4.GameModel.Entities
 		/// Determines the model and orientation to use when drawing the specified road segment.
 		/// </summary>
 		/// <param name="roadSegment">The road segment.</param>
-		/// /// <param name="occupancyMap">The occupancy map associated with the terrain on which the road segment sits.</param>
+		/// /// <param name="navigationMap">The navigation map associated with the terrain on which the road segment sits.</param>
 		/// <returns>The model and orientation to use.</returns>
-		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(RoadSegment roadSegment, OccupancyMap<IPlaceableEntity> occupancyMap)
+		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(RoadSegment roadSegment, NavigationMap<IPlaceableEntity> navigationMap)
 		{
 			int x = roadSegment.Position.X;
 			int y = roadSegment.Position.Y;
 
 			int which = 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x, y - 1)) != null ? 1 : 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x - 1, y)) != null ? 2 : 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x + 1, y)) != null ? 4 : 0;
-			which += occupancyMap.LookupEntity(new Vector2i(x, y + 1)) != null ? 8 : 0;
+			which += navigationMap.LookupEntity(new Vector2i(x, y - 1)) != null ? 1 : 0;
+			which += navigationMap.LookupEntity(new Vector2i(x - 1, y)) != null ? 2 : 0;
+			which += navigationMap.LookupEntity(new Vector2i(x + 1, y)) != null ? 4 : 0;
+			which += navigationMap.LookupEntity(new Vector2i(x, y + 1)) != null ? 8 : 0;
 
 			string suffix = "";
 			Orientation4 orientation = roadSegment.Orientation;
