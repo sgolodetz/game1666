@@ -3,7 +3,9 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using game1666proto4.Common.AStar;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
@@ -92,7 +94,9 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="destinations">The destination nodes.</param>
 		public override void CalculateH(ICollection<EntityNavigationNode> destinations)
 		{
-			// TODO
+			// Since we only allow 4-connected movement, the cost to the goal is at least
+			// the Manhattan distance, so this is an admissible heuristic.
+			H = destinations.Select(n => Math.Abs(m_position.X - n.m_position.X) + Math.Abs(m_position.Y - n.m_position.Y)).Min();
 		}
 
 		/// <summary>
