@@ -51,12 +51,12 @@ namespace game1666proto4.Common.ADTs
 		/// <summary>
 		/// The dictionary used to look up elements by ID in the priority queue.
 		/// </summary>
-		private Dictionary<ID,int> m_dictionary = new Dictionary<ID,int>();
+		private readonly Dictionary<ID,int> m_dictionary = new Dictionary<ID,int>();
 
 		/// <summary>
 		/// The heap used to manage the ordering of elements in the priority queue.
 		/// </summary>
-		private List<Element> m_heap = new List<Element>();
+		private readonly List<Element> m_heap = new List<Element>();
 
 		/// <summary>
 		/// The comparer used to order the elements by key in the heap.
