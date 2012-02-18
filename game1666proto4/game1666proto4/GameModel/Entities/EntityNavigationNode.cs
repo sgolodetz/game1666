@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using game1666proto4.Common.AStar;
 using game1666proto4.Common.Maths;
+using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Navigation;
 
 namespace game1666proto4.GameModel.Entities
@@ -27,6 +28,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The position of the node on the terrain.
 		/// </summary>
 		private Vector2i m_position;
+
+		/// <summary>
+		/// The terrain.
+		/// </summary>
+		private Terrain m_terrain;
 
 		#endregion
 
@@ -66,10 +72,12 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="position">The position of the node on the terrain.</param>
 		/// <param name="nodeGrid">A grid of nodes for the other squares in the terrain.</param>
-		public EntityNavigationNode Initialise(Vector2i position, EntityNavigationNode[,] nodeGrid)
+		/// <param name="terrain">The terrain.</param>
+		public EntityNavigationNode Initialise(Vector2i position, EntityNavigationNode[,] nodeGrid, Terrain terrain)
 		{
 			m_nodeGrid = nodeGrid;
 			m_position = position;
+			m_terrain = terrain;
 			return this;
 		}
 

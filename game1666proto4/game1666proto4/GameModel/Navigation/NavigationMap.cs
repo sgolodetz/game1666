@@ -59,7 +59,7 @@ namespace game1666proto4.GameModel.Navigation
 				{
 					for(int x = 0; x < gridWidth; ++x)
 					{
-						m_nodeGrid[y,x] = new NavigationNodeType().Initialise(new Vector2i(x,y), m_nodeGrid);
+						m_nodeGrid[y,x] = new NavigationNodeType().Initialise(new Vector2i(x,y), m_nodeGrid, m_terrain);
 					}
 				}
 			}

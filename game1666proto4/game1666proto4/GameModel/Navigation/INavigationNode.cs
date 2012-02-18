@@ -4,6 +4,7 @@
  ***/
 
 using game1666proto4.Common.Maths;
+using game1666proto4.Common.Terrains;
 
 namespace game1666proto4.GameModel.Navigation
 {
@@ -30,10 +31,11 @@ namespace game1666proto4.GameModel.Navigation
 		/// <summary>
 		/// Initialises the node.
 		/// </summary>
-		/// <param name="position"></param>
-		/// <param name="nodeGrid"></param>
-		/// <returns></returns>
-		NodeType Initialise(Vector2i position, NodeType[,] nodeGrid);
+		/// <param name="position">The position of the node on the terrain.</param>
+		/// <param name="nodeGrid">A grid of nodes for the other squares in the terrain.</param>
+		/// <param name="terrain">The terrain.</param>
+		/// <returns>The node itself.</returns>
+		NodeType Initialise(Vector2i position, NodeType[,] nodeGrid, Terrain terrain);
 
 		#endregion
 	}
