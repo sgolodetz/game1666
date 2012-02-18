@@ -15,7 +15,10 @@ namespace game1666proto4.GameModel.Navigation
 	/// An instance of this class handles navigation for a terrain.
 	/// </summary>
 	/// <typeparam name="PlaceableEntityType">The type of entity that gets placed on the terrain.</typeparam>
-	sealed class NavigationMap<PlaceableEntityType> where PlaceableEntityType : class
+	/// <typeparam name="NavigationNodeType">The type of navigation node that will be used for pathfinding.</typeparam>
+	class NavigationMap<PlaceableEntityType,NavigationNodeType>
+		where PlaceableEntityType : class
+		where NavigationNodeType : IOccupancyHolder<PlaceableEntityType>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

@@ -55,7 +55,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The world's navigation map.
 		/// </summary>
-		public NavigationMap<IPlaceableEntity> NavigationMap { get { return m_playingArea.NavigationMap; } }
+		public EntityNavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the world.

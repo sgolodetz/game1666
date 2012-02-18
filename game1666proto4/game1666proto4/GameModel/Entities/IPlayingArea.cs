@@ -26,7 +26,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		NavigationMap<IPlaceableEntity> NavigationMap { get; }
+		EntityNavigationMap NavigationMap { get; }
 
 		/// <summary>
 		/// The persistable entities contained within the playing area.

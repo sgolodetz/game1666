@@ -36,7 +36,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		private readonly NavigationMap<IPlaceableEntity> m_navigationMap = new NavigationMap<IPlaceableEntity>();
+		private readonly EntityNavigationMap m_navigationMap = new EntityNavigationMap();
 
 		/// <summary>
 		/// The placeable entities contained within the playing area.
@@ -77,7 +77,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		public NavigationMap<IPlaceableEntity> NavigationMap { get { return m_navigationMap; } }
+		public EntityNavigationMap NavigationMap { get { return m_navigationMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the playing area.

@@ -24,7 +24,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The navigation map for the terrain on which the walker is moving.
 		/// </summary>
-		private NavigationMap<IPlaceableEntity> m_navigationMap;
+		private EntityNavigationMap m_navigationMap;
 
 		/// <summary>
 		/// The properties of the walker.
@@ -54,7 +54,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The navigation map for the terrain on which the walker is moving.
 		/// </summary>
-		public NavigationMap<IPlaceableEntity> NavigationMap
+		public EntityNavigationMap NavigationMap
 		{
 			private get
 			{

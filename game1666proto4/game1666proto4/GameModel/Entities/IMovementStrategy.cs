@@ -26,7 +26,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The navigation map for the terrain on which the entity is moving.
 		/// </summary>
-		NavigationMap<IPlaceableEntity> NavigationMap { set; }
+		EntityNavigationMap NavigationMap { set; }
 
 		#endregion
 
