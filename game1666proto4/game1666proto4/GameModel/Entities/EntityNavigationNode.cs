@@ -1,18 +1,19 @@
 ﻿/***
- * game1666proto4: NavigationNode.cs
+ * game1666proto4: EntityNavigationNode.cs
  * Copyright 2012. All rights reserved.
  ***/
 
 using System.Collections.Generic;
 using game1666proto4.Common.AStar;
 using game1666proto4.Common.Maths;
+using game1666proto4.GameModel.Navigation;
 
-namespace game1666proto4.GameModel.Navigation
+namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
-	/// An instance of this class represents a node in the A* search space used for pathfinding.
+	/// An instance of this class represents a node in the A* search space used for entity pathfinding.
 	/// </summary>
-	sealed class NavigationNode : AStarNode<NavigationNode>
+	sealed class EntityNavigationNode : AStarNode<EntityNavigationNode>, IOccupancyHolder<IPlaceableEntity>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -20,12 +21,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// <summary>
 		/// A grid of nodes for the other squares in the terrain.
 		/// </summary>
-		private NavigationNode[,] m_nodeGrid;
-
-		/// <summary>
-		/// The occupancy map for the terrain over which pathfinding will take place.
-		/// </summary>
-		private IOccupancyMap m_occupancyMap;
+		private EntityNavigationNode[,] m_nodeGrid;
 
 		/// <summary>
 		/// The position of the node on the terrain.
@@ -40,7 +36,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// <summary>
 		/// The neighbours of this node in the search space.
 		/// </summary>
-		public override IEnumerable<NavigationNode> Neighbours
+		public override IEnumerable<EntityNavigationNode> Neighbours
 		{
 			get
 			{
@@ -49,21 +45,24 @@ namespace game1666proto4.GameModel.Navigation
 			}
 		}
 
+		/// <summary>
+		/// The entity occupying the grid square for which this is the navigation node (if any), or null otherwise.
+		/// </summary>
+		public IPlaceableEntity OccupyingEntity { get; set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
 
 		/// <summary>
-		/// Constructs a navigation node to be used in pathfinding over a terrain.
+		/// Constructs an entity navigation node to be used in pathfinding over a terrain.
 		/// </summary>
 		/// <param name="position">The position of the node on the terrain.</param>
-		/// <param name="occupancyMap">The occupancy map for the terrain over which pathfinding will take place.</param>
 		/// <param name="nodeGrid">A grid of nodes for the other squares in the terrain.</param>
-		public NavigationNode(Vector2i position, IOccupancyMap occupancyMap, NavigationNode[,] nodeGrid)
+		public EntityNavigationNode(Vector2i position, EntityNavigationNode[,] nodeGrid)
 		{
 			m_nodeGrid = nodeGrid;
-			m_occupancyMap = occupancyMap;
 			m_position = position;
 		}
 
@@ -76,7 +75,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// Calculates the estimated cost of the sub-path from this node to the goal.
 		/// </summary>
 		/// <param name="destinations">The destination nodes.</param>
-		public override void CalculateH(ICollection<NavigationNode> destinations)
+		public override void CalculateH(ICollection<EntityNavigationNode> destinations)
 		{
 			// TODO
 		}
@@ -86,7 +85,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// </summary>
 		/// <param name="neighbour">The neighbouring node.</param>
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
-		public override float CostToNeighbour(NavigationNode neighbour)
+		public override float CostToNeighbour(EntityNavigationNode neighbour)
 		{
 			// TODO
 			return 0f;
