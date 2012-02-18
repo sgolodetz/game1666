@@ -13,7 +13,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a node in the A* search space used for entity pathfinding.
 	/// </summary>
-	sealed class EntityNavigationNode : AStarNode<EntityNavigationNode>, IOccupancyHolder<IPlaceableEntity>
+	sealed class EntityNavigationNode : AStarNode<EntityNavigationNode>, INavigationNode<IPlaceableEntity,EntityNavigationNode>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -56,14 +56,21 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Constructs an entity navigation node to be used in pathfinding over a terrain.
+		/// Constructs a blank entity navigation node. This must then be properly initialised using the Initialise method.
+		/// </summary>
+		public EntityNavigationNode()
+		{}
+
+		/// <summary>
+		/// Initialises the node.
 		/// </summary>
 		/// <param name="position">The position of the node on the terrain.</param>
 		/// <param name="nodeGrid">A grid of nodes for the other squares in the terrain.</param>
-		public EntityNavigationNode(Vector2i position, EntityNavigationNode[,] nodeGrid)
+		public EntityNavigationNode Initialise(Vector2i position, EntityNavigationNode[,] nodeGrid)
 		{
 			m_nodeGrid = nodeGrid;
 			m_position = position;
+			return this;
 		}
 
 		#endregion

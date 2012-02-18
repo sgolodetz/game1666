@@ -15,18 +15,18 @@ namespace game1666proto4.GameModel.Navigation
 	/// An instance of this class handles navigation for a terrain.
 	/// </summary>
 	/// <typeparam name="PlaceableEntityType">The type of entity that gets placed on the terrain.</typeparam>
-	/// <typeparam name="NavigationNodeType">The type of navigation node that will be used for pathfinding.</typeparam>
+	/// <typeparam name="NavigationNodeType">The type of navigation node to be used.</typeparam>
 	class NavigationMap<PlaceableEntityType,NavigationNodeType>
 		where PlaceableEntityType : class
-		where NavigationNodeType : IOccupancyHolder<PlaceableEntityType>
+		where NavigationNodeType : INavigationNode<PlaceableEntityType,NavigationNodeType>, new()
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
-		/// An occupancy grid indicating the current occupancy of each grid square (e.g. a square might be occupied by a building).
+		/// The grid of navigation nodes, used for pathfinding and occupancy checking.
 		/// </summary>
-		private PlaceableEntityType[,] m_occupancy;
+		private NavigationNodeType[,] m_nodeGrid;
 
 		/// <summary>
 		/// The terrain for which to handle navigation.
@@ -51,7 +51,17 @@ namespace game1666proto4.GameModel.Navigation
 			set
 			{
 				m_terrain = value;
-				m_occupancy = new PlaceableEntityType[m_terrain.Heightmap.GetLength(0) - 1, m_terrain.Heightmap.GetLength(1) - 1];
+
+				int gridHeight = m_terrain.Heightmap.GetLength(0) - 1;
+				int gridWidth = m_terrain.Heightmap.GetLength(1) - 1;
+				m_nodeGrid = new NavigationNodeType[gridHeight, gridWidth];
+				for(int y = 0; y < gridHeight; ++y)
+				{
+					for(int x = 0; x < gridWidth; ++x)
+					{
+						m_nodeGrid[y,x] = new NavigationNodeType().Initialise(new Vector2i(x,y), m_nodeGrid);
+					}
+				}
 			}
 		}
 
@@ -67,7 +77,7 @@ namespace game1666proto4.GameModel.Navigation
 		/// <returns>true, if any of the grid squares are occupied, or false otherwise.</returns>
 		public bool AreOccupied(IEnumerable<Vector2i> gridSquares)
 		{
-			return gridSquares.Any(s => m_occupancy[s.Y, s.X] != null);
+			return gridSquares.Any(s => m_nodeGrid[s.Y, s.X].OccupyingEntity != null);
 		}
 
 		/// <summary>
@@ -86,26 +96,16 @@ namespace game1666proto4.GameModel.Navigation
 		}
 
 		/// <summary>
-		/// Checks whether or not the specified grid square is occupied.
-		/// </summary>
-		/// <param name="gridSquare">The grid square to check.</param>
-		/// <returns>true, if the grid square is occupied, or false otherwise.</returns>
-		public bool IsOccupied(Vector2i gridSquare)
-		{
-			return m_occupancy[gridSquare.Y, gridSquare.X] != null;
-		}
-
-		/// <summary>
 		/// Looks up the entity (if any) that occupies the specified grid square.
 		/// </summary>
 		/// <param name="gridSquare">The grid square.</param>
 		/// <returns>The entity occupying it, if any, or null otherwise.</returns>
 		public PlaceableEntityType LookupEntity(Vector2i gridSquare)
 		{
-			if(0 <= gridSquare.Y && gridSquare.Y < m_occupancy.GetLength(0) &&
-			   0 <= gridSquare.X && gridSquare.X < m_occupancy.GetLength(1))
+			if(0 <= gridSquare.Y && gridSquare.Y < m_nodeGrid.GetLength(0) &&
+			   0 <= gridSquare.X && gridSquare.X < m_nodeGrid.GetLength(1))
 			{
-				return m_occupancy[gridSquare.Y, gridSquare.X];
+				return m_nodeGrid[gridSquare.Y, gridSquare.X].OccupyingEntity;
 			}
 			else return null;
 		}
@@ -121,7 +121,7 @@ namespace game1666proto4.GameModel.Navigation
 
 			foreach(Vector2i s in gridSquares)
 			{
-				m_occupancy[s.Y, s.X] = entity;
+				m_nodeGrid[s.Y, s.X].OccupyingEntity = entity;
 			}
 		}
 
