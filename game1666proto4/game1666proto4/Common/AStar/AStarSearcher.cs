@@ -30,6 +30,7 @@ namespace game1666proto4.Common.AStar
 
 			source.G = 0f;
 			source.CalculateH(destinations);
+			source.From = null;
 			openList.Insert(source, source.F, null);
 
 			while(openList.Count != 0)
