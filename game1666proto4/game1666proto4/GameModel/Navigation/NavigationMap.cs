@@ -87,19 +87,51 @@ namespace game1666proto4.GameModel.Navigation
 		/// <param name="source">The source.</param>
 		/// <param name="destinations">The destinations.</param>
 		/// <returns>The path, as a list of points to traverse, or null if no path can be found.</returns>
-		public List<Vector2> FindPath(Vector2 source, List<Vector2i> destinations)
+		public Queue<Vector2> FindPath(Vector2 source, List<Vector2> destinations)
 		{
 			// Determine the source and destination nodes for the pathfinding call.
 			Vector2i sourceSquare = source.MakeDiscrete();
 			NavigationNodeType sourceNode = m_nodeGrid[sourceSquare.Y, sourceSquare.X];
 
-			List<NavigationNodeType> destinationNodes = destinations.Select(s => m_nodeGrid[s.Y, s.X]).ToList();
+			List<NavigationNodeType> destinationNodes = destinations.Select(d =>
+			{
+				var s = d.MakeDiscrete();
+				return m_nodeGrid[s.Y, s.X];
+			}).ToList();
 
 			// Run the pathfinder.
-			LinkedList<NavigationNodeType> path = AStarSearcher<NavigationNodeType>.FindPath(sourceNode, destinationNodes);
+			LinkedList<NavigationNodeType> nodePath = AStarSearcher<NavigationNodeType>.FindPath(sourceNode, destinationNodes);
+			if(nodePath == null || nodePath.Count == 0) return null;
 
-			// Construct the final path based on the pathfinding result.
-			return path != null ? path.Select(n => n.Position.MakeContinuous()).ToList() : null;
+			// Prepend the source node to the path found.
+			nodePath.AddFirst(sourceNode);
+
+			// Convert the path to a sequence of points at the centres of the nodes.
+			List<Vector2> centres = nodePath.Select(n => n.Position.MakeContinuous()).ToList();
+
+			// Convert the sequence of centre points into a sequence of waypoints at the midpoints between them.
+			var waypoints = new Queue<Vector2>();
+			for(int i = 0; i < centres.Count - 1; ++i)
+			{
+				waypoints.Enqueue((centres[i] + centres[i+1]) / 2f);
+			}
+
+			// Determine which of the possible actual destinations was actually selected,
+			// and add it as the final waypoint.
+			float bestDistanceSquared = float.MaxValue;
+			Vector2? bestDestination = null;
+			foreach(Vector2 d in destinations)
+			{
+				float distanceSquared = (d - waypoints.Last()).LengthSquared();
+				if(distanceSquared < bestDistanceSquared)
+				{
+					bestDestination = d;
+					bestDistanceSquared = distanceSquared;
+				}
+			}
+			waypoints.Enqueue(bestDestination.Value);
+
+			return waypoints;
 		}
 
 		/// <summary>

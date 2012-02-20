@@ -28,13 +28,13 @@ namespace game1666proto4.Common.Maths
 		}
 
 		/// <summary>
-		/// Returns a Vector2 with the same x and y components as the input Vector2i.
+		/// Returns a Vector2 with x and y components 0.5 larger than those of those of the input Vector2i.
 		/// </summary>
 		/// <param name="v">The input Vector2i (x,y).</param>
-		/// <returns>The Vector2 (x,y).</returns>
+		/// <returns>The Vector2 (x + 0.5f, y + 0.5f).</returns>
 		public static Vector2 MakeContinuous(this Vector2i v)
 		{
-			return new Vector2(v.X, v.Y);
+			return new Vector2(v.X + 0.5f, v.Y + 0.5f);
 		}
 
 		/// <summary>

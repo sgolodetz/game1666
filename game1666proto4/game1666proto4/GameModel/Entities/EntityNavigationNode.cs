@@ -67,7 +67,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			get
 			{
-				const float ALTITUDE_CHANGE_THRESHOLD = 5f;
+				const float ALTITUDE_CHANGE_THRESHOLD = 0.5f;
 
 				foreach(Vector2i neighbourPosition in NeighbourPositions)
 				{
