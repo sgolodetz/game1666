@@ -75,7 +75,8 @@ namespace game1666proto4.GameModel.Entities
 					   0 <= neighbourPosition.Y && neighbourPosition.Y < m_nodeGrid.GetLength(0))
 					{
 						EntityNavigationNode neighbour = m_nodeGrid[neighbourPosition.Y, neighbourPosition.X];
-						if(Math.Abs(neighbour.m_altitude - m_altitude) <= ALTITUDE_CHANGE_THRESHOLD)
+						if((neighbour.OccupyingEntity == null || neighbour.OccupyingEntity is RoadSegment) &&
+						   Math.Abs(neighbour.m_altitude - m_altitude) <= ALTITUDE_CHANGE_THRESHOLD)
 						{
 							yield return neighbour;
 						}

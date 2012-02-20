@@ -107,14 +107,7 @@ namespace game1666proto4.GameModel.Navigation
 			nodePath.AddFirst(sourceNode);
 
 			// Convert the path to a sequence of points at the centres of the nodes.
-			List<Vector2> centres = nodePath.Select(n => n.Position.MakeContinuous()).ToList();
-
-			// Convert the sequence of centre points into a sequence of waypoints at the midpoints between them.
-			var waypoints = new Queue<Vector2>();
-			for(int i = 0; i < centres.Count - 1; ++i)
-			{
-				waypoints.Enqueue((centres[i] + centres[i+1]) / 2f);
-			}
+			var waypoints = new Queue<Vector2>(nodePath.Select(n => n.Position.MakeContinuous()));
 
 			// Determine which of the possible actual destinations was actually selected,
 			// and add it as the final waypoint.
