@@ -163,6 +163,16 @@ namespace game1666proto4.Common.Terrains
 		}
 
 		/// <summary>
+		/// Determines the average altitude of an individual grid square.
+		/// </summary>
+		/// <param name="gridSquare">The grid square.</param>
+		/// <returns>The average altitude of the grid square.</returns>
+		public float DetermineAverageAltitude(Vector2i gridSquare)
+		{
+			return DetermineAverageAltitude(new List<Vector2i> { gridSquare });
+		}
+
+		/// <summary>
 		/// Determines the average altitude of a non-empty set of grid squares.
 		/// </summary>
 		/// <param name="gridSquares">The grid squares.</param>

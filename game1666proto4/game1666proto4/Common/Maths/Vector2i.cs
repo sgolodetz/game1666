@@ -178,6 +178,15 @@ namespace game1666proto4.Common.Maths
 		}
 
 		/// <summary>
+		/// Returns the length of the vector.
+		/// </summary>
+		/// <returns>The length of the vector.</returns>
+		public float Length()
+		{
+			return (float)Math.Sqrt(m_x * m_x + m_y * m_y);
+		}
+
+		/// <summary>
 		/// Returns a string representation of this vector.
 		/// </summary>
 		/// <returns>A string representation of this vector.</returns>

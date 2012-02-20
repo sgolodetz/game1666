@@ -18,16 +18,6 @@ namespace game1666proto4.Common.Maths
 		#region
 
 		/// <summary>
-		/// Returns a Vector2i with x and y components that are the result of flooring the components of the input vector.
-		/// </summary>
-		/// <param name="v">The input vector.</param>
-		/// <returns>The vector (floor(x), floor(y)).</returns>
-		public static Vector2i Discretize(this Vector2 v)
-		{
-			return new Vector2i((int)Math.Floor(v.X), (int)Math.Floor(v.Y));
-		}
-
-		/// <summary>
 		/// Returns a Vector3 with the same x and y components as the input Vector2 and a z component of zero.
 		/// </summary>
 		/// <param name="v">The input vector (x,y).</param>
@@ -35,6 +25,26 @@ namespace game1666proto4.Common.Maths
 		public static Vector3 FromXY(Vector2 v)
 		{
 			return new Vector3(v.X, v.Y, 0f);
+		}
+
+		/// <summary>
+		/// Returns a Vector2 with the same x and y components as the input Vector2i.
+		/// </summary>
+		/// <param name="v">The input Vector2i (x,y).</param>
+		/// <returns>The Vector2 (x,y).</returns>
+		public static Vector2 MakeContinuous(this Vector2i v)
+		{
+			return new Vector2(v.X, v.Y);
+		}
+
+		/// <summary>
+		/// Returns a Vector2i with x and y components that are the result of flooring the components of the input Vector2.
+		/// </summary>
+		/// <param name="v">The input Vector2 (x,y).</param>
+		/// <returns>The Vector2i (floor(x), floor(y)).</returns>
+		public static Vector2i MakeDiscrete(this Vector2 v)
+		{
+			return new Vector2i((int)Math.Floor(v.X), (int)Math.Floor(v.Y));
 		}
 
 		/// <summary>

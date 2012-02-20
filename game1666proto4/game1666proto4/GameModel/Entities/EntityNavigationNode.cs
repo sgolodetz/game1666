@@ -22,14 +22,14 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The average altitude of the terrain grid square represented by the node.
+		/// </summary>
+		private float m_altitude;
+
+		/// <summary>
 		/// A grid of nodes for the other squares in the terrain.
 		/// </summary>
 		private EntityNavigationNode[,] m_nodeGrid;
-
-		/// <summary>
-		/// The position of the node on the terrain.
-		/// </summary>
-		private Vector2i m_position;
 
 		/// <summary>
 		/// The terrain.
@@ -42,14 +42,45 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The positions of potential neighbours of the node in the search space.
+		/// </summary>
+		private IEnumerable<Vector2i> NeighbourPositions
+		{
+			get
+			{
+				int x = Position.X, y = Position.Y;
+				yield return new Vector2i(x-1, y-1);
+				yield return new Vector2i(x, y-1);
+				yield return new Vector2i(x+1, y-1);
+				yield return new Vector2i(x-1, y);
+				yield return new Vector2i(x+1, y);
+				yield return new Vector2i(x-1, y+1);
+				yield return new Vector2i(x, y+1);
+				yield return new Vector2i(x+1, y+1);
+			}
+		}
+
+		/// <summary>
 		/// The neighbours of this node in the search space.
 		/// </summary>
 		public override IEnumerable<EntityNavigationNode> Neighbours
 		{
 			get
 			{
-				// TODO
-				return null;
+				const float ALTITUDE_CHANGE_THRESHOLD = 5f;
+
+				foreach(Vector2i neighbourPosition in NeighbourPositions)
+				{
+					if(0 <= neighbourPosition.X && neighbourPosition.X < m_nodeGrid.GetLength(1) &&
+					   0 <= neighbourPosition.Y && neighbourPosition.Y < m_nodeGrid.GetLength(0))
+					{
+						EntityNavigationNode neighbour = m_nodeGrid[neighbourPosition.Y, neighbourPosition.X];
+						if(Math.Abs(neighbour.m_altitude - m_altitude) <= ALTITUDE_CHANGE_THRESHOLD)
+						{
+							yield return neighbour;
+						}
+					}
+				}
 			}
 		}
 
@@ -57,6 +88,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The entity occupying the grid square for which this is the navigation node (if any), or null otherwise.
 		/// </summary>
 		public IPlaceableEntity OccupyingEntity { get; set; }
+
+		/// <summary>
+		/// The position of the node on the terrain.
+		/// </summary>
+		public Vector2i Position { get; private set; }
 
 		#endregion
 
@@ -77,9 +113,12 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="terrain">The terrain.</param>
 		public EntityNavigationNode Initialise(Vector2i position, EntityNavigationNode[,] nodeGrid, Terrain terrain)
 		{
+			Position = position;
 			m_nodeGrid = nodeGrid;
-			m_position = position;
 			m_terrain = terrain;
+
+			m_altitude = m_terrain.DetermineAverageAltitude(position);
+
 			return this;
 		}
 
@@ -94,9 +133,9 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="destinations">The destination nodes.</param>
 		public override void CalculateH(ICollection<EntityNavigationNode> destinations)
 		{
-			// Since we only allow 4-connected movement, the cost to the goal is at least
-			// the Manhattan distance, so this is an admissible heuristic.
-			H = destinations.Select(n => Math.Abs(m_position.X - n.m_position.X) + Math.Abs(m_position.Y - n.m_position.Y)).Min();
+			// The cost to the goal is at least the straight-line distance between the source and
+			// the nearest destination, so this is an admissible heuristic.
+			H = destinations.Select(n => (Position - n.Position).Length()).Min();
 		}
 
 		/// <summary>
@@ -106,8 +145,14 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
 		public override float CostToNeighbour(EntityNavigationNode neighbour)
 		{
-			// TODO
-			return 0f;
+			if(OccupyingEntity is RoadSegment && neighbour.OccupyingEntity is RoadSegment)
+			{
+				return 1f;
+			}
+			else
+			{
+				return 2f;
+			}
 		}
 
 		#endregion

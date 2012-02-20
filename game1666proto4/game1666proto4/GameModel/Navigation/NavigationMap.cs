@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using game1666proto4.Common.AStar;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
 using Microsoft.Xna.Framework;
@@ -18,7 +19,7 @@ namespace game1666proto4.GameModel.Navigation
 	/// <typeparam name="NavigationNodeType">The type of navigation node to be used.</typeparam>
 	class NavigationMap<PlaceableEntityType,NavigationNodeType>
 		where PlaceableEntityType : class
-		where NavigationNodeType : INavigationNode<PlaceableEntityType,NavigationNodeType>, new()
+		where NavigationNodeType : AStarNode<NavigationNodeType>, INavigationNode<PlaceableEntityType,NavigationNodeType>, new()
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -86,13 +87,19 @@ namespace game1666proto4.GameModel.Navigation
 		/// <param name="source">The source.</param>
 		/// <param name="destinations">The destinations.</param>
 		/// <returns>The path, as a list of points to traverse, or null if no path can be found.</returns>
-		public List<Vector2> FindPath(Vector2 source, List<Vector2> destinations)
+		public List<Vector2> FindPath(Vector2 source, List<Vector2i> destinations)
 		{
-			var sourceSquare = source.Discretize();
-			var destinationSquares = destinations.Select(v => v.Discretize()).ToList();
+			// Determine the source and destination nodes for the pathfinding call.
+			Vector2i sourceSquare = source.MakeDiscrete();
+			NavigationNodeType sourceNode = m_nodeGrid[sourceSquare.Y, sourceSquare.X];
 
-			// TODO
-			return null;
+			List<NavigationNodeType> destinationNodes = destinations.Select(s => m_nodeGrid[s.Y, s.X]).ToList();
+
+			// Run the pathfinder.
+			LinkedList<NavigationNodeType> path = AStarSearcher<NavigationNodeType>.FindPath(sourceNode, destinationNodes);
+
+			// Construct the final path based on the pathfinding result.
+			return path != null ? path.Select(n => n.Position.MakeContinuous()).ToList() : null;
 		}
 
 		/// <summary>

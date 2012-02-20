@@ -23,6 +23,11 @@ namespace game1666proto4.GameModel.Navigation
 		/// </summary>
 		PlaceableEntityType OccupyingEntity { get; set; }
 
+		/// <summary>
+		/// The position of the node on the terrain.
+		/// </summary>
+		Vector2i Position { get; }
+
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
