@@ -179,8 +179,14 @@ namespace game1666proto4.UI
 			// TEMPORARY
 			var bounds = new BoundingBox(entity.Position - new Vector3(0.1f, 0.1f, 0f), entity.Position + new Vector3(0.1f, 0.1f, 0.2f));
 
+			// Rotate the entity as necessary based on its orientation.
+			float angle = Convert.ToInt32(entity.Orientation) * MathHelper.PiOver4;
+			Matrix matRot = Matrix.CreateTranslation(entity.Position);
+			matRot = Matrix.Multiply(Matrix.CreateRotationZ(angle), matRot);
+			matRot = Matrix.Multiply(Matrix.CreateTranslation(-entity.Position), matRot);
+
 			var effect = new BasicEffect(Renderer.GraphicsDevice);
-			effect.World = m_matWorld;
+			effect.World = Matrix.Multiply(matRot, m_matWorld);
 			effect.View = m_matView;
 			effect.Projection = m_matProjection;
 			effect.VertexColorEnabled = true;

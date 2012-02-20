@@ -114,8 +114,10 @@ namespace game1666proto4.GameModel.Entities
 			pos.X += offset.X;
 			pos.Y += offset.Y;
 			pos.Z = NavigationMap.Terrain.DetermineAltitude(pos.XY());
-
 			EntityProperties["Position"] = pos;
+
+			// Set the entity's orientation based on the direction in which it is travelling.
+			EntityProperties["Orientation"] = (Orientation8)((Math.Round(Math.Atan2(offset.Y, offset.X) / MathHelper.PiOver4) + 8) % 8);
 		}
 
 		/// <summary>
