@@ -90,12 +90,12 @@ namespace game1666proto4.GameModel.Navigation
 		public Queue<Vector2> FindPath(Vector2 source, List<Vector2> destinations)
 		{
 			// Determine the source and destination nodes for the pathfinding call.
-			Vector2i sourceSquare = source.MakeDiscrete();
+			Vector2i sourceSquare = source.ToVector2i();
 			NavigationNodeType sourceNode = m_nodeGrid[sourceSquare.Y, sourceSquare.X];
 
 			List<NavigationNodeType> destinationNodes = destinations.Select(d =>
 			{
-				var s = d.MakeDiscrete();
+				var s = d.ToVector2i();
 				return m_nodeGrid[s.Y, s.X];
 			}).ToList();
 
@@ -107,7 +107,7 @@ namespace game1666proto4.GameModel.Navigation
 			nodePath.AddFirst(sourceNode);
 
 			// Convert the path to a sequence of points at the centres of the nodes.
-			var waypoints = new Queue<Vector2>(nodePath.Select(n => n.Position.MakeContinuous()));
+			var waypoints = new Queue<Vector2>(nodePath.Select(n => new Vector2(n.Position.X + 0.5f, n.Position.Y + 0.5f)));
 
 			// Determine which of the possible actual destinations was actually selected,
 			// and add it as the final waypoint.

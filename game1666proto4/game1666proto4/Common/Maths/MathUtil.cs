@@ -28,26 +28,6 @@ namespace game1666proto4.Common.Maths
 		}
 
 		/// <summary>
-		/// Returns a Vector2 with x and y components 0.5 larger than those of those of the input Vector2i.
-		/// </summary>
-		/// <param name="v">The input Vector2i (x,y).</param>
-		/// <returns>The Vector2 (x + 0.5f, y + 0.5f).</returns>
-		public static Vector2 MakeContinuous(this Vector2i v)
-		{
-			return new Vector2(v.X + 0.5f, v.Y + 0.5f);
-		}
-
-		/// <summary>
-		/// Returns a Vector2i with x and y components that are the result of flooring the components of the input Vector2.
-		/// </summary>
-		/// <param name="v">The input Vector2 (x,y).</param>
-		/// <returns>The Vector2i (floor(x), floor(y)).</returns>
-		public static Vector2i MakeDiscrete(this Vector2 v)
-		{
-			return new Vector2i((int)Math.Floor(v.X), (int)Math.Floor(v.Y));
-		}
-
-		/// <summary>
 		/// Returns a normalized copy of the specified Vector3.
 		/// </summary>
 		/// <param name="v">The input vector.</param>
@@ -78,6 +58,16 @@ namespace game1666proto4.Common.Maths
 			// The rotated vector is v cos radianAngle + (axis x v) sin radianAngle + axis(axis . v)(1 - cos radianAngle)
 			// (See Mathematics for 3D Game Programming and Computer Graphics, P.62, for details of why this is (it's not very hard)).
 			return v * cosAngle + aCROSSv * sinAngle + axis * Vector3.Dot(axis, v) * (1 - cosAngle);
+		}
+
+		/// <summary>
+		/// Returns a Vector2i with x and y components that are the result of flooring the components of the input Vector2.
+		/// </summary>
+		/// <param name="v">The input Vector2 (x,y).</param>
+		/// <returns>The Vector2i (floor(x), floor(y)).</returns>
+		public static Vector2i ToVector2i(this Vector2 v)
+		{
+			return new Vector2i((int)Math.Floor(v.X), (int)Math.Floor(v.Y));
 		}
 
 		/// <summary>
