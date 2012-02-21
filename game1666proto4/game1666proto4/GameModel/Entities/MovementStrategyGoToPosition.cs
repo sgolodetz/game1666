@@ -71,36 +71,13 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Move(GameTime gameTime)
 		{
-			Vector3 pos = EntityProperties["Position"];
-
-			// If there's no path currently in effect, try and find one. If we can't find one, exit.
-			if(m_path == null)
-			{
-				m_path = NavigationMap.FindPath(pos.XY(), new List<Vector2> { m_properties["TargetPosition"] });
-				if(m_path == null)
-				{
-					return;
-				}
-			}
-
-			// Find the offset to the next node in the path that needs visiting.
-			Vector2 offset = m_path.Peek() - pos.XY();
-			float offsetLength;
-			while((offsetLength = offset.Length()) <= Constants.EPSILON)
-			{
-				// If we've reached the first node in the path, dequeue it.
-				m_path.Dequeue();
-
-				// If we run out of nodes in the path, reset the path to null and exit.
-				if(m_path.Count == 0)
-				{
-					m_path = null;
-					return;
-				}
-
-				// Compute the offset to the next node in the path.
-				offset = m_path.Peek() - pos.XY();
-			}
+			// Try and find the offset to the next waypoint towards which we should head (if any).
+			// If there isn't one at the moment (e.g. because we're there already, or because the
+			// pathfinding couldn't find a suitable route right now), exit.
+			Vector2? potentialOffset = FindNextWaypointOffset();
+			if(potentialOffset == null) return;
+			Vector2 offset = potentialOffset.Value;
+			float offsetLength = offset.Length();
 
 			// Having found the offset to the next node we're trying to visit, resize it to the appropriate length
 			// based on the entity's movement speed and the elapsed time. Special care must be taken to "slow down"
@@ -111,6 +88,7 @@ namespace game1666proto4.GameModel.Entities
 			offset *= Math.Min(blueprint.MovementSpeed * gameTime.ElapsedGameTime.Milliseconds / 1000f, offsetLength);
 
 			// Move the entity, setting its altitude based on the terrain height at its new position.
+			Vector3 pos = EntityProperties["Position"];
 			pos.X += offset.X;
 			pos.Y += offset.Y;
 			pos.Z = NavigationMap.Terrain.DetermineAltitude(pos.XY());
@@ -129,6 +107,52 @@ namespace game1666proto4.GameModel.Entities
 			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
 			EntityPersister.SaveProperties(entityElt, m_properties);
 			return entityElt;
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Finds the offset to the next waypoint towards which we should head (if any).
+		/// </summary>
+		/// <returns>The offset to the next waypoint, if any, or null otherwise.</returns>
+		private Vector2? FindNextWaypointOffset()
+		{
+			Vector3 pos = EntityProperties["Position"];
+
+			// If there's no path currently in effect, or there's a placeable entity blocking the next
+			// waypoint of the current path, try and find a new path. If we can't find one, exit.
+			if(m_path == null || NavigationMap.LookupEntity(m_path.Peek().ToVector2i()) != null)
+			{
+				m_path = NavigationMap.FindPath(pos.XY(), new List<Vector2> { m_properties["TargetPosition"] });
+				if(m_path == null)
+				{
+					return null;
+				}
+			}
+
+			// Find the offset to the next node in the path that needs visiting.
+			Vector2 offset = m_path.Peek() - pos.XY();
+			float offsetLength;
+			while((offsetLength = offset.Length()) <= Constants.EPSILON)
+			{
+				// If we've reached the first node in the path, dequeue it.
+				m_path.Dequeue();
+
+				// If we run out of nodes in the path, reset the path to null and exit.
+				if(m_path.Count == 0)
+				{
+					m_path = null;
+					return null;
+				}
+
+				// Compute the offset to the next node in the path.
+				offset = m_path.Peek() - pos.XY();
+			}
+
+			return offset;
 		}
 
 		#endregion
