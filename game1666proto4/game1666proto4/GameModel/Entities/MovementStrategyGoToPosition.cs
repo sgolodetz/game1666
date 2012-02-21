@@ -124,7 +124,8 @@ namespace game1666proto4.GameModel.Entities
 
 			// If there's no path currently in effect, or there's a placeable entity blocking the next
 			// waypoint of the current path, try and find a new path. If we can't find one, exit.
-			if(m_path == null || NavigationMap.LookupEntity(m_path.Peek().ToVector2i()) != null)
+			IPlaceableEntity occupier = m_path != null ? NavigationMap.LookupEntity(m_path.Peek().ToVector2i()) : null;
+			if(m_path == null || (occupier != null && !(occupier is RoadSegment)))
 			{
 				m_path = NavigationMap.FindPath(pos.XY(), new List<Vector2> { m_properties["TargetPosition"] });
 				if(m_path == null)
