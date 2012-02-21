@@ -22,7 +22,8 @@ namespace game1666proto4Test.Common.AStar
 		sealed class TestAStarNode : AStarNode<TestAStarNode>
 		{
 			private TestAStarNode[,] m_grid;
-			private Vector2i m_position;
+
+			public Vector2i Position { get; private set; }
 
 			public override IEnumerable<TestAStarNode> Neighbours
 			{
@@ -41,17 +42,21 @@ namespace game1666proto4Test.Common.AStar
 			{
 				get
 				{
-					int x = m_position.X, y = m_position.Y;
+					int x = Position.X, y = Position.Y;
+					yield return new Vector2i(x-1, y-1);
 					yield return new Vector2i(x, y-1);
+					yield return new Vector2i(x+1, y-1);
 					yield return new Vector2i(x-1, y);
 					yield return new Vector2i(x+1, y);
+					yield return new Vector2i(x-1, y+1);
 					yield return new Vector2i(x, y+1);
+					yield return new Vector2i(x+1, y+1);
 				}
 			}
 
 			public TestAStarNode(Vector2i position, TestAStarNode[,] grid)
 			{
-				m_position = position;
+				Position = position;
 				m_grid = grid;
 			}
 
@@ -62,14 +67,7 @@ namespace game1666proto4Test.Common.AStar
 
 			public override float CostToNeighbour(TestAStarNode neighbour)
 			{
-				if(m_position.X == 0 && m_position.Y == 1 && neighbour.m_position.X == 1 && neighbour.m_position.Y == 1)
-				{
-					return 0;
-				}
-				else
-				{
-					return Math.Abs(m_position.X - neighbour.m_position.X) + Math.Abs(m_position.Y - neighbour.m_position.Y);
-				}
+				return (Position - neighbour.Position).Length();
 			}
 		}
 
@@ -81,23 +79,26 @@ namespace game1666proto4Test.Common.AStar
 		[TestMethod]
 		public void FindPathTest()
 		{
+			// Construct a simple 3x3 grid with a few nodes missing.
 			var grid = new TestAStarNode[3,3];
 			AddNode(0, 0, grid);
 			AddNode(0, 1, grid);
 			AddNode(1, 0, grid);
-			AddNode(1, 1, grid);
 			AddNode(2, 0, grid);
 			AddNode(2, 1, grid);
 			AddNode(2, 2, grid);
 
-			var destinations = new List<TestAStarNode>
-			{
-				grid[2,2]
-			};
+			// Specify the destination node (2,2).
+			var destinations = new List<TestAStarNode> { grid[2,2] };
 
-			LinkedList<TestAStarNode> path = AStarSearcher<TestAStarNode>.FindPath(grid[0,0], destinations);
+			// Find the path.
+			List<TestAStarNode> path = AStarSearcher<TestAStarNode>.FindPath(grid[0,0], destinations).ToList();
 
-			// TODO
+			// Check that it's what we expect, namely -> (1,0) -> (2,1) -> (2,2).
+			Assert.Equal(path.Count, 3);
+			Assert.Equal(path[0].Position, new Vector2i(1,0));
+			Assert.Equal(path[1].Position, new Vector2i(2,1));
+			Assert.Equal(path[2].Position, new Vector2i(2,2));
 		}
 
 		private void AddNode(int x, int y, TestAStarNode[,] grid)
