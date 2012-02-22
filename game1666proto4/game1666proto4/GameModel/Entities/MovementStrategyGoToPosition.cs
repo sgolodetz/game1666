@@ -136,8 +136,7 @@ namespace game1666proto4.GameModel.Entities
 
 			// Find the offset to the next node in the path that needs visiting.
 			Vector2 offset = m_path.Peek() - pos.XY();
-			float offsetLength;
-			while((offsetLength = offset.Length()) <= Constants.EPSILON)
+			while(offset.Length() <= Constants.EPSILON)
 			{
 				// If we've reached the first node in the path, dequeue it.
 				m_path.Dequeue();
