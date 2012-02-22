@@ -86,8 +86,9 @@ namespace game1666proto4.GameModel.Navigation
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="destinations">The destinations.</param>
+		/// <param name="entityProperties">The properties of the entity for which a path is to be found (can be null if irrelevant).</param>
 		/// <returns>The path, as a list of points to traverse, or null if no path can be found.</returns>
-		public Queue<Vector2> FindPath(Vector2 source, List<Vector2> destinations)
+		public Queue<Vector2> FindPath(Vector2 source, List<Vector2> destinations, IDictionary<string,dynamic> entityProperties)
 		{
 			// Determine the source and destination nodes for the pathfinding call.
 			Vector2i sourceSquare = source.ToVector2i();
@@ -100,7 +101,7 @@ namespace game1666proto4.GameModel.Navigation
 			}).ToList();
 
 			// Run the pathfinder.
-			LinkedList<NavigationNodeType> nodePath = AStarSearcher<NavigationNodeType>.FindPath(sourceNode, destinationNodes);
+			LinkedList<NavigationNodeType> nodePath = AStarSearcher<NavigationNodeType>.FindPath(sourceNode, destinationNodes, entityProperties);
 			if(nodePath == null || nodePath.Count == 0) return null;
 
 			// Prepend the source node to the path found.

@@ -25,19 +25,6 @@ namespace game1666proto4Test.Common.AStar
 
 			public Vector2i Position { get; private set; }
 
-			public override IEnumerable<TestAStarNode> Neighbours
-			{
-				get
-				{
-					return NeighbourPositions.Where(pos =>
-						0 <= pos.X && pos.X < m_grid.GetLength(1) &&
-						0 <= pos.Y && pos.Y < m_grid.GetLength(0) &&
-						m_grid[pos.Y, pos.X] != null
-					)
-					.Select(pos => m_grid[pos.Y, pos.X]);
-				}
-			}
-
 			private IEnumerable<Vector2i> NeighbourPositions
 			{
 				get
@@ -69,6 +56,16 @@ namespace game1666proto4Test.Common.AStar
 			{
 				return (Position - neighbour.Position).Length();
 			}
+
+			public override IEnumerable<TestAStarNode> Neighbours(IDictionary<string,dynamic> entityProperties)
+			{
+				return NeighbourPositions.Where(pos =>
+					0 <= pos.X && pos.X < m_grid.GetLength(1) &&
+					0 <= pos.Y && pos.Y < m_grid.GetLength(0) &&
+					m_grid[pos.Y, pos.X] != null
+				)
+				.Select(pos => m_grid[pos.Y, pos.X]);
+			}
 		}
 
 		#endregion
@@ -92,7 +89,7 @@ namespace game1666proto4Test.Common.AStar
 			var destinations = new List<TestAStarNode> { grid[2,2] };
 
 			// Find the path.
-			List<TestAStarNode> path = AStarSearcher<TestAStarNode>.FindPath(grid[0,0], destinations).ToList();
+			List<TestAStarNode> path = AStarSearcher<TestAStarNode>.FindPath(grid[0,0], destinations, null).ToList();
 
 			// Check that it's what we expect, namely -> (1,0) -> (2,1) -> (2,2).
 			Assert.Equal(path.Count, 3);

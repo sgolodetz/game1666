@@ -38,11 +38,6 @@ namespace game1666proto4.Common.AStar
 		/// </summary>
 		public float H { get; protected set; }
 
-		/// <summary>
-		/// The neighbours of this node in the search space.
-		/// </summary>
-		public abstract IEnumerable<NodeType> Neighbours { get; }
-
 		#endregion
 
 		//#################### PUBLIC ABSTRACT METHODS ####################
@@ -60,6 +55,13 @@ namespace game1666proto4.Common.AStar
 		/// <param name="neighbour">The neighbouring node.</param>
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
 		public abstract float CostToNeighbour(NodeType neighbour);
+
+		/// <summary>
+		/// Determines the neighbours of this node in the search space.
+		/// </summary>
+		/// <param name="entityProperties">The properties of the entity for which a path is to be found (can be null if irrelevant).</param>
+		/// <returns>The neighbours of the node.</returns>
+		public abstract IEnumerable<NodeType> Neighbours(IDictionary<string,dynamic> entityProperties);
 
 		#endregion
 

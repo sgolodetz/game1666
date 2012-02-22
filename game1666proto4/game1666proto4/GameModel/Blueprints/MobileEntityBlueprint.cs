@@ -22,6 +22,11 @@ namespace game1666proto4.GameModel.Blueprints
 		public float AnimationSpeed { get { return Properties["AnimationSpeed"]; } }
 
 		/// <summary>
+		/// The maximum change in altitude (in units) that the entity can manage when crossing from one grid square to another.
+		/// </summary>
+		public float MaxAltitudeChange { get { return Properties["MaxAltitudeChange"]; } }
+
+		/// <summary>
 		/// The speed of the entity (in units/s).
 		/// </summary>
 		public float MovementSpeed { get { return Properties["MovementSpeed"]; } }

@@ -22,8 +22,9 @@ namespace game1666proto4.Common.AStar
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="destinations">The destinations.</param>
+		/// <param name="entityProperties">The properties of the entity for which a path is to be found (can be null if irrelevant).</param>
 		/// <returns>The path, as a list of nodes to traverse, or null if no path can be found.</returns>
-		public static LinkedList<NodeType> FindPath(NodeType source, ICollection<NodeType> destinations)
+		public static LinkedList<NodeType> FindPath(NodeType source, ICollection<NodeType> destinations, IDictionary<string,dynamic> entityProperties)
 		{
 			// The open list stores the "fringe" of the search - these are the nodes we're currently exploring.
 			var openList = new PriorityQueue<NodeType, float, int?>(Comparer<float>.Default);
@@ -54,7 +55,7 @@ namespace game1666proto4.Common.AStar
 				closedList.Add(cur);
 
 				// Then, process each of its neighbours in turn.
-				foreach(NodeType neighbour in cur.Neighbours)
+				foreach(NodeType neighbour in cur.Neighbours(entityProperties))
 				{
 					// If we've already finished processing the neighbour, ignore it -
 					// the route to it through this node is provably no better.

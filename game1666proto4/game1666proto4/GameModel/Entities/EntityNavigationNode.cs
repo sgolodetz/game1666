@@ -9,6 +9,7 @@ using System.Linq;
 using game1666proto4.Common.AStar;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
+using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Navigation;
 
 namespace game1666proto4.GameModel.Entities
@@ -57,31 +58,6 @@ namespace game1666proto4.GameModel.Entities
 				yield return new Vector2i(x-1, y+1);
 				yield return new Vector2i(x, y+1);
 				yield return new Vector2i(x+1, y+1);
-			}
-		}
-
-		/// <summary>
-		/// The neighbours of this node in the search space.
-		/// </summary>
-		public override IEnumerable<EntityNavigationNode> Neighbours
-		{
-			get
-			{
-				const float ALTITUDE_CHANGE_THRESHOLD = 0.5f;
-
-				foreach(Vector2i neighbourPosition in NeighbourPositions)
-				{
-					if(0 <= neighbourPosition.X && neighbourPosition.X < m_nodeGrid.GetLength(1) &&
-					   0 <= neighbourPosition.Y && neighbourPosition.Y < m_nodeGrid.GetLength(0))
-					{
-						EntityNavigationNode neighbour = m_nodeGrid[neighbourPosition.Y, neighbourPosition.X];
-						if((neighbour.OccupyingEntity == null || neighbour.OccupyingEntity is RoadSegment) &&
-						   Math.Abs(neighbour.m_altitude - m_altitude) <= ALTITUDE_CHANGE_THRESHOLD)
-						{
-							yield return neighbour;
-						}
-					}
-				}
 			}
 		}
 
@@ -153,6 +129,30 @@ namespace game1666proto4.GameModel.Entities
 			else
 			{
 				return 2f;
+			}
+		}
+
+		/// <summary>
+		/// Determines the neighbours of this node in the search space.
+		/// </summary>
+		/// <param name="entityProperties">The properties of the entity for which a path is to be found (can be null if irrelevant).</param>
+		/// <returns>The neighbours of the node.</returns>
+		public override IEnumerable<EntityNavigationNode> Neighbours(IDictionary<string,dynamic> entityProperties)
+		{
+			MobileEntityBlueprint blueprint = BlueprintManager.GetBlueprint(entityProperties["Blueprint"]);
+
+			foreach(Vector2i neighbourPosition in NeighbourPositions)
+			{
+				if(0 <= neighbourPosition.X && neighbourPosition.X < m_nodeGrid.GetLength(1) &&
+					0 <= neighbourPosition.Y && neighbourPosition.Y < m_nodeGrid.GetLength(0))
+				{
+					EntityNavigationNode neighbour = m_nodeGrid[neighbourPosition.Y, neighbourPosition.X];
+					if((neighbour.OccupyingEntity == null || neighbour.OccupyingEntity is RoadSegment) &&
+						Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange)
+					{
+						yield return neighbour;
+					}
+				}
 			}
 		}
 

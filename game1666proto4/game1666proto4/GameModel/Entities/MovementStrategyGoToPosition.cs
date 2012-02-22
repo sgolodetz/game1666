@@ -127,7 +127,7 @@ namespace game1666proto4.GameModel.Entities
 			IPlaceableEntity occupier = m_path != null ? NavigationMap.LookupEntity(m_path.Peek().ToVector2i()) : null;
 			if(m_path == null || (occupier != null && !(occupier is RoadSegment)))
 			{
-				m_path = NavigationMap.FindPath(pos.XY(), new List<Vector2> { m_properties["TargetPosition"] });
+				m_path = NavigationMap.FindPath(pos.XY(), new List<Vector2> { m_properties["TargetPosition"] }, EntityProperties);
 				if(m_path == null)
 				{
 					return null;
