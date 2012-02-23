@@ -282,8 +282,8 @@ namespace game1666proto4.UI
 			effect.Parameters["Projection"].SetValue(m_matProjection);
 			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("Textures/grass"));
 			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("Textures/snow"));
-			effect.Parameters["TransitionHalfWidth"].SetValue(4f);
-			effect.Parameters["TransitionHeight"].SetValue(10f);
+			effect.Parameters["TransitionHalfWidth"].SetValue(terrain.TransitionHalfWidth);
+			effect.Parameters["TransitionHeight"].SetValue(terrain.TransitionHeight);
 			Renderer.DrawTriangleList(terrain.VertexBuffer, terrain.IndexBuffer, effect);
 		}
 

@@ -2,8 +2,10 @@
 <entity type="GameModel.Entities.World">
   <property name="HomeCity" type="string" value="Stuartopolis"/>
   <entity type="Common.Terrains.Terrain">
-    <property name="ZScaling" type="float" value="0.1"/>
     <property name="AssetHeightmap" type="string" value="TestWorld"/>
+    <property name="TransitionHalfWidth" type="float" value="4.0"/>
+    <property name="TransitionHeight" type="float" value="10.0"/>
+    <property name="ZScaling" type="float" value="0.1"/>
   </entity>
   <entity type="GameModel.Entities.City">
     <property name="Name" type="string" value="Stuartopolis"/>
@@ -17,7 +19,6 @@
       <property name="CurrentStateID" type="string" value="OPERATING"/>
     </entity>
     <entity type="Common.Terrains.Terrain">
-      <property name="ZScaling" type="float" value="0.25"/>
       <property name="Heightmap" type="Array2D[float]">
         [9,5]
         1,1,1,2,5,4,4,3,2,
@@ -26,6 +27,9 @@
         2,1,1,3,3,3,3,4,3,
         2,1,1,1,2,2,2,2,3
       </property>
+      <property name="TransitionHalfWidth" type="float" value="4.0"/>
+      <property name="TransitionHeight" type="float" value="10.0"/>
+      <property name="ZScaling" type="float" value="0.25"/>
     </entity>
     <entity type="GameModel.Entities.House">
       <property name="Altitude" type="float" value="0.25"/>

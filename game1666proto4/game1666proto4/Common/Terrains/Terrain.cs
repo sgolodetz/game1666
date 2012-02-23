@@ -48,6 +48,16 @@ namespace game1666proto4.Common.Terrains
 		public QuadtreeNode QuadtreeRoot { get; private set; }
 
 		/// <summary>
+		/// Half the width of the transition zone between the two altitude bands (grass and snow).
+		/// </summary>
+		public float TransitionHalfWidth { get { return m_properties["TransitionHalfWidth"]; } }
+
+		/// <summary>
+		/// The altitude of the middle of the transition zone between the two altitude bands (grass and snow).
+		/// </summary>
+		public float TransitionHeight { get { return m_properties["TransitionHeight"]; } }
+
+		/// <summary>
 		/// The terrain's vertex buffer (for use when rendering the terrain).
 		/// </summary>
 		public VertexBuffer VertexBuffer { get; private set; }
@@ -56,15 +66,6 @@ namespace game1666proto4.Common.Terrains
 
 		//#################### CONSTRUCTORS ####################
 		#region
-
-		/// <summary>
-		/// Constructs a terrain from a heightmap.
-		/// </summary>
-		/// <param name="heightmap">The heightmap.</param>
-		public Terrain(float[,] heightmap)
-		{
-			Initialise(heightmap);
-		}
 
 		/// <summary>
 		/// Constructs a terrain from its XML representation.
