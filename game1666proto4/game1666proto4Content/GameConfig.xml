@@ -64,7 +64,7 @@
       <property name="AnimationSpeed" type="float" value="1.0"/>
       <property name="MaxAltitudeChange" type="float" value="0.5"/>
       <property name="Model" type="string" value="Citizen"/>
-      <property name="MovementSpeed" type="float" value="0.1"/>
+      <property name="MovementSpeed" type="float" value="0.5"/>
     </entity>
   </blueprints>
   <views>

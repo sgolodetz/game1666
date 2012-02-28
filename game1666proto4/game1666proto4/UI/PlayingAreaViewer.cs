@@ -177,13 +177,14 @@ namespace game1666proto4.UI
 		private void DrawMobileEntity(IMobileEntity entity)
 		{
 			// TEMPORARY
-			var bounds = new BoundingBox(entity.Position - new Vector3(0.1f, 0.1f, 0f), entity.Position + new Vector3(0.1f, 0.1f, 0.2f));
+			var pos = new Vector3(entity.Position, entity.Altitude);
+			var bounds = new BoundingBox(pos - new Vector3(0.1f, 0.1f, 0f), pos + new Vector3(0.1f, 0.1f, 0.2f));
 
 			// Rotate the entity as necessary based on its orientation.
 			float angle = Convert.ToInt32(entity.Orientation) * MathHelper.PiOver4;
-			Matrix matRot = Matrix.CreateTranslation(entity.Position);
+			Matrix matRot = Matrix.CreateTranslation(pos);
 			matRot = Matrix.Multiply(Matrix.CreateRotationZ(angle), matRot);
-			matRot = Matrix.Multiply(Matrix.CreateTranslation(-entity.Position), matRot);
+			matRot = Matrix.Multiply(Matrix.CreateTranslation(-pos), matRot);
 
 			var effect = new BasicEffect(Renderer.GraphicsDevice);
 			effect.World = Matrix.Multiply(matRot, m_matWorld);

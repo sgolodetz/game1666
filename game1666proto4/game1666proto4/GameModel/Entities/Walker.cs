@@ -37,6 +37,15 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The altitude of the base of the entity.
+		/// </summary>
+		public float Altitude
+		{
+			get { return m_properties["Altitude"]; }
+			private set { m_properties["Altitude"] = value; }
+		}
+
+		/// <summary>
 		/// The blueprint for the walker.
 		/// </summary>
 		public MobileEntityBlueprint Blueprint { get; set; }
@@ -66,9 +75,7 @@ namespace game1666proto4.GameModel.Entities
 				m_navigationMap = value;
 
 				// Since we're now on a new terrain, change the altitude of the walker accordingly.
-				Vector3 pos = Position;
-				pos.Z = m_navigationMap.Terrain.DetermineAltitude(pos.XY());
-				Position = pos;
+				Altitude = m_navigationMap.Terrain.DetermineAltitude(Position);
 
 				// If there's a movement strategy in force, update its navigation map reference.
 				if(MovementStrategy != null) MovementStrategy.NavigationMap = m_navigationMap;
@@ -83,7 +90,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The position of the walker (relative to the origin of the containing entity).
 		/// </summary>
-		public Vector3 Position
+		public Vector2 Position
 		{
 			get			{ return m_properties["Position"]; }
 			private set	{ m_properties["Position"] = value; }
@@ -101,10 +108,6 @@ namespace game1666proto4.GameModel.Entities
 		public Walker(XElement entityElt)
 		{
 			m_properties = EntityPersister.LoadProperties(entityElt);
-
-			// Walker positions are specified in 2D in the XML, so we need to convert them to 3D here.
-			m_properties["Position"] = MathUtil.FromXY(m_properties["Position"]);
-
 			EntityPersister.LoadAndAddChildEntities(this, entityElt);
 		}
 
@@ -140,16 +143,7 @@ namespace game1666proto4.GameModel.Entities
 		public XElement SaveToXML()
 		{
 			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
-
-			// Walker positions are specified in 2D in the XML, so we need to make sure that we save them that way here.
-			Vector3 position = m_properties["Position"];
-			m_properties["Position"] = position.XY();
-
 			EntityPersister.SaveProperties(entityElt, m_properties);
-
-			// Restore the 3D position as before.
-			m_properties["Position"] = position;
-
 			EntityPersister.SaveChildEntities(entityElt, new List<IPersistableEntity> { MovementStrategy });
 			return entityElt;
 		}

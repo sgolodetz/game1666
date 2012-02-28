@@ -19,6 +19,11 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The altitude of the base of the entity.
+		/// </summary>
+		float Altitude { get; }
+
+		/// <summary>
 		/// The blueprint for the entity.
 		/// </summary>
 		MobileEntityBlueprint Blueprint { get; set; }
@@ -46,7 +51,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The position of the entity (relative to the origin of the containing entity).
 		/// </summary>
-		Vector3 Position { get; }
+		Vector2 Position { get; }
 
 		#endregion
 	}

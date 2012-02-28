@@ -88,11 +88,8 @@ namespace game1666proto4.GameModel.Entities
 			offset *= Math.Min(blueprint.MovementSpeed * gameTime.ElapsedGameTime.Milliseconds / 1000f, offsetLength);
 
 			// Move the entity, setting its altitude based on the terrain height at its new position.
-			Vector3 pos = EntityProperties["Position"];
-			pos.X += offset.X;
-			pos.Y += offset.Y;
-			pos.Z = NavigationMap.Terrain.DetermineAltitude(pos.XY());
-			EntityProperties["Position"] = pos;
+			EntityProperties["Position"] += offset;
+			EntityProperties["Altitude"] = NavigationMap.Terrain.DetermineAltitude(EntityProperties["Position"]);
 
 			// Set the entity's orientation based on the direction in which it is travelling.
 			EntityProperties["Orientation"] = (Orientation8)((Math.Round(Math.Atan2(offset.Y, offset.X) / MathHelper.PiOver4) + 8) % 8);
@@ -120,14 +117,14 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The offset to the next waypoint, if any, or null otherwise.</returns>
 		private Vector2? FindNextWaypointOffset()
 		{
-			Vector3 pos = EntityProperties["Position"];
+			Vector2 pos = EntityProperties["Position"];
 
 			// If there's no path currently in effect, or there's a placeable entity blocking the next
 			// waypoint of the current path, try and find a new path. If we can't find one, exit.
 			IPlaceableEntity occupier = m_path != null ? NavigationMap.LookupEntity(m_path.Peek().ToVector2i()) : null;
 			if(m_path == null || (occupier != null && !(occupier is RoadSegment)))
 			{
-				m_path = NavigationMap.FindPath(pos.XY(), new List<Vector2> { m_properties["TargetPosition"] }, EntityProperties);
+				m_path = NavigationMap.FindPath(pos, new List<Vector2> { m_properties["TargetPosition"] }, EntityProperties);
 				if(m_path == null)
 				{
 					return null;
@@ -135,7 +132,7 @@ namespace game1666proto4.GameModel.Entities
 			}
 
 			// Find the offset to the next node in the path that needs visiting.
-			Vector2 offset = m_path.Peek() - pos.XY();
+			Vector2 offset = m_path.Peek() - pos;
 			while(offset.Length() <= Constants.EPSILON)
 			{
 				// If we've reached the first node in the path, dequeue it.
@@ -149,7 +146,7 @@ namespace game1666proto4.GameModel.Entities
 				}
 
 				// Compute the offset to the next node in the path.
-				offset = m_path.Peek() - pos.XY();
+				offset = m_path.Peek() - pos;
 			}
 
 			return offset;
