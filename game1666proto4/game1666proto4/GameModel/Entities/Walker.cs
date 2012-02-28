@@ -75,8 +75,6 @@ namespace game1666proto4.GameModel.Entities
 			}
 		}
 
-		#endregion
-
 		/// <summary>
 		/// The 2D 45-degree orientation of the walker.
 		/// </summary>
@@ -90,6 +88,8 @@ namespace game1666proto4.GameModel.Entities
 			get			{ return m_properties["Position"]; }
 			private set	{ m_properties["Position"] = value; }
 		}
+
+		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
