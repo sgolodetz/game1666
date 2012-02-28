@@ -143,6 +143,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_placeables.Add(entity.Name, entity);
+			entity.Terrain = Terrain;
 			RegisterEntityDestructionRule(entity);
 
 			NavigationMap.MarkOccupied(
@@ -164,6 +165,11 @@ namespace game1666proto4.GameModel.Entities
 		{
 			Terrain = terrain;
 			NavigationMap.Terrain = terrain;
+
+			foreach(IPlaceableEntity entity in Placeables)
+			{
+				entity.Terrain = terrain;
+			}
 		}
 
 		/// <summary>
