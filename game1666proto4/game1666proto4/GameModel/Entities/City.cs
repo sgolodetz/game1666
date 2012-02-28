@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.FSMs;
-using game1666proto4.GameModel.Navigation;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
@@ -17,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a city.
 	/// </summary>
-	sealed class City : PlaceableEntity, IPersistableEntity, IPlayingArea, IUpdateableEntity
+	sealed class City : PlaceableEntity, IPersistableEntity, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -31,16 +30,6 @@ namespace game1666proto4.GameModel.Entities
 
 		//#################### PROPERTIES ####################
 		#region
-
-		/// <summary>
-		/// The mobile entities contained within the city.
-		/// </summary>
-		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
-
-		/// <summary>
-		/// The city's navigation map.
-		/// </summary>
-		public EntityNavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
 
 		/// <summary>
 		/// The persistable entities contained within the city.
@@ -62,24 +51,14 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// The placeable entities contained within the city.
-		/// </summary>
-		public IEnumerable<IPlaceableEntity> Placeables { get { return m_playingArea.Placeables; } }
-
-		/// <summary>
 		/// The placement strategy for the city.
 		/// </summary>
 		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
 
 		/// <summary>
-		/// The city's terrain.
+		/// The city's playing area.
 		/// </summary>
-		public Terrain Terrain	{ get { return m_playingArea.Terrain; } }
-
-		/// <summary>
-		/// The updateable entities contained within the city.
-		/// </summary>
-		public IEnumerable<IUpdateableEntity> Updateables { get { return m_playingArea.Updateables; } }
+		public IPlayingArea PlayingArea { get { return m_playingArea; } }
 
 		#endregion
 
@@ -187,17 +166,6 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Checks whether or not an entity can be validly placed on the terrain,
-		/// bearing in mind its footprint, position and orientation.
-		/// </summary>
-		/// <param name="entity">The entity to be checked.</param>
-		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
-		public bool IsValidlyPlaced(IPlaceableEntity entity)
-		{
-			return m_playingArea.IsValidlyPlaced(entity);
-		}
-
-		/// <summary>
 		/// Updates the city based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
@@ -205,7 +173,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			FSM.Update(gameTime);
 
-			foreach(IUpdateableEntity entity in Updateables)
+			foreach(IUpdateableEntity entity in m_playingArea.Updateables)
 			{
 				entity.Update(gameTime);
 			}
