@@ -146,8 +146,10 @@ namespace game1666proto4.GameModel.Entities
 			entity.Terrain = Terrain;
 			RegisterEntityDestructionRule(entity);
 
-			NavigationMap.MarkOccupied(
-				entity.PlacementStrategy.Place(
+			NavigationMap.MarkOccupied
+			(
+				entity.PlacementStrategy.Place
+				(
 					Terrain,
 					entity.Blueprint.Footprint,
 					entity.Position,
@@ -202,8 +204,10 @@ namespace game1666proto4.GameModel.Entities
 			m_placeables.Remove(entity.Name);
 			m_destructionRules.Remove(entity);
 
-			NavigationMap.MarkOccupied(
-				entity.PlacementStrategy.Place(
+			NavigationMap.MarkOccupied
+			(
+				entity.PlacementStrategy.Place
+				(
 					Terrain,
 					entity.Blueprint.Footprint,
 					entity.Position,
@@ -242,8 +246,10 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity in whose destruction we're interested.</param>
 		private void RegisterEntityDestructionRule(dynamic entity)
 		{
-			m_destructionRules[entity] = MessageSystem.RegisterRule(
-				MessageRuleFactory.FromSource(
+			m_destructionRules[entity] = MessageSystem.RegisterRule
+			(
+				MessageRuleFactory.FromSource
+				(
 					entity,
 					new Action<EntityDestructionMessage>(msg => DeleteEntity(entity))
 				)
