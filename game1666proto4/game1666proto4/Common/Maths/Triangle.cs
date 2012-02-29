@@ -84,12 +84,18 @@ namespace game1666proto4.Common.Maths
 		/// Tests whether the specified point (in the plane of the triangle) is actually within the triangle.
 		/// </summary>
 		/// <param name="p">The point.</param>
-		/// <returns>true, if the point is within the triangle, or false otherwise.</returns>
+		/// <returns>true, if the point is within the triangle (or on one of its edges), or false otherwise.</returns>
 		public bool Contains(Vector3 p)
 		{
 			// Make sure that the point is in the triangle's plane.
 			Plane plane = DeterminePlane();
 			if(Vector3.Dot(plane.Normal, p) + plane.D >= Constants.EPSILON) return false;
+
+			// Check whether we're at a vertex.
+			for(int i = 0; i < 3; ++i)
+			{
+				if(this.Vertices[i] == p) return true;
+			}
 
 			// Check that the point is in the triangle itself.
 			double angleSum = 0.0;

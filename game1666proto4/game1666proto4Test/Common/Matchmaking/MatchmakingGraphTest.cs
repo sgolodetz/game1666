@@ -15,7 +15,7 @@ namespace game1666proto4Test.Common.Matchmaking
 	public sealed class MatchmakingGraphTest
 	{
 		[TestMethod]
-		public void FindBestMatchingTest_3()
+		public void FindBestMatchingTest_1()
 		{
 			var graph = new MatchmakingGraph(3, 3);
 			graph.AddEdge(0, 0, 5);
@@ -36,7 +36,7 @@ namespace game1666proto4Test.Common.Matchmaking
 		}
 
 		[TestMethod]
-		public void FindBestMatchingTest_5()
+		public void FindBestMatchingTest_2()
 		{
 			var graph = new MatchmakingGraph(5, 5);
 			graph.AddEdge(0, 1, 1);
