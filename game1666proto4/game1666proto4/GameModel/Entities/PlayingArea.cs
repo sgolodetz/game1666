@@ -225,6 +225,8 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
 		public bool IsValidlyPlaced(IPlaceableEntity entity)
 		{
+			// Step 1:	Check that the entity occupies one or more grid squares,
+			//			and that all the grid squares it does occupy are empty.
 			IEnumerable<Vector2i> gridSquares = entity.PlacementStrategy.Place
 			(
 				Terrain,
@@ -232,7 +234,24 @@ namespace game1666proto4.GameModel.Entities
 				entity.Position,
 				entity.Orientation
 			);
-			return gridSquares != null && gridSquares.Any() && !NavigationMap.AreOccupied(gridSquares);
+
+			if(gridSquares == null || !gridSquares.Any() || NavigationMap.AreOccupied(gridSquares))
+			{
+				return false;
+			}
+
+			// Step 2:	Check that there are currently no mobile entities in the
+			//			grid squares that the entity would occupy.
+			foreach(IMobileEntity mobile in Mobiles)
+			{
+				if(gridSquares.Contains(mobile.Position.ToVector2i()))
+				{
+					return false;
+				}
+			}
+
+			// If we didn't find any problems, then the entity is validly placed.
+			return true;
 		}
 
 		#endregion
