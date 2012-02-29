@@ -129,38 +129,49 @@ namespace game1666proto4.UI
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			// Determine the linear, horizontal angular, and vertical angular movement rates.
+			// Determine the linear, horizontal angular, and vertical angular rates for keyboard-based movement.
 			float[,] heightmap = m_playingArea.Terrain.Heightmap;
 			float scalingFactor = Math.Max(heightmap.GetLength(0), heightmap.GetLength(1));
-			float linearRate = 0.0005f * scalingFactor * gameTime.ElapsedGameTime.Milliseconds;
-			float angularRateH = 0.002f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
-			float angularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
+			float keyboardLinearRate = 0.0005f * scalingFactor * gameTime.ElapsedGameTime.Milliseconds;
+			float keyboardAngularRateH = 0.002f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
+			float keyboardAngularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 
-			// Alter the camera based on user input.
+			// Alter the camera based on keyboard input.
 			KeyboardState keyState = Keyboard.GetState();
-			if(keyState.IsKeyDown(Keys.W))		m_camera.MoveN(linearRate);
-			if(keyState.IsKeyDown(Keys.S))		m_camera.MoveN(-linearRate);
-			if(keyState.IsKeyDown(Keys.A))		m_camera.MoveU(linearRate);
-			if(keyState.IsKeyDown(Keys.D))		m_camera.MoveU(-linearRate);
-			if(keyState.IsKeyDown(Keys.Q))		m_camera.MoveV(linearRate);
-			if(keyState.IsKeyDown(Keys.E))		m_camera.MoveV(-linearRate);
-			if(keyState.IsKeyDown(Keys.Left))	m_camera.Rotate(Vector3.UnitZ, angularRateH);
-			if(keyState.IsKeyDown(Keys.Right))	m_camera.Rotate(Vector3.UnitZ, -angularRateH);
-			if(keyState.IsKeyDown(Keys.Up))		m_camera.Rotate(m_camera.U, angularRateV);
-			if(keyState.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -angularRateV);
+			if(keyState.IsKeyDown(Keys.W))		m_camera.MoveN(keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.S))		m_camera.MoveN(-keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.A))		m_camera.MoveU(keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.D))		m_camera.MoveU(-keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.Q))		m_camera.MoveV(keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.E))		m_camera.MoveV(-keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.Left))	m_camera.Rotate(Vector3.UnitZ, keyboardAngularRateH);
+			if(keyState.IsKeyDown(Keys.Right))	m_camera.Rotate(Vector3.UnitZ, -keyboardAngularRateH);
+			if(keyState.IsKeyDown(Keys.Up))		m_camera.Rotate(m_camera.U, keyboardAngularRateV);
+			if(keyState.IsKeyDown(Keys.Down))	m_camera.Rotate(m_camera.U, -keyboardAngularRateV);
 
+			// Note: Mouse-based input is only active when the left shift key is pressed - it would be annoying otherwise.
 			if(keyState.IsKeyDown(Keys.LeftShift))
 			{
+				// Determine the scaling factor that controls the angular rate for mouse-based movement.
+				float mouseAngularScalingFactor = 0.000005f * gameTime.ElapsedGameTime.Milliseconds;
+
+				// Determine (half) the size of the region in the centre of the screen where mouse-based movement is inactive.
+				int mouseInactiveHalfWidth = Viewport.Width / 8;
+				int mouseInactiveHalfHeight = Viewport.Height / 8;
+
+				// Provided the cursor is outside the inactive region, alter the camera based on mouse input.
 				MouseState mouseState = Mouse.GetState();
 				float xOffset = Viewport.X + Viewport.Width * 0.5f - mouseState.X;
 				float yOffset = mouseState.Y - (Viewport.Y + Viewport.Height * 0.5f);
-				if(Math.Abs(xOffset) > Viewport.Width / 8)
+
+				if(Math.Abs(xOffset) > mouseInactiveHalfWidth)
 				{
-					m_camera.Rotate(Vector3.UnitZ, xOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+					m_camera.Rotate(Vector3.UnitZ, xOffset * mouseAngularScalingFactor);
 				}
-				if(Math.Abs(yOffset) > Viewport.Height / 8)
+
+				if(Math.Abs(yOffset) > mouseInactiveHalfHeight)
 				{
-					m_camera.Rotate(m_camera.U, yOffset * 0.000005f * gameTime.ElapsedGameTime.Milliseconds);
+					m_camera.Rotate(m_camera.U, yOffset * mouseAngularScalingFactor);
 				}
 			}
 		}
