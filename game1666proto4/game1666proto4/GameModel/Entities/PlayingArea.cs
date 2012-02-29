@@ -225,8 +225,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
 		public bool IsValidlyPlaced(IPlaceableEntity entity)
 		{
-			// Step 1:	Check that the entity occupies one or more grid squares,
-			//			and that all the grid squares it does occupy are empty.
+			// Step 1:	Check that the entity occupies one or more grid squares, and that all the grid squares it does occupy are empty.
 			IEnumerable<Vector2i> gridSquares = entity.PlacementStrategy.Place
 			(
 				Terrain,
@@ -240,11 +239,14 @@ namespace game1666proto4.GameModel.Entities
 				return false;
 			}
 
-			// Step 2:	Check that there are currently no mobile entities in the
-			//			grid squares that the entity would occupy.
+			// Step 2:	Check that there are currently no mobile entities in the grid squares that the entity would occupy.
+			//			Note that this isn't an especially efficient way of going about this, but it will do for now.
+			//			A better approach would involve keeping track of which mobile entities are in which grid squares,
+			//			and then checking per-grid square rather than per-entity.
+			var gridSquareSet = new HashSet<Vector2i>(gridSquares);
 			foreach(IMobileEntity mobile in Mobiles)
 			{
-				if(gridSquares.Contains(mobile.Position.ToVector2i()))
+				if(gridSquareSet.Contains(mobile.Position.ToVector2i()))
 				{
 					return false;
 				}
