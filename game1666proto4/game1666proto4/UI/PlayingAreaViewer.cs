@@ -78,7 +78,7 @@ namespace game1666proto4.UI
 			Contract.Ensures(m_playingArea != null);
 
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
-			m_playingArea = World.GetEntityByPath(Properties["PlayingArea"]).PlayingArea;
+			m_playingArea = World.GetEntityByPath(Properties["PlayingAreaContainer"]).PlayingArea;
 			Viewport = Properties["Viewport"];
 		}
 

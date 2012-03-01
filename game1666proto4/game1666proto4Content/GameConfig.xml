@@ -72,12 +72,12 @@
       <property name="Name" value="City"/>
       <entity type="UI.PlayingAreaViewer">
         <property name="Name" type="string" value="PlayingAreaViewer"/>
-        <property name="PlayingArea" type="string" value="world/city:Home"/>
+        <property name="PlayingAreaContainer" type="string" value="world/city:Home"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
       </entity>
       <entity type="UI.SidebarViewer">
         <property name="Name" type="string" value="SidebarViewer"/>
-        <property name="PlayingArea" type="string" value="world/city:Home"/>
+        <property name="PlayingAreaContainer" type="string" value="world/city:Home"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <group name="Special">
           <element name="Delete" tool="EntityDeletionTool"/>
@@ -95,12 +95,12 @@
       <property name="Name" value="World"/>
       <entity type="UI.PlayingAreaViewer">
         <property name="Name" type="string" value="PlayingAreaViewer"/>
-        <property name="PlayingArea" type="string" value="world"/>
+        <property name="PlayingAreaContainer" type="string" value="world"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
       </entity>
       <entity type="UI.SidebarViewer">
         <property name="Name" type="string" value="SidebarViewer"/>
-        <property name="PlayingArea" type="string" value="world"/>
+        <property name="PlayingAreaContainer" type="string" value="world"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <group name="Special">
           <element name="Delete" tool="EntityDeletionTool"/>

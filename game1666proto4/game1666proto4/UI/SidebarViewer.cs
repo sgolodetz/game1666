@@ -196,7 +196,7 @@ namespace game1666proto4.UI
 			// Enforce the postcondition.
 			Contract.Ensures(m_playingArea != null);
 
-			m_playingArea = World.GetEntityByPath(Properties["PlayingArea"]).PlayingArea;
+			m_playingArea = World.GetEntityByPath(Properties["PlayingAreaContainer"]).PlayingArea;
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_texture = Renderer.Content.Load<Texture2D>("Textures/sidebarbackground");
 			Viewport = Properties["Viewport"];
