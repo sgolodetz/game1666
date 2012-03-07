@@ -11,7 +11,7 @@ namespace game1666proto4.GameModel.Matchmaking
 	public enum Resource
 	{
 		/// <summary>
-		/// Occupancy is requested by houses and offered by walkers and walker generators.
+		/// Occupancy is requested by houses and offered by walkers and spawners.
 		/// </summary>
 		OCCUPANCY
 	}
