@@ -5,7 +5,7 @@
 
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
-using game1666proto4.GameModel.Navigation;
+using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
@@ -27,6 +27,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The blueprint for the entity.
 		/// </summary>
 		MobileEntityBlueprint Blueprint { get; set; }
+
+		/// <summary>
+		/// The resource matchmaker for the entity's playing area (note that this will change as it moves from one playing area to another).
+		/// </summary>
+		ResourceMatchmaker Matchmaker { set; }
 
 		/// <summary>
 		/// The movement strategy for the entity.

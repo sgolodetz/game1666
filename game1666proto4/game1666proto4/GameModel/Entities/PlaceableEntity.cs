@@ -9,6 +9,7 @@ using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Matchmaking;
 
 namespace game1666proto4.GameModel.Entities
 {
@@ -52,6 +53,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The finite state machine for the entity.
 		/// </summary>
 		public PlaceableEntityFSM FSM { get; private set; }
+
+		/// <summary>
+		/// The resource matchmaker for the entity's playing area.
+		/// </summary>
+		public ResourceMatchmaker Matchmaker { protected get; set; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its playing area).

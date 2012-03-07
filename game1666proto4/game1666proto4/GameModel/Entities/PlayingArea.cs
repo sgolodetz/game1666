@@ -10,6 +10,7 @@ using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
+using game1666proto4.GameModel.Matchmaking;
 using game1666proto4.GameModel.Messages;
 
 namespace game1666proto4.GameModel.Entities
@@ -26,6 +27,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The message rules that have been registered by the playing area for the purpose of destructing entities.
 		/// </summary>
 		private readonly IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
+
+		/// <summary>
+		/// The resource matchmaker for entities within the playing area.
+		/// </summary>
+		private ResourceMatchmaker m_matchmaker = new ResourceMatchmaker();
 
 		/// <summary>
 		/// The mobile entities contained within the playing area.
@@ -132,6 +138,8 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_mobiles.Add(entity.Name, entity);
 			RegisterEntityDestructionRule(entity);
+
+			entity.Matchmaker = m_matchmaker;
 			entity.NavigationMap = NavigationMap;
 		}
 
@@ -142,8 +150,10 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_placeables.Add(entity.Name, entity);
-			entity.Altitude = Terrain.DetermineAverageAltitude(entity.Position);
 			RegisterEntityDestructionRule(entity);
+
+			entity.Altitude = Terrain.DetermineAverageAltitude(entity.Position);
+			entity.Matchmaker = m_matchmaker;
 
 			NavigationMap.MarkOccupied
 			(
