@@ -16,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a game world.
 	/// </summary>
-	sealed class World : ICompositeEntity, IPersistableEntity, IUpdateableEntity
+	sealed class World : ICompositeEntity, IPersistableEntity, IPlayingArea, IUpdateableEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -47,14 +47,34 @@ namespace game1666proto4.GameModel.Entities
 		public string HomeCity { get { return m_properties["HomeCity"]; } }
 
 		/// <summary>
+		/// The mobile entities contained within the world.
+		/// </summary>
+		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
+
+		/// <summary>
+		/// The world's navigation map.
+		/// </summary>
+		public EntityNavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
+
+		/// <summary>
 		/// The persistable entities contained within the world.
 		/// </summary>
 		public IEnumerable<IPersistableEntity> Persistables { get { return m_playingArea.Persistables; } }
 
 		/// <summary>
-		/// The world's playing area.
+		/// The placeable entities contained within the world.
 		/// </summary>
-		public IPlayingArea PlayingArea { get { return m_playingArea; } }
+		public IEnumerable<IPlaceableEntity> Placeables { get { return m_playingArea.Placeables; } }
+
+		/// <summary>
+		/// The world's terrain.
+		/// </summary>
+		public Terrain Terrain { get { return m_playingArea.Terrain; } }
+
+		/// <summary>
+		/// The updateable entities contained within the world.
+		/// </summary>
+		public IEnumerable<IUpdateableEntity> Updateables { get { return m_playingArea.Updateables; } }
 
 		#endregion
 
@@ -184,6 +204,17 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Checks whether or not an entity can be validly placed on the terrain,
+		/// bearing in mind its footprint, position and orientation.
+		/// </summary>
+		/// <param name="entity">The entity to be checked.</param>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
+		public bool IsValidlyPlaced(IPlaceableEntity entity)
+		{
+			return m_playingArea.IsValidlyPlaced(entity);
+		}
+
+		/// <summary>
 		/// Loads a world from an XML file.
 		/// </summary>
 		/// <param name="filename">The name of the XML file.</param>
@@ -221,7 +252,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			foreach(IUpdateableEntity entity in m_playingArea.Updateables)
+			foreach(IUpdateableEntity entity in Updateables)
 			{
 				entity.Update(gameTime);
 			}
