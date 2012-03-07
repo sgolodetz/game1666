@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.Common.Matchmaking;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
@@ -16,7 +18,7 @@ namespace game1666proto4.GameModel.Entities
 	/// An instance of this class represents a spawner that can be used to generate new walkers
 	/// to help populate the world/city. Spawners are generally placed at the edge of the map.
 	/// </summary>
-	sealed class Spawner : PlaceableEntity, IUpdateableEntity
+	sealed class Spawner : PlaceableEntity, IMatchmakingEntity<ResourceOffer,ResourceRequest>, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -76,12 +78,44 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Informs the spawner of a confirmed matchmaking offer.
+		/// </summary>
+		/// <param name="offer">The offer.</param>
+		/// <param name="source">The source of the offer.</param>
+		public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		{
+			// No-op (nobody offers anything to a spawner)
+		}
+
+		/// <summary>
+		/// Informs the spawner of a confirmed matchmaking request.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <param name="source">The source of the request.</param>
+		public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		{
+			// TODO
+			//System.Console.WriteLine(source + " is requesting " + request.DesiredQuantity + " of " + request.Resource);
+		}
+
+		/// <summary>
 		/// Updates the spawner based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
 			FSM.Update(gameTime);
+
+			// Offer to supply occupancy (by generating individual walkers to occupy houses).
+			Matchmaker.PostOffer
+			(
+				new ResourceOffer
+				{
+					Resource = Resource.OCCUPANCY,
+					AvailableQuantity = 1
+				},
+				this
+			);
 		}
 
 		#endregion

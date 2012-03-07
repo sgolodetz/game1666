@@ -12,6 +12,7 @@ using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Matchmaking;
 using game1666proto4.GameModel.Messages;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
 {
@@ -263,6 +264,20 @@ namespace game1666proto4.GameModel.Entities
 
 			// If we didn't find any problems, then the entity is validly placed.
 			return true;
+		}
+
+		/// <summary>
+		/// Updates the playing area based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public void Update(GameTime gameTime)
+		{
+			foreach(IUpdateableEntity entity in Updateables)
+			{
+				entity.Update(gameTime);
+			}
+
+			m_matchmaker.Match();
 		}
 
 		#endregion

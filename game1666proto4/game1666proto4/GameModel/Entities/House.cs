@@ -5,14 +5,18 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Matchmaking;
+using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Matchmaking;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
 	/// An instance of this class represents a house.
 	/// </summary>
-	sealed class House : Building
+	sealed class House : Building, IMatchmakingEntity<ResourceOffer,ResourceRequest>
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
@@ -46,6 +50,51 @@ namespace game1666proto4.GameModel.Entities
 		public override IPlaceableEntity CloneNew()
 		{
 			return new House(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
+		}
+
+		/// <summary>
+		/// Informs the house of a confirmed matchmaking offer.
+		/// </summary>
+		/// <param name="offer">The offer.</param>
+		/// <param name="source">The source of the offer.</param>
+		public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		{
+			// TODO
+			//System.Console.WriteLine(source + " is offering to supply " + offer.AvailableQuantity + " of " + offer.Resource);
+		}
+
+		/// <summary>
+		/// Informs the house of a confirmed matchmaking request.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <param name="source">The source of the request.</param>
+		public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		{
+			// No-op (nobody requests anything from a house)
+		}
+
+		/// <summary>
+		/// Updates the house based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public override void Update(GameTime gameTime)
+		{
+			base.Update(gameTime);
+
+			// If the house is not fully occupied, post an occupancy request to the matchmaker.
+			if(true)	// TODO: Check current occupancy against maximum occupancy.
+			{
+				Matchmaker.PostRequest
+				(
+					new ResourceRequest
+					{
+						Resource = Resource.OCCUPANCY,
+						DesiredQuantity = Blueprint.MaxOccupants,
+						MinimumQuantity = 1
+					},
+					this
+				);
+			}
 		}
 
 		#endregion

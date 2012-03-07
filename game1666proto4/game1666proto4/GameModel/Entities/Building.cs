@@ -69,7 +69,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Updates the building based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		public void Update(GameTime gameTime)
+		public virtual void Update(GameTime gameTime)
 		{
 			FSM.Update(gameTime);
 		}

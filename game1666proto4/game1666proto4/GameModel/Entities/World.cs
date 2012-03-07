@@ -16,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a game world.
 	/// </summary>
-	sealed class World : ICompositeEntity, IPersistableEntity, IPlayingArea, IUpdateableEntity
+	sealed class World : ICompositeEntity, IPersistableEntity, IPlayingArea
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -252,11 +252,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			foreach(IUpdateableEntity entity in Updateables)
-			{
-				entity.Update(gameTime);
-			}
-
+			m_playingArea.Update(gameTime);
 			MessageSystem.ProcessMessageQueue();
 		}
 

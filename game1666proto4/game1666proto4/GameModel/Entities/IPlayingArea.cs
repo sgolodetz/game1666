@@ -13,7 +13,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of a class implementing this interface represents a playing area in the game.
 	/// </summary>
-	interface IPlayingArea : ICompositeEntity
+	interface IPlayingArea : ICompositeEntity, IUpdateableEntity
 	{
 		//#################### PROPERTIES ####################
 		#region

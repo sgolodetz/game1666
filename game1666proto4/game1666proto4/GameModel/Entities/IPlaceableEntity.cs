@@ -27,7 +27,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The blueprint for the entity.
 		/// </summary>
-		PlaceableEntityBlueprint Blueprint { get; }
+		dynamic Blueprint { get; }
 
 		/// <summary>
 		/// Whether or not the entity can be destroyed.
