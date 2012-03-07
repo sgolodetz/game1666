@@ -188,6 +188,7 @@
     <Compile Include="GameModel\Entities\IMovementStrategy.cs" />
     <Compile Include="GameModel\Entities\MovementStrategyGoToPosition.cs" />
     <Compile Include="GameModel\Entities\PlaceableEntity.cs" />
+    <Compile Include="GameModel\Entities\Spawner.cs" />
     <Compile Include="GameModel\Entities\Walker.cs" />
     <Compile Include="GameModel\FSMs\PlaceableEntityInDestructionState.cs" />
     <Compile Include="GameModel\Entities\IPlaceableEntity.cs" />

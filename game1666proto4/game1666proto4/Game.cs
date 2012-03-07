@@ -82,7 +82,7 @@ namespace game1666proto4
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Load the world from an XML file.
-			m_world = World.LoadFromFile(@"Content\TestWorld.xml");
+			m_world = World.LoadFromFile(@"Content\PathfindingWorld.xml");
 
 			// Load the view hierarchy from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");

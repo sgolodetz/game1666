@@ -58,6 +58,19 @@
         </property>
       </entity>
     </entity>
+    <entity type="GameModel.Blueprints.PlaceableEntityBlueprint">
+      <property name="EntityType" type="string" value="GameModel.Entities.Spawner"/>
+      <property name="Name" type="string" value="Spawner"/>
+      <property name="Model" type="string" value="Dwelling"/>
+      <property name="TimeToConstruct" type="int" value="0"/>
+      <entity type="GameModel.Blueprints.Footprint">
+        <property name="Hotspot" type="Vector2i" value="0,0"/>
+        <property name="Pattern" type="Array2D[int]">
+          [1,1]
+          1
+        </property>
+      </entity>
+    </entity>
     <entity type="GameModel.Blueprints.MobileEntityBlueprint">
       <property name="EntityType" type="string" value="GameModel.Entities.Walker"/>
       <property name="Name" type="string" value="Citizen"/>
