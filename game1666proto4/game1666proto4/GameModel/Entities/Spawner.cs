@@ -3,9 +3,12 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.FSMs;
+using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
 {
@@ -13,8 +16,18 @@ namespace game1666proto4.GameModel.Entities
 	/// An instance of this class represents a spawner that can be used to generate new walkers
 	/// to help populate the world/city. Spawners are generally placed at the edge of the map.
 	/// </summary>
-	sealed class Spawner : Building
+	sealed class Spawner : PlaceableEntity, IUpdateableEntity
 	{
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The placement strategy for the spawner.
+		/// </summary>
+		public override IPlacementStrategy PlacementStrategy { get { return new PlacementStrategyRequireFlatGround(); } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -25,7 +38,9 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="initialStateID">The initial state of the spawner.</param>
 		public Spawner(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
-		{}
+		{
+			SetName();
+		}
 
 		/// <summary>
 		/// Constructs a spawner from its XML representation.
@@ -33,12 +48,23 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the house's XML representation.</param>
 		public Spawner(XElement entityElt)
 		:	base(entityElt)
-		{}
+		{
+			SetName();
+		}
 
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Adds an entity to the spawner based on its dynamic type.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public override void AddDynamicEntity(dynamic entity)
+		{
+			AddEntity(entity);
+		}
 
 		/// <summary>
 		/// Makes a clone of this spawner that is in the 'in construction' state.
@@ -47,6 +73,28 @@ namespace game1666proto4.GameModel.Entities
 		public override IPlaceableEntity CloneNew()
 		{
 			return new Spawner(Properties, PlaceableEntityStateID.IN_CONSTRUCTION);
+		}
+
+		/// <summary>
+		/// Updates the spawner based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public void Update(GameTime gameTime)
+		{
+			FSM.Update(gameTime);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Makes sure that the spawner has an appropriate name.
+		/// </summary>
+		private void SetName()
+		{
+			Properties["Name"] = "spawner:" + Guid.NewGuid().ToString();
 		}
 
 		#endregion

@@ -119,6 +119,15 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Adds a spawner to the city.
+		/// </summary>
+		/// <param name="spawner">The spawner.</param>
+		public void AddEntity(Spawner spawner)
+		{
+			m_playingArea.AddEntity(spawner);
+		}
+
+		/// <summary>
 		/// Adds a terrain to the city (note that there can only be one terrain).
 		/// </summary>
 		/// <param name="terrain">The terrain.</param>
