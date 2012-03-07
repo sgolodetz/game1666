@@ -5,7 +5,6 @@
 
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
-using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 
@@ -22,7 +21,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The altitude of the base of the entity.
 		/// </summary>
-		float Altitude { get; }
+		float Altitude { get; set; }
 
 		/// <summary>
 		/// The blueprint for the entity.
@@ -58,11 +57,6 @@ namespace game1666proto4.GameModel.Entities
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.
 		/// </summary>
 		Vector2i Position { get; }
-
-		/// <summary>
-		/// The terrain on which the entity lies.
-		/// </summary>
-		Terrain Terrain { set; }
 
 		#endregion
 

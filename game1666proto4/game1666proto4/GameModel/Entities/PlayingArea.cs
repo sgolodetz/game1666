@@ -11,7 +11,6 @@ using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Messages;
-using game1666proto4.GameModel.Navigation;
 
 namespace game1666proto4.GameModel.Entities
 {
@@ -143,7 +142,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_placeables.Add(entity.Name, entity);
-			entity.Terrain = Terrain;
+			entity.Altitude = Terrain.DetermineAverageAltitude(entity.Position);
 			RegisterEntityDestructionRule(entity);
 
 			NavigationMap.MarkOccupied
@@ -170,7 +169,7 @@ namespace game1666proto4.GameModel.Entities
 
 			foreach(IPlaceableEntity entity in Placeables)
 			{
-				entity.Terrain = terrain;
+				entity.Altitude = terrain.DetermineAverageAltitude(entity.Position);
 			}
 		}
 

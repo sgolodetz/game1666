@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
-using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 
@@ -20,16 +19,6 @@ namespace game1666proto4.GameModel.Entities
 	/// </summary>
 	abstract class PlaceableEntity : IPersistableEntity, IPlaceableEntity
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The terrain on which the entity lies.
-		/// </summary>
-		private Terrain m_terrain;
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -39,7 +28,7 @@ namespace game1666proto4.GameModel.Entities
 		public float Altitude
 		{
 			get { return Properties["Altitude"]; }
-			private set { Properties["Altitude"] = value; }
+			set { Properties["Altitude"] = value; }
 		}
 
 		/// <summary>
@@ -99,18 +88,6 @@ namespace game1666proto4.GameModel.Entities
 		/// The properties of the building.
 		/// </summary>
 		protected IDictionary<string,dynamic> Properties { get; set; }
-
-		/// <summary>
-		/// The terrain on which the entity lies.
-		/// </summary>
-		public Terrain Terrain
-		{
-			set
-			{
-				m_terrain = value;
-				Altitude = m_terrain.DetermineAverageAltitude(Position);
-			}
-		}
 
 		#endregion
 
