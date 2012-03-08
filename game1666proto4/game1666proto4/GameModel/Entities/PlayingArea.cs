@@ -24,7 +24,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The resource matchmaker for entities within the playing area.
 		/// </summary>
-		private ResourceMatchmaker m_matchmaker = new ResourceMatchmaker();
+		private readonly ResourceMatchmaker m_matchmaker = new ResourceMatchmaker();
 
 		/// <summary>
 		/// The mobile entities contained within the playing area.
