@@ -80,7 +80,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="playingArea">The playing area from which the entity is to be deleted.</param>
 		public static void RegisterEntityDestructionRule(dynamic entity, IPlayingArea playingArea)
 		{
-			string key = entity.Name;
+			string key = Guid.NewGuid().ToString();
 
 			MessageSystem.RegisterRule
 			(

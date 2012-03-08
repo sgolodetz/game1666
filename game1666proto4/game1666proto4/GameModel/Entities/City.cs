@@ -121,30 +121,23 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Adds a building to the city.
+		/// Adds a mobile entity to the city.
 		/// </summary>
-		/// <param name="building">The building.</param>
-		public void AddEntity(Building building)
+		/// <param name="entity">The entity.</param>
+		public void AddEntity(IMobileEntity entity)
 		{
-			m_playingArea.AddEntity(building);
+			m_playingArea.AddEntity(entity);
+			EntityUtil.RegisterEntityDestructionRule(entity, this);
 		}
 
 		/// <summary>
-		/// Adds a road segment to the city.
+		/// Adds a placeable entity to the city.
 		/// </summary>
-		/// <param name="roadSegment">The road segment.</param>
-		public void AddEntity(RoadSegment roadSegment)
+		/// <param name="entity">The entity.</param>
+		public void AddEntity(IPlaceableEntity entity)
 		{
-			m_playingArea.AddEntity(roadSegment);
-		}
-
-		/// <summary>
-		/// Adds a spawner to the city.
-		/// </summary>
-		/// <param name="spawner">The spawner.</param>
-		public void AddEntity(Spawner spawner)
-		{
-			m_playingArea.AddEntity(spawner);
+			m_playingArea.AddEntity(entity);
+			EntityUtil.RegisterEntityDestructionRule(entity, this);
 		}
 
 		/// <summary>
@@ -154,15 +147,6 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Terrain terrain)
 		{
 			m_playingArea.AddEntity(terrain);
-		}
-
-		/// <summary>
-		/// Adds a walker to the city.
-		/// </summary>
-		/// <param name="walker">The walker.</param>
-		public void AddEntity(Walker walker)
-		{
-			m_playingArea.AddEntity(walker);
 		}
 
 		/// <summary>

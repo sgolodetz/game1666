@@ -113,15 +113,27 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_cities.Add(city.Name, city);
 			m_playingArea.AddEntity(city);
+			EntityUtil.RegisterEntityDestructionRule(city, this);
 		}
 
 		/// <summary>
-		/// Adds a road segment to the world.
+		/// Adds a mobile entity to the world.
 		/// </summary>
-		/// <param name="roadSegment">The road segment.</param>
-		public void AddEntity(RoadSegment roadSegment)
+		/// <param name="entity">The entity.</param>
+		public void AddEntity(IMobileEntity entity)
 		{
-			m_playingArea.AddEntity(roadSegment);
+			m_playingArea.AddEntity(entity);
+			EntityUtil.RegisterEntityDestructionRule(entity, this);
+		}
+
+		/// <summary>
+		/// Adds a placeable entity to the world.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void AddEntity(IPlaceableEntity entity)
+		{
+			m_playingArea.AddEntity(entity);
+			EntityUtil.RegisterEntityDestructionRule(entity, this);
 		}
 
 		/// <summary>
@@ -131,15 +143,6 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(Terrain terrain)
 		{
 			m_playingArea.AddEntity(terrain);
-		}
-
-		/// <summary>
-		/// Adds a walker to the world.
-		/// </summary>
-		/// <param name="walker">The walker.</param>
-		public void AddEntity(Walker walker)
-		{
-			m_playingArea.AddEntity(walker);
 		}
 
 		/// <summary>
@@ -161,6 +164,27 @@ namespace game1666proto4.GameModel.Entities
 			{
 				m_cities.Remove(city.Name);
 				m_playingArea.DeleteEntity(city);
+			}
+		}
+
+		/// <summary>
+		/// Deletes a mobile entity from the world.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeleteEntity(IMobileEntity entity)
+		{
+			m_playingArea.DeleteEntity(entity);
+		}
+
+		/// <summary>
+		/// Deletes a placeable entity from the world (provided that it's destructible).
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeleteEntity(IPlaceableEntity entity)
+		{
+			if(entity.Destructible)
+			{
+				m_playingArea.DeleteEntity(entity);
 			}
 		}
 

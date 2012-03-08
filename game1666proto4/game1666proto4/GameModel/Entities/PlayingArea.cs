@@ -3,15 +3,12 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
-using game1666proto4.Common.Messages;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Matchmaking;
-using game1666proto4.GameModel.Messages;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.Entities
@@ -112,7 +109,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// Adds an entity to the playing area based on its dynamic type.
 		/// </summary>
-		/// <param name="entity">The entity to add.</param>
+		/// <param name="entity">The entity.</param>
 		public void AddDynamicEntity(dynamic entity)
 		{
 			AddEntity(entity);
@@ -121,11 +118,10 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// Adds a mobile entity to the playing area.
 		/// </summary>
-		/// <param name="entity">The entity to add.</param>
+		/// <param name="entity">The entity.</param>
 		public void AddEntity(IMobileEntity entity)
 		{
 			m_mobiles.Add(entity.Name, entity);
-			EntityUtil.RegisterEntityDestructionRule(entity, this);
 
 			entity.Matchmaker = m_matchmaker;
 			entity.NavigationMap = NavigationMap;
@@ -134,11 +130,10 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// Adds a placeable entity to the playing area.
 		/// </summary>
-		/// <param name="entity">The entity to add.</param>
+		/// <param name="entity">The entity.</param>
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_placeables.Add(entity.Name, entity);
-			EntityUtil.RegisterEntityDestructionRule(entity, this);
 
 			entity.Altitude = Terrain.DetermineAverageAltitude(entity.Position);
 			entity.Matchmaker = m_matchmaker;
