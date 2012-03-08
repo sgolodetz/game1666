@@ -100,6 +100,7 @@ namespace game1666proto4.Common.Entities
 			parsers["Array2D[float]"] = s => ParseArray2D(s, Convert.ToSingle);
 			parsers["Array2D[int]"] = s => ParseArray2D(s, Convert.ToInt32);
 			parsers["bool"] = s => Convert.ToBoolean(s);
+			parsers["Dictionary[string,string]"] = s => ParseDictionary(s, k => k, v => v);
 			parsers["float"] = s => Convert.ToSingle(s);
 			parsers["int"] = s => Convert.ToInt32(s);
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
@@ -123,7 +124,7 @@ namespace game1666proto4.Common.Entities
 
 				// If the property element has a value attribute, use that. Otherwise, use the text enclosed within the element.
 				XAttribute valueAttribute = propertyElt.Attribute("value");
-				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value.Replace(" ", "");
+				string value = valueAttribute != null ? valueAttribute.Value : propertyElt.Value;
 
 				// Provided the property is valid, parse and store it for later use.
 				if(nameAttribute != null && value != null)
@@ -204,7 +205,7 @@ namespace game1666proto4.Common.Entities
 			arraySpecifier = new string(arraySpecifier.Where(c => !char.IsWhiteSpace(c)).ToArray());
 
 			// Match a regular expression of the form "[width,height]listSpecifier".
-			Regex regex = new Regex("\\[(?<width>[^,]+),(?<height>[^\\]]+)\\](?<listSpecifier>.+)");
+			var regex = new Regex("\\[(?<width>[^,]+),(?<height>[^\\]]+)\\](?<listSpecifier>.+)");
 			Match match = regex.Match(arraySpecifier);
 
 			// Get the width, height and array elements from the match.
@@ -224,6 +225,43 @@ namespace game1666proto4.Common.Entities
 			}
 
 			return arr;
+		}
+
+		/// <summary>
+		/// Parses the string representation of a dictionary in order to construct the dictionary itself.
+		/// </summary>
+		/// <typeparam name="K">The type of key used by the dictionary.</typeparam>
+		/// <typeparam name="V">The type of value used by the dictionary.</typeparam>
+		/// <param name="dictSpecifier">The string representation of a dictionary.</param>
+		/// <param name="keyParser">The function used to parse individual keys.</param>
+		/// <param name="valueParser">The function used to parse individual values.</param>
+		/// <returns>The dictionary.</returns>
+		private static Dictionary<K,V> ParseDictionary<K,V>(string dictSpecifier, Func<string,K> keyParser, Func<string,V> valueParser)
+		{
+			// Match a regular expression of the form "k1=v1,k2=v2,...,kn=vn".
+			var regex = new Regex("([^=]+=[^,]+)(?:,([^=]+=[^,]+))*");
+			Match match = regex.Match(dictSpecifier);
+
+			// Construct the dictionary.
+			var dict = new Dictionary<K,V>();
+			for(int i=1; i<match.Groups.Count; ++i)		// we start at 1 because match group 0 is for the whole expression
+			{
+				string keyValueString = match.Groups[i].Value;
+				if(string.IsNullOrWhiteSpace(keyValueString))
+				{
+					continue;
+				}
+
+				string[] keyValuePair = keyValueString.Split('=');
+				if(keyValuePair.Length != 2)
+				{
+					throw new InvalidDataException("Bad key-value pair: " + keyValueString);
+				}
+
+				dict.Add(keyParser(keyValuePair[0].Trim()), valueParser(keyValuePair[1].Trim()));
+			}
+
+			return dict;
 		}
 
 		/// <summary>

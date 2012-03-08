@@ -62,6 +62,9 @@
       <property name="EntityType" type="string" value="GameModel.Entities.Spawner"/>
       <property name="Name" type="string" value="Spawner"/>
       <property name="Model" type="string" value="Dwelling"/>
+      <property name="Offers" type="Dictionary[string,string]">
+        OCCUPANCY=Citizen
+      </property>
       <property name="TimeToConstruct" type="int" value="0"/>
       <entity type="GameModel.Blueprints.Footprint">
         <property name="Hotspot" type="Vector2i" value="0,0"/>
