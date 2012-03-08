@@ -202,7 +202,7 @@
     <Compile Include="GameModel\Matchmaking\ResourceOffer.cs" />
     <Compile Include="GameModel\Matchmaking\ResourceRequest.cs" />
     <Compile Include="GameModel\Matchmaking\Resource.cs" />
-    <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
+    <Compile Include="Common\Messages\EntityDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\PlayingArea.cs" />
     <Compile Include="GameModel\Entities\EntityNavigationNode.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />

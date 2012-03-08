@@ -16,11 +16,11 @@ namespace game1666proto4.Common.Messages
 		/// Constructs a message rule that filters for messages of a given type from the specified source.
 		/// </summary>
 		/// <typeparam name="T">The type of message for which to filter.</typeparam>
+		/// <param name="key">A unique key that can be used to refer to the message rule.</param>
 		/// <param name="source">The source in which we're interested.</param>
 		/// <param name="action">The action to take when the source posts a message.</param>
-		/// <param name="key">A unique key that can be used to refer to the message rule.</param>
 		/// <returns>The message rule.</returns>
-		public static MessageRule<T> FromSource<T>(dynamic source, Action<T> action, string key)
+		public static MessageRule<T> FromSource<T>(string key, dynamic source, Action<T> action)
 		{
 			return new MessageRule<T>
 			{
