@@ -22,9 +22,9 @@ namespace game1666proto4.Common.Messages
 		private static readonly Queue<IMessage> s_messageQueue = new Queue<IMessage>();
 
 		/// <summary>
-		/// A set of rules that control how messages are dispatched.
+		/// A dictionary of rules that control how messages are dispatched.
 		/// </summary>
-		private static readonly ISet<MessageRule<dynamic>> s_rules = new HashSet<MessageRule<dynamic>>();
+		private static readonly IDictionary<string,MessageRule<dynamic>> s_rules = new Dictionary<string,MessageRule<dynamic>>();
 
 		#endregion
 
@@ -52,7 +52,7 @@ namespace game1666proto4.Common.Messages
 				// to execute any rules, because rules are allowed unregister themselves and we want to avoid
 				// modifying the rule collection while we're iterating over it.
 				var rulesToExecute = new List<MessageRule<dynamic>>();
-				foreach(MessageRule<dynamic> rule in s_rules)
+				foreach(MessageRule<dynamic> rule in s_rules.Values)
 				{
 					if(rule.Filter(message))
 					{
@@ -75,15 +75,17 @@ namespace game1666proto4.Common.Messages
 		/// <typeparam name="T">The type of message with which the rule deals.</typeparam>
 		/// <param name="filter">A filter that determines whether or not a given message is interesting.</param>
 		/// <param name="action">An action to run on the message if it is interesting.</param>
+		/// <param name="key">A unique key that can be used to refer to the message rule.</param>
 		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
-		public static MessageRule<dynamic> RegisterRule<T>(Func<IMessage,bool> filter, Action<T> action)
+		public static MessageRule<dynamic> RegisterRule<T>(Func<IMessage,bool> filter, Action<T> action, string key)
 		{
 			var rule = new MessageRule<dynamic>
 			{
 				Action = msg => action(msg),
-				Filter = msg => filter(msg)
+				Filter = msg => filter(msg),
+				Key = key
 			};
-			s_rules.Add(rule);
+			s_rules.Add(rule.Key, rule);
 			return rule;
 		}
 
@@ -95,16 +97,16 @@ namespace game1666proto4.Common.Messages
 		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
 		public static MessageRule<dynamic> RegisterRule<T>(MessageRule<T> rule)
 		{
-			return RegisterRule(rule.Filter, rule.Action);
+			return RegisterRule(rule.Filter, rule.Action, rule.Key);
 		}
 
 		/// <summary>
 		/// Unregisters a message dispatch rule.
 		/// </summary>
-		/// <param name="rule">The rule to unregister.</param>
-		public static void UnregisterRule(MessageRule<dynamic> rule)
+		/// <param name="key">The key of the rule to unregister.</param>
+		public static void UnregisterRule(string key)
 		{
-			s_rules.Remove(rule);
+			s_rules.Remove(key);
 		}
 
 		#endregion

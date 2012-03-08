@@ -26,6 +26,11 @@ namespace game1666proto4.Common.Messages
 		/// </summary>
 		public Func<IMessage,bool> Filter { get; set; }
 
+		/// <summary>
+		/// A unique key that can be used to refer to the message rule.
+		/// </summary>
+		public string Key { get; set; }
+
 		#endregion
 	}
 }

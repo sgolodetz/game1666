@@ -18,13 +18,15 @@ namespace game1666proto4.Common.Messages
 		/// <typeparam name="T">The type of message for which to filter.</typeparam>
 		/// <param name="source">The source in which we're interested.</param>
 		/// <param name="action">The action to take when the source posts a message.</param>
+		/// <param name="key">A unique key that can be used to refer to the message rule.</param>
 		/// <returns>The message rule.</returns>
-		public static MessageRule<T> FromSource<T>(dynamic source, Action<T> action)
+		public static MessageRule<T> FromSource<T>(dynamic source, Action<T> action, string key)
 		{
 			return new MessageRule<T>
 			{
 				Action = action,
-				Filter = msg => msg.GetType() == typeof(T) && msg.Source.GetType() == source.GetType() && msg.Source == source
+				Filter = msg => msg.GetType() == typeof(T) && msg.Source.GetType() == source.GetType() && msg.Source == source,
+				Key = key
 			};
 		}
 	}

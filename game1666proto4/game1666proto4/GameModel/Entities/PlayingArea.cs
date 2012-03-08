@@ -25,11 +25,6 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The message rules that have been registered by the playing area for the purpose of destructing entities.
-		/// </summary>
-		private readonly IDictionary<dynamic,MessageRule<dynamic>> m_destructionRules = new Dictionary<dynamic,MessageRule<dynamic>>();
-
-		/// <summary>
 		/// The resource matchmaker for entities within the playing area.
 		/// </summary>
 		private ResourceMatchmaker m_matchmaker = new ResourceMatchmaker();
@@ -291,12 +286,13 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity in whose destruction we're interested.</param>
 		private void RegisterEntityDestructionRule(dynamic entity)
 		{
-			m_destructionRules[entity] = MessageSystem.RegisterRule
+			MessageSystem.RegisterRule
 			(
 				MessageRuleFactory.FromSource
 				(
 					entity,
-					new Action<EntityDestructionMessage>(msg => DeleteEntity(entity))
+					new Action<EntityDestructionMessage>(msg => DeleteEntity(entity)),
+					entity.Name
 				)
 			);
 		}
@@ -307,12 +303,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity in whose destruction we're no longer interested.</param>
 		private void UnregisterEntityDestructionRule(dynamic entity)
 		{
-			MessageRule<dynamic> rule;
-			if(m_destructionRules.TryGetValue(entity, out rule))
-			{
-				m_destructionRules.Remove(rule);
-				MessageSystem.UnregisterRule(rule);
-			}
+			MessageSystem.UnregisterRule(entity.Name);
 		}
 
 		#endregion
