@@ -57,16 +57,8 @@ namespace game1666proto4.GameModel.Entities
 			get
 			{
 				yield return Terrain;
-
-				foreach(IPlaceableEntity e in m_placeables.Values)
-				{
-					yield return e;
-				}
-
-				foreach(IMobileEntity e in m_mobiles.Values)
-				{
-					yield return e;
-				}
+				foreach(IPlaceableEntity e in m_placeables.Values)	{ yield return e; }
+				foreach(IMobileEntity e in m_mobiles.Values)		{ yield return e; }
 			}
 		}
 
@@ -133,7 +125,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IMobileEntity entity)
 		{
 			m_mobiles.Add(entity.Name, entity);
-			RegisterEntityDestructionRule(entity);
+			EntityUtil.RegisterEntityDestructionRule(entity, this);
 
 			entity.Matchmaker = m_matchmaker;
 			entity.NavigationMap = NavigationMap;
@@ -146,7 +138,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_placeables.Add(entity.Name, entity);
-			RegisterEntityDestructionRule(entity);
+			EntityUtil.RegisterEntityDestructionRule(entity, this);
 
 			entity.Altitude = Terrain.DetermineAverageAltitude(entity.Position);
 			entity.Matchmaker = m_matchmaker;
@@ -195,7 +187,6 @@ namespace game1666proto4.GameModel.Entities
 		public void DeleteEntity(IMobileEntity entity)
 		{
 			m_mobiles.Remove(entity.Name);
-			UnregisterEntityDestructionRule(entity);
 		}
 
 		/// <summary>
@@ -207,7 +198,6 @@ namespace game1666proto4.GameModel.Entities
 			if(!entity.Destructible) return;
 
 			m_placeables.Remove(entity.Name);
-			UnregisterEntityDestructionRule(entity);
 
 			NavigationMap.MarkOccupied
 			(
@@ -273,37 +263,6 @@ namespace game1666proto4.GameModel.Entities
 			}
 
 			m_matchmaker.Match();
-		}
-
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Registers a message rule that responds to the destruction of an entity by deleting it from the playing area.
-		/// </summary>
-		/// <param name="entity">The entity in whose destruction we're interested.</param>
-		private void RegisterEntityDestructionRule(dynamic entity)
-		{
-			MessageSystem.RegisterRule
-			(
-				MessageRuleFactory.FromSource
-				(
-					entity,
-					new Action<EntityDestructionMessage>(msg => DeleteEntity(entity)),
-					entity.Name
-				)
-			);
-		}
-
-		/// <summary>
-		/// Unregisters a message rule that responds to the destruction of an entity by deleting it from the playing area.
-		/// </summary>
-		/// <param name="entity">The entity in whose destruction we're no longer interested.</param>
-		private void UnregisterEntityDestructionRule(dynamic entity)
-		{
-			MessageSystem.UnregisterRule(entity.Name);
 		}
 
 		#endregion

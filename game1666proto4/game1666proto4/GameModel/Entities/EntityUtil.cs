@@ -5,7 +5,8 @@
 
 using System;
 using game1666proto4.Common.Maths;
-using game1666proto4.GameModel.Navigation;
+using game1666proto4.Common.Messages;
+using game1666proto4.GameModel.Messages;
 
 namespace game1666proto4.GameModel.Entities
 {
@@ -69,6 +70,31 @@ namespace game1666proto4.GameModel.Entities
 			}
 
 			return Tuple.Create(roadSegment.Blueprint.Model + suffix, orientation);
+		}
+
+		/// <summary>
+		/// Registers a message rule that responds to the destruction of an entity by deleting it from a playing area.
+		/// The message rule automatically unregisters itself once the entity has been deleted.
+		/// </summary>
+		/// <param name="entity">The entity in whose destruction we're interested.</param>
+		/// <param name="playingArea">The playing area from which the entity is to be deleted.</param>
+		public static void RegisterEntityDestructionRule(dynamic entity, IPlayingArea playingArea)
+		{
+			string key = entity.Name;
+
+			MessageSystem.RegisterRule
+			(
+				MessageRuleFactory.FromSource
+				(
+					entity,
+					new Action<EntityDestructionMessage>(msg =>
+					{
+						playingArea.DeleteDynamicEntity(entity);
+						MessageSystem.UnregisterRule(key);
+					}),
+					key
+				)
+			);
 		}
 
 		#endregion
