@@ -58,7 +58,7 @@
         </property>
       </entity>
     </entity>
-    <entity type="GameModel.Blueprints.PlaceableEntityBlueprint">
+    <entity type="GameModel.Blueprints.SpawnerBlueprint">
       <property name="EntityType" type="string" value="GameModel.Entities.Spawner"/>
       <property name="Name" type="string" value="Spawner"/>
       <property name="Model" type="string" value="Dwelling"/>

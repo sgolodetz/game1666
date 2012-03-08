@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
-	/// An instance of this class represents a spawner that can be used to generate new walkers
+	/// An instance of this class represents a spawner that can be used to generate new entities
 	/// to help populate the world/city. Spawners are generally placed at the edge of the map.
 	/// </summary>
 	sealed class Spawner : PlaceableEntity, IMatchmakingEntity<ResourceOffer,ResourceRequest>, IUpdateableEntity
@@ -106,16 +106,19 @@ namespace game1666proto4.GameModel.Entities
 		{
 			FSM.Update(gameTime);
 
-			// Offer to supply occupancy (by generating individual walkers to occupy houses).
-			Matchmaker.PostOffer
-			(
-				new ResourceOffer
-				{
-					Resource = Resource.OCCUPANCY,
-					AvailableQuantity = 1
-				},
-				this
-			);
+			// Offer all the resources this spawner can provide.
+			foreach(string resourceName in Blueprint.Offers.Keys)
+			{
+				Matchmaker.PostOffer
+				(
+					new ResourceOffer
+					{
+						Resource = (Resource)Enum.Parse(typeof(Resource), resourceName),
+						AvailableQuantity = 1
+					},
+					this
+				);
+			}
 		}
 
 		#endregion

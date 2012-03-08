@@ -9,7 +9,7 @@ using game1666proto4.Common.Entities;
 namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
-	/// An instance of this class represents a blueprint for constructing a mobile entity.
+	/// An instance of this class represents a blueprint for a mobile entity.
 	/// </summary>
 	sealed class MobileEntityBlueprint : Blueprint
 	{

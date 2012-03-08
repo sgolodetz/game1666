@@ -11,7 +11,7 @@ using game1666proto4.Common.Entities;
 namespace game1666proto4.GameModel.Blueprints
 {
 	/// <summary>
-	/// An instance of this class represents a blueprint for constructing an entity.
+	/// An instance of this class represents a blueprint for an entity.
 	/// </summary>
 	abstract class Blueprint
 	{

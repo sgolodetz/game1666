@@ -182,6 +182,7 @@
     <Compile Include="Common\Matchmaking\MatchmakingGraph.cs" />
     <Compile Include="GameModel\Blueprints\Blueprint.cs" />
     <Compile Include="GameModel\Blueprints\MobileEntityBlueprint.cs" />
+    <Compile Include="GameModel\Blueprints\SpawnerBlueprint.cs" />
     <Compile Include="GameModel\Entities\EntityNavigationMap.cs" />
     <Compile Include="GameModel\Entities\EntityUtil.cs" />
     <Compile Include="GameModel\Entities\IMobileEntity.cs" />
