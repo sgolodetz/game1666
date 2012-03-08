@@ -68,7 +68,7 @@ namespace game1666proto4.Common.Messages
 		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
 		public static MessageRule<dynamic> RegisterRule<T>(Func<IMessage,bool> filter, Action<T> action)
 		{
-			MessageRule<dynamic> rule = new MessageRule<dynamic>
+			var rule = new MessageRule<dynamic>
 			{
 				Action = msg => action(msg),
 				Filter = msg => filter(msg)
