@@ -53,7 +53,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Entities.Spawner">
-      <property name="Blueprint" type="string" value="Spawner"/>
+      <property name="Blueprint" type="string" value="CitizenSpawner"/>
       <property name="Destructible" type="bool" value="false"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="7,7"/>
