@@ -200,7 +200,7 @@ namespace game1666proto4.GameModel.Entities
 		public void DeleteEntity(IMobileEntity entity)
 		{
 			m_mobiles.Remove(entity.Name);
-			m_destructionRules.Remove(entity);
+			UnregisterEntityDestructionRule(entity);
 		}
 
 		/// <summary>
@@ -212,7 +212,7 @@ namespace game1666proto4.GameModel.Entities
 			if(!entity.Destructible) return;
 
 			m_placeables.Remove(entity.Name);
-			m_destructionRules.Remove(entity);
+			UnregisterEntityDestructionRule(entity);
 
 			NavigationMap.MarkOccupied
 			(
@@ -299,6 +299,20 @@ namespace game1666proto4.GameModel.Entities
 					new Action<EntityDestructionMessage>(msg => DeleteEntity(entity))
 				)
 			);
+		}
+
+		/// <summary>
+		/// Unregisters a message rule that responds to the destruction of an entity by deleting it from the playing area.
+		/// </summary>
+		/// <param name="entity">The entity in whose destruction we're no longer interested.</param>
+		private void UnregisterEntityDestructionRule(dynamic entity)
+		{
+			MessageRule<dynamic> rule;
+			if(m_destructionRules.TryGetValue(entity, out rule))
+			{
+				m_destructionRules.Remove(rule);
+				MessageSystem.UnregisterRule(rule);
+			}
 		}
 
 		#endregion

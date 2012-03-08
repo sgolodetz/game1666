@@ -48,12 +48,22 @@ namespace game1666proto4.Common.Messages
 		{
 			foreach(IMessage message in s_messageQueue)
 			{
+				// Make a list of all the rules that need executing for this message. We do this before trying
+				// to execute any rules, because rules are allowed unregister themselves and we want to avoid
+				// modifying the rule collection while we're iterating over it.
+				var rulesToExecute = new List<MessageRule<dynamic>>();
 				foreach(MessageRule<dynamic> rule in s_rules)
 				{
 					if(rule.Filter(message))
 					{
-						rule.Action(message);
+						rulesToExecute.Add(rule);
 					}
+				}
+
+				// Execute each of the rules on the message in turn.
+				foreach(MessageRule<dynamic> rule in rulesToExecute)
+				{
+					rule.Action(message);
 				}
 			}
 			s_messageQueue.Clear();
