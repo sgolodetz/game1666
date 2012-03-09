@@ -106,7 +106,7 @@ namespace game1666proto4.Common.Messages
 			// used to keep the set of message rules up-to-date when entities get destroyed.
 			foreach(var entity in entities)
 			{
-				RegisterDestructionRule(entity);
+				RegisterEntityDestructionRule(entity);
 			}
 		}
 
@@ -152,7 +152,7 @@ namespace game1666proto4.Common.Messages
 		/// the entity gets destructed.
 		/// </summary>
 		/// <param name="entity">The entity for which to register a destruction rule.</param>
-		private static void RegisterDestructionRule(dynamic entity)
+		private static void RegisterEntityDestructionRule(dynamic entity)
 		{
 			// Ensure only one destruction rule is added per entity (extra rules would be redundant).
 			if(s_rules.Values.Any(r =>
