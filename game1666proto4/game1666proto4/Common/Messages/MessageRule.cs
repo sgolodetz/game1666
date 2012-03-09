@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 
 namespace game1666proto4.Common.Messages
 {
@@ -22,12 +23,17 @@ namespace game1666proto4.Common.Messages
 		public Action<T> Action { get; set; }
 
 		/// <summary>
+		/// The entities mentioned by this rule (can be null if there aren't any).
+		/// </summary>
+		public List<dynamic> Entities { get; set; }
+
+		/// <summary>
 		/// A filter that determines whether or not a given message is interesting.
 		/// </summary>
 		public Func<IMessage,bool> Filter { get; set; }
 
 		/// <summary>
-		/// A unique key that can be used to refer to the message rule.
+		/// A unique key that can be used to refer to the rule.
 		/// </summary>
 		public string Key { get; set; }
 

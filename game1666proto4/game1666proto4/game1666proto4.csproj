@@ -171,7 +171,7 @@
     <Compile Include="Common\Maths\Orientation8.cs" />
     <Compile Include="Common\Messages\IMessage.cs" />
     <Compile Include="Common\Messages\MessageRule.cs" />
-    <Compile Include="Common\Messages\MessageRuleFactory.cs" />
+    <Compile Include="Common\Messages\MessageFilterFactory.cs" />
     <Compile Include="Common\Messages\MessageSystem.cs" />
     <Compile Include="Common\Entities\EntityPersister.cs" />
     <Compile Include="Common\Entities\ICompositeEntity.cs" />

@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 
@@ -83,16 +84,17 @@ namespace game1666proto4.GameModel.Entities
 
 			MessageSystem.RegisterRule
 			(
-				MessageRuleFactory.FromSource
-				(
-					key,
-					entity,
-					new Action<EntityDestructionMessage>(msg =>
+				new MessageRule<EntityDestructionMessage>
+				{
+					Action = new Action<EntityDestructionMessage>(msg =>
 					{
 						playingArea.DeleteDynamicEntity(entity);
-						MessageSystem.UnregisterRule(key);
-					})
-				)
+						MessageSystem.UnregisterRulesMentioning(entity);
+					}),
+					Entities = new List<dynamic> { entity, playingArea },
+					Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(entity),
+					Key = key
+				}
 			);
 		}
 

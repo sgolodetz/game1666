@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace game1666proto4.Common.Messages
 {
@@ -73,20 +74,20 @@ namespace game1666proto4.Common.Messages
 		/// Registers a new message dispatch rule.
 		/// </summary>
 		/// <typeparam name="T">The type of message with which the rule deals.</typeparam>
+		/// <param name="key">A unique key that can be used to refer to the message rule.</param>
 		/// <param name="filter">A filter that determines whether or not a given message is interesting.</param>
 		/// <param name="action">An action to run on the message if it is interesting.</param>
-		/// <param name="key">A unique key that can be used to refer to the message rule.</param>
-		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
-		public static MessageRule<dynamic> RegisterRule<T>(Func<IMessage,bool> filter, Action<T> action, string key)
+		/// <param name="entities">The entities mentioned by this rule (can be null if there aren't any).</param>
+		public static void RegisterRule<T>(string key, Func<IMessage,bool> filter, Action<T> action, List<dynamic> entities)
 		{
 			var rule = new MessageRule<dynamic>
 			{
 				Action = msg => action(msg),
+				Entities = entities,
 				Filter = msg => filter(msg),
 				Key = key
 			};
 			s_rules.Add(rule.Key, rule);
-			return rule;
 		}
 
 		/// <summary>
@@ -94,10 +95,9 @@ namespace game1666proto4.Common.Messages
 		/// </summary>
 		/// <typeparam name="T">The type of message with which the rule deals.</typeparam>
 		/// <param name="rule">The rule to register.</param>
-		/// <returns>The internal representation of the rule, so that it can be unregistered later if desired.</returns>
-		public static MessageRule<dynamic> RegisterRule<T>(MessageRule<T> rule)
+		public static void RegisterRule<T>(MessageRule<T> rule)
 		{
-			return RegisterRule(rule.Filter, rule.Action, rule.Key);
+			RegisterRule(rule.Key, rule.Filter, rule.Action, rule.Entities);
 		}
 
 		/// <summary>
@@ -107,6 +107,18 @@ namespace game1666proto4.Common.Messages
 		public static void UnregisterRule(string key)
 		{
 			s_rules.Remove(key);
+		}
+
+		/// <summary>
+		/// Unregisters all the message dispatch rules that mention the specified entity.
+		/// </summary>
+		/// <param name="entity">The entity whose rules we want to unregister.</param>
+		public static void UnregisterRulesMentioning(dynamic entity)
+		{
+			foreach(var rule in s_rules.Values.Where(r => r.Entities != null && r.Entities.Contains(entity)).ToList())
+			{
+				s_rules.Remove(rule.Key);
+			}
 		}
 
 		#endregion
