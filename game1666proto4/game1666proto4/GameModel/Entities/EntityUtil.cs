@@ -74,7 +74,6 @@ namespace game1666proto4.GameModel.Entities
 
 		/// <summary>
 		/// Registers a message rule that responds to the destruction of an entity by deleting it from a playing area.
-		/// The message rule automatically unregisters itself once the entity has been deleted.
 		/// </summary>
 		/// <param name="entity">The entity in whose destruction we're interested.</param>
 		/// <param name="playingArea">The playing area from which the entity is to be deleted.</param>
@@ -86,11 +85,7 @@ namespace game1666proto4.GameModel.Entities
 			(
 				new MessageRule<EntityDestructionMessage>
 				{
-					Action = new Action<EntityDestructionMessage>(msg =>
-					{
-						playingArea.DeleteDynamicEntity(entity);
-						MessageSystem.UnregisterRulesMentioning(entity);
-					}),
+					Action = new Action<EntityDestructionMessage>(msg => playingArea.DeleteDynamicEntity(entity)),
 					Entities = new List<dynamic> { entity, playingArea },
 					Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(entity),
 					Key = key
