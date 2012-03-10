@@ -27,6 +27,11 @@ namespace game1666proto4.UI
 		#region
 
 		/// <summary>
+		/// The basic effect for rendering mobile entities.
+		/// </summary>
+		private readonly BasicEffect m_mobileEntityEffect = new BasicEffect(Renderer.GraphicsDevice);
+
+		/// <summary>
 		/// The 3D camera specifying the position of the viewer.
 		/// </summary>
 		private readonly Camera m_camera;
@@ -197,13 +202,12 @@ namespace game1666proto4.UI
 			matRot = Matrix.Multiply(Matrix.CreateRotationZ(angle), matRot);
 			matRot = Matrix.Multiply(Matrix.CreateTranslation(-pos), matRot);
 
-			var effect = new BasicEffect(Renderer.GraphicsDevice);
-			effect.World = Matrix.Multiply(matRot, m_matWorld);
-			effect.View = m_matView;
-			effect.Projection = m_matProjection;
-			effect.VertexColorEnabled = true;
+			m_mobileEntityEffect.World = Matrix.Multiply(matRot, m_matWorld);
+			m_mobileEntityEffect.View = m_matView;
+			m_mobileEntityEffect.Projection = m_matProjection;
+			m_mobileEntityEffect.VertexColorEnabled = true;
 
-			Renderer.DrawBoundingBox(bounds, effect, Color.Red);
+			Renderer.DrawBoundingBox(bounds, m_mobileEntityEffect, Color.Red);
 		}
 
 		/// <summary>
