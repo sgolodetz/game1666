@@ -93,7 +93,7 @@ namespace game1666proto4.UI
 			// Draw a surrounding rectangle if the button is highlighted.
 			if(IsHighlighted())
 			{
-				BasicEffect effect = Renderer.Create2DLineEffect(Viewport);
+				BasicEffect effect = Renderer.Line2DEffect(Viewport);
 				Renderer.DrawBoundingBox(new Vector2(0, 0), new Vector2(Viewport.Width - 1, Viewport.Height - 1), effect, Color.Red);
 			}
 		}

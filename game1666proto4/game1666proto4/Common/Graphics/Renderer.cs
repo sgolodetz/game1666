@@ -16,31 +16,50 @@ namespace game1666proto4.Common.Graphics
 	/// </summary>
 	static class Renderer
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The graphics device for the game.
+		/// </summary>
+		private static GraphicsDevice s_graphicsDevice;
+
+		/// <summary>
+		/// The basic effect for rendering 2D lines.
+		/// </summary>
+		private static BasicEffect s_line2DEffect;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
+		/// <summary>
+		/// The content manager for the game.
+		/// </summary>
 		public static ContentManager Content			{ get; set; }
-		public static GraphicsDevice GraphicsDevice		{ get; set; }
+
+		/// <summary>
+		/// The graphics device for the game.
+		/// </summary>
+		public static GraphicsDevice GraphicsDevice
+		{
+			get
+			{
+				return s_graphicsDevice;
+			}
+
+			set
+			{
+				s_graphicsDevice = value;
+				s_line2DEffect = new BasicEffect(s_graphicsDevice);
+			}
+		}
 
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
 		#region
-
-		/// <summary>
-		/// Creates a suitable basic effect for drawing 2D lines.
-		/// </summary>
-		/// <param name="viewport">The viewport into which the lines will be drawn.</param>
-		/// <returns>The basic effect.</returns>
-		public static BasicEffect Create2DLineEffect(Viewport viewport)
-		{
-			var effect = new BasicEffect(Renderer.GraphicsDevice);
-			effect.Projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, -1f, 1f);
-			effect.View = Matrix.Identity;
-			effect.World = Matrix.Identity;
-			effect.VertexColorEnabled = true;
-			return effect;
-		}
 
 		/// <summary>
 		/// Draws an axis-aligned bounding box (AABB) in 2D.
@@ -212,6 +231,20 @@ namespace game1666proto4.Common.Graphics
 				pass.Apply();
 				GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexBuffer.VertexCount, 0, indexBuffer.IndexCount / 3);
 			}
+		}
+
+		/// <summary>
+		/// Fills in and returns a suitable basic effect for drawing 2D lines.
+		/// </summary>
+		/// <param name="viewport">The viewport into which the lines will be drawn.</param>
+		/// <returns>The basic effect.</returns>
+		public static BasicEffect Line2DEffect(Viewport viewport)
+		{
+			s_line2DEffect.Projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, viewport.Height, 0, -1f, 1f);
+			s_line2DEffect.View = Matrix.Identity;
+			s_line2DEffect.World = Matrix.Identity;
+			s_line2DEffect.VertexColorEnabled = true;
+			return s_line2DEffect;
 		}
 
 		/// <summary>
