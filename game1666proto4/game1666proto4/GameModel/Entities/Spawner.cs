@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Matchmaking;
+using game1666proto4.Common.Messages;
+using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
@@ -20,6 +22,16 @@ namespace game1666proto4.GameModel.Entities
 	/// </summary>
 	sealed class Spawner : PlaceableEntity, IMatchmakingEntity<ResourceOffer,ResourceRequest>, IUpdateableEntity
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The time remaining (in milliseconds) before another entity can be spawned.
+		/// </summary>
+		private int m_remainingSpawnDelay;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -94,8 +106,32 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="source">The source of the request.</param>
 		public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 		{
-			// TODO
-			//System.Console.WriteLine(source + " is requesting " + request.DesiredQuantity + " of " + request.Resource);
+			// Spawn a new entity and make it head towards the entity making the request.
+			string entityBlueprintName;
+			if(Blueprint.Offers.TryGetValue(request.Resource.ToString(), out entityBlueprintName))
+			{
+				MobileEntityBlueprint entityBlueprint = BlueprintManager.GetBlueprint(entityBlueprintName);
+				Type entityType = entityBlueprint.EntityType;
+
+				// Set the properties of the entity.
+				var entityProperties = new Dictionary<string,dynamic>();
+				entityProperties["Blueprint"] = entityBlueprintName;
+				entityProperties["Name"] = entityBlueprintName.ToLower() + ":" + Guid.NewGuid().ToString();;
+				entityProperties["Orientation"] = Properties["SpawnOrientation"];
+				entityProperties["Position"] = Properties["SpawnPosition"];
+
+				// Create the entity.
+				IMobileEntity entity = Activator.CreateInstance(entityType, entityProperties) as IMobileEntity;
+
+				// TODO: Set the proper movement strategy.
+				entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(2.5f, 0.5f));
+
+				// Dispatch a spawn message so that the entity can be added to its playing area.
+				MessageSystem.DispatchMessage(new EntitySpawnMessage(this, entity));
+
+				// Set the remaining spawn time to ensure that the spawner has to wait a bit before spawning anything else.
+				m_remainingSpawnDelay = Blueprint.SpawnDelay;
+			}
 		}
 
 		/// <summary>
@@ -105,19 +141,23 @@ namespace game1666proto4.GameModel.Entities
 		public void Update(GameTime gameTime)
 		{
 			FSM.Update(gameTime);
+			m_remainingSpawnDelay = Math.Max(m_remainingSpawnDelay - gameTime.ElapsedGameTime.Milliseconds, 0);
 
-			// Offer all the resources this spawner can provide.
-			foreach(string resourceName in Blueprint.Offers.Keys)
+			if(m_remainingSpawnDelay == 0)
 			{
-				Matchmaker.PostOffer
-				(
-					new ResourceOffer
-					{
-						Resource = (Resource)Enum.Parse(typeof(Resource), resourceName),
-						AvailableQuantity = 1
-					},
-					this
-				);
+				// Offer all the resources this spawner can provide.
+				foreach(string resourceName in Blueprint.Offers.Keys)
+				{
+					Matchmaker.PostOffer
+					(
+						new ResourceOffer
+						{
+							Resource = (Resource)Enum.Parse(typeof(Resource), resourceName),
+							AvailableQuantity = 1
+						},
+						this
+					);
+				}
 			}
 		}
 

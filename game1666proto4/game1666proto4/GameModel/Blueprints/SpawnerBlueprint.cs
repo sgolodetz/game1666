@@ -21,6 +21,11 @@ namespace game1666proto4.GameModel.Blueprints
 		/// </summary>
 		public Dictionary<string,string> Offers { get { return Properties["Offers"]; } }
 
+		/// <summary>
+		/// The delay between spawning consecutive entities (in milliseconds).
+		/// </summary>
+		public int SpawnDelay { get { return Properties["SpawnDelay"]; } }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################

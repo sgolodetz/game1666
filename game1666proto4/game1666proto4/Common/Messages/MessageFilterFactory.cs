@@ -14,6 +14,16 @@ namespace game1666proto4.Common.Messages
 	static class MessageFilterFactory
 	{
 		/// <summary>
+		/// Constructs a message filter that filters for messages of a given type.
+		/// </summary>
+		/// <typeparam name="T">The type of message for which to filter.</typeparam>
+		/// <returns>The filter.</returns>
+		public static Func<IMessage,bool> Typed<T>()
+		{
+			return msg => msg.GetType() == typeof(T);
+		}
+
+		/// <summary>
 		/// Constructs a message filter that filters for messages of a given type from the specified source.
 		/// </summary>
 		/// <typeparam name="T">The type of message for which to filter.</typeparam>

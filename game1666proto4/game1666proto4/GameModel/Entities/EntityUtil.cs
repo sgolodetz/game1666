@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 
@@ -75,12 +76,10 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// Registers a message rule that responds to the destruction of an entity by deleting it from a playing area.
 		/// </summary>
-		/// <param name="entity">The entity in whose destruction we're interested.</param>
+		/// <param name="entity">The entity being destructed.</param>
 		/// <param name="playingArea">The playing area from which the entity is to be deleted.</param>
 		public static void RegisterEntityDestructionRule(dynamic entity, IPlayingArea playingArea)
 		{
-			string key = Guid.NewGuid().ToString();
-
 			MessageSystem.RegisterRule
 			(
 				new MessageRule<EntityDestructionMessage>
@@ -88,7 +87,29 @@ namespace game1666proto4.GameModel.Entities
 					Action = new Action<EntityDestructionMessage>(msg => playingArea.DeleteDynamicEntity(entity)),
 					Entities = new List<dynamic> { entity, playingArea },
 					Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(entity),
-					Key = key
+					Key = Guid.NewGuid().ToString()
+				}
+			);
+		}
+
+		/// <summary>
+		/// Registers a message rule that responds to the spawning of an entity by adding it to a playing area.
+		/// </summary>
+		/// <param name="spawner">The entity doing the spawning.</param>
+		/// <param name="playingArea">The playing area to which the entity is to be added.</param>
+		public static void RegisterEntitySpawnRule(dynamic spawner, IPlayingArea playingArea)
+		{
+			// Note:	The explicit cast to ICompositeEntity in the code below really is necessary!
+			//			Some of the playing area classes implement ICompositeEntity via two different
+			//			routes, and the dynamically-bound call will thus fail without the cast.
+			MessageSystem.RegisterRule
+			(
+				new MessageRule<EntitySpawnMessage>
+				{
+					Action = new Action<EntitySpawnMessage>(msg => (playingArea as ICompositeEntity).AddDynamicEntity(msg.Entity)),
+					Entities = new List<dynamic> { spawner, playingArea },
+					Filter = MessageFilterFactory.TypedFromSource<EntitySpawnMessage>(spawner),
+					Key = Guid.NewGuid().ToString()
 				}
 			);
 		}

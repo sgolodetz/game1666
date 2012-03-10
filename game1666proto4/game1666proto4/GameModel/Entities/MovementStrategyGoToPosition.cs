@@ -52,6 +52,16 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// Constructs a 'go to position' movement strategy from a target position.
+		/// </summary>
+		/// <param name="targetPosition">The target position.</param>
+		public MovementStrategyGoToPosition(Vector2 targetPosition)
+		{
+			m_properties = new Dictionary<string,dynamic>();
+			m_properties.Add("TargetPosition", targetPosition);
+		}
+
+		/// <summary>
 		/// Constructs a 'go to position' movement strategy from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the strategy's XML representation.</param>

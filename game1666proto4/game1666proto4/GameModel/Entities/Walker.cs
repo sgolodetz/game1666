@@ -22,6 +22,11 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// The movement strategy for the entity.
+		/// </summary>
+		private IMovementStrategy m_movementStrategy;
+
+		/// <summary>
 		/// The navigation map for the terrain on which the walker is moving.
 		/// </summary>
 		private EntityNavigationMap m_navigationMap;
@@ -58,7 +63,20 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The movement strategy for the entity.
 		/// </summary>
-		public IMovementStrategy MovementStrategy { private get; set; }
+		public IMovementStrategy MovementStrategy
+		{
+			private get
+			{
+				return m_movementStrategy;
+			}
+
+			set
+			{
+				m_movementStrategy = value;
+				m_movementStrategy.EntityProperties = m_properties;
+				m_movementStrategy.NavigationMap = NavigationMap;
+			}
+		}
 
 		/// <summary>
 		/// The name of the walker (must be unique within its playing area).
@@ -107,12 +125,23 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
+		/// Constructs a walker directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the walker.</param>
+		public Walker(IDictionary<string,dynamic> properties)
+		{
+			m_properties = properties;
+			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
+		}
+
+		/// <summary>
 		/// Constructs a walker from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the walker's XML representation.</param>
 		public Walker(XElement entityElt)
 		{
 			m_properties = EntityPersister.LoadProperties(entityElt);
+			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
 			EntityPersister.LoadAndAddChildEntities(this, entityElt);
 		}
 
@@ -137,8 +166,6 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IMovementStrategy movementStrategy)
 		{
 			MovementStrategy = movementStrategy;
-			MovementStrategy.EntityProperties = m_properties;
-			MovementStrategy.NavigationMap = NavigationMap;
 		}
 
 		/// <summary>

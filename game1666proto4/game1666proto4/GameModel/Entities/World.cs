@@ -114,6 +114,7 @@ namespace game1666proto4.GameModel.Entities
 			m_cities.Add(city.Name, city);
 			m_playingArea.AddEntity(city);
 			EntityUtil.RegisterEntityDestructionRule(city, this);
+			EntityUtil.RegisterEntitySpawnRule(city, this);
 		}
 
 		/// <summary>
@@ -134,6 +135,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_playingArea.AddEntity(entity);
 			EntityUtil.RegisterEntityDestructionRule(entity, this);
+			EntityUtil.RegisterEntitySpawnRule(entity, this);
 		}
 
 		/// <summary>
