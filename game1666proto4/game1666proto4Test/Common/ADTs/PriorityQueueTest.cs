@@ -3,8 +3,8 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using System.Collections.Generic;
 using game1666proto4.Common.ADTs;
+using game1666proto4.Common.Util;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
@@ -13,19 +13,6 @@ namespace game1666proto4Test.Common.ADTs
 	[TestClass]
 	public sealed class PriorityQueueTest
 	{
-		//#################### HELPER CLASSES ####################
-		#region
-
-		sealed class GreaterComparer<T> : IComparer<T>
-		{
-			public int Compare(T lhs, T rhs)
-			{
-				return -Comparer<T>.Default.Compare(lhs, rhs);
-			}
-		}
-
-		#endregion
-
 		//#################### TEST METHODS ####################
 		#region
 

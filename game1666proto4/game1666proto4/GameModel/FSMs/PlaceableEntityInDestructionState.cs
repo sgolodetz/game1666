@@ -6,8 +6,8 @@
 using System;
 using System.Collections.Generic;
 using game1666proto4.Common.FSMs;
-using game1666proto4.Common.Messages;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities;
 using Microsoft.Xna.Framework;
 
 namespace game1666proto4.GameModel.FSMs
@@ -111,7 +111,7 @@ namespace game1666proto4.GameModel.FSMs
 			ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 			if(ConstructionDone == 0)
 			{
-				MessageSystem.PostMessage(new EntityDestructionMessage(EntityProperties["Self"]));
+				EntityLifetimeManager.QueueForDestruction(EntityProperties["Self"]);
 			}
 		}
 

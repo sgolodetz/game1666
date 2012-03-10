@@ -277,7 +277,7 @@ namespace game1666proto4.GameModel.Entities
 		public void Update(GameTime gameTime)
 		{
 			m_playingArea.Update(gameTime);
-			MessageSystem.ProcessMessageQueue();
+			EntityLifetimeManager.FlushQueue();
 		}
 
 		#endregion
