@@ -125,9 +125,23 @@ namespace game1666proto4.GameModel.Entities
 
 				// TODO: Set the proper movement strategy.
 				//entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(2.5f, 0.5f));
+				//var pos = (source as IPlaceableEntity).Position;
+				//entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(pos.X + 1.5f, pos.Y + 0.5f));
 
 				// Dispatch a spawn message so that the entity can be added to its playing area.
 				MessageSystem.DispatchMessage(new EntitySpawnMessage(this, entity));
+
+				// Add a rule to destruct the entity if its target is destroyed.
+				MessageSystem.RegisterRule
+				(
+					new MessageRule<EntityDestructionMessage>
+					{
+						Action = msg => EntityLifetimeManager.QueueForDestruction(entity),
+						Entities = new List<dynamic> { entity },
+						Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(source),
+						Key = Guid.NewGuid().ToString()
+					}
+				);
 
 				// Set the remaining spawn delay to ensure that the spawner has to wait a bit before spawning anything else.
 				m_remainingSpawnDelay = Blueprint.SpawnDelay;
