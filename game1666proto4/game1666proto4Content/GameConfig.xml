@@ -71,7 +71,7 @@
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">
           [1,1]
-          1
+          0
         </property>
       </entity>
     </entity>

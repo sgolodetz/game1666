@@ -3,6 +3,7 @@
  * Copyright 2011. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Matchmaking;
@@ -18,6 +19,16 @@ namespace game1666proto4.GameModel.Entities
 	/// </summary>
 	sealed class House : Building, IMatchmakingEntity<ResourceOffer,ResourceRequest>
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The number of people who currently count this house as their home.
+		/// </summary>
+		private int m_currentOccupants;
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -59,8 +70,10 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="source">The source of the offer.</param>
 		public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 		{
-			// TODO
-			//System.Console.WriteLine(source + " is offering to supply " + offer.AvailableQuantity + " of " + offer.Resource);
+			if(offer.Resource == Resource.OCCUPANCY)
+			{
+				m_currentOccupants = Math.Min(m_currentOccupants + offer.AvailableQuantity, Blueprint.MaxOccupants);
+			}
 		}
 
 		/// <summary>
@@ -82,7 +95,7 @@ namespace game1666proto4.GameModel.Entities
 			base.Update(gameTime);
 
 			// If the house is not fully occupied, post an occupancy request to the matchmaker.
-			if(true)	// TODO: Check current occupancy against maximum occupancy.
+			if(m_currentOccupants < Blueprint.MaxOccupants)
 			{
 				Matchmaker.PostRequest
 				(

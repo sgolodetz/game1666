@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
-	/// An instance of this class represents a spawner that can be used to generate new entities
+	/// An instance of this class represents a spawner that can be used to generate new mobile entities
 	/// to help populate the world/city. Spawners are generally placed at the edge of the map.
 	/// </summary>
 	sealed class Spawner : PlaceableEntity, IMatchmakingEntity<ResourceOffer,ResourceRequest>, IUpdateableEntity
@@ -124,12 +124,12 @@ namespace game1666proto4.GameModel.Entities
 				IMobileEntity entity = Activator.CreateInstance(entityType, entityProperties) as IMobileEntity;
 
 				// TODO: Set the proper movement strategy.
-				entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(2.5f, 0.5f));
+				//entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(2.5f, 0.5f));
 
 				// Dispatch a spawn message so that the entity can be added to its playing area.
 				MessageSystem.DispatchMessage(new EntitySpawnMessage(this, entity));
 
-				// Set the remaining spawn time to ensure that the spawner has to wait a bit before spawning anything else.
+				// Set the remaining spawn delay to ensure that the spawner has to wait a bit before spawning anything else.
 				m_remainingSpawnDelay = Blueprint.SpawnDelay;
 			}
 		}
