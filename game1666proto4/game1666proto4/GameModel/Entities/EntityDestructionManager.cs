@@ -7,6 +7,7 @@ using System;
 using game1666proto4.Common.ADTs;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Util;
+using game1666proto4.GameModel.Messages;
 
 namespace game1666proto4.GameModel.Entities
 {
