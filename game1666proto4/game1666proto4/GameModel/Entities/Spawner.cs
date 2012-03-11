@@ -59,7 +59,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// Constructs a spawner from its XML representation.
 		/// </summary>
-		/// <param name="entityElt">The root node of the house's XML representation.</param>
+		/// <param name="entityElt">The root node of the spawner's XML representation.</param>
 		public Spawner(XElement entityElt)
 		:	base(entityElt)
 		{
