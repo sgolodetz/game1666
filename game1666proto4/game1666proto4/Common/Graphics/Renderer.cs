@@ -29,6 +29,11 @@ namespace game1666proto4.Common.Graphics
 		/// </summary>
 		private static BasicEffect s_line2DEffect;
 
+		/// <summary>
+		/// The basic effect for rendering bounding spheres.
+		/// </summary>
+		private static BasicEffect s_sphereEffect;
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -37,7 +42,7 @@ namespace game1666proto4.Common.Graphics
 		/// <summary>
 		/// The content manager for the game.
 		/// </summary>
-		public static ContentManager Content			{ get; set; }
+		public static ContentManager Content	{ get; set; }
 
 		/// <summary>
 		/// The graphics device for the game.
@@ -52,7 +57,10 @@ namespace game1666proto4.Common.Graphics
 			set
 			{
 				s_graphicsDevice = value;
+				if(s_line2DEffect != null) s_line2DEffect.Dispose();
+				if(s_sphereEffect != null) s_sphereEffect.Dispose();
 				s_line2DEffect = new BasicEffect(s_graphicsDevice);
+				s_sphereEffect = new BasicEffect(s_graphicsDevice);
 			}
 		}
 
@@ -190,12 +198,11 @@ namespace game1666proto4.Common.Graphics
 			newRasterizerState.CullMode = CullMode.CullCounterClockwiseFace;
 			GraphicsDevice.RasterizerState = newRasterizerState;
 
-			// Create an effect for drawing the bounding spheres in the model (for debugging purposes only).
-			/*var sphereEffect = new BasicEffect(GraphicsDevice);
-			sphereEffect.World = matWorld;
-			sphereEffect.View = matView;
-			sphereEffect.Projection = matProjection;
-			sphereEffect.VertexColorEnabled = true;*/
+			// Fill in the basic effect for drawing the bounding spheres in the model (for debugging purposes only).
+			/*s_sphereEffect.World = matWorld;
+			s_sphereEffect.View = matView;
+			s_sphereEffect.Projection = matProjection;
+			s_sphereEffect.VertexColorEnabled = true;*/
 
 			foreach(ModelMesh mesh in model.Meshes)
 			{
@@ -209,7 +216,7 @@ namespace game1666proto4.Common.Graphics
 				mesh.Draw();
 
 				// Draw the bounding sphere of the mesh (for debugging purposes only).
-				//DrawBoundingSphere(mesh.BoundingSphere, sphereEffect);
+				//DrawBoundingSphere(mesh.BoundingSphere, s_sphereEffect);
 			}
 
 			// Restore the previous rasterizer state.
