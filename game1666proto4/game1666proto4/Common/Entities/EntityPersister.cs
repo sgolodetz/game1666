@@ -244,7 +244,9 @@ namespace game1666proto4.Common.Entities
 
 			// Construct the dictionary.
 			var dict = new Dictionary<K,V>();
-			for(int i=1; i<match.Groups.Count; ++i)		// we start at 1 because match group 0 is for the whole expression
+
+			// Note: We start at match group 1 because group 0 is for the whole expression.
+			for(int i=1; i<match.Groups.Count; ++i)
 			{
 				string keyValueString = match.Groups[i].Value;
 				if(string.IsNullOrWhiteSpace(keyValueString))

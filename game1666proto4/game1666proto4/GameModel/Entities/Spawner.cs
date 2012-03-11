@@ -116,7 +116,7 @@ namespace game1666proto4.GameModel.Entities
 				// Set the properties of the entity.
 				var entityProperties = new Dictionary<string,dynamic>();
 				entityProperties["Blueprint"] = entityBlueprintName;
-				entityProperties["Name"] = entityBlueprintName.ToLower() + ":" + Guid.NewGuid().ToString();;
+				entityProperties["Name"] = entityBlueprintName.ToLower() + ":" + Guid.NewGuid().ToString();
 				entityProperties["Orientation"] = Properties["SpawnOrientation"];
 				entityProperties["Position"] = Properties["SpawnPosition"];
 

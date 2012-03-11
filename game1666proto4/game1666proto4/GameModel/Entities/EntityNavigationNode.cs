@@ -88,6 +88,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="position">The position of the node on the terrain.</param>
 		/// <param name="nodeGrid">A grid of nodes for the other squares in the terrain.</param>
 		/// <param name="terrain">The terrain.</param>
+		/// <returns>The node itself.</returns>
 		public EntityNavigationNode Initialise(Vector2i position, EntityNavigationNode[,] nodeGrid, Terrain terrain)
 		{
 			Position = position;
