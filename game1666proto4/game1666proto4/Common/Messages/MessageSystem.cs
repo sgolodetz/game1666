@@ -105,6 +105,7 @@ namespace game1666proto4.Common.Messages
 		/// <param name="entity">The entity whose rules we want to unregister.</param>
 		public static void UnregisterRulesMentioning(dynamic entity)
 		{
+			// Note: The .ToList() call here is deliberate - we can't filter and modify s_rules simultaneously.
 			foreach(var rule in s_rules.Values.Where(r => r.Entities != null && r.Entities.Contains(entity)).ToList())
 			{
 				s_rules.Remove(rule.Key);
