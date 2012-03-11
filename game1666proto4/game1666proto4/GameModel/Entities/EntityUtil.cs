@@ -100,8 +100,9 @@ namespace game1666proto4.GameModel.Entities
 		public static void RegisterEntitySpawnRule(dynamic spawner, IPlayingArea playingArea)
 		{
 			// Note:	The explicit cast to ICompositeEntity in the code below really is necessary!
-			//			Some of the playing area classes implement ICompositeEntity via two different
-			//			routes, and the dynamically-bound call will thus fail without the cast.
+			//			There is a bug in the DLR that causes the dynamically-bound call to fail
+			//			without the cast. See here for details:
+			//			https://connect.microsoft.com/VisualStudio/feedback/details/597276/dynamic-runtime-fails-to-find-iset-t-contains-during-runtime
 			MessageSystem.RegisterRule
 			(
 				new MessageRule<EntitySpawnMessage>
