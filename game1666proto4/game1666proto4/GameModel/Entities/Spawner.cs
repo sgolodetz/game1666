@@ -95,7 +95,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="offer">The offer.</param>
 		/// <param name="source">The source of the offer.</param>
-		public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 		{
 			// No-op (nobody offers anything to a spawner)
 		}
@@ -105,7 +105,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <param name="source">The source of the request.</param>
-		public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		public void ConfirmMatchmakingRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 		{
 			// Spawn a new entity and make it head towards the entity making the request.
 			string entityBlueprintName;

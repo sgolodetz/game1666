@@ -68,7 +68,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="offer">The offer.</param>
 		/// <param name="source">The source of the offer.</param>
-		public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 		{
 			if(offer.Resource == Resource.OCCUPANCY)
 			{
@@ -81,7 +81,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <param name="source">The source of the request.</param>
-		public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+		public void ConfirmMatchmakingRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 		{
 			// No-op (nobody requests anything from a house)
 		}

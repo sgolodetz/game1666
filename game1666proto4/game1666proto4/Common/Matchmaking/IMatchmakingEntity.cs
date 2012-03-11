@@ -17,13 +17,13 @@ namespace game1666proto4.Common.Matchmaking
 		/// </summary>
 		/// <param name="offer">The offer.</param>
 		/// <param name="source">The source of the offer.</param>
-		void PostOffer(OfferType offer, IMatchmakingEntity<OfferType, RequestType> source);
+		void ConfirmMatchmakingOffer(OfferType offer, IMatchmakingEntity<OfferType, RequestType> source);
 
 		/// <summary>
 		/// Informs the entity of a confirmed matchmaking request.
 		/// </summary>
 		/// <param name="request">The request.</param>
 		/// <param name="source">The source of the request.</param>
-		void PostRequest(RequestType request, IMatchmakingEntity<OfferType, RequestType> source);
+		void ConfirmMatchmakingRequest(RequestType request, IMatchmakingEntity<OfferType, RequestType> source);
 	}
 }

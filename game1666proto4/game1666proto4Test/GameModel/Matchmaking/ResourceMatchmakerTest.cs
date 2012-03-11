@@ -20,12 +20,12 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		{
 			public IMatchmakingEntity<ResourceOffer, ResourceRequest> OfferSource { get; private set; }
 
-			public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+			public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 			{
 				OfferSource = source;
 			}
 
-			public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+			public void ConfirmMatchmakingRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 			{}
 		}
 
@@ -33,10 +33,10 @@ namespace game1666proto4Test.GameModel.Matchmaking
 		{
 			public IMatchmakingEntity<ResourceOffer, ResourceRequest> RequestSource { get; private set; }
 
-			public void PostOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+			public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 			{}
 
-			public void PostRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
+			public void ConfirmMatchmakingRequest(ResourceRequest request, IMatchmakingEntity<ResourceOffer, ResourceRequest> source)
 			{
 				RequestSource = source;
 			}

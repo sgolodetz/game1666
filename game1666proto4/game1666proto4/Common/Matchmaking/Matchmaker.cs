@@ -174,8 +174,8 @@ namespace game1666proto4.Common.Matchmaking
 			{
 				SourcedOffer sourcedOffer = m_sourcedOffers[edge.Source];
 				SourcedRequest sourcedRequest = m_sourcedRequests[edge.Destination];
-				sourcedOffer.Source.PostRequest(sourcedRequest.Request, sourcedRequest.Source);
-				sourcedRequest.Source.PostOffer(sourcedOffer.Offer, sourcedOffer.Source);
+				sourcedOffer.Source.ConfirmMatchmakingRequest(sourcedRequest.Request, sourcedRequest.Source);
+				sourcedRequest.Source.ConfirmMatchmakingOffer(sourcedOffer.Offer, sourcedOffer.Source);
 			}
 
 			// Clear all unresolved offers and requests - they will have to be resubmitted to the matchmaker next time.
