@@ -111,7 +111,7 @@ namespace game1666proto4.GameModel.FSMs
 			ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 			if(ConstructionDone == 0)
 			{
-				EntityLifetimeManager.QueueForDestruction(EntityProperties["Self"]);
+				EntityDestructionManager.QueueForDestruction(EntityProperties["Self"]);
 			}
 		}
 

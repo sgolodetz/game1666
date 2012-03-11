@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4: EntityLifetimeManager.cs
+ * game1666proto4: EntityDestructionManager.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -13,7 +13,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// This class manages an entity destruction queue that can be used to delete entities in a robust way.
 	/// </summary>
-	static class EntityLifetimeManager
+	static class EntityDestructionManager
 	{
 		//#################### NESTED CLASSES ####################
 		#region

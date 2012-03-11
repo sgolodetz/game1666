@@ -1,5 +1,5 @@
 ﻿/***
- * game1666proto4Test: EntityLifetimeManagerTest.cs
+ * game1666proto4Test: EntityDestructionManagerTest.cs
  * Copyright 2012. All rights reserved.
  ***/
 
@@ -13,7 +13,7 @@ using Assert = Xunit.Assert;
 namespace game1666proto4Test.GameModel.Matchmaking
 {
 	[TestClass]
-	public sealed class EntityLifetimeManagerTest
+	public sealed class EntityDestructionManagerTest
 	{
 		//#################### HELPER CLASSES ####################
 		#region
@@ -49,7 +49,7 @@ namespace game1666proto4Test.GameModel.Matchmaking
 						{
 							foreach(var c in Children)
 							{
-								EntityLifetimeManager.QueueForDestruction(c, msg.Priority + 1);
+								EntityDestructionManager.QueueForDestruction(c, msg.Priority + 1);
 							}
 						},
 						Entities = new List<dynamic> { this },
@@ -143,8 +143,8 @@ namespace game1666proto4Test.GameModel.Matchmaking
 				Assert.Contains(building2, cityB.Children);
 				Assert.Equal(walker.Target, building2);
 			
-			EntityLifetimeManager.QueueForDestruction(cityB, 1f);
-			EntityLifetimeManager.FlushQueue();
+			EntityDestructionManager.QueueForDestruction(cityB, 1f);
+			EntityDestructionManager.FlushQueue();
 
 				Assert.DoesNotContain(cityB, world.Children);
 				Assert.DoesNotContain(building1, cityB.Children);

@@ -136,7 +136,7 @@ namespace game1666proto4.GameModel.Entities
 				(
 					new MessageRule<EntityDestructionMessage>
 					{
-						Action = msg => EntityLifetimeManager.QueueForDestruction(entity),
+						Action = msg => EntityDestructionManager.QueueForDestruction(entity),
 						Entities = new List<dynamic> { entity },
 						Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(source),
 						Key = Guid.NewGuid().ToString()
