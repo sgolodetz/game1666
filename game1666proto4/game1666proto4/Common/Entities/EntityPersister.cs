@@ -198,8 +198,9 @@ namespace game1666proto4.Common.Entities
 		/// <typeparam name="T">The type of array element.</typeparam>
 		/// <param name="arraySpecifier">The string representation of a 2D array.</param>
 		/// <param name="elementParser">The function used to parse individual elements.</param>
+		/// <param name="separator">The separator used to delimit elements.</param>
 		/// <returns>The 2D array.</returns>
-		internal static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser)
+		internal static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser, char separator = ',')
 		{
 			// Filter the array specifier to get rid of any whitespace, newlines, etc.
 			arraySpecifier = new string(arraySpecifier.Where(c => !char.IsWhiteSpace(c)).ToArray());
@@ -211,7 +212,13 @@ namespace game1666proto4.Common.Entities
 			// Get the width, height and array elements from the match.
 			int width = Convert.ToInt32(match.Groups["width"].ToString());
 			int height = Convert.ToInt32(match.Groups["height"].ToString());
-			List<T> arrayElements = ParseList(match.Groups["listSpecifier"].ToString(), elementParser);
+			List<T> arrayElements = ParseList(match.Groups["listSpecifier"].ToString(), elementParser, separator);
+
+			// Check that the number of array elements matches the dimensions specified.
+			if(arrayElements.Count != width * height)
+			{
+				throw new InvalidDataException("The number of elements in the 2D array does not match the dimensions specified.");
+			}
 
 			// Convert the 1D list into a 2D array with the right dimensions.
 			var arr = new T[height,width];
@@ -272,7 +279,7 @@ namespace game1666proto4.Common.Entities
 		/// <typeparam name="T">The type of list element.</typeparam>
 		/// <param name="listSpecifier">The string representation of a list.</param>
 		/// <param name="elementParser">The function used to parse individual elements.</param>
-		/// <param name="separator">The separator used to delimit elements of the list.</param>
+		/// <param name="separator">The separator used to delimit elements.</param>
 		/// <returns>The list.</returns>
 		internal static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser, char separator = ',')
 		{
