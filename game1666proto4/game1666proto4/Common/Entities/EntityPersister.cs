@@ -189,7 +189,7 @@ namespace game1666proto4.Common.Entities
 
 		#endregion
 
-		//#################### PRIVATE METHODS ####################
+		//#################### INTERNAL METHODS ####################
 		#region
 
 		/// <summary>
@@ -199,13 +199,13 @@ namespace game1666proto4.Common.Entities
 		/// <param name="arraySpecifier">The string representation of a 2D array.</param>
 		/// <param name="elementParser">The function used to parse individual elements.</param>
 		/// <returns>The 2D array.</returns>
-		private static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser)
+		internal static T[,] ParseArray2D<T>(string arraySpecifier, Func<string,T> elementParser)
 		{
 			// Filter the array specifier to get rid of any whitespace, newlines, etc.
 			arraySpecifier = new string(arraySpecifier.Where(c => !char.IsWhiteSpace(c)).ToArray());
 
 			// Match a regular expression of the form "[width,height]listSpecifier".
-			var regex = new Regex("\\[(?<width>[^,]+),(?<height>[^\\]]+)\\](?<listSpecifier>.+)");
+			var regex = new Regex("\\[(?<width>[^,]+),(?<height>[^\\]]+)\\](?<listSpecifier>.*)");
 			Match match = regex.Match(arraySpecifier);
 
 			// Get the width, height and array elements from the match.
@@ -236,7 +236,7 @@ namespace game1666proto4.Common.Entities
 		/// <param name="keyParser">The function used to parse individual keys.</param>
 		/// <param name="valueParser">The function used to parse individual values.</param>
 		/// <returns>The dictionary.</returns>
-		private static Dictionary<K,V> ParseDictionary<K,V>(string dictSpecifier, Func<string,K> keyParser, Func<string,V> valueParser)
+		internal static Dictionary<K,V> ParseDictionary<K,V>(string dictSpecifier, Func<string,K> keyParser, Func<string,V> valueParser)
 		{
 			// Match a regular expression of the form "k1=v1,k2=v2,...,kn=vn".
 			var regex = new Regex("([^=]+=[^,]+)(?:,([^=]+=[^,]+))*");
@@ -272,10 +272,16 @@ namespace game1666proto4.Common.Entities
 		/// <typeparam name="T">The type of list element.</typeparam>
 		/// <param name="listSpecifier">The string representation of a list.</param>
 		/// <param name="elementParser">The function used to parse individual elements.</param>
+		/// <param name="separator">The separator used to delimit elements of the list.</param>
 		/// <returns>The list.</returns>
-		private static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser)
+		internal static List<T> ParseList<T>(string listSpecifier, Func<string,T> elementParser, char separator = ',')
 		{
-			return listSpecifier.Split(',').Select(s => elementParser(s.Trim())).ToList();
+			if(string.IsNullOrWhiteSpace(listSpecifier))
+			{
+				return new List<T>();
+			}
+
+			return listSpecifier.Split(separator).Select(s => elementParser(s.Trim())).ToList();
 		}
 
 		/// <summary>
@@ -283,7 +289,7 @@ namespace game1666proto4.Common.Entities
 		/// </summary>
 		/// <param name="vectorSpecifier">The string representation of a Vector2.</param>
 		/// <returns>The Vector2.</returns>
-		private static Vector2 ParseVector2Specifier(string vectorSpecifier)
+		internal static Vector2 ParseVector2Specifier(string vectorSpecifier)
 		{
 			float[] values = vectorSpecifier
 				.Split(',')
@@ -303,7 +309,7 @@ namespace game1666proto4.Common.Entities
 		/// </summary>
 		/// <param name="vectorSpecifier">The string representation of a Vector2i.</param>
 		/// <returns>The Vector2i.</returns>
-		private static Vector2i ParseVector2iSpecifier(string vectorSpecifier)
+		internal static Vector2i ParseVector2iSpecifier(string vectorSpecifier)
 		{
 			int[] values = vectorSpecifier
 				.Split(',')
@@ -323,7 +329,7 @@ namespace game1666proto4.Common.Entities
 		/// </summary>
 		/// <param name="vectorSpecifier">The string representation of a Vector3.</param>
 		/// <returns>The Vector3.</returns>
-		private static Vector3 ParseVector3Specifier(string vectorSpecifier)
+		internal static Vector3 ParseVector3Specifier(string vectorSpecifier)
 		{
 			float[] values = vectorSpecifier
 				.Split(',')
@@ -343,7 +349,7 @@ namespace game1666proto4.Common.Entities
 		/// </summary>
 		/// <param name="viewportSpecifier">The string representation of a viewport.</param>
 		/// <returns>The viewport.</returns>
-		private static Viewport ParseViewportSpecifier(string viewportSpecifier)
+		internal static Viewport ParseViewportSpecifier(string viewportSpecifier)
 		{
 			decimal[] values = viewportSpecifier
 				.Split(',')
@@ -370,7 +376,7 @@ namespace game1666proto4.Common.Entities
 		/// <typeparam name="T">The type of array element.</typeparam>
 		/// <param name="arr">The array.</param>
 		/// <returns>A string representation of the 2D array.</returns>
-		private static string SaveArray2D<T>(T[,] arr)
+		internal static string SaveArray2D<T>(T[,] arr)
 		{
 			int width = arr.GetLength(1);
 			int height = arr.GetLength(0);
