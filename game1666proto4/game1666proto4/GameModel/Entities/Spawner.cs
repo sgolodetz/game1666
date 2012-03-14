@@ -5,9 +5,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Matchmaking;
+using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
@@ -125,8 +127,12 @@ namespace game1666proto4.GameModel.Entities
 				IMobileEntity entity = Activator.CreateInstance(entityType, entityProperties) as IMobileEntity;
 
 				// TODO: Set the proper movement strategy.
-				var pos = (source as IPlaceableEntity).Position;
-				entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(pos.X + 0.5f, pos.Y + 0.5f));
+				IEnumerable<Vector2i> entrances = (source as IPlaceableEntity).Entrances;
+				if(entrances.Any())
+				{
+					var pos = entrances.First();
+					entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(pos.X + 0.5f, pos.Y + 0.5f));
+				}
 
 				// Dispatch a spawn message so that the entity can be added to its playing area.
 				MessageSystem.DispatchMessage(new EntitySpawnMessage(this, entity));

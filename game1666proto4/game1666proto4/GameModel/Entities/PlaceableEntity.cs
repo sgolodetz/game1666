@@ -67,8 +67,8 @@ namespace game1666proto4.GameModel.Entities
 		{
 			get
 			{
-				Vector2i position = Position;
-				return m_footprint.Entrances.Select(e => e + position);
+				Vector2i offset = Position - m_footprint.Hotspot;
+				return m_footprint.Entrances.Select(e => e + offset);
 			}
 		}
 
