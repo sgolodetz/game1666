@@ -130,11 +130,12 @@ namespace game1666proto4.GameModel.Entities
 		{
 			Vector2 pos = EntityProperties["Position"];
 
-			// If there's no path currently in effect, or there's a placeable entity blocking the next
-			// waypoint of the current path, try and find a new path. If we can't find one, exit.
+			// If there's no path currently in effect, or there's a placeable entity other than a road
+			// segment over the next waypoint and we're not entering it at the end of the path, then
+			// try and find a new path. If we can't find one, exit.
 			Vector2i? nextGridSquare = m_path != null ? m_path.Peek().ToVector2i() : (Vector2i?)null;
 			IPlaceableEntity occupier = m_path != null ? NavigationMap.LookupEntity(nextGridSquare.Value) : null;
-			if(m_path == null || (occupier != null && !occupier.Entrances.Contains(nextGridSquare.Value)))
+			if(m_path == null || (occupier != null && !(occupier is RoadSegment) && !(occupier.Position == m_path.Last().ToVector2i() && occupier.Entrances.Contains(nextGridSquare.Value))))
 			{
 				m_path = NavigationMap.FindPath(pos, new List<Vector2> { m_properties["TargetPosition"] }, EntityProperties);
 				if(m_path == null)

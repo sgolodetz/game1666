@@ -123,22 +123,48 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
 		public override float CostToNeighbour(EntityNavigationNode neighbour)
 		{
-			if(OccupyingEntity is RoadSegment && neighbour.OccupyingEntity is RoadSegment)
+			switch(ClassifyOccupyingEntity() + neighbour.ClassifyOccupyingEntity())
 			{
-				// Walking between road segments should have a low cost.
-				return 1f;
-			}
-			else if(OccupyingEntity != null || neighbour.OccupyingEntity != null)
-			{
-				// Walking into/out of buildings via their entrances should be extremely
-				// costly to ensure that they are not used as cut-throughs.
-				return float.MaxValue;
-			}
-			else
-			{
-				// Walking between unoccupied squares should be slightly more costly
-				// than walking on roads.
-				return 2f;
+				case 2:
+				{
+					// None - None
+					return 10f;
+				}
+				case 3:
+				{
+					// None - Placeable: Costly to prevent placeables being used as cut-throughs.
+					return 100f;
+				}
+				case 4:
+				{
+					// Placeable - Placeable: Costly to prevent placeables being used as cut-throughs.
+					return 100f;
+				}
+				case 5:
+				{
+					// None - Road Segment
+					return 10f;
+				}
+				case 6:
+				{
+					// Placeable - Road Segment: Costly to prevent placeables being used as cut-throughs.
+					return 100f;
+				}
+				default:
+				{
+					// Road Segment - Road Segment
+					if(Math.Abs(Position.X - neighbour.Position.X) + Math.Abs(Position.Y - neighbour.Position.Y) == 1)
+					{
+						// Following a (4-connected) road should have the lowest cost.
+						return 1f;
+					}
+					else
+					{
+						// Walking diagonally from road segment to road segment should be comparatively cheap,
+						// but not as good as following the road itself.
+						return 5f;
+					}
+				}
 			}
 		}
 
@@ -165,6 +191,22 @@ namespace game1666proto4.GameModel.Entities
 					}
 				}
 			}
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Classifies the entity occupying this node as being either a road segment, another placeable, or non-existent.
+		/// </summary>
+		/// <returns>An integer denoting the type of entity occupying the node.</returns>
+		private int ClassifyOccupyingEntity()
+		{
+			if(OccupyingEntity is RoadSegment)	return 4;
+			else if(OccupyingEntity != null)	return 2;
+			else								return 1;
 		}
 
 		#endregion
