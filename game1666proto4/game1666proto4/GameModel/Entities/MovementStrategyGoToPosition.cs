@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
@@ -131,8 +132,9 @@ namespace game1666proto4.GameModel.Entities
 
 			// If there's no path currently in effect, or there's a placeable entity blocking the next
 			// waypoint of the current path, try and find a new path. If we can't find one, exit.
-			IPlaceableEntity occupier = m_path != null ? NavigationMap.LookupEntity(m_path.Peek().ToVector2i()) : null;
-			if(m_path == null || (occupier != null && !(occupier is RoadSegment)))
+			Vector2i? nextGridSquare = m_path != null ? m_path.Peek().ToVector2i() : (Vector2i?)null;
+			IPlaceableEntity occupier = m_path != null ? NavigationMap.LookupEntity(nextGridSquare.Value) : null;
+			if(m_path == null || (occupier != null && !occupier.Entrances.Contains(nextGridSquare.Value)))
 			{
 				m_path = NavigationMap.FindPath(pos, new List<Vector2> { m_properties["TargetPosition"] }, EntityProperties);
 				if(m_path == null)

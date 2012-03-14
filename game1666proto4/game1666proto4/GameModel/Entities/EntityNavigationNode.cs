@@ -125,10 +125,19 @@ namespace game1666proto4.GameModel.Entities
 		{
 			if(OccupyingEntity is RoadSegment && neighbour.OccupyingEntity is RoadSegment)
 			{
+				// Walking between road segments should have a low cost.
 				return 1f;
+			}
+			else if(OccupyingEntity != null || neighbour.OccupyingEntity != null)
+			{
+				// Walking into/out of buildings via their entrances should be extremely
+				// costly to ensure that they are not used as cut-throughs.
+				return float.MaxValue;
 			}
 			else
 			{
+				// Walking between unoccupied squares should be slightly more costly
+				// than walking on roads.
 				return 2f;
 			}
 		}
@@ -142,14 +151,15 @@ namespace game1666proto4.GameModel.Entities
 		{
 			MobileEntityBlueprint blueprint = BlueprintManager.GetBlueprint(entityProperties["Blueprint"]);
 
-			foreach(Vector2i neighbourPosition in NeighbourPositions)
+			foreach(Vector2i neighbourPos in NeighbourPositions)
 			{
-				if(0 <= neighbourPosition.X && neighbourPosition.X < m_nodeGrid.GetLength(1) &&
-					0 <= neighbourPosition.Y && neighbourPosition.Y < m_nodeGrid.GetLength(0))
+				if(0 <= neighbourPos.X && neighbourPos.X < m_nodeGrid.GetLength(1) &&
+				   0 <= neighbourPos.Y && neighbourPos.Y < m_nodeGrid.GetLength(0))
 				{
-					EntityNavigationNode neighbour = m_nodeGrid[neighbourPosition.Y, neighbourPosition.X];
-					if((neighbour.OccupyingEntity == null || neighbour.OccupyingEntity is RoadSegment) &&
-						Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange)
+					EntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
+					IPlaceableEntity neighbourEntity = neighbour.OccupyingEntity;
+					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&
+					   (neighbourEntity == null || neighbourEntity.Entrances.Contains(neighbourPos)))
 					{
 						yield return neighbour;
 					}

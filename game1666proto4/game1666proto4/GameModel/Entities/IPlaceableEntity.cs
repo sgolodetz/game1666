@@ -3,9 +3,9 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
-using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Matchmaking;
 
@@ -33,6 +33,11 @@ namespace game1666proto4.GameModel.Entities
 		/// Whether or not the entity can be destroyed.
 		/// </summary>
 		bool Destructible { get; }
+
+		/// <summary>
+		/// The entrances to the entity.
+		/// </summary>
+		IEnumerable<Vector2i> Entrances { get; }
 
 		/// <summary>
 		/// The finite state machine for the entity.

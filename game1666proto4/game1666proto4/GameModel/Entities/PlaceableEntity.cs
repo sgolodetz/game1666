@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
@@ -20,6 +21,16 @@ namespace game1666proto4.GameModel.Entities
 	/// </summary>
 	abstract class PlaceableEntity : IPersistableEntity, IPlaceableEntity
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The footprint of the entity, suitably rotated to take account of its orientation.
+		/// </summary>
+		private Footprint m_footprint;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -46,6 +57,18 @@ namespace game1666proto4.GameModel.Entities
 			{
 				dynamic destructible;
 				return Properties.TryGetValue("Destructible", out destructible) ? destructible : true;
+			}
+		}
+
+		/// <summary>
+		/// The entrances to the entity.
+		/// </summary>
+		public IEnumerable<Vector2i> Entrances
+		{
+			get
+			{
+				Vector2i position = Position;
+				return m_footprint.Entrances.Select(e => e + position);
 			}
 		}
 
@@ -115,6 +138,9 @@ namespace game1666proto4.GameModel.Entities
 			fsmProperties["ConstructionDone"] = 0;	// this is a new entity, so no construction has yet started
 			fsmProperties["CurrentStateID"] = initialStateID.ToString();
 			AddEntity(new PlaceableEntityFSM(fsmProperties));
+
+			// Determine the entity's (suitably rotated) footprint.
+			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
 		}
 
 		/// <summary>
@@ -126,6 +152,9 @@ namespace game1666proto4.GameModel.Entities
 			Properties = EntityPersister.LoadProperties(entityElt);
 			Initialise();
 			EntityPersister.LoadAndAddChildEntities(this, entityElt);
+
+			// Determine the entity's (suitably rotated) footprint.
+			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
 		}
 
 		#endregion
