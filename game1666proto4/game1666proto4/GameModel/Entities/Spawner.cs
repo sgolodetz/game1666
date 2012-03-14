@@ -120,8 +120,10 @@ namespace game1666proto4.GameModel.Entities
 				var entityProperties = new Dictionary<string,dynamic>();
 				entityProperties["Blueprint"] = entityBlueprintName;
 				entityProperties["Name"] = entityBlueprintName.ToLower() + ":" + Guid.NewGuid().ToString();
-				entityProperties["Orientation"] = Properties["SpawnOrientation"];
-				entityProperties["Position"] = Properties["SpawnPosition"];
+				entityProperties["Orientation"] = Orientation8.XPOS;
+
+				Vector2i spawnerEntrance = Entrances.First();
+				entityProperties["Position"] = new Vector2(spawnerEntrance.X + 0.5f, spawnerEntrance.Y + 0.5f);
 
 				// Create the entity.
 				IMobileEntity entity = Activator.CreateInstance(entityType, entityProperties) as IMobileEntity;
