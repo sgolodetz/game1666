@@ -199,11 +199,12 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Classifies the entity occupying this node as being either a road segment, another placeable, or non-existent.
+		/// Classifies the entity occupying this node as being either a road segment, a different placeable entity, or non-existent.
 		/// </summary>
-		/// <returns>An integer denoting the type of entity occupying the node.</returns>
+		/// <returns>An int denoting the type of entity occupying the node.</returns>
 		private int ClassifyOccupyingEntity()
 		{
+			// Note: The values are chosen to be powers of two deliberately - see their use in CostToNeighbour.
 			if(OccupyingEntity is RoadSegment)	return 4;
 			else if(OccupyingEntity != null)	return 2;
 			else								return 1;
