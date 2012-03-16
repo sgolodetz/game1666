@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
@@ -43,10 +44,10 @@ namespace game1666proto4.GameModel.Entities
 			int y = roadSegment.Position.Y;
 
 			int which = 0;
-			which += navigationMap.LookupEntity(new Vector2i(x, y - 1)) != null ? 1 : 0;
-			which += navigationMap.LookupEntity(new Vector2i(x - 1, y)) != null ? 2 : 0;
-			which += navigationMap.LookupEntity(new Vector2i(x + 1, y)) != null ? 4 : 0;
-			which += navigationMap.LookupEntity(new Vector2i(x, y + 1)) != null ? 8 : 0;
+			which += IsEntityEntrance(new Vector2i(x, y - 1), navigationMap) ? 1 : 0;
+			which += IsEntityEntrance(new Vector2i(x - 1, y), navigationMap) ? 2 : 0;
+			which += IsEntityEntrance(new Vector2i(x + 1, y), navigationMap) ? 4 : 0;
+			which += IsEntityEntrance(new Vector2i(x, y + 1), navigationMap) ? 8 : 0;
 
 			string suffix = "";
 			Orientation4 orientation = roadSegment.Orientation;
@@ -114,6 +115,23 @@ namespace game1666proto4.GameModel.Entities
 					Key = Guid.NewGuid().ToString()
 				}
 			);
+		}
+
+		#endregion
+
+		//#################### PRIVATE STATIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Checks whether or not the specified grid square is occupied by an entrance to an entity.
+		/// </summary>
+		/// <param name="gridSquare">The grid square.</param>
+		/// <param name="navigationMap">The navigation map associated with the terrain whose grid square is being checked.</param>
+		/// <returns>true, if the specified grid square holds an entity entrance, or false otherwise.</returns>
+		private static bool IsEntityEntrance(Vector2i gridSquare, EntityNavigationMap navigationMap)
+		{
+			IPlaceableEntity entity = navigationMap.LookupEntity(gridSquare);
+			return entity != null && entity.Entrances.Contains(gridSquare);
 		}
 
 		#endregion
