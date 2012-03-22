@@ -82,8 +82,8 @@ namespace game1666proto4.GameModel.Entities
 		/// Tries to move the entity based on the movement strategy and elapsed time.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		/// <returns>true, if the entity was able to move, or false otherwise.</returns>
-		public bool Move(GameTime gameTime)
+		/// <returns>The result of the attempt: either blocked, finished or moved.</returns>
+		public MoveResult Move(GameTime gameTime)
 		{
 			if(m_subStrategy == null)
 			{
@@ -100,15 +100,18 @@ namespace game1666proto4.GameModel.Entities
 						NavigationMap = this.NavigationMap
 					};
 				}
-				else return false;
+				else return MoveResult.BLOCKED;
 			}
 
 			// Attempt to follow the path that's been found.
-			bool result = m_subStrategy.Move(gameTime);
+			MoveResult result = m_subStrategy.Move(gameTime);
 
 			// If the path found is blocked for some reason, clear the 'follow path' sub-strategy -
 			// we'll try and find a new path next time.
-			if(!result) m_subStrategy = null;
+			if(result == MoveResult.BLOCKED)
+			{
+				m_subStrategy = null;
+			}
 
 			return result;
 		}

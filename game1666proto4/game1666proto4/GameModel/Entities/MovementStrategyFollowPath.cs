@@ -65,14 +65,18 @@ namespace game1666proto4.GameModel.Entities
 		/// Tries to move the entity based on the movement strategy and elapsed time.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		/// <returns>true, if the entity was able to move, or false otherwise.</returns>
-		public bool Move(GameTime gameTime)
+		/// <returns>The result of the attempt: either blocked, finished or moved.</returns>
+		public MoveResult Move(GameTime gameTime)
 		{
 			// Try and find the offset to the next waypoint towards which we should head (if any).
 			// If there isn't one at the moment (e.g. because we're there already, or because the
 			// pathfinding couldn't find a suitable route right now), exit.
 			Vector2? potentialOffset = FindNextWaypointOffset();
-			if(potentialOffset == null) return false;
+			if(potentialOffset == null)
+			{
+				return m_path.Count == 0 ? MoveResult.FINISHED : MoveResult.BLOCKED;
+			}
+
 			Vector2 offset = potentialOffset.Value;
 			float offsetLength = offset.Length();
 
@@ -91,7 +95,7 @@ namespace game1666proto4.GameModel.Entities
 			// Set the entity's orientation based on the direction in which it is travelling.
 			EntityProperties["Orientation"] = (Orientation8)((Math.Round(Math.Atan2(offset.Y, offset.X) / MathHelper.PiOver4) + 8) % 8);
 
-			return true;
+			return MoveResult.MOVED;
 		}
 
 		/// <summary>
@@ -115,7 +119,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The offset to the next waypoint, if any, or null otherwise.</returns>
 		private Vector2? FindNextWaypointOffset()
 		{
-			// If there are no nodes in the path, there is no next waypoint, so exit.
+			// If there are no nodes in the path, the entity's finished moving, so exit.
 			if(m_path.Count == 0) return null;
 
 			Vector2 pos = EntityProperties["Position"];
@@ -147,7 +151,7 @@ namespace game1666proto4.GameModel.Entities
 				// If we've reached the first node in the path, dequeue it.
 				m_path.Dequeue();
 
-				// If we run out of nodes in the path, there is no next waypoint, so exit.
+				// If we run out of nodes in the path, the entity's finished moving, so exit.
 				if(m_path.Count == 0) return null;
 
 				// Compute the offset to the next node in the path.

@@ -11,6 +11,16 @@ using Microsoft.Xna.Framework;
 namespace game1666proto4.GameModel.Entities
 {
 	/// <summary>
+	/// This enum specifies the possible results of trying to move an entity.
+	/// </summary>
+	enum MoveResult
+	{
+		BLOCKED,	// the entity is currently blocked, but will try and move again next time
+		FINISHED,	// the entity has finished whatever it was trying to do and needs a new goal
+		MOVED		// the entity successfully moved
+	}
+
+	/// <summary>
 	/// An instance of a class implementing this interface represents a movement strategy for a mobile entity (e.g. "Go To Position").
 	/// </summary>
 	interface IMovementStrategy : IPersistableEntity
@@ -37,8 +47,8 @@ namespace game1666proto4.GameModel.Entities
 		/// Tries to move the entity based on the movement strategy and elapsed time.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		/// <returns>true, if the entity was able to move, or false otherwise.</returns>
-		bool Move(GameTime gameTime);
+		/// <returns>The result of the attempt: either blocked, finished or moved.</returns>
+		MoveResult Move(GameTime gameTime);
 
 		#endregion
 	}
