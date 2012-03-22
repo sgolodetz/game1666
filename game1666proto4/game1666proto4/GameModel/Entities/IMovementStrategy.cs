@@ -34,10 +34,11 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// Moves the entity based on the movement strategy and elapsed time.
+		/// Tries to move the entity based on the movement strategy and elapsed time.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		void Move(GameTime gameTime);
+		/// <returns>true, if the entity was able to move, or false otherwise.</returns>
+		bool Move(GameTime gameTime);
 
 		#endregion
 	}
