@@ -84,7 +84,11 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		private void SetName()
 		{
-			Properties["Name"] = "building:" + Guid.NewGuid().ToString();
+			dynamic name;
+			if(!Properties.TryGetValue("Name", out name))
+			{
+				Properties["Name"] = "building:" + Guid.NewGuid().ToString();
+			}
 		}
 
 		#endregion
