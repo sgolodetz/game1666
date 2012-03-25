@@ -16,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a game world.
 	/// </summary>
-	sealed class World : ICompositeEntity, IPersistableEntity, IPlayingArea
+	sealed class World : ICompositeEntity, INamedEntity, IPersistableEntity, IPlayingArea
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -52,9 +52,19 @@ namespace game1666proto4.GameModel.Entities
 		public IEnumerable<IMobileEntity> Mobiles { get { return m_playingArea.Mobiles; } }
 
 		/// <summary>
+		/// The name of the world (not relevant).
+		/// </summary>
+		public string Name { get { return null; } }
+
+		/// <summary>
 		/// The world's navigation map.
 		/// </summary>
 		public EntityNavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
+
+		/// <summary>
+		/// The parent of the world.
+		/// </summary>
+		public INamedEntity Parent { get; set; }
 
 		/// <summary>
 		/// The persistable entities contained within the world.
@@ -191,42 +201,17 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Gets an entity in the world by its (relative) path, e.g. "city:Stuartopolis".
+		/// Gets a named entity directly contained within the world.
 		/// </summary>
-		/// <param name="path">The path to the entity.</param>
+		/// <param name="name">The name of the entity to look up.</param>
 		/// <returns>The entity, if found, or null otherwise.</returns>
-		public dynamic GetEntityByPath(Queue<string> path)
+		public INamedEntity GetEntityByName(string name)
 		{
-			if(path.Count != 0)
+			if(name.StartsWith("city:"))
 			{
-				string first = path.Dequeue();
-				if(first.StartsWith("city:"))
-				{
-					City city = first == "city:Home" ? GetCity(HomeCity) : GetCity(first.Substring("city:".Length));
-					return city != null ? city.GetEntityByPath(path) : null;
-				}
-				else return null;
+				return name == "city:Home" ? GetCity(HomeCity) : GetCity(name);
 			}
-			else return this;
-		}
-
-		/// <summary>
-		/// Gets an entity in the world by its (relative) path, e.g. "world/city:Stuartopolis".
-		/// </summary>
-		/// <param name="pathString">The path, as a string.</param>
-		/// <returns>The entity, if found, or null otherwise.</returns>
-		public dynamic GetEntityByPath(string pathString)
-		{
-			var path = new Queue<string>(pathString.Split('/').Where(s => !string.IsNullOrEmpty(s)));
-			if(path.Count != 0)
-			{
-				switch(path.Dequeue())
-				{
-					case "world":
-						return GetEntityByPath(path);
-				}
-			}
-			return null;
+			else return null;
 		}
 
 		/// <summary>

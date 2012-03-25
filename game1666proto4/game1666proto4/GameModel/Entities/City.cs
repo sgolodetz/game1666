@@ -16,7 +16,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of this class represents a city.
 	/// </summary>
-	sealed class City : PlaceableEntity, IPersistableEntity, IPlayingArea
+	sealed class City : PlaceableEntity, INamedEntity, IPersistableEntity, IPlayingArea
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -40,6 +40,11 @@ namespace game1666proto4.GameModel.Entities
 		/// The city's navigation map.
 		/// </summary>
 		public EntityNavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
+
+		/// <summary>
+		/// The parent of the city.
+		/// </summary>
+		public INamedEntity Parent { get; set; }
 
 		/// <summary>
 		/// The persistable entities contained within the city.
@@ -169,14 +174,14 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Gets an entity in the city by its (relative) path.
+		/// Gets a named entity directly contained within the current entity.
 		/// </summary>
-		/// <param name="path">The path to the entity.</param>
+		/// <param name="name">The name of the entity to look up.</param>
 		/// <returns>The entity, if found, or null otherwise.</returns>
-		public dynamic GetEntityByPath(Queue<string> path)
+		public INamedEntity GetEntityByName(string name)
 		{
-			if(path.Count != 0) return null;
-			else return this;
+			// TODO
+			return null;
 		}
 
 		/// <summary>

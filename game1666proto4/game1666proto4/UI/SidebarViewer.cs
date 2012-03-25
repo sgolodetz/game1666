@@ -9,6 +9,7 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Input;
 using game1666proto4.GameModel.Entities;
@@ -190,13 +191,13 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="entityElt">The root node of the viewer's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public SidebarViewer(XElement entityElt, World world)
+		public SidebarViewer(XElement entityElt, INamedEntity world)
 		:	base(entityElt, world)
 		{
 			// Enforce the postcondition.
 			Contract.Ensures(m_playingArea != null);
 
-			m_playingArea = World.GetEntityByPath(Properties["PlayingArea"]);
+			m_playingArea = World.GetEntityByAbsolutePath(Properties["PlayingArea"] as string);
 			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_texture = Renderer.Content.Load<Texture2D>("Textures/sidebarbackground");
 			Viewport = Properties["Viewport"];

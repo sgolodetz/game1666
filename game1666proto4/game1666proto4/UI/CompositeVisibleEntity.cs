@@ -35,7 +35,7 @@ namespace game1666proto4.UI
 		/// Constructs a composite visible entity without any properties.
 		/// </summary>
 		/// <param name="world">The world that is being viewed.</param>
-		public CompositeVisibleEntity(World world)
+		public CompositeVisibleEntity(INamedEntity world)
 		:	base(world)
 		{}
 
@@ -44,7 +44,7 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public CompositeVisibleEntity(IDictionary<string,dynamic> properties, World world)
+		public CompositeVisibleEntity(IDictionary<string,dynamic> properties, INamedEntity world)
 		:	base(properties, world)
 		{}
 
@@ -53,7 +53,7 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public CompositeVisibleEntity(XElement entityElt, World world)
+		public CompositeVisibleEntity(XElement entityElt, INamedEntity world)
 		:	base(entityElt, world)
 		{
 			EntityPersister.LoadAndAddChildEntities(this, entityElt, world);

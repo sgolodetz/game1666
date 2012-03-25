@@ -6,6 +6,7 @@
 using System;
 using System.Diagnostics.Contracts;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
@@ -81,14 +82,14 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="entityElt">The root element of the viewer's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public PlayingAreaViewer(XElement entityElt, World world)
+		public PlayingAreaViewer(XElement entityElt, INamedEntity world)
 		:	base(entityElt, world)
 		{
 			// Enforce the postcondition.
 			Contract.Ensures(m_playingArea != null);
 
 			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
-			m_playingArea = World.GetEntityByPath(Properties["PlayingArea"]);
+			m_playingArea = World.GetEntityByAbsolutePath(Properties["PlayingArea"] as string);
 			Viewport = Properties["Viewport"];
 		}
 
