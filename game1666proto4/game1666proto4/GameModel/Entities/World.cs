@@ -22,11 +22,6 @@ namespace game1666proto4.GameModel.Entities
 		#region
 
 		/// <summary>
-		/// The cities in the world.
-		/// </summary>
-		private readonly IDictionary<string,City> m_cities = new Dictionary<string,City>();
-
-		/// <summary>
 		/// The world's playing area.
 		/// </summary>
 		private readonly PlayingArea m_playingArea = new PlayingArea();
@@ -116,19 +111,6 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Adds a city to the world.
-		/// </summary>
-		/// <param name="city">The city.</param>
-		public void AddEntity(City city)
-		{
-			m_cities.Add(city.Name, city);
-			m_playingArea.AddEntity(city);
-			city.Parent = this;
-			EntityUtil.RegisterEntityDestructionRule(city, this);
-			EntityUtil.RegisterEntitySpawnRule(city, this);
-		}
-
-		/// <summary>
 		/// Adds a mobile entity to the world.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
@@ -170,20 +152,6 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Deletes a city from the world (provided that it's destructible).
-		/// </summary>
-		/// <param name="city">The city.</param>
-		public void DeleteEntity(City city)
-		{
-			if(city.Destructible)
-			{
-				m_cities.Remove(city.Name);
-				m_playingArea.DeleteEntity(city);
-				city.Parent = null;
-			}
-		}
-
-		/// <summary>
 		/// Deletes a mobile entity from the world.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
@@ -213,11 +181,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The entity, if found, or null otherwise.</returns>
 		public INamedEntity GetEntityByName(string name)
 		{
-			if(name.StartsWith("city:"))
-			{
-				return name == "city:Home" ? GetCity(HomeCity) : GetCity(name);
-			}
-			else return null;
+			return name == "city:Home" ? GetEntityByName(HomeCity) : m_playingArea.GetEntityByName(name);
 		}
 
 		/// <summary>
@@ -271,23 +235,6 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_playingArea.Update(gameTime);
 			EntityDestructionManager.FlushQueue();
-		}
-
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Gets the city (if any) with the specified name.
-		/// </summary>
-		/// <param name="name">The name of the city.</param>
-		/// <returns>The city, if it exists, or null otherwise.</returns>
-		private City GetCity(string name)
-		{
-			City city;
-			m_cities.TryGetValue(name, out city);
-			return city;
 		}
 
 		#endregion

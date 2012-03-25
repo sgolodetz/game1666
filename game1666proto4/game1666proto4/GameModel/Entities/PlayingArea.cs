@@ -208,6 +208,28 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
+		/// Gets a named entity directly contained within the playing area.
+		/// </summary>
+		/// <param name="name">The name of the entity to look up.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
+		public INamedEntity GetEntityByName(string name)
+		{
+			IPlaceableEntity placeable;
+			if(m_placeables.TryGetValue(name, out placeable))
+			{
+				return placeable;
+			}
+
+			IMobileEntity mobile;
+			if(m_mobiles.TryGetValue(name, out mobile))
+			{
+				return mobile;
+			}
+
+			return null;
+		}
+
+		/// <summary>
 		/// Checks whether or not an entity can be validly placed on the terrain,
 		/// bearing in mind its footprint, position and orientation.
 		/// </summary>

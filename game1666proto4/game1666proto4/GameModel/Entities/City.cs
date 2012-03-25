@@ -171,13 +171,26 @@ namespace game1666proto4.GameModel.Entities
 		}
 
 		/// <summary>
-		/// Deletes a named entity from the city.
+		/// Deletes a mobile entity from the city.
 		/// </summary>
-		/// <param name="entity">The city.</param>
-		public void DeleteEntity(INamedEntity entity)
+		/// <param name="entity">The entity.</param>
+		public void DeleteEntity(IMobileEntity entity)
 		{
-			m_playingArea.DeleteDynamicEntity(entity);
+			m_playingArea.DeleteEntity(entity);
 			entity.Parent = null;
+		}
+
+		/// <summary>
+		/// Deletes a placeable entity from the city.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public void DeleteEntity(IPlaceableEntity entity)
+		{
+			if(entity.Destructible)
+			{
+				m_playingArea.DeleteEntity(entity);
+				entity.Parent = null;
+			}
 		}
 
 		/// <summary>
@@ -187,8 +200,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <returns>The entity, if found, or null otherwise.</returns>
 		public override INamedEntity GetEntityByName(string name)
 		{
-			// TODO
-			return null;
+			return m_playingArea.GetEntityByName(name);
 		}
 
 		/// <summary>
