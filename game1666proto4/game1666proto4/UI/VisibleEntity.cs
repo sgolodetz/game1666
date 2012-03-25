@@ -50,7 +50,7 @@ namespace game1666proto4.UI
 		/// Constructs a visible entity without any properties.
 		/// </summary>
 		/// <param name="world">The world that is being viewed.</param>
-		public VisibleEntity(INamedEntity world)
+		protected VisibleEntity(INamedEntity world)
 		:	base()
 		{
 			World = world;
@@ -61,7 +61,7 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public VisibleEntity(IDictionary<string,dynamic> properties, INamedEntity world)
+		protected VisibleEntity(IDictionary<string,dynamic> properties, INamedEntity world)
 		{
 			Properties = properties;
 			World = world;
@@ -72,7 +72,7 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public VisibleEntity(XElement entityElt, INamedEntity world)
+		protected VisibleEntity(XElement entityElt, INamedEntity world)
 		{
 			Properties = EntityPersister.LoadProperties(entityElt);
 			World = world;

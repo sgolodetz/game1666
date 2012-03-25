@@ -71,7 +71,7 @@ namespace game1666proto4.Common.FSMs
 		/// Constructs a finite state machine (FSM) directly from its properties.
 		/// </summary>
 		/// <param name="properties">The properties of the FSM.</param>
-		public FiniteStateMachine(IDictionary<string,dynamic> properties)
+		protected FiniteStateMachine(IDictionary<string,dynamic> properties)
 		{
 			Properties = properties;
 		}
@@ -80,7 +80,7 @@ namespace game1666proto4.Common.FSMs
 		/// Constructs a finite state machine (FSM) from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the FSM's XML representation.</param>
-		public FiniteStateMachine(XElement entityElt)
+		protected FiniteStateMachine(XElement entityElt)
 		{
 			Properties = EntityPersister.LoadProperties(entityElt);
 		}

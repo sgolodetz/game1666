@@ -133,7 +133,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the entity.</param>
 		/// <param name="initialStateID">The initial state of the entity.</param>
-		public PlaceableEntity(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
+		protected PlaceableEntity(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		{
 			Properties = properties;
 			Initialise();
@@ -152,7 +152,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Constructs a placeable entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the entity's XML representation.</param>
-		public PlaceableEntity(XElement entityElt)
+		protected PlaceableEntity(XElement entityElt)
 		{
 			Properties = EntityPersister.LoadProperties(entityElt);
 			Initialise();

@@ -35,7 +35,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="properties">The properties of the building.</param>
 		/// <param name="initialStateID">The initial state of the building.</param>
-		public Building(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
+		protected Building(IDictionary<string,dynamic> properties, PlaceableEntityStateID initialStateID)
 		:	base(properties, initialStateID)
 		{
 			SetName();
@@ -45,7 +45,7 @@ namespace game1666proto4.GameModel.Entities
 		/// Constructs a building from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root node of the building's XML representation.</param>
-		public Building(XElement entityElt)
+		protected Building(XElement entityElt)
 		:	base(entityElt)
 		{
 			SetName();

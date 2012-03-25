@@ -21,7 +21,7 @@ namespace game1666proto4.Common.Entities
 		/// <summary>
 		/// A special class used to wrap dynamic objects into something equatable.
 		/// </summary>
-		private class EquatableDynamic : IEquatable<EquatableDynamic>
+		private sealed class EquatableDynamic : IEquatable<EquatableDynamic>
 		{
 			/// <summary>
 			/// The contained dynamic object.
