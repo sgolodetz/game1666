@@ -128,13 +128,8 @@ namespace game1666proto4.GameModel.Entities
 				// Create the entity.
 				IMobileEntity entity = Activator.CreateInstance(entityType, entityProperties) as IMobileEntity;
 
-				// TODO: Set the proper movement strategy.
-				IEnumerable<Vector2i> entrances = (source as IPlaceableEntity).Entrances;
-				if(entrances.Any())
-				{
-					var pos = entrances.First();
-					entity.MovementStrategy = new MovementStrategyGoToPosition(new Vector2(pos.X + 0.5f, pos.Y + 0.5f));
-				}
+				// Make the entity head towards the source of the request.
+				entity.MovementStrategy = new MovementStrategyGoToPlaceable(source as IPlaceableEntity);
 
 				// Dispatch a spawn message so that the entity can be added to its playing area.
 				MessageSystem.DispatchMessage(new EntitySpawnMessage(this, entity));

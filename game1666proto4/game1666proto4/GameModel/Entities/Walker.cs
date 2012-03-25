@@ -136,6 +136,7 @@ namespace game1666proto4.GameModel.Entities
 		public Walker(IDictionary<string,dynamic> properties)
 		{
 			m_properties = properties;
+			m_properties["Self"] = this;
 			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
 		}
 
@@ -146,6 +147,7 @@ namespace game1666proto4.GameModel.Entities
 		public Walker(XElement entityElt)
 		{
 			m_properties = EntityPersister.LoadProperties(entityElt);
+			m_properties["Self"] = this;
 			Blueprint = BlueprintManager.GetBlueprint(m_properties["Blueprint"]);
 			EntityPersister.LoadAndAddChildEntities(this, entityElt);
 		}
