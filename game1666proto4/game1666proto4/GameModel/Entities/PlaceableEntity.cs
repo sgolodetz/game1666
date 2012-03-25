@@ -27,7 +27,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The footprint of the entity, suitably rotated to take account of its orientation.
 		/// </summary>
-		private Footprint m_footprint;
+		private readonly Footprint m_footprint;
 
 		#endregion
 

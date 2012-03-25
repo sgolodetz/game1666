@@ -27,7 +27,7 @@ namespace game1666proto4.Common.ADTs
 		/// that may be useful to client code. Its auxiliary data may be changed by the client, but its
 		/// key should only be changed via the priority queue's UpdateKey() method (this is important!).
 		/// </summary>
-		public class Element
+		public sealed class Element
 		{
 			public ID ID { get; private set; }
 			public Key Key { get; set; }

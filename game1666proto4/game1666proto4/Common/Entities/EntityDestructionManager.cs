@@ -21,7 +21,7 @@ namespace game1666proto4.Common.Entities
 		/// <summary>
 		/// A special class used to wrap dynamic objects into something equatable.
 		/// </summary>
-		public class EquatableDynamic : IEquatable<EquatableDynamic>
+		private class EquatableDynamic : IEquatable<EquatableDynamic>
 		{
 			/// <summary>
 			/// The contained dynamic object.
@@ -47,7 +47,7 @@ namespace game1666proto4.Common.Entities
 		/// <summary>
 		/// The priority queue of entities waiting for destruction.
 		/// </summary>
-		private static PriorityQueue<EquatableDynamic,float,bool> s_destructionQueue = new PriorityQueue<EquatableDynamic,float,bool>(new GreaterComparer<float>());
+		private static readonly PriorityQueue<EquatableDynamic,float,bool> s_destructionQueue = new PriorityQueue<EquatableDynamic,float,bool>(new GreaterComparer<float>());
 
 		#endregion
 

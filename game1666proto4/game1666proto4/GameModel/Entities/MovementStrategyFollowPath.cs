@@ -25,7 +25,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// The path that this movement strategy will cause its entity to try and follow.
 		/// </summary>
-		private Queue<Vector2> m_path;
+		private readonly Queue<Vector2> m_path;
 
 		#endregion
 
