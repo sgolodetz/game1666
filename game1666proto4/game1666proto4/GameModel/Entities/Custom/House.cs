@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using game1666proto4.Common.Matchmaking;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Entities.Core;
-using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Entities.FSMs;
 using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 

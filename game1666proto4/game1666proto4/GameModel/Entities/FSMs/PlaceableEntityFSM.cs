@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 
-namespace game1666proto4.GameModel.FSMs
+namespace game1666proto4.GameModel.Entities.FSMs
 {
 	/// <summary>
 	/// An instance of this class is used to manage the state of a placeable entity over time.

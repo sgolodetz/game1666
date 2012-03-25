@@ -7,8 +7,9 @@ using System;
 using game1666proto4.Common.ADTs;
 using game1666proto4.Common.Messages;
 using game1666proto4.Common.Util;
+using game1666proto4.GameModel.Entities.Messages;
 
-namespace game1666proto4.Common.Entities
+namespace game1666proto4.GameModel.Entities.Lifetime
 {
 	/// <summary>
 	/// This class manages an entity destruction queue that can be used to delete entities in a robust way.

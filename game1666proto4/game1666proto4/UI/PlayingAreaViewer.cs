@@ -11,7 +11,7 @@ using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Entities.Core;
-using game1666proto4.GameModel.FSMs;
+using game1666proto4.GameModel.Entities.FSMs;
 using game1666proto4.UI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using game1666proto4.Common.FSMs;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.FSMs
+namespace game1666proto4.GameModel.Entities.FSMs
 {
 	/// <summary>
 	/// A state representing a time in which a placeable entity is operational.

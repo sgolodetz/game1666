@@ -5,12 +5,12 @@
 
 using System;
 using System.Collections.Generic;
-using game1666proto4.Common.Entities;
 using game1666proto4.Common.FSMs;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities.Lifetime;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.FSMs
+namespace game1666proto4.GameModel.Entities.FSMs
 {
 	/// <summary>
 	/// A state representing a time in which a placeable entity is being destructed.
