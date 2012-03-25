@@ -3,10 +3,12 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.Common.Messages;
 using game1666proto4.GameModel.Entities.Core;
 using Microsoft.Xna.Framework;
 
@@ -37,9 +39,7 @@ namespace game1666proto4.GameModel.Entities.MovementStrategies
 		/// <param name="targetEntity">The target entity.</param>
 		public MovementStrategyGoToPlaceable(IPlaceableEntity targetEntity)
 		:	this(targetEntity.GetAbsolutePath())
-		{
-			m_targetEntity = targetEntity;
-		}
+		{}
 
 		/// <summary>
 		/// Constructs a 'go to placeable' movement strategy from the absolute path of a target placeable entity.
@@ -71,8 +71,8 @@ namespace game1666proto4.GameModel.Entities.MovementStrategies
 		/// <returns>The generated sub-strategy, if any, or null otherwise.</returns>
 		protected override MovementStrategyFollowPath GenerateSubStrategy()
 		{
-			// Make sure that the target entity has been looked up.
-			EnsureTargetEntityFound();
+			// Look up the target entity (if it hasn't already been looked up).
+			SetupTargetEntity();
 
 			// Try and find a path to the nearest entrance of the target entity.
 			Vector2 pos = EntityProperties["Position"];
@@ -97,15 +97,14 @@ namespace game1666proto4.GameModel.Entities.MovementStrategies
 		#region
 
 		/// <summary>
-		/// Makes sure that the target entity has been looked up.
+		/// Looks up the target entity (if it hasn't already been looked up).
 		/// </summary>
-		private void EnsureTargetEntityFound()
+		private void SetupTargetEntity()
 		{
-			if(m_targetEntity == null)
-			{
-				INamedEntity self = EntityProperties["Self"] as INamedEntity;
-				m_targetEntity = self.GetEntityByAbsolutePath(Properties["TargetPath"] as string);
-			}
+			if(m_targetEntity != null) return;
+
+			INamedEntity currentEntity = EntityProperties["Self"] as INamedEntity;
+			m_targetEntity = currentEntity.GetEntityByAbsolutePath(Properties["TargetPath"] as string);
 		}
 
 		#endregion

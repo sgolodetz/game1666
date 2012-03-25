@@ -115,19 +115,17 @@ namespace game1666proto4.GameModel.Entities.Custom
 			string entityBlueprintName;
 			if(Blueprint.Offers.TryGetValue(request.Resource.ToString(), out entityBlueprintName))
 			{
-				MobileEntityBlueprint entityBlueprint = BlueprintManager.GetBlueprint(entityBlueprintName);
-				Type entityType = entityBlueprint.EntityType;
-
 				// Set the properties of the entity.
 				var entityProperties = new Dictionary<string,dynamic>();
+				Vector2i spawnerEntrance = Entrances.First();
 				entityProperties["Blueprint"] = entityBlueprintName;
 				entityProperties["Name"] = entityBlueprintName.ToLower() + ":" + Guid.NewGuid().ToString();
 				entityProperties["Orientation"] = Orientation8.XPOS;
-
-				Vector2i spawnerEntrance = Entrances.First();
 				entityProperties["Position"] = new Vector2(spawnerEntrance.X + 0.5f, spawnerEntrance.Y + 0.5f);
 
 				// Create the entity.
+				MobileEntityBlueprint entityBlueprint = BlueprintManager.GetBlueprint(entityBlueprintName);
+				Type entityType = entityBlueprint.EntityType;
 				IMobileEntity entity = Activator.CreateInstance(entityType, entityProperties) as IMobileEntity;
 
 				// Make the entity head towards the source of the request.
