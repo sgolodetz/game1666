@@ -14,43 +14,8 @@ namespace game1666proto4.GameModel.Entities
 	/// An instance of this class represents a movement strategy that causes a mobile
 	/// entity to head towards a specific position.
 	/// </summary>
-	sealed class MovementStrategyGoToPosition : IMovementStrategy
+	sealed class MovementStrategyGoToPosition : MovementStrategyGoToBase
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The properties of the movement strategy.
-		/// </summary>
-		private readonly IDictionary<string,dynamic> m_properties;
-
-		/// <summary>
-		/// The sub-strategy used for path-following.
-		/// </summary>
-		/// <remarks>
-		/// This movement strategy finds a path that will in principle take the
-		/// entity to the desired position, then delegates the job of actually
-		/// following the path to a 'follow path' strategy.
-		/// </remarks>
-		private MovementStrategyFollowPath m_subStrategy;
-
-		#endregion
-
-		//#################### PROPERTIES ####################
-		#region
-
-		/// <summary>
-		/// The properties of the mobile entity.
-		/// </summary>
-		public IDictionary<string,dynamic> EntityProperties { private get; set; }
-
-		/// <summary>
-		/// The navigation map for the terrain on which the entity is moving.
-		/// </summary>
-		public EntityNavigationMap NavigationMap { private get; set; }
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -60,8 +25,8 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="targetPosition">The target position.</param>
 		public MovementStrategyGoToPosition(Vector2 targetPosition)
 		{
-			m_properties = new Dictionary<string,dynamic>();
-			m_properties.Add("TargetPosition", targetPosition);
+			Properties = new Dictionary<string,dynamic>();
+			Properties.Add("TargetPosition", targetPosition);
 		}
 
 		/// <summary>
@@ -70,61 +35,33 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entityElt">The root node of the strategy's XML representation.</param>
 		public MovementStrategyGoToPosition(XElement entityElt)
 		{
-			m_properties = EntityPersister.LoadProperties(entityElt);
+			Properties = EntityPersister.LoadProperties(entityElt);
 		}
 
 		#endregion
 
-		//#################### PUBLIC METHODS ####################
+		//#################### PROTECTED METHODS ####################
 		#region
 
 		/// <summary>
-		/// Tries to move the entity based on the movement strategy and elapsed time.
+		/// Tries to generate an appropriate 'follow path' sub-strategy for the mobile entity to follow.
 		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		/// <returns>The result of the attempt: either blocked, finished or moved.</returns>
-		public MoveResult Move(GameTime gameTime)
+		protected override MovementStrategyFollowPath GenerateSubStrategy()
 		{
-			if(m_subStrategy == null)
-			{
-				// If we're not currently following a path to the target position, try and find one.
-				Vector2 pos = EntityProperties["Position"];
-				Queue<Vector2> path = NavigationMap.FindPath(pos, new List<Vector2> { m_properties["TargetPosition"] }, EntityProperties);
+			// Try and find a path to the target position.
+			Vector2 pos = EntityProperties["Position"];
+			Queue<Vector2> path = NavigationMap.FindPath(pos, new List<Vector2> { Properties["TargetPosition"] }, EntityProperties);
 
-				// If we successfully found a path, set it as the one to follow; otherwise, exit.
-				if(path != null)
+			// If a path has been found, return a movement strategy that will cause the entity to follow it, else return null.
+			if(path != null)
+			{
+				return new MovementStrategyFollowPath(path)
 				{
-					m_subStrategy = new MovementStrategyFollowPath(path)
-					{
-						EntityProperties = this.EntityProperties,
-						NavigationMap = this.NavigationMap
-					};
-				}
-				else return MoveResult.BLOCKED;
+					EntityProperties = this.EntityProperties,
+					NavigationMap = this.NavigationMap
+				};
 			}
-
-			// Attempt to follow the path that's been found.
-			MoveResult result = m_subStrategy.Move(gameTime);
-
-			// If the path found is blocked for some reason, clear the 'follow path' sub-strategy -
-			// we'll try and find a new path next time.
-			if(result == MoveResult.BLOCKED)
-			{
-				m_subStrategy = null;
-			}
-
-			return result;
-		}
-
-		/// <summary>
-		/// Saves the movement strategy to XML.
-		/// </summary>
-		/// <returns>An XML representation of the movement strategy.</returns>
-		public XElement SaveToXML()
-		{
-			XElement entityElt = EntityPersister.ConstructEntityElement(GetType());
-			EntityPersister.SaveProperties(entityElt, m_properties);
-			return entityElt;
+			else return null;
 		}
 
 		#endregion

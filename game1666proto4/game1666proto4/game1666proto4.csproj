@@ -171,6 +171,7 @@
     <Compile Include="Common\Entities\IPersistableEntity.cs" />
     <Compile Include="Common\Maths\Orientation8.cs" />
     <Compile Include="GameModel\Entities\MovementStrategyFollowPath.cs" />
+    <Compile Include="GameModel\Entities\MovementStrategyGoToBase.cs" />
     <Compile Include="GameModel\Entities\MovementStrategyGoToPlaceable.cs" />
     <Compile Include="GameModel\Messages\EntitySpawnMessage.cs" />
     <Compile Include="GameModel\Messages\EntityPreDestructionMessage.cs" />
