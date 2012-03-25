@@ -123,6 +123,7 @@ namespace game1666proto4.GameModel.Entities
 		{
 			m_cities.Add(city.Name, city);
 			m_playingArea.AddEntity(city);
+			city.Parent = this;
 			EntityUtil.RegisterEntityDestructionRule(city, this);
 			EntityUtil.RegisterEntitySpawnRule(city, this);
 		}
@@ -134,6 +135,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IMobileEntity entity)
 		{
 			m_playingArea.AddEntity(entity);
+			entity.Parent = this;
 			EntityUtil.RegisterEntityDestructionRule(entity, this);
 		}
 
@@ -144,6 +146,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_playingArea.AddEntity(entity);
+			entity.Parent = this;
 			EntityUtil.RegisterEntityDestructionRule(entity, this);
 			EntityUtil.RegisterEntitySpawnRule(entity, this);
 		}
@@ -176,6 +179,7 @@ namespace game1666proto4.GameModel.Entities
 			{
 				m_cities.Remove(city.Name);
 				m_playingArea.DeleteEntity(city);
+				city.Parent = null;
 			}
 		}
 
@@ -186,6 +190,7 @@ namespace game1666proto4.GameModel.Entities
 		public void DeleteEntity(IMobileEntity entity)
 		{
 			m_playingArea.DeleteEntity(entity);
+			entity.Parent = null;
 		}
 
 		/// <summary>
@@ -197,6 +202,7 @@ namespace game1666proto4.GameModel.Entities
 			if(entity.Destructible)
 			{
 				m_playingArea.DeleteEntity(entity);
+				entity.Parent = null;
 			}
 		}
 

@@ -42,11 +42,6 @@ namespace game1666proto4.GameModel.Entities
 		public EntityNavigationMap NavigationMap { get { return m_playingArea.NavigationMap; } }
 
 		/// <summary>
-		/// The parent of the city.
-		/// </summary>
-		public INamedEntity Parent { get; set; }
-
-		/// <summary>
 		/// The persistable entities contained within the city.
 		/// </summary>
 		public override IEnumerable<IPersistableEntity> Persistables
@@ -132,6 +127,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IMobileEntity entity)
 		{
 			m_playingArea.AddEntity(entity);
+			entity.Parent = this;
 			EntityUtil.RegisterEntityDestructionRule(entity, this);
 		}
 
@@ -142,6 +138,7 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IPlaceableEntity entity)
 		{
 			m_playingArea.AddEntity(entity);
+			entity.Parent = this;
 			EntityUtil.RegisterEntityDestructionRule(entity, this);
 			EntityUtil.RegisterEntitySpawnRule(entity, this);
 		}
@@ -170,7 +167,17 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="entity">The entity.</param>
 		public void DeleteDynamicEntity(dynamic entity)
 		{
+			DeleteEntity(entity);
+		}
+
+		/// <summary>
+		/// Deletes a named entity from the city.
+		/// </summary>
+		/// <param name="entity">The city.</param>
+		public void DeleteEntity(INamedEntity entity)
+		{
 			m_playingArea.DeleteDynamicEntity(entity);
+			entity.Parent = null;
 		}
 
 		/// <summary>
@@ -178,7 +185,7 @@ namespace game1666proto4.GameModel.Entities
 		/// </summary>
 		/// <param name="name">The name of the entity to look up.</param>
 		/// <returns>The entity, if found, or null otherwise.</returns>
-		public INamedEntity GetEntityByName(string name)
+		public override INamedEntity GetEntityByName(string name)
 		{
 			// TODO
 			return null;

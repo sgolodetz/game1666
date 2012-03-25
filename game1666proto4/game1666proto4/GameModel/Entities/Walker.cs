@@ -111,6 +111,11 @@ namespace game1666proto4.GameModel.Entities
 		public Orientation8 Orientation { get { return m_properties["Orientation"]; } }
 
 		/// <summary>
+		/// The parent of the walker in its name tree.
+		/// </summary>
+		public INamedEntity Parent { get; set; }
+
+		/// <summary>
 		/// The position of the walker (relative to the origin of the containing entity).
 		/// </summary>
 		public Vector2 Position
@@ -166,6 +171,17 @@ namespace game1666proto4.GameModel.Entities
 		public void AddEntity(IMovementStrategy movementStrategy)
 		{
 			MovementStrategy = movementStrategy;
+		}
+
+		/// <summary>
+		/// Gets a named entity directly contained within the walker (irrelevant, since the walker
+		/// does not contain any named entities).
+		/// </summary>
+		/// <param name="name">The name of the entity to look up.</param>
+		/// <returns>null, since the walker does not contain any named entities.</returns>
+		public INamedEntity GetEntityByName(string name)
+		{
+			return null;
 		}
 
 		/// <summary>

@@ -93,6 +93,11 @@ namespace game1666proto4.GameModel.Entities
 		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
 
 		/// <summary>
+		/// The parent of the entity (if any) in its name tree (or null if this is the root of the tree).
+		/// </summary>
+		public INamedEntity Parent { get; set; }
+
+		/// <summary>
 		/// The persistable entities contained within the entity.
 		/// </summary>
 		public virtual IEnumerable<IPersistableEntity> Persistables
@@ -187,6 +192,17 @@ namespace game1666proto4.GameModel.Entities
 		{
 			FSM = fsm;
 			fsm.EntityProperties = Properties;
+		}
+
+		/// <summary>
+		/// Gets a named entity directly contained within the current entity.
+		/// </summary>
+		/// <param name="name">The name of the entity to look up.</param>
+		/// <returns>The entity, if found, or null otherwise.</returns>
+		public virtual INamedEntity GetEntityByName(string name)
+		{
+			// Most placeable entities won't contain other entities; those that do can override this method.
+			return null;
 		}
 
 		/// <summary>

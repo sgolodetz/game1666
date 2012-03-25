@@ -45,7 +45,7 @@ namespace game1666proto4.Common.Entities
 	}
 
 	/// <summary>
-	/// This class provides a set of extension methods for classes that implement INamedEntity.
+	/// This class provides a set of path-based lookup functions for classes that implement INamedEntity.
 	/// </summary>
 	static class NamedEntity
 	{

@@ -3,6 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Matchmaking;
@@ -13,7 +14,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can move (e.g. a walker).
 	/// </summary>
-	interface IMobileEntity
+	interface IMobileEntity : INamedEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -37,11 +38,6 @@ namespace game1666proto4.GameModel.Entities
 		/// The movement strategy for the entity.
 		/// </summary>
 		IMovementStrategy MovementStrategy { set; }
-
-		/// <summary>
-		/// The name of the entity (must be unique within its playing area).
-		/// </summary>
-		string Name { get; }
 
 		/// <summary>
 		/// The navigation map for the terrain on which the entity is moving.

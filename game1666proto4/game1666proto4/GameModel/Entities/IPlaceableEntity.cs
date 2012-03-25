@@ -14,7 +14,7 @@ namespace game1666proto4.GameModel.Entities
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can be placed in a playing area.
 	/// </summary>
-	interface IPlaceableEntity : ICompositeEntity
+	interface IPlaceableEntity : ICompositeEntity, INamedEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -48,11 +48,6 @@ namespace game1666proto4.GameModel.Entities
 		/// The resource matchmaker for the entity's playing area.
 		/// </summary>
 		ResourceMatchmaker Matchmaker { set; }
-
-		/// <summary>
-		/// The name of the entity (must be unique within its playing area).
-		/// </summary>
-		string Name { get; }
 
 		/// <summary>
 		/// The 2D axis-aligned orientation of the entity.

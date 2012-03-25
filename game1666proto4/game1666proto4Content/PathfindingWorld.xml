@@ -63,7 +63,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Entities.Walker">
-      <property name="Name" type="string" value="Dawlish"/>
+      <property name="Name" type="string" value="walker:Dawlish"/>
       <property name="Blueprint" type="string" value="Citizen"/>
       <property name="Orientation" type="Orientation8" value="XPOS"/>
       <property name="Position" type="Vector2" value="0.5,2.5"/>
