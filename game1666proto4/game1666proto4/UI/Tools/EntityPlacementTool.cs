@@ -5,7 +5,7 @@
 
 using System;
 using game1666proto4.Common.Maths;
-using game1666proto4.GameModel.Entities.Core;
+using game1666proto4.GameModel.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
