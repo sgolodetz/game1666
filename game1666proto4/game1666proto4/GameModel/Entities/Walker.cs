@@ -180,7 +180,7 @@ namespace game1666proto4.GameModel.Entities
 		/// does not contain any named entities).
 		/// </summary>
 		/// <param name="name">The name of the entity to look up.</param>
-		/// <returns>null, since the walker does not contain any named entities.</returns>
+		/// <returns>Always null, since the walker does not contain any named entities.</returns>
 		public INamedEntity GetEntityByName(string name)
 		{
 			return null;

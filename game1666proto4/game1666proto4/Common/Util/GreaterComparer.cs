@@ -18,9 +18,11 @@ namespace game1666proto4.Common.Util
 		/// </summary>
 		/// <param name="lhs">The left-hand object.</param>
 		/// <param name="rhs">The right-hand object.</param>
-		/// <returns>A -ve value if lhs is before rhs in the greater-than ordering (i.e. if lhs is greater than rhs),
-		///			 a +ve value if lhs is after rhs in the greater-than ordering (i.e. if lhs is less than rhs),
-		///			 or 0 otherwise.</returns>
+		/// <returns>
+		/// A -ve value if lhs is before rhs in the greater-than ordering (i.e. if lhs is greater than rhs),
+		/// a +ve value if lhs is after rhs in the greater-than ordering (i.e. if lhs is less than rhs),
+		/// or 0 otherwise.
+		/// </returns>
 		public int Compare(T lhs, T rhs)
 		{
 			return -Comparer<T>.Default.Compare(lhs, rhs);

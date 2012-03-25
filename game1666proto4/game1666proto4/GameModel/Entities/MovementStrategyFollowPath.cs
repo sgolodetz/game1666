@@ -137,8 +137,8 @@ namespace game1666proto4.GameModel.Entities
 			// 4) The next grid square is the last one in the path and an entrance.
 			bool usablePath = nextOccupier == null ||
 							  nextOccupier is RoadSegment ||
-							  curOccupier != null && curOccupier.Entrances.Contains(curGridSquare) ||
-							  nextGridSquare == m_path.Last().ToVector2i() && nextOccupier.Entrances.Contains(nextGridSquare);
+							  (curOccupier != null && curOccupier.Entrances.Contains(curGridSquare)) ||
+							  (nextGridSquare == m_path.Last().ToVector2i() && nextOccupier.Entrances.Contains(nextGridSquare));
 
 			// If none of the conditions are met, then exit: the containing movement strategy
 			// will have to try and find a new path.

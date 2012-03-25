@@ -67,6 +67,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <summary>
 		/// Tries to generate an appropriate 'follow path' sub-strategy for the mobile entity to follow.
 		/// </summary>
+		/// <returns>The generated sub-strategy, if any, or null otherwise.</returns>
 		protected override MovementStrategyFollowPath GenerateSubStrategy()
 		{
 			// Make sure that the target entity has been looked up.
