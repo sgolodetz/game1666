@@ -12,11 +12,14 @@ using game1666proto4.Common.Matchmaking;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities.Core;
+using game1666proto4.GameModel.Entities.MovementStrategies;
+using game1666proto4.GameModel.Entities.PlacementStrategies;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Custom
 {
 	/// <summary>
 	/// An instance of this class represents a spawner that can be used to generate new mobile entities

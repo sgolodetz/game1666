@@ -2,7 +2,7 @@
 <config>
   <blueprints>
     <entity type="GameModel.Blueprints.PlaceableEntityBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.City"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.City"/>
       <property name="Name" type="string" value="Village"/>
       <property name="Model" type="string" value="Village"/>
       <property name="TimeToConstruct" type="int" value="10000"/>
@@ -17,7 +17,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Blueprints.HouseBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.House"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.House"/>
       <property name="Name" type="string" value="Dwelling"/>
       <property name="MaxOccupants" type="int" value="2"/>
       <property name="Model" type="string" value="Dwelling"/>
@@ -31,7 +31,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Blueprints.HouseBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.House"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.House"/>
       <property name="Name" type="string" value="Mansion"/>
       <property name="MaxOccupants" type="int" value="10"/>
       <property name="Model" type="string" value="Mansion"/>
@@ -46,7 +46,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Blueprints.PlaceableEntityBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.RoadSegment"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.RoadSegment"/>
       <property name="Name" type="string" value="DirtTrack"/>
       <property name="Model" type="string" value="DirtTrack"/>
       <property name="TimeToConstruct" type="int" value="0"/>
@@ -59,7 +59,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Blueprints.SpawnerBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.Spawner"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.Spawner"/>
       <property name="Name" type="string" value="ImmigrantSpawner"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="Offers" type="Dictionary[string,string]">
@@ -76,7 +76,7 @@
       </entity>
     </entity>
     <entity type="GameModel.Blueprints.MobileEntityBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.Walker"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.Walker"/>
       <property name="Name" type="string" value="Citizen"/>
       <property name="AnimationSpeed" type="float" value="1.0"/>
       <property name="MaxAltitudeChange" type="float" value="0.5"/>
@@ -84,7 +84,7 @@
       <property name="MovementSpeed" type="float" value="0.5"/>
     </entity>
     <entity type="GameModel.Blueprints.MobileEntityBlueprint">
-      <property name="EntityType" type="string" value="GameModel.Entities.Walker"/>
+      <property name="EntityType" type="string" value="GameModel.Entities.Custom.Walker"/>
       <property name="Name" type="string" value="Immigrant"/>
       <property name="AnimationSpeed" type="float" value="1.0"/>
       <property name="MaxAltitudeChange" type="float" value="0.5"/>

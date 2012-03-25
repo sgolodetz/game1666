@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Maths;
-using game1666proto4.GameModel.Entities;
+using game1666proto4.GameModel.Entities.Core;
 using game1666proto4.GameModel.FSMs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -10,7 +10,7 @@ using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.Common.Messages;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// This class contains entity-related utility methods.
@@ -37,7 +37,7 @@ namespace game1666proto4.GameModel.Entities
 		/// <param name="roadSegment">The road segment.</param>
 		/// /// <param name="navigationMap">The navigation map associated with the terrain on which the road segment sits.</param>
 		/// <returns>The model and orientation to use.</returns>
-		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(RoadSegment roadSegment, EntityNavigationMap navigationMap)
+		public static Tuple<string,Orientation4> DetermineModelNameAndOrientation(IRoadSegment roadSegment, EntityNavigationMap navigationMap)
 		{
 			int x = roadSegment.Position.X;
 			int y = roadSegment.Position.Y;

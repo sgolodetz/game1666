@@ -5,8 +5,8 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Input;
-using game1666proto4.GameModel.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -55,7 +55,7 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="entityElt">The root element of the hierarchy's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public ViewHierarchy(XElement entityElt, World world)
+		public ViewHierarchy(XElement entityElt, INamedEntity world)
 		:	base(entityElt, world)
 		{
 			// Register input handlers.

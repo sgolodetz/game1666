@@ -9,9 +9,11 @@ using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities.Core;
+using game1666proto4.GameModel.Entities.Custom;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.MovementStrategies
 {
 	/// <summary>
 	/// An instance of this class represents a movement strategy that causes a mobile

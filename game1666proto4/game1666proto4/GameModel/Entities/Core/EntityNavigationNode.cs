@@ -12,7 +12,7 @@ using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Navigation;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// An instance of this class represents a node in the A* search space used for entity pathfinding.
@@ -205,7 +205,7 @@ namespace game1666proto4.GameModel.Entities
 		private int ClassifyOccupyingEntity()
 		{
 			// Note: The values are chosen to be powers of two deliberately - see their use in CostToNeighbour.
-			if(OccupyingEntity is RoadSegment)	return 4;
+			if(OccupyingEntity is IRoadSegment)	return 4;
 			else if(OccupyingEntity != null)	return 2;
 			else								return 1;
 		}

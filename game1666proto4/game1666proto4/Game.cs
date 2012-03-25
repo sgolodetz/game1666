@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using game1666proto4.Common.Graphics;
 using game1666proto4.Common.Input;
-using game1666proto4.GameModel.Entities;
+using game1666proto4.GameModel.Entities.Custom;
 using game1666proto4.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

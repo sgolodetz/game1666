@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
-using game1666proto4.GameModel.Entities;
+using game1666proto4.Common.Entities;
 
 namespace game1666proto4.UI
 {
@@ -47,7 +47,7 @@ namespace game1666proto4.UI
 		/// </summary>
 		/// <param name="entityElt">The root element of the view's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public GameView(XElement entityElt, World world)
+		public GameView(XElement entityElt, INamedEntity world)
 		:	base(entityElt, world)
 		{}
 

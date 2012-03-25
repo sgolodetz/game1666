@@ -8,7 +8,7 @@ using game1666proto4.Common.Maths;
 using game1666proto4.Common.Terrains;
 using game1666proto4.GameModel.Blueprints;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents a placement strategy for an entity

@@ -9,7 +9,7 @@ using game1666proto4.GameModel.Blueprints;
 using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents an entity that can move (e.g. a walker).

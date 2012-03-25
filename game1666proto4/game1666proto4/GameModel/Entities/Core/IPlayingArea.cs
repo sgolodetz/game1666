@@ -6,9 +6,8 @@
 using System.Collections.Generic;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Terrains;
-using game1666proto4.GameModel.Navigation;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents a playing area in the game.

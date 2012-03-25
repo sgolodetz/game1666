@@ -8,7 +8,7 @@ using game1666proto4.Common.Entities;
 using game1666proto4.GameModel.Navigation;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// This enum specifies the possible results of trying to move an entity.

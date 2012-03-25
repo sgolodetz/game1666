@@ -5,7 +5,7 @@
 
 using game1666proto4.GameModel.Navigation;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// This class is used to provide a helpful typedef so that we don't have to keep typing out the long type name.

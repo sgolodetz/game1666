@@ -7,9 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.GameModel.Entities.Core;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.MovementStrategies
 {
 	/// <summary>
 	/// An instance of this class represents a movement strategy that causes a mobile

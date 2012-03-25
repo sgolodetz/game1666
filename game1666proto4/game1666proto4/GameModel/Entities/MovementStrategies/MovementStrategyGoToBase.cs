@@ -6,9 +6,10 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666proto4.Common.Entities;
+using game1666proto4.GameModel.Entities.Core;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.MovementStrategies
 {
 	/// <summary>
 	/// An instance of a class deriving from this one represents a movement strategy that

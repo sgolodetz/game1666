@@ -8,10 +8,11 @@ using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities.Core;
 using game1666proto4.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Custom
 {
 	/// <summary>
 	/// An instance of this class represents a walker, e.g. a citizen walking around the city.

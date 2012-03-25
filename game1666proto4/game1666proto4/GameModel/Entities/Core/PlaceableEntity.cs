@@ -9,10 +9,11 @@ using System.Xml.Linq;
 using game1666proto4.Common.Entities;
 using game1666proto4.Common.Maths;
 using game1666proto4.GameModel.Blueprints;
+using game1666proto4.GameModel.Entities.PlacementStrategies;
 using game1666proto4.GameModel.FSMs;
 using game1666proto4.GameModel.Matchmaking;
 
-namespace game1666proto4.GameModel.Entities
+namespace game1666proto4.GameModel.Entities.Core
 {
 	/// <summary>
 	/// An instance of a class deriving from this one represents an entity that can be placed in a playing area.
