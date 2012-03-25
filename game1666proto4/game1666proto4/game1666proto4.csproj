@@ -173,8 +173,8 @@
     <Compile Include="GameModel\Entities\MovementStrategyFollowPath.cs" />
     <Compile Include="GameModel\Entities\MovementStrategyGoToBase.cs" />
     <Compile Include="GameModel\Entities\MovementStrategyGoToPlaceable.cs" />
-    <Compile Include="GameModel\Messages\EntitySpawnMessage.cs" />
-    <Compile Include="GameModel\Messages\EntityPreDestructionMessage.cs" />
+    <Compile Include="Common\Messages\EntitySpawnMessage.cs" />
+    <Compile Include="Common\Messages\EntityPreDestructionMessage.cs" />
     <Compile Include="Common\Messages\IMessage.cs" />
     <Compile Include="Common\Messages\MessageRule.cs" />
     <Compile Include="Common\Messages\MessageFilterFactory.cs" />
@@ -190,7 +190,7 @@
     <Compile Include="GameModel\Blueprints\Blueprint.cs" />
     <Compile Include="GameModel\Blueprints\MobileEntityBlueprint.cs" />
     <Compile Include="GameModel\Blueprints\SpawnerBlueprint.cs" />
-    <Compile Include="GameModel\Entities\EntityDestructionManager.cs" />
+    <Compile Include="Common\Entities\EntityDestructionManager.cs" />
     <Compile Include="GameModel\Entities\EntityNavigationMap.cs" />
     <Compile Include="GameModel\Entities\EntityUtil.cs" />
     <Compile Include="GameModel\Entities\IMobileEntity.cs" />
@@ -210,7 +210,7 @@
     <Compile Include="GameModel\Matchmaking\ResourceOffer.cs" />
     <Compile Include="GameModel\Matchmaking\ResourceRequest.cs" />
     <Compile Include="GameModel\Matchmaking\Resource.cs" />
-    <Compile Include="GameModel\Messages\EntityDestructionMessage.cs" />
+    <Compile Include="Common\Messages\EntityDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\PlayingArea.cs" />
     <Compile Include="GameModel\Entities\EntityNavigationNode.cs" />
     <Compile Include="UI\IVisibleEntity.cs" />

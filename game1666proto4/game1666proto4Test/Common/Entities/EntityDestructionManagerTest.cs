@@ -5,13 +5,12 @@
 
 using System;
 using System.Collections.Generic;
+using game1666proto4.Common.Entities;
 using game1666proto4.Common.Messages;
-using game1666proto4.GameModel.Entities;
-using game1666proto4.GameModel.Messages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
-namespace game1666proto4Test.GameModel.Matchmaking
+namespace game1666proto4Test.Common.Entities
 {
 	[TestClass]
 	public sealed class EntityDestructionManagerTest

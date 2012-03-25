@@ -3,9 +3,7 @@
  * Copyright 2012. All rights reserved.
  ***/
 
-using game1666proto4.Common.Messages;
-
-namespace game1666proto4.GameModel.Messages
+namespace game1666proto4.Common.Messages
 {
 	/// <summary>
 	/// An instance of this class represents a message indicating that a new game entity is being spawned.

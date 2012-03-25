@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Common\ADTs\PriorityQueueTest.cs" />
     <Compile Include="Common\Entities\EntityPersisterTest.cs" />
-    <Compile Include="GameModel\Entities\EntityDestructionManagerTest.cs" />
+    <Compile Include="Common\Entities\EntityDestructionManagerTest.cs" />
     <Compile Include="GameModel\Matchmaking\ResourceMatchmakerTest.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingGraphTest.cs" />
     <Compile Include="Common\Maths\TriangleTest.cs" />
