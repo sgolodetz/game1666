@@ -20,7 +20,7 @@ namespace game1666proto4.Common.Entities
 		#region
 
 		/// <summary>
-		/// The name of the entity (must be unique within its containing entity).
+		/// The name of the entity (must be unique within its parent entity).
 		/// </summary>
 		string Name { get; }
 
