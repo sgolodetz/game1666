@@ -4,10 +4,10 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using game1666.Common.Entities;
 
 namespace game1666.Common.Persistence
 {
@@ -39,6 +39,16 @@ namespace game1666.Common.Persistence
 	/// </summary>
 	static class ObjectPersister
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// A dictionary specifying how special XML element types such as "entity" get mapped to C# types.
+		/// </summary>
+		private static IDictionary<string,Type> s_specialElements = new Dictionary<string,Type>();
+
+		#endregion
+
 		//#################### PUBLIC STATIC METHODS ####################
 		#region
 
@@ -72,6 +82,20 @@ namespace game1666.Common.Persistence
 			}
 		}
 
+		/// <summary>
+		/// Registers a special XML element type such as "entity". This will be used when
+		/// determining the C# type corresponding to elements with the specified name.
+		/// </summary>
+		/// <remarks>
+		/// The idea is to save users having to type out the full type name for objects in the XML.
+		/// </remarks>
+		/// <param name="elementName">The name of the XML element.</param>
+		/// <param name="type">The C# type to which it corresponds.</param>
+		public static void RegisterSpecialElement(string elementName, Type type)
+		{
+			s_specialElements.Add(elementName, type);
+		}
+
 		#endregion
 
 		//#################### PRIVATE STATIC METHODS ####################
@@ -80,25 +104,31 @@ namespace game1666.Common.Persistence
 		/// <summary>
 		/// Determines the C# type corresponding to the specified XML element.
 		/// </summary>
-		/// <param name="elt">The XML element.</param>
+		/// <param name="element">The XML element.</param>
 		/// <returns>The corresponding C# type.</returns>
-		private static Type DetermineType(XElement e)
+		private static Type DetermineType(XElement element)
 		{
-			// FIXME: The way this is currently being done is introducing a dependency on the Entities package.
-			switch(e.Name.ToString())
+			string elementName = element.Name.ToString();
+
+			if(s_specialElements.ContainsKey(elementName))
 			{
-				case "component":
-					// TODO: Look up the appropriate type in the game configuration data.
-					throw new NotImplementedException();
-				case "entity":
-					return typeof(Entity);
-				case "object":
-					string typename = Convert.ToString(e.Attribute("type").Value);
-					var type = Type.GetType(typename);
-					if(type != null) return type;
-					else throw new InvalidDataException("No such class: " + typename);
-				default:
-					throw new InvalidDataException("Cannot load child element with name: " + e.Name);
+				return s_specialElements[elementName];
+			}
+			else if(elementName == "component")
+			{
+				// TODO: Look up the appropriate type in the game configuration data.
+				throw new NotImplementedException();
+			}
+			else if(elementName == "object")
+			{
+				string typename = Convert.ToString(element.Attribute("type").Value);
+				var type = Type.GetType(typename);
+				if(type != null) return type;
+				else throw new InvalidDataException("No such type: " + typename);
+			}
+			else
+			{
+				throw new InvalidDataException("Cannot determine type of element with name: " + elementName);
 			}
 		}
 
