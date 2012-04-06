@@ -63,7 +63,7 @@ namespace game1666.Common.Persistence
 			foreach(XElement childElt in parentElt.Elements().Where(e => e.Name != "property"))
 			{
 				// Determine the C# type corresponding to the child element.
-				Type childType = DetermineType(childElt);
+				Type childType = DetermineElementType(childElt);
 
 				// Try to find a suitable loader for that type.
 				ObjectLoader loader = loaders.FirstOrDefault(L => L.CanBeUsedFor(childType));
@@ -106,18 +106,13 @@ namespace game1666.Common.Persistence
 		/// </summary>
 		/// <param name="element">The XML element.</param>
 		/// <returns>The corresponding C# type.</returns>
-		private static Type DetermineType(XElement element)
+		private static Type DetermineElementType(XElement element)
 		{
 			string elementName = element.Name.ToString();
 
 			if(s_specialElements.ContainsKey(elementName))
 			{
 				return s_specialElements[elementName];
-			}
-			else if(elementName == "component")
-			{
-				// TODO: Look up the appropriate type in the game configuration data.
-				throw new NotImplementedException();
 			}
 			else if(elementName == "object")
 			{
