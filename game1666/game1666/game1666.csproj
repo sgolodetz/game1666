@@ -115,6 +115,7 @@
     <Compile Include="Common\Entities\EntityComponent.cs" />
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
+    <Compile Include="Common\Maths\Vector2i.cs" />
     <Compile Include="UI\MouseEventManager.cs" />
     <Compile Include="UI\Renderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,10 +133,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\Persistence\" />
     <Folder Include="GameModel\Entities\Components\External\" />
     <Folder Include="GameModel\Entities\Components\Internal\" />
     <Folder Include="UI\Entities\Components\Interaction\" />
     <Folder Include="UI\Entities\Components\Rendering\" />
+    <Folder Include="UI\Persistence\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
