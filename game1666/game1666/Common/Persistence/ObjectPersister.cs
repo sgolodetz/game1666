@@ -84,6 +84,7 @@ namespace game1666.Common.Persistence
 		/// <returns>The corresponding C# type.</returns>
 		private static Type DetermineType(XElement e)
 		{
+			// FIXME: The way this is currently being done is introducing a dependency on the Entities package.
 			switch(e.Name.ToString())
 			{
 				case "component":
@@ -92,7 +93,7 @@ namespace game1666.Common.Persistence
 				case "entity":
 					return typeof(Entity);
 				case "object":
-					string typename = "game1666." + Convert.ToString(e.Attribute("type").Value);
+					string typename = Convert.ToString(e.Attribute("type").Value);
 					var type = Type.GetType(typename);
 					if(type != null) return type;
 					else throw new InvalidDataException("No such class: " + typename);

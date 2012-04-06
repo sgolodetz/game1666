@@ -3,8 +3,9 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Collections.Generic;
+using System.Xml.Linq;
 using game1666.Common.Entities;
+using game1666.Common.Entities.Components;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
@@ -45,6 +46,36 @@ namespace game1666Test
 
 		//#################### TEST METHODS ####################
 		#region
+
+		[TestMethod]
+		public void ConstructorTest()
+		{
+			string text = @"
+			<entity>
+				<property name=""Archetype"" type=""string"" value=""World""/>
+				<property name=""Name"" type=""string"" value="".""/>
+				<object type=""game1666.Common.Entities.Components.TestComponent""/>
+				<entity>
+					<property name=""Archetype"" type=""string"" value=""Settlement""/>
+					<property name=""Name"" type=""string"" value=""settlement:Stuartopolis""/>
+					<object type=""game1666.Common.Entities.Components.TestComponent""/>
+				</entity>
+			</entity>
+			";
+
+			var world = new Entity(XElement.Parse(text));
+
+			Assert.Equal("World", world.Archetype);
+			Assert.Equal(".", world.Name);
+			Assert.NotNull(world.GetComponent<TestComponent>(TestComponent.StaticGroup));
+
+			IEntity settlement = world.GetChild("settlement:Stuartopolis");
+
+			Assert.NotNull(settlement);
+			Assert.Equal("Settlement", settlement.Archetype);
+			Assert.Equal("settlement:Stuartopolis", settlement.Name);
+			Assert.NotNull(settlement.GetComponent<TestComponent>(TestComponent.StaticGroup));
+		}
 
 		[TestMethod]
 		public void GetAbsolutePathTest()

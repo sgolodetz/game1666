@@ -10,7 +10,7 @@ using game1666.Common.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
-namespace game1666proto4Test.Common.Entities
+namespace game1666proto4Test.Common.Persistence
 {
 	[TestClass]
 	public sealed class PropertyPersisterTest

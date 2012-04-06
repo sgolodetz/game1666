@@ -6,6 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Entities
@@ -28,6 +30,11 @@ namespace game1666.Common.Entities
 		/// </summary>
 		private readonly IDictionary<string,IEntityComponent> m_components = new Dictionary<string,IEntityComponent>();
 
+		/// <summary>
+		/// The properties of the entity.
+		/// </summary>
+		private readonly IDictionary<string,dynamic> m_properties;
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -37,12 +44,12 @@ namespace game1666.Common.Entities
 		/// The archetype of the entity. An entity's archetype, e.g. World,
 		/// indicates which components the entity should have.
 		/// </summary>
-		public string Archetype { get; private set; }
+		public string Archetype { get { return m_properties["Archetype"]; } }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its parent entity, if any).
 		/// </summary>
-		public string Name { get; private set; }
+		public string Name { get { return m_properties["Name"]; } }
 
 		/// <summary>
 		/// The parent of the entity in its tree.
@@ -61,8 +68,37 @@ namespace game1666.Common.Entities
 		/// <param name="archetype">The archetype of the entity.</param>
 		public Entity(string name, string archetype)
 		{
-			Name = name;
-			Archetype = archetype;
+			m_properties = new Dictionary<string,dynamic>
+			{
+				{ "Archetype", archetype },
+				{ "Name", name }
+			};
+		}
+
+		/// <summary>
+		/// Constructs an entity from its XML representation.
+		/// </summary>
+		/// <param name="entityElt">The root element of the entity's XML representation.</param>
+		public Entity(XElement entityElt)
+		{
+			m_properties = PropertyPersister.LoadProperties(entityElt);
+
+			ObjectPersister.LoadChildObjects
+			(
+				entityElt,
+				new ObjectLoader
+				{
+					CanBeUsedFor = t => t == typeof(Entity),
+					AdditionalArguments = new object[] {},
+					Load = o => AddChild(o)
+				},
+				new ObjectLoader
+				{
+					CanBeUsedFor = t => typeof(EntityComponent).IsAssignableFrom(t),
+					AdditionalArguments = new object[] {},
+					Load = o => (o as EntityComponent).AddToEntity(this)
+				}
+			);
 		}
 
 		#endregion
