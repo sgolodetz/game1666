@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Entities
 {
@@ -113,6 +114,12 @@ namespace game1666.Common.Entities
 		/// <param name="child">The child to remove.</param>
 		/// <exception cref="System.InvalidOperationException">If this entity does not contain the child.</exception>
 		void RemoveChild(IEntity child);
+
+		/// <summary>
+		/// Updates the entity based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		void Update(GameTime gameTime);
 
 		#endregion
 	}

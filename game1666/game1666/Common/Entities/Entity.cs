@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Entities
 {
@@ -212,6 +213,18 @@ namespace game1666.Common.Entities
 				child.Parent = null;
 			}
 			else throw new InvalidOperationException("No such child: " + child.Name);
+		}
+
+		/// <summary>
+		/// Updates the entity based on elapsed time and user input.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		public void Update(GameTime gameTime)
+		{
+			foreach(IEntityComponent component in m_components.Values)
+			{
+				component.Update(gameTime);
+			}
 		}
 
 		#endregion
