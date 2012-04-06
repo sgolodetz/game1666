@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -72,11 +73,11 @@ namespace game1666
 		protected override void Initialize()
 		{
 			// Set up the renderer.
-			/*Renderer.Content = Content;
+			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Load the world from an XML file.
-			m_world = World.LoadFromFile(@"Content\PathfindingWorld.xml");
+			/*m_world = World.LoadFromFile(@"Content\PathfindingWorld.xml");
 
 			// Load the view hierarchy from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
@@ -91,8 +92,8 @@ namespace game1666
 		protected override void LoadContent()
 		{
 			// Pre-load content.
-			/*Content.Load<Texture2D>("Textures/grass");
-			Content.Load<Texture2D>("Textures/snow");*/
+			Content.Load<Texture2D>("Textures/grass");
+			Content.Load<Texture2D>("Textures/snow");
 		}
 
 		/// <summary>
@@ -113,10 +114,10 @@ namespace game1666
 			KeyboardState keyState = Keyboard.GetState();
 			if(keyState.IsKeyDown(Keys.Escape))	Exit();
 			/*if(keyState.IsKeyDown(Keys.F1))		m_viewHierarchy.CurrentView = "City";
-			if(keyState.IsKeyDown(Keys.F2))		m_viewHierarchy.CurrentView = "World";
+			if(keyState.IsKeyDown(Keys.F2))		m_viewHierarchy.CurrentView = "World";*/
 
 			MouseEventManager.Update();
-			m_viewHierarchy.Update(gameTime);
+			/*m_viewHierarchy.Update(gameTime);
 			m_world.Update(gameTime);*/
 
 			base.Update(gameTime);

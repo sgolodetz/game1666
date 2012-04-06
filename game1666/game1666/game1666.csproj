@@ -115,6 +115,8 @@
     <Compile Include="Common\Entities\EntityComponent.cs" />
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
+    <Compile Include="UI\MouseEventManager.cs" />
+    <Compile Include="UI\Renderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />

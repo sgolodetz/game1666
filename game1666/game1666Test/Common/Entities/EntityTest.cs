@@ -60,8 +60,10 @@ namespace game1666Test
 			var entity = new Entity(".", "");
 			var component1 = new Test1Component();
 			var component2 = new Test2Component();
+
 			component1.AddToEntity(entity);
 			component2.AddToEntity(entity);
+
 			Assert.Equal(component1, entity.GetComponent<TestGroupAComponent>("TestGroupA"));
 			Assert.Equal(entity, component1.Entity);
 			Assert.Equal(component2.Name, component1.Test2SiblingName());
