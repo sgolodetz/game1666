@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.UI
+namespace game1666.Common.UI
 {
 	/// <summary>
 	/// This class provides a global point of access for rendering.

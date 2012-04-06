@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666.UI
+namespace game1666.Common.UI
 {
 	delegate void MouseEvent(MouseState state);
 

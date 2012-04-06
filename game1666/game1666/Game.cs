@@ -3,7 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using game1666.UI;
+using game1666.Common.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
