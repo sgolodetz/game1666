@@ -6,6 +6,7 @@
 using System.Xml.Linq;
 using game1666.Common.Entities;
 using game1666.Common.Entities.Components;
+using game1666.Common.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
@@ -50,21 +51,28 @@ namespace game1666Test
 		[TestMethod]
 		public void ConstructorTest()
 		{
+			// Register special XML elements with the object persister.
+			ObjectPersister.RegisterSpecialElement("Entity", typeof(Entity));
+			ObjectPersister.RegisterSpecialElement("TestComponent", typeof(TestComponent));
+
+			// Construct the world XML.
 			string text = @"
-			<entity>
+			<Entity>
 				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
-				<object type=""game1666.Common.Entities.Components.TestComponent""/>
-				<entity>
+				<TestComponent/>
+				<Entity>
 					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:Stuartopolis""/>
-					<object type=""game1666.Common.Entities.Components.TestComponent""/>
-				</entity>
-			</entity>
+					<TestComponent/>
+				</Entity>
+			</Entity>
 			";
 
+			// Load the world from the XML.
 			var world = new Entity(XElement.Parse(text));
 
+			// Check that it was loaded correctly.
 			Assert.Equal("World", world.Archetype);
 			Assert.Equal(".", world.Name);
 			Assert.NotNull(world.GetComponent<TestComponent>(TestComponent.StaticGroup));

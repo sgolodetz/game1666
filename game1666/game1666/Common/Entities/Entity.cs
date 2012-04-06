@@ -62,14 +62,6 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Registers "entity" as a special element type in XML files.
-		/// </summary>
-		static Entity()
-		{
-			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
-		}
-
-		/// <summary>
 		/// Constructs an entity directly from its name and archetype.
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>

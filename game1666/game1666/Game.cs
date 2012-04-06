@@ -3,6 +3,8 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.Common.Entities;
+using game1666.Common.Persistence;
 using game1666.Common.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,6 +77,9 @@ namespace game1666
 			// Set up the renderer.
 			Renderer.Content = Content;
 			Renderer.GraphicsDevice = GraphicsDevice;
+
+			// Register special XML elements with the object persister.
+			ObjectPersister.RegisterSpecialElement("Entity", typeof(Entity));
 
 			// Load the world from an XML file.
 			/*m_world = World.LoadFromFile(@"Content\PathfindingWorld.xml");
