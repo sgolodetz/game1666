@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/***
+ * game1666Test: EntityTest.cs
+ * Copyright Stuart Golodetz, 2012. All rights reserved.
+ ***/
+
+using System.Collections.Generic;
 using game1666.Common.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
