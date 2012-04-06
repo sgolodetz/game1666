@@ -11,15 +11,29 @@ namespace game1666Test
 		//#################### HELPER CLASSES ####################
 		#region
 
-		private abstract class TestingComponent : IEntityComponent
+		private abstract class TestGroupAComponent : EntityComponent
 		{
-			public string Group			{ get { return "Testing"; } }
-			public abstract string Name	{ get; }
+			public override string Group { get { return "TestGroupA"; } }
 		}
 
-		private sealed class TestComponent : TestingComponent
+		private abstract class TestGroupBComponent : EntityComponent
 		{
-			public override string Name	{ get { return "Test"; } }
+			public override string Group { get { return "TestGroupB"; } }
+		}
+
+		private sealed class Test1Component : TestGroupAComponent
+		{
+			public override string Name	{ get { return "Test1"; } }
+
+			public string Test2SiblingName()
+			{
+				return Entity.GetComponent<TestGroupBComponent>("TestGroupB").Name;
+			}
+		}
+
+		private sealed class Test2Component : TestGroupBComponent
+		{
+			public override string Name	{ get { return "Test2"; } }
 		}
 
 		#endregion
@@ -44,9 +58,13 @@ namespace game1666Test
 		public void GetComponentTest()
 		{
 			var entity = new Entity(".", "");
-			var component = new TestComponent();
-			entity.AddComponent(component);
-			Assert.Equal(component, entity.GetComponent<TestingComponent>("Testing"));
+			var component1 = new Test1Component();
+			var component2 = new Test2Component();
+			component1.AddToEntity(entity);
+			component2.AddToEntity(entity);
+			Assert.Equal(component1, entity.GetComponent<TestGroupAComponent>("TestGroupA"));
+			Assert.Equal(entity, component1.Entity);
+			Assert.Equal(component2.Name, component1.Test2SiblingName());
 		}
 
 		#endregion

@@ -112,6 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Entities\Entity.cs" />
+    <Compile Include="Common\Entities\EntityComponent.cs" />
+    <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
