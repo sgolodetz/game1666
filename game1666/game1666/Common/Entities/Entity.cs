@@ -14,7 +14,7 @@ namespace game1666.Common.Entities
 	/// Such entities consist of a set of pluggable components that
 	/// define different aspects of their behaviour. In addition, they
 	/// can be part of an "entity tree", which allows them to be looked
-	/// up by path, e.g. "./settlement:Stuartopolis/building:House".
+	/// up by path, e.g. "./settlement:Stuartopolis/house:Wibble".
 	/// </summary>
 	sealed class Entity
 	{
@@ -29,12 +29,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The components of the entity.
 		/// </summary>
-		private readonly IDictionary<string,dynamic> m_components = new Dictionary<string,dynamic>();
-
-		/// <summary>
-		/// The properties of the entity.
-		/// </summary>
-		private readonly IDictionary<string,dynamic> m_properties;
+		private readonly IDictionary<string,IEntityComponent> m_components = new Dictionary<string,IEntityComponent>();
 
 		#endregion
 
@@ -45,12 +40,12 @@ namespace game1666.Common.Entities
 		/// The archetype of the entity. An entity's archetype, e.g. World,
 		/// indicates which components the entity should have.
 		/// </summary>
-		public string Archetype { get { return m_properties["Archetype"]; } }
+		public string Archetype { get; private set; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its parent entity, if any).
 		/// </summary>
-		public string Name { get { return m_properties["Name"]; } }
+		public string Name { get; private set; }
 
 		/// <summary>
 		/// The parent of the entity in its tree.
@@ -63,12 +58,14 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Constructs an entity directly from its properties.
+		/// Constructs an entity directly from its name and archetype.
 		/// </summary>
-		/// <param name="properties">The properties of the entity.</param>
-		public Entity(IDictionary<string,dynamic> properties)
+		/// <param name="name">The name of the entity.</param>
+		/// <param name="archetype">The archetype of the entity.</param>
+		public Entity(string name, string archetype)
 		{
-			m_properties = properties;
+			Name = name;
+			Archetype = archetype;
 		}
 
 		#endregion
@@ -84,6 +81,20 @@ namespace game1666.Common.Entities
 		{
 			m_children.Add(child.Name, child);
 			child.Parent = this;
+		}
+
+		/// <summary>
+		/// Adds a component to this entity.
+		/// </summary>
+		/// <param name="component">The component to add.</param>
+		/// <exception cref="System.InvalidOperationException">If the entity already has a component in the same group.</exception>
+		public void AddComponent(IEntityComponent component)
+		{
+			if(!m_components.ContainsKey(component.Group))
+			{
+				m_components.Add(component.Group, component);
+			}
+			else throw new InvalidOperationException("Group already has a component: " + component.Group);
 		}
 
 		/// <summary>
@@ -113,6 +124,19 @@ namespace game1666.Common.Entities
 			Entity child = null;
 			m_children.TryGetValue(name, out child);
 			return child;
+		}
+
+		/// <summary>
+		/// Looks up a component of this entity by group.
+		/// </summary>
+		/// <typeparam name="T">The type of the component (must be specified explicitly).</typeparam>
+		/// <param name="group">The name of the component's group.</param>
+		/// <returns>The component, if found, or null otherwise.</returns>
+		public T GetComponent<T>(string group) where T : class
+		{
+			IEntityComponent component = null;
+			m_components.TryGetValue(group, out component);
+			return component as T;
 		}
 
 		/// <summary>
