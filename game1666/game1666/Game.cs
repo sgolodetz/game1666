@@ -3,8 +3,6 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Xml.Linq;
-using System.Xml.XPath;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
