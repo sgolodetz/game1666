@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666", "game1666\game16
 EndProject
 Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "game1666Content", "game1666\game1666Content\game1666Content.contentproj", "{5EE58221-8141-4F1F-A466-ECD876A000F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "game1666Test", "game1666\game1666Test\game1666Test.csproj", "{6AF314AB-24B8-440D-9314-5B0310038989}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = game1666.vsmdi
@@ -135,6 +137,18 @@ Global
 		{5EE58221-8141-4F1F-A466-ECD876A000F7}.Release|Any CPU.ActiveCfg = Release|x86
 		{5EE58221-8141-4F1F-A466-ECD876A000F7}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{5EE58221-8141-4F1F-A466-ECD876A000F7}.Release|x86.ActiveCfg = Release|x86
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Debug|x86.Build.0 = Debug|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Release|x86.ActiveCfg = Release|Any CPU
+		{6AF314AB-24B8-440D-9314-5B0310038989}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

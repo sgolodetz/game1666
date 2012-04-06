@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,7 +55,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The parent of the entity in its tree.
 		/// </summary>
-		public Entity Parent { get; set; }
+		public Entity Parent { get; private set; }
 
 		#endregion
 
@@ -78,7 +79,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// Adds a child to this entity.
 		/// </summary>
-		/// <param name="child">The child.</param>
+		/// <param name="child">The child to add.</param>
 		public void AddChild(Entity child)
 		{
 			m_children.Add(child.Name, child);
@@ -171,6 +172,20 @@ namespace game1666.Common.Entities
 			}
 
 			return cur;
+		}
+
+		/// <summary>
+		/// Removes a child from this entity, if present.
+		/// </summary>
+		/// <param name="child">The child to remove.</param>
+		/// <exception cref="System.InvalidOperationException">If this entity does not contain the child.</exception>
+		public void RemoveChild(Entity child)
+		{
+			if(m_children.Remove(child.Name))
+			{
+				child.Parent = null;
+			}
+			else throw new InvalidOperationException("No such child: " + child.Name);
 		}
 
 		#endregion
