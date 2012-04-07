@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
@@ -32,6 +33,42 @@ namespace game1666.Common.Entities
 		/// </summary>
 		public abstract string Name { get; }
 
+		/// <summary>
+		/// The properties of the component.
+		/// </summary>
+		protected IDictionary<string,dynamic> Properties { get; private set; }
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a blank component.
+		/// </summary>
+		public EntityComponent()
+		{
+			Properties = new Dictionary<string,dynamic>();
+		}
+
+		/// <summary>
+		/// Constructs a component directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the component.</param>
+		public EntityComponent(IDictionary<string,dynamic> properties)
+		{
+			Properties = properties;
+		}
+
+		/// <summary>
+		/// Constructs a component from its XML representation.
+		/// </summary>
+		/// <param name="componentElt">The root element of the component's XML representation.</param>
+		public EntityComponent(XElement componentElt)
+		{
+			Properties = PropertyPersister.LoadProperties(componentElt);
+		}
+
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
@@ -54,7 +91,7 @@ namespace game1666.Common.Entities
 		public XElement SaveToXML()
 		{
 			XElement componentElt = ObjectPersister.ConstructObjectElement(GetType());
-			// TODO: Save component properties.
+			PropertyPersister.SaveProperties(componentElt, Properties);
 			return componentElt;
 		}
 

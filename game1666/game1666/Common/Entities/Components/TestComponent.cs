@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace game1666.Common.Entities.Components
@@ -44,10 +45,19 @@ namespace game1666.Common.Entities.Components
 		{}
 
 		/// <summary>
+		/// Constructs a test component directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the component.</param>
+		public TestComponent(IDictionary<string,dynamic> properties)
+		:	base(properties)
+		{}
+
+		/// <summary>
 		/// Constructs a test component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public TestComponent(XElement componentElt)
+		:	base(componentElt)
 		{}
 
 		#endregion

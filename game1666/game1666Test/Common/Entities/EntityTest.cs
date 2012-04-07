@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Entities;
 using game1666.Common.Entities.Components;
@@ -142,7 +143,7 @@ namespace game1666Test
 			world.AddChild(settlementB);
 			settlementB.AddChild(house);
 
-			new TestComponent().AddToEntity(world);
+			new TestComponent(new Dictionary<string,dynamic> { { "Alue", 42 } }).AddToEntity(world);
 			new TestComponent().AddToEntity(house);
 
 			// Save the world to XML and compare it to the expected result.
@@ -150,7 +151,9 @@ namespace game1666Test
 			<Entity>
 				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
-				<TestComponent/>
+				<TestComponent>
+					<property name=""Alue"" type=""int"" value=""42""/>
+				</TestComponent>
 				<Entity>
 					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:A""/>
