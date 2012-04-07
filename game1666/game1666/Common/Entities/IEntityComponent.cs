@@ -32,6 +32,11 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
+		/// Initialises the component.
+		/// </summary>
+		void Initialise();
+
+		/// <summary>
 		/// Updates the component based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>

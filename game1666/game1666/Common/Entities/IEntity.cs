@@ -110,6 +110,12 @@ namespace game1666.Common.Entities
 		IEntity GetEntityByRelativePath(LinkedList<string> path);
 
 		/// <summary>
+		/// Initialises the entity once its entire tree has been constructed.
+		/// </summary>
+		/// <returns>The entity itself.</returns>
+		IEntity Initialise();
+
+		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>

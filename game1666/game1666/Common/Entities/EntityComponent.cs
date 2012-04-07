@@ -85,6 +85,14 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
+		/// Initialises the component.
+		/// </summary>
+		public virtual void Initialise()
+		{
+			// No-op by default
+		}
+
+		/// <summary>
 		/// Saves the component to XML.
 		/// </summary>
 		/// <returns>An XML representation of the component.</returns>

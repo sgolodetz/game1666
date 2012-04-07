@@ -238,6 +238,19 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
+		/// Initialises the entity once its entire tree has been constructed.
+		/// </summary>
+		/// <returns>The entity itself.</returns>
+		public IEntity Initialise()
+		{
+			foreach(IEntityComponent component in m_components.Values)
+			{
+				component.Initialise();
+			}
+			return this;
+		}
+
+		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>
