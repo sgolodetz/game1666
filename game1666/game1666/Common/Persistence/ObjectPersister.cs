@@ -111,6 +111,26 @@ namespace game1666.Common.Persistence
 		}
 
 		/// <summary>
+		/// Loads an object from an XML element.
+		/// </summary>
+		/// <param name="element">The XML element.</param>
+		/// <param name="additionalArguments">Any additional arguments to pass to the object's constructor.</param>
+		/// <returns>The constructed object.</returns>
+		public static dynamic LoadObject(XElement element, params object[] additionalArguments)
+		{
+			// Determine the C# type corresponding to the element.
+			Type type = DetermineElementType(element);
+
+			// Construct the array of arguments to pass to the object's constructor.
+			var arguments = new object[additionalArguments.Length + 1];
+			arguments[0] = element;
+			additionalArguments.CopyTo(arguments, 1);
+
+			// Construct the object and return it.
+			return Activator.CreateInstance(type, arguments);
+		}
+
+		/// <summary>
 		/// Registers a special XML element type such as "entity". This will be used when
 		/// determining the C# type corresponding to elements with the specified name.
 		/// </summary>
