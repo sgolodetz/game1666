@@ -12,8 +12,11 @@ using Assert = Xunit.Assert;
 
 namespace game1666Test
 {
+	/// <summary>
+	/// Tests for the Entity class.
+	/// </summary>
 	[TestClass]
-	public class EntityTest
+	public sealed class EntityTest
 	{
 		//#################### HELPER CLASSES ####################
 		#region
@@ -48,6 +51,9 @@ namespace game1666Test
 		//#################### TEST METHODS ####################
 		#region
 
+		/// <summary>
+		/// Test the constructor.
+		/// </summary>
 		[TestMethod]
 		public void ConstructorTest()
 		{
@@ -85,6 +91,9 @@ namespace game1666Test
 			Assert.NotNull(settlement.GetComponent<TestComponent>(TestComponent.StaticGroup));
 		}
 
+		/// <summary>
+		/// Test the GetAbsolutePath method.
+		/// </summary>
 		[TestMethod]
 		public void GetAbsolutePathTest()
 		{
@@ -98,6 +107,9 @@ namespace game1666Test
 			Assert.Equal(house.GetAbsolutePath(), "./settlement:Stuartopolis/house:Wibble");
 		}
 
+		/// <summary>
+		/// Test the GetComponent method.
+		/// </summary>
 		[TestMethod]
 		public void GetComponentTest()
 		{

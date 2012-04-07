@@ -12,9 +12,15 @@ using Assert = Xunit.Assert;
 
 namespace game1666proto4Test.Common.Persistence
 {
+	/// <summary>
+	/// Tests for the PropertyPersister class.
+	/// </summary>
 	[TestClass]
 	public sealed class PropertyPersisterTest
 	{
+		/// <summary>
+		/// Test the ParseArray2D method.
+		/// </summary>
 		[TestMethod]
 		public void ParseArray2DTest()
 		{
@@ -66,6 +72,9 @@ namespace game1666proto4Test.Common.Persistence
 			});
 		}
 
+		/// <summary>
+		/// Test the ParseList method.
+		/// </summary>
 		[TestMethod]
 		public void ParseListTest()
 		{

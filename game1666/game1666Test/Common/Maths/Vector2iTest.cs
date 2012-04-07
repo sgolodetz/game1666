@@ -10,9 +10,15 @@ using Assert = Xunit.Assert;
 
 namespace game1666.Common.Maths
 {
+	/// <summary>
+	/// Tests for the Vector2i class.
+	/// </summary>
 	[TestClass]
 	public sealed class Vector2iTest
 	{
+		/// <summary>
+		/// Test the addition operator.
+		/// </summary>
 		[TestMethod]
 		public void op_AdditionTest()
 		{
@@ -21,6 +27,9 @@ namespace game1666.Common.Maths
 			Assert.Equal(v1 + v2, new Vector2i(30, 17));
 		}
 
+		/// <summary>
+		/// Test the division operator.
+		/// </summary>
 		[TestMethod]
 		public void op_DivisionTest()
 		{
@@ -34,6 +43,9 @@ namespace game1666.Common.Maths
 			Assert.Throws<DivideByZeroException>(() => v / 0);
 		}
 
+		/// <summary>
+		/// Test the multiplication operator.
+		/// </summary>
 		[TestMethod]
 		public void op_MultiplyTest()
 		{
@@ -54,6 +66,9 @@ namespace game1666.Common.Maths
 			Assert.Equal(0 * v, new Vector2i(0, 0));
 		}
 
+		/// <summary>
+		/// Test the subtraction operator.
+		/// </summary>
 		[TestMethod]
 		public void op_SubtractionTest()
 		{
@@ -62,6 +77,9 @@ namespace game1666.Common.Maths
 			Assert.Equal(v1 - v2, new Vector2i(7, 2));
 		}
 
+		/// <summary>
+		/// Test the unary negation operator.
+		/// </summary>
 		[TestMethod]
 		public void op_UnaryNegationTest()
 		{

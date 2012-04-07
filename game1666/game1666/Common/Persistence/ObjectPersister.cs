@@ -45,7 +45,7 @@ namespace game1666.Common.Persistence
 		/// <summary>
 		/// A dictionary specifying how special XML element types such as "entity" get mapped to C# types.
 		/// </summary>
-		private static IDictionary<string,Type> s_specialElements = new Dictionary<string,Type>();
+		private static readonly IDictionary<string,Type> s_specialElements = new Dictionary<string,Type>();
 
 		#endregion
 
