@@ -79,7 +79,7 @@ namespace game1666
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Register special XML elements with the object persister.
-			ObjectPersister.RegisterSpecialElement("Entity", typeof(Entity));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
 
 			// Load the world from an XML file.
 			/*m_world = World.LoadFromFile(@"Content\PathfindingWorld.xml");

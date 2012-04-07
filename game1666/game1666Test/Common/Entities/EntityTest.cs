@@ -59,21 +59,21 @@ namespace game1666Test
 		public void ConstructorTest()
 		{
 			// Register special XML elements with the object persister.
-			ObjectPersister.RegisterSpecialElement("Entity", typeof(Entity));
-			ObjectPersister.RegisterSpecialElement("TestComponent", typeof(TestComponent));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
+			ObjectPersister.RegisterSpecialElement("cmpTest", typeof(TestComponent));
 
 			// Load the world from XML.
 			var world = new Entity(XElement.Parse(@"
-			<Entity>
+			<entity>
 				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
-				<TestComponent/>
-				<Entity>
+				<cmpTest/>
+				<entity>
 					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:Stuartopolis""/>
-					<TestComponent/>
-				</Entity>
-			</Entity>
+					<cmpTest/>
+				</entity>
+			</entity>
 			"));
 
 			// Check that it was loaded correctly.
@@ -130,8 +130,8 @@ namespace game1666Test
 		public void SaveToXMLTest()
 		{
 			// Register special XML elements with the object persister.
-			ObjectPersister.RegisterSpecialElement("Entity", typeof(Entity));
-			ObjectPersister.RegisterSpecialElement("TestComponent", typeof(TestComponent));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
+			ObjectPersister.RegisterSpecialElement("cmpTest", typeof(TestComponent));
 
 			// Construct the world.
 			var world = new Entity(".", "World");
@@ -148,26 +148,26 @@ namespace game1666Test
 
 			// Save the world to XML and compare it to the expected result.
 			Assert.Equal(XElement.Parse(@"
-			<Entity>
+			<entity>
 				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
-				<TestComponent>
+				<cmpTest>
 					<property name=""Alue"" type=""int"" value=""42""/>
-				</TestComponent>
-				<Entity>
+				</cmpTest>
+				<entity>
 					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:A""/>
-				</Entity>
-				<Entity>
+				</entity>
+				<entity>
 					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:B""/>
-					<Entity>
+					<entity>
 						<property name=""Archetype"" type=""string"" value=""House""/>
 						<property name=""Name"" type=""string"" value=""house:Wibble""/>
-						<TestComponent/>
-					</Entity>
-				</Entity>
-			</Entity>").ToString(), world.SaveToXML().ToString());
+						<cmpTest/>
+					</entity>
+				</entity>
+			</entity>").ToString(), world.SaveToXML().ToString());
 		}
 
 		#endregion
