@@ -83,20 +83,20 @@ namespace game1666.Common.Entities
 		{
 			m_properties = PropertyPersister.LoadProperties(entityElt);
 
-			ObjectPersister.LoadChildObjects
+			ObjectPersister.LoadAndAddChildObjects
 			(
 				entityElt,
-				new ObjectLoader
+				new ChildObjectAdder
 				{
 					CanBeUsedFor = t => t == typeof(Entity),
 					AdditionalArguments = new object[] {},
-					Load = o => AddChild(o)
+					AddAction = o => AddChild(o)
 				},
-				new ObjectLoader
+				new ChildObjectAdder
 				{
 					CanBeUsedFor = t => typeof(EntityComponent).IsAssignableFrom(t),
 					AdditionalArguments = new object[] {},
-					Load = o => (o as EntityComponent).AddToEntity(this)
+					AddAction = o => (o as EntityComponent).AddToEntity(this)
 				}
 			);
 		}

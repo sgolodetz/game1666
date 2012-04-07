@@ -119,7 +119,6 @@
     <Compile Include="Common\Maths\Orientation4.cs" />
     <Compile Include="Common\Maths\Vector2i.cs" />
     <Compile Include="Common\Persistence\IPersistableObject.cs" />
-    <Compile Include="Common\Persistence\ObjectLoader.cs" />
     <Compile Include="Common\Persistence\ObjectPersister.cs" />
     <Compile Include="Common\Persistence\PropertyPersister.cs" />
     <Compile Include="Common\UI\MouseEventManager.cs" />

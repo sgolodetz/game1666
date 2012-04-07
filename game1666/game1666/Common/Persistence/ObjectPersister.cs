@@ -12,6 +12,29 @@ using System.Xml.Linq;
 namespace game1666.Common.Persistence
 {
 	/// <summary>
+	/// An instance of this class specifies a child object adder that can be used to perform arbitrary
+	/// add actions on child objects created by the ObjectPersister.LoadAndAddChildObjects method. The
+	/// primary use for such an adder is to add the child object to a parent.
+	/// </summary>
+	sealed class ChildObjectAdder
+	{
+		/// <summary>
+		/// A custom add action to perform on the created child object.
+		/// </summary>
+		public Action<dynamic> AddAction { get; set; }
+
+		/// <summary>
+		/// Any additional arguments that need to be passed to the child object's constructor when it is created.
+		/// </summary>
+		public object[] AdditionalArguments { get; set; }
+
+		/// <summary>
+		/// A filter specifying the types for which this is the appropriate adder.
+		/// </summary>
+		public Func<Type,bool> CanBeUsedFor { get; set; }
+	}
+
+	/// <summary>
 	/// This class provides utility methods for saving/loading objects to/from XML.
 	/// </summary>
 	static class ObjectPersister
@@ -59,31 +82,31 @@ namespace game1666.Common.Persistence
 
 		/// <summary>
 		/// Creates objects from the non-property child elements of the specified XML element and
-		/// performs arbitrary load actions on them (e.g. adding them to a parent object).
+		/// adds them to a parent object using the supplied child object adders.
 		/// </summary>
 		/// <param name="parentElt">The parent XML element.</param>
-		/// <param name="loaders">A set of loaders that specify how different types of object should be loaded.</param>
-		public static void LoadChildObjects(XElement parentElt, params ObjectLoader[] loaders)
+		/// <param name="adders">A set of adders that specify how different types of child object should be added.</param>
+		public static void LoadAndAddChildObjects(XElement parentElt, params ChildObjectAdder[] adders)
 		{
 			foreach(XElement childElt in parentElt.Elements().Where(e => e.Name != "property"))
 			{
 				// Determine the C# type corresponding to the child element.
 				Type childType = DetermineElementType(childElt);
 
-				// Try to find a suitable loader for that type.
-				ObjectLoader loader = loaders.FirstOrDefault(L => L.CanBeUsedFor(childType));
-				if(loader == null)
+				// Try to find a suitable adder for that type.
+				ChildObjectAdder adder = adders.FirstOrDefault(L => L.CanBeUsedFor(childType));
+				if(adder == null)
 				{
-					throw new InvalidOperationException("No matching loader for type: " + childType);
+					throw new InvalidOperationException("No matching adder for type: " + childType);
 				}
 
 				// Construct the array of arguments to pass to the child object's constructor.
-				var arguments = new object[loader.AdditionalArguments.Length + 1];
+				var arguments = new object[adder.AdditionalArguments.Length + 1];
 				arguments[0] = childElt;
-				loader.AdditionalArguments.CopyTo(arguments, 1);
+				adder.AdditionalArguments.CopyTo(arguments, 1);
 
-				// Construct the child object and run the appropriate load action on it.
-				loader.Load(Activator.CreateInstance(childType, arguments));
+				// Construct the child object and run the appropriate add action on it.
+				adder.AddAction(Activator.CreateInstance(childType, arguments));
 			}
 		}
 
