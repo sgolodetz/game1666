@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Entities
@@ -14,7 +15,7 @@ namespace game1666.Common.Entities
 	/// their behaviour. In addition, they can be part of an "entity tree", which allows them to
 	/// be looked up by path, e.g. "./settlement:Stuartopolis/house:Wibble".
 	/// </summary>
-	interface IEntity
+	interface IEntity : IPersistableObject
 	{
 		//#################### PROPERTIES ####################
 		#region

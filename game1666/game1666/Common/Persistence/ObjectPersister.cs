@@ -12,29 +12,6 @@ using System.Xml.Linq;
 namespace game1666.Common.Persistence
 {
 	/// <summary>
-	/// An instance of this class specifies an object loader that can be used to perform arbitrary
-	/// load actions on objects created by the ObjectPersister.LoadChildObjects method. The primary
-	/// use for such a loader is to add the child object to a parent.
-	/// </summary>
-	sealed class ObjectLoader
-	{
-		/// <summary>
-		/// Any additional arguments that need to be passed to the child object's constructor when it is created.
-		/// </summary>
-		public object[] AdditionalArguments { get; set; }
-
-		/// <summary>
-		/// A filter specifying the types for which this is the appropriate loader.
-		/// </summary>
-		public Func<Type,bool> CanBeUsedFor { get; set; }
-
-		/// <summary>
-		/// A custom load action to perform on the created child object.
-		/// </summary>
-		public Action<dynamic> Load { get; set; }
-	}
-
-	/// <summary>
 	/// This class provides utility methods for saving/loading objects to/from XML.
 	/// </summary>
 	static class ObjectPersister
@@ -45,12 +22,40 @@ namespace game1666.Common.Persistence
 		/// <summary>
 		/// A dictionary specifying how special XML element types such as "entity" get mapped to C# types.
 		/// </summary>
-		private static readonly IDictionary<string,Type> s_specialElements = new Dictionary<string,Type>();
+		private static readonly IDictionary<string,Type> s_specialElementsNameToType = new Dictionary<string,Type>();
+
+		/// <summary>
+		/// A dictionary specifying how C# types get mapped to special XML element types such as "entity".
+		/// </summary>
+		private static readonly IDictionary<Type,string> s_specialElementsTypeToName = new Dictionary<Type,string>();
 
 		#endregion
 
 		//#################### PUBLIC STATIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a new XML element for an object of the specified type.
+		/// </summary>
+		/// <param name="type">The type of object for which to create an XML element.</param>
+		/// <returns>The constructed element.</returns>
+		public static XElement ConstructObjectElement(Type type)
+		{
+			XElement element;
+
+			string elementName;
+			if(s_specialElementsTypeToName.TryGetValue(type, out elementName))
+			{
+				element = new XElement(elementName);
+			}
+			else
+			{
+				element = new XElement("object");
+				element.Add(new XAttribute("type", type.FullName));
+			}
+
+			return element;
+		}
 
 		/// <summary>
 		/// Creates objects from the non-property child elements of the specified XML element and
@@ -93,7 +98,23 @@ namespace game1666.Common.Persistence
 		/// <param name="type">The C# type to which it corresponds.</param>
 		public static void RegisterSpecialElement(string elementName, Type type)
 		{
-			s_specialElements.Add(elementName, type);
+			s_specialElementsNameToType[elementName] = type;
+			s_specialElementsTypeToName[type] = elementName;
+		}
+
+		/// <summary>
+		/// Saves a set of child objects as children of an XML element.
+		/// </summary>
+		/// <param name="element">The XML element to which to save the child objects.</param>
+		/// <param name="children">The child objects.</param>
+		/// <returns>The XML element.</returns>
+		public static XElement SaveChildObjects(XElement element, IEnumerable<IPersistableObject> children)
+		{
+			foreach(IPersistableObject child in children)
+			{
+				element.Add(child.SaveToXML());
+			}
+			return element;
 		}
 
 		#endregion
@@ -110,9 +131,9 @@ namespace game1666.Common.Persistence
 		{
 			string elementName = element.Name.ToString();
 
-			if(s_specialElements.ContainsKey(elementName))
+			if(s_specialElementsNameToType.ContainsKey(elementName))
 			{
-				return s_specialElements[elementName];
+				return s_specialElementsNameToType[elementName];
 			}
 			else if(elementName == "object")
 			{

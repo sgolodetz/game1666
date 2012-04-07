@@ -38,6 +38,12 @@ namespace game1666.Common.Entities.Components
 		#region
 
 		/// <summary>
+		/// Constructs a blank test component.
+		/// </summary>
+		public TestComponent()
+		{}
+
+		/// <summary>
 		/// Constructs a test component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>

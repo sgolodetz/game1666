@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Entities
@@ -10,7 +11,7 @@ namespace game1666.Common.Entities
 	/// <summary>
 	/// An instance of a class implementing this interface represents a component of an entity.
 	/// </summary>
-	interface IEntityComponent
+	interface IEntityComponent : IPersistableObject
 	{
 		//#################### PROPERTIES ####################
 		#region

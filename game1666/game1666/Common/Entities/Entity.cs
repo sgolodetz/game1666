@@ -252,6 +252,19 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
+		/// Saves the entity to XML.
+		/// </summary>
+		/// <returns>An XML representation of the entity.</returns>
+		public XElement SaveToXML()
+		{
+			XElement entityElt = ObjectPersister.ConstructObjectElement(GetType());
+			PropertyPersister.SaveProperties(entityElt, m_properties);
+			ObjectPersister.SaveChildObjects(entityElt, m_components.Values);
+			ObjectPersister.SaveChildObjects(entityElt, m_children.Values);
+			return entityElt;
+		}
+
+		/// <summary>
 		/// Updates the entity based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>

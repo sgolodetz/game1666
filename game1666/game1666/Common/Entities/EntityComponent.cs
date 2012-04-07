@@ -3,6 +3,8 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Xml.Linq;
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Entities
@@ -43,6 +45,17 @@ namespace game1666.Common.Entities
 		{
 			entity.AddComponentInternal(this);
 			Entity = entity;
+		}
+
+		/// <summary>
+		/// Saves the component to XML.
+		/// </summary>
+		/// <returns>An XML representation of the component.</returns>
+		public XElement SaveToXML()
+		{
+			XElement componentElt = ObjectPersister.ConstructObjectElement(GetType());
+			// TODO: Save component properties.
+			return componentElt;
 		}
 
 		/// <summary>

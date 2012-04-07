@@ -26,11 +26,11 @@ namespace game1666.Common.Persistence
 		#region
 
 		/// <summary>
-		/// Loads an entity's typed properties from XML.
+		/// Loads an object's typed properties from XML.
 		/// </summary>
-		/// <param name="entityElt">The root element of the entity's XML representation.</param>
+		/// <param name="element">The root element of the object's XML representation.</param>
 		/// <returns>The loaded properties.</returns>
-		public static IDictionary<string,dynamic> LoadProperties(XElement entityElt)
+		public static IDictionary<string,dynamic> LoadProperties(XElement element)
 		{
 			var properties = new Dictionary<string,dynamic>();
 
@@ -51,7 +51,7 @@ namespace game1666.Common.Persistence
 			parsers["Vector3"] = s => ParseVector3Specifier(s);
 			parsers["Viewport"] = s => ParseViewportSpecifier(s);
 
-			foreach(XElement propertyElt in entityElt.Elements("property"))
+			foreach(XElement propertyElt in element.Elements("property"))
 			{
 				// Look up the name of the property.
 				XAttribute nameAttribute = propertyElt.Attribute("name");
@@ -286,10 +286,10 @@ namespace game1666.Common.Persistence
 		/// <summary>
 		/// Saves a set of properties as children of an XML element.
 		/// </summary>
-		/// <param name="entityElt">The XML element to which to save the properties.</param>
+		/// <param name="element">The XML element to which to save the properties.</param>
 		/// <param name="properties">The properties to save.</param>
 		/// <returns>The XML element.</returns>
-		public static XElement SaveProperties(XElement entityElt, IEnumerable<KeyValuePair<string,dynamic>> properties)
+		public static XElement SaveProperties(XElement element, IEnumerable<KeyValuePair<string,dynamic>> properties)
 		{
 			// Set up the savers for the various supported types.
 			var savers = new Dictionary<Type,Tuple<string,Func<dynamic,string>>>();
@@ -312,10 +312,10 @@ namespace game1666.Common.Persistence
 				propertyElt.Add(new XAttribute("name", kv.Key));
 				propertyElt.Add(new XAttribute("type", saver.Item1));
 				propertyElt.Add(new XAttribute("value", saver.Item2(kv.Value)));
-				entityElt.Add(propertyElt);
+				element.Add(propertyElt);
 			}
 
-			return entityElt;
+			return element;
 		}
 
 		#endregion
