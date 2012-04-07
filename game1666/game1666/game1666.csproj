@@ -128,6 +128,9 @@
     <Compile Include="Common\UI\Renderer.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\EntityFactory.cs" />
+    <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
+    <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
+    <Compile Include="GameModel\Terrains\Terrain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
