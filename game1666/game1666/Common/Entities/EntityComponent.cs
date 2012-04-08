@@ -96,7 +96,7 @@ namespace game1666.Common.Entities
 		/// Saves the component to XML.
 		/// </summary>
 		/// <returns>An XML representation of the component.</returns>
-		public XElement SaveToXML()
+		public virtual XElement SaveToXML()
 		{
 			XElement componentElt = ObjectPersister.ConstructObjectElement(GetType());
 			PropertyPersister.SaveProperties(componentElt, Properties);

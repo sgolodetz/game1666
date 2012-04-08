@@ -3,9 +3,9 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Collections.Generic;
 using game1666.Common.Entities;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Terrains;
 
 namespace game1666.GameModel.Entities
 {
@@ -15,17 +15,14 @@ namespace game1666.GameModel.Entities
 	static class EntityFactory
 	{
 		/// <summary>
-		/// Makes a new world entity.
+		/// Makes a world entity with the specified terrain.
 		/// </summary>
+		/// <param name="terrain">The terrain of the world's playing area.</param>
 		/// <returns>The constructed entity.</returns>
-		public static Entity MakeWorld(/* TODO: Terrain */)
+		public static Entity MakeWorld(Terrain terrain)
 		{
 			var world = new Entity(".", "World");
-
-			new PlayingAreaComponent(new Dictionary<string,dynamic>
-			{
-			}).AddToEntity(world);
-
+			new PlayingAreaComponent(terrain).AddToEntity(world);
 			return world;
 		}
 	}

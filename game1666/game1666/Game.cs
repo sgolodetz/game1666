@@ -3,9 +3,12 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Xml.Linq;
 using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
+using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,8 +24,8 @@ namespace game1666
 		#region
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
-		/*private ViewHierarchy m_viewHierarchy;
-		private World m_world;*/
+		//private ViewHierarchy m_viewHierarchy;
+		private Entity m_world;
 
 		#endregion
 
@@ -79,13 +82,15 @@ namespace game1666
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Register special XML elements with the object persister.
+			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
+			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 
 			// Load the world from an XML file.
-			/*m_world = World.LoadFromFile(@"Content\PathfindingWorld.xml");
+			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml");
 
 			// Load the view hierarchy from the game configuration file.
-			var doc = XDocument.Load(@"Content\GameConfig.xml");
+			/*var doc = XDocument.Load(@"Content\GameConfig.xml");
 			m_viewHierarchy = new ViewHierarchy(doc.XPathSelectElement("config/views"), m_world);*/
 
 			base.Initialize();
@@ -126,6 +131,22 @@ namespace game1666
 			m_world.Update(gameTime);*/
 
 			base.Update(gameTime);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Loads a world from an XML file.
+		/// </summary>
+		/// <param name="filename">The name of the XML file.</param>
+		/// <returns>The loaded world.</returns>
+		private static Entity LoadWorldFromFile(string filename)
+		{
+			XDocument doc = XDocument.Load(filename);
+			return new Entity(doc.Element("entity"));
 		}
 
 		#endregion

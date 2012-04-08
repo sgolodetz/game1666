@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using game1666.Common.Maths;
 using Microsoft.Xna.Framework;
 
-namespace game1666.Common.Terrains
+namespace game1666.GameModel.Terrains
 {
 	/// <summary>
 	/// An instance of this class represents a node in a terrain quadtree.

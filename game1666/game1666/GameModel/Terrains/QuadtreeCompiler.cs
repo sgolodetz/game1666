@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using game1666.Common.Maths;
 using Microsoft.Xna.Framework;
 
-namespace game1666.Common.Terrains
+namespace game1666.GameModel.Terrains
 {
 	/// <summary>
 	/// This class compiles terrain quadtrees to use for picking.

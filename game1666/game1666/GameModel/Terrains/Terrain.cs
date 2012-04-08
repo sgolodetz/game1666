@@ -12,7 +12,7 @@ using game1666.Common.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.Common.Terrains
+namespace game1666.GameModel.Terrains
 {
 	/// <summary>
 	/// An instance of this class represents a heightmap-based terrain.
@@ -68,27 +68,23 @@ namespace game1666.Common.Terrains
 		#region
 
 		/// <summary>
+		/// Constructs a terrain directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the terrain.</param>
+		public Terrain(IDictionary<string,dynamic> properties)
+		{
+			m_properties = properties;
+			Initialise();
+		}
+
+		/// <summary>
 		/// Constructs a terrain from its XML representation.
 		/// </summary>
 		/// <param name="terrainElt">The root element of the terrain's XML representation.</param>
 		public Terrain(XElement terrainElt)
 		{
 			m_properties = PropertyPersister.LoadProperties(terrainElt);
-
-			float[,] heightmap = null;
-			if(m_properties.ContainsKey("AssetHeightmap"))
-			{
-				// Load a heightmap from the specified XNA texture asset.
-				heightmap = LoadHeightmapFromAsset(m_properties["AssetHeightmap"]);
-			}
-			else
-			{
-				// Create a heightmap from the properties loaded in from XML.
-				heightmap = CreateHeightmapFromProperties();
-			}
-
-			// Use the heightmap to initialise the terrain.
-			Initialise(heightmap);
+			Initialise();
 		}
 
 		#endregion
@@ -315,11 +311,23 @@ namespace game1666.Common.Terrains
 		}
 
 		/// <summary>
-		/// Initialise the terrain from a heightmap.
+		/// Initialises the terrain from its properties.
 		/// </summary>
-		/// <param name="heightmap">The heightmap.</param>
-		private void Initialise(float[,] heightmap)
+		private void Initialise()
 		{
+			float[,] heightmap = null;
+			if(m_properties.ContainsKey("AssetHeightmap"))
+			{
+				// Load a heightmap from the specified XNA texture asset.
+				heightmap = LoadHeightmapFromAsset(m_properties["AssetHeightmap"]);
+			}
+			else
+			{
+				// Create a heightmap from the properties loaded in from XML.
+				heightmap = CreateHeightmapFromProperties();
+			}
+
+			// Use the heightmap to initialise the terrain.
 			Heightmap = heightmap;
 			QuadtreeRoot = QuadtreeCompiler.BuildQuadtree(heightmap);
 			ConstructBuffers();
