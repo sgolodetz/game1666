@@ -127,8 +127,8 @@ namespace game1666
 			if(keyState.IsKeyDown(Keys.F2))		m_viewHierarchy.CurrentView = "World";*/
 
 			MouseEventManager.Update();
-			/*m_viewHierarchy.Update(gameTime);
-			m_world.Update(gameTime);*/
+			//m_viewHierarchy.Update(gameTime);
+			m_world.Update(gameTime);
 
 			base.Update(gameTime);
 		}
