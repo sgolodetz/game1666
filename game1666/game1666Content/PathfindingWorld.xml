@@ -10,4 +10,27 @@
       <property name="ZScaling" type="float" value="0.1"/>
     </terrain>
   </cmpPlayingArea>
+  <entity>
+    <property name="Archetype" type="string" value="Settlement"/>
+    <property name="Name" type="string" value="settlement:Stuartopolis"/>
+    <cmpPlayingArea>
+      <terrain>
+        <property name="Heightmap" type="Array2D[float]">
+          [9,9]
+          0,0,0,0,0,0,0,0,0,
+          0,0,0,0,0,0,0,0,0,
+          0,0,20,20,0,0,0,0,0,
+          0,0,20,20,0,0,0,0,0,
+          0,0,0,0,0,0,0,0,0,
+          0,0,0,0,0,0,0,0,0,
+          0,0,0,0,0,0,0,0,0,
+          0,0,0,0,0,0,0,0,0,
+          0,0,0,0,0,0,0,0,0
+        </property>
+        <property name="TransitionHalfWidth" type="float" value="4.0"/>
+        <property name="TransitionHeight" type="float" value="10.0"/>
+        <property name="ZScaling" type="float" value="0.25"/>
+      </terrain>
+    </cmpPlayingArea>
+  </entity>
 </entity>

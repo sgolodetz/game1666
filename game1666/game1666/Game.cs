@@ -25,7 +25,7 @@ namespace game1666
 
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
 		//private ViewHierarchy m_viewHierarchy;
-		private Entity m_world;
+		private IEntity m_world;
 
 		#endregion
 
@@ -87,7 +87,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 
 			// Load the world from an XML file.
-			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml");
+			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml").Initialise();
 
 			// Load the view hierarchy from the game configuration file.
 			/*var doc = XDocument.Load(@"Content\GameConfig.xml");
