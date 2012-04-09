@@ -42,6 +42,11 @@ namespace game1666.Common.Entities
 		public string Archetype { get { return Properties["Archetype"]; } }
 
 		/// <summary>
+		/// The children of the entity in its tree.
+		/// </summary>
+		public IEnumerable<IEntity> Children { get { return m_children.Values; } }
+
+		/// <summary>
 		/// The name of the entity (must be unique within its parent entity, if any).
 		/// </summary>
 		public string Name { get { return Properties["Name"]; } }

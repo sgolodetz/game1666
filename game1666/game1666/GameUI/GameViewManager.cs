@@ -9,6 +9,7 @@ using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameUI.Entities;
+using game1666.GameUI.Entities.Components.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -80,7 +81,11 @@ namespace game1666.GameUI
 		/// </summary>
 		public void Draw()
 		{
-			// TODO
+			var renderer = m_views[m_currentView].GetComponent<RenderingComponent>(RenderingComponent.StaticGroup);
+			if(renderer != null)
+			{
+				renderer.Draw();
+			}
 		}
 
 		/// <summary>

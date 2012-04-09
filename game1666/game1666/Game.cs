@@ -12,6 +12,7 @@ using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
 using game1666.GameUI;
 using game1666.GameUI.Entities;
+using game1666.GameUI.Entities.Components.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -96,6 +97,7 @@ namespace game1666
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Register special XML elements with the object persister.
+			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));

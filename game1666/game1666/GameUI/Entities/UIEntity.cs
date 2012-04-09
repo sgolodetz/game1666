@@ -51,6 +51,12 @@ namespace game1666.GameUI.Entities
 					CanBeUsedFor = t => t == typeof(UIEntity),
 					AdditionalArguments = new object[] { world },
 					AddAction = o => AddChild(o)
+				},
+				new ChildObjectAdder
+				{
+					CanBeUsedFor = t => typeof(EntityComponent).IsAssignableFrom(t),
+					AdditionalArguments = new object[] {},
+					AddAction = o => (o as EntityComponent).AddToEntity(this)
 				}
 			);
 		}
