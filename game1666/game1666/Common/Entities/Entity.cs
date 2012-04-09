@@ -15,7 +15,7 @@ namespace game1666.Common.Entities
 	/// <summary>
 	/// An instance of this class represents a component-based entity.
 	/// </summary>
-	sealed class Entity : IEntity
+	class Entity : IEntity
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -30,11 +30,6 @@ namespace game1666.Common.Entities
 		/// </summary>
 		private readonly IDictionary<string,IEntityComponent> m_components = new Dictionary<string,IEntityComponent>();
 
-		/// <summary>
-		/// The properties of the entity.
-		/// </summary>
-		private readonly IDictionary<string,dynamic> m_properties;
-
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -44,22 +39,33 @@ namespace game1666.Common.Entities
 		/// The archetype of the entity. An entity's archetype, e.g. World,
 		/// indicates which components the entity should have.
 		/// </summary>
-		public string Archetype { get { return m_properties["Archetype"]; } }
+		public string Archetype { get { return Properties["Archetype"]; } }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its parent entity, if any).
 		/// </summary>
-		public string Name { get { return m_properties["Name"]; } }
+		public string Name { get { return Properties["Name"]; } }
 
 		/// <summary>
 		/// The parent of the entity in its tree.
 		/// </summary>
 		public IEntity Parent { get; set; }
 
+		/// <summary>
+		/// The properties of the entity.
+		/// </summary>
+		public IDictionary<string,dynamic> Properties { get; protected set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a blank entity (used by derived classes).
+		/// </summary>
+		protected Entity()
+		{}
 
 		/// <summary>
 		/// Constructs an entity directly from its name and archetype.
@@ -68,7 +74,7 @@ namespace game1666.Common.Entities
 		/// <param name="archetype">The archetype of the entity.</param>
 		public Entity(string name, string archetype)
 		{
-			m_properties = new Dictionary<string,dynamic>
+			Properties = new Dictionary<string,dynamic>
 			{
 				{ "Archetype", archetype },
 				{ "Name", name }
@@ -81,7 +87,7 @@ namespace game1666.Common.Entities
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		public Entity(XElement entityElt)
 		{
-			m_properties = PropertyPersister.LoadProperties(entityElt);
+			Properties = PropertyPersister.LoadProperties(entityElt);
 
 			ObjectPersister.LoadAndAddChildObjects
 			(
@@ -271,7 +277,7 @@ namespace game1666.Common.Entities
 		public XElement SaveToXML()
 		{
 			XElement entityElt = ObjectPersister.ConstructObjectElement(GetType());
-			PropertyPersister.SaveProperties(entityElt, m_properties);
+			PropertyPersister.SaveProperties(entityElt, Properties);
 			ObjectPersister.SaveChildObjects(entityElt, m_components.Values);
 			ObjectPersister.SaveChildObjects(entityElt, m_children.Values);
 			return entityElt;

@@ -4,11 +4,14 @@
  ***/
 
 using System.Xml.Linq;
+using System.Xml.XPath;
 using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
+using game1666.GameUI;
+using game1666.GameUI.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -23,8 +26,19 @@ namespace game1666
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		/// <summary>
+		/// The manager containing the various different views for the game.
+		/// </summary>
+		private GameViewManager m_gameViewManager;
+
+		/// <summary>
+		/// Handles the configuration and management of the graphics device.
+		/// </summary>
 		private readonly GraphicsDeviceManager m_graphicsDeviceManager;
-		//private ViewHierarchy m_viewHierarchy;
+
+		/// <summary>
+		/// The game world (the top-level entity in the game model tree).
+		/// </summary>
 		private IEntity m_world;
 
 		#endregion
@@ -64,7 +78,7 @@ namespace game1666
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			//m_viewHierarchy.Draw();
+			m_gameViewManager.Draw();
 
 			base.Draw(gameTime);
 		}
@@ -85,13 +99,14 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
+			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 
 			// Load the world from an XML file.
 			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml").Initialise();
 
-			// Load the view hierarchy from the game configuration file.
-			/*var doc = XDocument.Load(@"Content\GameConfig.xml");
-			m_viewHierarchy = new ViewHierarchy(doc.XPathSelectElement("config/views"), m_world);*/
+			// Load the game views from the game configuration file.
+			var doc = XDocument.Load(@"Content\GameConfig.xml");
+			m_gameViewManager = new GameViewManager(doc.XPathSelectElement("config/gameviews"), m_world);
 
 			base.Initialize();
 		}
@@ -123,11 +138,11 @@ namespace game1666
 		{
 			KeyboardState keyState = Keyboard.GetState();
 			if(keyState.IsKeyDown(Keys.Escape))	Exit();
-			/*if(keyState.IsKeyDown(Keys.F1))		m_viewHierarchy.CurrentView = "City";
-			if(keyState.IsKeyDown(Keys.F2))		m_viewHierarchy.CurrentView = "World";*/
+			if(keyState.IsKeyDown(Keys.F1))	m_gameViewManager.CurrentView = "City";
+			if(keyState.IsKeyDown(Keys.F2))	m_gameViewManager.CurrentView = "World";
 
 			MouseEventManager.Update();
-			//m_viewHierarchy.Update(gameTime);
+			m_gameViewManager.Update(gameTime);
 			m_world.Update(gameTime);
 
 			base.Update(gameTime);
@@ -143,7 +158,7 @@ namespace game1666
 		/// </summary>
 		/// <param name="filename">The name of the XML file.</param>
 		/// <returns>The loaded world.</returns>
-		private static Entity LoadWorldFromFile(string filename)
+		private static IEntity LoadWorldFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
 			return new Entity(doc.Element("entity"));

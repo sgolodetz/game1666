@@ -19,7 +19,7 @@ namespace game1666.GameModel.Entities
 		/// </summary>
 		/// <param name="terrain">The terrain of the world's playing area.</param>
 		/// <returns>The constructed entity.</returns>
-		public static Entity MakeWorld(Terrain terrain)
+		public static IEntity MakeWorld(Terrain terrain)
 		{
 			var world = new Entity(".", "World");
 			new PlayingAreaComponent(terrain).AddToEntity(world);
