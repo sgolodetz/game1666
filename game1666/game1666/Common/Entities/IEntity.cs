@@ -61,6 +61,13 @@ namespace game1666.Common.Entities
 		void AddComponentInternal(IEntityComponent component);
 
 		/// <summary>
+		/// Casts this entity to a derived entity type.
+		/// </summary>
+		/// <typeparam name="T">The type of derived entity to which to cast.</typeparam>
+		/// <returns>The casted entity.</returns>
+		T As<T>() where T : class, IEntity;
+
+		/// <summary>
 		/// Gets the absolute path of this entity in its tree.
 		/// </summary>
 		/// <returns>The entity's absolute path.</returns>

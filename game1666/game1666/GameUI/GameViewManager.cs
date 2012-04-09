@@ -25,7 +25,7 @@ namespace game1666.GameUI
 		/// <summary>
 		/// The current game view.
 		/// </summary>
-		private string m_currentView = "City";
+		private string m_currentView = "gameview:City";
 
 		/// <summary>
 		/// The different game views, e.g. City, World, etc.

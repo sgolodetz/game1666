@@ -143,6 +143,16 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
+		/// Casts this entity to a derived entity type.
+		/// </summary>
+		/// <typeparam name="T">The type of derived entity to which to cast.</typeparam>
+		/// <returns>The casted entity.</returns>
+		public T As<T>() where T : class, IEntity
+		{
+			return this as T;
+		}
+
+		/// <summary>
 		/// Gets the absolute path of this entity in its tree.
 		/// </summary>
 		/// <returns>The entity's absolute path.</returns>
