@@ -14,7 +14,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 	/// Specifically, the rendering behaviour for entities with this component is to
 	/// render all children contained within the entity.
 	/// </summary>
-	class CompositeRenderingComponent : RenderingComponent
+	sealed class CompositeRenderingComponent : RenderingComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -47,7 +47,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// </summary>
 		public override void Draw()
 		{
-			foreach(UIEntity child in Entity.Children.Cast<UIEntity>())
+			foreach(IUIEntity child in Entity.Children)
 			{
 				var renderer = child.GetComponent<RenderingComponent>(RenderingComponent.StaticGroup);
 				if(renderer != null)

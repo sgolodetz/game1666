@@ -13,9 +13,9 @@ using Microsoft.Xna.Framework;
 namespace game1666.Common.Entities
 {
 	/// <summary>
-	/// An instance of this class represents a component-based entity.
+	/// An instance of a class deriving from this one represents a component-based entity.
 	/// </summary>
-	class Entity : IEntity
+	abstract class Entity<TreeEntityType> : IEntity<TreeEntityType> where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -23,7 +23,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The children of the entity in its tree.
 		/// </summary>
-		private readonly IDictionary<string,IEntity> m_children = new Dictionary<string,IEntity>();
+		private readonly IDictionary<string,TreeEntityType> m_children = new Dictionary<string,TreeEntityType>();
 
 		/// <summary>
 		/// The components of the entity.
@@ -44,7 +44,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The children of the entity in its tree.
 		/// </summary>
-		public IEnumerable<IEntity> Children { get { return m_children.Values; } }
+		public IEnumerable<TreeEntityType> Children { get { return m_children.Values; } }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its parent entity, if any).
@@ -54,12 +54,17 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The parent of the entity in its tree.
 		/// </summary>
-		public IEntity Parent { get; set; }
+		public TreeEntityType Parent { get; set; }
 
 		/// <summary>
 		/// The properties of the entity.
 		/// </summary>
-		public IDictionary<string,dynamic> Properties { get; protected set; }
+		protected IDictionary<string,dynamic> Properties { get; set; }
+
+		/// <summary>
+		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
+		/// </summary>
+		public abstract TreeEntityType Self { get; }
 
 		#endregion
 
@@ -67,7 +72,7 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Constructs a blank entity (used by derived classes).
+		/// Constructs a blank entity.
 		/// </summary>
 		protected Entity()
 		{}
@@ -77,7 +82,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
 		/// <param name="archetype">The archetype of the entity.</param>
-		public Entity(string name, string archetype)
+		protected Entity(string name, string archetype)
 		{
 			Properties = new Dictionary<string,dynamic>
 			{
@@ -90,7 +95,7 @@ namespace game1666.Common.Entities
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		public Entity(XElement entityElt)
+		protected Entity(XElement entityElt)
 		{
 			Properties = PropertyPersister.LoadProperties(entityElt);
 
@@ -99,15 +104,15 @@ namespace game1666.Common.Entities
 				entityElt,
 				new ChildObjectAdder
 				{
-					CanBeUsedFor = t => t == typeof(Entity),
+					CanBeUsedFor = t => typeof(TreeEntityType).IsAssignableFrom(t),
 					AdditionalArguments = new object[] {},
 					AddAction = o => AddChild(o)
 				},
 				new ChildObjectAdder
 				{
-					CanBeUsedFor = t => typeof(EntityComponent).IsAssignableFrom(t),
+					CanBeUsedFor = t => typeof(EntityComponent<TreeEntityType>).IsAssignableFrom(t),
 					AdditionalArguments = new object[] {},
-					AddAction = o => (o as EntityComponent).AddToEntity(this)
+					AddAction = o => (o as EntityComponent<TreeEntityType>).AddToEntity(Self)
 				}
 			);
 		}
@@ -121,10 +126,10 @@ namespace game1666.Common.Entities
 		/// Adds a child to this entity.
 		/// </summary>
 		/// <param name="child">The child to add.</param>
-		public void AddChild(IEntity child)
+		public void AddChild(TreeEntityType child)
 		{
 			m_children.Add(child.Name, child);
-			child.Parent = this;
+			child.Parent = Self;
 		}
 
 		/// <summary>
@@ -148,22 +153,12 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
-		/// Casts this entity to a derived entity type.
-		/// </summary>
-		/// <typeparam name="T">The type of derived entity to which to cast.</typeparam>
-		/// <returns>The casted entity.</returns>
-		public T As<T>() where T : class, IEntity
-		{
-			return this as T;
-		}
-
-		/// <summary>
 		/// Gets the absolute path of this entity in its tree.
 		/// </summary>
 		/// <returns>The entity's absolute path.</returns>
 		public string GetAbsolutePath()
 		{
-			IEntity cur = this;
+			TreeEntityType cur = Self;
 			var path = new LinkedList<string>();
 			while(cur.Parent != null)
 			{
@@ -179,9 +174,9 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="name">The name of the child to look up.</param>
 		/// <returns>The child with the specified name, if it exists, or null otherwise.</returns>
-		public IEntity GetChild(string name)
+		public TreeEntityType GetChild(string name)
 		{
-			IEntity child = null;
+			TreeEntityType child = null;
 			m_children.TryGetValue(name, out child);
 			return child;
 		}
@@ -204,7 +199,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="path">The absolute path to the other entity.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		public IEntity GetEntityByAbsolutePath(string path)
+		public TreeEntityType GetEntityByAbsolutePath(string path)
 		{
 			return GetRootEntity().GetEntityByRelativePath(path);
 		}
@@ -214,7 +209,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="path">The absolute path to the other entity, as a list of path components.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		public IEntity GetEntityByAbsolutePath(LinkedList<string> path)
+		public TreeEntityType GetEntityByAbsolutePath(LinkedList<string> path)
 		{
 			return GetRootEntity().GetEntityByRelativePath(path);
 		}
@@ -224,7 +219,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="path">The relative path to the other entity.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		public IEntity GetEntityByRelativePath(string path)
+		public TreeEntityType GetEntityByRelativePath(string path)
 		{
 			return GetEntityByRelativePath(new LinkedList<string>(path.Split('/')));
 		}
@@ -234,9 +229,9 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="path">The relative path to the other entity, as a list of path components.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		public IEntity GetEntityByRelativePath(LinkedList<string> path)
+		public TreeEntityType GetEntityByRelativePath(LinkedList<string> path)
 		{
-			IEntity cur = this;
+			TreeEntityType cur = Self;
 
 			while(cur != null && path.Count != 0)
 			{
@@ -262,13 +257,13 @@ namespace game1666.Common.Entities
 		/// Initialises the entity once its entire tree has been constructed.
 		/// </summary>
 		/// <returns>The entity itself.</returns>
-		public IEntity Initialise()
+		public TreeEntityType Initialise()
 		{
 			foreach(IEntityComponent component in m_components.Values)
 			{
 				component.Initialise();
 			}
-			return this;
+			return Self;
 		}
 
 		/// <summary>
@@ -276,7 +271,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="child">The child to remove.</param>
 		/// <exception cref="System.InvalidOperationException">If this entity does not contain the child.</exception>
-		public void RemoveChild(IEntity child)
+		public void RemoveChild(TreeEntityType child)
 		{
 			if(m_children.Remove(child.Name))
 			{
@@ -319,9 +314,9 @@ namespace game1666.Common.Entities
 		/// Gets the root entity of this entity's tree.
 		/// </summary>
 		/// <returns>The root entity of this entity's tree.</returns>
-		private IEntity GetRootEntity()
+		private TreeEntityType GetRootEntity()
 		{
-			IEntity cur = this;
+			TreeEntityType cur = Self;
 			while(cur.Parent != null)
 			{
 				cur = cur.Parent;

@@ -13,7 +13,7 @@ namespace game1666.Common.Entities.Components
 	/// We have to put it here rather than in the test project because it will be instantiated
 	/// by reflection.
 	/// </summary>
-	sealed class TestComponent : EntityComponent
+	sealed class TestComponent : BasicEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

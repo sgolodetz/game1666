@@ -53,7 +53,7 @@ namespace game1666.GameUI
 		/// </summary>
 		/// <param name="element">The XML element representing the game view manager.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public GameViewManager(XElement element, IEntity world)
+		public GameViewManager(XElement element, IBasicEntity world)
 		{
 			ObjectPersister.LoadAndAddChildObjects
 			(

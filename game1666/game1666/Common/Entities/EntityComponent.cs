@@ -13,7 +13,7 @@ namespace game1666.Common.Entities
 	/// <summary>
 	/// An instance of a class deriving from this one represents a component of an entity.
 	/// </summary>
-	abstract class EntityComponent : IEntityComponent
+	abstract class EntityComponent<TreeEntityType> : IEntityComponent where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -21,7 +21,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The entity containing this component (if any).
 		/// </summary>
-		public IEntity Entity { get; private set; }
+		public TreeEntityType Entity { get; private set; }
 
 		/// <summary>
 		/// The group of the component.
@@ -46,7 +46,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// Constructs a blank component.
 		/// </summary>
-		public EntityComponent()
+		protected EntityComponent()
 		{
 			Properties = new Dictionary<string,dynamic>();
 		}
@@ -55,7 +55,7 @@ namespace game1666.Common.Entities
 		/// Constructs a component directly from its properties.
 		/// </summary>
 		/// <param name="properties">The properties of the component.</param>
-		public EntityComponent(IDictionary<string,dynamic> properties)
+		protected EntityComponent(IDictionary<string,dynamic> properties)
 		{
 			Properties = properties;
 		}
@@ -64,7 +64,7 @@ namespace game1666.Common.Entities
 		/// Constructs a component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public EntityComponent(XElement componentElt)
+		protected EntityComponent(XElement componentElt)
 		{
 			Properties = PropertyPersister.LoadProperties(componentElt);
 		}
@@ -78,7 +78,7 @@ namespace game1666.Common.Entities
 		/// Adds this component to an entity.
 		/// </summary>
 		/// <param name="entity">The entity to which to add the component.</param>
-		public void AddToEntity(IEntity entity)
+		public void AddToEntity(TreeEntityType entity)
 		{
 			entity.AddComponentInternal(this);
 			Entity = entity;

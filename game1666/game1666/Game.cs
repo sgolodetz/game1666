@@ -40,7 +40,7 @@ namespace game1666
 		/// <summary>
 		/// The game world (the top-level entity in the game model tree).
 		/// </summary>
-		private IEntity m_world;
+		private IBasicEntity m_world;
 
 		#endregion
 
@@ -99,7 +99,7 @@ namespace game1666
 			// Register special XML elements with the object persister.
 			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
-			ObjectPersister.RegisterSpecialElement("entity", typeof(Entity));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(BasicEntity));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 
@@ -160,10 +160,10 @@ namespace game1666
 		/// </summary>
 		/// <param name="filename">The name of the XML file.</param>
 		/// <returns>The loaded world.</returns>
-		private static IEntity LoadWorldFromFile(string filename)
+		private static IBasicEntity LoadWorldFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
-			return new Entity(doc.Element("entity"));
+			return new BasicEntity(doc.Element("entity"));
 		}
 
 		#endregion

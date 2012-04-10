@@ -3,7 +3,6 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using game1666.Common.Entities;
 using System.Xml.Linq;
 
 namespace game1666.GameUI.Entities.Components.Rendering
@@ -11,7 +10,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 	/// <summary>
 	/// An instance of a class deriving from this one provides rendering behaviour to an entity.
 	/// </summary>
-	abstract class RenderingComponent : EntityComponent
+	abstract class RenderingComponent : UIEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

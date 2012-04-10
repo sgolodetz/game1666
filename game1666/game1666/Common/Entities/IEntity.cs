@@ -13,9 +13,11 @@ namespace game1666.Common.Entities
 	/// An instance of a class implementing this interface represents a component-based entity.
 	/// Such entities consist of a set of pluggable components that define different aspects of
 	/// their behaviour. In addition, they can be part of an "entity tree", which allows them to
-	/// be looked up by path, e.g. "./settlement:Stuartopolis/house:Wibble".
+	/// be looked up by path, e.g. "./settlement:Stuartopolis/house:Wibble". Note that all of
+	/// the entities in such a tree must implement a common interface.
 	/// </summary>
-	interface IEntity : IPersistableObject
+	/// <typeparam name="TreeEntityType">The type of entity used in the entity tree.</typeparam>
+	interface IEntity<TreeEntityType> : IPersistableObject where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -29,7 +31,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The children of the entity in its tree.
 		/// </summary>
-		IEnumerable<IEntity> Children { get; }
+		IEnumerable<TreeEntityType> Children { get; }
 
 		/// <summary>
 		/// The name of the entity (must be unique within its parent entity, if any).
@@ -39,7 +41,12 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The parent of the entity in its tree.
 		/// </summary>
-		IEntity Parent { get; set; }
+		TreeEntityType Parent { get; set; }
+
+		/// <summary>
+		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
+		/// </summary>
+		TreeEntityType Self { get; }
 
 		#endregion
 
@@ -50,7 +57,7 @@ namespace game1666.Common.Entities
 		/// Adds a child to this entity.
 		/// </summary>
 		/// <param name="child">The child to add.</param>
-		void AddChild(IEntity child);
+		void AddChild(TreeEntityType child);
 
 		/// <summary>
 		/// Adds a component to this entity.
@@ -66,13 +73,6 @@ namespace game1666.Common.Entities
 		void AddComponentInternal(IEntityComponent component);
 
 		/// <summary>
-		/// Casts this entity to a derived entity type.
-		/// </summary>
-		/// <typeparam name="T">The type of derived entity to which to cast.</typeparam>
-		/// <returns>The casted entity.</returns>
-		T As<T>() where T : class, IEntity;
-
-		/// <summary>
 		/// Gets the absolute path of this entity in its tree.
 		/// </summary>
 		/// <returns>The entity's absolute path.</returns>
@@ -83,7 +83,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="name">The name of the child to look up.</param>
 		/// <returns>The child with the specified name, if it exists, or null otherwise.</returns>
-		IEntity GetChild(string name);
+		TreeEntityType GetChild(string name);
 
 		/// <summary>
 		/// Looks up a component of this entity by group.
@@ -98,41 +98,41 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="path">The absolute path to the other entity.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		IEntity GetEntityByAbsolutePath(string path);
+		TreeEntityType GetEntityByAbsolutePath(string path);
 
 		/// <summary>
 		/// Gets another entity in this entity's tree by its absolute path (i.e. its path relative to the root entity).
 		/// </summary>
 		/// <param name="path">The absolute path to the other entity, as a list of path components.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		IEntity GetEntityByAbsolutePath(LinkedList<string> path);
+		TreeEntityType GetEntityByAbsolutePath(LinkedList<string> path);
 
 		/// <summary>
 		/// Gets another entity in this entity's tree by its path relative to this entity.
 		/// </summary>
 		/// <param name="path">The relative path to the other entity.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		IEntity GetEntityByRelativePath(string path);
+		TreeEntityType GetEntityByRelativePath(string path);
 
 		/// <summary>
 		/// Gets another entity in this entity's tree by its path relative to this entity.
 		/// </summary>
 		/// <param name="path">The relative path to the other entity, as a list of path components.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
-		IEntity GetEntityByRelativePath(LinkedList<string> path);
+		TreeEntityType GetEntityByRelativePath(LinkedList<string> path);
 
 		/// <summary>
 		/// Initialises the entity once its entire tree has been constructed.
 		/// </summary>
 		/// <returns>The entity itself.</returns>
-		IEntity Initialise();
+		TreeEntityType Initialise();
 
 		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>
 		/// <exception cref="System.InvalidOperationException">If this entity does not contain the child.</exception>
-		void RemoveChild(IEntity child);
+		void RemoveChild(TreeEntityType child);
 
 		/// <summary>
 		/// Updates the entity based on elapsed time and user input.
