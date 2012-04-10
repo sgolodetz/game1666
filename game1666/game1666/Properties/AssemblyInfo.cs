@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -33,4 +33,8 @@ using System.Runtime.InteropServices;
 //
 [assembly: AssemblyVersion("1.0.0.0")]
 
+// Mark the assembly as compliant to the Common Language Specification.
+[assembly: CLSCompliant(true)]
+
+// Make the assembly's internals visible to its test project.
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("game1666Test")]
