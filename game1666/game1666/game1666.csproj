@@ -134,6 +134,8 @@
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />
+    <Compile Include="GameUI\Entities\Components\Interaction\CompositeInteractionComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\Interaction\InteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\CompositeRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\RenderingComponent.cs" />
     <Compile Include="GameUI\Entities\IUIEntity.cs" />
@@ -156,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameModel\Entities\Components\External\" />
-    <Folder Include="GameUI\Entities\Components\Interaction\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

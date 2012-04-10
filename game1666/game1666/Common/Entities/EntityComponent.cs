@@ -13,6 +13,7 @@ namespace game1666.Common.Entities
 	/// <summary>
 	/// An instance of a class deriving from this one represents a component of an entity.
 	/// </summary>
+	/// <typeparam name="TreeEntityType">The type of entity used in the entity tree.</typeparam>
 	abstract class EntityComponent<TreeEntityType> : IEntityComponent where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PROPERTIES ####################
@@ -89,7 +90,10 @@ namespace game1666.Common.Entities
 		/// </summary>
 		public virtual void Initialise()
 		{
-			// No-op by default
+			foreach(TreeEntityType child in Entity.Children)
+			{
+				child.Initialise();
+			}
 		}
 
 		/// <summary>
@@ -109,7 +113,10 @@ namespace game1666.Common.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public virtual void Update(GameTime gameTime)
 		{
-			// No-op by default
+			foreach(TreeEntityType child in Entity.Children)
+			{
+				child.Update(gameTime);
+			}
 		}
 
 		#endregion

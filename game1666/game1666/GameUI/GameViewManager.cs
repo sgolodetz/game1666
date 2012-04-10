@@ -9,6 +9,7 @@ using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameUI.Entities;
+using game1666.GameUI.Entities.Components.Interaction;
 using game1666.GameUI.Entities.Components.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -104,7 +105,7 @@ namespace game1666.GameUI
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void Update(GameTime gameTime)
 		{
-			// TODO
+			m_views[m_currentView].Update(gameTime);
 		}
 
 		#endregion
@@ -118,7 +119,11 @@ namespace game1666.GameUI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		private void OnMouseMoved(MouseState state)
 		{
-			// TODO
+			var interactor = m_views[m_currentView].GetComponent<InteractionComponent>(InteractionComponent.StaticGroup);
+			if(interactor != null)
+			{
+				interactor.OnMouseMoved(state);
+			}
 		}
 
 		/// <summary>
@@ -127,7 +132,11 @@ namespace game1666.GameUI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			// TODO
+			var interactor = m_views[m_currentView].GetComponent<InteractionComponent>(InteractionComponent.StaticGroup);
+			if(interactor != null)
+			{
+				interactor.OnMousePressed(state);
+			}
 		}
 
 		#endregion

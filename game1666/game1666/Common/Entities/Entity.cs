@@ -15,6 +15,7 @@ namespace game1666.Common.Entities
 	/// <summary>
 	/// An instance of a class deriving from this one represents a component-based entity.
 	/// </summary>
+	/// <typeparam name="TreeEntityType">The type of entity used in the entity tree.</typeparam>
 	abstract class Entity<TreeEntityType> : IEntity<TreeEntityType> where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PRIVATE VARIABLES ####################

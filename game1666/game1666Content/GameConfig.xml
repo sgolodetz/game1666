@@ -11,7 +11,7 @@
       <property name="Name" type="string" value="gameview:City"/>
       <property name="Target" type="string" value="./city:Home"/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
-      <!--<cmpCompositeInteraction/>-->
+      <cmpCompositeInteraction/>
       <cmpCompositeRendering/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>
