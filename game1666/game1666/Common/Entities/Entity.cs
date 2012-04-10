@@ -60,7 +60,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The properties of the entity.
 		/// </summary>
-		protected IDictionary<string,dynamic> Properties { get; set; }
+		public IDictionary<string,dynamic> Properties { get; protected set; }
 
 		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).

@@ -133,6 +133,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\TerrainMultitexture.fx">
+      <Name>TerrainMultitexture</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <None Include="GameConfig.xml">
       <Name>GameConfig</Name>
       <Importer>XmlImporter</Importer>

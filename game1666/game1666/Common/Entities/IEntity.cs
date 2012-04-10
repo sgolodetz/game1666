@@ -44,6 +44,11 @@ namespace game1666.Common.Entities
 		TreeEntityType Parent { get; set; }
 
 		/// <summary>
+		/// The properties of the entity.
+		/// </summary>
+		IDictionary<string,dynamic> Properties { get; }
+
+		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
 		/// </summary>
 		TreeEntityType Self { get; }

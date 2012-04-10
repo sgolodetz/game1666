@@ -101,6 +101,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
+			ObjectPersister.RegisterSpecialElement("cmpPlayRendering", typeof(PlayRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(BasicEntity));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
@@ -142,8 +143,8 @@ namespace game1666
 		{
 			KeyboardState keyState = Keyboard.GetState();
 			if(keyState.IsKeyDown(Keys.Escape))	Exit();
-			if(keyState.IsKeyDown(Keys.F1))	m_gameViewManager.CurrentView = "City";
-			if(keyState.IsKeyDown(Keys.F2))	m_gameViewManager.CurrentView = "World";
+			if(keyState.IsKeyDown(Keys.F1))	m_gameViewManager.CurrentView = "gameview:City";
+			if(keyState.IsKeyDown(Keys.F2))	m_gameViewManager.CurrentView = "gameview:World";
 
 			MouseEventManager.Update();
 			m_gameViewManager.Update(gameTime);

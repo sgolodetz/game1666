@@ -9,7 +9,7 @@
     <uientity>
       <property name="Archetype" type="string" value="GameView"/>
       <property name="Name" type="string" value="gameview:City"/>
-      <property name="Target" type="string" value="./city:Home"/>
+      <property name="Target" type="string" value="./settlement:Home"/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeRendering/>
@@ -17,8 +17,8 @@
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
-        <!--<cmpPlayInteraction/>
-        <cmpPlayRendering/>-->
+        <!--<cmpPlayInteraction/>-->
+        <cmpPlayRendering/>
       </uientity>
       <uientity>
         <property name="Archetype" type="string" value="SidebarViewer"/>
@@ -31,6 +31,38 @@
           <group name="Houses">
             <element name="Dwelling" tool="EntityPlacementTool"/>
             <element name="Mansion" tool="EntityPlacementTool"/>
+          </group>
+          <group name="Roads">
+            <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
+          </group>
+        </cmpSidebarInteraction>
+        <cmpSidebarRendering/>-->
+      </uientity>
+    </uientity>
+    <uientity>
+      <property name="Archetype" type="string" value="GameView"/>
+      <property name="Name" type="string" value="gameview:World"/>
+      <property name="Target" type="string" value="."/>
+      <property name="Viewport" type="Viewport" value="0,0,1,1"/>
+      <cmpCompositeInteraction/>
+      <cmpCompositeRendering/>
+      <uientity>
+        <property name="Archetype" type="string" value="PlayViewer"/>
+        <property name="Name" type="string" value="playviewer"/>
+        <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
+        <!--<cmpPlayInteraction/>-->
+        <cmpPlayRendering/>
+      </uientity>
+      <uientity>
+        <property name="Archetype" type="string" value="SidebarViewer"/>
+        <property name="Name" type="string" value="sidebarviewer"/>
+        <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
+        <!--<cmpSidebarInteraction>
+          <group name="Special">
+            <element name="Delete" tool="EntityDeletionTool"/>
+          </group>
+          <group name="Cities">
+            <element name="Village" tool="EntityPlacementTool"/>
           </group>
           <group name="Roads">
             <element name="DirtTrack" tool="MultiEntityPlacementTool"/>

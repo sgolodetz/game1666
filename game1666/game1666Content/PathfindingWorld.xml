@@ -2,6 +2,7 @@
 <entity>
   <property name="Archetype" type="string" value="World"/>
   <property name="Name" type="string" value="."/>
+  <property name="HomeSettlement" type="string" value="./settlement:Stuartopolis"/>
   <cmpPlayingArea>
     <terrain>
       <property name="AssetHeightmap" type="string" value="TestWorld"/>
