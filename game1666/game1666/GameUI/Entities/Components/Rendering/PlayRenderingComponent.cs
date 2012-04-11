@@ -8,8 +8,10 @@ using game1666.Common.Entities;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
+using game1666.GameUI.Entities.Components.Interaction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using game1666.GameUI.Entities.Components.Util;
 
 namespace game1666.GameUI.Entities.Components.Rendering
 {
@@ -20,11 +22,6 @@ namespace game1666.GameUI.Entities.Components.Rendering
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
-
-		/// <summary>
-		/// The 3D camera specifying the position of the viewer.
-		/// </summary>
-		private readonly Camera m_camera;
 
 		/// <summary>
 		/// The current projection matrix.
@@ -62,9 +59,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public PlayRenderingComponent(XElement componentElt)
 		:	base(componentElt)
-		{
-			m_camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
-		}
+		{}
 
 		#endregion
 
@@ -76,11 +71,8 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// </summary>
 		public override void Draw()
 		{
-			// Look up the target entity.
-			IUIEntity gameView = Entity.Parent;
-			string targetPath = gameView.Properties["Target"];
-			if(targetPath == "./settlement:Home") targetPath = Entity.World.Properties["HomeSettlement"];
-			IBasicEntity targetEntity = Entity.World.GetEntityByAbsolutePath(targetPath);
+			// Look up the target entity of the game view containing the play viewer.
+			IBasicEntity targetEntity = UIEntityComponentUtil.GetTarget(Entity.Parent);
 			if(targetEntity == null) return;
 
 			// Prepare for rendering.
@@ -122,8 +114,10 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// </summary>
 		private void SetupMatrices()
 		{
+			Camera camera = Entity.GetComponent<PlayInteractionComponent>(PlayInteractionComponent.StaticGroup).Camera;
+
 			m_matProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Entity.Viewport.Width / Entity.Viewport.Height, 0.1f, 1000.0f);
-			m_matView = Matrix.CreateLookAt(m_camera.Position, m_camera.Position + m_camera.N, m_camera.V);
+			m_matView = Matrix.CreateLookAt(camera.Position, camera.Position + camera.N, camera.V);
 			m_matWorld = Matrix.Identity;
 		}
 

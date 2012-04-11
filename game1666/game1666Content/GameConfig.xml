@@ -17,7 +17,7 @@
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
-        <!--<cmpPlayInteraction/>-->
+        <cmpPlayInteraction/>
         <cmpPlayRendering/>
       </uientity>
       <uientity>
@@ -50,7 +50,7 @@
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
-        <!--<cmpPlayInteraction/>-->
+        <cmpPlayInteraction/>
         <cmpPlayRendering/>
       </uientity>
       <uientity>

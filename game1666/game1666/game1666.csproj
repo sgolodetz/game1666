@@ -137,9 +137,11 @@
     <Compile Include="GameModel\Terrains\Terrain.cs" />
     <Compile Include="GameUI\Entities\Components\Interaction\CompositeInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Interaction\InteractionComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\Interaction\PlayInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\CompositeRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\PlayRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\RenderingComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\Util\UIEntityComponentUtil.cs" />
     <Compile Include="GameUI\Entities\IUIEntity.cs" />
     <Compile Include="GameUI\Entities\UIEntity.cs" />
     <Compile Include="GameUI\Entities\UIEntityComponent.cs" />
