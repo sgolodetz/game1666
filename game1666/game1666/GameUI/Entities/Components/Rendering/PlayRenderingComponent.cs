@@ -38,6 +38,11 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// </summary>
 		private Matrix m_matWorld;
 
+		/// <summary>
+		/// The basic effect for rendering the terrain quadtree.
+		/// </summary>
+		private readonly BasicEffect m_terrainQuadtreeEffect = new BasicEffect(Renderer.GraphicsDevice);
+
 		#endregion
 
 		//#################### PROPERTIES ####################
@@ -82,7 +87,11 @@ namespace game1666.GameUI.Entities.Components.Rendering
 
 			// Draw the terrain.
 			var internalComponent = targetEntity.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
-			if(internalComponent != null) DrawTerrain(internalComponent.Terrain);
+			if(internalComponent == null) return;
+			DrawTerrain(internalComponent.Terrain);
+
+			// For debugging purposes only.
+			//DrawTerrainQuadtree(internalComponent.Terrain.QuadtreeRoot);
 
 			// TODO
 		}
@@ -107,6 +116,41 @@ namespace game1666.GameUI.Entities.Components.Rendering
 			effect.Parameters["TransitionHalfWidth"].SetValue(terrain.TransitionHalfWidth);
 			effect.Parameters["TransitionHeight"].SetValue(terrain.TransitionHeight);
 			Renderer.DrawTriangleList(terrain.VertexBuffer, terrain.IndexBuffer, effect);
+		}
+
+		/// <summary>
+		/// Draws the bounding boxes of the various nodes in a terrain quadtree (for debugging purposes).
+		/// </summary>
+		/// <param name="root">The root node of the terrain quadtree to draw.</param>
+		private void DrawTerrainQuadtree(QuadtreeNode root)
+		{
+			m_terrainQuadtreeEffect.World = m_matWorld;
+			m_terrainQuadtreeEffect.View = m_matView;
+			m_terrainQuadtreeEffect.Projection = m_matProjection;
+			m_terrainQuadtreeEffect.VertexColorEnabled = true;
+
+			DrawTerrainQuadtreeSub(root);
+		}
+
+		/// <summary>
+		/// Draws the bounding boxes of the various nodes in a subtree of the terrain quadtree (for debugging purposes).
+		/// </summary>
+		/// <param name="node">The root node of the subtree.</param>
+		/// <param name="depth">The depth of the recursion.</param>
+		private void DrawTerrainQuadtreeSub(QuadtreeNode node, int depth = 0)
+		{
+			if(node.Children != null)
+			{
+				// This node is a branch, so recurse on its children.
+				foreach(QuadtreeNode child in node.Children)
+				{
+					DrawTerrainQuadtreeSub(child, depth + 1);
+				}
+			}
+
+			// Draw the node's own bounding box.
+			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
+			Renderer.DrawBoundingBox(node.Bounds, m_terrainQuadtreeEffect, colours[depth % colours.Length]);
 		}
 
 		/// <summary>
