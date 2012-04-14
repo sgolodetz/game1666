@@ -35,8 +35,8 @@
           <group name="Roads">
             <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
           </group>
-        </cmpSidebarInteraction>
-        <cmpSidebarRendering/>-->
+        </cmpSidebarInteraction>-->
+        <cmpSidebarRendering/>
       </uientity>
     </uientity>
     <uientity>
@@ -67,8 +67,8 @@
           <group name="Roads">
             <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
           </group>
-        </cmpSidebarInteraction>
-        <cmpSidebarRendering/>-->
+        </cmpSidebarInteraction>-->
+        <cmpSidebarRendering/>
       </uientity>
     </uientity>
   </gameviews>

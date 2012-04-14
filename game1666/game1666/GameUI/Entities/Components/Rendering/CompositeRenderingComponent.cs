@@ -14,7 +14,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 	/// Specifically, the rendering behaviour for entities with this component is to
 	/// render all children contained within the entity.
 	/// </summary>
-	sealed class CompositeRenderingComponent : RenderingComponent
+	class CompositeRenderingComponent : RenderingComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
