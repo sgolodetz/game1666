@@ -100,6 +100,11 @@ namespace game1666.Common.Entities
 		{
 			Properties = PropertyPersister.LoadProperties(entityElt);
 
+			if(!Properties.ContainsKey("Name"))
+			{
+				Properties["Name"] = Archetype.ToLower() + ":" + Guid.NewGuid().ToString();
+			}
+
 			ObjectPersister.LoadAndAddChildObjects
 			(
 				entityElt,

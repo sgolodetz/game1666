@@ -8,6 +8,7 @@ using System.Xml.XPath;
 using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
+using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
 using game1666.GameUI;
@@ -100,6 +101,7 @@ namespace game1666
 			// Register special XML elements with the object persister.
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
+			ObjectPersister.RegisterSpecialElement("cmpPlacement", typeof(PlacementComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayInteraction", typeof(PlayInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayRendering", typeof(PlayRenderingComponent));

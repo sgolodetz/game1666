@@ -33,5 +33,12 @@
         <property name="ZScaling" type="float" value="0.25"/>
       </terrain>
     </cmpPlayingArea>
+    <entity>
+      <property name="Archetype" type="string" value="House"/>
+      <cmpPlacement>
+        <property name="Orientation" type="Orientation4" value="XPOS"/>
+        <property name="Position" type="Vector2i" value="1,0"/>
+      </cmpPlacement>
+    </entity>
   </entity>
 </entity>

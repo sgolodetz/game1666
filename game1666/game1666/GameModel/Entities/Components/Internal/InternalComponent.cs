@@ -38,14 +38,14 @@ namespace game1666.GameModel.Entities.Components.Internal
 		/// <summary>
 		/// Constructs a blank internal component.
 		/// </summary>
-		public InternalComponent()
+		protected InternalComponent()
 		{}
 
 		/// <summary>
 		/// Constructs an internal component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public InternalComponent(XElement componentElt)
+		protected InternalComponent(XElement componentElt)
 		:	base(componentElt)
 		{}
 
