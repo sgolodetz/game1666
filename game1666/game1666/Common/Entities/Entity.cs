@@ -304,6 +304,11 @@ namespace game1666.Common.Entities
 			{
 				component.Update(gameTime);
 			}
+
+			foreach(TreeEntityType child in Children)
+			{
+				child.Update(gameTime);
+			}
 		}
 
 		#endregion

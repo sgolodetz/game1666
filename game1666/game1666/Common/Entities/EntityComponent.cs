@@ -113,10 +113,7 @@ namespace game1666.Common.Entities
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public virtual void Update(GameTime gameTime)
 		{
-			foreach(TreeEntityType child in Entity.Children)
-			{
-				child.Update(gameTime);
-			}
+			// No-op by default
 		}
 
 		#endregion
