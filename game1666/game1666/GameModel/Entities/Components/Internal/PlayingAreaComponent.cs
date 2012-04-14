@@ -16,25 +16,15 @@ namespace game1666.GameModel.Entities.Components.Internal
 	/// as the world or a settlement. Playing areas have a terrain on which other
 	/// entities can be placed or move around.
 	/// </summary>
-	sealed class PlayingAreaComponent : BasicEntityComponent
+	sealed class PlayingAreaComponent : InternalComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public override string Group { get { return StaticGroup; } }
-
-		/// <summary>
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "PlayingArea"; } }
-
-		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public static string StaticGroup { get { return "GameModel/Internal"; } }
 
 		/// <summary>
 		/// The playing area's terrain.

@@ -130,6 +130,7 @@
     <Compile Include="Common\UI\Camera.cs" />
     <Compile Include="Common\UI\MouseEventManager.cs" />
     <Compile Include="Common\UI\Renderer.cs" />
+    <Compile Include="GameModel\Entities\Components\Internal\InternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\EntityFactory.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
