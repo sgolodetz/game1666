@@ -81,7 +81,7 @@ namespace game1666.Common.Persistence
 		}
 
 		/// <summary>
-		/// Creates objects from the non-property child elements of the specified XML element and
+		/// Loads objects from the non-property child elements of the specified XML element and
 		/// adds them to a parent object using the supplied child object adders.
 		/// </summary>
 		/// <param name="parentElt">The parent XML element.</param>
@@ -107,6 +107,19 @@ namespace game1666.Common.Persistence
 
 				// Construct the child object and run the appropriate add action on it.
 				adder.AddAction(Activator.CreateInstance(childType, arguments));
+			}
+		}
+
+		/// <summary>
+		/// Loads objects from the non-property child elements of the specified XML element.
+		/// </summary>
+		/// <param name="parentElt">The parent XML element.</param>
+		/// <returns>The loaded child objects.</returns>
+		public static IEnumerable<dynamic> LoadChildObjects(XElement parentElt)
+		{
+			foreach(XElement childElt in parentElt.Elements().Where(e => e.Name != "property"))
+			{
+				yield return LoadObject(childElt);
 			}
 		}
 

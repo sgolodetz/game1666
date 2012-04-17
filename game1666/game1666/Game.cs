@@ -8,6 +8,7 @@ using System.Xml.XPath;
 using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
+using game1666.GameModel.Blueprints;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
@@ -107,6 +108,8 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpPlayRendering", typeof(PlayRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpSidebarRendering", typeof(SidebarRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(BasicEntity));
+			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
+			ObjectPersister.RegisterSpecialElement("placementblueprint", typeof(PlacementBlueprint));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 

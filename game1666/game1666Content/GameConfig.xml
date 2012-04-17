@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
-    <object type="game1666.GameModel.Blueprints.PlaceableBlueprint">
-      <property name="Name" type="string" value="Settlement"/>
-    </object>
+    <placementblueprint>
+      <property name="Name" type="string" value="Dwelling"/>
+      <property name="Model" type="string" value="Dwelling"/>
+      <property name="TimeToConstruct" type="int" value="1000"/>
+      <footprint>
+        <property name="Hotspot" type="Vector2i" value="0,0"/>
+        <property name="Pattern" type="Array2D[int]">
+          [1,1]
+          2
+        </property>
+      </footprint>
+    </placementblueprint>
   </blueprints>
   <gameviews>
     <uientity>

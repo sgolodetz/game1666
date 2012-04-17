@@ -4,8 +4,10 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
+using game1666.GameModel.Blueprints;
 
 namespace game1666.GameModel.Entities.Components.External
 {
@@ -15,6 +17,16 @@ namespace game1666.GameModel.Entities.Components.External
 	/// </summary>
 	sealed class PlacementComponent : ExternalComponent
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The footprint of the entity, suitably rotated to take account of its orientation.
+		/// </summary>
+		private readonly Footprint m_footprint;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -26,6 +38,11 @@ namespace game1666.GameModel.Entities.Components.External
 			get { return Properties["Altitude"]; }
 			set { Properties["Altitude"] = value; }
 		}
+
+		/// <summary>
+		/// The blueprint for the entity.
+		/// </summary>
+		public PlacementBlueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// Whether or not the entity can be destroyed.
@@ -42,7 +59,14 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <summary>
 		/// The entrances to the entity.
 		/// </summary>
-		public IEnumerable<Vector2i> Entrances { get; private set; }
+		public IEnumerable<Vector2i> Entrances
+		{
+			get
+			{
+				Vector2i offset = Position - m_footprint.Hotspot;
+				return m_footprint.Entrances.Select(e => e + offset);
+			}
+		}
 
 		/// <summary>
 		/// The name of the component.
@@ -70,7 +94,12 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public PlacementComponent(XElement componentElt)
 		:	base(componentElt)
-		{}
+		{
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
+
+			// Determine the entity's (suitably rotated) footprint.
+			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
+		}
 
 		#endregion
 	}
