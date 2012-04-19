@@ -13,7 +13,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 	/// <summary>
 	/// An instance of this class draws a sidebar that allows the user to interact with a playing area (such as the world or a settlement).
 	/// </summary>
-	sealed class SidebarRenderingComponent : CompositeRenderingComponent
+	sealed class SidebarRenderingComponent : CompositeControlRenderingComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

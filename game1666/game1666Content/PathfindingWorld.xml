@@ -33,6 +33,15 @@
         <property name="ZScaling" type="float" value="0.25"/>
       </terrain>
     </cmpPlayingArea>
+    <cmpPlacement>
+      <property name="Blueprint" type="string" value="Village"/>
+      <property name="ConstructionDone" type="int" value="10000"/>
+      <property name="Destructible" type="bool" value="false"/>
+      <property name="Orientation" type="Orientation4" value="XPOS"/>
+      <property name="Position" type="Vector2i" value="50,30"/>
+      <property name="State" type="string" value="OPERATING"/>
+    </cmpPlacement>
+    <cmpPlaceableEntityRendering/>
     <entity>
       <property name="Archetype" type="string" value="House"/>
       <cmpPlacement>
@@ -42,6 +51,7 @@
         <property name="Position" type="Vector2i" value="1,0"/>
         <property name="State" type="string" value="OPERATING"/>
       </cmpPlacement>
+      <cmpPlaceableEntityRendering/>
     </entity>
   </entity>
 </entity>

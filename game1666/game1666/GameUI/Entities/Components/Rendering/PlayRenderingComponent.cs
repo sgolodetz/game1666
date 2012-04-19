@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Components.Rendering;
 using game1666.GameModel.Terrains;
 using game1666.GameUI.Entities.Components.Interaction;
 using Microsoft.Xna.Framework;
@@ -17,10 +18,15 @@ namespace game1666.GameUI.Entities.Components.Rendering
 	/// <summary>
 	/// An instance of this class draws a play viewer that shows the contents of a playing area (such as the world or a settlement).
 	/// </summary>
-	sealed class PlayRenderingComponent : RenderingComponent
+	sealed class PlayRenderingComponent : ControlRenderingComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
+
+		/// <summary>
+		/// The basic effect for rendering entities.
+		/// </summary>
+		private readonly BasicEffect m_entityEffect = new BasicEffect(Renderer.GraphicsDevice);
 
 		/// <summary>
 		/// The current projection matrix.
@@ -92,7 +98,18 @@ namespace game1666.GameUI.Entities.Components.Rendering
 			// For debugging purposes only.
 			//DrawTerrainQuadtree(internalComponent.Terrain.QuadtreeRoot);
 
-			// TODO
+			// Draw the children of the target entity.
+			foreach(IModelEntity child in targetEntity.Children)
+			{
+				EntityRenderingComponent renderer = child.GetComponent<EntityRenderingComponent>(EntityRenderingComponent.StaticGroup);
+				if(renderer != null)
+				{
+					m_entityEffect.World = m_matWorld;
+					m_entityEffect.View = m_matView;
+					m_entityEffect.Projection = m_matProjection;
+					renderer.Draw(m_entityEffect, 1f);
+				}
+			}
 		}
 
 		#endregion

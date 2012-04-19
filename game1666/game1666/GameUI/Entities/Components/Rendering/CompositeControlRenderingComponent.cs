@@ -1,20 +1,18 @@
 ﻿/***
- * game1666: CompositeRenderingComponent.cs
+ * game1666: CompositeControlRenderingComponent.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Linq;
 using System.Xml.Linq;
-using game1666.Common.Entities;
 
 namespace game1666.GameUI.Entities.Components.Rendering
 {
 	/// <summary>
-	/// An instance of this class provides composite rendering behaviour to an entity.
-	/// Specifically, the rendering behaviour for entities with this component is to
-	/// render all children contained within the entity.
+	/// An instance of this class provides composite rendering behaviour to a UI control.
+	/// Specifically, the rendering behaviour for controls with this component is to render
+	/// all sub-controls contained within the control.
 	/// </summary>
-	class CompositeRenderingComponent : RenderingComponent
+	class CompositeControlRenderingComponent : ControlRenderingComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -22,7 +20,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
-		public override string Name { get { return "CompositeRendering"; } }
+		public override string Name { get { return "CompositeControlRendering"; } }
 
 		#endregion
 
@@ -30,10 +28,10 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		#region
 
 		/// <summary>
-		/// Constructs a composite rendering component from its XML representation.
+		/// Constructs a composite control rendering component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public CompositeRenderingComponent(XElement componentElt)
+		public CompositeControlRenderingComponent(XElement componentElt)
 		:	base(componentElt)
 		{}
 
@@ -43,13 +41,13 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		#region
 
 		/// <summary>
-		/// Draws the entity of which this component is a part.
+		/// Draws the UI control of which this component is a part.
 		/// </summary>
 		public override void Draw()
 		{
 			foreach(IUIEntity child in Entity.Children)
 			{
-				var renderer = child.GetComponent<RenderingComponent>(RenderingComponent.StaticGroup);
+				var renderer = child.GetComponent<ControlRenderingComponent>(ControlRenderingComponent.StaticGroup);
 				if(renderer != null)
 				{
 					renderer.Draw();

@@ -100,6 +100,14 @@ namespace game1666.GameModel.Entities.Components.External
 		public Orientation4 Orientation { get { return Properties["Orientation"]; } }
 
 		/// <summary>
+		/// The completeness percentage of the entity.
+		/// </summary>
+		public int PercentComplete
+		{
+			get { return Blueprint.TimeToConstruct != 0 ? ConstructionDone * 100 / Blueprint.TimeToConstruct : 100; }
+		}
+
+		/// <summary>
 		/// The position (relative to the origin of the containing entity) of the entity's hotspot.
 		/// </summary>
 		public Vector2i Position { get { return Properties["Position"]; } }

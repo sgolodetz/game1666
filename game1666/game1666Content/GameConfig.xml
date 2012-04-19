@@ -13,6 +13,20 @@
         </property>
       </footprint>
     </placementblueprint>
+    <placementblueprint>
+      <property name="Name" type="string" value="Village"/>
+      <property name="Model" type="string" value="Village"/>
+      <property name="TimeToConstruct" type="int" value="10000"/>
+      <footprint>
+        <property name="Hotspot" type="Vector2i" value="1,1"/>
+        <property name="Pattern" type="Array2D[int]">
+          [3,3]
+          1,2,1,
+          2,1,2,
+          1,2,1
+        </property>
+      </footprint>
+    </placementblueprint>
   </blueprints>
   <gameviews>
     <uientity>
@@ -21,7 +35,7 @@
       <property name="Target" type="string" value="./settlement:Home"/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
-      <cmpCompositeRendering/>
+      <cmpCompositeControlRendering/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
@@ -54,7 +68,7 @@
       <property name="Target" type="string" value="."/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
-      <cmpCompositeRendering/>
+      <cmpCompositeControlRendering/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
