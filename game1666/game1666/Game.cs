@@ -5,10 +5,10 @@
 
 using System.Xml.Linq;
 using System.Xml.XPath;
-using game1666.Common.Entities;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
+using game1666.GameModel.Entities;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
@@ -43,7 +43,7 @@ namespace game1666
 		/// <summary>
 		/// The game world (the top-level entity in the game model tree).
 		/// </summary>
-		private IBasicEntity m_world;
+		private IModelEntity m_world;
 
 		#endregion
 
@@ -107,7 +107,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpPlayInteraction", typeof(PlayInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayRendering", typeof(PlayRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpSidebarRendering", typeof(SidebarRenderingComponent));
-			ObjectPersister.RegisterSpecialElement("entity", typeof(BasicEntity));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
 			ObjectPersister.RegisterSpecialElement("placementblueprint", typeof(PlacementBlueprint));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
@@ -170,10 +170,10 @@ namespace game1666
 		/// </summary>
 		/// <param name="filename">The name of the XML file.</param>
 		/// <returns>The loaded world.</returns>
-		private static IBasicEntity LoadWorldFromFile(string filename)
+		private static IModelEntity LoadWorldFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
-			return new BasicEntity(doc.Element("entity"));
+			return new ModelEntity(doc.Element("entity"));
 		}
 
 		#endregion

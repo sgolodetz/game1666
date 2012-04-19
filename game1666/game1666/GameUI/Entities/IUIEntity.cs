@@ -4,6 +4,7 @@
  ***/
 
 using game1666.Common.Entities;
+using game1666.GameModel.Entities;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameUI.Entities
@@ -21,6 +22,6 @@ namespace game1666.GameUI.Entities
 		/// <summary>
 		/// The world that is being viewed.
 		/// </summary>
-		IBasicEntity World { get; }
+		IModelEntity World { get; }
 	}
 }

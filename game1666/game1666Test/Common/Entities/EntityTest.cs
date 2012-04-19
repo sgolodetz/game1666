@@ -5,9 +5,9 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
-using game1666.Common.Entities;
-using game1666.Common.Entities.Components;
 using game1666.Common.Persistence;
+using game1666.GameModel.Entities;
+using game1666.GameModel.Entities.Components.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
@@ -22,12 +22,12 @@ namespace game1666Test
 		//#################### HELPER CLASSES ####################
 		#region
 
-		private abstract class TestGroupAComponent : BasicEntityComponent
+		private abstract class TestGroupAComponent : ModelEntityComponent
 		{
 			public override string Group { get { return "TestGroupA"; } }
 		}
 
-		private abstract class TestGroupBComponent : BasicEntityComponent
+		private abstract class TestGroupBComponent : ModelEntityComponent
 		{
 			public override string Group { get { return "TestGroupB"; } }
 		}
@@ -60,10 +60,10 @@ namespace game1666Test
 		{
 			// Register special XML elements with the object persister.
 			ObjectPersister.RegisterSpecialElement("cmpTest", typeof(TestComponent));
-			ObjectPersister.RegisterSpecialElement("entity", typeof(BasicEntity));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 
 			// Load the world from XML.
-			var world = new BasicEntity(XElement.Parse(@"
+			var world = new ModelEntity(XElement.Parse(@"
 			<entity>
 				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
@@ -81,7 +81,7 @@ namespace game1666Test
 			Assert.Equal(".", world.Name);
 			Assert.NotNull(world.GetComponent<TestComponent>(TestComponent.StaticGroup));
 
-			IBasicEntity settlement = world.GetChild("settlement:Stuartopolis");
+			IModelEntity settlement = world.GetChild("settlement:Stuartopolis");
 
 			Assert.NotNull(settlement);
 			Assert.Equal("Settlement", settlement.Archetype);
@@ -95,9 +95,9 @@ namespace game1666Test
 		[TestMethod]
 		public void GetAbsolutePathTest()
 		{
-			var world = new BasicEntity(".", "World");
-			var settlement = new BasicEntity("settlement:Stuartopolis", "Settlement");
-			var house = new BasicEntity("house:Wibble", "House");
+			var world = new ModelEntity(".", "World");
+			var settlement = new ModelEntity("settlement:Stuartopolis", "Settlement");
+			var house = new ModelEntity("house:Wibble", "House");
 
 			world.AddChild(settlement);
 			settlement.AddChild(house);
@@ -111,7 +111,7 @@ namespace game1666Test
 		[TestMethod]
 		public void GetComponentTest()
 		{
-			var entity = new BasicEntity(".", "");
+			var entity = new ModelEntity(".", "");
 			var component1 = new Test1Component();
 			var component2 = new Test2Component();
 
@@ -131,13 +131,13 @@ namespace game1666Test
 		{
 			// Register special XML elements with the object persister.
 			ObjectPersister.RegisterSpecialElement("cmpTest", typeof(TestComponent));
-			ObjectPersister.RegisterSpecialElement("entity", typeof(BasicEntity));
+			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 
 			// Construct the world.
-			var world = new BasicEntity(".", "World");
-			var settlementA = new BasicEntity("settlement:A", "Settlement");
-			var settlementB = new BasicEntity("settlement:B", "Settlement");
-			var house = new BasicEntity("house:Wibble", "House");
+			var world = new ModelEntity(".", "World");
+			var settlementA = new ModelEntity("settlement:A", "Settlement");
+			var settlementB = new ModelEntity("settlement:B", "Settlement");
+			var house = new ModelEntity("house:Wibble", "House");
 
 			world.AddChild(settlementA);
 			world.AddChild(settlementB);

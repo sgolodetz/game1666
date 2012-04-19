@@ -7,7 +7,7 @@ using System;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.Internal;
-using game1666.GameUI.Entities.Components.Util;
+using game1666.GameUI.Entities.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 

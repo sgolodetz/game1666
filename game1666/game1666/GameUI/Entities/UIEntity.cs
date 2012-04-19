@@ -6,6 +6,7 @@
 using System.Xml.Linq;
 using game1666.Common.Entities;
 using game1666.Common.Persistence;
+using game1666.GameModel.Entities;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameUI.Entities
@@ -31,7 +32,7 @@ namespace game1666.GameUI.Entities
 		/// <summary>
 		/// The world that is being viewed.
 		/// </summary>
-		public IBasicEntity World { get; private set; }
+		public IModelEntity World { get; private set; }
 
 		#endregion
 
@@ -43,7 +44,7 @@ namespace game1666.GameUI.Entities
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		/// <param name="world">The world that is being viewed.</param>
-		public UIEntity(XElement entityElt, IBasicEntity world)
+		public UIEntity(XElement entityElt, IModelEntity world)
 		{
 			Properties = PropertyPersister.LoadProperties(entityElt);
 			World = world;

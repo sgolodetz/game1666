@@ -15,7 +15,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 	/// intended to control what happens within an entity, as opposed to external components
 	/// that control things like placement and movement.
 	/// </summary>
-	abstract class InternalComponent : BasicEntityComponent
+	abstract class InternalComponent : ModelEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

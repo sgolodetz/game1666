@@ -15,7 +15,7 @@ namespace game1666.GameModel.Entities.Components.External
 	/// the entity's behaviour with respect to what is outside it, as opposed to internal
 	/// components that control things like occupancy management.
 	/// </summary>
-	abstract class ExternalComponent : BasicEntityComponent
+	abstract class ExternalComponent : ModelEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

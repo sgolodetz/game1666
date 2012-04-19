@@ -6,14 +6,14 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace game1666.Common.Entities.Components
+namespace game1666.GameModel.Entities.Components.Test
 {
 	/// <summary>
 	/// An instance of this class can be used as a component with which to test entity loading.
 	/// We have to put it here rather than in the test project because it will be instantiated
 	/// by reflection.
 	/// </summary>
-	sealed class TestComponent : BasicEntityComponent
+	sealed class TestComponent : ModelEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -31,7 +31,7 @@ namespace game1666.Common.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public static string StaticGroup { get { return "TestGroup"; } }
+		public static string StaticGroup { get { return "GameModel/Test"; } }
 
 		#endregion
 

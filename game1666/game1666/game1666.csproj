@@ -111,14 +111,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Entities\BasicEntity.cs" />
+    <Compile Include="GameModel\Entities\ModelEntity.cs" />
     <Compile Include="Common\Entities\Entity.cs" />
-    <Compile Include="Common\Entities\BasicEntityComponent.cs" />
+    <Compile Include="GameModel\Entities\ModelEntityComponent.cs" />
     <Compile Include="Common\Entities\EntityComponent.cs" />
-    <Compile Include="Common\Entities\IBasicEntity.cs" />
+    <Compile Include="GameModel\Entities\IModelEntity.cs" />
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
-    <Compile Include="Common\Entities\Components\TestComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\Test\TestComponent.cs" />
     <Compile Include="Common\Maths\Constants.cs" />
     <Compile Include="Common\Maths\MathUtil.cs" />
     <Compile Include="Common\Maths\Orientation4.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="GameModel\Entities\Components\Internal\InternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\PlacementComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
-    <Compile Include="GameModel\Entities\EntityFactory.cs" />
+    <Compile Include="GameModel\Entities\ModelEntityFactory.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="GameUI\Entities\Components\Rendering\PlayRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\RenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\SidebarRenderingComponent.cs" />
-    <Compile Include="GameUI\Entities\Components\Util\UIEntityComponentUtil.cs" />
+    <Compile Include="GameUI\Entities\UIEntityComponentUtil.cs" />
     <Compile Include="GameUI\Entities\IUIEntity.cs" />
     <Compile Include="GameUI\Entities\UIEntity.cs" />
     <Compile Include="GameUI\Entities\UIEntityComponent.cs" />

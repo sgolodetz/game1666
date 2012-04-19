@@ -1,17 +1,17 @@
 ﻿/***
- * game1666: BasicEntity.cs
+ * game1666: ModelEntity.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
 using System.Xml.Linq;
+using game1666.Common.Entities;
 
-namespace game1666.Common.Entities
+namespace game1666.GameModel.Entities
 {
 	/// <summary>
-	/// An instance of this class represents a basic component-based entity. Such an entity
-	/// doesn't have any additional properties beyond those provided for all entities.
+	/// An instance of this class represents a component-based entity that is part of the game model.
 	/// </summary>
-	sealed class BasicEntity : Entity<IBasicEntity>, IBasicEntity
+	sealed class ModelEntity : Entity<IModelEntity>, IModelEntity
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -19,7 +19,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
 		/// </summary>
-		public override IBasicEntity Self { get { return this; } }
+		public override IModelEntity Self { get { return this; } }
 
 		#endregion
 
@@ -31,7 +31,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
 		/// <param name="archetype">The archetype of the entity.</param>
-		public BasicEntity(string name, string archetype)
+		public ModelEntity(string name, string archetype)
 		:	base(name, archetype)
 		{}
 
@@ -39,7 +39,7 @@ namespace game1666.Common.Entities
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		public BasicEntity(XElement entityElt)
+		public ModelEntity(XElement entityElt)
 		:	base(entityElt)
 		{}
 

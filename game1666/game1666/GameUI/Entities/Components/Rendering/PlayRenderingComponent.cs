@@ -4,14 +4,13 @@
  ***/
 
 using System.Xml.Linq;
-using game1666.Common.Entities;
 using game1666.Common.UI;
+using game1666.GameModel.Entities;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
 using game1666.GameUI.Entities.Components.Interaction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using game1666.GameUI.Entities.Components.Util;
 
 namespace game1666.GameUI.Entities.Components.Rendering
 {
@@ -77,7 +76,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		public override void Draw()
 		{
 			// Look up the target entity of the game view containing the play viewer.
-			IBasicEntity targetEntity = UIEntityComponentUtil.GetTarget(Entity.Parent);
+			IModelEntity targetEntity = UIEntityComponentUtil.GetTarget(Entity.Parent);
 			if(targetEntity == null) return;
 
 			// Prepare for rendering.
