@@ -9,6 +9,7 @@ using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.GameModel.Blueprints;
+using game1666.GameModel.Entities.Components.Internal;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components.External
@@ -143,6 +144,15 @@ namespace game1666.GameModel.Entities.Components.External
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Initialises the component.
+		/// </summary>
+		public override void Initialise()
+		{
+			PlayingAreaComponent playingArea = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
+			Altitude = playingArea.Terrain.DetermineAverageAltitude(Position);
+		}
 
 		/// <summary>
 		/// Updates the component based on elapsed time and user input.

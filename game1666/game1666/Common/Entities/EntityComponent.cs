@@ -90,10 +90,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		public virtual void Initialise()
 		{
-			foreach(TreeEntityType child in Entity.Children)
-			{
-				child.Initialise();
-			}
+			// No-op by default
 		}
 
 		/// <summary>
