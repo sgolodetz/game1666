@@ -4,7 +4,7 @@
  ***/
 
 using System.Xml.Linq;
-using game1666.Common.Entities;
+using game1666.GameModel.Entities.Base;
 
 namespace game1666.GameModel.Entities.Components.Internal
 {

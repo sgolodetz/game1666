@@ -4,6 +4,7 @@
  ***/
 
 using System.Xml.Linq;
+using game1666.GameUI.Entities.Base;
 
 namespace game1666.GameUI.Entities.Components.Rendering
 {

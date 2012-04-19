@@ -4,6 +4,7 @@
  ***/
 
 using System.Xml.Linq;
+using game1666.GameUI.Entities.Base;
 using Microsoft.Xna.Framework.Input;
 
 namespace game1666.GameUI.Entities.Components.Interaction

@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
 

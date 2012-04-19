@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666.GameModel.Entities.Base;
 
 namespace game1666.GameModel.Entities.Components.Test
 {

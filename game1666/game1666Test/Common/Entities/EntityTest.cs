@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Persistence;
-using game1666.GameModel.Entities;
+using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;

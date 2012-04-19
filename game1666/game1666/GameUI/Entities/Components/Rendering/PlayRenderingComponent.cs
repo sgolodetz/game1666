@@ -5,10 +5,11 @@
 
 using System.Xml.Linq;
 using game1666.Common.UI;
-using game1666.GameModel.Entities;
+using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Components.Rendering;
 using game1666.GameModel.Terrains;
+using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Interaction;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

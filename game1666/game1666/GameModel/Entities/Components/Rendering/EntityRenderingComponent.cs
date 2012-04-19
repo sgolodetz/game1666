@@ -4,6 +4,7 @@
  ***/
 
 using System.Xml.Linq;
+using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameModel.Entities.Components.Rendering

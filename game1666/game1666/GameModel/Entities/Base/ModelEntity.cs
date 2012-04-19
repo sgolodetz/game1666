@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using game1666.Common.Entities;
 using game1666.Common.Messaging;
 
-namespace game1666.GameModel.Entities
+namespace game1666.GameModel.Entities.Base
 {
 	/// <summary>
 	/// An instance of this class represents a component-based entity that is part of the game model.

@@ -3,9 +3,9 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using game1666.GameModel.Entities;
+using game1666.GameModel.Entities.Base;
 
-namespace game1666.GameUI.Entities.Components
+namespace game1666.GameUI.Entities.Base
 {
 	/// <summary>
 	/// This class provides utility methods that make it easier to look up the target of a UI entity,

@@ -4,10 +4,10 @@
  ***/
 
 using game1666.Common.Entities;
-using game1666.GameModel.Entities;
+using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameUI.Entities
+namespace game1666.GameUI.Entities.Base
 {
 	/// <summary>
 	/// An instance of a class implementing this interface represents a component-based entity that is part of the game's UI.
