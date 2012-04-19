@@ -37,8 +37,10 @@
       <property name="Archetype" type="string" value="House"/>
       <cmpPlacement>
         <property name="Blueprint" type="string" value="Dwelling"/>
+        <property name="ConstructionDone" type="int" value="1000"/>
         <property name="Orientation" type="Orientation4" value="XPOS"/>
         <property name="Position" type="Vector2i" value="1,0"/>
+        <property name="State" type="string" value="OPERATING"/>
       </cmpPlacement>
     </entity>
   </entity>
