@@ -52,6 +52,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ADTs\PriorityQueueTest.cs" />
     <Compile Include="Common\Entities\EntityTest.cs" />
     <Compile Include="Common\Maths\TriangleTest.cs" />
     <Compile Include="Common\Maths\Vector2iTest.cs" />

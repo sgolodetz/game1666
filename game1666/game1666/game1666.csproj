@@ -111,10 +111,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ADTs\PriorityQueue.cs" />
     <Compile Include="Common\Messaging\IMessage.cs" />
     <Compile Include="Common\Messaging\MessageFilterFactory.cs" />
     <Compile Include="Common\Messaging\MessageRule.cs" />
     <Compile Include="Common\Messaging\MessageSystem.cs" />
+    <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntity.cs" />
     <Compile Include="Common\Entities\Entity.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntityComponent.cs" />
