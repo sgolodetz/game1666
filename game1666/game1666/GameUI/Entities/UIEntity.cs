@@ -16,6 +16,16 @@ namespace game1666.GameUI.Entities
 	/// </summary>
 	sealed class UIEntity : Entity<IUIEntity>, IUIEntity
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The world that is being viewed.
+		/// </summary>
+		private IModelEntity m_world;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -32,7 +42,11 @@ namespace game1666.GameUI.Entities
 		/// <summary>
 		/// The world that is being viewed.
 		/// </summary>
-		public IModelEntity World { get; private set; }
+		public IModelEntity World
+		{
+			get	{ return ((UIEntity)GetRootEntity()).m_world; }
+			set	{ ((UIEntity)GetRootEntity()).m_world = value; }
+		}
 
 		#endregion
 
@@ -43,29 +57,9 @@ namespace game1666.GameUI.Entities
 		/// Constructs a UI entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		/// <param name="world">The world that is being viewed.</param>
-		public UIEntity(XElement entityElt, IModelEntity world)
-		{
-			Properties = PropertyPersister.LoadProperties(entityElt);
-			World = world;
-
-			ObjectPersister.LoadAndAddChildObjects
-			(
-				entityElt,
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => typeof(IUIEntity).IsAssignableFrom(t),
-					AdditionalArguments = new object[] { world },
-					AddAction = o => AddChild(o)
-				},
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => typeof(EntityComponent<IUIEntity>).IsAssignableFrom(t),
-					AdditionalArguments = new object[] {},
-					AddAction = o => (o as EntityComponent<IUIEntity>).AddToEntity(this)
-				}
-			);
-		}
+		public UIEntity(XElement entityElt)
+		:	base(entityElt)
+		{}
 
 		#endregion
 	}

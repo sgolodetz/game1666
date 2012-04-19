@@ -62,8 +62,8 @@ namespace game1666.GameUI
 				new ChildObjectAdder
 				{
 					CanBeUsedFor = t => t == typeof(UIEntity),
-					AdditionalArguments = new object[] { world },
-					AddAction = o => m_views[o.Name] = o
+					AdditionalArguments = new object[] {},
+					AddAction = o => { o.World = world; m_views[o.Name] = o; }
 				}
 			);
 

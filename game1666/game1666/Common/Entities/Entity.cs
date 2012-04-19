@@ -318,14 +318,14 @@ namespace game1666.Common.Entities
 
 		#endregion
 
-		//#################### PRIVATE METHODS ####################
+		//#################### PROTECTED METHODS ####################
 		#region
 
 		/// <summary>
 		/// Gets the root entity of this entity's tree.
 		/// </summary>
 		/// <returns>The root entity of this entity's tree.</returns>
-		private TreeEntityType GetRootEntity()
+		protected TreeEntityType GetRootEntity()
 		{
 			TreeEntityType cur = Self;
 			while(cur.Parent != null)
