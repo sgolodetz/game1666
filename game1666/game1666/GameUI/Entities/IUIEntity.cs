@@ -14,6 +14,9 @@ namespace game1666.GameUI.Entities
 	/// </summary>
 	interface IUIEntity : IEntity<IUIEntity>
 	{
+		//#################### PROPERTIES ####################
+		#region
+
 		/// <summary>
 		/// The viewport into which to draw the entity.
 		/// </summary>
@@ -23,5 +26,7 @@ namespace game1666.GameUI.Entities
 		/// The world that is being viewed.
 		/// </summary>
 		IModelEntity World { get; }
+
+		#endregion
 	}
 }

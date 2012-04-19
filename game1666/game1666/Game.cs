@@ -5,6 +5,7 @@
 
 using System.Xml.Linq;
 using System.Xml.XPath;
+using game1666.Common.Messaging;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
@@ -114,7 +115,9 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 
 			// Load the world from an XML file.
-			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml").Initialise();
+			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml");
+			m_world.MessageSystem = new MessageSystem();
+			m_world.Initialise();
 
 			// Load the game views from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");

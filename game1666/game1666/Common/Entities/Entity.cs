@@ -269,6 +269,12 @@ namespace game1666.Common.Entities
 			{
 				component.Initialise();
 			}
+
+			foreach(TreeEntityType child in m_children.Values)
+			{
+				child.Initialise();
+			}
+
 			return Self;
 		}
 

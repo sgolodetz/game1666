@@ -111,6 +111,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Messaging\IMessage.cs" />
+    <Compile Include="Common\Messaging\MessageFilterFactory.cs" />
+    <Compile Include="Common\Messaging\MessageRule.cs" />
+    <Compile Include="Common\Messaging\MessageSystem.cs" />
     <Compile Include="GameModel\Entities\ModelEntity.cs" />
     <Compile Include="Common\Entities\Entity.cs" />
     <Compile Include="GameModel\Entities\ModelEntityComponent.cs" />

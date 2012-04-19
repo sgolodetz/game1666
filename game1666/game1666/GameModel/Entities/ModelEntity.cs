@@ -5,6 +5,7 @@
 
 using System.Xml.Linq;
 using game1666.Common.Entities;
+using game1666.Common.Messaging;
 
 namespace game1666.GameModel.Entities
 {
@@ -13,8 +14,27 @@ namespace game1666.GameModel.Entities
 	/// </summary>
 	sealed class ModelEntity : Entity<IModelEntity>, IModelEntity
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// A message system that is used to dispatch messages across the game.
+		/// </summary>
+		private MessageSystem m_messageSystem;
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// A message system that is used to dispatch messages across the game.
+		/// </summary>
+		public MessageSystem MessageSystem
+		{
+			get	{ return ((ModelEntity)GetRootEntity()).m_messageSystem; }
+			set	{ ((ModelEntity)GetRootEntity()).m_messageSystem = value; }
+		}
 
 		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
