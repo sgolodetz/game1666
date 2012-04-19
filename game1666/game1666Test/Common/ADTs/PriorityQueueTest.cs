@@ -10,6 +10,9 @@ using Assert = Xunit.Assert;
 
 namespace game1666Test.Common.ADTs
 {
+	/// <summary>
+	/// Tests for the PriorityQueue class.
+	/// </summary>
 	[TestClass]
 	public sealed class PriorityQueueTest
 	{
