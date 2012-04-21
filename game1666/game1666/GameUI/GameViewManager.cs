@@ -19,7 +19,7 @@ namespace game1666.GameUI
 	/// <summary>
 	/// An instance of this class manages the various different views for the game.
 	/// </summary>
-	sealed class GameViewManager : IPersistableObject
+	sealed class GameViewManager
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -85,16 +85,6 @@ namespace game1666.GameUI
 			{
 				renderer.Draw();
 			}
-		}
-
-		/// <summary>
-		/// Saves the game view manager to XML.
-		/// </summary>
-		/// <returns>An XML representation of the game view manager.</returns>
-		public XElement SaveToXML()
-		{
-			// TODO
-			throw new System.NotImplementedException();
 		}
 
 		/// <summary>
