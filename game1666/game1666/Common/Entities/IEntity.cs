@@ -78,6 +78,16 @@ namespace game1666.Common.Entities
 		void AddComponentInternal(IEntityComponent component);
 
 		/// <summary>
+		/// Called just after this entity is added as the child of another.
+		/// </summary>
+		void AfterAdd();
+
+		/// <summary>
+		/// Called just before this entity is removed as the child of another.
+		/// </summary>
+		void BeforeRemove();
+
+		/// <summary>
 		/// Gets the absolute path of this entity in its tree.
 		/// </summary>
 		/// <returns>The entity's absolute path.</returns>
@@ -125,12 +135,6 @@ namespace game1666.Common.Entities
 		/// <param name="path">The relative path to the other entity, as a list of path components.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
 		TreeEntityType GetEntityByRelativePath(LinkedList<string> path);
-
-		/// <summary>
-		/// Initialises the entity once its entire tree has been constructed.
-		/// </summary>
-		/// <returns>The entity itself.</returns>
-		TreeEntityType Initialise();
 
 		/// <summary>
 		/// Removes a child from this entity, if present.

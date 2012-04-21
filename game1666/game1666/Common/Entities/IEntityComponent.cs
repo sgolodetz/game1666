@@ -32,9 +32,14 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Initialises the component.
+		/// Called just after the component containing this entity is added as the child of another.
 		/// </summary>
-		void Initialise();
+		void AfterAdd();
+
+		/// <summary>
+		/// Called just before the component containing this entity is removed as the child of another.
+		/// </summary>
+		void BeforeRemove();
 
 		/// <summary>
 		/// Updates the component based on elapsed time and user input.

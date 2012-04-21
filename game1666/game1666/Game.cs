@@ -176,7 +176,7 @@ namespace game1666
 		private static IModelEntity LoadWorldFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
-			return new ModelEntity(doc.Element("entity")) { MessageSystem = new MessageSystem() }.Initialise();
+			return new ModelEntity(doc.Element("entity")) { MessageSystem = new MessageSystem() };
 		}
 
 		#endregion

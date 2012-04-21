@@ -146,9 +146,9 @@ namespace game1666.GameModel.Entities.Components.External
 		#region
 
 		/// <summary>
-		/// Initialises the component.
+		/// Called just after the component containing this entity is added as the child of another.
 		/// </summary>
-		public override void Initialise()
+		public override void AfterAdd()
 		{
 			// Look up the playing area on which the entity containing this component resides.
 			PlayingAreaComponent playingArea = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
@@ -169,6 +169,14 @@ namespace game1666.GameModel.Entities.Components.External
 				),
 				Entity
 			);
+		}
+
+		/// <summary>
+		/// Called just before the component containing this entity is removed as the child of another.
+		/// </summary>
+		public override void BeforeRemove()
+		{
+			// TODO
 		}
 
 		/// <summary>

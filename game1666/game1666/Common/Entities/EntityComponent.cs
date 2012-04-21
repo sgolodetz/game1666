@@ -86,9 +86,17 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
-		/// Initialises the component.
+		/// Called just after the component containing this entity is added as the child of another.
 		/// </summary>
-		public virtual void Initialise()
+		public virtual void AfterAdd()
+		{
+			// No-op by default
+		}
+
+		/// <summary>
+		/// Called just before the component containing this entity is removed as the child of another.
+		/// </summary>
+		public virtual void BeforeRemove()
 		{
 			// No-op by default
 		}

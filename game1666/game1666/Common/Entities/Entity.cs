@@ -129,6 +129,7 @@ namespace game1666.Common.Entities
 		{
 			m_children.Add(child.Name, child);
 			child.Parent = Self;
+			child.AfterAdd();
 		}
 
 		/// <summary>
@@ -149,6 +150,28 @@ namespace game1666.Common.Entities
 				m_components.Add(component.Group, component);
 			}
 			else throw new InvalidOperationException("Group already has a component: " + component.Group);
+		}
+
+		/// <summary>
+		/// Called just after this entity is added as the child of another.
+		/// </summary>
+		public virtual void AfterAdd()
+		{
+			foreach(IEntityComponent component in m_components.Values)
+			{
+				component.AfterAdd();
+			}
+		}
+
+		/// <summary>
+		/// Called just before this entity is removed as the child of another.
+		/// </summary>
+		public virtual void BeforeRemove()
+		{
+			foreach(IEntityComponent component in m_components.Values)
+			{
+				component.BeforeRemove();
+			}
 		}
 
 		/// <summary>
@@ -253,25 +276,6 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
-		/// Initialises the entity once its entire tree has been constructed.
-		/// </summary>
-		/// <returns>The entity itself.</returns>
-		public TreeEntityType Initialise()
-		{
-			foreach(IEntityComponent component in m_components.Values)
-			{
-				component.Initialise();
-			}
-
-			foreach(TreeEntityType child in m_children.Values)
-			{
-				child.Initialise();
-			}
-
-			return Self;
-		}
-
-		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>
@@ -280,6 +284,7 @@ namespace game1666.Common.Entities
 		{
 			if(m_children.Remove(child.Name))
 			{
+				child.BeforeRemove();
 				child.Parent = null;
 			}
 			else throw new InvalidOperationException("No such child: " + child.Name);
