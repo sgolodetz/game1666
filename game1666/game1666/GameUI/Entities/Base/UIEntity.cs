@@ -15,16 +15,6 @@ namespace game1666.GameUI.Entities.Base
 	/// </summary>
 	sealed class UIEntity : Entity<IUIEntity>, IUIEntity
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The world that is being viewed.
-		/// </summary>
-		private IModelEntity m_world;
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -41,21 +31,7 @@ namespace game1666.GameUI.Entities.Base
 		/// <summary>
 		/// The world that is being viewed.
 		/// </summary>
-		public IModelEntity World
-		{
-			get
-			{
-				return Parent == null ? m_world : Parent.World;
-			}
-
-			set
-			{
-				if(Parent == null) m_world = value;
-				else Parent.World = value;
-			}
-
-
-		}
+		public IModelEntity World { get; set; }
 
 		#endregion
 
@@ -69,6 +45,29 @@ namespace game1666.GameUI.Entities.Base
 		public UIEntity(XElement entityElt)
 		:	base(entityElt)
 		{}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Called just after this entity is added as the child of another.
+		/// </summary>
+		public override void AfterAdd()
+		{
+			World = Parent.World;
+			base.AfterAdd();
+		}
+
+		/// <summary>
+		/// Called just before this entity is removed as the child of another.
+		/// </summary>
+		public override void BeforeRemove()
+		{
+			base.BeforeRemove();
+			World = null;
+		}
 
 		#endregion
 	}
