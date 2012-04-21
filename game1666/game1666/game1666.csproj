@@ -146,6 +146,10 @@
     <Compile Include="GameModel\Entities\Components\Internal\InternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\PlacementComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
+    <Compile Include="GameModel\Entities\Lifetime\EntityDestructionManager.cs" />
+    <Compile Include="GameModel\Entities\Lifetime\EntityDestructionMessage.cs" />
+    <Compile Include="GameModel\Entities\Lifetime\EntityPreDestructionMessage.cs" />
+    <Compile Include="GameModel\Entities\Lifetime\EntitySpawnMessage.cs" />
     <Compile Include="GameModel\Entities\ModelEntityFactory.cs" />
     <Compile Include="GameModel\Entities\Navigation\EntityNavigationMap.cs" />
     <Compile Include="GameModel\Entities\Navigation\EntityNavigationNode.cs" />

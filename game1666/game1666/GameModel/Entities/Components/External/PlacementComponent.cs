@@ -156,8 +156,7 @@ namespace game1666.GameModel.Entities.Components.External
 			// Determine the entity's altitude on the playing area's terrain.
 			Altitude = playingArea.Terrain.DetermineAverageAltitude(Position);
 
-			// Place the entity using the placement strategy for the entity type and
-			// fill in the playing area's navigation map accordingly.
+			// Mark the space occupied by the entity on the navigation map.
 			playingArea.NavigationMap.MarkOccupied
 			(
 				Blueprint.PlacementStrategy.Place
@@ -176,7 +175,21 @@ namespace game1666.GameModel.Entities.Components.External
 		/// </summary>
 		public override void BeforeRemove()
 		{
-			// TODO
+			// Look up the playing area on which the entity containing this component resides.
+			PlayingAreaComponent playingArea = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
+
+			// Clear the space occupied by the entity on the navigation map.
+			playingArea.NavigationMap.MarkOccupied
+			(
+				Blueprint.PlacementStrategy.Place
+				(
+					playingArea.Terrain,
+					Blueprint.Footprint,
+					Position,
+					Orientation
+				),
+				null
+			);
 		}
 
 		/// <summary>

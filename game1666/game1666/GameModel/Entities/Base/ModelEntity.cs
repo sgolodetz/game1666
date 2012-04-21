@@ -85,6 +85,16 @@ namespace game1666.GameModel.Entities.Base
 			m_messageSystem = new MessageSystem();
 		}
 
+		/// <summary>
+		/// Tests whether or not this entity is equal to another one.
+		/// </summary>
+		/// <param name="rhs">The other entity.</param>
+		/// <returns>true, if the two entities are equal, or false otherwise.</returns>
+		public bool Equals(IModelEntity rhs)
+		{
+			return object.ReferenceEquals(this, rhs);
+		}
+
 		#endregion
 	}
 }
