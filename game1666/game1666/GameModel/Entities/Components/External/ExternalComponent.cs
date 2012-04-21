@@ -5,6 +5,7 @@
 
 using System.Xml.Linq;
 using game1666.GameModel.Entities.Base;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameModel.Entities.Components.External
 {
@@ -42,6 +43,18 @@ namespace game1666.GameModel.Entities.Components.External
 		protected ExternalComponent(XElement componentElt)
 		:	base(componentElt)
 		{}
+
+		#endregion
+
+		//#################### PUBLIC ABSTRACT METHODS ####################
+		#region
+
+		/// <summary>
+		/// Draws the entity of which this component is a part.
+		/// </summary>
+		/// <param name="effect">The basic effect to use when drawing.</param>
+		/// <param name="alpha">The alpha value to use when drawing.</param>
+		public abstract void Draw(BasicEffect effect, float alpha);
 
 		#endregion
 	}

@@ -6,8 +6,8 @@
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
-using game1666.GameModel.Entities.Components.Rendering;
 using game1666.GameModel.Terrains;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Interaction;
@@ -102,13 +102,13 @@ namespace game1666.GameUI.Entities.Components.Rendering
 			// Draw the children of the target entity.
 			foreach(IModelEntity child in targetEntity.Children)
 			{
-				EntityRenderingComponent renderer = child.GetComponent<EntityRenderingComponent>(EntityRenderingComponent.StaticGroup);
-				if(renderer != null)
+				ExternalComponent childExternalComponent = child.GetComponent<ExternalComponent>(ExternalComponent.StaticGroup);
+				if(childExternalComponent != null)
 				{
 					m_entityEffect.World = m_matWorld;
 					m_entityEffect.View = m_matView;
 					m_entityEffect.Projection = m_matProjection;
-					renderer.Draw(m_entityEffect, 1f);
+					childExternalComponent.Draw(m_entityEffect, 1f);
 				}
 			}
 		}

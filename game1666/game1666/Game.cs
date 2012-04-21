@@ -11,7 +11,6 @@ using game1666.GameModel.Blueprints;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
-using game1666.GameModel.Entities.Components.Rendering;
 using game1666.GameModel.Entities.PlacementStrategies;
 using game1666.GameModel.Terrains;
 using game1666.GameUI;
@@ -104,7 +103,6 @@ namespace game1666
 			// Register special XML elements with the object persister.
 			ObjectPersister.RegisterSpecialElement("cmpCompositeControlRendering", typeof(CompositeControlRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
-			ObjectPersister.RegisterSpecialElement("cmpPlaceableEntityRendering", typeof(PlaceableEntityRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlacement", typeof(PlacementComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayInteraction", typeof(PlayInteractionComponent));

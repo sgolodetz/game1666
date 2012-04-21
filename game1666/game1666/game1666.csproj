@@ -164,8 +164,6 @@
     <Compile Include="GameUI\Entities\Components\Interaction\InteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Interaction\PlayInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\CompositeControlRenderingComponent.cs" />
-    <Compile Include="GameModel\Entities\Components\Rendering\EntityRenderingComponent.cs" />
-    <Compile Include="GameModel\Entities\Components\Rendering\PlaceableEntityRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\PlayRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\ControlRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Rendering\SidebarRenderingComponent.cs" />

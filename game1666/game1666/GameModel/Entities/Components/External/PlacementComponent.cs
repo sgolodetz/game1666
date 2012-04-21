@@ -8,10 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
+using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Entities.PlacementStrategies;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameModel.Entities.Components.External
 {
@@ -29,7 +32,7 @@ namespace game1666.GameModel.Entities.Components.External
 	/// An instance of this class provides placement behaviour to an entity,
 	/// i.e. entities with this component can be placed on a terrain.
 	/// </summary>
-	sealed class PlacementComponent : ExternalComponent
+	class PlacementComponent : ExternalComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -194,6 +197,46 @@ namespace game1666.GameModel.Entities.Components.External
 		}
 
 		/// <summary>
+		/// Draws the placeable entity of which this component is a part.
+		/// </summary>
+		/// <param name="effect">The basic effect to use when drawing.</param>
+		/// <param name="alpha">The alpha value to use when drawing.</param>
+		public override void Draw(BasicEffect effect, float alpha)
+		{
+			// Determine the model name and orientation to use (see the description on the method).
+			EntityNavigationMap navigationMap = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup).NavigationMap;
+			if(navigationMap == null) return;
+
+			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);
+			string modelName = result.Item1;
+			Orientation4 orientation = result.Item2;
+
+			// Load the model.
+			Model model = Renderer.Content.Load<Model>("Models/" + modelName);
+
+			// Move the model to the correct position.
+			Matrix matWorld = Matrix.CreateTranslation(Position.X + 0.5f, Position.Y + 0.5f, Altitude);
+
+			// If the entity has a non-default orientation, rotate the model appropriately.
+			if(orientation != Orientation4.XPOS)
+			{
+				float angle = Convert.ToInt32(orientation) * MathHelper.PiOver2;
+				Matrix matRot = Matrix.CreateRotationZ(angle);
+				matWorld = Matrix.Multiply(matRot, matWorld);
+			}
+
+			// If the entity is being constructed or destructed, scale the model based on the current state of completion.
+			if(State == PlacementComponentState.IN_CONSTRUCTION || State == PlacementComponentState.IN_DESTRUCTION)
+			{
+				Matrix matScale = Matrix.CreateScale(1, 1, PercentComplete / 100f);
+				matWorld = Matrix.Multiply(matScale, matWorld);
+			}
+
+			// Render the model.
+			Renderer.DrawModel(model, matWorld, effect.View, effect.Projection, alpha);
+		}
+
+		/// <summary>
 		/// Updates the component based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
@@ -224,6 +267,26 @@ namespace game1666.GameModel.Entities.Components.External
 					break;
 				}
 			}
+		}
+
+		#endregion
+
+		//#################### PROTECTED METHODS ####################
+		#region
+
+		/// <summary>
+		/// Determines the actual model and orientation to use when drawing the placeable entity.
+		/// This is a hook so that we can override the default behaviour when drawing things like
+		/// road segments. For most entities, we just use this default implementation, which returns
+		/// the passed in model name and orientation.
+		/// </summary>
+		/// <param name="modelName">The initial model name, as specified by the blueprint.</param>
+		/// <param name="orientation">The initial orientation.</param>
+		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
+		/// <returns>The actual model and orientation to use.</returns>
+		protected virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
+		{
+			return Tuple.Create(modelName, orientation);
 		}
 
 		#endregion

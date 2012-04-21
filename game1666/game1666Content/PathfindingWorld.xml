@@ -41,7 +41,6 @@
       <property name="Position" type="Vector2i" value="50,30"/>
       <property name="State" type="string" value="OPERATING"/>
     </cmpPlacement>
-    <cmpPlaceableEntityRendering/>
     <entity>
       <property name="Archetype" type="string" value="House"/>
       <cmpPlacement>
@@ -51,7 +50,6 @@
         <property name="Position" type="Vector2i" value="1,0"/>
         <property name="State" type="string" value="OPERATING"/>
       </cmpPlacement>
-      <cmpPlaceableEntityRendering/>
     </entity>
   </entity>
 </entity>
