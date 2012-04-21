@@ -105,22 +105,15 @@ namespace game1666.Common.Entities
 				Properties["Name"] = Archetype.ToLower() + ":" + Guid.NewGuid().ToString();
 			}
 
-			ObjectPersister.LoadAndAddChildObjects
-			(
-				entityElt,
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => typeof(TreeEntityType).IsAssignableFrom(t),
-					AdditionalArguments = new object[] {},
-					AddAction = o => AddChild(o)
-				},
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => typeof(EntityComponent<TreeEntityType>).IsAssignableFrom(t),
-					AdditionalArguments = new object[] {},
-					AddAction = o => (o as EntityComponent<TreeEntityType>).AddToEntity(Self)
-				}
-			);
+			foreach(var component in ObjectPersister.LoadChildObjects<EntityComponent<TreeEntityType>>(entityElt))
+			{
+				component.AddToEntity(Self);
+			}
+
+			foreach(var child in ObjectPersister.LoadChildObjects<TreeEntityType>(entityElt))
+			{
+				AddChild(child);
+			}
 		}
 
 		#endregion

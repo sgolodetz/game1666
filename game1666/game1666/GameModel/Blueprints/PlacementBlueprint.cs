@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.PlacementStrategies;
@@ -49,17 +50,7 @@ namespace game1666.GameModel.Blueprints
 		public PlacementBlueprint(XElement blueprintElt)
 		{
 			Properties = PropertyPersister.LoadProperties(blueprintElt);
-
-			ObjectPersister.LoadAndAddChildObjects
-			(
-				blueprintElt,
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => typeof(Footprint).IsAssignableFrom(t),
-					AdditionalArguments = new object[] {},
-					AddAction = o => Footprint = o
-				}
-			);
+			Footprint = ObjectPersister.LoadChildObjects<Footprint>(blueprintElt).First();
 
 			// TODO: Get rid of this and add a loader for placement strategies.
 			PlacementStrategy = new PlacementStrategyRequireFlatGround();

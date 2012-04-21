@@ -32,7 +32,7 @@ namespace game1666.GameUI
 		/// <summary>
 		/// The different game views, e.g. City, World, etc.
 		/// </summary>
-		private readonly IDictionary<string,UIEntity> m_views = new Dictionary<string,UIEntity>();
+		private readonly IDictionary<string,IUIEntity> m_views = new Dictionary<string,IUIEntity>();
 
 		#endregion
 
@@ -56,16 +56,11 @@ namespace game1666.GameUI
 		/// <param name="world">The world that is being viewed.</param>
 		public GameViewManager(XElement element, IModelEntity world)
 		{
-			ObjectPersister.LoadAndAddChildObjects
-			(
-				element,
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => t == typeof(UIEntity),
-					AdditionalArguments = new object[] {},
-					AddAction = o => { o.World = world; m_views[o.Name] = o; }
-				}
-			);
+			foreach(var view in ObjectPersister.LoadChildObjects<IUIEntity>(element))
+			{
+				view.World = world;
+				m_views[view.Name] = view;
+			}
 
 			// Register input handlers.
 			MouseEventManager.OnMouseMoved += OnMouseMoved;

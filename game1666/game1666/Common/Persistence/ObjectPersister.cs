@@ -12,29 +12,6 @@ using System.Xml.Linq;
 namespace game1666.Common.Persistence
 {
 	/// <summary>
-	/// An instance of this class specifies a child object adder that can be used to perform arbitrary
-	/// add actions on child objects created by the ObjectPersister.LoadAndAddChildObjects method. The
-	/// primary use for such an adder is to add the child object to a parent.
-	/// </summary>
-	sealed class ChildObjectAdder
-	{
-		/// <summary>
-		/// A custom add action to perform on the created child object.
-		/// </summary>
-		public Action<dynamic> AddAction { get; set; }
-
-		/// <summary>
-		/// Any additional arguments that need to be passed to the child object's constructor when it is created.
-		/// </summary>
-		public object[] AdditionalArguments { get; set; }
-
-		/// <summary>
-		/// A filter specifying the types for which this is the appropriate adder.
-		/// </summary>
-		public Func<Type,bool> CanBeUsedFor { get; set; }
-	}
-
-	/// <summary>
 	/// This class provides utility methods for saving/loading objects to/from XML.
 	/// </summary>
 	static class ObjectPersister
@@ -81,45 +58,25 @@ namespace game1666.Common.Persistence
 		}
 
 		/// <summary>
-		/// Loads objects from the non-property child elements of the specified XML element and
-		/// adds them to a parent object using the supplied child object adders.
+		/// Loads objects from all non-property child elements of the specified XML element
+		/// that would yield objects of the specified type.
 		/// </summary>
+		/// <typeparam name="T">The type of child object to load.</typeparam>
 		/// <param name="parentElt">The parent XML element.</param>
-		/// <param name="adders">A set of adders that specify how different types of child object should be added.</param>
-		public static void LoadAndAddChildObjects(XElement parentElt, params ChildObjectAdder[] adders)
+		/// <param name="additionalArguments">Any additional arguments to pass to the specified type's constructor.</param>
+		/// <returns>The loaded child objects.</returns>
+		public static IEnumerable<T> LoadChildObjects<T>(XElement parentElt, params object[] additionalArguments)
 		{
 			foreach(XElement childElt in parentElt.Elements().Where(e => e.Name != "property"))
 			{
 				// Determine the C# type corresponding to the child element.
 				Type childType = DetermineElementType(childElt);
 
-				// Try to find a suitable adder for that type.
-				ChildObjectAdder adder = adders.FirstOrDefault(L => L.CanBeUsedFor(childType));
-				if(adder == null)
+				// Load it iff it has the correct type.
+				if(typeof(T).IsAssignableFrom(childType))
 				{
-					throw new InvalidOperationException("No matching adder for type: " + childType);
+					yield return LoadObject(childElt, additionalArguments);
 				}
-
-				// Construct the array of arguments to pass to the child object's constructor.
-				var arguments = new object[adder.AdditionalArguments.Length + 1];
-				arguments[0] = childElt;
-				adder.AdditionalArguments.CopyTo(arguments, 1);
-
-				// Construct the child object and run the appropriate add action on it.
-				adder.AddAction(Activator.CreateInstance(childType, arguments));
-			}
-		}
-
-		/// <summary>
-		/// Loads objects from the non-property child elements of the specified XML element.
-		/// </summary>
-		/// <param name="parentElt">The parent XML element.</param>
-		/// <returns>The loaded child objects.</returns>
-		public static IEnumerable<dynamic> LoadChildObjects(XElement parentElt)
-		{
-			foreach(XElement childElt in parentElt.Elements().Where(e => e.Name != "property"))
-			{
-				yield return LoadObject(childElt);
 			}
 		}
 

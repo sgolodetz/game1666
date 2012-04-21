@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.Base;
@@ -69,16 +70,8 @@ namespace game1666.GameModel.Entities.Components.Internal
 		public PlayingAreaComponent(XElement componentElt)
 		:	base(componentElt)
 		{
-			ObjectPersister.LoadAndAddChildObjects
-			(
-				componentElt,
-				new ChildObjectAdder
-				{
-					CanBeUsedFor = t => t == typeof(Terrain),
-					AdditionalArguments = new object[] {},
-					AddAction = o => { Terrain = o; NavigationMap.Terrain = Terrain; }
-				}
-			);
+			Terrain = ObjectPersister.LoadChildObjects<Terrain>(componentElt).First();
+			NavigationMap.Terrain = Terrain;
 		}
 
 		#endregion
