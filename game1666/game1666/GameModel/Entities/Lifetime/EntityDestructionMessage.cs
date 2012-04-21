@@ -4,7 +4,6 @@
  ***/
 
 using game1666.Common.Messaging;
-using game1666.GameModel.Entities.Base;
 
 namespace game1666.GameModel.Entities.Lifetime
 {
@@ -30,7 +29,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// Constructs a new entity destruction message.
 		/// </summary>
 		/// <param name="source">The entity being destructed.</param>
-		public EntityDestructionMessage(IModelEntity source)
+		public EntityDestructionMessage(dynamic source)
 		{
 			Source = source;
 		}

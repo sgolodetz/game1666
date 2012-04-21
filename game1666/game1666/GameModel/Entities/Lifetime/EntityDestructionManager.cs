@@ -3,17 +3,18 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
 using game1666.Common.ADTs;
 using game1666.Common.Messaging;
 using game1666.Common.Util;
-using game1666.GameModel.Entities.Base;
 
 namespace game1666.GameModel.Entities.Lifetime
 {
 	/// <summary>
 	/// An instance of this class manages an entity destruction queue that can be used to delete entities in a robust way.
 	/// </summary>
-	sealed class EntityDestructionManager
+	sealed class EntityDestructionManager<EntityType>
+		where EntityType : IEquatable<EntityType>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -21,7 +22,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <summary>
 		/// The priority queue of entities waiting for destruction.
 		/// </summary>
-		private readonly PriorityQueue<IModelEntity,float,bool> m_destructionQueue = new PriorityQueue<IModelEntity,float,bool>(new GreaterComparer<float>());
+		private readonly PriorityQueue<EntityType,float,bool> m_destructionQueue = new PriorityQueue<EntityType,float,bool>(new GreaterComparer<float>());
 
 		/// <summary>
 		/// The message system used to alert other entities to destruction events.
@@ -34,7 +35,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		#region
 
 		/// <summary>
-		/// Creates a new entity destruction manager.
+		/// Constructs a new entity destruction manager.
 		/// </summary>
 		/// <param name="messageSystem">The message system used to alert other entities to destruction events.</param>
 		public EntityDestructionManager(MessageSystem messageSystem)
@@ -80,9 +81,12 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="priority">Its destruction priority.</param>
-		public void QueueForDestruction(IModelEntity entity, float priority = 1f)
+		public void QueueForDestruction(EntityType entity, float priority = 1f)
 		{
-			m_destructionQueue.Insert(entity, priority, false);
+			if(!m_destructionQueue.Contains(entity))
+			{
+				m_destructionQueue.Insert(entity, priority, false);
+			}
 		}
 
 		#endregion

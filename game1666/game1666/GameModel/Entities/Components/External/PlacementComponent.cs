@@ -215,8 +215,7 @@ namespace game1666.GameModel.Entities.Components.External
 					ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == 0)
 					{
-						// TODO
-						//EntityDestructionManager.QueueForDestruction(Entity);
+						Entity.DestructionManager.QueueForDestruction(Entity);
 					}
 					break;
 				}

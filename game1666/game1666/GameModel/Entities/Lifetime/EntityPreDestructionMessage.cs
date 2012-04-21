@@ -4,7 +4,6 @@
  ***/
 
 using game1666.Common.Messaging;
-using game1666.GameModel.Entities.Base;
 
 namespace game1666.GameModel.Entities.Lifetime
 {
@@ -37,7 +36,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="source">The entity that will shortly be destructed.</param>
 		/// <param name="priority">The priority of the entity on the destruction queue.</param>
-		public EntityPreDestructionMessage(IModelEntity source, float priority)
+		public EntityPreDestructionMessage(dynamic source, float priority)
 		{
 			Source = source;
 			Priority = priority;

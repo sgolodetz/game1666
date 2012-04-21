@@ -4,7 +4,6 @@
  ***/
 
 using game1666.Common.Messaging;
-using game1666.GameModel.Entities.Base;
 
 namespace game1666.GameModel.Entities.Lifetime
 {
@@ -20,7 +19,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <summary>
 		/// The entity being spawned.
 		/// </summary>
-		public IModelEntity Entity { get; private set; }
+		public dynamic Entity { get; private set; }
 
 		/// <summary>
 		/// The entity doing the spawning.
@@ -37,7 +36,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="source">The entity doing the spawning.</param>
 		/// <param name="entity">The entity being spawned.</param>
-		public EntitySpawnMessage(IModelEntity source, IModelEntity entity)
+		public EntitySpawnMessage(dynamic source, dynamic entity)
 		{
 			Source = source;
 			Entity = entity;

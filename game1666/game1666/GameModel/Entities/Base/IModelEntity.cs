@@ -6,6 +6,7 @@
 using System;
 using game1666.Common.Entities;
 using game1666.Common.Messaging;
+using game1666.GameModel.Entities.Lifetime;
 
 namespace game1666.GameModel.Entities.Base
 {
@@ -16,6 +17,11 @@ namespace game1666.GameModel.Entities.Base
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// A manager that is used to ensure orderly destruction of entities.
+		/// </summary>
+		EntityDestructionManager<IModelEntity> DestructionManager { get; }
 
 		/// <summary>
 		/// A message system that is used to dispatch messages across the game.
