@@ -63,7 +63,7 @@ namespace game1666Test
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 
 			// Load the world from XML.
-			var world = new ModelEntity(XElement.Parse(@"
+			XElement worldElt = XElement.Parse(@"
 			<entity>
 				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
@@ -74,7 +74,8 @@ namespace game1666Test
 					<cmpTest/>
 				</entity>
 			</entity>
-			"));
+			");
+			var world = new ModelEntity(worldElt).AddDescendantsFromXML(worldElt);
 
 			// Check that it was loaded correctly.
 			Assert.Equal("World", world.Archetype);

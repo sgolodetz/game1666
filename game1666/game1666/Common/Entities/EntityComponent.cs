@@ -22,7 +22,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The entity containing this component (if any).
 		/// </summary>
-		public TreeEntityType Entity { get; private set; }
+		internal TreeEntityType Entity { get; private set; }
 
 		/// <summary>
 		/// The group of the component.

@@ -12,7 +12,7 @@ namespace game1666.Common.AStar
 	/// This class implements generic A* search.
 	/// </summary>
 	/// <typeparam name="NodeType">The type of node used in the search.</typeparam>
-	public static class AStarSearcher<NodeType> where NodeType : AStarNode<NodeType>
+	static class AStarSearcher<NodeType> where NodeType : AStarNode<NodeType>
 	{
 		//#################### PUBLIC METHODS ####################
 		#region

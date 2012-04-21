@@ -12,7 +12,7 @@ namespace game1666.Common.AStar
 	/// An instance of a class deriving from this one represents a node in an A* search space.
 	/// </summary>
 	/// <typeparam name="NodeType">The actual derived node type.</typeparam>
-	public abstract class AStarNode<NodeType> : IEquatable<NodeType>
+	abstract class AStarNode<NodeType> : IEquatable<NodeType>
 	{
 		//#################### PROPERTIES ####################
 		#region
