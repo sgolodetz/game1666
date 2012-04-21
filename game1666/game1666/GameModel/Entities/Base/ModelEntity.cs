@@ -20,7 +20,7 @@ namespace game1666.GameModel.Entities.Base
 		/// <summary>
 		/// A message system that is used to dispatch messages across the game.
 		/// </summary>
-		private MessageSystem m_messageSystem;
+		private MessageSystem m_messageSystem = new MessageSystem();
 
 		#endregion
 
@@ -32,16 +32,7 @@ namespace game1666.GameModel.Entities.Base
 		/// </summary>
 		public MessageSystem MessageSystem
 		{
-			get
-			{
-				return Parent == null ? m_messageSystem : Parent.MessageSystem;
-			}
-
-			set
-			{
-				if(Parent == null) m_messageSystem = value;
-				else Parent.MessageSystem = value;
-			}
+			get { return m_messageSystem; }
 		}
 
 		/// <summary>
@@ -70,6 +61,29 @@ namespace game1666.GameModel.Entities.Base
 		public ModelEntity(XElement entityElt)
 		:	base(entityElt)
 		{}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Called just after this entity is added as the child of another.
+		/// </summary>
+		public override void AfterAdd()
+		{
+			m_messageSystem = Parent.MessageSystem;
+			base.AfterAdd();
+		}
+
+		/// <summary>
+		/// Called just before this entity is removed as the child of another.
+		/// </summary>
+		public override void BeforeRemove()
+		{
+			base.BeforeRemove();
+			m_messageSystem = new MessageSystem();
+		}
 
 		#endregion
 	}

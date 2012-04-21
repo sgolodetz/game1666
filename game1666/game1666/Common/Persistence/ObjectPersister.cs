@@ -67,6 +67,20 @@ namespace game1666.Common.Persistence
 		/// <returns>The loaded child objects.</returns>
 		public static IEnumerable<T> LoadChildObjects<T>(XElement parentElt, params object[] additionalArguments)
 		{
+			return LoadChildObjectsAndXML<T>(parentElt, additionalArguments).Select(t => t.Item1);
+		}
+
+		/// <summary>
+		/// Loads objects from all non-property child elements of the specified XML element
+		/// that would yield objects of the specified type, and returns them together with
+		/// the corresponding XML elements from which they were created.
+		/// </summary>
+		/// <typeparam name="T">The type of child object to load.</typeparam>
+		/// <param name="parentElt">The parent XML element.</param>
+		/// <param name="additionalArguments">Any additional arguments to pass to the specified type's constructor.</param>
+		/// <returns>The loaded child objects, together with the corresponding XML elements from which they were created.</returns>
+		public static IEnumerable<Tuple<T,XElement>> LoadChildObjectsAndXML<T>(XElement parentElt, params object[] additionalArguments)
+		{
 			foreach(XElement childElt in parentElt.Elements().Where(e => e.Name != "property"))
 			{
 				// Determine the C# type corresponding to the child element.
@@ -75,7 +89,7 @@ namespace game1666.Common.Persistence
 				// Load it iff it has the correct type.
 				if(typeof(T).IsAssignableFrom(childType))
 				{
-					yield return LoadObject(childElt, additionalArguments);
+					yield return new Tuple<T,XElement>(LoadObject(childElt, additionalArguments), childElt);
 				}
 			}
 		}

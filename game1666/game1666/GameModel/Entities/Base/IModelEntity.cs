@@ -19,7 +19,7 @@ namespace game1666.GameModel.Entities.Base
 		/// <summary>
 		/// A message system that is used to dispatch messages across the game.
 		/// </summary>
-		MessageSystem MessageSystem { get; set; }
+		MessageSystem MessageSystem { get; }
 
 		#endregion
 	}

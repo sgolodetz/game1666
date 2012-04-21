@@ -109,11 +109,6 @@ namespace game1666.Common.Entities
 			{
 				component.AddToEntity(Self);
 			}
-
-			foreach(var child in ObjectPersister.LoadChildObjects<TreeEntityType>(entityElt))
-			{
-				AddChild(child);
-			}
 		}
 
 		#endregion
@@ -150,6 +145,24 @@ namespace game1666.Common.Entities
 				m_components.Add(component.Group, component);
 			}
 			else throw new InvalidOperationException("Group already has a component: " + component.Group);
+		}
+
+		/// <summary>
+		/// Recursively loads the descendants of the entity from XML and adds them
+		/// beneath the entity in the tree.
+		/// </summary>
+		/// <param name="entityElt">The root element of the entity's XML representation.</param>
+		/// <returns>The entity.</returns>
+		public TreeEntityType AddDescendantsFromXML(XElement entityElt)
+		{
+			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<TreeEntityType>(entityElt))
+			{
+				TreeEntityType child = t.Item1;
+				XElement childElt = t.Item2;
+				AddChild(child);
+				child.AddDescendantsFromXML(childElt);
+			}
+			return Self;
 		}
 
 		/// <summary>

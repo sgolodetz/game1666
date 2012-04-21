@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
@@ -76,6 +77,14 @@ namespace game1666.Common.Entities
 		/// <param name="component">The component to add.</param>
 		/// <exception cref="System.InvalidOperationException">If the entity already has a component in the same group.</exception>
 		void AddComponentInternal(IEntityComponent component);
+
+		/// <summary>
+		/// Recursively loads the descendants of the entity from XML and adds them
+		/// beneath the entity in the tree.
+		/// </summary>
+		/// <param name="entityElt">The root element of the entity's XML representation.</param>
+		/// <returns>The entity.</returns>
+		TreeEntityType AddDescendantsFromXML(XElement entityElt);
 
 		/// <summary>
 		/// Called just after this entity is added as the child of another.
