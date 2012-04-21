@@ -43,8 +43,18 @@ namespace game1666.GameUI.Entities.Base
 		/// </summary>
 		public IModelEntity World
 		{
-			get	{ return ((UIEntity)GetRootEntity()).m_world; }
-			set	{ ((UIEntity)GetRootEntity()).m_world = value; }
+			get
+			{
+				return Parent == null ? m_world : Parent.World;
+			}
+
+			set
+			{
+				if(Parent == null) m_world = value;
+				else Parent.World = value;
+			}
+
+
 		}
 
 		#endregion

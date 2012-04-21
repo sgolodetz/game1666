@@ -5,8 +5,9 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
-using game1666.Common.Entities;
 using game1666.Common.Persistence;
+using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Terrains;
 
 namespace game1666.GameModel.Entities.Components.Internal
@@ -18,8 +19,23 @@ namespace game1666.GameModel.Entities.Components.Internal
 	/// </summary>
 	sealed class PlayingAreaComponent : InternalComponent
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The playing area's navigation map.
+		/// </summary>
+		private readonly EntityNavigationMap m_navigationMap = new EntityNavigationMap();
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The playing area's navigation map.
+		/// </summary>
+		public EntityNavigationMap NavigationMap { get { return m_navigationMap; } }
 
 		/// <summary>
 		/// The name of the component.
@@ -43,6 +59,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 		public PlayingAreaComponent(Terrain terrain)
 		{
 			Terrain = terrain;
+			NavigationMap.Terrain = terrain;
 		}
 
 		/// <summary>
@@ -59,7 +76,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 				{
 					CanBeUsedFor = t => t == typeof(Terrain),
 					AdditionalArguments = new object[] {},
-					AddAction = o => Terrain = o
+					AddAction = o => { Terrain = o; NavigationMap.Terrain = Terrain; }
 				}
 			);
 		}

@@ -118,8 +118,6 @@ namespace game1666
 
 			// Load the world from an XML file.
 			m_world = LoadWorldFromFile(@"Content\PathfindingWorld.xml");
-			m_world.MessageSystem = new MessageSystem();
-			m_world.Initialise();
 
 			// Load the game views from the game configuration file.
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
@@ -178,7 +176,7 @@ namespace game1666
 		private static IModelEntity LoadWorldFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
-			return new ModelEntity(doc.Element("entity"));
+			return new ModelEntity(doc.Element("entity")) { MessageSystem = new MessageSystem() }.Initialise();
 		}
 
 		#endregion

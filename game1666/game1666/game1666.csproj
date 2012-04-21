@@ -147,6 +147,12 @@
     <Compile Include="GameModel\Entities\Components\External\PlacementComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\ModelEntityFactory.cs" />
+    <Compile Include="GameModel\Entities\Navigation\EntityNavigationMap.cs" />
+    <Compile Include="GameModel\Entities\Navigation\EntityNavigationNode.cs" />
+    <Compile Include="GameModel\Entities\PlacementStrategies\IPlacementStrategy.cs" />
+    <Compile Include="GameModel\Entities\PlacementStrategies\PlacementStrategyRequireFlatGround.cs" />
+    <Compile Include="GameModel\Navigation\INavigationNode.cs" />
+    <Compile Include="GameModel\Navigation\NavigationMap.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />

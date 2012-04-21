@@ -8,6 +8,8 @@ using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.External;
+using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Navigation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -54,7 +56,11 @@ namespace game1666.GameModel.Entities.Components.Rendering
 			// Determine the model name and orientation to use (see the description on the method).
 			PlacementComponent placement = Entity.GetComponent<PlacementComponent>(PlacementComponent.StaticGroup);
 			if(placement == null) return;
-			Tuple<string,Orientation4> result = DetermineModelAndOrientation(placement.Blueprint.Model, placement.Orientation/*, navigationMap*/);
+
+			EntityNavigationMap navigationMap = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup).NavigationMap;
+			if(navigationMap == null) return;
+
+			Tuple<string,Orientation4> result = DetermineModelAndOrientation(placement.Blueprint.Model, placement.Orientation, navigationMap);
 			string modelName = result.Item1;
 			Orientation4 orientation = result.Item2;
 
@@ -98,7 +104,7 @@ namespace game1666.GameModel.Entities.Components.Rendering
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		protected virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation/*, EntityNavigationMap navigationMap*/)
+		protected virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
 		{
 			return Tuple.Create(modelName, orientation);
 		}

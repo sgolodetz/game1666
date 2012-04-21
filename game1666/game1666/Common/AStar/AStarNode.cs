@@ -59,9 +59,10 @@ namespace game1666.Common.AStar
 		/// <summary>
 		/// Determines the neighbours of this node in the search space.
 		/// </summary>
-		/// <param name="entityProperties">The properties of the entity for which a path is to be found (can be null if irrelevant).</param>
+		/// <param name="properties">A set of properties associated with the entity for which a path is to be found
+		///							 (can be null if irrelevant).</param>
 		/// <returns>The neighbours of the node.</returns>
-		public abstract IEnumerable<NodeType> Neighbours(IDictionary<string,dynamic> entityProperties);
+		public abstract IEnumerable<NodeType> Neighbours(IDictionary<string,dynamic> properties);
 
 		#endregion
 

@@ -32,8 +32,16 @@ namespace game1666.GameModel.Entities.Base
 		/// </summary>
 		public MessageSystem MessageSystem
 		{
-			get	{ return ((ModelEntity)GetRootEntity()).m_messageSystem; }
-			set	{ ((ModelEntity)GetRootEntity()).m_messageSystem = value; }
+			get
+			{
+				return Parent == null ? m_messageSystem : Parent.MessageSystem;
+			}
+
+			set
+			{
+				if(Parent == null) m_messageSystem = value;
+				else Parent.MessageSystem = value;
+			}
 		}
 
 		/// <summary>

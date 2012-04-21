@@ -5,6 +5,7 @@
 
 using System.Xml.Linq;
 using game1666.Common.Persistence;
+using game1666.GameModel.Entities.PlacementStrategies;
 
 namespace game1666.GameModel.Blueprints
 {
@@ -25,6 +26,11 @@ namespace game1666.GameModel.Blueprints
 		/// The name of the 3D model for the entity.
 		/// </summary>
 		public string Model { get { return Properties["Model"]; } }
+
+		/// <summary>
+		/// The placement strategy for the type of entity.
+		/// </summary>
+		public IPlacementStrategy PlacementStrategy { get; private set; }
 
 		/// <summary>
 		/// The overall time required to construct the entity (in milliseconds).
@@ -54,6 +60,9 @@ namespace game1666.GameModel.Blueprints
 					AddAction = o => Footprint = o
 				}
 			);
+
+			// TODO: Get rid of this and add a loader for placement strategies.
+			PlacementStrategy = new PlacementStrategyRequireFlatGround();
 		}
 
 		#endregion

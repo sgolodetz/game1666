@@ -1,6 +1,6 @@
 ﻿/***
- * game1666proto4Test: AStarSearcherTest.cs
- * Copyright 2012. All rights reserved.
+ * game1666Test: AStarSearcherTest.cs
+ * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
 using System.Collections.Generic;
@@ -59,7 +59,7 @@ namespace game1666Test.Common.AStar
 				return (Position - neighbour.Position).Length();
 			}
 
-			public override IEnumerable<TestAStarNode> Neighbours(IDictionary<string,dynamic> entityProperties)
+			public override IEnumerable<TestAStarNode> Neighbours(IDictionary<string,dynamic> properties)
 			{
 				return NeighbourPositions.Where(pos =>
 					0 <= pos.X && pos.X < m_grid.GetLength(1) &&
