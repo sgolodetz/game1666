@@ -10,7 +10,7 @@ using game1666.Common.Maths;
 using game1666.Common.Persistence;
 using game1666.GameModel.Terrains;
 
-namespace game1666.GameModel.Blueprints
+namespace game1666.GameModel.Entities.PlacementStrategies
 {
 	/// <summary>
 	/// An instance of this class represents the 'footprint' of an entity.

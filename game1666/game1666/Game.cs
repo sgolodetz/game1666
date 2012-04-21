@@ -5,7 +5,6 @@
 
 using System.Xml.Linq;
 using System.Xml.XPath;
-using game1666.Common.Messaging;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
@@ -13,6 +12,7 @@ using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Components.Rendering;
+using game1666.GameModel.Entities.PlacementStrategies;
 using game1666.GameModel.Terrains;
 using game1666.GameUI;
 using game1666.GameUI.Entities.Base;

@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.GameModel.Blueprints;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.PlacementStrategies;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components.External
