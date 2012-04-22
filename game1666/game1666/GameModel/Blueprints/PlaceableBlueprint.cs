@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: PlacementBlueprint.cs
+ * game1666: PlaceableBlueprint.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -11,9 +11,9 @@ using game1666.GameModel.Entities.PlacementStrategies;
 namespace game1666.GameModel.Blueprints
 {
 	/// <summary>
-	/// An instance of this class represents a blueprint for the placement component of an entity.
+	/// An instance of this class represents a blueprint for the placeable component of an entity.
 	/// </summary>
-	sealed class PlacementBlueprint : Blueprint
+	sealed class PlaceableBlueprint : Blueprint
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -44,10 +44,10 @@ namespace game1666.GameModel.Blueprints
 		#region
 
 		/// <summary>
-		/// Constructs a placement blueprint from its XML representation.
+		/// Constructs a placeable blueprint from its XML representation.
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
-		public PlacementBlueprint(XElement blueprintElt)
+		public PlaceableBlueprint(XElement blueprintElt)
 		{
 			Properties = PropertyPersister.LoadProperties(blueprintElt);
 			Footprint = ObjectPersister.LoadChildObjects<Footprint>(blueprintElt).First();

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
-    <placementblueprint>
+    <placeableblueprint>
       <property name="Name" type="string" value="DirtTrack"/>
       <property name="Model" type="string" value="DirtTrack"/>
       <property name="TimeToConstruct" type="string" value="0"/>
@@ -12,8 +12,8 @@
           2
         </property>
       </footprint>
-    </placementblueprint>
-    <placementblueprint>
+    </placeableblueprint>
+    <placeableblueprint>
       <property name="Name" type="string" value="Dwelling"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>
@@ -24,8 +24,8 @@
           2
         </property>
       </footprint>
-    </placementblueprint>
-    <placementblueprint>
+    </placeableblueprint>
+    <placeableblueprint>
       <property name="Name" type="string" value="Village"/>
       <property name="Model" type="string" value="Village"/>
       <property name="TimeToConstruct" type="int" value="10000"/>
@@ -38,7 +38,7 @@
           1,2,1
         </property>
       </footprint>
-    </placementblueprint>
+    </placeableblueprint>
   </blueprints>
   <gameviews>
     <uientity>

@@ -111,7 +111,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpTraversable", typeof(TraversableComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
-			ObjectPersister.RegisterSpecialElement("placementblueprint", typeof(PlacementBlueprint));
+			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 

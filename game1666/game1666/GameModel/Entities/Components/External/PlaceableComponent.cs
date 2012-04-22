@@ -63,7 +63,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <summary>
 		/// The blueprint for the entity.
 		/// </summary>
-		public PlacementBlueprint Blueprint { get; private set; }
+		public PlaceableBlueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// The amount of construction done (in comparison to the time required to construct the entity).
