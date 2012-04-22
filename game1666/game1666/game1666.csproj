@@ -126,6 +126,7 @@
     <Compile Include="GameModel\Entities\Base\IModelEntity.cs" />
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\External\TraversableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Test\TestComponent.cs" />
     <Compile Include="Common\Maths\Constants.cs" />
     <Compile Include="Common\Maths\MathUtil.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="GameModel\Blueprints\PlacementBlueprint.cs" />
     <Compile Include="GameModel\Entities\Components\External\ExternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\InternalComponent.cs" />
-    <Compile Include="GameModel\Entities\Components\External\PlacementComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\External\PlaceableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\Lifetime\EntityDestructionManager.cs" />
     <Compile Include="GameModel\Entities\Lifetime\EntityDestructionMessage.cs" />

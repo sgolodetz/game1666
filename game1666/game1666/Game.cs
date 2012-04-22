@@ -103,11 +103,12 @@ namespace game1666
 			// Register special XML elements with the object persister.
 			ObjectPersister.RegisterSpecialElement("cmpCompositeControlRendering", typeof(CompositeControlRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
-			ObjectPersister.RegisterSpecialElement("cmpPlacement", typeof(PlacementComponent));
+			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayInteraction", typeof(PlayInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayRendering", typeof(PlayRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpSidebarRendering", typeof(SidebarRenderingComponent));
+			ObjectPersister.RegisterSpecialElement("cmpTraversable", typeof(TraversableComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
 			ObjectPersister.RegisterSpecialElement("placementblueprint", typeof(PlacementBlueprint));

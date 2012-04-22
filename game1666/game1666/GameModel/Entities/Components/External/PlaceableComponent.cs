@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: PlacementComponent.cs
+ * game1666: PlaceableComponent.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -19,21 +19,25 @@ using Microsoft.Xna.Framework.Graphics;
 namespace game1666.GameModel.Entities.Components.External
 {
 	/// <summary>
-	/// The various possible states of a placement component.
+	/// An instance of this class makes its containing entity placeable on a terrain.
 	/// </summary>
-	enum PlacementComponentState
+	class PlaceableComponent : ExternalComponent
 	{
-		IN_CONSTRUCTION,	// the entity containing the component is in the process of being constructed
-		IN_DESTRUCTION,		// the entity containing the component is in the process of being destructed
-		OPERATING			// the entity containing the component is operating normally
-	}
+		//#################### ENUMERATIONS ####################
+		#region
 
-	/// <summary>
-	/// An instance of this class provides placement behaviour to an entity,
-	/// i.e. entities with this component can be placed on a terrain.
-	/// </summary>
-	class PlacementComponent : ExternalComponent
-	{
+		/// <summary>
+		/// The various possible states of a placeable component.
+		/// </summary>
+		private enum PlaceableComponentState
+		{
+			IN_CONSTRUCTION,	// the entity containing the component is in the process of being constructed
+			IN_DESTRUCTION,		// the entity containing the component is in the process of being destructed
+			OPERATING			// the entity containing the component is operating normally
+		}
+
+		#endregion
+
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
@@ -120,9 +124,9 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <summary>
 		/// The state of the component.
 		/// </summary>
-		public PlacementComponentState State
+		private PlaceableComponentState State
 		{
-			get { return Enum.Parse(typeof(PlacementComponentState), Properties["State"]); }
+			get { return Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
 			set { Properties["State"] = value.ToString(); }
 		}
 
@@ -135,7 +139,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// Constructs a placement component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public PlacementComponent(XElement componentElt)
+		public PlaceableComponent(XElement componentElt)
 		:	base(componentElt)
 		{
 			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
@@ -226,7 +230,7 @@ namespace game1666.GameModel.Entities.Components.External
 			}
 
 			// If the entity is being constructed or destructed, scale the model based on the current state of completion.
-			if(State == PlacementComponentState.IN_CONSTRUCTION || State == PlacementComponentState.IN_DESTRUCTION)
+			if(State == PlaceableComponentState.IN_CONSTRUCTION || State == PlaceableComponentState.IN_DESTRUCTION)
 			{
 				Matrix matScale = Matrix.CreateScale(1, 1, PercentComplete / 100f);
 				matWorld = Matrix.Multiply(matScale, matWorld);
@@ -244,16 +248,16 @@ namespace game1666.GameModel.Entities.Components.External
 		{
 			switch(State)
 			{
-				case PlacementComponentState.IN_CONSTRUCTION:
+				case PlaceableComponentState.IN_CONSTRUCTION:
 				{
 					ConstructionDone += gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == Blueprint.TimeToConstruct)
 					{
-						State = PlacementComponentState.OPERATING;
+						State = PlaceableComponentState.OPERATING;
 					}
 					break;
 				}
-				case PlacementComponentState.IN_DESTRUCTION:
+				case PlaceableComponentState.IN_DESTRUCTION:
 				{
 					ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == 0)

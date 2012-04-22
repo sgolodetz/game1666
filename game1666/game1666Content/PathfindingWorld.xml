@@ -33,23 +33,33 @@
         <property name="ZScaling" type="float" value="0.25"/>
       </terrain>
     </cmpPlayingArea>
-    <cmpPlacement>
+    <cmpPlaceable>
       <property name="Blueprint" type="string" value="Village"/>
       <property name="ConstructionDone" type="int" value="10000"/>
       <property name="Destructible" type="bool" value="false"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="50,30"/>
       <property name="State" type="string" value="OPERATING"/>
-    </cmpPlacement>
+    </cmpPlaceable>
     <entity>
       <property name="Archetype" type="string" value="House"/>
-      <cmpPlacement>
+      <cmpPlaceable>
         <property name="Blueprint" type="string" value="Dwelling"/>
         <property name="ConstructionDone" type="int" value="1000"/>
         <property name="Orientation" type="Orientation4" value="XPOS"/>
         <property name="Position" type="Vector2i" value="1,0"/>
         <property name="State" type="string" value="OPERATING"/>
-      </cmpPlacement>
+      </cmpPlaceable>
+    </entity>
+    <entity>
+      <property name="Archetype" type="string" value="RoadSegment"/>
+      <cmpTraversable>
+        <property name="Blueprint" type="string" value="DirtTrack"/>
+        <property name="ConstructionDone" type="int" value="0"/>
+        <property name="Orientation" type="Orientation4" value="XPOS"/>
+        <property name="Position" type="Vector2i" value="0,0"/>
+        <property name="State" type="string" value="OPERATING"/>
+      </cmpTraversable>
     </entity>
   </entity>
 </entity>
