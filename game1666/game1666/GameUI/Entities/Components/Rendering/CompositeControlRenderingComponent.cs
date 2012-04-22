@@ -29,11 +29,16 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		#region
 
 		/// <summary>
+		/// Constructs a composite control rendering component.
+		/// </summary>
+		protected CompositeControlRenderingComponent()
+		{}
+
+		/// <summary>
 		/// Constructs a composite control rendering component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public CompositeControlRenderingComponent(XElement componentElt)
-		:	base(componentElt)
 		{}
 
 		#endregion

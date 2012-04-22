@@ -17,6 +17,7 @@ using game1666.GameUI;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Interaction;
 using game1666.GameUI.Entities.Components.Rendering;
+using game1666.GameUI.Entities.Concrete;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -105,13 +106,12 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
-			ObjectPersister.RegisterSpecialElement("cmpPlayInteraction", typeof(PlayInteractionComponent));
-			ObjectPersister.RegisterSpecialElement("cmpPlayRendering", typeof(PlayRenderingComponent));
-			ObjectPersister.RegisterSpecialElement("cmpSidebarRendering", typeof(SidebarRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpTraversable", typeof(TraversableComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
+			ObjectPersister.RegisterSpecialElement("playviewer", typeof(PlayViewer));
+			ObjectPersister.RegisterSpecialElement("sidebarviewer", typeof(SidebarViewer));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 

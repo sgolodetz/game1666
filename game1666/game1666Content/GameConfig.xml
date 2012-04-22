@@ -48,14 +48,12 @@
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeControlRendering/>
-      <uientity>
+      <playviewer>
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
-        <cmpPlayInteraction/>
-        <cmpPlayRendering/>
-      </uientity>
-      <uientity>
+      </playviewer>
+      <sidebarviewer>
         <property name="Archetype" type="string" value="SidebarViewer"/>
         <property name="Name" type="string" value="sidebarviewer"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
@@ -71,8 +69,7 @@
             <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
           </group>
         </cmpSidebarInteraction>-->
-        <cmpSidebarRendering/>
-      </uientity>
+      </sidebarviewer>
     </uientity>
     <uientity>
       <property name="Archetype" type="string" value="GameView"/>
@@ -81,14 +78,12 @@
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeControlRendering/>
-      <uientity>
+      <playviewer>
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
-        <cmpPlayInteraction/>
-        <cmpPlayRendering/>
-      </uientity>
-      <uientity>
+      </playviewer>
+      <sidebarviewer>
         <property name="Archetype" type="string" value="SidebarViewer"/>
         <property name="Name" type="string" value="sidebarviewer"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
@@ -103,8 +98,7 @@
             <element name="DirtTrack" tool="MultiEntityPlacementTool"/>
           </group>
         </cmpSidebarInteraction>-->
-        <cmpSidebarRendering/>
-      </uientity>
+      </sidebarviewer>
     </uientity>
   </gameviews>
 </config>

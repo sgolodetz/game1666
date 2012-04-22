@@ -4,7 +4,6 @@
  ***/
 
 using System;
-using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameUI.Entities.Base;
@@ -38,11 +37,9 @@ namespace game1666.GameUI.Entities.Components.Interaction
 		#region
 
 		/// <summary>
-		/// Constructs a play interaction component from its XML representation.
+		/// Constructs a play interaction component.
 		/// </summary>
-		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public PlayInteractionComponent(XElement componentElt)
-		:	base(componentElt)
+		public PlayInteractionComponent()
 		{
 			Camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
 		}

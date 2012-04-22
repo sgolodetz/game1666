@@ -3,7 +3,6 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
@@ -65,11 +64,9 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		#region
 
 		/// <summary>
-		/// Constructs a play rendering component from its XML representation.
+		/// Constructs a play rendering component.
 		/// </summary>
-		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public PlayRenderingComponent(XElement componentElt)
-		:	base(componentElt)
+		public PlayRenderingComponent()
 		{}
 
 		#endregion
