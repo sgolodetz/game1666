@@ -8,7 +8,7 @@ using game1666.GameUI.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666.GameUI.Entities.Components.Interaction
+namespace game1666.GameUI.Entities.Components.Common
 {
 	/// <summary>
 	/// An instance of this class provides composite interaction behaviour to an entity.

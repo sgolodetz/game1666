@@ -6,7 +6,7 @@
 using System.Xml.Linq;
 using game1666.GameUI.Entities.Base;
 
-namespace game1666.GameUI.Entities.Components.Rendering
+namespace game1666.GameUI.Entities.Components.Common
 {
 	/// <summary>
 	/// An instance of a class deriving from this one provides rendering behaviour to a UI control.

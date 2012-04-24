@@ -9,8 +9,7 @@ using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
-using game1666.GameUI.Entities.Components.Interaction;
-using game1666.GameUI.Entities.Components.Rendering;
+using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 

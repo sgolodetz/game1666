@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Entities;
 using game1666.GameModel.Entities.Base;
@@ -37,6 +38,22 @@ namespace game1666.GameUI.Entities.Base
 
 		//#################### CONSTRUCTORS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a UI entity with the specified viewport.
+		/// </summary>
+		/// <param name="name">The name of the entity.</param>
+		/// <param name="archetype">The archetype of the entity.</param>
+		/// <param name="viewport">The entity's viewport.</param>
+		protected UIEntity(string name, string archetype, Viewport viewport)
+		:	base(name, archetype)
+		{
+			Properties = new Dictionary<string,dynamic>
+			{
+				{ "Name", name },
+				{ "Viewport", viewport }
+			};
+		}
 
 		/// <summary>
 		/// Constructs a UI entity from its XML representation.

@@ -4,13 +4,15 @@
  ***/
 
 using System;
+using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameUI.Entities.Base;
+using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666.GameUI.Entities.Components.Interaction
+namespace game1666.GameUI.Entities.Components.Play
 {
 	/// <summary>
 	/// An instance of this class provides interaction behaviour to a play viewer that
@@ -20,11 +22,6 @@ namespace game1666.GameUI.Entities.Components.Interaction
 	{
 		//#################### PROPERTIES ####################
 		#region
-
-		/// <summary>
-		/// The 3D camera specifying the position of the viewer.
-		/// </summary>
-		public Camera Camera { get; private set; }
 
 		/// <summary>
 		/// The name of the component.
@@ -39,14 +36,13 @@ namespace game1666.GameUI.Entities.Components.Interaction
 		/// <summary>
 		/// Constructs a play interaction component.
 		/// </summary>
-		public PlayInteractionComponent()
-		{
-			Camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
-		}
+		/// <param name="componentElt">The root element of the component's XML representation.</param>
+		public PlayInteractionComponent(XElement componentElt)
+		{}
 
 		#endregion
 
-		//#################### PUBLIC ABSTRACT METHODS ####################
+		//#################### PUBLIC METHODS ####################
 		#region
 
 		/// <summary>
@@ -85,17 +81,18 @@ namespace game1666.GameUI.Entities.Components.Interaction
 			float keyboardAngularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 
 			// Alter the camera based on keyboard input.
+			Camera camera = Entity.GetComponent<PlayStateComponent>(PlayStateComponent.StaticGroup).Camera;
 			KeyboardState keyState = Keyboard.GetState();
-			if(keyState.IsKeyDown(Keys.W))		Camera.MoveN(keyboardLinearRate);
-			if(keyState.IsKeyDown(Keys.S))		Camera.MoveN(-keyboardLinearRate);
-			if(keyState.IsKeyDown(Keys.A))		Camera.MoveU(keyboardLinearRate);
-			if(keyState.IsKeyDown(Keys.D))		Camera.MoveU(-keyboardLinearRate);
-			if(keyState.IsKeyDown(Keys.Q))		Camera.MoveV(keyboardLinearRate);
-			if(keyState.IsKeyDown(Keys.E))		Camera.MoveV(-keyboardLinearRate);
-			if(keyState.IsKeyDown(Keys.Left))	Camera.Rotate(Vector3.UnitZ, keyboardAngularRateH);
-			if(keyState.IsKeyDown(Keys.Right))	Camera.Rotate(Vector3.UnitZ, -keyboardAngularRateH);
-			if(keyState.IsKeyDown(Keys.Up))		Camera.Rotate(Camera.U, keyboardAngularRateV);
-			if(keyState.IsKeyDown(Keys.Down))	Camera.Rotate(Camera.U, -keyboardAngularRateV);
+			if(keyState.IsKeyDown(Keys.W))		camera.MoveN(keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.S))		camera.MoveN(-keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.A))		camera.MoveU(keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.D))		camera.MoveU(-keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.Q))		camera.MoveV(keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.E))		camera.MoveV(-keyboardLinearRate);
+			if(keyState.IsKeyDown(Keys.Left))	camera.Rotate(Vector3.UnitZ, keyboardAngularRateH);
+			if(keyState.IsKeyDown(Keys.Right))	camera.Rotate(Vector3.UnitZ, -keyboardAngularRateH);
+			if(keyState.IsKeyDown(Keys.Up))		camera.Rotate(camera.U, keyboardAngularRateV);
+			if(keyState.IsKeyDown(Keys.Down))	camera.Rotate(camera.U, -keyboardAngularRateV);
 
 			// Note: Mouse-based input is only active when the left shift key is pressed - it would be annoying otherwise.
 			if(keyState.IsKeyDown(Keys.LeftShift))
@@ -114,12 +111,12 @@ namespace game1666.GameUI.Entities.Components.Interaction
 
 				if(Math.Abs(xOffset) > mouseInactiveHalfWidth)
 				{
-					Camera.Rotate(Vector3.UnitZ, xOffset * mouseAngularScalingFactor);
+					camera.Rotate(Vector3.UnitZ, xOffset * mouseAngularScalingFactor);
 				}
 
 				if(Math.Abs(yOffset) > mouseInactiveHalfHeight)
 				{
-					Camera.Rotate(Camera.U, yOffset * mouseAngularScalingFactor);
+					camera.Rotate(camera.U, yOffset * mouseAngularScalingFactor);
 				}
 			}
 		}

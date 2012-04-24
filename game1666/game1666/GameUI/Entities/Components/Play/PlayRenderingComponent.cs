@@ -3,17 +3,18 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
 using game1666.GameUI.Entities.Base;
-using game1666.GameUI.Entities.Components.Interaction;
+using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameUI.Entities.Components.Rendering
+namespace game1666.GameUI.Entities.Components.Play
 {
 	/// <summary>
 	/// An instance of this class draws a play viewer that shows the contents of a playing area (such as the world or a settlement).
@@ -66,7 +67,8 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// <summary>
 		/// Constructs a play rendering component.
 		/// </summary>
-		public PlayRenderingComponent()
+		/// <param name="componentElt">The root element of the component's XML representation.</param>
+		public PlayRenderingComponent(XElement componentElt)
 		{}
 
 		#endregion
@@ -172,7 +174,7 @@ namespace game1666.GameUI.Entities.Components.Rendering
 		/// </summary>
 		private void SetupMatrices()
 		{
-			Camera camera = Entity.GetComponent<PlayInteractionComponent>(PlayInteractionComponent.StaticGroup).Camera;
+			Camera camera = Entity.GetComponent<PlayStateComponent>(PlayStateComponent.StaticGroup).Camera;
 
 			m_matProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Entity.Viewport.Width / Entity.Viewport.Height, 0.1f, 1000.0f);
 			m_matView = Matrix.CreateLookAt(camera.Position, camera.Position + camera.N, camera.V);
