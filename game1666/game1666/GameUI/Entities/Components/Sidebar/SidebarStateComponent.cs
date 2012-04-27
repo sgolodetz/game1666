@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameUI.Entities.Components.Button;
@@ -172,8 +173,8 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		public override void AfterAdd()
 		{
-			// TODO
-			Entity.AddChild(new ButtonControl("blah", "sidebarelement_Dwelling", new Viewport(Entity.Viewport.X + 20, Entity.Viewport.Y + 20, 50, 50)));
+			AddGroupButtons();
+
 			base.AfterAdd();
 		}
 
@@ -183,13 +184,192 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		public override void BeforeRemove()
 		{
 			base.BeforeRemove();
-			// TODO
+
+			RemoveElementButtons();
+			RemoveGroupButtons();
 		}
 
 		#endregion
 
 		//#################### PRIVATE METHODS ####################
 		#region
+
+		/// <summary>
+		/// Adds buttons for the individual entities in the specified group.
+		/// </summary>
+		/// <param name="group">The group.</param>
+		private void AddElementButtons(string group)
+		{
+			// Set the current group.
+			m_currentGroup = group;
+
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
+			{
+				IsHighlighted		= () => /*GameViewState.Tool != null && GameViewState.Tool.Name.EndsWith(":" + element.Name)*/ false,
+				MousePressedHook	= /*UseToolHook(element.Tool, element.Name)*/ state => {},
+				TextureName			= "sidebarelement_" + element.Name
+			}));
+
+			// Create the buttons themselves and add them to the sidebar viewer.
+			m_elementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
+			foreach(var button in m_elementButtons)
+			{
+				Entity.AddChild(button);
+			}
+		}
+
+		/// <summary>
+		/// Adds buttons for the groups of entity that the player can manipulate.
+		/// </summary>
+		private void AddGroupButtons()
+		{
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
+			{
+				IsHighlighted		= () => m_currentGroup == group,
+				MousePressedHook	= state => { /*GameViewState.Tool = null;*/ RemoveElementButtons(); AddElementButtons(group); },
+				TextureName			= "sidebargroup_" + group
+			}));
+
+			// Create the buttons themselves and add them to the sidebar viewer.
+			m_groupButtons = CreateButtons(GroupButtonsViewport(), 2, buttonSpecifiers);
+			foreach(var button in m_groupButtons)
+			{
+				Entity.AddChild(button);
+			}
+		}
+
+		/// <summary>
+		/// Constructs the viewport for a button, based on the viewport of the set of buttons containing it, the determined
+		/// grid layout for the set of buttons, and the row and column of the grid in which the button lies.
+		/// </summary>
+		/// <param name="buttonsViewport">The viewport of the containing set of buttons.</param>
+		/// <param name="layout">The determined grid layout for the set of buttons.</param>
+		/// <param name="row">The grid row in which the button lies.</param>
+		/// <param name="column">The grid column in which the button lies.</param>
+		/// <returns>The viewport for the button.</returns>
+		private static Viewport ConstructButtonViewport(Viewport buttonsViewport, ButtonLayout layout, int row, int column)
+		{
+			return new Viewport
+			{
+				X = buttonsViewport.X + layout.XOffset + column * layout.ColumnWidth,
+				Y = buttonsViewport.Y + row * layout.RowHeight,
+				Width = layout.ButtonWidth,
+				Height = layout.ButtonHeight
+			};
+		}
+
+		/// <summary>
+		/// Creates buttons to fill a given viewport, based on a list of button specifiers.
+		/// </summary>
+		/// <param name="buttonsViewport">The viewport that the buttons are to fill.</param>
+		/// <param name="columns">The number of columns in which the buttons should be laid out.</param>
+		/// <param name="buttonSpecifiers">The button specifiers.</param>
+		/// <returns>The created buttons.</returns>
+		private static List<ButtonControl> CreateButtons(Viewport buttonsViewport, int columns, IList<ButtonSpecifier> buttonSpecifiers)
+		{
+			var buttons = new List<ButtonControl>();
+
+			// If there are no button specifiers, early out and return an empty list of buttons.
+			if(buttonSpecifiers.Count == 0) return buttons;
+
+			// Determine how the buttons should be laid out.
+			var layout = DetermineButtonLayout(buttonsViewport, buttonSpecifiers.Count, columns);
+
+			// Construct the buttons (using the supplied specifiers) and add them to the buttons list.
+			int buttonIndex = 0;
+			foreach(ButtonSpecifier bs in buttonSpecifiers)
+			{
+				// Work out in which row and column the button lies.
+				int column = buttonIndex % layout.Columns;
+				int row = buttonIndex / layout.Columns;
+
+				// Construct the button and set its handlers.
+				var button = new ButtonControl(bs.TextureName, ConstructButtonViewport(buttonsViewport, layout, row, column));
+				var buttonInteractor = button.GetComponent<ButtonInteractionComponent>(ButtonInteractionComponent.StaticGroup);
+				var buttonRenderer = button.GetComponent<ButtonRenderingComponent>(ButtonRenderingComponent.StaticGroup);
+				if(buttonInteractor != null) buttonInteractor.MousePressedHook += bs.MousePressedHook;
+				if(buttonRenderer != null) buttonRenderer.IsHighlighted = bs.IsHighlighted;
+
+				// Add the button to the list.
+				buttons.Add(button);
+
+				++buttonIndex;
+			}
+
+			return buttons;
+		}
+
+		/// <summary>
+		/// Determines how a set of buttons should be laid out.
+		/// </summary>
+		/// <param name="buttonsViewport">The viewport for the set of buttons as a whole.</param>
+		/// <param name="buttonCount">The number of buttons that need to be laid out.</param>
+		/// <param name="columns">The number of columns to use for the button grid.</param>
+		/// <returns>The determined button layout.</returns>
+		private static ButtonLayout DetermineButtonLayout(Viewport buttonsViewport, int buttonCount, int columns)
+		{
+			var result = new ButtonLayout();
+
+			// Work out the dimensions of each button.
+			result.Columns = columns;
+			result.Rows = (buttonCount + result.Columns - 1) / result.Columns;	// note: this rounds up when the last row is incomplete
+			result.ButtonWidth = Math.Min((buttonsViewport.Width + HORIZONTAL_SPACING) / result.Columns - HORIZONTAL_SPACING, MAX_BUTTON_WIDTH);
+			result.ButtonHeight = Math.Min((buttonsViewport.Height + VERTICAL_SPACING) / result.Rows - VERTICAL_SPACING, MAX_BUTTON_HEIGHT);
+
+			if(ENSURE_SQUARE_BUTTONS)
+			{
+				// Ensure that the buttons are square.
+				result.ButtonWidth = result.ButtonHeight = Math.Min(result.ButtonWidth, result.ButtonHeight);
+			}
+
+			// Work out the width of columns and the height of rows in the button grid.
+			result.ColumnWidth = result.ButtonWidth + HORIZONTAL_SPACING;
+			result.RowHeight = result.ButtonHeight + VERTICAL_SPACING;
+
+			// Determine the top-left button's x offset from the top-left of the group buttons viewport.
+			// This is calculated so as to horizontally centre the buttons in the group buttons viewport.
+			result.XOffset = (buttonsViewport.Width - (result.Columns * result.ColumnWidth - HORIZONTAL_SPACING)) / 2;
+
+			return result;
+		}
+
+		/// <summary>
+		/// Construct the viewport in which to place element buttons.
+		/// </summary>
+		/// <returns>The constructed viewport.</returns>
+		private Viewport ElementButtonsViewport()
+		{
+			// Use the middle third of the sidebar as the area in which to place the element buttons.
+			int margin = (int)(Entity.Viewport.Width / 10);
+			return new Viewport
+			{
+				X = Entity.Viewport.X + margin,
+				Y = Entity.Viewport.Y + margin + Entity.Viewport.Height / 3,
+				Width = Entity.Viewport.Width - 2 * margin,
+				Height = Entity.Viewport.Height / 3 - 2 * margin
+			};
+		}
+
+		/// <summary>
+		/// Construct the viewport in which to place group buttons.
+		/// </summary>
+		/// <returns>The constructed viewport.</returns>
+		private Viewport GroupButtonsViewport()
+		{
+			// Use the top third of the sidebar as the area in which to place the group buttons.
+			int margin = (int)(Entity.Viewport.Width / 10);
+			return new Viewport
+			{
+				X = Entity.Viewport.X + margin,
+				Y = Entity.Viewport.Y + margin,
+				Width = Entity.Viewport.Width - 2 * margin,
+				Height = Entity.Viewport.Height / 3 - 2 * margin
+			};
+		}
 
 		/// <summary>
 		/// Load the groups of entity that the player can manipulate from the XML representing the component.
@@ -214,6 +394,28 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 						Tool = toolAttribute != null ? toolAttribute.Value : (string)null
 					});
 				}
+			}
+		}
+
+		/// <summary>
+		/// Removes the buttons for the individual entities in the current group.
+		/// </summary>
+		private void RemoveElementButtons()
+		{
+			foreach(var button in m_elementButtons)
+			{
+				Entity.RemoveChild(button);
+			}
+		}
+
+		/// <summary>
+		/// Removes the buttons for the groups of entity that the player can manipulate.
+		/// </summary>
+		private void RemoveGroupButtons()
+		{
+			foreach(var button in m_groupButtons)
+			{
+				Entity.RemoveChild(button);
 			}
 		}
 

@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.Common.UI;
 using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework.Input;
 
@@ -23,17 +24,18 @@ namespace game1666.GameUI.Entities.Components.Button
 
 		#endregion
 
-		//#################### PUBLIC METHODS ####################
+		//#################### EVENTS ####################
 		#region
 
 		/// <summary>
-		/// Handles mouse moved events.
+		/// Invoked when a mouse button is pressed.
 		/// </summary>
-		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		public override void OnMouseMoved(MouseState state)
-		{
-			// TODO
-		}
+		public event MouseEvent MousePressedHook = delegate {};
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
 
 		/// <summary>
 		/// Handles mouse pressed events.
@@ -41,8 +43,7 @@ namespace game1666.GameUI.Entities.Components.Button
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
-			// TODO
-			System.Console.WriteLine("Clicked!");
+			MousePressedHook(state);
 		}
 
 		#endregion

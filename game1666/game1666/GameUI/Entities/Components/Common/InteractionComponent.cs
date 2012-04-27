@@ -47,20 +47,26 @@ namespace game1666.GameUI.Entities.Components.Common
 
 		#endregion
 
-		//#################### PUBLIC ABSTRACT METHODS ####################
+		//#################### PUBLIC METHODS ####################
 		#region
 
 		/// <summary>
 		/// Handles mouse moved events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		public abstract void OnMouseMoved(MouseState state);
+		public virtual void OnMouseMoved(MouseState state)
+		{
+			// No-op by default
+		}
 
 		/// <summary>
 		/// Handles mouse pressed events.
 		/// </summary>
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
-		public abstract void OnMousePressed(MouseState state);
+		public virtual void OnMousePressed(MouseState state)
+		{
+			// No-op by default
+		}
 
 		#endregion
 	}

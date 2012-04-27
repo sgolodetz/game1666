@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.GameUI.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,7 +53,10 @@ namespace game1666.GameUI.Entities.Components.Common
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMouseMoved(MouseState state)
 		{
-			foreach(IUIEntity child in Entity.Children)
+			// Copy the entity's children so that we can add new children during the iteration if desired.
+			var children = new List<IUIEntity>(Entity.Children);
+
+			foreach(IUIEntity child in children)
 			{
 				if(ViewportContains(child.Viewport, state.X, state.Y))
 				{
@@ -71,7 +75,10 @@ namespace game1666.GameUI.Entities.Components.Common
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
-			foreach(IUIEntity child in Entity.Children)
+			// Copy the entity's children so that we can add new children during the iteration if desired.
+			var children = new List<IUIEntity>(Entity.Children);
+
+			foreach(IUIEntity child in children)
 			{
 				if(ViewportContains(child.Viewport, state.X, state.Y))
 				{

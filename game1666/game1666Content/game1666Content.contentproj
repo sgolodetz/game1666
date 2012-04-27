@@ -98,8 +98,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\sidebargroup_Cities.png">
-      <Name>sidebargroup_Cities</Name>
+    <Compile Include="Textures\sidebargroup_Settlements.png">
+      <Name>sidebargroup_Settlements</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
