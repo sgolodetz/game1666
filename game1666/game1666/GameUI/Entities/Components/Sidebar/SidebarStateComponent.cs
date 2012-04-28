@@ -144,6 +144,42 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		#region
 
 		/// <summary>
+		/// The individual buttons in the currently-selected sidebar group.
+		/// </summary>
+		private IList<ButtonControl> ElementButtons
+		{
+			get
+			{
+				return m_elementButtons;
+			}
+
+			set
+			{
+				RemoveElementButtons();
+				m_elementButtons = value;
+				AddElementButtons();
+			}
+		}
+
+		/// <summary>
+		/// The buttons for the sidebar groups.
+		/// </summary>
+		private IList<ButtonControl> GroupButtons
+		{
+			get
+			{
+				return m_groupButtons;
+			}
+
+			set
+			{
+				RemoveGroupButtons();
+				m_groupButtons = value;
+				AddGroupButtons();
+			}
+		}
+
+		/// <summary>
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "SidebarState"; } }
@@ -173,7 +209,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		public override void AfterAdd()
 		{
-			AddGroupButtons();
+			ReplaceGroupButtons();
 
 			base.AfterAdd();
 		}
@@ -195,25 +231,10 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		#region
 
 		/// <summary>
-		/// Adds buttons for the individual entities in the specified group.
+		/// Adds the current list of element buttons to the sidebar viewer.
 		/// </summary>
-		/// <param name="group">The group.</param>
-		private void AddElementButtons(string group)
+		private void AddElementButtons()
 		{
-			// Set the current group.
-			m_currentGroup = group;
-
-			// Create the button specifiers.
-			var buttonSpecifiers = new List<ButtonSpecifier>();
-			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
-			{
-				IsHighlighted		= () => /*GameViewState.Tool != null && GameViewState.Tool.Name.EndsWith(":" + element.Name)*/ false,
-				MousePressedHook	= /*UseToolHook(element.Tool, element.Name)*/ state => {},
-				TextureName			= "sidebarelement_" + element.Name
-			}));
-
-			// Create the buttons themselves and add them to the sidebar viewer.
-			m_elementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
 			foreach(var button in m_elementButtons)
 			{
 				Entity.AddChild(button);
@@ -221,21 +242,10 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		}
 
 		/// <summary>
-		/// Adds buttons for the groups of entity that the player can manipulate.
+		/// Adds the current list of group buttons to the sidebar viewer.
 		/// </summary>
 		private void AddGroupButtons()
 		{
-			// Create the button specifiers.
-			var buttonSpecifiers = new List<ButtonSpecifier>();
-			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
-			{
-				IsHighlighted		= () => m_currentGroup == group,
-				MousePressedHook	= state => { /*GameViewState.Tool = null;*/ RemoveElementButtons(); AddElementButtons(group); },
-				TextureName			= "sidebargroup_" + group
-			}));
-
-			// Create the buttons themselves and add them to the sidebar viewer.
-			m_groupButtons = CreateButtons(GroupButtonsViewport(), 2, buttonSpecifiers);
 			foreach(var button in m_groupButtons)
 			{
 				Entity.AddChild(button);
@@ -417,6 +427,48 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 			{
 				Entity.RemoveChild(button);
 			}
+		}
+
+		/// <summary>
+		/// Replaces the current list of element buttons with the buttons for the specified group,
+		/// and updates the sidebar viewer accordingly.
+		/// </summary>
+		/// <param name="group">The group.</param>
+		private void ReplaceElementButtons(string group)
+		{
+			// Set the current group.
+			m_currentGroup = group;
+
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
+			{
+				IsHighlighted		= () => /*GameViewState.Tool != null && GameViewState.Tool.Name.EndsWith(":" + element.Name)*/ false,
+				MousePressedHook	= /*UseToolHook(element.Tool, element.Name)*/ state => {},
+				TextureName			= "sidebarelement_" + element.Name
+			}));
+
+			// Create the buttons themselves and replace the element buttons currently in the sidebar viewer.
+			ElementButtons = CreateButtons(ElementButtonsViewport(), 3, buttonSpecifiers);
+		}
+
+		/// <summary>
+		/// Replaces the current list of buttons for the groups of entity that the player can manipulate,
+		/// and updates the sidebar viewer accordingly.
+		/// </summary>
+		private void ReplaceGroupButtons()
+		{
+			// Create the button specifiers.
+			var buttonSpecifiers = new List<ButtonSpecifier>();
+			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
+			{
+				IsHighlighted		= () => m_currentGroup == group,
+				MousePressedHook	= state => { /*GameViewState.Tool = null;*/ ReplaceElementButtons(group); },
+				TextureName			= "sidebargroup_" + group
+			}));
+
+			// Create the buttons themselves and replace the group buttons currently in the sidebar viewer.
+			GroupButtons = CreateButtons(GroupButtonsViewport(), 2, buttonSpecifiers);
 		}
 
 		#endregion
