@@ -8,9 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
+using game1666.Common.Messaging;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
+using game1666.GameModel.Components.Communication;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Lifetime;
 using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Entities.PlacementStrategies;
 using Microsoft.Xna.Framework;
@@ -154,7 +157,7 @@ namespace game1666.GameModel.Entities.Components.External
 		#region
 
 		/// <summary>
-		/// Called just after the component containing this entity is added as the child of another.
+		/// Called just after the entity containing this component is added as the child of another.
 		/// </summary>
 		public override void AfterAdd()
 		{
@@ -176,10 +179,24 @@ namespace game1666.GameModel.Entities.Components.External
 				),
 				Entity
 			);
+
+			// Register a message rule that causes the parent of the entity containing this component
+			// to remove it as a child if the entity posts an entity destruction message.
+			var messageSystem = Entity.GetRootEntity().GetComponent<CommunicationComponent>(CommunicationComponent.StaticGroup).MessageSystem;
+			messageSystem.RegisterRule
+			(
+				new MessageRule<EntityDestructionMessage>
+				{
+					Action = new Action<EntityDestructionMessage>(msg => Entity.Parent.RemoveChild(Entity)),
+					Entities = new List<dynamic> { Entity, Entity.Parent },
+					Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(Entity),
+					Key = "removechild:" + Entity.GetAbsolutePath()
+				}
+			);
 		}
 
 		/// <summary>
-		/// Called just before the component containing this entity is removed as the child of another.
+		/// Called just before the entity containing this component is removed as the child of another.
 		/// </summary>
 		public override void BeforeRemove()
 		{
@@ -198,6 +215,10 @@ namespace game1666.GameModel.Entities.Components.External
 				),
 				null
 			);
+
+			// Unregister the remove child message rule added in AfterAdd().
+			var messageSystem = Entity.GetRootEntity().GetComponent<CommunicationComponent>(CommunicationComponent.StaticGroup).MessageSystem;
+			messageSystem.UnregisterRule("removechild:" + Entity.GetAbsolutePath());
 		}
 
 		/// <summary>
@@ -262,7 +283,8 @@ namespace game1666.GameModel.Entities.Components.External
 					ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == 0)
 					{
-						Entity.DestructionManager.QueueForDestruction(Entity);
+						var destructionManager = Entity.GetRootEntity().GetComponent<CommunicationComponent>(CommunicationComponent.StaticGroup).DestructionManager;
+						destructionManager.QueueForDestruction(Entity);
 					}
 					break;
 				}

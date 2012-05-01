@@ -8,6 +8,7 @@ using System.Xml.XPath;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
+using game1666.GameModel.Components.Communication;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
@@ -102,6 +103,7 @@ namespace game1666
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Register special XML elements with the object persister.
+			ObjectPersister.RegisterSpecialElement("cmpCommunication", typeof(CommunicationComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeControlRendering", typeof(CompositeControlRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));

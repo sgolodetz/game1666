@@ -146,6 +146,12 @@ namespace game1666.Common.Entities
 		TreeEntityType GetEntityByRelativePath(LinkedList<string> path);
 
 		/// <summary>
+		/// Gets the root entity of this entity's tree.
+		/// </summary>
+		/// <returns>The root entity of this entity's tree.</returns>
+		TreeEntityType GetRootEntity();
+
+		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>

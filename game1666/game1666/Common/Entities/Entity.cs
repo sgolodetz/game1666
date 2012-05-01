@@ -283,6 +283,20 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
+		/// Gets the root entity of this entity's tree.
+		/// </summary>
+		/// <returns>The root entity of this entity's tree.</returns>
+		public TreeEntityType GetRootEntity()
+		{
+			TreeEntityType cur = Self;
+			while(cur.Parent != null)
+			{
+				cur = cur.Parent;
+			}
+			return cur;
+		}
+
+		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>
@@ -325,25 +339,6 @@ namespace game1666.Common.Entities
 			{
 				child.Update(gameTime);
 			}
-		}
-
-		#endregion
-
-		//#################### PROTECTED METHODS ####################
-		#region
-
-		/// <summary>
-		/// Gets the root entity of this entity's tree.
-		/// </summary>
-		/// <returns>The root entity of this entity's tree.</returns>
-		protected TreeEntityType GetRootEntity()
-		{
-			TreeEntityType cur = Self;
-			while(cur.Parent != null)
-			{
-				cur = cur.Parent;
-			}
-			return cur;
 		}
 
 		#endregion

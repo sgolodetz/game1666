@@ -86,7 +86,7 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
-		/// Called just after the component containing this entity is added as the child of another.
+		/// Called just after the entity containing this component is added as the child of another.
 		/// </summary>
 		public virtual void AfterAdd()
 		{
@@ -94,7 +94,7 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
-		/// Called just before the component containing this entity is removed as the child of another.
+		/// Called just before the entity containing this component is removed as the child of another.
 		/// </summary>
 		public virtual void BeforeRemove()
 		{
