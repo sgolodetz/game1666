@@ -11,9 +11,9 @@ using game1666.Common.Maths;
 using game1666.Common.Messaging;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
-using game1666.GameModel.Components.Communication;
+using game1666.GameModel.Entities.Components.Context;
 using game1666.GameModel.Entities.Components.Internal;
-using game1666.GameModel.Entities.Lifetime;
+using game1666.GameModel.Entities.Messages;
 using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Entities.PlacementStrategies;
 using Microsoft.Xna.Framework;
@@ -182,7 +182,7 @@ namespace game1666.GameModel.Entities.Components.External
 
 			// Register a message rule that causes the parent of the entity containing this component
 			// to remove it as a child if the entity posts an entity destruction message.
-			var messageSystem = Entity.GetRootEntity().GetComponent<CommunicationComponent>(CommunicationComponent.StaticGroup).MessageSystem;
+			var messageSystem = Entity.GetRootEntity().GetComponent<ContextComponent>(ContextComponent.StaticGroup).MessageSystem;
 			messageSystem.RegisterRule
 			(
 				new MessageRule<EntityDestructionMessage>
@@ -217,7 +217,7 @@ namespace game1666.GameModel.Entities.Components.External
 			);
 
 			// Unregister the remove child message rule added in AfterAdd().
-			var messageSystem = Entity.GetRootEntity().GetComponent<CommunicationComponent>(CommunicationComponent.StaticGroup).MessageSystem;
+			var messageSystem = Entity.GetRootEntity().GetComponent<ContextComponent>(ContextComponent.StaticGroup).MessageSystem;
 			messageSystem.UnregisterRule("removechild:" + Entity.GetAbsolutePath());
 		}
 
@@ -283,7 +283,7 @@ namespace game1666.GameModel.Entities.Components.External
 					ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == 0)
 					{
-						var destructionManager = Entity.GetRootEntity().GetComponent<CommunicationComponent>(CommunicationComponent.StaticGroup).DestructionManager;
+						var destructionManager = Entity.GetRootEntity().GetComponent<ContextComponent>(ContextComponent.StaticGroup).DestructionManager;
 						destructionManager.QueueForDestruction(Entity);
 					}
 					break;

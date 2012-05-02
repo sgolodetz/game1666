@@ -8,10 +8,11 @@ using System.Xml.XPath;
 using game1666.Common.Persistence;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
-using game1666.GameModel.Components.Communication;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Components.Context;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Lifetime;
 using game1666.GameModel.Entities.PlacementStrategies;
 using game1666.GameModel.Terrains;
 using game1666.GameUI;
@@ -103,7 +104,6 @@ namespace game1666
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Register special XML elements with the object persister.
-			ObjectPersister.RegisterSpecialElement("cmpCommunication", typeof(CommunicationComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeControlRendering", typeof(CompositeControlRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));
@@ -181,7 +181,10 @@ namespace game1666
 		{
 			XDocument doc = XDocument.Load(filename);
 			XElement entityElt = doc.Element("entity");
-			return new ModelEntity(entityElt).AddDescendantsFromXML(entityElt);
+			IModelEntity world = new ModelEntity(entityElt);
+			new ContextComponent(new ModelEntityFactory(), new ModelEntityDestructionManager()).AddToEntity(world);
+			world.AddDescendantsFromXML(entityElt);
+			return world;
 		}
 
 		#endregion

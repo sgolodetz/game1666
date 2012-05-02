@@ -1,20 +1,21 @@
 ﻿/***
- * game1666: EntityDestructionManager.cs
+ * game1666: ModelEntityDestructionManager.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System;
 using game1666.Common.ADTs;
 using game1666.Common.Messaging;
 using game1666.Common.Util;
+using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Messages;
 
 namespace game1666.GameModel.Entities.Lifetime
 {
 	/// <summary>
-	/// An instance of this class manages an entity destruction queue that can be used to delete entities in a robust way.
+	/// An instance of this class manages an entity destruction queue
+	/// that can be used to delete model entities in a robust way.
 	/// </summary>
-	sealed class EntityDestructionManager<EntityType>
-		where EntityType : IEquatable<EntityType>
+	sealed class ModelEntityDestructionManager : IModelEntityDestructionManager
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -22,26 +23,17 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <summary>
 		/// The priority queue of entities waiting for destruction.
 		/// </summary>
-		private readonly PriorityQueue<EntityType,float,bool> m_destructionQueue = new PriorityQueue<EntityType,float,bool>(new GreaterComparer<float>());
+		private readonly PriorityQueue<IModelEntity,float,bool> m_destructionQueue = new PriorityQueue<IModelEntity,float,bool>(new GreaterComparer<float>());
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
 
 		/// <summary>
 		/// The message system used to alert other entities to destruction events.
 		/// </summary>
-		private readonly MessageSystem m_messageSystem;
-
-		#endregion
-
-		//#################### CONSTRUCTORS ####################
-		#region
-
-		/// <summary>
-		/// Constructs a new entity destruction manager.
-		/// </summary>
-		/// <param name="messageSystem">The message system used to alert other entities to destruction events.</param>
-		public EntityDestructionManager(MessageSystem messageSystem)
-		{
-			m_messageSystem = messageSystem;
-		}
+		public MessageSystem MessageSystem { get; set; }
 
 		#endregion
 
@@ -62,16 +54,16 @@ namespace game1666.GameModel.Entities.Lifetime
 					// The entity pre-destruction message has already been sent, so remove the destructed entity
 					// from the queue and send the entity destruction message.
 					m_destructionQueue.Pop();
-					m_messageSystem.DispatchMessage(new EntityDestructionMessage(e.ID));
+					MessageSystem.DispatchMessage(new EntityDestructionMessage(e.ID));
 
 					// Unregister any message rules associated with the entity that just got destructed.
-					m_messageSystem.UnregisterRulesMentioning(e.ID);
+					MessageSystem.UnregisterRulesMentioning(e.ID);
 				}
 				else
 				{
 					// The entity pre-destruction message has not yet been sent, so send it.
 					e.Data = true;
-					m_messageSystem.DispatchMessage(new EntityPreDestructionMessage(e.ID, e.Key));
+					MessageSystem.DispatchMessage(new EntityPreDestructionMessage(e.ID, e.Key));
 				}
 			}
 		}
@@ -81,7 +73,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="priority">Its destruction priority.</param>
-		public void QueueForDestruction(EntityType entity, float priority = 1f)
+		public void QueueForDestruction(IModelEntity entity, float priority = 1f)
 		{
 			if(!m_destructionQueue.Contains(entity))
 			{

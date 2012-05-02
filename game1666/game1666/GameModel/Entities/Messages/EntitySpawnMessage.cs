@@ -5,7 +5,7 @@
 
 using game1666.Common.Messaging;
 
-namespace game1666.GameModel.Entities.Lifetime
+namespace game1666.GameModel.Entities.Messages
 {
 	/// <summary>
 	/// An instance of this class represents a message indicating that a new game entity is being spawned.

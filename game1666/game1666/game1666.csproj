@@ -119,6 +119,8 @@
     <Compile Include="Common\Messaging\MessageRule.cs" />
     <Compile Include="Common\Messaging\MessageSystem.cs" />
     <Compile Include="Common\Util\GreaterComparer.cs" />
+    <Compile Include="GameModel\Entities\Base\IModelEntityDestructionManager.cs" />
+    <Compile Include="GameModel\Entities\Base\IModelEntityFactory.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntity.cs" />
     <Compile Include="Common\Entities\Entity.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntityComponent.cs" />
@@ -127,7 +129,7 @@
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\TraversableComponent.cs" />
-    <Compile Include="GameModel\Entities\Components\Communication\CommunicationComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\Context\ContextComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Test\TestComponent.cs" />
     <Compile Include="Common\Maths\Constants.cs" />
     <Compile Include="Common\Maths\MathUtil.cs" />
@@ -142,16 +144,17 @@
     <Compile Include="Common\UI\Renderer.cs" />
     <Compile Include="GameModel\Blueprints\Blueprint.cs" />
     <Compile Include="GameModel\Blueprints\BlueprintManager.cs" />
+    <Compile Include="GameModel\Entities\Lifetime\ModelEntityFactory.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\Footprint.cs" />
     <Compile Include="GameModel\Blueprints\PlaceableBlueprint.cs" />
     <Compile Include="GameModel\Entities\Components\External\ExternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\InternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\PlaceableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Internal\PlayingAreaComponent.cs" />
-    <Compile Include="GameModel\Entities\Lifetime\EntityDestructionManager.cs" />
-    <Compile Include="GameModel\Entities\Lifetime\EntityDestructionMessage.cs" />
-    <Compile Include="GameModel\Entities\Lifetime\EntityPreDestructionMessage.cs" />
-    <Compile Include="GameModel\Entities\Lifetime\EntitySpawnMessage.cs" />
+    <Compile Include="GameModel\Entities\Lifetime\ModelEntityDestructionManager.cs" />
+    <Compile Include="GameModel\Entities\Messages\EntityDestructionMessage.cs" />
+    <Compile Include="GameModel\Entities\Messages\EntityPreDestructionMessage.cs" />
+    <Compile Include="GameModel\Entities\Messages\EntitySpawnMessage.cs" />
     <Compile Include="GameModel\Entities\Navigation\EntityNavigationMap.cs" />
     <Compile Include="GameModel\Entities\Navigation\EntityNavigationNode.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\IPlacementStrategy.cs" />
@@ -179,6 +182,7 @@
     <Compile Include="GameUI\Entities\Components\Sidebar\SidebarStateComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\StateComponent.cs" />
     <Compile Include="GameUI\GameViewManager.cs" />
+    <Compile Include="GameUI\Tools\ITool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />

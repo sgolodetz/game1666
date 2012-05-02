@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using game1666.Common.Maths;
-using game1666.GameModel.Blueprints;
 using game1666.GameModel.Terrains;
 
 namespace game1666.GameModel.Entities.PlacementStrategies

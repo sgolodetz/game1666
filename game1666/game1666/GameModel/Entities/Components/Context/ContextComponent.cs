@@ -1,24 +1,22 @@
 ﻿/***
- * game1666: CommunicationComponent.cs
+ * game1666: ContextComponent.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Xml.Linq;
 using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Lifetime;
 using Microsoft.Xna.Framework;
 
-namespace game1666.GameModel.Components.Communication
+namespace game1666.GameModel.Entities.Components.Context
 {
 	/// <summary>
-	/// An instance of this component provides inter-entity communication functionality
-	/// to its containing entity. It is intended for use as a component of the world
-	/// entity. Other entities contained within the world can then get the world's
-	/// message system or entity destruction manager by looking up this component via
-	/// the entity tree.
+	/// An instance of this component provides game context objects such as the message system
+	/// and entity destruction manager to an entity tree. It is intended for use as a component
+	/// of the root entity of the tree, i.e. the world. Other entities contained within the world
+	/// can then get the world's message system or entity destruction manager by looking up this
+	/// component via the tree.
 	/// </summary>
-	sealed class CommunicationComponent : ModelEntityComponent
+	sealed class ContextComponent : ModelEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -26,7 +24,12 @@ namespace game1666.GameModel.Components.Communication
 		/// <summary>
 		/// A manager that is used to ensure orderly destruction of entities.
 		/// </summary>
-		public EntityDestructionManager<IModelEntity> DestructionManager { get; private set; }
+		public IModelEntityDestructionManager DestructionManager { get; private set; }
+
+		/// <summary>
+		/// A factory that is used to construct model entities.
+		/// </summary>
+		public IModelEntityFactory Factory { get; private set; }
 
 		/// <summary>
 		/// The group of the component.
@@ -41,12 +44,12 @@ namespace game1666.GameModel.Components.Communication
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
-		public override string Name { get { return "Communication"; } }
+		public override string Name { get { return "Context"; } }
 
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public static string StaticGroup { get { return "GameModel/Communication"; } }
+		public static string StaticGroup { get { return "GameModel/Context"; } }
 
 		#endregion
 
@@ -54,14 +57,16 @@ namespace game1666.GameModel.Components.Communication
 		#region
 
 		/// <summary>
-		/// Constructs a communication component from its XML representation.
+		/// Constructs a context component.
 		/// </summary>
-		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public CommunicationComponent(XElement componentElt)
-		:	base(componentElt)
+		public ContextComponent(IModelEntityFactory factory, IModelEntityDestructionManager destructionManager)
 		{
 			MessageSystem = new MessageSystem();
-			DestructionManager = new EntityDestructionManager<IModelEntity>(MessageSystem);
+
+			Factory = factory;
+
+			DestructionManager = destructionManager;
+			DestructionManager.MessageSystem = MessageSystem;
 		}
 
 		#endregion
