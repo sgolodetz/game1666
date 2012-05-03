@@ -5,11 +5,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameUI.Entities.Components.Button;
 using game1666.GameUI.Entities.Components.Common;
+using game1666.GameUI.Entities.Components.GameView;
+using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameUI.Entities.Components.Sidebar
@@ -184,6 +187,15 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		public override string Name { get { return "SidebarState"; } }
 
+		/// <summary>
+		/// The currently active tool (e.g. an entity placement tool), or null if no tool is active.
+		/// </summary>
+		public ITool Tool
+		{
+			get	{ return Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool; }
+			set	{ Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool = value; }
+		}
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -299,8 +311,8 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 
 				// Construct the button and set its handlers.
 				var button = new ButtonControl(bs.TextureName, ConstructButtonViewport(buttonsViewport, layout, row, column));
-				var buttonInteractor = button.GetComponent<ButtonInteractionComponent>(ButtonInteractionComponent.StaticGroup);
-				var buttonRenderer = button.GetComponent<ButtonRenderingComponent>(ButtonRenderingComponent.StaticGroup);
+				var buttonInteractor = button.GetComponent(ButtonInteractionComponent.StaticGroup);
+				var buttonRenderer = button.GetComponent(ButtonRenderingComponent.StaticGroup);
 				if(buttonInteractor != null) buttonInteractor.MousePressedHook += bs.MousePressedHook;
 				if(buttonRenderer != null) buttonRenderer.IsHighlighted = bs.IsHighlighted;
 
@@ -443,8 +455,8 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 			var buttonSpecifiers = new List<ButtonSpecifier>();
 			buttonSpecifiers.AddRange(m_groups[group].Select(element => new ButtonSpecifier
 			{
-				IsHighlighted		= () => /*GameViewState.Tool != null && GameViewState.Tool.Name.EndsWith(":" + element.Name)*/ false,
-				MousePressedHook	= /*UseToolHook(element.Tool, element.Name)*/ state => {},
+				IsHighlighted		= () => Tool != null && Tool.Name.EndsWith(":" + element.Name),
+				MousePressedHook	= UseToolHook(element.Tool, element.Name),
 				TextureName			= "sidebarelement_" + element.Name
 			}));
 
@@ -463,12 +475,39 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 			buttonSpecifiers.AddRange(m_groups.Keys.Select(group => new ButtonSpecifier
 			{
 				IsHighlighted		= () => m_currentGroup == group,
-				MousePressedHook	= state => { /*GameViewState.Tool = null;*/ ReplaceElementButtons(group); },
+				MousePressedHook	= state => { Tool = null; ReplaceElementButtons(group); },
 				TextureName			= "sidebargroup_" + group
 			}));
 
 			// Create the buttons themselves and replace the group buttons currently in the sidebar viewer.
 			GroupButtons = CreateButtons(GroupButtonsViewport(), 2, buttonSpecifiers);
+		}
+
+		/// <summary>
+		/// Returns a mouse event that sets the current tool to a new instance of the specified type when invoked.
+		/// </summary>
+		/// <param name="tool">The (unqualified) name of the tool type, e.g. "EntityPlacementTool".</param>
+		/// <param name="name">The name argument to pass to the tool's constructor, e.g. "Dwelling".</param>
+		/// <returns>A mouse event that sets the current tool to a new instance of the specified type when invoked.</returns>
+		private MouseEvent UseToolHook(string tool, string name)
+		{
+			// If no tool was specified, return a mouse event that will do nothing when called.
+			if(tool == null)
+			{
+				return state => {};
+			}
+
+			// If a tool was specified, look up its type.
+			string toolTypename = "game1666.GameUI.Tools." + tool;
+			Type toolType = Type.GetType(toolTypename);
+			if(toolType == null)
+			{
+				//throw new InvalidDataException("No such tool type: " + toolTypename);
+			}
+
+			// If the type was found, create a mouse event that will set the current tool to a
+			// new instance of the type when invoked.
+			return state => {};//Tool = Activator.CreateInstance(toolType, name, m_playingArea) as ITool;
 		}
 
 		#endregion

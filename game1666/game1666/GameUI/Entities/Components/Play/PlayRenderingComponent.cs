@@ -91,7 +91,7 @@ namespace game1666.GameUI.Entities.Components.Play
 			SetupMatrices();
 
 			// Draw the terrain.
-			var internalComponent = targetEntity.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
+			var internalComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
 			if(internalComponent == null) return;
 			DrawTerrain(internalComponent.Terrain);
 
@@ -101,7 +101,7 @@ namespace game1666.GameUI.Entities.Components.Play
 			// Draw the children of the target entity.
 			foreach(IModelEntity child in targetEntity.Children)
 			{
-				ExternalComponent childExternalComponent = child.GetComponent<ExternalComponent>(ExternalComponent.StaticGroup);
+				ExternalComponent childExternalComponent = child.GetComponent(ExternalComponent.StaticGroup);
 				if(childExternalComponent != null)
 				{
 					m_entityEffect.World = m_matWorld;
@@ -174,7 +174,7 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// </summary>
 		private void SetupMatrices()
 		{
-			Camera camera = Entity.GetComponent<PlayStateComponent>(PlayStateComponent.StaticGroup).Camera;
+			Camera camera = Entity.GetComponent(PlayStateComponent.StaticGroup).Camera;
 
 			m_matProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Entity.Viewport.Width / Entity.Viewport.Height, 0.1f, 1000.0f);
 			m_matView = Matrix.CreateLookAt(camera.Position, camera.Position + camera.N, camera.V);

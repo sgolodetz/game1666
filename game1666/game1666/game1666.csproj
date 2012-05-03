@@ -168,6 +168,7 @@
     <Compile Include="GameUI\Entities\Components\Button\ButtonInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\CompositeInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\InteractionComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\GameView\GameViewStateComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Play\PlayInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Button\ButtonRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\CompositeControlRenderingComponent.cs" />

@@ -60,7 +60,7 @@ namespace game1666.GameUI.Entities.Components.Common
 			{
 				if(ViewportContains(child.Viewport, state.X, state.Y))
 				{
-					var interactor = child.GetComponent<InteractionComponent>(InteractionComponent.StaticGroup);
+					var interactor = child.GetComponent(InteractionComponent.StaticGroup);
 					if(interactor != null)
 					{
 						interactor.OnMouseMoved(state);
@@ -82,7 +82,7 @@ namespace game1666.GameUI.Entities.Components.Common
 			{
 				if(ViewportContains(child.Viewport, state.X, state.Y))
 				{
-					var interactor = child.GetComponent<InteractionComponent>(InteractionComponent.StaticGroup);
+					var interactor = child.GetComponent(InteractionComponent.StaticGroup);
 					if(interactor != null)
 					{
 						interactor.OnMousePressed(state);

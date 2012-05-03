@@ -112,10 +112,9 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// Looks up a component of this entity by group.
 		/// </summary>
-		/// <typeparam name="T">The type of the component (must be specified explicitly).</typeparam>
 		/// <param name="group">The name of the component's group.</param>
 		/// <returns>The component, if found, or null otherwise.</returns>
-		T GetComponent<T>(string group) where T : class;
+		dynamic GetComponent(string group);
 
 		/// <summary>
 		/// Gets another entity in this entity's tree by its absolute path (i.e. its path relative to the root entity).

@@ -38,7 +38,7 @@ namespace game1666Test
 
 			public string Test2SiblingName()
 			{
-				return Entity.GetComponent<TestGroupBComponent>("TestGroupB").Name;
+				return Entity.GetComponent("TestGroupB").Name;
 			}
 		}
 
@@ -80,14 +80,14 @@ namespace game1666Test
 			// Check that it was loaded correctly.
 			Assert.Equal("World", world.Archetype);
 			Assert.Equal(".", world.Name);
-			Assert.NotNull(world.GetComponent<TestComponent>(TestComponent.StaticGroup));
+			Assert.NotNull(world.GetComponent(TestComponent.StaticGroup));
 
 			IModelEntity settlement = world.GetChild("settlement:Stuartopolis");
 
 			Assert.NotNull(settlement);
 			Assert.Equal("Settlement", settlement.Archetype);
 			Assert.Equal("settlement:Stuartopolis", settlement.Name);
-			Assert.NotNull(settlement.GetComponent<TestComponent>(TestComponent.StaticGroup));
+			Assert.NotNull(settlement.GetComponent(TestComponent.StaticGroup));
 		}
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace game1666Test
 			component1.AddToEntity(entity);
 			component2.AddToEntity(entity);
 
-			Assert.Equal(component1, entity.GetComponent<TestGroupAComponent>("TestGroupA"));
+			Assert.Equal(component1, entity.GetComponent("TestGroupA"));
 			Assert.Equal(entity, component1.Entity);
 			Assert.Equal(component2.Name, component1.Test2SiblingName());
 		}

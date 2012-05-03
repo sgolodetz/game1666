@@ -36,15 +36,14 @@ namespace game1666.GameUI.Entities.Base
 		/// <summary>
 		/// Looks up a specified component of the target of the specified UI entity in the game model.
 		/// </summary>
-		/// <typeparam name="T">The type of component to get.</typeparam>
 		/// <param name="entity">The UI entity a component of whose target we wish to get.</param>
 		/// <param name="componentGroup">The group of the specified component.</param>
 		/// <returns>The specified component of the UI entity's target, if any, or null otherwise.</returns>
-		public static T GetTargetComponent<T>(IUIEntity entity, string componentGroup) where T : ModelEntityComponent
+		public static dynamic GetTargetComponent(IUIEntity entity, string componentGroup)
 		{
 			IModelEntity targetEntity = GetTarget(entity);
 			if(targetEntity == null) return null;
-			return targetEntity.GetComponent<T>(componentGroup);
+			return targetEntity.GetComponent(componentGroup);
 		}
 
 		#endregion

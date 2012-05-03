@@ -70,7 +70,7 @@ namespace game1666.GameUI.Entities.Components.Play
 		public override void Update(GameTime gameTime)
 		{
 			// Look up the playing area component of the target of the game view containing the play viewer.
-			var playingArea = UIEntityComponentUtil.GetTargetComponent<PlayingAreaComponent>(Entity.Parent, PlayingAreaComponent.StaticGroup);
+			var playingArea = UIEntityComponentUtil.GetTargetComponent(Entity.Parent, PlayingAreaComponent.StaticGroup);
 			if(playingArea == null) return;
 
 			// Determine the linear, horizontal angular, and vertical angular rates for keyboard-based movement.
@@ -81,7 +81,7 @@ namespace game1666.GameUI.Entities.Components.Play
 			float keyboardAngularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 
 			// Alter the camera based on keyboard input.
-			Camera camera = Entity.GetComponent<PlayStateComponent>(PlayStateComponent.StaticGroup).Camera;
+			Camera camera = Entity.GetComponent(PlayStateComponent.StaticGroup).Camera;
 			KeyboardState keyState = Keyboard.GetState();
 			if(keyState.IsKeyDown(Keys.W))		camera.MoveN(keyboardLinearRate);
 			if(keyState.IsKeyDown(Keys.S))		camera.MoveN(-keyboardLinearRate);

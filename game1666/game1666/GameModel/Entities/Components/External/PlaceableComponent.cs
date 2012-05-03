@@ -162,7 +162,7 @@ namespace game1666.GameModel.Entities.Components.External
 		public override void AfterAdd()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			PlayingAreaComponent playingArea = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
+			PlayingAreaComponent playingArea = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup);
 
 			// Determine the entity's altitude on the playing area's terrain.
 			Altitude = playingArea.Terrain.DetermineAverageAltitude(Position);
@@ -182,7 +182,7 @@ namespace game1666.GameModel.Entities.Components.External
 
 			// Register a message rule that causes the parent of the entity containing this component
 			// to remove it as a child if the entity posts an entity destruction message.
-			var messageSystem = Entity.GetRootEntity().GetComponent<ContextComponent>(ContextComponent.StaticGroup).MessageSystem;
+			var messageSystem = Entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup).MessageSystem;
 			messageSystem.RegisterRule
 			(
 				new MessageRule<EntityDestructionMessage>
@@ -201,7 +201,7 @@ namespace game1666.GameModel.Entities.Components.External
 		public override void BeforeRemove()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			PlayingAreaComponent playingArea = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup);
+			PlayingAreaComponent playingArea = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup);
 
 			// Clear the space occupied by the entity on the navigation map.
 			playingArea.NavigationMap.MarkOccupied
@@ -217,7 +217,7 @@ namespace game1666.GameModel.Entities.Components.External
 			);
 
 			// Unregister the remove child message rule added in AfterAdd().
-			var messageSystem = Entity.GetRootEntity().GetComponent<ContextComponent>(ContextComponent.StaticGroup).MessageSystem;
+			var messageSystem = Entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup).MessageSystem;
 			messageSystem.UnregisterRule("removechild:" + Entity.GetAbsolutePath());
 		}
 
@@ -229,7 +229,7 @@ namespace game1666.GameModel.Entities.Components.External
 		public override void Draw(BasicEffect effect, float alpha)
 		{
 			// Determine the model name and orientation to use (see the description on the method).
-			EntityNavigationMap navigationMap = Entity.Parent.GetComponent<PlayingAreaComponent>(PlayingAreaComponent.StaticGroup).NavigationMap;
+			EntityNavigationMap navigationMap = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);
@@ -283,7 +283,7 @@ namespace game1666.GameModel.Entities.Components.External
 					ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == 0)
 					{
-						var destructionManager = Entity.GetRootEntity().GetComponent<ContextComponent>(ContextComponent.StaticGroup).DestructionManager;
+						var destructionManager = Entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup).DestructionManager;
 						destructionManager.QueueForDestruction(Entity);
 					}
 					break;

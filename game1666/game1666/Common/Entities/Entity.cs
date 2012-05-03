@@ -213,14 +213,13 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// Looks up a component of this entity by group.
 		/// </summary>
-		/// <typeparam name="T">The type of the component (must be specified explicitly).</typeparam>
 		/// <param name="group">The name of the component's group.</param>
 		/// <returns>The component, if found, or null otherwise.</returns>
-		public T GetComponent<T>(string group) where T : class
+		public dynamic GetComponent(string group)
 		{
 			IEntityComponent component = null;
 			m_components.TryGetValue(group, out component);
-			return component as T;
+			return component;
 		}
 
 		/// <summary>

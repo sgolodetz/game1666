@@ -79,7 +79,7 @@ namespace game1666.GameUI
 		/// </summary>
 		public void Draw()
 		{
-			var renderer = m_views[m_currentView].GetComponent<ControlRenderingComponent>(ControlRenderingComponent.StaticGroup);
+			var renderer = m_views[m_currentView].GetComponent(ControlRenderingComponent.StaticGroup);
 			if(renderer != null)
 			{
 				renderer.Draw();
@@ -106,7 +106,7 @@ namespace game1666.GameUI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		private void OnMouseMoved(MouseState state)
 		{
-			var interactor = m_views[m_currentView].GetComponent<InteractionComponent>(InteractionComponent.StaticGroup);
+			var interactor = m_views[m_currentView].GetComponent(InteractionComponent.StaticGroup);
 			if(interactor != null)
 			{
 				interactor.OnMouseMoved(state);
@@ -119,7 +119,7 @@ namespace game1666.GameUI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			var interactor = m_views[m_currentView].GetComponent<InteractionComponent>(InteractionComponent.StaticGroup);
+			var interactor = m_views[m_currentView].GetComponent(InteractionComponent.StaticGroup);
 			if(interactor != null)
 			{
 				interactor.OnMousePressed(state);

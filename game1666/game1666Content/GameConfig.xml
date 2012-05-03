@@ -48,6 +48,7 @@
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeControlRendering/>
+      <cmpGameViewState/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
@@ -83,6 +84,7 @@
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeControlRendering/>
+      <cmpGameViewState/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
