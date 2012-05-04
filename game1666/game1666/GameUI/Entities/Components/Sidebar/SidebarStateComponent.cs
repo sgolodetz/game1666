@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.UI;
+using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Button;
 using game1666.GameUI.Entities.Components.Common;
 using game1666.GameUI.Entities.Components.GameView;
@@ -503,11 +504,12 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 			if(toolType == null)
 			{
 				//throw new InvalidDataException("No such tool type: " + toolTypename);
+				return state => {};
 			}
 
 			// If the type was found, create a mouse event that will set the current tool to a
 			// new instance of the type when invoked.
-			return state => {};//Tool = Activator.CreateInstance(toolType, name, m_playingArea) as ITool;
+			return state => Tool = Activator.CreateInstance(toolType, name, UIEntityComponentUtil.GetTarget(Entity.Parent)) as ITool;
 		}
 
 		#endregion

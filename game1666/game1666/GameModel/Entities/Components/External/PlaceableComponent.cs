@@ -47,7 +47,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <summary>
 		/// The footprint of the entity, suitably rotated to take account of its orientation.
 		/// </summary>
-		private readonly Footprint m_footprint;
+		private Footprint m_footprint;
 
 		#endregion
 
@@ -139,16 +139,23 @@ namespace game1666.GameModel.Entities.Components.External
 		#region
 
 		/// <summary>
+		/// Constructs a placeable component directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the component.</param>
+		public PlaceableComponent(IDictionary<string,dynamic> properties)
+		:	base(properties)
+		{
+			Initialise();
+		}
+
+		/// <summary>
 		/// Constructs a placement component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public PlaceableComponent(XElement componentElt)
 		:	base(componentElt)
 		{
-			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
-
-			// Determine the entity's (suitably rotated) footprint.
-			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
+			Initialise();
 		}
 
 		#endregion
@@ -313,6 +320,22 @@ namespace game1666.GameModel.Entities.Components.External
 		protected virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
 		{
 			return Tuple.Create(modelName, orientation);
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Sets up the blueprint and footprint of the component.
+		/// </summary>
+		private void Initialise()
+		{
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
+
+			// Determine the entity's (suitably rotated) footprint.
+			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
 		}
 
 		#endregion
