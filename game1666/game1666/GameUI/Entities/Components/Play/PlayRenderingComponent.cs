@@ -30,21 +30,6 @@ namespace game1666.GameUI.Entities.Components.Play
 		private readonly BasicEffect m_entityEffect = new BasicEffect(Renderer.GraphicsDevice);
 
 		/// <summary>
-		/// The current projection matrix.
-		/// </summary>
-		private Matrix m_matProjection;
-
-		/// <summary>
-		/// The current view matrix.
-		/// </summary>
-		private Matrix m_matView;
-
-		/// <summary>
-		/// The current world matrix.
-		/// </summary>
-		private Matrix m_matWorld;
-
-		/// <summary>
 		/// The basic effect for rendering the terrain quadtree.
 		/// </summary>
 		private readonly BasicEffect m_terrainQuadtreeEffect = new BasicEffect(Renderer.GraphicsDevice);
@@ -88,7 +73,10 @@ namespace game1666.GameUI.Entities.Components.Play
 			// Prepare for rendering.
 			Renderer.GraphicsDevice.Viewport = Entity.Viewport;
 			Renderer.Setup3D();
-			SetupMatrices();
+
+			// Sets the world, view and projection matrices based on the current state of the camera.
+			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			stateComponent.SetMatricesFromCamera();
 
 			// Draw the terrain.
 			var internalComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
@@ -104,9 +92,9 @@ namespace game1666.GameUI.Entities.Components.Play
 				ExternalComponent childExternalComponent = child.GetComponent(ExternalComponent.StaticGroup);
 				if(childExternalComponent != null)
 				{
-					m_entityEffect.World = m_matWorld;
-					m_entityEffect.View = m_matView;
-					m_entityEffect.Projection = m_matProjection;
+					m_entityEffect.World = stateComponent.WorldMatrix;
+					m_entityEffect.View = stateComponent.ViewMatrix;
+					m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 					childExternalComponent.Draw(m_entityEffect, 1f);
 				}
 			}
@@ -124,9 +112,10 @@ namespace game1666.GameUI.Entities.Components.Play
 		private void DrawTerrain(Terrain terrain)
 		{
 			var effect = Renderer.Content.Load<Effect>("Effects/TerrainMultitexture");
-			effect.Parameters["World"].SetValue(m_matWorld);
-			effect.Parameters["View"].SetValue(m_matView);
-			effect.Parameters["Projection"].SetValue(m_matProjection);
+			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			effect.Parameters["World"].SetValue(stateComponent.WorldMatrix);
+			effect.Parameters["View"].SetValue(stateComponent.ViewMatrix);
+			effect.Parameters["Projection"].SetValue(stateComponent.ProjectionMatrix);
 			effect.Parameters["Texture0"].SetValue(Renderer.Content.Load<Texture2D>("Textures/grass"));
 			effect.Parameters["Texture1"].SetValue(Renderer.Content.Load<Texture2D>("Textures/snow"));
 			effect.Parameters["TransitionHalfWidth"].SetValue(terrain.TransitionHalfWidth);
@@ -140,9 +129,10 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// <param name="root">The root node of the terrain quadtree to draw.</param>
 		private void DrawTerrainQuadtree(QuadtreeNode root)
 		{
-			m_terrainQuadtreeEffect.World = m_matWorld;
-			m_terrainQuadtreeEffect.View = m_matView;
-			m_terrainQuadtreeEffect.Projection = m_matProjection;
+			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			m_terrainQuadtreeEffect.World = stateComponent.WorldMatrix;
+			m_terrainQuadtreeEffect.View = stateComponent.ViewMatrix;
+			m_terrainQuadtreeEffect.Projection = stateComponent.ProjectionMatrix;
 			m_terrainQuadtreeEffect.VertexColorEnabled = true;
 
 			DrawTerrainQuadtreeSub(root);
@@ -167,18 +157,6 @@ namespace game1666.GameUI.Entities.Components.Play
 			// Draw the node's own bounding box.
 			var colours = new Color[] { Color.Cyan, Color.Yellow, Color.Magenta };
 			Renderer.DrawBoundingBox(node.Bounds, m_terrainQuadtreeEffect, colours[depth % colours.Length]);
-		}
-
-		/// <summary>
-		/// Sets up the world, view and projection matrices ready for rendering.
-		/// </summary>
-		private void SetupMatrices()
-		{
-			Camera camera = Entity.GetComponent(PlayStateComponent.StaticGroup).Camera;
-
-			m_matProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Entity.Viewport.Width / Entity.Viewport.Height, 0.1f, 1000.0f);
-			m_matView = Matrix.CreateLookAt(camera.Position, camera.Position + camera.N, camera.V);
-			m_matWorld = Matrix.Identity;
 		}
 
 		#endregion

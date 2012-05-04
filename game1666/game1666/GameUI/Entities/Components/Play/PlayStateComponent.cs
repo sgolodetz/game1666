@@ -28,6 +28,21 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// </summary>
 		public override string Name { get { return "PlayState"; } }
 
+		/// <summary>
+		/// The current projection matrix.
+		/// </summary>
+		public Matrix ProjectionMatrix { get; private set; }
+
+		/// <summary>
+		/// The current view matrix.
+		/// </summary>
+		public Matrix ViewMatrix { get; private set; }
+
+		/// <summary>
+		/// The current world matrix.
+		/// </summary>
+		public Matrix WorldMatrix { get; private set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -41,6 +56,21 @@ namespace game1666.GameUI.Entities.Components.Play
 		:	base(componentElt)
 		{
 			Camera = new Camera(new Vector3(2, -5, 5), new Vector3(0, 2, -1), Vector3.UnitZ);
+		}
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Sets the world, view and projection matrices based on the current state of the camera.
+		/// </summary>
+		public void SetMatricesFromCamera()
+		{
+			ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), (float)Entity.Viewport.Width / Entity.Viewport.Height, 0.1f, 1000.0f);
+			ViewMatrix = Matrix.CreateLookAt(Camera.Position, Camera.Position + Camera.N, Camera.V);
+			WorldMatrix = Matrix.Identity;
 		}
 
 		#endregion

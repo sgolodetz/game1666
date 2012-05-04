@@ -191,7 +191,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// <summary>
 		/// The currently active tool (e.g. an entity placement tool), or null if no tool is active.
 		/// </summary>
-		public ITool Tool
+		private ITool Tool
 		{
 			get	{ return Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool; }
 			set	{ Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool = value; }

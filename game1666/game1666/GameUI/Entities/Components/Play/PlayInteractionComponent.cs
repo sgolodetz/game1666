@@ -9,6 +9,8 @@ using game1666.Common.UI;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Common;
+using game1666.GameUI.Entities.Components.GameView;
+using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -27,6 +29,15 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "PlayInteraction"; } }
+
+		/// <summary>
+		/// The currently active tool (e.g. an entity placement tool), or null if no tool is active.
+		/// </summary>
+		private ITool Tool
+		{
+			get	{ return Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool; }
+			set	{ Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool = value; }
+		}
 
 		#endregion
 
@@ -51,7 +62,18 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMouseMoved(MouseState state)
 		{
-			// TODO
+			if(Tool == null) return;
+
+			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+
+			Tool.OnMouseMoved
+			(
+				state,
+				Entity.Viewport,
+				stateComponent.ProjectionMatrix,
+				stateComponent.ViewMatrix,
+				stateComponent.WorldMatrix
+			);
 		}
 
 		/// <summary>
@@ -60,7 +82,18 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		public override void OnMousePressed(MouseState state)
 		{
-			// TODO
+			if(Tool == null) return;
+
+			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+
+			Tool = Tool.OnMousePressed
+			(
+				state,
+				Entity.Viewport,
+				stateComponent.ProjectionMatrix,
+				stateComponent.ViewMatrix,
+				stateComponent.WorldMatrix
+			);
 		}
 
 		/// <summary>
