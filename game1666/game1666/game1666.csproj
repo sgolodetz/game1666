@@ -186,6 +186,7 @@
     <Compile Include="GameUI\GameViewManager.cs" />
     <Compile Include="GameUI\Tools\EntityPlacementTool.cs" />
     <Compile Include="GameUI\Tools\ITool.cs" />
+    <Compile Include="GameUI\Tools\MultiEntityPlacementTool.cs" />
     <Compile Include="GameUI\Tools\ToolUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

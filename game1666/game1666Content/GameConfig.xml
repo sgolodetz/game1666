@@ -5,7 +5,7 @@
       <property name="Name" type="string" value="DirtTrack"/>
       <property name="Archetype" type="string" value="RoadSegment"/>
       <property name="Model" type="string" value="DirtTrack"/>
-      <property name="TimeToConstruct" type="string" value="0"/>
+      <property name="TimeToConstruct" type="int" value="0"/>
       <footprint>
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">

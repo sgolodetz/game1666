@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
@@ -20,6 +21,14 @@ namespace game1666.GameModel.Entities.Components.External
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a traversable component directly from its properties.
+		/// </summary>
+		/// <param name="properties">The properties of the component.</param>
+		public TraversableComponent(IDictionary<string,dynamic> properties)
+		:	base(properties)
+		{}
 
 		/// <summary>
 		/// Constructs a traversable component from its XML representation.

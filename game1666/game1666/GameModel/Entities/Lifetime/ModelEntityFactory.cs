@@ -35,6 +35,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		{
 			s_entityMakers = new Dictionary<string,Func<IDictionary<string,dynamic>,IModelEntity>>();
 			s_entityMakers.Add("House", MakeHouse);
+			s_entityMakers.Add("RoadSegment", MakeRoadSegment);
 			s_entityMakers.Add("Settlement", MakeSettlement);
 		}
 
@@ -71,9 +72,21 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <returns>The constructed house.</returns>
 		private static IModelEntity MakeHouse(IDictionary<string,dynamic> properties)
 		{
-			IModelEntity house = new ModelEntity(Guid.NewGuid().ToString(), "House");
-			new PlaceableComponent(properties).AddToEntity(house);
-			return house;
+			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "House");
+			new PlaceableComponent(properties).AddToEntity(entity);
+			return entity;
+		}
+
+		/// <summary>
+		/// Constructs a new road segment using the specified properties.
+		/// </summary>
+		/// <param name="properties">The properties of the various components of the road segment.</param>
+		/// <returns>The constructed road segment.</returns>
+		private static IModelEntity MakeRoadSegment(IDictionary<string,dynamic> properties)
+		{
+			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "RoadSegment");
+			new TraversableComponent(properties).AddToEntity(entity);
+			return entity;
 		}
 
 		/// <summary>
@@ -83,9 +96,9 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <returns>The constructed settlement.</returns>
 		private static IModelEntity MakeSettlement(IDictionary<string,dynamic> properties)
 		{
-			IModelEntity settlement = new ModelEntity(Guid.NewGuid().ToString(), "Settlement");
-			new PlaceableComponent(properties).AddToEntity(settlement);
-			return settlement;
+			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "Settlement");
+			new PlaceableComponent(properties).AddToEntity(entity);
+			return entity;
 		}
 
 		#endregion
