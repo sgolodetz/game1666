@@ -21,7 +21,7 @@ namespace game1666.GameUI.Entities.Base
 		/// </summary>
 		/// <param name="entity">The UI entity whose target we wish to determine.</param>
 		/// <returns>The UI entity's target, if any, or null otherwise.</returns>
-		public static IModelEntity GetTarget(IUIEntity entity)
+		public static IModelEntity GetTarget(this IUIEntity entity)
 		{
 			dynamic dynamicTargetPath = null;
 			if(entity.Properties.TryGetValue("Target", out dynamicTargetPath))
@@ -39,9 +39,9 @@ namespace game1666.GameUI.Entities.Base
 		/// <param name="entity">The UI entity a component of whose target we wish to get.</param>
 		/// <param name="componentGroup">The group of the specified component.</param>
 		/// <returns>The specified component of the UI entity's target, if any, or null otherwise.</returns>
-		public static dynamic GetTargetComponent(IUIEntity entity, string componentGroup)
+		public static dynamic GetTargetComponent(this IUIEntity entity, string componentGroup)
 		{
-			IModelEntity targetEntity = GetTarget(entity);
+			IModelEntity targetEntity = entity.GetTarget();
 			if(targetEntity == null) return null;
 			return targetEntity.GetComponent(componentGroup);
 		}

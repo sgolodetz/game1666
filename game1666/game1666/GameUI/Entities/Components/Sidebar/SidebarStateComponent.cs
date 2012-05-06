@@ -509,7 +509,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 
 			// If the type was found, create a mouse event that will set the current tool to a
 			// new instance of the type when invoked.
-			return state => Tool = Activator.CreateInstance(toolType, name, UIEntityComponentUtil.GetTarget(Entity.Parent)) as ITool;
+			return state => Tool = Activator.CreateInstance(toolType, name, Entity.Parent.GetTarget()) as ITool;
 		}
 
 		#endregion
