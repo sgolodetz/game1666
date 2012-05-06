@@ -11,7 +11,7 @@ using game1666.Common.Maths;
 using game1666.Common.Messaging;
 using game1666.Common.UI;
 using game1666.GameModel.Blueprints;
-using game1666.GameModel.Entities.Components.Context;
+using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Messages;
 using game1666.GameModel.Entities.Navigation;
@@ -23,25 +23,20 @@ using Microsoft.Xna.Framework.Graphics;
 namespace game1666.GameModel.Entities.Components.External
 {
 	/// <summary>
+	/// The various possible states of a placeable component.
+	/// </summary>
+	enum PlaceableComponentState
+	{
+		IN_CONSTRUCTION,	// the entity containing the component is in the process of being constructed
+		IN_DESTRUCTION,		// the entity containing the component is in the process of being destructed
+		OPERATING			// the entity containing the component is operating normally
+	}
+
+	/// <summary>
 	/// An instance of this class makes its containing entity placeable on a terrain.
 	/// </summary>
 	class PlaceableComponent : ExternalComponent
 	{
-		//#################### ENUMERATIONS ####################
-		#region
-
-		/// <summary>
-		/// The various possible states of a placeable component.
-		/// </summary>
-		private enum PlaceableComponentState
-		{
-			IN_CONSTRUCTION,	// the entity containing the component is in the process of being constructed
-			IN_DESTRUCTION,		// the entity containing the component is in the process of being destructed
-			OPERATING			// the entity containing the component is operating normally
-		}
-
-		#endregion
-
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
@@ -128,9 +123,9 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <summary>
 		/// The state of the component.
 		/// </summary>
-		private PlaceableComponentState State
+		public PlaceableComponentState State
 		{
-			get { return Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
+			get { return (PlaceableComponentState)Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
 			set { Properties["State"] = value.ToString(); }
 		}
 
@@ -232,10 +227,16 @@ namespace game1666.GameModel.Entities.Components.External
 		/// </summary>
 		/// <param name="effect">The basic effect to use when drawing.</param>
 		/// <param name="alpha">The alpha value to use when drawing.</param>
-		public override void Draw(BasicEffect effect, float alpha)
+		/// <param name="parent">The parent of the entity (used when rendering entities that have not yet been attached to their parent).</param>
+		public override void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
 		{
+			// If no parent has been specified for the entity, try and
+			// get its parent automatically. If that fails, early out.
+			parent = parent ?? Entity.Parent;
+			if(parent == null) return;
+
 			// Determine the model name and orientation to use (see the description on the method).
-			EntityNavigationMap navigationMap = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
+			EntityNavigationMap navigationMap = parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);

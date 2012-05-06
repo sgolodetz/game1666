@@ -19,12 +19,17 @@ namespace game1666.GameModel.Blueprints
 		#region
 
 		/// <summary>
+		/// The archetype for the type of entity, e.g. "House".
+		/// </summary>
+		public string Archetype { get { return Properties["Archetype"]; } }
+
+		/// <summary>
 		/// The footprint for the type of entity.
 		/// </summary>
 		public Footprint Footprint { get; private set; }
 
 		/// <summary>
-		/// The name of the 3D model for the entity.
+		/// The name of the 3D model for the type of entity.
 		/// </summary>
 		public string Model { get { return Properties["Model"]; } }
 
@@ -34,7 +39,7 @@ namespace game1666.GameModel.Blueprints
 		public IPlacementStrategy PlacementStrategy { get; private set; }
 
 		/// <summary>
-		/// The overall time required to construct the entity (in milliseconds).
+		/// The overall time required to construct the type of entity (in milliseconds).
 		/// </summary>
 		public int TimeToConstruct { get { return Properties["TimeToConstruct"]; } }
 

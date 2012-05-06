@@ -7,6 +7,7 @@ using System;
 using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Util;
 using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -92,7 +93,7 @@ namespace game1666.GameUI.Tools
 			Vector2i? gridSquare = gridSquareAndDistance != null ? gridSquareAndDistance.Item1 : (Vector2i?)null;
 
 			// Try to create an entity to be placed at the specified grid square.
-			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, m_placementOrientation, terrain);
+			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, m_placementOrientation, terrain, m_playingArea.Factory(), 100);
 		}
 
 		/// <summary>

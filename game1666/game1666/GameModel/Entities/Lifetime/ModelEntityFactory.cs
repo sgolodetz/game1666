@@ -35,6 +35,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		{
 			s_entityMakers = new Dictionary<string,Func<IDictionary<string,dynamic>,IModelEntity>>();
 			s_entityMakers.Add("House", MakeHouse);
+			s_entityMakers.Add("Settlement", MakeSettlement);
 		}
 
 		#endregion
@@ -50,7 +51,12 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <returns>The constructed entity.</returns>
 		public IModelEntity MakeEntity(string archetype, IDictionary<string,dynamic> properties)
 		{
-			return s_entityMakers[archetype](properties);
+			Func<IDictionary<string,dynamic>,IModelEntity> entityMaker = null;
+			if(s_entityMakers.TryGetValue(archetype, out entityMaker))
+			{
+				return entityMaker(properties);
+			}
+			else return null;
 		}
 
 		#endregion
@@ -59,21 +65,27 @@ namespace game1666.GameModel.Entities.Lifetime
 		#region
 
 		/// <summary>
-		/// TODO
+		/// Constructs a new house using the specified properties.
 		/// </summary>
-		/// <param name="properties"></param>
-		/// <returns></returns>
+		/// <param name="properties">The properties of the various components of the house.</param>
+		/// <returns>The constructed house.</returns>
 		private static IModelEntity MakeHouse(IDictionary<string,dynamic> properties)
 		{
 			IModelEntity house = new ModelEntity(Guid.NewGuid().ToString(), "House");
-			new PlaceableComponent
-			(
-				new Dictionary<string,dynamic>
-				{
-					// TODO
-				}
-			).AddToEntity(house);
+			new PlaceableComponent(properties).AddToEntity(house);
 			return house;
+		}
+
+		/// <summary>
+		/// Constructs a new settlement using the specified properties.
+		/// </summary>
+		/// <param name="properties">The properties of the various components of the settlement.</param>
+		/// <returns>The constructed settlement.</returns>
+		private static IModelEntity MakeSettlement(IDictionary<string,dynamic> properties)
+		{
+			IModelEntity settlement = new ModelEntity(Guid.NewGuid().ToString(), "Settlement");
+			new PlaceableComponent(properties).AddToEntity(settlement);
+			return settlement;
 		}
 
 		#endregion

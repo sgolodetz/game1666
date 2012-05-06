@@ -3,11 +3,14 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using game1666.Common.Maths;
+using game1666.GameModel.Blueprints;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Components.External;
+using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Util;
 using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,15 +52,17 @@ namespace game1666.GameUI.Tools
 		/// <param name="gridSquare">The terrain grid square on which to place the entity's hotspot.</param>
 		/// <param name="orientation">The orientation of the entity.</param>
 		/// <param name="terrain">The terrain on which the entity is to be placed.</param>
+		/// <param name="factory">The factory to be used to create the entity.</param>
+		/// <param name="percentComplete">The percentage of the entity that has been constructed.</param>
 		/// <returns>The entity, if it can be created, or null otherwise.</returns>
-		public static IModelEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain)
+		public static IModelEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, IModelEntityFactory factory, int percentComplete)
 		{
 			IModelEntity entity = null;
 			if(gridSquare != null)
 			{
-				/*// Work out what type of entity we're trying to place.
-				PlaceableEntityBlueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);
-				Type entityType = blueprint.EntityType;
+				// Work out what type of entity we're trying to place.
+				PlaceableBlueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);
+				string archetype = blueprint.Archetype;
 
 				// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
 				// Note that this will return null if the entity can't be validly placed.
@@ -67,15 +72,17 @@ namespace game1666.GameUI.Tools
 				if(altitude != null)
 				{
 					// Set the properties of the entity.
-					var entityProperties = new Dictionary<string,dynamic>();
-					entityProperties["Altitude"] = altitude;
-					entityProperties["Blueprint"] = blueprintName;
-					entityProperties["Orientation"] = orientation;
-					entityProperties["Position"] = gridSquare.Value;
+					var properties = new Dictionary<string,dynamic>();
+					properties["Altitude"] = altitude;
+					properties["Blueprint"] = blueprintName;
+					properties["ConstructionDone"] = blueprint.TimeToConstruct * percentComplete / 100;
+					properties["Orientation"] = orientation;
+					properties["Position"] = gridSquare.Value;
+					properties["State"] = percentComplete < 100 ? "IN_CONSTRUCTION" : "OPERATING";
 
 					// Create the entity.
-					entity = Activator.CreateInstance(entityType, entityProperties, PlaceableEntityStateID.OPERATING) as IPlaceableEntity;
-				}*/
+					entity = factory.MakeEntity(archetype, properties);
+				}
 			}
 			return entity;
 		}
@@ -91,15 +98,29 @@ namespace game1666.GameUI.Tools
 			Contract.Requires(entity != null);
 			Contract.Requires(playingArea != null);
 
-			/*if(playingArea.IsValidlyPlaced(entity))
+			PlayingAreaComponent playingAreaComponent = playingArea.GetComponent(PlayingAreaComponent.StaticGroup);
+			if(playingAreaComponent.IsValidlyPlaced(entity))
 			{
-				playingArea.AddDynamicEntity(entity.CloneNew());
+				PlaceableComponent placeableComponent = entity.GetComponent(PlaceableComponent.StaticGroup);
+				playingArea.AddChild
+				(
+					TryCreateEntity
+					(
+						placeableComponent.Blueprint.Name,
+						placeableComponent.Position,
+						placeableComponent.Orientation,
+						playingAreaComponent.Terrain,
+						playingArea.Factory(),
+						0
+					)
+				);
+
 				return true;
 			}
 			else
-			{*/
+			{
 				return false;
-			//}
+			}
 		}
 	}
 }

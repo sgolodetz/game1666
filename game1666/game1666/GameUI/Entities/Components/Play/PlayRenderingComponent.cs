@@ -10,7 +10,9 @@ using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
 using game1666.GameUI.Entities.Components.Common;
+using game1666.GameUI.Entities.Components.GameView;
 using game1666.GameUI.Entities.Util;
+using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -43,6 +45,14 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "PlayRendering"; } }
+
+		/// <summary>
+		/// The currently active tool (e.g. an entity placement tool), or null if no tool is active.
+		/// </summary>
+		private ITool Tool
+		{
+			get	{ return Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool; }
+		}
 
 		#endregion
 
@@ -77,6 +87,9 @@ namespace game1666.GameUI.Entities.Components.Play
 			// Sets the world, view and projection matrices based on the current state of the camera.
 			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
 			stateComponent.SetMatricesFromCamera();
+			m_entityEffect.World = stateComponent.WorldMatrix;
+			m_entityEffect.View = stateComponent.ViewMatrix;
+			m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 
 			// Draw the terrain.
 			var internalComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
@@ -92,10 +105,23 @@ namespace game1666.GameUI.Entities.Components.Play
 				ExternalComponent childExternalComponent = child.GetComponent(ExternalComponent.StaticGroup);
 				if(childExternalComponent != null)
 				{
-					m_entityEffect.World = stateComponent.WorldMatrix;
-					m_entityEffect.View = stateComponent.ViewMatrix;
-					m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 					childExternalComponent.Draw(m_entityEffect, 1f);
+				}
+			}
+
+			ITool tool = Tool;
+			if(tool != null)
+			{
+				// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.
+				if(tool.Name.StartsWith("Place:") && tool.Entity != null)
+				{
+					ExternalComponent externalComponent = tool.Entity.GetComponent(ExternalComponent.StaticGroup);
+					if(externalComponent != null)
+					{
+						PlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
+						float alpha = playingAreaComponent.IsValidlyPlaced(tool.Entity) ? 1f : 0.35f;
+						externalComponent.Draw(m_entityEffect, alpha, targetEntity);
+					}
 				}
 			}
 		}

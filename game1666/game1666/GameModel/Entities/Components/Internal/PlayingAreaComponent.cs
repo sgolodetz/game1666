@@ -6,8 +6,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Maths;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Terrains;
 
@@ -78,6 +80,46 @@ namespace game1666.GameModel.Entities.Components.Internal
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Checks whether or not an entity can be validly placed on the terrain,
+		/// bearing in mind its footprint, position and orientation.
+		/// </summary>
+		/// <param name="entity">The entity to be checked.</param>
+		/// <returns>true, if the entity can be validly placed, or false otherwise.</returns>
+		public bool IsValidlyPlaced(IModelEntity entity)
+		{
+			// Step 1:	Check that the entity occupies one or more grid squares, and that all the grid squares it does occupy are empty.
+			PlaceableComponent placeableComponent = entity.GetComponent(PlaceableComponent.StaticGroup);
+			IEnumerable<Vector2i> gridSquares = placeableComponent.Blueprint.PlacementStrategy.Place
+			(
+				Terrain,
+				placeableComponent.Blueprint.Footprint,
+				placeableComponent.Position,
+				placeableComponent.Orientation
+			);
+
+			if(gridSquares == null || !gridSquares.Any() || NavigationMap.AreOccupied(gridSquares))
+			{
+				return false;
+			}
+
+			// Step 2:	Check that there are currently no mobile entities in the grid squares that the entity would occupy.
+			//			Note that this isn't an especially efficient way of going about this, but it will do for now.
+			//			A better approach would involve keeping track of which mobile entities are in which grid squares,
+			//			and then checking per-grid square rather than per-entity.
+			/*var gridSquareSet = new HashSet<Vector2i>(gridSquares);
+			foreach(IMobileEntity mobile in Mobiles)
+			{
+				if(gridSquareSet.Contains(mobile.Position.ToVector2i()))
+				{
+					return false;
+				}
+			}*/
+
+			// If we didn't find any problems, then the entity is validly placed.
+			return true;
+		}
 
 		/// <summary>
 		/// Saves the component to XML.
