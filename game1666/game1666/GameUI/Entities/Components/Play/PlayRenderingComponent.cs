@@ -9,8 +9,8 @@ using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Terrains;
-using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Common;
+using game1666.GameUI.Entities.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

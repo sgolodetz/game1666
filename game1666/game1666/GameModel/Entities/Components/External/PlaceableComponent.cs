@@ -16,6 +16,7 @@ using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Messages;
 using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Entities.PlacementStrategies;
+using game1666.GameModel.Entities.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -189,8 +190,7 @@ namespace game1666.GameModel.Entities.Components.External
 
 			// Register a message rule that causes the parent of the entity containing this component
 			// to remove it as a child if the entity posts an entity destruction message.
-			var messageSystem = Entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup).MessageSystem;
-			messageSystem.RegisterRule
+			this.MessageSystem().RegisterRule
 			(
 				new MessageRule<EntityDestructionMessage>
 				{
@@ -224,8 +224,7 @@ namespace game1666.GameModel.Entities.Components.External
 			);
 
 			// Unregister the remove child message rule added in AfterAdd().
-			var messageSystem = Entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup).MessageSystem;
-			messageSystem.UnregisterRule("removechild:" + Entity.GetAbsolutePath());
+			this.MessageSystem().UnregisterRule("removechild:" + Entity.GetAbsolutePath());
 		}
 
 		/// <summary>
@@ -290,8 +289,7 @@ namespace game1666.GameModel.Entities.Components.External
 					ConstructionDone -= gameTime.ElapsedGameTime.Milliseconds;
 					if(ConstructionDone == 0)
 					{
-						var destructionManager = Entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup).DestructionManager;
-						destructionManager.QueueForDestruction(Entity);
+						this.DestructionManager().QueueForDestruction(Entity);
 					}
 					break;
 				}

@@ -4,8 +4,9 @@
  ***/
 
 using game1666.GameModel.Entities.Base;
+using game1666.GameUI.Entities.Base;
 
-namespace game1666.GameUI.Entities.Base
+namespace game1666.GameUI.Entities.Util
 {
 	/// <summary>
 	/// This class provides utility methods that make it easier to look up the target of a UI entity,
