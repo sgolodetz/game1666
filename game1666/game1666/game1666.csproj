@@ -184,6 +184,7 @@
     <Compile Include="GameUI\Entities\Components\Sidebar\SidebarStateComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\StateComponent.cs" />
     <Compile Include="GameUI\GameViewManager.cs" />
+    <Compile Include="GameUI\Tools\EntityDeletionTool.cs" />
     <Compile Include="GameUI\Tools\EntityPlacementTool.cs" />
     <Compile Include="GameUI\Tools\ITool.cs" />
     <Compile Include="GameUI\Tools\MultiEntityPlacementTool.cs" />

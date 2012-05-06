@@ -126,7 +126,7 @@ namespace game1666.GameModel.Entities.Components.External
 		public PlaceableComponentState State
 		{
 			get { return (PlaceableComponentState)Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
-			set { Properties["State"] = value.ToString(); }
+			private set { Properties["State"] = value.ToString(); }
 		}
 
 		#endregion
@@ -223,6 +223,21 @@ namespace game1666.GameModel.Entities.Components.External
 		}
 
 		/// <summary>
+		/// Determines the actual model and orientation to use when drawing the placeable entity.
+		/// This is a hook so that we can override the default behaviour when drawing things like
+		/// road segments. For most entities, we just use this default implementation, which returns
+		/// the passed in model name and orientation.
+		/// </summary>
+		/// <param name="modelName">The initial model name, as specified by the blueprint.</param>
+		/// <param name="orientation">The initial orientation.</param>
+		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
+		/// <returns>The actual model and orientation to use.</returns>
+		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
+		{
+			return Tuple.Create(modelName, orientation);
+		}
+
+		/// <summary>
 		/// Draws the placeable entity of which this component is a part.
 		/// </summary>
 		/// <param name="effect">The basic effect to use when drawing.</param>
@@ -269,6 +284,15 @@ namespace game1666.GameModel.Entities.Components.External
 		}
 
 		/// <summary>
+		/// Sets the state of the component to IN_DESTRUCTION, which will
+		/// ultimately lead to the destruction of the containing entity.
+		/// </summary>
+		public void InitiateDestruction()
+		{
+			State = PlaceableComponentState.IN_DESTRUCTION;
+		}
+
+		/// <summary>
 		/// Updates the component based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
@@ -299,26 +323,6 @@ namespace game1666.GameModel.Entities.Components.External
 					break;
 				}
 			}
-		}
-
-		#endregion
-
-		//#################### PROTECTED METHODS ####################
-		#region
-
-		/// <summary>
-		/// Determines the actual model and orientation to use when drawing the placeable entity.
-		/// This is a hook so that we can override the default behaviour when drawing things like
-		/// road segments. For most entities, we just use this default implementation, which returns
-		/// the passed in model name and orientation.
-		/// </summary>
-		/// <param name="modelName">The initial model name, as specified by the blueprint.</param>
-		/// <param name="orientation">The initial orientation.</param>
-		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
-		/// <returns>The actual model and orientation to use.</returns>
-		protected virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
-		{
-			return Tuple.Create(modelName, orientation);
 		}
 
 		#endregion

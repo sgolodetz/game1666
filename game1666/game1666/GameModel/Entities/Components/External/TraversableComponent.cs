@@ -40,7 +40,7 @@ namespace game1666.GameModel.Entities.Components.External
 
 		#endregion
 
-		//#################### PROTECTED METHODS ####################
+		//#################### PUBLIC METHODS ####################
 		#region
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		protected override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
+		public override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
 		{
 			int x = Position.X;
 			int y = Position.Y;

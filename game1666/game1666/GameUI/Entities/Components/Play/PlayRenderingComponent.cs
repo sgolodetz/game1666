@@ -99,17 +99,18 @@ namespace game1666.GameUI.Entities.Components.Play
 			// For debugging purposes only.
 			//DrawTerrainQuadtree(internalComponent.Terrain.QuadtreeRoot);
 
-			// Draw the children of the target entity.
+			// Draw the children of the target entity, making sure that if one is
+			// liable to be deleted, we render it slightly transparently.
+			ITool tool = Tool;
 			foreach(IModelEntity child in targetEntity.Children)
 			{
 				ExternalComponent childExternalComponent = child.GetComponent(ExternalComponent.StaticGroup);
-				if(childExternalComponent != null)
-				{
-					childExternalComponent.Draw(m_entityEffect, 1f);
-				}
+				if(childExternalComponent == null) return;
+
+				float alpha = tool != null && tool.Name == "Delete:Delete" && child == tool.Entity ? 0.35f : 1f;
+				childExternalComponent.Draw(m_entityEffect, alpha);
 			}
 
-			ITool tool = Tool;
 			if(tool != null)
 			{
 				// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.

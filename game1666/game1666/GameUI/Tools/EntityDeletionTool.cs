@@ -1,19 +1,20 @@
 ﻿/***
- * game1666proto4: EntityDeletionTool.cs
- * Copyright 2012. All rights reserved.
+ * game1666: EntityDeletionTool.cs
+ * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
 using System;
-using System.Linq;
-using game1666proto4.Common.Graphics;
-using game1666proto4.Common.Maths;
-using game1666proto4.GameModel.Core;
-using game1666proto4.GameModel.FSMs;
+using game1666.Common.Maths;
+using game1666.Common.UI;
+using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Components.External;
+using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666proto4.UI.Tools
+namespace game1666.GameUI.Tools
 {
 	/// <summary>
 	/// An instance of this class can be used to delete entities from a playing area.
@@ -26,7 +27,7 @@ namespace game1666proto4.UI.Tools
 		/// <summary>
 		/// The playing area from which to delete the entity.
 		/// </summary>
-		private readonly IPlayingArea m_playingArea;
+		private readonly IModelEntity m_playingArea;
 
 		#endregion
 
@@ -36,7 +37,7 @@ namespace game1666proto4.UI.Tools
 		/// <summary>
 		/// The entity currently being targeted for deletion by the user (if any).
 		/// </summary>
-		public IPlaceableEntity Entity { get; private set; }
+		public IModelEntity Entity { get; private set; }
 
 		/// <summary>
 		/// The name of the tool.
@@ -53,7 +54,7 @@ namespace game1666proto4.UI.Tools
 		/// </summary>
 		/// <param name="name">The name of the tool (dummy parameter).</param>
 		/// <param name="playingArea">The playing area from which to delete the entity.</param>
-		public EntityDeletionTool(string name, IPlayingArea playingArea)
+		public EntityDeletionTool(string name, IModelEntity playingArea)
 		{
 			m_playingArea = playingArea;
 		}
@@ -77,19 +78,33 @@ namespace game1666proto4.UI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// Find the distance at which the ray hits the terrain, if it does so.
-			Tuple<Vector2i,float> gridSquareAndDistance = m_playingArea.Terrain.PickGridSquare(ray);
+			PlayingAreaComponent playingAreaComponent = m_playingArea.GetComponent(PlayingAreaComponent.StaticGroup);
+			Tuple<Vector2i,float> gridSquareAndDistance = playingAreaComponent.Terrain.PickGridSquare(ray);
 			float nearestHitDistance = gridSquareAndDistance != null ? gridSquareAndDistance.Item2 : float.MaxValue;
 
-			// Find the nearest placeable entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray and (c) destructible,
-			// and mark it for deletion.
+			// Find the nearest placeable entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray
+			// and (c) destructible, and mark it for deletion.
 			Entity = null;
-			foreach(IPlaceableEntity entity in m_playingArea.Placeables.Where(c => c.Destructible))
+			foreach(IModelEntity entity in m_playingArea.Children)
 			{
-				string modelName = EntityUtil.DetermineModelNameAndOrientation((dynamic)entity, m_playingArea.NavigationMap).Item1;
+				PlaceableComponent placeableComponent = entity.GetComponent(PlaceableComponent.StaticGroup);
+				if(placeableComponent == null || !placeableComponent.Destructible) continue;
+
+				// Load the entity's model.
+				string modelName = placeableComponent.DetermineModelAndOrientation(placeableComponent.Blueprint.Model, placeableComponent.Orientation, playingAreaComponent.NavigationMap).Item1;
 				Model model = Renderer.Content.Load<Model>("Models/" + modelName);
+
+				// Create a matrix to translate the bounding spheres in the model to the correct
+				// position in world space.
+				Matrix offsetMatrix = Matrix.CreateTranslation(new Vector3(placeableComponent.Position.X + 0.5f, placeableComponent.Position.Y + 0.5f, placeableComponent.Altitude));
+
+				// Run through the meshes in the model, translate their bounding spheres based
+				// on the actual position of the entity in world space and test the ray against
+				// the translated spheres. If the ray hits one of the spheres, and the hit is
+				// the nearest one we've seen so far, update the entity to be deleted accordingly.
 				foreach(ModelMesh mesh in model.Meshes)
 				{
-					var boundingSphere = mesh.BoundingSphere.Transform(Matrix.CreateTranslation(new Vector3(entity.Position.X + 0.5f, entity.Position.Y + 0.5f, entity.Altitude)));
+					var boundingSphere = mesh.BoundingSphere.Transform(offsetMatrix);
 					float? hitDistance = ray.Intersects(boundingSphere);
 					if(hitDistance != null && hitDistance.Value < nearestHitDistance)
 					{
@@ -113,7 +128,8 @@ namespace game1666proto4.UI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				Entity.FSM.ForceState(PlaceableEntityStateID.IN_DESTRUCTION);
+				PlaceableComponent placeableComponent = Entity.GetComponent(PlaceableComponent.StaticGroup);
+				placeableComponent.InitiateDestruction();
 			}
 			return this;
 		}
