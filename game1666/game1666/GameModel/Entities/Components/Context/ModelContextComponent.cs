@@ -44,7 +44,7 @@ namespace game1666.GameModel.Entities.Components.Context
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
-		public override string Name { get { return "Context"; } }
+		public override string Name { get { return "ModelContext"; } }
 
 		/// <summary>
 		/// The group of the component.

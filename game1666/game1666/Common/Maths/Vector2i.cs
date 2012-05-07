@@ -16,7 +16,14 @@ namespace game1666.Common.Maths
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		/// <summary>
+		/// The x component of the vector.
+		/// </summary>
 		private readonly int m_x;
+
+		/// <summary>
+		/// The y component of the vector.
+		/// </summary>
 		private readonly int m_y;
 
 		#endregion
@@ -40,10 +47,10 @@ namespace game1666.Common.Maths
 		#region
 
 		/// <summary>
-		/// Constructs a new vector with the specified components.
+		/// Constructs a vector with the specified components.
 		/// </summary>
-		/// <param name="x">The x component of the new vector.</param>
-		/// <param name="y">The y component of the new vector.</param>
+		/// <param name="x">The x component of the vector.</param>
+		/// <param name="y">The y component of the vector.</param>
 		public Vector2i(int x, int y)
 		{
 			m_x = x;
