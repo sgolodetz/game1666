@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: UIEntityUtil.cs
+ * game1666: UIContextExtensions.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -17,7 +17,7 @@ namespace game1666.GameUI.Entities.Util
 	/// viewed, and stores an entity factory that can be used to create new
 	/// UI entities on the fly.
 	/// </summary>
-	static class UIEntityUtil
+	static class UIContextExtensions
 	{
 		//#################### PUBLIC STATIC METHODS ####################
 		#region

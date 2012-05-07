@@ -178,7 +178,7 @@
     <Compile Include="GameUI\Entities\Components\Common\ControlRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Sidebar\SidebarRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Lifetime\UIEntityFactory.cs" />
-    <Compile Include="GameUI\Entities\Util\UIEntityUtil.cs" />
+    <Compile Include="GameUI\Entities\Util\UIContextExtensions.cs" />
     <Compile Include="GameUI\Entities\Base\IUIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntityComponent.cs" />
