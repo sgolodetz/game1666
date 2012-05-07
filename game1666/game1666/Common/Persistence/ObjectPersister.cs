@@ -46,10 +46,12 @@ namespace game1666.Common.Persistence
 			string elementName;
 			if(s_specialElementsTypeToName.TryGetValue(type, out elementName))
 			{
+				// If this type of object has a special element type, use that.
 				element = new XElement(elementName);
 			}
 			else
 			{
+				// Otherwise, create an "object" element and specify the object's type in full.
 				element = new XElement("object");
 				element.Add(new XAttribute("type", type.FullName));
 			}
@@ -86,7 +88,8 @@ namespace game1666.Common.Persistence
 				// Determine the C# type corresponding to the child element.
 				Type childType = DetermineElementType(childElt);
 
-				// Load it iff it has the correct type.
+				// Load an object from the child element iff its type is convertible
+				// to the type of object we want to load.
 				if(typeof(T).IsAssignableFrom(childType))
 				{
 					yield return new Tuple<T,XElement>(LoadObject(childElt, additionalArguments), childElt);
@@ -160,10 +163,12 @@ namespace game1666.Common.Persistence
 
 			if(s_specialElementsNameToType.ContainsKey(elementName))
 			{
+				// If this is one of the special element types, look up the corresponding C# type.
 				return s_specialElementsNameToType[elementName];
 			}
 			else if(elementName == "object")
 			{
+				// If this is an "object" element, try and parse its type attribute to get the C# type.
 				string typename = Convert.ToString(element.Attribute("type").Value);
 				var type = Type.GetType(typename);
 				if(type != null) return type;
@@ -171,6 +176,7 @@ namespace game1666.Common.Persistence
 			}
 			else
 			{
+				// Otherwise, a corresponding C# type cannot be determined for this element, so throw.
 				throw new InvalidDataException("Cannot determine type of element with name: " + elementName);
 			}
 		}
