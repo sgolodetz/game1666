@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: ContextComponent.cs
+ * game1666: ModelContextComponent.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -10,26 +10,26 @@ using Microsoft.Xna.Framework;
 namespace game1666.GameModel.Entities.Components.Context
 {
 	/// <summary>
-	/// An instance of this component provides game context objects such as the message system
-	/// and entity destruction manager to an entity tree. It is intended for use as a component
-	/// of the root entity of the tree, i.e. the world. Other entities contained within the world
-	/// can then get the world's message system or entity destruction manager by looking up this
+	/// An instance of this component provides model context objects such as the message system and
+	/// entity destruction manager to a model entity tree. It is intended for use as a component of
+	/// the root entity of such a tree, i.e. the world. Other entities contained within the world
+	/// can then access the world's message system or entity destruction manager by looking up this
 	/// component via the tree.
 	/// </summary>
-	sealed class ContextComponent : ModelEntityComponent
+	sealed class ModelContextComponent : ModelEntityComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// A manager that is used to ensure orderly destruction of entities.
+		/// A manager that can be used used to ensure orderly destruction of model entities.
 		/// </summary>
-		public IModelEntityDestructionManager DestructionManager { get; private set; }
+		public IModelEntityDestructionManager EntityDestructionManager { get; private set; }
 
 		/// <summary>
-		/// A factory that is used to construct model entities.
+		/// A factory that can be used to construct model entities.
 		/// </summary>
-		public IModelEntityFactory Factory { get; private set; }
+		public IModelEntityFactory EntityFactory { get; private set; }
 
 		/// <summary>
 		/// The group of the component.
@@ -57,16 +57,19 @@ namespace game1666.GameModel.Entities.Components.Context
 		#region
 
 		/// <summary>
-		/// Constructs a context component.
+		/// Constructs a model context component.
 		/// </summary>
-		public ContextComponent(IModelEntityFactory factory, IModelEntityDestructionManager destructionManager)
+		/// <param name="entityFactory">A factory that can be used to construct model entities.</param>
+		/// <param name="entityDestructionManager">A manager that can be used used to ensure orderly
+		/// destruction of model entities.</param>
+		public ModelContextComponent(IModelEntityFactory entityFactory, IModelEntityDestructionManager entityDestructionManager)
 		{
 			MessageSystem = new MessageSystem();
 
-			Factory = factory;
+			EntityFactory = entityFactory;
 
-			DestructionManager = destructionManager;
-			DestructionManager.MessageSystem = MessageSystem;
+			EntityDestructionManager = entityDestructionManager;
+			EntityDestructionManager.MessageSystem = MessageSystem;
 		}
 
 		#endregion
@@ -80,7 +83,7 @@ namespace game1666.GameModel.Entities.Components.Context
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			DestructionManager.FlushQueue();
+			EntityDestructionManager.FlushQueue();
 		}
 
 		#endregion

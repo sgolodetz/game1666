@@ -110,7 +110,7 @@ namespace game1666.GameUI.Tools
 						placeableComponent.Position,
 						placeableComponent.Orientation,
 						playingAreaComponent.Terrain,
-						playingArea.Factory(),
+						playingArea.EntityFactory(),
 						0
 					)
 				);

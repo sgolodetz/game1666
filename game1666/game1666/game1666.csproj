@@ -129,7 +129,7 @@
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\TraversableComponent.cs" />
-    <Compile Include="GameModel\Entities\Components\Context\ContextComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\Context\ModelContextComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Test\TestComponent.cs" />
     <Compile Include="Common\Maths\Constants.cs" />
     <Compile Include="Common\Maths\MathUtil.cs" />

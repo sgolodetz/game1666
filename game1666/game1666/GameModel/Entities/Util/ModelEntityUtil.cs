@@ -19,23 +19,23 @@ namespace game1666.GameModel.Entities.Util
 		#region
 
 		/// <summary>
-		/// Gets the destruction manager for the specified entity.
+		/// Gets the entity destruction manager for the specified entity.
 		/// </summary>
 		/// <param name="entity">The entity.</param>
-		/// <returns>Its destruction manager.</returns>
-		public static IModelEntityDestructionManager DestructionManager(this IModelEntity entity)
+		/// <returns>Its entity destruction manager.</returns>
+		public static IModelEntityDestructionManager EntityDestructionManager(this IModelEntity entity)
 		{
-			return entity.Context().DestructionManager;
+			return entity.Context().EntityDestructionManager;
 		}
 
 		/// <summary>
-		/// Gets the destruction manager for the specified component.
+		/// Gets the entity destruction manager for the specified component.
 		/// </summary>
 		/// <param name="component">The component.</param>
-		/// <returns>Its destruction manager.</returns>
-		public static IModelEntityDestructionManager DestructionManager(this ModelEntityComponent component)
+		/// <returns>Its entity destruction manager.</returns>
+		public static IModelEntityDestructionManager EntityDestructionManager(this ModelEntityComponent component)
 		{
-			return component.Context().DestructionManager;
+			return component.Context().EntityDestructionManager;
 		}
 
 		/// <summary>
@@ -43,9 +43,9 @@ namespace game1666.GameModel.Entities.Util
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>Its entity factory.</returns>
-		public static IModelEntityFactory Factory(this IModelEntity entity)
+		public static IModelEntityFactory EntityFactory(this IModelEntity entity)
 		{
-			return entity.Context().Factory;
+			return entity.Context().EntityFactory;
 		}
 
 		/// <summary>
@@ -53,9 +53,9 @@ namespace game1666.GameModel.Entities.Util
 		/// </summary>
 		/// <param name="component">The component.</param>
 		/// <returns>Its entity factory.</returns>
-		public static IModelEntityFactory Factory(this ModelEntityComponent component)
+		public static IModelEntityFactory EntityFactory(this ModelEntityComponent component)
 		{
-			return component.Context().Factory;
+			return component.Context().EntityFactory;
 		}
 
 		/// <summary>
@@ -88,9 +88,9 @@ namespace game1666.GameModel.Entities.Util
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>Its context component.</returns>
-		private static ContextComponent Context(this IModelEntity entity)
+		private static ModelContextComponent Context(this IModelEntity entity)
 		{
-			return entity.GetRootEntity().GetComponent(ContextComponent.StaticGroup);
+			return entity.GetRootEntity().GetComponent(ModelContextComponent.StaticGroup);
 		}
 
 		/// <summary>
@@ -98,7 +98,7 @@ namespace game1666.GameModel.Entities.Util
 		/// </summary>
 		/// <param name="component">The component.</param>
 		/// <returns>Its context component.</returns>
-		private static ContextComponent Context(this ModelEntityComponent component)
+		private static ModelContextComponent Context(this ModelEntityComponent component)
 		{
 			return component.Entity.Context();
 		}
