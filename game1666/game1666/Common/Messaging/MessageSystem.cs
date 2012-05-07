@@ -10,7 +10,8 @@ using System.Linq;
 namespace game1666.Common.Messaging
 {
 	/// <summary>
-	/// An instance of this class represents a message system that is used to dispatch messages across the game.
+	/// An instance of this class represents a message system that is
+	/// used for indirect inter-entity communication within a world.
 	/// </summary>
 	sealed class MessageSystem
 	{
@@ -91,7 +92,7 @@ namespace game1666.Common.Messaging
 		}
 
 		/// <summary>
-		/// Unregisters a message dispatch rule.
+		/// Unregisters the message dispatch rule with the specified key.
 		/// </summary>
 		/// <param name="key">The key of the rule to unregister.</param>
 		public void UnregisterRule(string key)
