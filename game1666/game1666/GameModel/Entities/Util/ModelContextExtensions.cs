@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: ModelEntityUtil.cs
+ * game1666: ModelContextExtensions.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -17,7 +17,7 @@ namespace game1666.GameModel.Entities.Util
 	/// and entity destruction queue, which are shared between all of the entities
 	/// within a given world.
 	/// </summary>
-	static class ModelEntityUtil
+	static class ModelContextExtensions
 	{
 		//#################### PUBLIC STATIC METHODS ####################
 		#region

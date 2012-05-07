@@ -159,7 +159,7 @@
     <Compile Include="GameModel\Entities\Navigation\EntityNavigationNode.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\PlacementStrategyRequireFlatGround.cs" />
-    <Compile Include="GameModel\Entities\Util\ModelEntityUtil.cs" />
+    <Compile Include="GameModel\Entities\Util\ModelContextExtensions.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
