@@ -165,6 +165,7 @@
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />
+    <Compile Include="GameUI\Entities\Base\IUIEntityFactory.cs" />
     <Compile Include="GameUI\Entities\Components\Button\ButtonControl.cs" />
     <Compile Include="GameUI\Entities\Components\Button\ButtonInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\CompositeInteractionComponent.cs" />
@@ -176,7 +177,8 @@
     <Compile Include="GameUI\Entities\Components\Play\PlayRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\ControlRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Sidebar\SidebarRenderingComponent.cs" />
-    <Compile Include="GameUI\Entities\Util\UIEntityComponentUtil.cs" />
+    <Compile Include="GameUI\Entities\Lifetime\UIEntityFactory.cs" />
+    <Compile Include="GameUI\Entities\Util\UIEntityUtil.cs" />
     <Compile Include="GameUI\Entities\Base\IUIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntityComponent.cs" />

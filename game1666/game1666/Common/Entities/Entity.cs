@@ -16,7 +16,8 @@ namespace game1666.Common.Entities
 	/// An instance of a class deriving from this one represents a component-based entity.
 	/// </summary>
 	/// <typeparam name="TreeEntityType">The type of entity used in the entity tree.</typeparam>
-	abstract class Entity<TreeEntityType> : IEntity<TreeEntityType> where TreeEntityType : class, IEntity<TreeEntityType>
+	abstract class Entity<TreeEntityType> : IEntity<TreeEntityType>
+		where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -96,7 +97,7 @@ namespace game1666.Common.Entities
 
 			if(!Properties.ContainsKey("Name"))
 			{
-				Properties["Name"] = Archetype.ToLower() + ":" + Guid.NewGuid().ToString();
+				Properties["Name"] = Guid.NewGuid().ToString();
 			}
 
 			foreach(var component in ObjectPersister.LoadChildObjects<EntityComponent<TreeEntityType>>(entityElt))

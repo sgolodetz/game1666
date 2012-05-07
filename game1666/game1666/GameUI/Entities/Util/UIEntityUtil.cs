@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: UIEntityComponentUtil.cs
+ * game1666: UIEntityUtil.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -12,7 +12,7 @@ namespace game1666.GameUI.Entities.Util
 	/// This class provides utility methods that make it easier to look up the target of a UI entity,
 	/// or a component of that target, in the game model.
 	/// </summary>
-	static class UIEntityComponentUtil
+	static class UIEntityUtil
 	{
 		//#################### PUBLIC STATIC METHODS ####################
 		#region

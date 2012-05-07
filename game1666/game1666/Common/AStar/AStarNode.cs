@@ -34,7 +34,7 @@ namespace game1666.Common.AStar
 		public float G { get; set; }
 
 		/// <summary>
-		/// The estimated cost of the sub-path from this node to the goal.
+		/// The estimated cost of the sub-path from this node to the nearest goal.
 		/// </summary>
 		public float H { get; protected set; }
 
@@ -44,7 +44,7 @@ namespace game1666.Common.AStar
 		#region
 
 		/// <summary>
-		/// Calculates the estimated cost of the sub-path from this node to the goal.
+		/// Calculates the estimated cost of the sub-path from this node to the nearest goal.
 		/// </summary>
 		/// <param name="destinations">The destination nodes.</param>
 		public abstract void CalculateH(ICollection<NodeType> destinations);
@@ -59,8 +59,8 @@ namespace game1666.Common.AStar
 		/// <summary>
 		/// Determines the neighbours of this node in the search space.
 		/// </summary>
-		/// <param name="properties">A set of properties associated with the entity for which a path is to be found
-		///							 (can be null if irrelevant).</param>
+		/// <param name="properties">A set of properties associated with the entity
+		/// for which a path is to be found (can be null if irrelevant).</param>
 		/// <returns>The neighbours of the node.</returns>
 		public abstract IEnumerable<NodeType> Neighbours(IDictionary<string,dynamic> properties);
 
@@ -70,7 +70,7 @@ namespace game1666.Common.AStar
 		#region
 
 		/// <summary>
-		/// Determines whether or not this AStarNode is equal to another node.
+		/// Determines whether or not this AStarNode is equal to another one.
 		/// </summary>
 		/// <param name="rhs">The other node.</param>
 		/// <returns>true, if the two nodes are equal, or false otherwise.</returns>

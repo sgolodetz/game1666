@@ -45,7 +45,7 @@ namespace game1666.GameUI.Entities.Base
 		/// <param name="name">The name of the entity.</param>
 		/// <param name="archetype">The archetype of the entity.</param>
 		/// <param name="viewport">The entity's viewport.</param>
-		protected UIEntity(string name, string archetype, Viewport viewport)
+		public UIEntity(string name, string archetype, Viewport viewport)
 		:	base(name, archetype)
 		{
 			Properties = new Dictionary<string,dynamic>

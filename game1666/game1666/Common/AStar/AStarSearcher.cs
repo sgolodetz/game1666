@@ -38,7 +38,7 @@ namespace game1666.Common.AStar
 			source.From = null;
 			openList.Insert(source, source.F, null);
 
-			// While there are remaining nodes in the open list:
+			// While there are remaining nodes on the open list:
 			while(openList.Count != 0)
 			{
 				// Check whether the node on the open list with the minimum estimated total cost

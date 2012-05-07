@@ -18,7 +18,7 @@ namespace game1666.GameModel.Entities.Base
 		/// <summary>
 		/// Constructs a model entity based on the specified archetype and properties.
 		/// </summary>
-		/// <param name="archetype">The archetype of the model entity (e.g. Village).</param>
+		/// <param name="archetype">The archetype of the entity (e.g. Village).</param>
 		/// <param name="properties">The properties of the various components of the entity.</param>
 		/// <returns>The constructed entity.</returns>
 		IModelEntity MakeEntity(string archetype, IDictionary<string,dynamic> properties);
