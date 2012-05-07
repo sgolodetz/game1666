@@ -1,6 +1,6 @@
 ﻿/***
  * game1666: GreaterComparer.cs
- * Copyright Stuart GOlodetz, 2012. All rights reserved.
+ * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
 using System.Collections.Generic;

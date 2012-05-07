@@ -20,9 +20,24 @@ namespace game1666.Common.UI
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
+		/// <summary>
+		/// A vector pointing in the direction faced by the camera.
+		/// </summary>
 		private Vector3 m_n;
+
+		/// <summary>
+		/// The position of the camera.
+		/// </summary>
 		private Vector3 m_position;
+
+		/// <summary>
+		/// A vector pointing to the left of the camera.
+		/// </summary>
 		private Vector3 m_u;
+
+		/// <summary>
+		/// A vector pointing to the top of the camera.
+		/// </summary>
 		private Vector3 m_v;
 
 		#endregion
