@@ -10,8 +10,12 @@ using game1666.GameUI.Entities.Components.Context;
 namespace game1666.GameUI.Entities.Util
 {
 	/// <summary>
-	/// This class provides utility methods that make it easier to look up the target of a UI entity,
-	/// or a component of that target, in the game model.
+	/// This class provides extension methods for entities and components in a
+	/// UI entity tree that allow them to easily access the contents of the
+	/// context component stored in the root entity of their tree (i.e. a game
+	/// view). The context component contains a reference to the world being
+	/// viewed, and stores an entity factory that can be used to create new
+	/// UI entities on the fly.
 	/// </summary>
 	static class UIEntityUtil
 	{
@@ -19,10 +23,10 @@ namespace game1666.GameUI.Entities.Util
 		#region
 
 		/// <summary>
-		/// Gets the entity factory for the specified component.
+		/// Gets the entity factory for the game view containing the specified UI component.
 		/// </summary>
 		/// <param name="component">The component.</param>
-		/// <returns>Its entity factory.</returns>
+		/// <returns>The entity factory for the containing game view.</returns>
 		public static IUIEntityFactory EntityFactory(this UIEntityComponent component)
 		{
 			return component.Context().EntityFactory;
@@ -59,20 +63,20 @@ namespace game1666.GameUI.Entities.Util
 		}
 
 		/// <summary>
-		/// Gets the world for the specified entity.
+		/// Gets the world being viewed by the game view containing the specified UI entity.
 		/// </summary>
-		/// <param name="component">The entity.</param>
-		/// <returns>Its world.</returns>
+		/// <param name="component">The UI entity.</param>
+		/// <returns>The world being viewed by the containing game view.</returns>
 		public static IModelEntity World(this IUIEntity entity)
 		{
 			return entity.Context().World;
 		}
 
 		/// <summary>
-		/// Gets the world for the specified component.
+		/// Gets the world being viewed by the game view containing the specified UI component.
 		/// </summary>
-		/// <param name="component">The component.</param>
-		/// <returns>Its world.</returns>
+		/// <param name="component">The UI component.</param>
+		/// <returns>The world being viewed by the containing game view.</returns>
 		public static IModelEntity World(this UIEntityComponent component)
 		{
 			return component.Context().World;
@@ -84,20 +88,20 @@ namespace game1666.GameUI.Entities.Util
 		#region
 
 		/// <summary>
-		/// Gets the UI context component for the specified entity.
+		/// Gets the context component for the game view containing the specified UI entity.
 		/// </summary>
-		/// <param name="entity">The entity.</param>
-		/// <returns>Its context component.</returns>
+		/// <param name="entity">The UI entity.</param>
+		/// <returns>The context component for the containing game view.</returns>
 		private static UIContextComponent Context(this IUIEntity entity)
 		{
 			return entity.GetRootEntity().GetComponent(UIContextComponent.StaticGroup);
 		}
 
 		/// <summary>
-		/// Gets the UI context component for the specified component.
+		/// Gets the context component for the game view containing the specified UI component.
 		/// </summary>
-		/// <param name="component">The component.</param>
-		/// <returns>Its context component.</returns>
+		/// <param name="component">The UI component.</param>
+		/// <returns>The context component for the containing game view.</returns>
 		private static UIContextComponent Context(this UIEntityComponent component)
 		{
 			return component.Entity.Context();
