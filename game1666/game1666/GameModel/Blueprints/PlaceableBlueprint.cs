@@ -56,9 +56,7 @@ namespace game1666.GameModel.Blueprints
 		{
 			Properties = PropertyPersister.LoadProperties(blueprintElt);
 			Footprint = ObjectPersister.LoadChildObjects<Footprint>(blueprintElt).First();
-
-			// TODO: Get rid of this and add a loader for placement strategies.
-			PlacementStrategy = new PlacementStrategyRequireFlatGround();
+			PlacementStrategy = ObjectPersister.LoadChildObjects<IPlacementStrategy>(blueprintElt).First();
 		}
 
 		#endregion

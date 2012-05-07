@@ -13,6 +13,7 @@
           2
         </property>
       </footprint>
+      <placementstrategyRequireFlatGround/>
     </placeableblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="Dwelling"/>
@@ -26,6 +27,7 @@
           2
         </property>
       </footprint>
+      <placementstrategyRequireFlatGround/>
     </placeableblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="Mansion"/>
@@ -40,6 +42,7 @@
           1,1,1
         </property>
       </footprint>
+      <placementstrategyRequireFlatGround/>
     </placeableblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="Village"/>
@@ -55,6 +58,7 @@
           1,2,1
         </property>
       </footprint>
+      <placementstrategyRequireFlatGround/>
     </placeableblueprint>
   </blueprints>
   <gameviews>

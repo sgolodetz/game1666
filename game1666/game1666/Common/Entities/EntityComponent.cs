@@ -14,13 +14,14 @@ namespace game1666.Common.Entities
 	/// An instance of a class deriving from this one represents a component of an entity.
 	/// </summary>
 	/// <typeparam name="TreeEntityType">The type of entity used in the entity tree.</typeparam>
-	abstract class EntityComponent<TreeEntityType> : IEntityComponent where TreeEntityType : class, IEntity<TreeEntityType>
+	abstract class EntityComponent<TreeEntityType> : IEntityComponent
+		where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The entity containing this component (if any).
+		/// The entity containing the component (if any).
 		/// </summary>
 		internal TreeEntityType Entity { get; private set; }
 

@@ -59,10 +59,10 @@ namespace game1666.GameModel.Entities.PlacementStrategies
 		/// <summary>
 		/// Constructs a footprint from its XML representation.
 		/// </summary>
-		/// <param name="entityElt">The root element of the footprint's XML representation.</param>
-		public Footprint(XElement entityElt)
+		/// <param name="element">The root element of the footprint's XML representation.</param>
+		public Footprint(XElement element)
 		{
-			m_properties = PropertyPersister.LoadProperties(entityElt);
+			m_properties = PropertyPersister.LoadProperties(element);
 			Initialise();
 		}
 

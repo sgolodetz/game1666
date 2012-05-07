@@ -4,6 +4,7 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.GameModel.Terrains;
 
@@ -15,6 +16,18 @@ namespace game1666.GameModel.Entities.PlacementStrategies
 	/// </summary>
 	sealed class PlacementStrategyRequireFlatGround : IPlacementStrategy
 	{
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a "require flat ground" placement strategy from its XML representation.
+		/// </summary>
+		/// <param name="element">The root element of the strategy's XML representation.</param>
+		public PlacementStrategyRequireFlatGround(XElement element)
+		{}
+
+		#endregion
+
 		//#################### PUBLIC METHODS ####################
 		#region
 
