@@ -10,6 +10,8 @@ using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Common;
+using game1666.GameUI.Entities.Components.Context;
+using game1666.GameUI.Entities.Lifetime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -59,7 +61,7 @@ namespace game1666.GameUI
 			{
 				IUIEntity view = t.Item1;
 				XElement viewElt = t.Item2;
-				view.World = world;
+				new UIContextComponent(world, new UIEntityFactory()).AddToEntity(view);
 				view.AddDescendantsFromXML(viewElt);
 				m_views[view.Name] = view;
 			}

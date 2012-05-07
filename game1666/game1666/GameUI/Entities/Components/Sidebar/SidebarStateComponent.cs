@@ -5,10 +5,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.UI;
+using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Button;
 using game1666.GameUI.Entities.Components.Common;
 using game1666.GameUI.Entities.Components.GameView;
@@ -130,12 +130,12 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// <summary>
 		/// The individual buttons in the currently-selected sidebar group.
 		/// </summary>
-		private IList<ButtonControl> m_elementButtons = new List<ButtonControl>();
+		private IList<IUIEntity> m_elementButtons = new List<IUIEntity>();
 
 		/// <summary>
 		/// The buttons for the sidebar groups.
 		/// </summary>
-		private IList<ButtonControl> m_groupButtons = new List<ButtonControl>();
+		private IList<IUIEntity> m_groupButtons = new List<IUIEntity>();
 
 		/// <summary>
 		/// The groups of element specifiers that describe the functionality of the sidebar.
@@ -150,7 +150,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// <summary>
 		/// The individual buttons in the currently-selected sidebar group.
 		/// </summary>
-		private IList<ButtonControl> ElementButtons
+		private IList<IUIEntity> ElementButtons
 		{
 			get
 			{
@@ -168,7 +168,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// <summary>
 		/// The buttons for the sidebar groups.
 		/// </summary>
-		private IList<ButtonControl> GroupButtons
+		private IList<IUIEntity> GroupButtons
 		{
 			get
 			{
@@ -292,9 +292,9 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// <param name="columns">The number of columns in which the buttons should be laid out.</param>
 		/// <param name="buttonSpecifiers">The button specifiers.</param>
 		/// <returns>The created buttons.</returns>
-		private static List<ButtonControl> CreateButtons(Viewport buttonsViewport, int columns, IList<ButtonSpecifier> buttonSpecifiers)
+		private List<IUIEntity> CreateButtons(Viewport buttonsViewport, int columns, IList<ButtonSpecifier> buttonSpecifiers)
 		{
-			var buttons = new List<ButtonControl>();
+			var buttons = new List<IUIEntity>();
 
 			// If there are no button specifiers, early out and return an empty list of buttons.
 			if(buttonSpecifiers.Count == 0) return buttons;
@@ -311,7 +311,12 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 				int row = buttonIndex / layout.Columns;
 
 				// Construct the button and set its handlers.
-				var button = new ButtonControl(bs.TextureName, ConstructButtonViewport(buttonsViewport, layout, row, column));
+				var button = this.EntityFactory().MakeEntity
+				(
+					"Button",
+					ConstructButtonViewport(buttonsViewport, layout, row, column),
+					new Dictionary<string,dynamic> { { "TextureName", bs.TextureName } }
+				);
 				var buttonInteractor = button.GetComponent(ButtonInteractionComponent.StaticGroup);
 				var buttonRenderer = button.GetComponent(ButtonRenderingComponent.StaticGroup);
 				if(buttonInteractor != null) buttonInteractor.MousePressedHook += bs.MousePressedHook;
@@ -509,7 +514,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 
 			// If the type was found, create a mouse event that will set the current tool to a
 			// new instance of the type when invoked.
-			return state => Tool = Activator.CreateInstance(toolType, name, Entity.Parent.GetTarget()) as ITool;
+			return state => Tool = Activator.CreateInstance(toolType, name, Entity.Parent.Target()) as ITool;
 		}
 
 		#endregion

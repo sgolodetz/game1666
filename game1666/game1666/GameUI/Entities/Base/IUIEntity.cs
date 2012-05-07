@@ -22,11 +22,6 @@ namespace game1666.GameUI.Entities.Base
 		/// </summary>
 		Viewport Viewport { get; }
 
-		/// <summary>
-		/// The world that is being viewed.
-		/// </summary>
-		IModelEntity World { get; set; }
-
 		#endregion
 	}
 }

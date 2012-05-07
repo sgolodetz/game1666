@@ -166,10 +166,10 @@
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />
     <Compile Include="GameUI\Entities\Base\IUIEntityFactory.cs" />
-    <Compile Include="GameUI\Entities\Components\Button\ButtonControl.cs" />
     <Compile Include="GameUI\Entities\Components\Button\ButtonInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\CompositeInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Common\InteractionComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\Context\UIContextComponent.cs" />
     <Compile Include="GameUI\Entities\Components\GameView\GameViewStateComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Play\PlayInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Button\ButtonRenderingComponent.cs" />

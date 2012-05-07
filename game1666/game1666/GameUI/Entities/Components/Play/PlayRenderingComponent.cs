@@ -77,7 +77,7 @@ namespace game1666.GameUI.Entities.Components.Play
 		public override void Draw()
 		{
 			// Look up the target entity of the game view containing the play viewer.
-			IModelEntity targetEntity = Entity.Parent.GetTarget();
+			IModelEntity targetEntity = Entity.Parent.Target();
 			if(targetEntity == null) return;
 
 			// Prepare for rendering.

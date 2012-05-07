@@ -29,11 +29,6 @@ namespace game1666.GameUI.Entities.Base
 		/// </summary>
 		public Viewport Viewport { get { return Properties["Viewport"]; } }
 
-		/// <summary>
-		/// The world that is being viewed.
-		/// </summary>
-		public IModelEntity World { get; set; }
-
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -62,29 +57,6 @@ namespace game1666.GameUI.Entities.Base
 		public UIEntity(XElement entityElt)
 		:	base(entityElt)
 		{}
-
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
-
-		/// <summary>
-		/// Called just after this entity is added as the child of another.
-		/// </summary>
-		public override void AfterAdd()
-		{
-			World = Parent.World;
-			base.AfterAdd();
-		}
-
-		/// <summary>
-		/// Called just before this entity is removed as the child of another.
-		/// </summary>
-		public override void BeforeRemove()
-		{
-			base.BeforeRemove();
-			World = null;
-		}
 
 		#endregion
 	}

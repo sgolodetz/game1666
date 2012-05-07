@@ -103,7 +103,7 @@ namespace game1666.GameUI.Entities.Components.Play
 		public override void Update(GameTime gameTime)
 		{
 			// Look up the playing area component of the target of the game view containing the play viewer.
-			var playingArea = Entity.Parent.GetTargetComponent(PlayingAreaComponent.StaticGroup);
+			var playingArea = Entity.Parent.TargetComponent(PlayingAreaComponent.StaticGroup);
 			if(playingArea == null) return;
 
 			// Determine the linear, horizontal angular, and vertical angular rates for keyboard-based movement.
