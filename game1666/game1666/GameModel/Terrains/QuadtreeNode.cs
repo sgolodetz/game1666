@@ -29,7 +29,7 @@ namespace game1666.GameModel.Terrains
 		private readonly QuadtreeNode[] m_children;
 
 		/// <summary>
-		/// The triangles in the terrain segment represented by this node.
+		/// The triangles in the terrain segment represented by this node, grouped by grid square.
 		/// </summary>
 		private readonly IDictionary<Vector2i,Triangle[]> m_triangleMap;
 
