@@ -126,7 +126,7 @@ namespace game1666.GameModel.Terrains
 		/// <returns>The altitude at the position, as specified.</returns>
 		public float DetermineAltitude(Vector2 pos)
 		{
-			var gridSquare = new Vector2i((int)Math.Floor(pos.X), (int)Math.Floor(pos.Y));
+			Vector2i gridSquare = pos.ToVector2i();
 			var offset = new Vector2(pos.X - gridSquare.X, pos.Y - gridSquare.Y);
 
 			if(offset.X + offset.Y <= 1)
