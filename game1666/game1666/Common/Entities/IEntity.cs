@@ -124,25 +124,11 @@ namespace game1666.Common.Entities
 		TreeEntityType GetEntityByAbsolutePath(string path);
 
 		/// <summary>
-		/// Gets another entity in this entity's tree by its absolute path (i.e. its path relative to the root entity).
-		/// </summary>
-		/// <param name="path">The absolute path to the other entity, as a list of path components.</param>
-		/// <returns>The other entity, if found, or null otherwise.</returns>
-		TreeEntityType GetEntityByAbsolutePath(LinkedList<string> path);
-
-		/// <summary>
 		/// Gets another entity in this entity's tree by its path relative to this entity.
 		/// </summary>
 		/// <param name="path">The relative path to the other entity.</param>
 		/// <returns>The other entity, if found, or null otherwise.</returns>
 		TreeEntityType GetEntityByRelativePath(string path);
-
-		/// <summary>
-		/// Gets another entity in this entity's tree by its path relative to this entity.
-		/// </summary>
-		/// <param name="path">The relative path to the other entity, as a list of path components.</param>
-		/// <returns>The other entity, if found, or null otherwise.</returns>
-		TreeEntityType GetEntityByRelativePath(LinkedList<string> path);
 
 		/// <summary>
 		/// Gets the root entity of this entity's tree.

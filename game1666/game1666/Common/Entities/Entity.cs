@@ -234,16 +234,6 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
-		/// Gets another entity in this entity's tree by its absolute path (i.e. its path relative to the root entity).
-		/// </summary>
-		/// <param name="path">The absolute path to the other entity, as a list of path components.</param>
-		/// <returns>The other entity, if found, or null otherwise.</returns>
-		public TreeEntityType GetEntityByAbsolutePath(LinkedList<string> path)
-		{
-			return GetRootEntity().GetEntityByRelativePath(path);
-		}
-
-		/// <summary>
 		/// Gets another entity in this entity's tree by its path relative to this entity.
 		/// </summary>
 		/// <param name="path">The relative path to the other entity.</param>
@@ -251,35 +241,6 @@ namespace game1666.Common.Entities
 		public TreeEntityType GetEntityByRelativePath(string path)
 		{
 			return GetEntityByRelativePath(new LinkedList<string>(path.Split('/')));
-		}
-
-		/// <summary>
-		/// Gets another entity in this entity's tree by its path relative to this entity.
-		/// </summary>
-		/// <param name="path">The relative path to the other entity, as a list of path components.</param>
-		/// <returns>The other entity, if found, or null otherwise.</returns>
-		public TreeEntityType GetEntityByRelativePath(LinkedList<string> path)
-		{
-			TreeEntityType cur = Self;
-
-			while(cur != null && path.Count != 0)
-			{
-				switch(path.First())
-				{
-					case ".":
-						break;
-					case "..":
-						cur = cur.Parent;
-						break;
-					default:
-						cur = cur.GetChild(path.First());
-						break;
-				}
-
-				path.RemoveFirst();
-			}
-
-			return cur;
 		}
 
 		/// <summary>
@@ -339,6 +300,40 @@ namespace game1666.Common.Entities
 			{
 				child.Update(gameTime);
 			}
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Gets another entity in this entity's tree by its path relative to this entity.
+		/// </summary>
+		/// <param name="path">The relative path to the other entity, as a list of path components.</param>
+		/// <returns>The other entity, if found, or null otherwise.</returns>
+		private TreeEntityType GetEntityByRelativePath(LinkedList<string> path)
+		{
+			TreeEntityType cur = Self;
+
+			while(cur != null && path.Count != 0)
+			{
+				switch(path.First())
+				{
+					case ".":
+						break;
+					case "..":
+						cur = cur.Parent;
+						break;
+					default:
+						cur = cur.GetChild(path.First());
+						break;
+				}
+
+				path.RemoveFirst();
+			}
+
+			return cur;
 		}
 
 		#endregion
