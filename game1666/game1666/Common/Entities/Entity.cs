@@ -154,7 +154,9 @@ namespace game1666.Common.Entities
 			{
 				TreeEntityType child = t.Item1;
 				XElement childElt = t.Item2;
+
 				AddChild(child);
+
 				child.AddDescendantsFromXML(childElt);
 			}
 			return Self;
@@ -264,9 +266,10 @@ namespace game1666.Common.Entities
 		/// <exception cref="System.InvalidOperationException">If this entity does not contain the child.</exception>
 		public void RemoveChild(TreeEntityType child)
 		{
-			if(m_children.Remove(child.Name))
+			if(m_children.ContainsKey(child.Name))
 			{
 				child.BeforeRemove();
+				m_children.Remove(child.Name);
 				child.Parent = null;
 			}
 			else throw new InvalidOperationException("No such child: " + child.Name);

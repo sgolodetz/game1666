@@ -18,7 +18,8 @@ namespace game1666.Common.Entities
 	/// the entities in such a tree must implement a common interface.
 	/// </summary>
 	/// <typeparam name="TreeEntityType">The type of entity used in the entity tree.</typeparam>
-	interface IEntity<TreeEntityType> : IPersistableObject where TreeEntityType : class, IEntity<TreeEntityType>
+	interface IEntity<TreeEntityType> : IPersistableObject
+		where TreeEntityType : class, IEntity<TreeEntityType>
 	{
 		//#################### PROPERTIES ####################
 		#region
