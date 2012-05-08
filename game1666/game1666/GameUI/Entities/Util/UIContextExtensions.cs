@@ -65,7 +65,7 @@ namespace game1666.GameUI.Entities.Util
 		/// <summary>
 		/// Gets the world being viewed by the game view containing the specified UI entity.
 		/// </summary>
-		/// <param name="component">The UI entity.</param>
+		/// <param name="entity">The UI entity.</param>
 		/// <returns>The world being viewed by the containing game view.</returns>
 		public static IModelEntity World(this IUIEntity entity)
 		{
