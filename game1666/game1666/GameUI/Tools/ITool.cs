@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666.GameUI.Tools
 {
 	/// <summary>
-	/// An instance of a derived class implementing this interface represents a tool that can used to interact with a playing area.
+	/// An instance of a class implementing this interface represents a tool that can used to interact with a playing area.
 	/// </summary>
 	interface ITool
 	{
