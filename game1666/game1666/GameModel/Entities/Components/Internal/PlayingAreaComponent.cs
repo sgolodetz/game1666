@@ -28,7 +28,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		private readonly EntityNavigationMap m_navigationMap = new EntityNavigationMap();
+		private readonly ModelEntityNavigationMap m_navigationMap = new ModelEntityNavigationMap();
 
 		#endregion
 
@@ -38,7 +38,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		public EntityNavigationMap NavigationMap { get { return m_navigationMap; } }
+		public ModelEntityNavigationMap NavigationMap { get { return m_navigationMap; } }
 
 		/// <summary>
 		/// The name of the component.

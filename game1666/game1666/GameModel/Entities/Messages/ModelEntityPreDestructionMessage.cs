@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: EntityPreDestructionMessage.cs
+ * game1666: ModelEntityPreDestructionMessage.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -8,10 +8,10 @@ using game1666.Common.Messaging;
 namespace game1666.GameModel.Entities.Messages
 {
 	/// <summary>
-	/// An instance of this class represents a message indicating that a particular game entity will shortly be destructed.
+	/// An instance of this class represents a message indicating that a particular model entity will shortly be destructed.
 	/// It is sent to allow any entities that should be destructed first to queue themselves for destruction.
 	/// </summary>
-	sealed class EntityPreDestructionMessage : IMessage
+	sealed class ModelEntityPreDestructionMessage : IMessage
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -36,7 +36,7 @@ namespace game1666.GameModel.Entities.Messages
 		/// </summary>
 		/// <param name="source">The entity that will shortly be destructed.</param>
 		/// <param name="priority">The priority of the entity on the destruction queue.</param>
-		public EntityPreDestructionMessage(dynamic source, float priority)
+		public ModelEntityPreDestructionMessage(dynamic source, float priority)
 		{
 			Source = source;
 			Priority = priority;

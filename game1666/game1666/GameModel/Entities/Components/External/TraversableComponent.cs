@@ -52,7 +52,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		public override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
+		public override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, ModelEntityNavigationMap navigationMap)
 		{
 			int x = Position.X;
 			int y = Position.Y;
@@ -99,7 +99,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <param name="gridSquare">The grid square.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain whose grid square is being checked.</param>
 		/// <returns>true, if the specified grid square holds an entity entrance, or false otherwise.</returns>
-		private static bool IsEntityEntrance(Vector2i gridSquare, EntityNavigationMap navigationMap)
+		private static bool IsEntityEntrance(Vector2i gridSquare, ModelEntityNavigationMap navigationMap)
 		{
 			IModelEntity entity = navigationMap.LookupEntity(gridSquare);
 			if(entity == null) return false;

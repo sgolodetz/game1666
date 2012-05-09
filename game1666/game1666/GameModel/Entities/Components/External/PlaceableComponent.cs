@@ -187,11 +187,11 @@ namespace game1666.GameModel.Entities.Components.External
 			// to remove it as a child if the entity posts an entity destruction message.
 			this.MessageSystem().RegisterRule
 			(
-				new MessageRule<EntityDestructionMessage>
+				new MessageRule<ModelEntityDestructionMessage>
 				{
-					Action = new Action<EntityDestructionMessage>(msg => Entity.Parent.RemoveChild(Entity)),
+					Action = new Action<ModelEntityDestructionMessage>(msg => Entity.Parent.RemoveChild(Entity)),
 					Entities = new List<dynamic> { Entity, Entity.Parent },
-					Filter = MessageFilterFactory.TypedFromSource<EntityDestructionMessage>(Entity),
+					Filter = MessageFilterFactory.TypedFromSource<ModelEntityDestructionMessage>(Entity),
 					Key = "removechild:" + Entity.GetAbsolutePath()
 				}
 			);
@@ -232,7 +232,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, EntityNavigationMap navigationMap)
+		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, ModelEntityNavigationMap navigationMap)
 		{
 			return Tuple.Create(modelName, orientation);
 		}
@@ -251,7 +251,7 @@ namespace game1666.GameModel.Entities.Components.External
 			if(parent == null) return;
 
 			// Determine the model name and orientation to use (see the description on the method).
-			EntityNavigationMap navigationMap = parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
+			ModelEntityNavigationMap navigationMap = parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);

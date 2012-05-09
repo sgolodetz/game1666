@@ -54,7 +54,7 @@ namespace game1666.GameModel.Entities.Lifetime
 					// The entity pre-destruction message has already been sent, so remove the destructed entity
 					// from the queue and send the entity destruction message.
 					m_destructionQueue.Pop();
-					MessageSystem.DispatchMessage(new EntityDestructionMessage(e.ID));
+					MessageSystem.DispatchMessage(new ModelEntityDestructionMessage(e.ID));
 
 					// Unregister any message rules associated with the entity that just got destructed.
 					MessageSystem.UnregisterRulesMentioning(e.ID);
@@ -63,7 +63,7 @@ namespace game1666.GameModel.Entities.Lifetime
 				{
 					// The entity pre-destruction message has not yet been sent, so send it.
 					e.Data = true;
-					MessageSystem.DispatchMessage(new EntityPreDestructionMessage(e.ID, e.Key));
+					MessageSystem.DispatchMessage(new ModelEntityPreDestructionMessage(e.ID, e.Key));
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: EntityNavigationNode.cs
+ * game1666: ModelEntityNavigationNode.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -17,7 +17,7 @@ namespace game1666.GameModel.Entities.Navigation
 	/// <summary>
 	/// An instance of this class represents a node in the A* search space used for entity pathfinding.
 	/// </summary>
-	sealed class EntityNavigationNode : AStarNode<EntityNavigationNode>, INavigationNode<IModelEntity,EntityNavigationNode>
+	sealed class ModelEntityNavigationNode : AStarNode<ModelEntityNavigationNode>, INavigationNode<IModelEntity,ModelEntityNavigationNode>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -30,7 +30,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// <summary>
 		/// A grid of nodes for the other squares in the terrain.
 		/// </summary>
-		private EntityNavigationNode[,] m_nodeGrid;
+		private ModelEntityNavigationNode[,] m_nodeGrid;
 
 		/// <summary>
 		/// The terrain.
@@ -79,7 +79,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// <summary>
 		/// Constructs a blank entity navigation node. This must then be properly initialised using the Initialise method.
 		/// </summary>
-		public EntityNavigationNode()
+		public ModelEntityNavigationNode()
 		{}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// <param name="nodeGrid">A grid of nodes for the other squares in the terrain.</param>
 		/// <param name="terrain">The terrain.</param>
 		/// <returns>The node itself.</returns>
-		public EntityNavigationNode Initialise(Vector2i position, EntityNavigationNode[,] nodeGrid, Terrain terrain)
+		public ModelEntityNavigationNode Initialise(Vector2i position, ModelEntityNavigationNode[,] nodeGrid, Terrain terrain)
 		{
 			Position = position;
 			m_nodeGrid = nodeGrid;
@@ -109,7 +109,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// Calculates the estimated cost of the sub-path from this node to the goal.
 		/// </summary>
 		/// <param name="destinations">The destination nodes.</param>
-		public override void CalculateH(ICollection<EntityNavigationNode> destinations)
+		public override void CalculateH(ICollection<ModelEntityNavigationNode> destinations)
 		{
 			// The cost to the goal is at least the straight-line distance between the source and
 			// the nearest destination, so this is an admissible heuristic.
@@ -121,7 +121,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// </summary>
 		/// <param name="neighbour">The neighbouring node.</param>
 		/// <returns>The cost of going from this node to the specified neighbouring node.</returns>
-		public override float CostToNeighbour(EntityNavigationNode neighbour)
+		public override float CostToNeighbour(ModelEntityNavigationNode neighbour)
 		{
 			switch(ClassifyOccupyingEntity() + neighbour.ClassifyOccupyingEntity())
 			{
@@ -173,7 +173,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// </summary>
 		/// <param name="properties">A set of properties associated with the entity for which a path is to be found (can be null if irrelevant).</param>
 		/// <returns>The neighbours of the node.</returns>
-		public override IEnumerable<EntityNavigationNode> Neighbours(IDictionary<string,dynamic> properties)
+		public override IEnumerable<ModelEntityNavigationNode> Neighbours(IDictionary<string,dynamic> properties)
 		{
 			/*MobileEntityBlueprint blueprint = BlueprintManager.GetBlueprint(entityProperties["Blueprint"]);
 
