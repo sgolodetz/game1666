@@ -61,8 +61,16 @@ namespace game1666.GameUI
 			{
 				IUIEntity view = t.Item1;
 				XElement viewElt = t.Item2;
+
+				// Add a UI context component to the game view to provide its UI entity tree
+				// access to the world being viewed and to a UI entity factory (in case an
+				// entity needs to create new UI entities on the fly, e.g. a sidebar needs
+				// to create buttons).
 				new UIContextComponent(world, new UIEntityFactory()).AddToEntity(view);
+
+				// Recursively load the UI entities beneath the game view.
 				view.AddDescendantsFromXML(viewElt);
+
 				m_views[view.Name] = view;
 			}
 

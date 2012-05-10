@@ -45,7 +45,7 @@ namespace game1666.GameModel.Entities.Components.External
 
 		/// <summary>
 		/// Determines the actual model and orientation to use when drawing the traversable entity.
-		/// For traversable entities such as road-segments, we override the defaults in order to
+		/// For traversable entities such as road segments, we override the defaults in order to
 		/// render joined-up roads in an aesthetically-pleasing way.
 		/// </summary>
 		/// <param name="modelName">The initial model name, as specified by the blueprint.</param>

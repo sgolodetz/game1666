@@ -37,7 +37,7 @@ namespace game1666.GameModel.Entities.Components.Context
 		public override string Group { get { return StaticGroup; } }
 
 		/// <summary>
-		/// A message system that is used to dispatch messages across the world.
+		/// A message system that is used for indirect inter-entity communication within a world.
 		/// </summary>
 		public MessageSystem MessageSystem { get; private set; }
 
@@ -60,8 +60,7 @@ namespace game1666.GameModel.Entities.Components.Context
 		/// Constructs a model context component.
 		/// </summary>
 		/// <param name="entityFactory">A factory that can be used to construct model entities.</param>
-		/// <param name="entityDestructionManager">A manager that can be used used to ensure orderly
-		/// destruction of model entities.</param>
+		/// <param name="entityDestructionManager">A manager that can be used used to ensure orderly destruction of model entities.</param>
 		public ModelContextComponent(IModelEntityFactory entityFactory, IModelEntityDestructionManager entityDestructionManager)
 		{
 			MessageSystem = new MessageSystem();

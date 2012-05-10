@@ -36,14 +36,14 @@ namespace game1666.GameModel.Entities.Components.Internal
 		#region
 
 		/// <summary>
-		/// The playing area's navigation map.
-		/// </summary>
-		public ModelEntityNavigationMap NavigationMap { get { return m_navigationMap; } }
-
-		/// <summary>
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "PlayingArea"; } }
+
+		/// <summary>
+		/// The playing area's navigation map.
+		/// </summary>
+		public ModelEntityNavigationMap NavigationMap { get { return m_navigationMap; } }
 
 		/// <summary>
 		/// The playing area's terrain.

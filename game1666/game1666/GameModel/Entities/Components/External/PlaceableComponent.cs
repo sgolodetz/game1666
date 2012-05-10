@@ -65,7 +65,7 @@ namespace game1666.GameModel.Entities.Components.External
 		public PlaceableBlueprint Blueprint { get; private set; }
 
 		/// <summary>
-		/// The amount of construction done (in comparison to the time required to construct the entity).
+		/// The amount of construction done, in the range [0, Blueprint.TimeToConstruct].
 		/// </summary>
 		private int ConstructionDone
 		{
@@ -74,7 +74,7 @@ namespace game1666.GameModel.Entities.Components.External
 		}
 
 		/// <summary>
-		/// Whether or not the entity can be destroyed.
+		/// Whether or not the entity can be destroyed (true by default).
 		/// </summary>
 		public bool Destructible
 		{
@@ -125,8 +125,8 @@ namespace game1666.GameModel.Entities.Components.External
 		/// </summary>
 		public PlaceableComponentState State
 		{
-			get { return (PlaceableComponentState)Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
-			private set { Properties["State"] = value.ToString(); }
+			get			{ return (PlaceableComponentState)Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
+			private set	{ Properties["State"] = value.ToString(); }
 		}
 
 		#endregion
@@ -145,7 +145,7 @@ namespace game1666.GameModel.Entities.Components.External
 		}
 
 		/// <summary>
-		/// Constructs a placement component from its XML representation.
+		/// Constructs a placeable component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public PlaceableComponent(XElement componentElt)
@@ -242,15 +242,23 @@ namespace game1666.GameModel.Entities.Components.External
 		/// </summary>
 		/// <param name="effect">The basic effect to use when drawing.</param>
 		/// <param name="alpha">The alpha value to use when drawing.</param>
-		/// <param name="parent">The parent of the entity (used when rendering entities that have not yet been attached to their parent).</param>
+		/// <param name="parent">The parent of the entity (used when rendering
+		/// entities that have not yet been attached to their parent).</param>
 		public override void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
 		{
-			// If no parent has been specified for the entity, try and
-			// get its parent automatically. If that fails, early out.
+			// We need the navigation map from the entity's parent here because it affects how
+			// we draw things like road segments (these are rendered differently depending on
+			// what entities there are in the grid squares next to them). However, it's not
+			// always possible to just look up the parent in the entity tree - in particular,
+			// entities which are currently being placed are not yet attached to the tree. For
+			// that reason, a parent parameter to Draw is provided that allows the caller to
+			// explicitly specify the correct parent. If they don't supply a parent, we assume
+			// it's because the entity's attached to the tree and try and look up the parent
+			// there. If that fails, we early out.
 			parent = parent ?? Entity.Parent;
 			if(parent == null) return;
 
-			// Determine the model name and orientation to use (see the description on the method).
+			// Determine the model name and orientation to use (see the description on the DetermineModelAndOrientation method).
 			ModelEntityNavigationMap navigationMap = parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
 			if(navigationMap == null) return;
 

@@ -14,6 +14,9 @@ namespace game1666.GameModel.Entities.Base
 	/// </summary>
 	abstract class ModelEntityComponent : EntityComponent<IModelEntity>
 	{
+		//#################### CONSTRUCTORS ####################
+		#region
+
 		/// <summary>
 		/// Constructs a blank component.
 		/// </summary>
@@ -36,5 +39,7 @@ namespace game1666.GameModel.Entities.Base
 		protected ModelEntityComponent(XElement componentElt)
 		:	base(componentElt)
 		{}
+
+		#endregion
 	}
 }
