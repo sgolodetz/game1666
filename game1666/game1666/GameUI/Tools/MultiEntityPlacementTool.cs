@@ -16,7 +16,8 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666.GameUI.Tools
 {
 	/// <summary>
-	/// An instance of this class can be used to place multiple entities in a playing area with a single drag of the mouse.
+	/// An instance of this class can be used to place multiple entities on the terrain of
+	/// an entity that has a playing area with a single drag of the mouse.
 	/// </summary>
 	sealed class MultiEntityPlacementTool : ITool
 	{
@@ -29,9 +30,9 @@ namespace game1666.GameUI.Tools
 		private readonly string m_name;
 
 		/// <summary>
-		/// The playing area in which to place the entity.
+		/// The playing area entity on whose terrain to place the entities.
 		/// </summary>
-		private readonly IModelEntity m_playingArea;
+		private readonly IModelEntity m_playingAreaEntity;
 
 		#endregion
 
@@ -57,11 +58,11 @@ namespace game1666.GameUI.Tools
 		/// Constructs a new multi-entity placement tool.
 		/// </summary>
 		/// <param name="name">The name of the blueprint specifying the kind of entity to place.</param>
-		/// <param name="playingArea">The playing area in which to place the entities.</param>
-		public MultiEntityPlacementTool(string name, IModelEntity playingArea)
+		/// <param name="playingAreaEntity">The playing area entity on whose terrain to place the entities.</param>
+		public MultiEntityPlacementTool(string name, IModelEntity playingAreaEntity)
 		{
 			m_name = name;
-			m_playingArea = playingArea;
+			m_playingAreaEntity = playingAreaEntity;
 		}
 
 		#endregion
@@ -83,12 +84,12 @@ namespace game1666.GameUI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// Determine which grid square we're hovering over (if any).
-			Terrain terrain = m_playingArea.GetComponent(PlayingAreaComponent.StaticGroup).Terrain;
+			Terrain terrain = m_playingAreaEntity.GetComponent(PlayingAreaComponent.StaticGroup).Terrain;
 			Tuple<Vector2i,float> gridSquareAndDistance = terrain.PickGridSquare(ray);
 			Vector2i? gridSquare = gridSquareAndDistance != null ? gridSquareAndDistance.Item1 : (Vector2i?)null;
 
 			// Try to create an entity to be placed at the specified grid square.
-			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, Orientation4.XPOS, terrain, m_playingArea.EntityFactory(), 100);
+			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, Orientation4.XPOS, terrain, m_playingAreaEntity.EntityFactory(), 100);
 
 			// If the left mouse button is pressed and there is an entity to place, try and place it in the playing area.
 			TryPlaceEntity(state);
@@ -124,7 +125,7 @@ namespace game1666.GameUI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				ToolUtil.TryPlaceEntity(Entity, m_playingArea);
+				ToolUtil.TryPlaceEntity(Entity, m_playingAreaEntity);
 			}
 		}
 
