@@ -98,6 +98,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		{
 			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "Settlement");
 			new PlaceableComponent(properties).AddToEntity(entity);
+			// TODO: Add a playing area component here.
 			return entity;
 		}
 
