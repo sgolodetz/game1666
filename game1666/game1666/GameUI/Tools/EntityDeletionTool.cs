@@ -9,7 +9,6 @@ using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
-using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,7 +16,7 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666.GameUI.Tools
 {
 	/// <summary>
-	/// An instance of this class can be used to delete entities from a playing area.
+	/// An instance of this class can be used to delete entities from an entity that has a playing area.
 	/// </summary>
 	sealed class EntityDeletionTool : ITool
 	{
@@ -25,9 +24,9 @@ namespace game1666.GameUI.Tools
 		#region
 
 		/// <summary>
-		/// The playing area from which to delete the entity.
+		/// The playing area entity from which to delete the entity.
 		/// </summary>
-		private readonly IModelEntity m_playingArea;
+		private readonly IModelEntity m_playingAreaEntity;
 
 		#endregion
 
@@ -53,10 +52,10 @@ namespace game1666.GameUI.Tools
 		/// Constructs a new entity deletion tool.
 		/// </summary>
 		/// <param name="name">The name of the tool (dummy parameter).</param>
-		/// <param name="playingArea">The playing area from which to delete the entity.</param>
-		public EntityDeletionTool(string name, IModelEntity playingArea)
+		/// <param name="playingAreaEntity">The playing area entity from which to delete the entity.</param>
+		public EntityDeletionTool(string name, IModelEntity playingAreaEntity)
 		{
-			m_playingArea = playingArea;
+			m_playingAreaEntity = playingAreaEntity;
 		}
 
 		#endregion
@@ -78,14 +77,14 @@ namespace game1666.GameUI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// Find the distance at which the ray hits the terrain, if it does so.
-			PlayingAreaComponent playingAreaComponent = m_playingArea.GetComponent(PlayingAreaComponent.StaticGroup);
+			PlayingAreaComponent playingAreaComponent = m_playingAreaEntity.GetComponent(PlayingAreaComponent.StaticGroup);
 			Tuple<Vector2i,float> gridSquareAndDistance = playingAreaComponent.Terrain.PickGridSquare(ray);
 			float nearestHitDistance = gridSquareAndDistance != null ? gridSquareAndDistance.Item2 : float.MaxValue;
 
 			// Find the nearest placeable entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray
 			// and (c) destructible, and mark it for deletion.
 			Entity = null;
-			foreach(IModelEntity entity in m_playingArea.Children)
+			foreach(IModelEntity entity in m_playingAreaEntity.Children)
 			{
 				PlaceableComponent placeableComponent = entity.GetComponent(PlaceableComponent.StaticGroup);
 				if(placeableComponent == null || !placeableComponent.Destructible) continue;
