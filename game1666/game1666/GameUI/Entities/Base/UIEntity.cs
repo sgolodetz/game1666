@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Entities;
-using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameUI.Entities.Base
@@ -35,11 +34,11 @@ namespace game1666.GameUI.Entities.Base
 		#region
 
 		/// <summary>
-		/// Constructs a UI entity with the specified viewport.
+		/// Constructs a UI entity with the specified archetype and viewport.
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
 		/// <param name="archetype">The archetype of the entity.</param>
-		/// <param name="viewport">The entity's viewport.</param>
+		/// <param name="viewport">The viewport of the entity.</param>
 		public UIEntity(string name, string archetype, Viewport viewport)
 		:	base(name, archetype)
 		{

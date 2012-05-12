@@ -14,6 +14,9 @@ namespace game1666.GameUI.Entities.Base
 	/// </summary>
 	abstract class UIEntityComponent : EntityComponent<IUIEntity>
 	{
+		//#################### CONSTRUCTORS ####################
+		#region
+
 		/// <summary>
 		/// Constructs a blank component.
 		/// </summary>
@@ -36,5 +39,7 @@ namespace game1666.GameUI.Entities.Base
 		protected UIEntityComponent(XElement componentElt)
 		:	base(componentElt)
 		{}
+
+		#endregion
 	}
 }
