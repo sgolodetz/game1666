@@ -39,7 +39,7 @@ namespace game1666.GameUI.Entities.Components.Context
 		public static string StaticGroup { get { return "GameUI/Context"; } }
 
 		/// <summary>
-		/// The world that is being viewed.
+		/// The world that is being viewed by the entities in this UI entity tree.
 		/// </summary>
 		public IModelEntity World { get; private set; }
 
@@ -51,7 +51,7 @@ namespace game1666.GameUI.Entities.Components.Context
 		/// <summary>
 		/// Constructs a UI context component.
 		/// </summary>
-		/// <param name="world">The world that is being viewed.</param>
+		/// <param name="world">The world that is being viewed by the entities in this UI entity tree.</param>
 		/// <param name="entityFactory">A factory that can be used to construct UI entities.</param>
 		public UIContextComponent(IModelEntity world, IUIEntityFactory entityFactory)
 		{
