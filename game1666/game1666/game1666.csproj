@@ -130,6 +130,7 @@
     <Compile Include="GameModel\Entities\Base\IModelEntity.cs" />
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\External\MobileComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\TraversableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Context\ModelContextComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Test\TestComponent.cs" />

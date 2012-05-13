@@ -100,7 +100,7 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
-		public override string Name { get { return "Placement"; } }
+		public override string Name { get { return "Placeable"; } }
 
 		/// <summary>
 		/// The 2D axis-aligned orientation of the entity.

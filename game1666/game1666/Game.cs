@@ -108,6 +108,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpGameViewState", typeof(GameViewStateComponent));
+			ObjectPersister.RegisterSpecialElement("cmpMobile", typeof(MobileComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayInteraction", typeof(PlayInteractionComponent));
