@@ -226,6 +226,18 @@ namespace game1666.Common.Entities
 		}
 
 		/// <summary>
+		/// Checks whether or not the entity has a component with the specified group and name.
+		/// </summary>
+		/// <param name="group">The group that the component should have.</param>
+		/// <param name="name">The name that the component should have.</param>
+		/// <returns>true, if the entity has a component with the specified group and name, or false otherwise.</returns>
+		public bool HasComponent(string group, string name)
+		{
+			IEntityComponent component = null;
+			return m_components.TryGetValue(group, out component) && component.Name == name;
+		}
+
+		/// <summary>
 		/// Gets another entity in this entity's tree by its absolute path (i.e. its path relative to the root entity).
 		/// </summary>
 		/// <param name="path">The absolute path to the other entity.</param>

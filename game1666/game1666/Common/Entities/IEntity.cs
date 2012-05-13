@@ -138,6 +138,14 @@ namespace game1666.Common.Entities
 		TreeEntityType GetRootEntity();
 
 		/// <summary>
+		/// Checks whether or not the entity has a component with the specified group and name.
+		/// </summary>
+		/// <param name="group">The group that the component should have.</param>
+		/// <param name="name">The name that the component should have.</param>
+		/// <returns>true, if the entity has a component with the specified group and name, or false otherwise.</returns>
+		bool HasComponent(string group, string name);
+
+		/// <summary>
 		/// Removes a child from this entity, if present.
 		/// </summary>
 		/// <param name="child">The child to remove.</param>

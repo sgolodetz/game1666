@@ -19,6 +19,16 @@ namespace game1666.GameModel.Entities.Components.External
 	/// </summary>
 	sealed class TraversableComponent : PlaceableComponent
 	{
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The name of the component.
+		/// </summary>
+		public override string Name { get { return "Traversable"; } }
+
+		#endregion
+
 		//#################### CONSTRUCTORS ####################
 		#region
 
