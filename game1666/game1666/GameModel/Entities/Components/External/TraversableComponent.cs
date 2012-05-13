@@ -64,18 +64,9 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <returns>The actual model and orientation to use.</returns>
 		public override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, ModelEntityNavigationMap navigationMap)
 		{
-			int x = Position.X;
-			int y = Position.Y;
-
-			int which = 0;
-			which += IsEntityEntrance(new Vector2i(x, y - 1), navigationMap) ? 1 : 0;
-			which += IsEntityEntrance(new Vector2i(x - 1, y), navigationMap) ? 2 : 0;
-			which += IsEntityEntrance(new Vector2i(x + 1, y), navigationMap) ? 4 : 0;
-			which += IsEntityEntrance(new Vector2i(x, y + 1), navigationMap) ? 8 : 0;
-
 			string suffix = "";
 
-			switch(which)
+			switch(ConstructEntranceBitfield(navigationMap))
 			{
 				case 0:		suffix = "_Single";		orientation = Orientation4.XPOS; break;
 				case 1:		suffix = "_End";		orientation = Orientation4.YNEG; break;
@@ -102,6 +93,24 @@ namespace game1666.GameModel.Entities.Components.External
 
 		//#################### PRIVATE STATIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Constructs a bitfield that compactly specifies the entrances surrounding the traversable entity.
+		/// </summary>
+		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
+		/// <returns>The constructed bitfield.</returns>
+		private int ConstructEntranceBitfield(ModelEntityNavigationMap navigationMap)
+		{
+			int x = Position.X;
+			int y = Position.Y;
+
+			int entranceBitfield = 0;
+			entranceBitfield += IsEntityEntrance(new Vector2i(x, y - 1), navigationMap) ? 1 : 0;
+			entranceBitfield += IsEntityEntrance(new Vector2i(x - 1, y), navigationMap) ? 2 : 0;
+			entranceBitfield += IsEntityEntrance(new Vector2i(x + 1, y), navigationMap) ? 4 : 0;
+			entranceBitfield += IsEntityEntrance(new Vector2i(x, y + 1), navigationMap) ? 8 : 0;
+			return entranceBitfield;
+		}
 
 		/// <summary>
 		/// Checks whether or not the specified grid square is occupied by an entrance to an entity.

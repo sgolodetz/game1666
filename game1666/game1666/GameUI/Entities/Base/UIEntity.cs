@@ -13,7 +13,7 @@ namespace game1666.GameUI.Entities.Base
 	/// <summary>
 	/// An instance of this class represents a component-based entity that is part of the game's UI.
 	/// </summary>
-	class UIEntity : Entity<IUIEntity>, IUIEntity
+	sealed class UIEntity : Entity<IUIEntity>, IUIEntity
 	{
 		//#################### PROPERTIES ####################
 		#region

@@ -21,7 +21,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <summary>
 		/// A lookup table of functions to make entities, keyed by archetype.
 		/// </summary>
-		private static IDictionary<string,Func<IDictionary<string,dynamic>,IModelEntity>> s_entityMakers;
+		private readonly static IDictionary<string,Func<IDictionary<string,dynamic>,IModelEntity>> s_entityMakers;
 
 		#endregion
 

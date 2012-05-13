@@ -248,7 +248,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		private void AddElementButtons()
 		{
-			foreach(var button in m_elementButtons)
+			foreach(var button in ElementButtons)
 			{
 				Entity.AddChild(button);
 			}
@@ -259,7 +259,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		private void AddGroupButtons()
 		{
-			foreach(var button in m_groupButtons)
+			foreach(var button in GroupButtons)
 			{
 				Entity.AddChild(button);
 			}
@@ -430,7 +430,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		private void RemoveElementButtons()
 		{
-			foreach(var button in m_elementButtons)
+			foreach(var button in ElementButtons)
 			{
 				Entity.RemoveChild(button);
 			}
@@ -441,7 +441,7 @@ namespace game1666.GameUI.Entities.Components.Sidebar
 		/// </summary>
 		private void RemoveGroupButtons()
 		{
-			foreach(var button in m_groupButtons)
+			foreach(var button in GroupButtons)
 			{
 				Entity.RemoveChild(button);
 			}

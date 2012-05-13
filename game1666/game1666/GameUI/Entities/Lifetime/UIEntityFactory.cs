@@ -22,7 +22,7 @@ namespace game1666.GameUI.Entities.Lifetime
 		/// <summary>
 		/// A lookup table of functions to make entities, keyed by archetype.
 		/// </summary>
-		private static IDictionary<string,Func<Viewport,IDictionary<string,dynamic>,IUIEntity>> s_entityMakers;
+		private readonly static IDictionary<string,Func<Viewport,IDictionary<string,dynamic>,IUIEntity>> s_entityMakers;
 
 		#endregion
 
