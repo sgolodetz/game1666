@@ -55,6 +55,7 @@
     <Compile Include="Common\ADTs\PriorityQueueTest.cs" />
     <Compile Include="Common\AStar\AStarSearcherTest.cs" />
     <Compile Include="Common\Entities\EntityTest.cs" />
+    <Compile Include="Common\Matchmaking\MatchmakingGraphTest.cs" />
     <Compile Include="Common\Maths\TriangleTest.cs" />
     <Compile Include="Common\Maths\Vector2iTest.cs" />
     <Compile Include="Common\Persistence\PropertyPersisterTest.cs" />
