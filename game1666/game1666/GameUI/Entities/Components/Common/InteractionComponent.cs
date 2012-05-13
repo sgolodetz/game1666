@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666.GameUI.Entities.Components.Common
 {
 	/// <summary>
-	/// An instance of a class deriving from this one provides interaction behaviour to an entity.
+	/// An instance of a class deriving from this one provides interaction behaviour to a UI entity.
 	/// </summary>
 	abstract class InteractionComponent : UIEntityComponent
 	{

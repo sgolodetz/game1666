@@ -68,7 +68,7 @@
       <property name="Target" type="string" value="./settlement:Home"/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
-      <cmpCompositeControlRendering/>
+      <cmpCompositeRendering/>
       <cmpGameViewState/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>
@@ -104,7 +104,7 @@
       <property name="Target" type="string" value="."/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
-      <cmpCompositeControlRendering/>
+      <cmpCompositeRendering/>
       <cmpGameViewState/>
       <uientity>
         <property name="Archetype" type="string" value="PlayViewer"/>

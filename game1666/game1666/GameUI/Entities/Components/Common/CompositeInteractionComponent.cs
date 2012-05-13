@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Input;
 namespace game1666.GameUI.Entities.Components.Common
 {
 	/// <summary>
-	/// An instance of this class provides composite interaction behaviour to an entity.
+	/// An instance of this class provides composite interaction behaviour to a UI entity.
 	/// </summary>
 	sealed class CompositeInteractionComponent : InteractionComponent
 	{
@@ -61,10 +61,7 @@ namespace game1666.GameUI.Entities.Components.Common
 				if(ViewportContains(child.Viewport, state.X, state.Y))
 				{
 					var interactor = child.GetComponent(InteractionComponent.StaticGroup);
-					if(interactor != null)
-					{
-						interactor.OnMouseMoved(state);
-					}
+					if(interactor != null) interactor.OnMouseMoved(state);
 				}
 			}
 		}
@@ -83,10 +80,7 @@ namespace game1666.GameUI.Entities.Components.Common
 				if(ViewportContains(child.Viewport, state.X, state.Y))
 				{
 					var interactor = child.GetComponent(InteractionComponent.StaticGroup);
-					if(interactor != null)
-					{
-						interactor.OnMousePressed(state);
-					}
+					if(interactor != null) interactor.OnMousePressed(state);
 				}
 			}
 		}

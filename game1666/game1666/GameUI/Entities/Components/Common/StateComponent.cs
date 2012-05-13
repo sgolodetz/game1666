@@ -9,7 +9,7 @@ using game1666.GameUI.Entities.Base;
 namespace game1666.GameUI.Entities.Components.Common
 {
 	/// <summary>
-	/// An instance of a class deriving from this one manages the state for an entity.
+	/// An instance of a class deriving from this one manages the state for a UI entity.
 	/// </summary>
 	abstract class StateComponent : UIEntityComponent
 	{

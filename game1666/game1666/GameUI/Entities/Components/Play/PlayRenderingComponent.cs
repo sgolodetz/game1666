@@ -21,7 +21,7 @@ namespace game1666.GameUI.Entities.Components.Play
 	/// <summary>
 	/// An instance of this class draws a play viewer that shows the contents of a playing area (such as the world or a settlement).
 	/// </summary>
-	sealed class PlayRenderingComponent : ControlRenderingComponent
+	sealed class PlayRenderingComponent : RenderingComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

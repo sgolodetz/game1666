@@ -14,7 +14,7 @@ namespace game1666.GameUI.Entities.Components.Button
 	/// <summary>
 	/// An instance of this class provides rendering behaviour to a button.
 	/// </summary>
-	sealed class ButtonRenderingComponent : ControlRenderingComponent
+	sealed class ButtonRenderingComponent : RenderingComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

@@ -173,9 +173,9 @@
     <Compile Include="GameUI\Entities\Components\GameView\GameViewStateComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Play\PlayInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Button\ButtonRenderingComponent.cs" />
-    <Compile Include="GameUI\Entities\Components\Common\CompositeControlRenderingComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\Common\CompositeRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Play\PlayRenderingComponent.cs" />
-    <Compile Include="GameUI\Entities\Components\Common\ControlRenderingComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\Common\RenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\Sidebar\SidebarRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Lifetime\UIEntityFactory.cs" />
     <Compile Include="GameUI\Entities\Util\UIContextExtensions.cs" />

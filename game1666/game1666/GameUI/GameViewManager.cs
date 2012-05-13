@@ -89,7 +89,7 @@ namespace game1666.GameUI
 		/// </summary>
 		public void Draw()
 		{
-			var renderer = m_views[m_currentView].GetComponent(ControlRenderingComponent.StaticGroup);
+			var renderer = m_views[m_currentView].GetComponent(RenderingComponent.StaticGroup);
 			if(renderer != null)
 			{
 				renderer.Draw();
