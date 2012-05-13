@@ -301,6 +301,49 @@ namespace game1666.GameModel.Entities.Components.External
 		}
 
 		/// <summary>
+		/// Checks whether or not the entity containing this component can be validly
+		/// placed on the terrain of the specified playing area entity, bearing in
+		/// mind its footprint, position and orientation.
+		/// </summary>
+		/// <param name="playingAreaEntity">The playing area entity.</param>
+		/// <returns>true, if the entity containing this component can be validly placed, or false otherwise.</returns>
+		public bool IsValidlyPlaced(IModelEntity playingAreaEntity)
+		{
+			var playingAreaComponent = playingAreaEntity.GetComponent(PlayingAreaComponent.StaticGroup);
+			if(playingAreaComponent == null) return false;
+
+			// Step 1:	Check that the entity occupies one or more grid squares, and that all the grid squares it does occupy are empty.
+			IEnumerable<Vector2i> gridSquares = Blueprint.PlacementStrategy.Place
+			(
+				playingAreaComponent.Terrain,
+				Blueprint.Footprint,
+				Position,
+				Orientation
+			);
+
+			if(gridSquares == null || !gridSquares.Any() || playingAreaComponent.NavigationMap.AreOccupied(gridSquares))
+			{
+				return false;
+			}
+
+			// Step 2:	Check that there are currently no mobile entities in the grid squares that the entity would occupy.
+			//			Note that this isn't an especially efficient way of going about this, but it will do for now.
+			//			A better approach would involve keeping track of which mobile entities are in which grid squares,
+			//			and then checking per-grid square rather than per-entity.
+			/*var gridSquareSet = new HashSet<Vector2i>(gridSquares);
+			foreach(IMobileEntity mobile in Mobiles)
+			{
+				if(gridSquareSet.Contains(mobile.Position.ToVector2i()))
+				{
+					return false;
+				}
+			}*/
+
+			// If we didn't find any problems, then the entity is validly placed.
+			return true;
+		}
+
+		/// <summary>
 		/// Updates the component based on elapsed time and user input.
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>

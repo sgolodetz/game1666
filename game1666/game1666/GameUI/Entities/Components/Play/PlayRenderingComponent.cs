@@ -92,9 +92,9 @@ namespace game1666.GameUI.Entities.Components.Play
 			m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 
 			// Draw the terrain.
-			var internalComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
-			if(internalComponent == null) return;
-			DrawTerrain(internalComponent.Terrain);
+			var playingAreaComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
+			if(playingAreaComponent == null) return;
+			DrawTerrain(playingAreaComponent.Terrain);
 
 			// For debugging purposes only.
 			//DrawTerrainQuadtree(internalComponent.Terrain.QuadtreeRoot);
@@ -117,10 +117,10 @@ namespace game1666.GameUI.Entities.Components.Play
 				if(tool.Name.StartsWith("Place:") && tool.Entity != null)
 				{
 					ExternalComponent externalComponent = tool.Entity.GetComponent(ExternalComponent.StaticGroup);
-					if(externalComponent != null)
+					PlaceableComponent placeableComponent = tool.Entity.GetComponent(PlaceableComponent.StaticGroup);
+					if(externalComponent != null && placeableComponent != null)
 					{
-						PlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
-						float alpha = playingAreaComponent.IsValidlyPlaced(tool.Entity) ? 1f : 0.35f;
+						float alpha = placeableComponent.IsValidlyPlaced(targetEntity) ? 1f : 0.35f;
 						externalComponent.Draw(m_entityEffect, alpha, targetEntity);
 					}
 				}
