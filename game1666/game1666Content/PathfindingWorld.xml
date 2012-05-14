@@ -68,6 +68,9 @@
         <property name="Orientation" type="float" value="0"/>
         <property name="Position" type="Vector2" value="0.5,2.5"/>
       </cmpMobile>
+      <cmpPerson>
+        <property name="State" type="string" value="RESTING"/>
+      </cmpPerson>
     </entity>
   </entity>
 </entity>

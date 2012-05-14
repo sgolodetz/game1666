@@ -133,6 +133,7 @@
     <Compile Include="GameModel\Entities\Components\External\MobileComponent.cs" />
     <Compile Include="GameModel\Entities\Components\External\TraversableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Context\ModelContextComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\Internal\PersonComponent.cs" />
     <Compile Include="GameModel\Entities\Components\Test\TestComponent.cs" />
     <Compile Include="Common\Maths\Constants.cs" />
     <Compile Include="Common\Maths\MathUtil.cs" />
