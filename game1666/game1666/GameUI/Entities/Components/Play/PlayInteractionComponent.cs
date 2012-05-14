@@ -102,20 +102,43 @@ namespace game1666.GameUI.Entities.Components.Play
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			// Look up the playing area component of the target of the game view containing the play viewer.
+			Camera camera = Entity.GetComponent(PlayStateComponent.StaticGroup).Camera;
+			KeyboardState keyState = Keyboard.GetState();
+
+			UpdateCameraFromKeyboard(camera, keyState, gameTime);
+
+			// Note: Mouse-based input is only active when the left shift key is pressed - it would be annoying otherwise.
+			if(keyState.IsKeyDown(Keys.LeftShift))
+			{
+				UpdateCameraFromMouse(camera, gameTime);
+			}
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Updates the camera based on elapsed time and keyboard input.
+		/// </summary>
+		/// <param name="camera">The camera.</param>
+		/// <param name="keyState">The state of the keyboard.</param>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		private void UpdateCameraFromKeyboard(Camera camera, KeyboardState keyState, GameTime gameTime)
+		{
+			// Look up the terrain heightmap for the target of the game view containing the play viewer.
 			var playingArea = Entity.Parent.TargetComponent(PlayingAreaComponent.StaticGroup);
 			if(playingArea == null) return;
+			float[,] heightmap = playingArea.Terrain.Heightmap;
 
 			// Determine the linear, horizontal angular, and vertical angular rates for keyboard-based movement.
-			float[,] heightmap = playingArea.Terrain.Heightmap;
 			float scalingFactor = Math.Max(heightmap.GetLength(0), heightmap.GetLength(1));
 			float keyboardLinearRate = 0.0005f * scalingFactor * gameTime.ElapsedGameTime.Milliseconds;
 			float keyboardAngularRateH = 0.002f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 			float keyboardAngularRateV = 0.0015f * gameTime.ElapsedGameTime.Milliseconds;	// in radians
 
 			// Alter the camera based on keyboard input.
-			Camera camera = Entity.GetComponent(PlayStateComponent.StaticGroup).Camera;
-			KeyboardState keyState = Keyboard.GetState();
 			if(keyState.IsKeyDown(Keys.W))		camera.MoveN(keyboardLinearRate);
 			if(keyState.IsKeyDown(Keys.S))		camera.MoveN(-keyboardLinearRate);
 			if(keyState.IsKeyDown(Keys.A))		camera.MoveU(keyboardLinearRate);
@@ -126,32 +149,28 @@ namespace game1666.GameUI.Entities.Components.Play
 			if(keyState.IsKeyDown(Keys.Right))	camera.Rotate(Vector3.UnitZ, -keyboardAngularRateH);
 			if(keyState.IsKeyDown(Keys.Up))		camera.Rotate(camera.U, keyboardAngularRateV);
 			if(keyState.IsKeyDown(Keys.Down))	camera.Rotate(camera.U, -keyboardAngularRateV);
+		}
 
-			// Note: Mouse-based input is only active when the left shift key is pressed - it would be annoying otherwise.
-			if(keyState.IsKeyDown(Keys.LeftShift))
-			{
-				// Determine the scaling factor that controls the angular rate for mouse-based movement.
-				float mouseAngularScalingFactor = 0.000005f * gameTime.ElapsedGameTime.Milliseconds;
+		/// <summary>
+		/// Updates the camera based on elapsed time and mouse input.
+		/// </summary>
+		/// <param name="camera">The camera.</param>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
+		private void UpdateCameraFromMouse(Camera camera, GameTime gameTime)
+		{
+			// Determine the scaling factor that controls the angular rate for mouse-based movement.
+			float mouseAngularScalingFactor = 0.000005f * gameTime.ElapsedGameTime.Milliseconds;
 
-				// Determine (half) the size of the region in the centre of the screen where mouse-based movement is inactive.
-				int mouseInactiveHalfWidth = Entity.Viewport.Width / 8;
-				int mouseInactiveHalfHeight = Entity.Viewport.Height / 8;
+			// Determine (half) the size of the region in the centre of the screen where mouse-based movement is inactive.
+			int mouseInactiveHalfWidth = Entity.Viewport.Width / 8;
+			int mouseInactiveHalfHeight = Entity.Viewport.Height / 8;
 
-				// Provided the cursor is outside the inactive region, alter the camera based on mouse input.
-				MouseState mouseState = Mouse.GetState();
-				float xOffset = Entity.Viewport.X + Entity.Viewport.Width * 0.5f - mouseState.X;
-				float yOffset = mouseState.Y - (Entity.Viewport.Y + Entity.Viewport.Height * 0.5f);
-
-				if(Math.Abs(xOffset) > mouseInactiveHalfWidth)
-				{
-					camera.Rotate(Vector3.UnitZ, xOffset * mouseAngularScalingFactor);
-				}
-
-				if(Math.Abs(yOffset) > mouseInactiveHalfHeight)
-				{
-					camera.Rotate(camera.U, yOffset * mouseAngularScalingFactor);
-				}
-			}
+			// Provided the cursor is outside the inactive region, alter the camera based on mouse input.
+			MouseState mouseState = Mouse.GetState();
+			float xOffset = Entity.Viewport.X + Entity.Viewport.Width * 0.5f - mouseState.X;
+			float yOffset = mouseState.Y - (Entity.Viewport.Y + Entity.Viewport.Height * 0.5f);
+			if(Math.Abs(xOffset) > mouseInactiveHalfWidth)	camera.Rotate(Vector3.UnitZ, xOffset * mouseAngularScalingFactor);
+			if(Math.Abs(yOffset) > mouseInactiveHalfHeight)	camera.Rotate(camera.U, yOffset * mouseAngularScalingFactor);
 		}
 
 		#endregion

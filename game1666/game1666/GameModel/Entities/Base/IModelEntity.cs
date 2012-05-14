@@ -11,6 +11,5 @@ namespace game1666.GameModel.Entities.Base
 	/// <summary>
 	/// An instance of a class implementing this interface represents a component-based entity that is part of the game model.
 	/// </summary>
-	interface IModelEntity : IEntity<IModelEntity>, IEquatable<IModelEntity>
-	{}
+	interface IModelEntity : IEntity<IModelEntity>, IEquatable<IModelEntity> {}
 }
