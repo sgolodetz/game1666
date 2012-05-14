@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace game1666.GameModel.Blueprints
+namespace game1666.GameModel.Entities.Blueprints
 {
 	/// <summary>
 	/// An instance of this class represents a blueprint for an object.

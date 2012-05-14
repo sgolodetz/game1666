@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.PlacementStrategies;
 
-namespace game1666.GameModel.Blueprints
+namespace game1666.GameModel.Entities.Blueprints
 {
 	/// <summary>
 	/// An instance of this class represents a blueprint for the placeable component of an entity.

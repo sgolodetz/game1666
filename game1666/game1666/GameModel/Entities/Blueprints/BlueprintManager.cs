@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using game1666.Common.Persistence;
 
-namespace game1666.GameModel.Blueprints
+namespace game1666.GameModel.Entities.Blueprints
 {
 	/// <summary>
 	/// This class manages blueprints for the entities in the game.

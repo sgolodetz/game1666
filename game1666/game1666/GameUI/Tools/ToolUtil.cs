@@ -6,8 +6,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using game1666.Common.Maths;
-using game1666.GameModel.Blueprints;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Util;
