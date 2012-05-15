@@ -12,11 +12,11 @@ using game1666.Common.Messaging;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
+using game1666.GameModel.Entities.Components.Extensions;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Messages;
 using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Entities.PlacementStrategies;
-using game1666.GameModel.Entities.Util;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

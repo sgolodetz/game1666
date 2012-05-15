@@ -7,7 +7,7 @@ using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components.Context;
 
-namespace game1666.GameUI.Entities.Util
+namespace game1666.GameUI.Entities.Components.Extensions
 {
 	/// <summary>
 	/// This class provides extension methods for entities and components in a
@@ -70,16 +70,6 @@ namespace game1666.GameUI.Entities.Util
 		public static IModelEntity World(this IUIEntity entity)
 		{
 			return entity.Context().World;
-		}
-
-		/// <summary>
-		/// Gets the world being viewed by the game view containing the specified UI component.
-		/// </summary>
-		/// <param name="component">The UI component.</param>
-		/// <returns>The world being viewed by the containing game view.</returns>
-		public static IModelEntity World(this UIEntityComponent component)
-		{
-			return component.Context().World;
 		}
 
 		#endregion
