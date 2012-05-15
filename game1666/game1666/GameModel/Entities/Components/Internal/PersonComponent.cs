@@ -5,6 +5,8 @@
 
 using System;
 using System.Xml.Linq;
+using game1666.Common.Tasks;
+using game1666.GameModel.Entities.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components.Internal
@@ -23,6 +25,16 @@ namespace game1666.GameModel.Entities.Components.Internal
 	/// </summary>
 	sealed class PersonComponent : InternalComponent
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// The person's internal task manager.
+		/// </summary>
+		private readonly TaskManager m_taskManager = new TaskManager();
+
+		#endregion
+
 		//#################### PROPERTIES ####################
 		#region
 
@@ -71,13 +83,17 @@ namespace game1666.GameModel.Entities.Components.Internal
 		{
 			switch(State)
 			{
-				case PersonComponentState.RESTING:
+				case PersonComponentState.ACTIVE:
 				{
-					// TODO: Assign the person a default task based on the time of day.
+					// Try and execute the current task. If we run out of tasks, switch to the resting state.
+					State = m_taskManager.Execute(gameTime) ? PersonComponentState.ACTIVE : PersonComponentState.RESTING;
 					break;
 				}
-				default:	// PersonComponentState.ACTIVE
+				default:	// PersonComponentState.RESTING
 				{
+					// TODO: Assign the person a default task based on the time of day, and switch to the active state.
+					m_taskManager.AddTask(new TaskGoToPosition(new Vector2(0, 0), TaskPriority.LOW));
+					State = PersonComponentState.ACTIVE;
 					break;
 				}
 			}

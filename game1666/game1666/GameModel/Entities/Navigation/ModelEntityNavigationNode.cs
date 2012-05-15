@@ -192,8 +192,19 @@ namespace game1666.GameModel.Entities.Navigation
 				}
 			}*/
 
-			// TODO
-			yield break;
+			foreach(Vector2i neighbourPos in NeighbourPositions)
+			{
+				if(0 <= neighbourPos.X && neighbourPos.X < m_nodeGrid.GetLength(1) &&
+				   0 <= neighbourPos.Y && neighbourPos.Y < m_nodeGrid.GetLength(0))
+				{
+					ModelEntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
+					IModelEntity neighbourEntity = neighbour.OccupyingEntity;
+					if(true/*TODO*/)
+					{
+						yield return neighbour;
+					}
+				}
+			}
 		}
 
 		#endregion
@@ -209,8 +220,8 @@ namespace game1666.GameModel.Entities.Navigation
 		{
 			// Note: The values are chosen to be powers of two deliberately - see their use in CostToNeighbour.
 			if(OccupyingEntity.HasComponent("GameModel/External", "Traversable"))	return 4;
-			else if(OccupyingEntity != null)												return 2;
-			else																			return 1;
+			else if(OccupyingEntity != null)										return 2;
+			else																	return 1;
 		}
 
 		#endregion
