@@ -4,11 +4,23 @@
  ***/
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 using game1666.Common.ADTs;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Tasks
 {
+	/// <summary>
+	/// The different possible priorities for a task.
+	/// </summary>
+	enum TaskPriority
+	{
+		VERY_HIGH,
+		HIGH,
+		MEDIUM,
+		LOW
+	}
+
 	/// <summary>
 	/// An instance of this class represents a composite task that contains a priority queue.
 	/// Sub-tasks will be executed in order of priority, with failed tasks being discarded.
@@ -29,16 +41,6 @@ namespace game1666.Common.Tasks
 		/// </summary>
 		private readonly PriorityQueue<Task,TaskPriority, int> m_taskQueue = new PriorityQueue<Task,TaskPriority,int>(Comparer<TaskPriority>.Default);
 
-		//#################### PROPERTIES ####################
-		#region
-
-		/// <summary>
-		/// The priority of the composite task.
-		/// </summary>
-		public override TaskPriority Priority { get { return m_currentTask.Priority; } }
-
-		#endregion
-
 		//#################### PUBLIC METHODS ####################
 		#region
 
@@ -46,10 +48,11 @@ namespace game1666.Common.Tasks
 		/// Adds a task to the queue.
 		/// </summary>
 		/// <param name="task">The task to add.</param>
-		public void AddTask(Task task)
+		/// <param name="priority">The priority of the task.</param>
+		public void AddTask(Task task, TaskPriority priority)
 		{
 			const int dummy = -1;
-			m_taskQueue.Insert(task, task.Priority, dummy);
+			m_taskQueue.Insert(task, priority, dummy);
 		}
 
 		/// <summary>
@@ -74,6 +77,16 @@ namespace game1666.Common.Tasks
 			}
 
 			return TaskState.SUCCEEDED;
+		}
+
+		/// <summary>
+		/// Saves the task to XML.
+		/// </summary>
+		/// <returns>An XML representation of the task.</returns>
+		public override XElement SaveToXML()
+		{
+			// TODO
+			return null;
 		}
 
 		#endregion

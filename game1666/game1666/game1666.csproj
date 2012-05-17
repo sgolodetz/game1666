@@ -121,6 +121,7 @@
     <Compile Include="Common\Messaging\MessageRule.cs" />
     <Compile Include="Common\Messaging\MessageSystem.cs" />
     <Compile Include="Common\Tasks\PriorityQueueTask.cs" />
+    <Compile Include="Common\Tasks\RetryTask.cs" />
     <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityDestructionManager.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityFactory.cs" />

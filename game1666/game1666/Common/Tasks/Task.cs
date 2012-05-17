@@ -4,21 +4,12 @@
  ***/
 
 using System;
+using System.Xml.Linq;
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Tasks
 {
-	/// <summary>
-	/// The different possible priorities for a task.
-	/// </summary>
-	enum TaskPriority
-	{
-		VERY_HIGH,
-		HIGH,
-		MEDIUM,
-		LOW
-	}
-
 	/// <summary>
 	/// The different possible states in which a task can be.
 	/// </summary>
@@ -32,18 +23,8 @@ namespace game1666.Common.Tasks
 	/// <summary>
 	/// An instance of a class deriving from this one represents a task to be performed.
 	/// </summary>
-	abstract class Task : IEquatable<Task>
+	abstract class Task : IPersistableObject, IEquatable<Task>
 	{
-		//#################### PROPERTIES ####################
-		#region
-
-		/// <summary>
-		/// The priority of the task.
-		/// </summary>
-		public abstract TaskPriority Priority { get; }
-
-		#endregion
-
 		//#################### PUBLIC ABSTRACT METHODS ####################
 		#region
 
@@ -53,6 +34,12 @@ namespace game1666.Common.Tasks
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
 		public abstract TaskState Execute(GameTime gameTime);
+
+		/// <summary>
+		/// Saves the task to XML.
+		/// </summary>
+		/// <returns>An XML representation of the task.</returns>
+		public abstract XElement SaveToXML();
 
 		#endregion
 

@@ -3,6 +3,8 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
+using System.Xml.Linq;
 using game1666.Common.Tasks;
 using Microsoft.Xna.Framework;
 
@@ -12,28 +14,8 @@ namespace game1666.GameModel.Entities.Tasks
 	/// An instance of this class represents a task that causes a mobile
 	/// entity to head towards a specific position.
 	/// </summary>
-	sealed class TaskGoToPosition : Task
+	sealed class TaskGoToPosition : RetryTask
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The priority of the task.
-		/// </summary>
-		private readonly TaskPriority m_priority;
-
-		#endregion
-
-		//#################### PROPERTIES ####################
-		#region
-
-		/// <summary>
-		/// The priority of the task.
-		/// </summary>
-		public override TaskPriority Priority { get { return m_priority; } }
-
-		#endregion
-
 		//#################### CONSTRUCTORS ####################
 		#region
 
@@ -41,11 +23,10 @@ namespace game1666.GameModel.Entities.Tasks
 		/// Constructs a 'go to position' task from a target position.
 		/// </summary>
 		/// <param name="targetPosition">The target position.</param>
-		/// <param name="priority">The priority of the task.</param>
-		public TaskGoToPosition(Vector2 targetPosition, TaskPriority priority)
+		public TaskGoToPosition(Vector2 targetPosition)
+		:	base(Int32.MaxValue)
 		{
 			// TODO
-			m_priority = priority;
 		}
 
 		#endregion
@@ -54,14 +35,28 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Executes the task based on the amount of elapsed time, and returns its state after execution.
+		/// Saves the task to XML.
 		/// </summary>
-		/// <param name="gameTime">Provides a snapshot of timing values.</param>
-		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
-		public override TaskState Execute(GameTime gameTime)
+		/// <returns>An XML representation of the task.</returns>
+		public override XElement SaveToXML()
 		{
 			// TODO
-			return TaskState.FAILED;
+			return null;
+		}
+
+		#endregion
+
+		//#################### PROTECTED METHODS ####################
+		#region
+
+		/// <summary>
+		/// Generates a 'follow path' sub-task that does the actual work.
+		/// </summary>
+		/// <returns>The generated sub-task.</returns>
+		protected override Task GenerateSubTask()
+		{
+			// TODO
+			return null;
 		}
 
 		#endregion
