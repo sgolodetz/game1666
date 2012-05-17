@@ -24,7 +24,7 @@ namespace game1666.Common.Tasks
 		/// <summary>
 		/// Any tasks that are to be performed after the current one finishes.
 		/// </summary>
-		private SortedDictionary<TaskPriority,LinkedList<ITask>> m_taskQueue = new SortedDictionary<TaskPriority,LinkedList<ITask>>();
+		private readonly SortedDictionary<TaskPriority,LinkedList<ITask>> m_taskQueue = new SortedDictionary<TaskPriority,LinkedList<ITask>>();
 
 		#endregion
 
