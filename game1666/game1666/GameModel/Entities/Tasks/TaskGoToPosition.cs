@@ -12,7 +12,7 @@ namespace game1666.GameModel.Entities.Tasks
 	/// An instance of this class represents a task that causes a mobile
 	/// entity to head towards a specific position.
 	/// </summary>
-	sealed class TaskGoToPosition : ITask
+	sealed class TaskGoToPosition : Task
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -20,7 +20,17 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// The priority of the task.
 		/// </summary>
-		public TaskPriority Priority { get; private set; }
+		private readonly TaskPriority m_priority;
+
+		#endregion
+
+		//#################### PROPERTIES ####################
+		#region
+
+		/// <summary>
+		/// The priority of the task.
+		/// </summary>
+		public override TaskPriority Priority { get { return m_priority; } }
 
 		#endregion
 
@@ -35,7 +45,7 @@ namespace game1666.GameModel.Entities.Tasks
 		public TaskGoToPosition(Vector2 targetPosition, TaskPriority priority)
 		{
 			// TODO
-			Priority = priority;
+			m_priority = priority;
 		}
 
 		#endregion
@@ -48,7 +58,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
-		public TaskState Execute(GameTime gameTime)
+		public override TaskState Execute(GameTime gameTime)
 		{
 			// TODO
 			return TaskState.FAILED;

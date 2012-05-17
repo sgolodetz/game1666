@@ -120,7 +120,7 @@
     <Compile Include="Common\Messaging\MessageFilterFactory.cs" />
     <Compile Include="Common\Messaging\MessageRule.cs" />
     <Compile Include="Common\Messaging\MessageSystem.cs" />
-    <Compile Include="Common\Tasks\TaskManager.cs" />
+    <Compile Include="Common\Tasks\PriorityQueueTask.cs" />
     <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityDestructionManager.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityFactory.cs" />
@@ -169,7 +169,7 @@
     <Compile Include="GameModel\Entities\Tasks\TaskGoToPosition.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />
-    <Compile Include="Common\Tasks\ITask.cs" />
+    <Compile Include="Common\Tasks\Task.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />

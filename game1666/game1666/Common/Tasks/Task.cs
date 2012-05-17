@@ -1,8 +1,9 @@
 ﻿/***
- * game1666: ITask.cs
+ * game1666: Task.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Tasks
@@ -29,9 +30,9 @@ namespace game1666.Common.Tasks
 	}
 
 	/// <summary>
-	/// An instance of a class implementing this interface represents a task to be performed.
+	/// An instance of a class deriving from this one represents a task to be performed.
 	/// </summary>
-	interface ITask
+	abstract class Task : IEquatable<Task>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -39,11 +40,11 @@ namespace game1666.Common.Tasks
 		/// <summary>
 		/// The priority of the task.
 		/// </summary>
-		TaskPriority Priority { get; }
+		public abstract TaskPriority Priority { get; }
 
 		#endregion
 
-		//#################### PUBLIC METHODS ####################
+		//#################### PUBLIC ABSTRACT METHODS ####################
 		#region
 
 		/// <summary>
@@ -51,7 +52,22 @@ namespace game1666.Common.Tasks
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
-		TaskState Execute(GameTime gameTime);
+		public abstract TaskState Execute(GameTime gameTime);
+
+		#endregion
+
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Tests whether or not this task is equal to another one.
+		/// </summary>
+		/// <param name="rhs">The other task.</param>
+		/// <returns>true, if the two tasks are equal, or false otherwise.</returns>
+		public bool Equals(Task rhs)
+		{
+			return object.ReferenceEquals(this, rhs);
+		}
 
 		#endregion
 	}
