@@ -1,4 +1,5 @@
 bin/
+NDependOut/
 obj/
 /Help/
 /TestResults/
