@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <blueprints>
+    <mobileblueprint>
+      <property name="Name" type="string" value="Citizen"/>
+      <property name="Archetype" type="string" value="Citizen"/>
+      <property name="AnimationSpeed" type="float" value="1.0"/>
+      <property name="MaxAltitudeChange" type="float" value="0.5"/>
+      <property name="Model" type="string" value="Citizen"/>
+      <property name="MovementSpeed" type="float" value="0.5"/>
+    </mobileblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="DirtTrack"/>
       <property name="Archetype" type="string" value="RoadSegment"/>

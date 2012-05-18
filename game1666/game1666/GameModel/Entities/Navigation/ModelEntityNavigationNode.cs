@@ -9,6 +9,8 @@ using System.Linq;
 using game1666.Common.AStar;
 using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Blueprints;
+using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 
@@ -175,22 +177,7 @@ namespace game1666.GameModel.Entities.Navigation
 		/// <returns>The neighbours of the node.</returns>
 		public override IEnumerable<ModelEntityNavigationNode> Neighbours(IDictionary<string,dynamic> properties)
 		{
-			/*MobileEntityBlueprint blueprint = BlueprintManager.GetBlueprint(entityProperties["Blueprint"]);
-
-			foreach(Vector2i neighbourPos in NeighbourPositions)
-			{
-				if(0 <= neighbourPos.X && neighbourPos.X < m_nodeGrid.GetLength(1) &&
-				   0 <= neighbourPos.Y && neighbourPos.Y < m_nodeGrid.GetLength(0))
-				{
-					EntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
-					IPlaceableEntity neighbourEntity = neighbour.OccupyingEntity;
-					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&
-					   (neighbourEntity == null || neighbourEntity.Entrances.Contains(neighbourPos)))
-					{
-						yield return neighbour;
-					}
-				}
-			}*/
+			MobileBlueprint blueprint = BlueprintManager.GetBlueprint(properties["Blueprint"]);
 
 			foreach(Vector2i neighbourPos in NeighbourPositions)
 			{
@@ -199,7 +186,10 @@ namespace game1666.GameModel.Entities.Navigation
 				{
 					ModelEntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
 					IModelEntity neighbourEntity = neighbour.OccupyingEntity;
-					if(true/*TODO*/)
+					var neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(PlaceableComponent.StaticGroup) : null;
+
+					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&
+					   (neighbourEntity == null || (neighbourPlaceable != null && neighbourPlaceable.Entrances.Contains(neighbourPos))))
 					{
 						yield return neighbour;
 					}

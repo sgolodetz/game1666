@@ -65,6 +65,7 @@
       <property name="Archetype" type="string" value="Citizen"/>
       <property name="Name" type="string" value="walker:Dawlish"/>
       <cmpMobile>
+        <property name="Blueprint" type="string" value="Citizen"/>
         <property name="Orientation" type="float" value="0"/>
         <property name="Position" type="Vector2" value="0.5,2.5"/>
       </cmpMobile>

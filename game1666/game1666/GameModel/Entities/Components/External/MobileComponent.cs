@@ -6,6 +6,7 @@
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Components.Internal;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -28,6 +29,11 @@ namespace game1666.GameModel.Entities.Components.External
 			get { return Properties["Altitude"]; }
 			set { Properties["Altitude"] = value; }
 		}
+
+		/// <summary>
+		/// The blueprint for the entity.
+		/// </summary>
+		public MobileBlueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// The name of the component.
@@ -55,7 +61,9 @@ namespace game1666.GameModel.Entities.Components.External
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public MobileComponent(XElement componentElt)
 		:	base(componentElt)
-		{}
+		{
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
+		}
 
 		#endregion
 
