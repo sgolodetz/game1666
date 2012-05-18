@@ -38,7 +38,7 @@ namespace game1666.Common.Entities
 		/// <summary>
 		/// The properties of the component.
 		/// </summary>
-		protected IDictionary<string,dynamic> Properties { get; private set; }
+		public IDictionary<string,dynamic> Properties { get; private set; }
 
 		#endregion
 

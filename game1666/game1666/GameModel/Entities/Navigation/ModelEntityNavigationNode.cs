@@ -186,7 +186,7 @@ namespace game1666.GameModel.Entities.Navigation
 				{
 					ModelEntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
 					IModelEntity neighbourEntity = neighbour.OccupyingEntity;
-					var neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(PlaceableComponent.StaticGroup) : null;
+					PlaceableComponent neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(PlaceableComponent.StaticGroup) : null;
 
 					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&
 					   (neighbourEntity == null || (neighbourPlaceable != null && neighbourPlaceable.Entrances.Contains(neighbourPos))))
@@ -209,9 +209,12 @@ namespace game1666.GameModel.Entities.Navigation
 		private int ClassifyOccupyingEntity()
 		{
 			// Note: The values are chosen to be powers of two deliberately - see their use in CostToNeighbour.
-			if(OccupyingEntity.HasComponent("GameModel/External", "Traversable"))	return 4;
-			else if(OccupyingEntity != null)										return 2;
-			else																	return 1;
+			if(OccupyingEntity != null)
+			{
+				if(OccupyingEntity.HasComponent("GameModel/External", "Traversable")) return 4;
+				else return 2;
+			}
+			else return 1;
 		}
 
 		#endregion
