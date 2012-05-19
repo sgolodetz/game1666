@@ -99,7 +99,7 @@ namespace game1666.GameModel.Entities.Components
 				default:	// PersonComponentState.RESTING
 				{
 					// TODO: Assign the person a default task based on the time of day, and switch to the active state.
-					m_queueTask.AddTask(this.TaskFactory().MakeGoToPositionTask(Entity, new Vector2(7.5f, 7.5f)), TaskPriority.LOW);
+					m_queueTask.AddTask(this.TaskFactory().MakeGoToPlaceableTask(Entity, Entity.GetEntityByAbsolutePath("./settlement:Stuartopolis/house:Wibble")), TaskPriority.LOW);
 					State = PersonComponentState.ACTIVE;
 					break;
 				}

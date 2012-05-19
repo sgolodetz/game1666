@@ -15,6 +15,20 @@ namespace game1666.GameModel.Entities.Tasks
 	/// </summary>
 	sealed class TaskFactory : ITaskFactory
 	{
+		//#################### PUBLIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a task that will make the specified mobile entity go to the specified placeable entity.
+		/// </summary>
+		/// <param name="entity">The mobile entity.</param>
+		/// <param name="targetEntity">Its target placeable entity.</param>
+		/// <returns>The constructed task.</returns>
+		public Task MakeGoToPlaceableTask(ModelEntity entity, ModelEntity targetEntity)
+		{
+			return new TaskGoToPlaceable(entity, targetEntity);
+		}
+
 		/// <summary>
 		/// Constructs a task that will make the specified entity go to the specified target position.
 		/// </summary>
@@ -25,5 +39,7 @@ namespace game1666.GameModel.Entities.Tasks
 		{
 			return new TaskGoToPosition(entity, targetPosition);
 		}
+
+		#endregion
 	}
 }
