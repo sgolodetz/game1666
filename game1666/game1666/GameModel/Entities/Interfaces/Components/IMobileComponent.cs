@@ -29,12 +29,12 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 		/// <summary>
 		/// The orientation of the entity (as an anti-clockwise angle in radians, where 0 means facing right).
 		/// </summary>
-		float Orientation { get; }
+		float Orientation { get; set; }
 
 		/// <summary>
 		/// The position of the entity (relative to the origin of the containing entity).
 		/// </summary>
-		Vector2 Position { get; }
+		Vector2 Position { get; set; }
 
 		#endregion
 	}

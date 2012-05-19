@@ -172,6 +172,7 @@
     <Compile Include="GameModel\Entities\PlacementStrategies\PlacementStrategyRequireFlatGround.cs" />
     <Compile Include="GameModel\Entities\Extensions\ModelEntityComponentExtensions.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskFactory.cs" />
+    <Compile Include="GameModel\Entities\Tasks\TaskFollowPath.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskGoToPosition.cs" />
     <Compile Include="GameModel\Navigation\INavigationMap.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />

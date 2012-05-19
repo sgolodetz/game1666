@@ -14,8 +14,7 @@ using Microsoft.Xna.Framework;
 namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
-	/// An instance of this class represents a task that causes a mobile
-	/// entity to head towards a specific position.
+	/// An instance of this class represents a task that causes a mobile entity to head towards a specific position.
 	/// </summary>
 	sealed class TaskGoToPosition : RetryTask
 	{
@@ -23,7 +22,7 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// The entity that will move.
+		/// The entity.
 		/// </summary>
 		private readonly ModelEntity m_entity;
 
@@ -40,7 +39,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Constructs a 'go to position' task.
 		/// </summary>
-		/// <param name="entity">The entity that will move.</param>
+		/// <param name="entity">The entity.</param>
 		/// <param name="targetPosition">The target position.</param>
 		public TaskGoToPosition(ModelEntity entity, Vector2 targetPosition)
 		:	base(Int32.MaxValue)
@@ -86,18 +85,8 @@ namespace game1666.GameModel.Entities.Tasks
 				mobileComponent.Properties
 			);
 
-			// If a path has been found, return a movement strategy that will cause the entity to follow it, else return null.
-			if(path != null)
-			{
-				/*return new MovementStrategyFollowPath(path)
-				{
-					EntityProperties = this.EntityProperties,
-					NavigationMap = this.NavigationMap
-				};*/
-				// TODO
-				return null;
-			}
-			else return null;
+			// If a path has been found, return a task that will cause the entity to follow it, else return null.
+			return path != null ? new TaskFollowPath(m_entity, path) : null;
 		}
 
 		#endregion

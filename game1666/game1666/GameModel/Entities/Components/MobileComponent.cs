@@ -48,12 +48,20 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The orientation of the entity (as an anti-clockwise angle in radians, where 0 means facing right).
 		/// </summary>
-		public float Orientation { get { return Properties["Orientation"]; } }
+		public float Orientation
+		{
+			get	{ return Properties["Orientation"]; }
+			set	{ Properties["Orientation"] = value; }
+		}
 
 		/// <summary>
 		/// The position of the entity (relative to the origin of the containing entity).
 		/// </summary>
-		public Vector2 Position { get { return Properties["Position"]; } }
+		public Vector2 Position
+		{
+			get	{ return Properties["Position"]; }
+			set	{ Properties["Position"] = value; }
+		}
 
 		#endregion
 

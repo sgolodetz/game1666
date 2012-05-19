@@ -211,7 +211,7 @@ namespace game1666.GameModel.Entities.Components
 			// Note: The values are chosen to be powers of two deliberately - see their use in CostToNeighbour.
 			if(OccupyingEntity != null)
 			{
-				if(OccupyingEntity.HasComponent("GameModel/External", "Traversable")) return 4;
+				if(OccupyingEntity.HasComponent(ModelEntityComponentGroups.EXTERNAL, "Traversable")) return 4;
 				else return 2;
 			}
 			else return 1;
