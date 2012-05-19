@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameModel.Entities.Components.External
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// An instance of a class deriving from this one provides "external" behaviour to a

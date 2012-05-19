@@ -4,7 +4,7 @@
  ***/
 
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components.Context;
+using game1666.GameModel.Entities.Components;
 
 namespace game1666.GameModel.Entities.Extensions
 {

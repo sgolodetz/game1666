@@ -7,11 +7,10 @@ using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
-using game1666.GameModel.Entities.Components.Internal;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameModel.Entities.Components.External
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class allows an entity to move around on a terrain.

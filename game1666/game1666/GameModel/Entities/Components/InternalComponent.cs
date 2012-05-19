@@ -6,7 +6,7 @@
 using System.Xml.Linq;
 using game1666.GameModel.Entities.Base;
 
-namespace game1666.GameModel.Entities.Components.Internal
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// An instance of a class deriving from this one provides "internal" behaviour to a

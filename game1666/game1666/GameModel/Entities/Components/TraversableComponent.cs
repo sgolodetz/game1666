@@ -11,7 +11,7 @@ using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Navigation;
 
-namespace game1666.GameModel.Entities.Components.External
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// A traversable component is a placeable component that provides special rendering

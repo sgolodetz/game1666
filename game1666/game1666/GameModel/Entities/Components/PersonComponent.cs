@@ -6,10 +6,9 @@
 using System;
 using System.Xml.Linq;
 using game1666.Common.Tasks;
-using game1666.GameModel.Entities.Components.Extensions;
 using Microsoft.Xna.Framework;
 
-namespace game1666.GameModel.Entities.Components.Internal
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// The various possible states of a person component.

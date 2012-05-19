@@ -6,7 +6,7 @@
 using System;
 using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Entities.Extensions;
 using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;

@@ -7,7 +7,7 @@ using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework;
 
-namespace game1666.GameModel.Entities.Components.Context
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// An instance of this component provides model context objects such as the message system and

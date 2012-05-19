@@ -6,7 +6,7 @@
 using System;
 using System.Xml.Linq;
 using game1666.Common.UI;
-using game1666.GameModel.Entities.Components.Internal;
+using game1666.GameModel.Entities.Components;
 using game1666.GameUI.Entities.Components.Common;
 using game1666.GameUI.Entities.Components.Extensions;
 using game1666.GameUI.Entities.Components.GameView;

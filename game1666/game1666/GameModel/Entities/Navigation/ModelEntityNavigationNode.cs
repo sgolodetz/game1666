@@ -10,7 +10,7 @@ using game1666.Common.AStar;
 using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
-using game1666.GameModel.Entities.Components.External;
+using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 

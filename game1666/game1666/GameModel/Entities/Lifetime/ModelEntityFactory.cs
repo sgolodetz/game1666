@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components.External;
+using game1666.GameModel.Entities.Components;
 
 namespace game1666.GameModel.Entities.Lifetime
 {

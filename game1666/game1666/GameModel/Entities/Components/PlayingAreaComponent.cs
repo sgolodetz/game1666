@@ -6,14 +6,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using game1666.Common.Maths;
 using game1666.Common.Persistence;
-using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Terrains;
 
-namespace game1666.GameModel.Entities.Components.Internal
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class provides playing area behaviour to an entity such
