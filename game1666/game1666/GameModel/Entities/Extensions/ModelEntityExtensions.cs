@@ -1,10 +1,11 @@
 ﻿/***
- * game1666: IModelEntityExtensions.cs
+ * game1666: ModelEntityExtensions.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Components;
+using game1666.GameModel.Entities.Interfaces.Context;
 
 namespace game1666.GameModel.Entities.Extensions
 {
@@ -15,7 +16,7 @@ namespace game1666.GameModel.Entities.Extensions
 	/// the world's message system, entity factory and entity destruction queue,
 	/// which are shared between all of the entities within a given world.
 	/// </summary>
-	static class IModelEntityExtensions
+	static class ModelEntityExtensions
 	{
 		//#################### PUBLIC STATIC METHODS ####################
 		#region

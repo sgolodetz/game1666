@@ -7,6 +7,7 @@ using game1666.Common.ADTs;
 using game1666.Common.Messaging;
 using game1666.Common.Util;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Context;
 using game1666.GameModel.Entities.Messages;
 
 namespace game1666.GameModel.Entities.Lifetime

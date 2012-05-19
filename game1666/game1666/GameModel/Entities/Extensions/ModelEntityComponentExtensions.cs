@@ -5,8 +5,10 @@
 
 using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Components;
+using game1666.GameModel.Entities.Interfaces.Context;
 
-namespace game1666.GameModel.Entities.AbstractComponents
+namespace game1666.GameModel.Entities.Extensions
 {
 	/// <summary>
 	/// This class provides extension methods for components in a model entity tree

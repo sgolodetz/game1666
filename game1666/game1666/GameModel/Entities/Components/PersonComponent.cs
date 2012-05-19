@@ -6,7 +6,9 @@
 using System;
 using System.Xml.Linq;
 using game1666.Common.Tasks;
-using game1666.GameModel.Entities.AbstractComponents;
+using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Extensions;
+using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components

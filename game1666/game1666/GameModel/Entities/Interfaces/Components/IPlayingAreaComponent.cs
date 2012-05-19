@@ -8,7 +8,7 @@ using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 
-namespace game1666.GameModel.Entities.AbstractComponents
+namespace game1666.GameModel.Entities.Interfaces.Components
 {
 	/// <summary>
 	/// An instance of a class implementing this interface provides playing area

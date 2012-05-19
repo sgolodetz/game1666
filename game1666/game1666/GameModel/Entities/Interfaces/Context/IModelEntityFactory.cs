@@ -4,8 +4,9 @@
  ***/
 
 using System.Collections.Generic;
+using game1666.GameModel.Entities.Base;
 
-namespace game1666.GameModel.Entities.Base
+namespace game1666.GameModel.Entities.Interfaces.Context
 {
 	/// <summary>
 	/// An instance of a class implementing this interface can be used to construct model entities.

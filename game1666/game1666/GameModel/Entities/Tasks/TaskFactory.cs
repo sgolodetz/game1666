@@ -5,6 +5,7 @@
 
 using game1666.Common.Tasks;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Context;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Tasks

@@ -5,9 +5,9 @@
 
 using game1666.Common.Entities;
 using game1666.Common.Messaging;
-using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Context;
 
-namespace game1666.GameModel.Entities.AbstractComponents
+namespace game1666.GameModel.Entities.Interfaces.Components
 {
 	/// <summary>
 	/// An instance of a class implementing this interface provides model context objects such as the

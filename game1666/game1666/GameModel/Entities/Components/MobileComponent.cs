@@ -5,9 +5,9 @@
 
 using System.Xml.Linq;
 using game1666.Common.UI;
-using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
+using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

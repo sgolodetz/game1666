@@ -6,8 +6,8 @@
 using System;
 using game1666.Common.Maths;
 using game1666.Common.UI;
-using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

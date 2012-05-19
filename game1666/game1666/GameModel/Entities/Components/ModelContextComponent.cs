@@ -4,8 +4,9 @@
  ***/
 
 using game1666.Common.Messaging;
-using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Interfaces.Components;
+using game1666.GameModel.Entities.Interfaces.Context;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components

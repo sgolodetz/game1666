@@ -5,9 +5,9 @@
 
 using System;
 using game1666.Common.Maths;
-using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Extensions;
+using game1666.GameModel.Entities.Interfaces.Components;
 using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

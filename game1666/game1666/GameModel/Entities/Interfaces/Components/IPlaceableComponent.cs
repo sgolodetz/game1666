@@ -10,7 +10,7 @@ using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Navigation;
 
-namespace game1666.GameModel.Entities.AbstractComponents
+namespace game1666.GameModel.Entities.Interfaces.Components
 {
 	/// <summary>
 	/// The various possible states of a placeable component.
