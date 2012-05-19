@@ -94,7 +94,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="alpha">The alpha value to use when drawing.</param>
 		/// <param name="parent">The parent of the entity (used when rendering
 		/// entities that have not yet been attached to their parent).</param>
-		public void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
+		public void Draw(BasicEffect effect, float alpha, ModelEntity parent = null)
 		{
 			// TEMPORARY
 			var pos = new Vector3(Position, Altitude);

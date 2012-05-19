@@ -85,7 +85,7 @@ namespace game1666.GameModel.Entities.AbstractComponents
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, INavigationMap<IModelEntity> navigationMap);
+		Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, INavigationMap<ModelEntity> navigationMap);
 
 		/// <summary>
 		/// Sets the state of the component to IN_DESTRUCTION, which will
@@ -100,7 +100,7 @@ namespace game1666.GameModel.Entities.AbstractComponents
 		/// </summary>
 		/// <param name="playingAreaEntity">The playing area entity.</param>
 		/// <returns>true, if the entity containing this component can be validly placed, or false otherwise.</returns>
-		bool IsValidlyPlaced(IModelEntity playingAreaEntity);
+		bool IsValidlyPlaced(ModelEntity playingAreaEntity);
 
 		#endregion
 	}

@@ -36,7 +36,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <summary>
 		/// The world that is being viewed by the entities in this UI entity tree.
 		/// </summary>
-		public IModelEntity World { get; private set; }
+		public ModelEntity World { get; private set; }
 
 		#endregion
 
@@ -48,7 +48,7 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		/// <param name="world">The world that is being viewed by the entities in this UI entity tree.</param>
 		/// <param name="entityFactory">A factory that can be used to construct UI entities.</param>
-		public UIContextComponent(IModelEntity world, IUIEntityFactory entityFactory)
+		public UIContextComponent(ModelEntity world, IUIEntityFactory entityFactory)
 		{
 			World = world;
 			EntityFactory = entityFactory;

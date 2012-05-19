@@ -18,7 +18,7 @@ namespace game1666.GameUI.Tools
 		/// <summary>
 		/// A relevant entity that should be drawn while this tool is active (e.g. for entity placement tools, the entity being placed).
 		/// </summary>
-		IModelEntity Entity { get; }
+		ModelEntity Entity { get; }
 
 		/// <summary>
 		/// The name of the tool, e.g. "Place:Dwelling" or "Delete".

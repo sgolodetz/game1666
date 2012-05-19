@@ -37,7 +37,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		public INavigationMap<IModelEntity> NavigationMap { get; private set; }
+		public INavigationMap<ModelEntity> NavigationMap { get; private set; }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -56,7 +56,7 @@ namespace game1666.GameModel.Entities.Components
 		public PlayingAreaComponent(Terrain terrain)
 		{
 			Terrain = terrain;
-			NavigationMap = new NavigationMap<IModelEntity,ModelEntityNavigationNode>(Terrain);
+			NavigationMap = new NavigationMap<ModelEntity,ModelEntityNavigationNode>(Terrain);
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace game1666.GameModel.Entities.Components
 		:	base(componentElt)
 		{
 			Terrain = ObjectPersister.LoadChildObjects<Terrain>(componentElt).First();
-			NavigationMap = new NavigationMap<IModelEntity,ModelEntityNavigationNode>(Terrain);
+			NavigationMap = new NavigationMap<ModelEntity,ModelEntityNavigationNode>(Terrain);
 		}
 
 		#endregion

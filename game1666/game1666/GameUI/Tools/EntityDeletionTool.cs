@@ -25,7 +25,7 @@ namespace game1666.GameUI.Tools
 		/// <summary>
 		/// The playing area entity from which to delete the entity.
 		/// </summary>
-		private readonly IModelEntity m_playingAreaEntity;
+		private readonly ModelEntity m_playingAreaEntity;
 
 		#endregion
 
@@ -35,7 +35,7 @@ namespace game1666.GameUI.Tools
 		/// <summary>
 		/// The entity currently being targeted for deletion by the user (if any).
 		/// </summary>
-		public IModelEntity Entity { get; private set; }
+		public ModelEntity Entity { get; private set; }
 
 		/// <summary>
 		/// The name of the tool.
@@ -52,7 +52,7 @@ namespace game1666.GameUI.Tools
 		/// </summary>
 		/// <param name="name">The name of the tool (dummy parameter).</param>
 		/// <param name="playingAreaEntity">The playing area entity from which to delete the entity.</param>
-		public EntityDeletionTool(string name, IModelEntity playingAreaEntity)
+		public EntityDeletionTool(string name, ModelEntity playingAreaEntity)
 		{
 			m_playingAreaEntity = playingAreaEntity;
 		}
@@ -83,7 +83,7 @@ namespace game1666.GameUI.Tools
 			// Find the nearest placeable entity (if any) that is (a) not occluded by the terrain, (b) hit by the ray
 			// and (c) destructible, and mark it for deletion.
 			Entity = null;
-			foreach(IModelEntity entity in m_playingAreaEntity.Children)
+			foreach(ModelEntity entity in m_playingAreaEntity.Children)
 			{
 				IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 				if(placeableComponent == null || !placeableComponent.Destructible) continue;

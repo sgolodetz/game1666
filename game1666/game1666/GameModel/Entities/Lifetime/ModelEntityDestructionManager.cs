@@ -23,7 +23,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <summary>
 		/// The priority queue of entities waiting for destruction.
 		/// </summary>
-		private readonly PriorityQueue<IModelEntity,float,bool> m_destructionQueue = new PriorityQueue<IModelEntity,float,bool>(new GreaterComparer<float>());
+		private readonly PriorityQueue<ModelEntity,float,bool> m_destructionQueue = new PriorityQueue<ModelEntity,float,bool>(new GreaterComparer<float>());
 
 		#endregion
 
@@ -73,7 +73,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="priority">Its destruction priority.</param>
-		public void QueueForDestruction(IModelEntity entity, float priority = 1f)
+		public void QueueForDestruction(ModelEntity entity, float priority = 1f)
 		{
 			if(!m_destructionQueue.Contains(entity))
 			{

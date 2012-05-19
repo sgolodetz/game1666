@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
 using System.Xml.Linq;
 using game1666.Common.Entities;
 
@@ -11,7 +12,7 @@ namespace game1666.GameModel.Entities.Base
 	/// <summary>
 	/// An instance of this class represents a component-based entity that is part of the game model.
 	/// </summary>
-	sealed class ModelEntity : Entity<IModelEntity>, IModelEntity
+	sealed class ModelEntity : Entity<ModelEntity>, IEquatable<ModelEntity>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -19,7 +20,7 @@ namespace game1666.GameModel.Entities.Base
 		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
 		/// </summary>
-		public override IModelEntity Self { get { return this; } }
+		public override ModelEntity Self { get { return this; } }
 
 		#endregion
 
@@ -53,7 +54,7 @@ namespace game1666.GameModel.Entities.Base
 		/// </summary>
 		/// <param name="rhs">The other entity.</param>
 		/// <returns>true, if the two entities are equal, or false otherwise.</returns>
-		public bool Equals(IModelEntity rhs)
+		public bool Equals(ModelEntity rhs)
 		{
 			return object.ReferenceEquals(this, rhs);
 		}

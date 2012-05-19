@@ -21,7 +21,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <summary>
 		/// A lookup table of functions to make entities, keyed by archetype.
 		/// </summary>
-		private readonly static IDictionary<string,Func<IDictionary<string,dynamic>,IModelEntity>> s_entityMakers;
+		private readonly static IDictionary<string,Func<IDictionary<string,dynamic>,ModelEntity>> s_entityMakers;
 
 		#endregion
 
@@ -33,7 +33,7 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		static ModelEntityFactory()
 		{
-			s_entityMakers = new Dictionary<string,Func<IDictionary<string,dynamic>,IModelEntity>>();
+			s_entityMakers = new Dictionary<string,Func<IDictionary<string,dynamic>,ModelEntity>>();
 			s_entityMakers.Add("House", MakeHouse);
 			s_entityMakers.Add("RoadSegment", MakeRoadSegment);
 			s_entityMakers.Add("Settlement", MakeSettlement);
@@ -50,9 +50,9 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// <param name="archetype">The archetype of the model entity (e.g. Village).</param>
 		/// <param name="properties">The properties of the various components of the entity.</param>
 		/// <returns>The constructed entity.</returns>
-		public IModelEntity MakeEntity(string archetype, IDictionary<string,dynamic> properties)
+		public ModelEntity MakeEntity(string archetype, IDictionary<string,dynamic> properties)
 		{
-			Func<IDictionary<string,dynamic>,IModelEntity> entityMaker = null;
+			Func<IDictionary<string,dynamic>,ModelEntity> entityMaker = null;
 			if(s_entityMakers.TryGetValue(archetype, out entityMaker))
 			{
 				return entityMaker(properties);
@@ -70,9 +70,9 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="properties">The properties of the various components of the house.</param>
 		/// <returns>The constructed house.</returns>
-		private static IModelEntity MakeHouse(IDictionary<string,dynamic> properties)
+		private static ModelEntity MakeHouse(IDictionary<string,dynamic> properties)
 		{
-			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "House");
+			ModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "House");
 			new PlaceableComponent(properties).AddToEntity(entity);
 			return entity;
 		}
@@ -82,9 +82,9 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="properties">The properties of the various components of the road segment.</param>
 		/// <returns>The constructed road segment.</returns>
-		private static IModelEntity MakeRoadSegment(IDictionary<string,dynamic> properties)
+		private static ModelEntity MakeRoadSegment(IDictionary<string,dynamic> properties)
 		{
-			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "RoadSegment");
+			ModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "RoadSegment");
 			new TraversableComponent(properties).AddToEntity(entity);
 			return entity;
 		}
@@ -94,9 +94,9 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// </summary>
 		/// <param name="properties">The properties of the various components of the settlement.</param>
 		/// <returns>The constructed settlement.</returns>
-		private static IModelEntity MakeSettlement(IDictionary<string,dynamic> properties)
+		private static ModelEntity MakeSettlement(IDictionary<string,dynamic> properties)
 		{
-			IModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "Settlement");
+			ModelEntity entity = new ModelEntity(Guid.NewGuid().ToString(), "Settlement");
 			new PlaceableComponent(properties).AddToEntity(entity);
 			// TODO: Add a playing area component here.
 			return entity;

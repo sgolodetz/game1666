@@ -25,7 +25,7 @@ namespace game1666.GameModel.Entities.Extensions
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>Its world's entity factory.</returns>
-		public static IModelEntityFactory EntityFactory(this IModelEntity entity)
+		public static IModelEntityFactory EntityFactory(this ModelEntity entity)
 		{
 			return entity.Context().EntityFactory;
 		}
@@ -40,7 +40,7 @@ namespace game1666.GameModel.Entities.Extensions
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>Its world's context component.</returns>
-		private static IModelContextComponent Context(this IModelEntity entity)
+		private static IModelContextComponent Context(this ModelEntity entity)
 		{
 			return entity.GetRootEntity().GetComponent(ModelEntityComponentGroups.CONTEXT);
 		}

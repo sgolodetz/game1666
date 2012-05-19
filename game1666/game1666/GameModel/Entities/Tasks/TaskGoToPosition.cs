@@ -25,7 +25,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// The entity that will move.
 		/// </summary>
-		private readonly IModelEntity m_entity;
+		private readonly ModelEntity m_entity;
 
 		/// <summary>
 		/// The target position.
@@ -42,7 +42,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// </summary>
 		/// <param name="entity">The entity that will move.</param>
 		/// <param name="targetPosition">The target position.</param>
-		public TaskGoToPosition(IModelEntity entity, Vector2 targetPosition)
+		public TaskGoToPosition(ModelEntity entity, Vector2 targetPosition)
 		:	base(Int32.MaxValue)
 		{
 			m_entity = entity;

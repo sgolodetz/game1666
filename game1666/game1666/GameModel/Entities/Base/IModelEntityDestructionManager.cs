@@ -36,7 +36,7 @@ namespace game1666.GameModel.Entities.Base
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="priority">Its destruction priority.</param>
-		void QueueForDestruction(IModelEntity entity, float priority = 1f);
+		void QueueForDestruction(ModelEntity entity, float priority = 1f);
 
 		#endregion
 	}

@@ -73,7 +73,7 @@ namespace game1666.GameUI.Entities.Components
 		public override void Draw()
 		{
 			// Look up the target entity of the game view containing the play viewer.
-			IModelEntity targetEntity = Entity.Parent.Target();
+			ModelEntity targetEntity = Entity.Parent.Target();
 			if(targetEntity == null) return;
 
 			// Prepare for rendering.
@@ -98,7 +98,7 @@ namespace game1666.GameUI.Entities.Components
 			// Draw the children of the target entity, making sure that if one is
 			// liable to be deleted, we render it slightly transparently.
 			ITool tool = Tool;
-			foreach(IModelEntity child in targetEntity.Children)
+			foreach(ModelEntity child in targetEntity.Children)
 			{
 				IExternalComponent childExternalComponent = child.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 				if(childExternalComponent == null) return;

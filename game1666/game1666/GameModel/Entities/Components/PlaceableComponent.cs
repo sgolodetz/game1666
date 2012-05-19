@@ -226,7 +226,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, INavigationMap<IModelEntity> navigationMap)
+		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, INavigationMap<ModelEntity> navigationMap)
 		{
 			return Tuple.Create(modelName, orientation);
 		}
@@ -238,7 +238,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="alpha">The alpha value to use when drawing.</param>
 		/// <param name="parent">The parent of the entity (used when rendering
 		/// entities that have not yet been attached to their parent).</param>
-		public void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
+		public void Draw(BasicEffect effect, float alpha, ModelEntity parent = null)
 		{
 			// We need the navigation map from the entity's parent here because it affects how
 			// we draw things like road segments (these are rendered differently depending on
@@ -253,7 +253,7 @@ namespace game1666.GameModel.Entities.Components
 			if(parent == null) return;
 
 			// Determine the model name and orientation to use (see the description on the DetermineModelAndOrientation method).
-			INavigationMap<IModelEntity> navigationMap = parent.GetComponent(ModelEntityComponentGroups.INTERNAL).NavigationMap;
+			INavigationMap<ModelEntity> navigationMap = parent.GetComponent(ModelEntityComponentGroups.INTERNAL).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);
@@ -301,7 +301,7 @@ namespace game1666.GameModel.Entities.Components
 		/// </summary>
 		/// <param name="playingAreaEntity">The playing area entity.</param>
 		/// <returns>true, if the entity containing this component can be validly placed, or false otherwise.</returns>
-		public bool IsValidlyPlaced(IModelEntity playingAreaEntity)
+		public bool IsValidlyPlaced(ModelEntity playingAreaEntity)
 		{
 			IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ModelEntityComponentGroups.INTERNAL);
 			if(playingAreaComponent == null) return false;

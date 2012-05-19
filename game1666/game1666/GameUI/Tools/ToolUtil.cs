@@ -54,7 +54,7 @@ namespace game1666.GameUI.Tools
 		/// <param name="factory">The factory to be used to create the entity.</param>
 		/// <param name="percentComplete">The percentage of the entity that has been constructed.</param>
 		/// <returns>The entity, if it can be created, or null otherwise.</returns>
-		public static IModelEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, IModelEntityFactory factory, int percentComplete)
+		public static ModelEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, IModelEntityFactory factory, int percentComplete)
 		{
 			// If there's no grid square on which to place the entity's hotspot, early out.
 			if(gridSquare == null) return null;
@@ -86,7 +86,7 @@ namespace game1666.GameUI.Tools
 		/// <param name="entity">The entity.</param>
 		/// <param name="playingAreaEntity">The entity that has the playing area.</param>
 		/// <returns>true, if the placement succeeded, or false otherwise.</returns>
-		public static bool TryPlaceEntity(IModelEntity entity, IModelEntity playingAreaEntity)
+		public static bool TryPlaceEntity(ModelEntity entity, ModelEntity playingAreaEntity)
 		{
 			Contract.Requires(entity != null);
 			Contract.Requires(playingAreaEntity != null);

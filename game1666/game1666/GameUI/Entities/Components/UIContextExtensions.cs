@@ -36,7 +36,7 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		/// <param name="entity">The UI entity whose target we wish to determine.</param>
 		/// <returns>The UI entity's target, if any, or null otherwise.</returns>
-		public static IModelEntity Target(this IUIEntity entity)
+		public static ModelEntity Target(this IUIEntity entity)
 		{
 			dynamic dynamicTargetPath = null;
 			if(entity.Properties.TryGetValue("Target", out dynamicTargetPath))
@@ -56,7 +56,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <returns>The specified component of the UI entity's target, if any, or null otherwise.</returns>
 		public static dynamic TargetComponent(this IUIEntity entity, string componentGroup)
 		{
-			IModelEntity targetEntity = entity.Target();
+			ModelEntity targetEntity = entity.Target();
 			if(targetEntity == null) return null;
 			return targetEntity.GetComponent(componentGroup);
 		}
@@ -66,7 +66,7 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		/// <param name="entity">The UI entity.</param>
 		/// <returns>The world being viewed by the containing game view.</returns>
-		public static IModelEntity World(this IUIEntity entity)
+		public static ModelEntity World(this IUIEntity entity)
 		{
 			return entity.Context().World;
 		}

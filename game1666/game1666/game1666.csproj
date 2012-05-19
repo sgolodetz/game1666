@@ -134,7 +134,6 @@
     <Compile Include="Common\Entities\Entity.cs" />
     <Compile Include="GameModel\Entities\AbstractComponents\ModelEntityComponent.cs" />
     <Compile Include="Common\Entities\EntityComponent.cs" />
-    <Compile Include="GameModel\Entities\Base\IModelEntity.cs" />
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
     <Compile Include="GameModel\Entities\Blueprints\MobileBlueprint.cs" />

@@ -44,7 +44,7 @@ namespace game1666
 		/// <summary>
 		/// The game world (the top-level entity in the game model tree).
 		/// </summary>
-		private IModelEntity m_world;
+		private ModelEntity m_world;
 
 		#endregion
 
@@ -179,11 +179,11 @@ namespace game1666
 		/// </summary>
 		/// <param name="filename">The name of the XML file.</param>
 		/// <returns>The loaded world.</returns>
-		private static IModelEntity LoadWorldFromFile(string filename)
+		private static ModelEntity LoadWorldFromFile(string filename)
 		{
 			XDocument doc = XDocument.Load(filename);
 			XElement entityElt = doc.Element("entity");
-			IModelEntity world = new ModelEntity(entityElt);
+			ModelEntity world = new ModelEntity(entityElt);
 
 			new ModelContextComponent
 			(

@@ -23,7 +23,7 @@ namespace game1666.GameModel.Entities.AbstractComponents
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		INavigationMap<IModelEntity> NavigationMap { get; }
+		INavigationMap<ModelEntity> NavigationMap { get; }
 
 		/// <summary>
 		/// The playing area's terrain.

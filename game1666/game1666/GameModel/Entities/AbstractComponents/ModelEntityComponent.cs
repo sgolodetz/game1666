@@ -13,7 +13,7 @@ namespace game1666.GameModel.Entities.AbstractComponents
 	/// <summary>
 	/// An instance of a class deriving from this one represents a component that can form part of a model entity.
 	/// </summary>
-	abstract class ModelEntityComponent : EntityComponent<IModelEntity>
+	abstract class ModelEntityComponent : EntityComponent<ModelEntity>
 	{
 		//#################### CONSTRUCTORS ####################
 		#region

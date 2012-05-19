@@ -19,6 +19,6 @@ namespace game1666.GameModel.Entities.Base
 		/// <param name="entity">The entity that will move.</param>
 		/// <param name="targetPosition">Its target position.</param>
 		/// <returns>The constructed task.</returns>
-		Task MakeGoToPositionTask(IModelEntity entity, Vector2 targetPosition);
+		Task MakeGoToPositionTask(ModelEntity entity, Vector2 targetPosition);
 	}
 }

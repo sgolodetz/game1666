@@ -32,7 +32,7 @@ namespace game1666.GameUI.Tools
 		/// <summary>
 		/// The playing area entity on whose terrain to place the entities.
 		/// </summary>
-		private readonly IModelEntity m_playingAreaEntity;
+		private readonly ModelEntity m_playingAreaEntity;
 
 		#endregion
 
@@ -42,7 +42,7 @@ namespace game1666.GameUI.Tools
 		/// <summary>
 		/// The entity currently being placed by the user (if any).
 		/// </summary>
-		public IModelEntity Entity { get; private set; }
+		public ModelEntity Entity { get; private set; }
 
 		/// <summary>
 		/// The name of the tool.
@@ -59,7 +59,7 @@ namespace game1666.GameUI.Tools
 		/// </summary>
 		/// <param name="name">The name of the blueprint specifying the kind of entity to place.</param>
 		/// <param name="playingAreaEntity">The playing area entity on whose terrain to place the entities.</param>
-		public MultiEntityPlacementTool(string name, IModelEntity playingAreaEntity)
+		public MultiEntityPlacementTool(string name, ModelEntity playingAreaEntity)
 		{
 			m_name = name;
 			m_playingAreaEntity = playingAreaEntity;

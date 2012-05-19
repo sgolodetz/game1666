@@ -19,7 +19,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class represents a node in the A* search space used for entity pathfinding.
 	/// </summary>
-	sealed class ModelEntityNavigationNode : AStarNode<ModelEntityNavigationNode>, INavigationNode<IModelEntity,ModelEntityNavigationNode>
+	sealed class ModelEntityNavigationNode : AStarNode<ModelEntityNavigationNode>, INavigationNode<ModelEntity,ModelEntityNavigationNode>
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -66,7 +66,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The entity occupying the grid square for which this is the navigation node (if any), or null otherwise.
 		/// </summary>
-		public IModelEntity OccupyingEntity { get; set; }
+		public ModelEntity OccupyingEntity { get; set; }
 
 		/// <summary>
 		/// The position of the node on the terrain.
@@ -185,7 +185,7 @@ namespace game1666.GameModel.Entities.Components
 				   0 <= neighbourPos.Y && neighbourPos.Y < m_nodeGrid.GetLength(0))
 				{
 					ModelEntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
-					IModelEntity neighbourEntity = neighbour.OccupyingEntity;
+					ModelEntity neighbourEntity = neighbour.OccupyingEntity;
 					IPlaceableComponent neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(ModelEntityComponentGroups.EXTERNAL) : null;
 
 					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&

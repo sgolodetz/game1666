@@ -27,7 +27,7 @@ namespace game1666.GameModel.Entities.AbstractComponents
 		/// <param name="effect">The basic effect to use when drawing.</param>
 		/// <param name="alpha">The alpha value to use when drawing.</param>
 		/// <param name="parent">The parent of the entity (used when rendering entities that have not yet been attached to their parent).</param>
-		void Draw(BasicEffect effect, float alpha, IModelEntity parent = null);
+		void Draw(BasicEffect effect, float alpha, ModelEntity parent = null);
 
 		#endregion
 	}
