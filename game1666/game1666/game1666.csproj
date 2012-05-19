@@ -125,6 +125,7 @@
     <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityDestructionManager.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityFactory.cs" />
+    <Compile Include="GameModel\Entities\Base\ITaskFactory.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntity.cs" />
     <Compile Include="Common\Entities\Entity.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntityComponent.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="GameModel\Entities\PlacementStrategies\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\PlacementStrategyRequireFlatGround.cs" />
     <Compile Include="GameModel\Entities\Components\Extensions\ModelEntityComponentExtensions.cs" />
+    <Compile Include="GameModel\Entities\Tasks\TaskFactory.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskGoToPosition.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />

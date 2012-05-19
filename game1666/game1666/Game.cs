@@ -14,6 +14,7 @@ using game1666.GameModel.Entities.Components.External;
 using game1666.GameModel.Entities.Components.Internal;
 using game1666.GameModel.Entities.Lifetime;
 using game1666.GameModel.Entities.PlacementStrategies;
+using game1666.GameModel.Entities.Tasks;
 using game1666.GameModel.Terrains;
 using game1666.GameUI;
 using game1666.GameUI.Entities.Base;
@@ -188,7 +189,14 @@ namespace game1666
 			XDocument doc = XDocument.Load(filename);
 			XElement entityElt = doc.Element("entity");
 			IModelEntity world = new ModelEntity(entityElt);
-			new ModelContextComponent(new ModelEntityFactory(), new ModelEntityDestructionManager()).AddToEntity(world);
+
+			new ModelContextComponent
+			(
+				new ModelEntityFactory(),
+				new ModelEntityDestructionManager(),
+				new TaskFactory()
+			).AddToEntity(world);
+
 			world.AddDescendantsFromXML(entityElt);
 			return world;
 		}

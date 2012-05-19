@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Tasks;
-using game1666.GameModel.Entities.Navigation;
+using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Components.External;
+using game1666.GameModel.Entities.Components.Internal;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Tasks
@@ -22,14 +24,9 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// The properties of the mobile component of the entity that will be moving.
+		/// The entity that will move.
 		/// </summary>
-		private readonly IDictionary<string,dynamic> m_mobileComponentProperties;
-
-		/// <summary>
-		/// The navigation map for the terrain on which the entity will be moving.
-		/// </summary>
-		private readonly ModelEntityNavigationMap m_navigationMap;
+		private IModelEntity m_entity;
 
 		/// <summary>
 		/// The target position.
@@ -42,17 +39,15 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a 'go to position' task from a target position.
+		/// Constructs a 'go to position' task.
 		/// </summary>
+		/// <param name="entity">The entity that will move.</param>
 		/// <param name="targetPosition">The target position.</param>
-		/// <param name="entityProperties">The properties of the mobile component of the entity that will be moving.</param>
-		/// <param name="navigationMap">The navigation map for the terrain on which the entity will be moving.</param>
-		public TaskGoToPosition(Vector2 targetPosition, IDictionary<string,dynamic> mobileComponentProperties, ModelEntityNavigationMap navigationMap)
+		public TaskGoToPosition(IModelEntity entity, Vector2 targetPosition)
 		:	base(Int32.MaxValue)
 		{
+			m_entity = entity;
 			m_targetPosition = targetPosition;
-			m_mobileComponentProperties = mobileComponentProperties;
-			m_navigationMap = navigationMap;
 		}
 
 		#endregion
@@ -81,9 +76,16 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <returns>The generated sub-task.</returns>
 		protected override Task GenerateSubTask()
 		{
+			MobileComponent mobileComponent = m_entity.GetComponent(MobileComponent.StaticGroup);
+			PlayingAreaComponent playingAreaComponent = m_entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup);
+
 			// Try and find a path to the target position.
-			Vector2 pos = m_mobileComponentProperties["Position"];
-			Queue<Vector2> path = m_navigationMap.FindPath(pos, new List<Vector2> { m_targetPosition }, m_mobileComponentProperties);
+			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath
+			(
+				mobileComponent.Position,
+				new List<Vector2> { m_targetPosition },
+				mobileComponent.Properties
+			);
 
 			// If a path has been found, return a movement strategy that will cause the entity to follow it, else return null.
 			if(path != null)

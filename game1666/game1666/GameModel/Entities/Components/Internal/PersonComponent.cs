@@ -4,12 +4,9 @@
  ***/
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Tasks;
-using game1666.GameModel.Entities.Components.External;
-using game1666.GameModel.Entities.Navigation;
-using game1666.GameModel.Entities.Tasks;
+using game1666.GameModel.Entities.Components.Extensions;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components.Internal
@@ -95,9 +92,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 				default:	// PersonComponentState.RESTING
 				{
 					// TODO: Assign the person a default task based on the time of day, and switch to the active state.
-					IDictionary<string,dynamic> mobileComponentProperties = Entity.GetComponent(MobileComponent.StaticGroup).Properties;
-					ModelEntityNavigationMap navigationMap = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
-					m_queueTask.AddTask(new TaskGoToPosition(new Vector2(7.5f, 7.5f), mobileComponentProperties, navigationMap), TaskPriority.LOW);
+					m_queueTask.AddTask(this.TaskFactory().MakeGoToPositionTask(Entity, new Vector2(7.5f, 7.5f)), TaskPriority.LOW);
 					State = PersonComponentState.ACTIVE;
 					break;
 				}

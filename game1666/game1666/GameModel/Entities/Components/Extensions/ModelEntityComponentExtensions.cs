@@ -13,8 +13,8 @@ namespace game1666.GameModel.Entities.Components.Extensions
 	/// This class provides extension methods for components in a model entity tree
 	/// that allow easy access to the contents of the context component stored in
 	/// the root entity of the tree (i.e. the world). The context component stores
-	/// the world's message system, entity factory and entity destruction queue,
-	/// which are shared between all of the entities within a given world.
+	/// things like the world's message system and entity factory, which are shared
+	/// between all of the entities within a given world.
 	/// </summary>
 	static class ModelEntityComponentExtensions
 	{
@@ -39,6 +39,16 @@ namespace game1666.GameModel.Entities.Components.Extensions
 		public static MessageSystem MessageSystem(this ModelEntityComponent component)
 		{
 			return component.Context().MessageSystem;
+		}
+
+		/// <summary>
+		/// Gets the task factory for the world containing the specified component.
+		/// </summary>
+		/// <param name="component">The component.</param>
+		/// <returns>Its world's task factory.</returns>
+		public static ITaskFactory TaskFactory(this ModelEntityComponent component)
+		{
+			return component.Context().TaskFactory;
 		}
 
 		#endregion

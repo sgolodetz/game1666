@@ -51,6 +51,11 @@ namespace game1666.GameModel.Entities.Components.Context
 		/// </summary>
 		public static string StaticGroup { get { return "GameModel/Context"; } }
 
+		/// <summary>
+		/// A factory that can be used to construct tasks.
+		/// </summary>
+		public ITaskFactory TaskFactory { get; private set; }
+
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
@@ -61,7 +66,10 @@ namespace game1666.GameModel.Entities.Components.Context
 		/// </summary>
 		/// <param name="entityFactory">A factory that can be used to construct model entities.</param>
 		/// <param name="entityDestructionManager">A manager that can be used used to ensure orderly destruction of model entities.</param>
-		public ModelContextComponent(IModelEntityFactory entityFactory, IModelEntityDestructionManager entityDestructionManager)
+		/// <param name="taskFactory">A factory that can be used to construct tasks.</param>
+		public ModelContextComponent(IModelEntityFactory entityFactory,
+									 IModelEntityDestructionManager entityDestructionManager,
+									 ITaskFactory taskFactory)
 		{
 			MessageSystem = new MessageSystem();
 
@@ -69,6 +77,8 @@ namespace game1666.GameModel.Entities.Components.Context
 
 			EntityDestructionManager = entityDestructionManager;
 			EntityDestructionManager.MessageSystem = MessageSystem;
+
+			TaskFactory = taskFactory;
 		}
 
 		#endregion
