@@ -32,8 +32,8 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		private ITool Tool
 		{
-			get	{ return Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool; }
-			set	{ Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool = value; }
+			get	{ return Entity.Parent.GetComponent(UIEntityComponentGroups.STATE).Tool; }
+			set	{ Entity.Parent.GetComponent(UIEntityComponentGroups.STATE).Tool = value; }
 		}
 
 		#endregion
@@ -61,7 +61,7 @@ namespace game1666.GameUI.Entities.Components
 		{
 			if(Tool == null) return;
 
-			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 
 			Tool.OnMouseMoved
 			(
@@ -81,7 +81,7 @@ namespace game1666.GameUI.Entities.Components
 		{
 			if(Tool == null) return;
 
-			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 
 			Tool = Tool.OnMousePressed
 			(
@@ -99,7 +99,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			Camera camera = Entity.GetComponent(PlayStateComponent.StaticGroup).Camera;
+			Camera camera = Entity.GetComponent(UIEntityComponentGroups.STATE).Camera;
 			KeyboardState keyState = Keyboard.GetState();
 
 			UpdateCameraFromKeyboard(camera, keyState, gameTime);
@@ -125,7 +125,7 @@ namespace game1666.GameUI.Entities.Components
 		private void UpdateCameraFromKeyboard(Camera camera, KeyboardState keyState, GameTime gameTime)
 		{
 			// Look up the terrain heightmap for the target of the game view containing the play viewer.
-			IPlayingAreaComponent playingArea = Entity.Parent.TargetComponent(ComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingArea = Entity.Parent.TargetComponent(ModelEntityComponentGroups.PLAYING_AREA);
 			if(playingArea == null) return;
 			float[,] heightmap = playingArea.Terrain.Heightmap;
 

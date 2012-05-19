@@ -84,7 +84,7 @@ namespace game1666.GameUI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// Determine which grid square we're hovering over (if any).
-			Terrain terrain = m_playingAreaEntity.GetComponent(ComponentGroups.PLAYING_AREA).Terrain;
+			Terrain terrain = m_playingAreaEntity.GetComponent(ModelEntityComponentGroups.PLAYING_AREA).Terrain;
 			Tuple<Vector2i,float> gridSquareAndDistance = terrain.PickGridSquare(ray);
 			Vector2i? gridSquare = gridSquareAndDistance != null ? gridSquareAndDistance.Item1 : (Vector2i?)null;
 

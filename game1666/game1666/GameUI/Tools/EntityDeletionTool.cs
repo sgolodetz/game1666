@@ -76,7 +76,7 @@ namespace game1666.GameUI.Tools
 			var ray = ToolUtil.DetermineMouseRay(state, viewport, matProjection, matView, matWorld);
 
 			// Find the distance at which the ray hits the terrain, if it does so.
-			IPlayingAreaComponent playingAreaComponent = m_playingAreaEntity.GetComponent(ComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingAreaComponent = m_playingAreaEntity.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
 			Tuple<Vector2i,float> gridSquareAndDistance = playingAreaComponent.Terrain.PickGridSquare(ray);
 			float nearestHitDistance = gridSquareAndDistance != null ? gridSquareAndDistance.Item2 : float.MaxValue;
 
@@ -85,7 +85,7 @@ namespace game1666.GameUI.Tools
 			Entity = null;
 			foreach(IModelEntity entity in m_playingAreaEntity.Children)
 			{
-				PlaceableComponent placeableComponent = entity.GetComponent(ComponentGroups.PLACEABLE);
+				PlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 				if(placeableComponent == null || !placeableComponent.Destructible) continue;
 
 				// Load the entity's model.
@@ -126,7 +126,7 @@ namespace game1666.GameUI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				PlaceableComponent placeableComponent = Entity.GetComponent(ComponentGroups.PLACEABLE);
+				PlaceableComponent placeableComponent = Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 				placeableComponent.InitiateDestruction();
 			}
 			return this;

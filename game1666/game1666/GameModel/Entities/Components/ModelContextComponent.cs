@@ -34,7 +34,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return ComponentGroups.CONTEXT; } }
+		public override string Group { get { return ModelEntityComponentGroups.CONTEXT; } }
 
 		/// <summary>
 		/// A message system that is used for indirect inter-entity communication within a world.

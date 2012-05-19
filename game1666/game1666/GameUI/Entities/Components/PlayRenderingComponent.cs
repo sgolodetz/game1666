@@ -47,7 +47,7 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		private ITool Tool
 		{
-			get	{ return Entity.Parent.GetComponent(GameViewStateComponent.StaticGroup).Tool; }
+			get	{ return Entity.Parent.GetComponent(UIEntityComponentGroups.STATE).Tool; }
 		}
 
 		#endregion
@@ -81,14 +81,14 @@ namespace game1666.GameUI.Entities.Components
 			Renderer.Setup3D();
 
 			// Sets the world, view and projection matrices based on the current state of the camera.
-			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 			stateComponent.SetMatricesFromCamera();
 			m_entityEffect.World = stateComponent.WorldMatrix;
 			m_entityEffect.View = stateComponent.ViewMatrix;
 			m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 
 			// Draw the terrain.
-			IPlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(ComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
 			if(playingAreaComponent == null) return;
 			DrawTerrain(playingAreaComponent.Terrain);
 
@@ -100,7 +100,7 @@ namespace game1666.GameUI.Entities.Components
 			ITool tool = Tool;
 			foreach(IModelEntity child in targetEntity.Children)
 			{
-				ExternalComponent childExternalComponent = child.GetComponent(ComponentGroups.EXTERNAL);
+				ExternalComponent childExternalComponent = child.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 				if(childExternalComponent == null) return;
 
 				float alpha = tool != null && tool.Name == "Delete:Delete" && child == tool.Entity ? 0.35f : 1f;
@@ -110,7 +110,7 @@ namespace game1666.GameUI.Entities.Components
 			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
 				// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.
-				PlaceableComponent placeableComponent = tool.Entity.GetComponent(ComponentGroups.PLACEABLE);
+				PlaceableComponent placeableComponent = tool.Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 				if(placeableComponent != null)
 				{
 					float alpha = placeableComponent.IsValidlyPlaced(targetEntity) ? 1f : 0.35f;
@@ -131,7 +131,7 @@ namespace game1666.GameUI.Entities.Components
 		private void DrawTerrain(Terrain terrain)
 		{
 			var effect = Renderer.Content.Load<Effect>("Effects/TerrainMultitexture");
-			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 			effect.Parameters["World"].SetValue(stateComponent.WorldMatrix);
 			effect.Parameters["View"].SetValue(stateComponent.ViewMatrix);
 			effect.Parameters["Projection"].SetValue(stateComponent.ProjectionMatrix);
@@ -148,7 +148,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <param name="root">The root node of the terrain quadtree to draw.</param>
 		private void DrawTerrainQuadtree(QuadtreeNode root)
 		{
-			PlayStateComponent stateComponent = Entity.GetComponent(PlayStateComponent.StaticGroup);
+			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 			m_terrainQuadtreeEffect.World = stateComponent.WorldMatrix;
 			m_terrainQuadtreeEffect.View = stateComponent.ViewMatrix;
 			m_terrainQuadtreeEffect.Projection = stateComponent.ProjectionMatrix;

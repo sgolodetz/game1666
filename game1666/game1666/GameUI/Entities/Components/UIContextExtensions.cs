@@ -83,7 +83,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <returns>The context component for the containing game view.</returns>
 		private static UIContextComponent Context(this IUIEntity entity)
 		{
-			return entity.GetRootEntity().GetComponent(UIContextComponent.StaticGroup);
+			return entity.GetRootEntity().GetComponent(UIEntityComponentGroups.CONTEXT);
 		}
 
 		/// <summary>

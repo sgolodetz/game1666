@@ -134,7 +134,7 @@
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
     <Compile Include="GameModel\Entities\Blueprints\MobileBlueprint.cs" />
-    <Compile Include="GameModel\Entities\Components\ComponentGroups.cs" />
+    <Compile Include="GameModel\Entities\Components\ModelEntityComponentGroups.cs" />
     <Compile Include="GameModel\Entities\Components\IPlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\Components\MobileComponent.cs" />
     <Compile Include="GameModel\Entities\Components\TraversableComponent.cs" />
@@ -181,6 +181,7 @@
     <Compile Include="GameModel\Terrains\Terrain.cs" />
     <Compile Include="GameUI\Entities\Base\IUIEntityFactory.cs" />
     <Compile Include="GameUI\Entities\Components\ButtonInteractionComponent.cs" />
+    <Compile Include="GameUI\Entities\Components\UIEntityComponentGroups.cs" />
     <Compile Include="GameUI\Entities\Components\CompositeInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\InteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\UIContextComponent.cs" />

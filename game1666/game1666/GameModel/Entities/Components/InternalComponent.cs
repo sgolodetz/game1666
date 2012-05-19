@@ -23,7 +23,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return ComponentGroups.INTERNAL; } }
+		public override string Group { get { return ModelEntityComponentGroups.INTERNAL; } }
 
 		#endregion
 

@@ -80,14 +80,14 @@ namespace game1666Test
 			// Check that it was loaded correctly.
 			Assert.Equal("World", world.Archetype);
 			Assert.Equal(".", world.Name);
-			Assert.NotNull(world.GetComponent(ComponentGroups.TEST));
+			Assert.NotNull(world.GetComponent(ModelEntityComponentGroups.TEST));
 
 			IModelEntity settlement = world.GetChild("settlement:Stuartopolis");
 
 			Assert.NotNull(settlement);
 			Assert.Equal("Settlement", settlement.Archetype);
 			Assert.Equal("settlement:Stuartopolis", settlement.Name);
-			Assert.NotNull(settlement.GetComponent(ComponentGroups.TEST));
+			Assert.NotNull(settlement.GetComponent(ModelEntityComponentGroups.TEST));
 		}
 
 		/// <summary>

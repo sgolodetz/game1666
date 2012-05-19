@@ -20,12 +20,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return StaticGroup; } }
-
-		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public static string StaticGroup { get { return "GameUI/Interaction"; } }
+		public override string Group { get { return UIEntityComponentGroups.INTERACTION; } }
 
 		#endregion
 

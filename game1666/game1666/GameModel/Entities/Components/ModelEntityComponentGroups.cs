@@ -1,14 +1,14 @@
 ﻿/***
- * game1666: ComponentConstants.cs
+ * game1666: ModelEntityComponentGroups.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
 namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
-	/// This class contains the string constants that are used to index entity component groups.
+	/// This class contains the string constants that are used to index model entity component groups.
 	/// </summary>
-	static class ComponentGroups
+	static class ModelEntityComponentGroups
 	{
 		public const string CONTEXT = "GameModel/Context";
 		public const string EXTERNAL = "GameModel/External";

@@ -26,17 +26,12 @@ namespace game1666.GameUI.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return StaticGroup; } }
+		public override string Group { get { return UIEntityComponentGroups.CONTEXT; } }
 
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "UIContext"; } }
-
-		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public static string StaticGroup { get { return "GameUI/Context"; } }
 
 		/// <summary>
 		/// The world that is being viewed by the entities in this UI entity tree.
