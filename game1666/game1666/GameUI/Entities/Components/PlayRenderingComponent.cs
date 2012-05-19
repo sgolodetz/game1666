@@ -8,14 +8,11 @@ using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Terrains;
-using game1666.GameUI.Entities.Components.Common;
-using game1666.GameUI.Entities.Components.Extensions;
-using game1666.GameUI.Entities.Components.GameView;
 using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameUI.Entities.Components.Play
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class draws a play viewer that shows the contents of a playing area (such as the world or a settlement).

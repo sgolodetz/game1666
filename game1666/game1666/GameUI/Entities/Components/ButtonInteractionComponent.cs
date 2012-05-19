@@ -4,10 +4,9 @@
  ***/
 
 using game1666.Common.UI;
-using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666.GameUI.Entities.Components.Button
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class provides interaction behaviour to a button.

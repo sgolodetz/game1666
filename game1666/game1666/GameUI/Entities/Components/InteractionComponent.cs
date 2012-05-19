@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using game1666.GameUI.Entities.Base;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666.GameUI.Entities.Components.Common
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of a class deriving from this one provides interaction behaviour to a UI entity.

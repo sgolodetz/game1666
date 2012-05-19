@@ -5,11 +5,10 @@
 
 using System;
 using game1666.Common.UI;
-using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameUI.Entities.Components.Button
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class provides rendering behaviour to a button.

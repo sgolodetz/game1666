@@ -5,11 +5,10 @@
 
 using System.Xml.Linq;
 using game1666.Common.UI;
-using game1666.GameUI.Entities.Components.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameUI.Entities.Components.Sidebar
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class draws a sidebar that allows the user to interact with a playing area (such as the world or a settlement).

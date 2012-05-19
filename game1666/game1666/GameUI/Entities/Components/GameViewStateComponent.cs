@@ -4,10 +4,9 @@
  ***/
 
 using System.Xml.Linq;
-using game1666.GameUI.Entities.Components.Common;
 using game1666.GameUI.Tools;
 
-namespace game1666.GameUI.Entities.Components.GameView
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this component is used to share state between the components that together make up a game view.

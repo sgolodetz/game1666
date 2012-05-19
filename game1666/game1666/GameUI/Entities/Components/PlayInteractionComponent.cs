@@ -7,14 +7,11 @@ using System;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Components;
-using game1666.GameUI.Entities.Components.Common;
-using game1666.GameUI.Entities.Components.Extensions;
-using game1666.GameUI.Entities.Components.GameView;
 using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace game1666.GameUI.Entities.Components.Play
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class provides interaction behaviour to a play viewer that

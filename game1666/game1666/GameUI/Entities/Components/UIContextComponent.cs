@@ -6,7 +6,7 @@
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
 
-namespace game1666.GameUI.Entities.Components.Context
+namespace game1666.GameUI.Entities.Components
 {
 	/// <summary>
 	/// An instance of this component provides UI context objects such as a UI entity factory

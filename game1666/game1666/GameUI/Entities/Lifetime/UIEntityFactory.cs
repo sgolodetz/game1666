@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using game1666.GameUI.Entities.Base;
-using game1666.GameUI.Entities.Components.Button;
+using game1666.GameUI.Entities.Components;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameUI.Entities.Lifetime
