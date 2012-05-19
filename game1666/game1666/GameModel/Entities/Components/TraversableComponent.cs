@@ -124,7 +124,7 @@ namespace game1666.GameModel.Entities.Components
 			ModelEntity entity = navigationMap.LookupEntity(gridSquare);
 			if(entity == null) return false;
 
-			IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
+			var placeableComponent = entity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
 			return placeableComponent != null && placeableComponent.Entrances.Contains(gridSquare);
 		}
 

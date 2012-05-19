@@ -92,11 +92,11 @@ namespace game1666.GameUI.Tools
 			Contract.Requires(entity != null);
 			Contract.Requires(playingAreaEntity != null);
 
-			IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
+			var placeableComponent = entity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			if(placeableComponent.IsValidlyPlaced(playingAreaEntity))
 			{
-				IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ModelEntityComponentGroups.INTERNAL);
+				var playingAreaComponent = playingAreaEntity.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 
 				// Note: We know that the call to TryCreateEntity will always succeed, since the entity
 				// that has been passed in was successfully created with almost identical properties.

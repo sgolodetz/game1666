@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.Common.Entities;
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Interfaces.Components;
@@ -56,11 +57,11 @@ namespace game1666.GameUI.Entities.Extensions
 		/// <param name="entity">The UI entity a component of whose target we wish to get.</param>
 		/// <param name="componentGroup">The group of the specified component.</param>
 		/// <returns>The specified component of the UI entity's target, if any, or null otherwise.</returns>
-		public static dynamic TargetComponent(this IUIEntity entity, string componentGroup)
+		public static T TargetComponent<T>(this IUIEntity entity, string componentGroup) where T : class, IEntityComponent
 		{
 			ModelEntity targetEntity = entity.Target();
 			if(targetEntity == null) return null;
-			return targetEntity.GetComponent(componentGroup);
+			return targetEntity.GetComponent<T>(componentGroup);
 		}
 
 		/// <summary>
@@ -85,7 +86,7 @@ namespace game1666.GameUI.Entities.Extensions
 		/// <returns>The context component for the containing game view.</returns>
 		private static IUIContextComponent Context(this IUIEntity entity)
 		{
-			return entity.GetRootEntity().GetComponent(UIEntityComponentGroups.CONTEXT);
+			return entity.GetRootEntity().GetComponent<IUIContextComponent>(UIEntityComponentGroups.CONTEXT);
 		}
 
 		/// <summary>

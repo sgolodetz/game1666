@@ -64,7 +64,7 @@ namespace game1666.GameModel.Entities.Extensions
 		/// <returns>Its world's context component.</returns>
 		private static IModelContextComponent Context(this ModelEntityComponent component)
 		{
-			return component.Entity.GetRootEntity().GetComponent(ModelEntityComponentGroups.CONTEXT);
+			return component.Entity.GetRootEntity().GetComponent<IModelContextComponent>(ModelEntityComponentGroups.CONTEXT);
 		}
 
 		#endregion

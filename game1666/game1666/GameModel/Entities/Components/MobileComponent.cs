@@ -81,7 +81,7 @@ namespace game1666.GameModel.Entities.Components
 		public override void AfterAdd()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.INTERNAL);
+			var playingArea = Entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 
 			// Determine the entity's altitude on the playing area's terrain.
 			Altitude = playingArea.Terrain.DetermineAltitude(Position);

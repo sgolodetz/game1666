@@ -42,7 +42,7 @@ namespace game1666.GameUI
 		/// <summary>
 		/// The current game view.
 		/// </summary>
-		public string CurrentView { get { return m_currentView; } set { m_currentView = value; } }
+		public string CurrentView { set { m_currentView = value; } }
 
 		#endregion
 
@@ -88,7 +88,7 @@ namespace game1666.GameUI
 		/// </summary>
 		public void Draw()
 		{
-			var renderer = m_views[m_currentView].GetComponent(UIEntityComponentGroups.RENDERING);
+			var renderer = m_views[m_currentView].GetComponent<RenderingComponent>(UIEntityComponentGroups.RENDERING);
 			if(renderer != null)
 			{
 				renderer.Draw();
@@ -115,7 +115,7 @@ namespace game1666.GameUI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		private void OnMouseMoved(MouseState state)
 		{
-			var interactor = m_views[m_currentView].GetComponent(UIEntityComponentGroups.INTERACTION);
+			var interactor = m_views[m_currentView].GetComponent<InteractionComponent>(UIEntityComponentGroups.INTERACTION);
 			if(interactor != null)
 			{
 				interactor.OnMouseMoved(state);
@@ -128,7 +128,7 @@ namespace game1666.GameUI
 		/// <param name="state">The mouse state at the point at which the mouse check was made.</param>
 		private void OnMousePressed(MouseState state)
 		{
-			var interactor = m_views[m_currentView].GetComponent(UIEntityComponentGroups.INTERACTION);
+			var interactor = m_views[m_currentView].GetComponent<InteractionComponent>(UIEntityComponentGroups.INTERACTION);
 			if(interactor != null)
 			{
 				interactor.OnMousePressed(state);

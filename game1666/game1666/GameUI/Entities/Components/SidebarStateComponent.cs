@@ -191,8 +191,8 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		private ITool Tool
 		{
-			get	{ return Entity.Parent.GetComponent(UIEntityComponentGroups.STATE).Tool; }
-			set	{ Entity.Parent.GetComponent(UIEntityComponentGroups.STATE).Tool = value; }
+			get	{ return Entity.Parent.GetComponent<GameViewStateComponent>(UIEntityComponentGroups.STATE).Tool; }
+			set	{ Entity.Parent.GetComponent<GameViewStateComponent>(UIEntityComponentGroups.STATE).Tool = value; }
 		}
 
 		#endregion
@@ -315,8 +315,8 @@ namespace game1666.GameUI.Entities.Components
 					ConstructButtonViewport(buttonsViewport, layout, row, column),
 					new Dictionary<string,dynamic> { { "TextureName", bs.TextureName } }
 				);
-				IButtonInteractionComponent buttonInteractor = button.GetComponent(UIEntityComponentGroups.INTERACTION);
-				IButtonRenderingComponent buttonRenderer = button.GetComponent(UIEntityComponentGroups.RENDERING);
+				var buttonInteractor = button.GetComponent<IButtonInteractionComponent>(UIEntityComponentGroups.INTERACTION);
+				var buttonRenderer = button.GetComponent<IButtonRenderingComponent>(UIEntityComponentGroups.RENDERING);
 				if(buttonInteractor != null) buttonInteractor.MousePressedHook += bs.MousePressedHook;
 				if(buttonRenderer != null) buttonRenderer.IsHighlighted = bs.IsHighlighted;
 
