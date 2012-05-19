@@ -24,7 +24,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class makes its containing entity placeable on a terrain.
 	/// </summary>
-	class PlaceableComponent : ExternalComponent, IPlaceableComponent
+	class PlaceableComponent : ModelEntityComponent, IPlaceableComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -85,6 +85,11 @@ namespace game1666.GameModel.Entities.Components
 				return m_footprint.Entrances.Select(e => e + offset);
 			}
 		}
+
+		/// <summary>
+		/// The group of the component.
+		/// </summary>
+		public override string Group { get { return ModelEntityComponentGroups.EXTERNAL; } }
 
 		/// <summary>
 		/// The name of the component.
@@ -154,7 +159,7 @@ namespace game1666.GameModel.Entities.Components
 		public override void AfterAdd()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.INTERNAL);
 
 			// Determine the entity's altitude on the playing area's terrain.
 			Altitude = playingArea.Terrain.DetermineAverageAltitude(Position);
@@ -192,7 +197,7 @@ namespace game1666.GameModel.Entities.Components
 		public override void BeforeRemove()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.INTERNAL);
 
 			// Clear the space occupied by the entity on the navigation map.
 			playingArea.NavigationMap.MarkOccupied
@@ -233,7 +238,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="alpha">The alpha value to use when drawing.</param>
 		/// <param name="parent">The parent of the entity (used when rendering
 		/// entities that have not yet been attached to their parent).</param>
-		public override void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
+		public void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
 		{
 			// We need the navigation map from the entity's parent here because it affects how
 			// we draw things like road segments (these are rendered differently depending on
@@ -248,7 +253,7 @@ namespace game1666.GameModel.Entities.Components
 			if(parent == null) return;
 
 			// Determine the model name and orientation to use (see the description on the DetermineModelAndOrientation method).
-			INavigationMap<IModelEntity> navigationMap = parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA).NavigationMap;
+			INavigationMap<IModelEntity> navigationMap = parent.GetComponent(ModelEntityComponentGroups.INTERNAL).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);
@@ -298,7 +303,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <returns>true, if the entity containing this component can be validly placed, or false otherwise.</returns>
 		public bool IsValidlyPlaced(IModelEntity playingAreaEntity)
 		{
-			IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ModelEntityComponentGroups.INTERNAL);
 			if(playingAreaComponent == null) return false;
 
 			// Step 1:	Check that the entity occupies one or more grid squares, and that all the grid squares it does occupy are empty.

@@ -76,8 +76,8 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <returns>The generated sub-task.</returns>
 		protected override Task GenerateSubTask()
 		{
-			MobileComponent mobileComponent = m_entity.GetComponent(ModelEntityComponentGroups.MOBILE);
-			IPlayingAreaComponent playingAreaComponent = m_entity.Parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			MobileComponent mobileComponent = m_entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
+			IPlayingAreaComponent playingAreaComponent = m_entity.Parent.GetComponent(ModelEntityComponentGroups.INTERNAL);
 
 			// Try and find a path to the target position.
 			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath

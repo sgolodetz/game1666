@@ -9,7 +9,6 @@ using game1666.Common.Maths;
 using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
-using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Entities.Extensions;
 using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
@@ -92,11 +91,11 @@ namespace game1666.GameUI.Tools
 			Contract.Requires(entity != null);
 			Contract.Requires(playingAreaEntity != null);
 
-			IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+			IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 
 			if(placeableComponent.IsValidlyPlaced(playingAreaEntity))
 			{
-				IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+				IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ModelEntityComponentGroups.INTERNAL);
 
 				// Note: We know that the call to TryCreateEntity will always succeed, since the entity
 				// that has been passed in was successfully created with almost identical properties.

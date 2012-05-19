@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Terrains;
 using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
@@ -89,7 +88,7 @@ namespace game1666.GameUI.Entities.Components
 			m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 
 			// Draw the terrain.
-			IPlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(ModelEntityComponentGroups.INTERNAL);
 			if(playingAreaComponent == null) return;
 			DrawTerrain(playingAreaComponent.Terrain);
 
@@ -101,7 +100,7 @@ namespace game1666.GameUI.Entities.Components
 			ITool tool = Tool;
 			foreach(IModelEntity child in targetEntity.Children)
 			{
-				ExternalComponent childExternalComponent = child.GetComponent(ModelEntityComponentGroups.EXTERNAL);
+				IExternalComponent childExternalComponent = child.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 				if(childExternalComponent == null) return;
 
 				float alpha = tool != null && tool.Name == "Delete:Delete" && child == tool.Entity ? 0.35f : 1f;
@@ -111,7 +110,7 @@ namespace game1666.GameUI.Entities.Components
 			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
 				// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.
-				IPlaceableComponent placeableComponent = tool.Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+				IPlaceableComponent placeableComponent = tool.Entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 				if(placeableComponent != null)
 				{
 					float alpha = placeableComponent.IsValidlyPlaced(targetEntity) ? 1f : 0.35f;

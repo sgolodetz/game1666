@@ -126,7 +126,7 @@ namespace game1666.GameUI.Entities.Components
 		private void UpdateCameraFromKeyboard(Camera camera, KeyboardState keyState, GameTime gameTime)
 		{
 			// Look up the terrain heightmap for the target of the game view containing the play viewer.
-			IPlayingAreaComponent playingArea = Entity.Parent.TargetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingArea = Entity.Parent.TargetComponent(ModelEntityComponentGroups.INTERNAL);
 			if(playingArea == null) return;
 			float[,] heightmap = playingArea.Terrain.Heightmap;
 

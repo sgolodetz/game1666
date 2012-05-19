@@ -19,10 +19,15 @@ namespace game1666.GameModel.Entities.Components
 	/// as the world or a settlement. Playing areas have a terrain on which other
 	/// entities can be placed or move around.
 	/// </summary>
-	sealed class PlayingAreaComponent : InternalComponent, IPlayingAreaComponent
+	sealed class PlayingAreaComponent : ModelEntityComponent, IPlayingAreaComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The group of the component.
+		/// </summary>
+		public override string Group { get { return ModelEntityComponentGroups.INTERNAL; } }
 
 		/// <summary>
 		/// The name of the component.

@@ -23,7 +23,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class provides person behaviour to its containing entity.
 	/// </summary>
-	sealed class PersonComponent : InternalComponent
+	sealed class PersonComponent : ModelEntityComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -37,6 +37,11 @@ namespace game1666.GameModel.Entities.Components
 
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The group of the component.
+		/// </summary>
+		public override string Group { get { return ModelEntityComponentGroups.INTERNAL; } }
 
 		/// <summary>
 		/// The person's home (as an absolute path in the entity tree).

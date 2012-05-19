@@ -161,8 +161,6 @@
     <Compile Include="GameModel\Entities\Lifetime\ModelEntityFactory.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\Footprint.cs" />
     <Compile Include="GameModel\Entities\Blueprints\PlaceableBlueprint.cs" />
-    <Compile Include="GameModel\Entities\Components\ExternalComponent.cs" />
-    <Compile Include="GameModel\Entities\Components\InternalComponent.cs" />
     <Compile Include="GameModel\Entities\Components\PlaceableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\PlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\Lifetime\ModelEntityDestructionManager.cs" />

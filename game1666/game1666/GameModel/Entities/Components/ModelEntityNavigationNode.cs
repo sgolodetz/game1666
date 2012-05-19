@@ -186,7 +186,7 @@ namespace game1666.GameModel.Entities.Components
 				{
 					ModelEntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
 					IModelEntity neighbourEntity = neighbour.OccupyingEntity;
-					IPlaceableComponent neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(ModelEntityComponentGroups.PLACEABLE) : null;
+					IPlaceableComponent neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(ModelEntityComponentGroups.EXTERNAL) : null;
 
 					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&
 					   (neighbourEntity == null || (neighbourPlaceable != null && neighbourPlaceable.Entrances.Contains(neighbourPos))))

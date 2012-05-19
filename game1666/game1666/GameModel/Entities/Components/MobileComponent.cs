@@ -16,7 +16,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class allows an entity to move around on a terrain.
 	/// </summary>
-	sealed class MobileComponent : ExternalComponent
+	sealed class MobileComponent : ModelEntityComponent, IExternalComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -34,6 +34,11 @@ namespace game1666.GameModel.Entities.Components
 		/// The blueprint for the entity.
 		/// </summary>
 		public MobileBlueprint Blueprint { get; private set; }
+
+		/// <summary>
+		/// The group of the component.
+		/// </summary>
+		public override string Group { get { return ModelEntityComponentGroups.EXTERNAL; } }
 
 		/// <summary>
 		/// The name of the component.
@@ -76,7 +81,7 @@ namespace game1666.GameModel.Entities.Components
 		public override void AfterAdd()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA);
+			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ModelEntityComponentGroups.INTERNAL);
 
 			// Determine the entity's altitude on the playing area's terrain.
 			Altitude = playingArea.Terrain.DetermineAltitude(Position);
@@ -89,7 +94,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="alpha">The alpha value to use when drawing.</param>
 		/// <param name="parent">The parent of the entity (used when rendering
 		/// entities that have not yet been attached to their parent).</param>
-		public override void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
+		public void Draw(BasicEffect effect, float alpha, IModelEntity parent = null)
 		{
 			// TEMPORARY
 			var pos = new Vector3(Position, Altitude);
