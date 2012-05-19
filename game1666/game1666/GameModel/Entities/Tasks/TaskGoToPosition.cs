@@ -26,7 +26,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// The entity that will move.
 		/// </summary>
-		private IModelEntity m_entity;
+		private readonly IModelEntity m_entity;
 
 		/// <summary>
 		/// The target position.
