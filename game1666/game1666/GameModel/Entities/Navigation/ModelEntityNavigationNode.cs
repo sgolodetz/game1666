@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using game1666.Common.AStar;
 using game1666.Common.Maths;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
-using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 
@@ -186,7 +186,7 @@ namespace game1666.GameModel.Entities.Navigation
 				{
 					ModelEntityNavigationNode neighbour = m_nodeGrid[neighbourPos.Y, neighbourPos.X];
 					IModelEntity neighbourEntity = neighbour.OccupyingEntity;
-					PlaceableComponent neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(ModelEntityComponentGroups.PLACEABLE) : null;
+					IPlaceableComponent neighbourPlaceable = neighbourEntity != null ? neighbourEntity.GetComponent(ModelEntityComponentGroups.PLACEABLE) : null;
 
 					if(Math.Abs(neighbour.m_altitude - m_altitude) <= blueprint.MaxAltitudeChange &&
 					   (neighbourEntity == null || (neighbourPlaceable != null && neighbourPlaceable.Entrances.Contains(neighbourPos))))

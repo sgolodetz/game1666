@@ -6,8 +6,9 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Entities;
+using game1666.GameModel.Entities.Base;
 
-namespace game1666.GameModel.Entities.Base
+namespace game1666.GameModel.Entities.AbstractComponents
 {
 	/// <summary>
 	/// An instance of a class deriving from this one represents a component that can form part of a model entity.

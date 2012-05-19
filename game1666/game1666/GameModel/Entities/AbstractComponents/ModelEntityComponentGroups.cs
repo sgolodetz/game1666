@@ -3,7 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-namespace game1666.GameModel.Entities.Components
+namespace game1666.GameModel.Entities.AbstractComponents
 {
 	/// <summary>
 	/// This class contains the string constants that are used to index model entity component groups.

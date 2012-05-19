@@ -10,30 +10,21 @@ using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.Common.Messaging;
 using game1666.Common.UI;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Messages;
-using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Entities.PlacementStrategies;
+using game1666.GameModel.Navigation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
-	/// The various possible states of a placeable component.
-	/// </summary>
-	enum PlaceableComponentState
-	{
-		IN_CONSTRUCTION,	// the entity containing the component is in the process of being constructed
-		IN_DESTRUCTION,		// the entity containing the component is in the process of being destructed
-		OPERATING			// the entity containing the component is operating normally
-	}
-
-	/// <summary>
 	/// An instance of this class makes its containing entity placeable on a terrain.
 	/// </summary>
-	class PlaceableComponent : ExternalComponent
+	class PlaceableComponent : ExternalComponent, IPlaceableComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -230,7 +221,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, ModelEntityNavigationMap navigationMap)
+		public virtual Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, INavigationMap<IModelEntity> navigationMap)
 		{
 			return Tuple.Create(modelName, orientation);
 		}
@@ -257,7 +248,7 @@ namespace game1666.GameModel.Entities.Components
 			if(parent == null) return;
 
 			// Determine the model name and orientation to use (see the description on the DetermineModelAndOrientation method).
-			ModelEntityNavigationMap navigationMap = parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA).NavigationMap;
+			INavigationMap<IModelEntity> navigationMap = parent.GetComponent(ModelEntityComponentGroups.PLAYING_AREA).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);

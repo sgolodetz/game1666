@@ -8,8 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Navigation;
+using game1666.GameModel.Navigation;
 
 namespace game1666.GameModel.Entities.Components
 {
@@ -62,7 +63,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="orientation">The initial orientation.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The actual model and orientation to use.</returns>
-		public override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, ModelEntityNavigationMap navigationMap)
+		public override Tuple<string,Orientation4> DetermineModelAndOrientation(string modelName, Orientation4 orientation, INavigationMap<IModelEntity> navigationMap)
 		{
 			string suffix = "";
 
@@ -99,7 +100,7 @@ namespace game1666.GameModel.Entities.Components
 		/// </summary>
 		/// <param name="navigationMap">The navigation map associated with the terrain on which the entity sits.</param>
 		/// <returns>The constructed bitfield.</returns>
-		private int ConstructEntranceBitfield(ModelEntityNavigationMap navigationMap)
+		private int ConstructEntranceBitfield(INavigationMap<IModelEntity> navigationMap)
 		{
 			int x = Position.X;
 			int y = Position.Y;
@@ -118,12 +119,12 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="gridSquare">The grid square.</param>
 		/// <param name="navigationMap">The navigation map associated with the terrain whose grid square is being checked.</param>
 		/// <returns>true, if the specified grid square holds an entity entrance, or false otherwise.</returns>
-		private static bool IsEntityEntrance(Vector2i gridSquare, ModelEntityNavigationMap navigationMap)
+		private static bool IsEntityEntrance(Vector2i gridSquare, INavigationMap<IModelEntity> navigationMap)
 		{
 			IModelEntity entity = navigationMap.LookupEntity(gridSquare);
 			if(entity == null) return false;
 
-			PlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+			IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 			return placeableComponent != null && placeableComponent.Entrances.Contains(gridSquare);
 		}
 

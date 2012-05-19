@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,7 +18,7 @@ namespace game1666.GameModel.Entities.Components
 	/// the entity's behaviour with respect to what is outside it, as opposed to internal
 	/// components that control things like occupancy management.
 	/// </summary>
-	abstract class ExternalComponent : ModelEntityComponent
+	abstract class ExternalComponent : ModelEntityComponent, IExternalComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

@@ -6,7 +6,7 @@
 using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
 
-namespace game1666.GameModel.Entities.Components
+namespace game1666.GameModel.Entities.AbstractComponents
 {
 	/// <summary>
 	/// This class provides extension methods for components in a model entity tree
@@ -60,7 +60,7 @@ namespace game1666.GameModel.Entities.Components
 		/// </summary>
 		/// <param name="component">The component.</param>
 		/// <returns>Its world's context component.</returns>
-		private static ModelContextComponent Context(this ModelEntityComponent component)
+		private static IModelContextComponent Context(this ModelEntityComponent component)
 		{
 			return component.Entity.GetRootEntity().GetComponent(ModelEntityComponentGroups.CONTEXT);
 		}

@@ -4,10 +4,11 @@
  ***/
 
 using game1666.Common.Entities;
-using game1666.GameModel.Entities.Navigation;
+using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 
-namespace game1666.GameModel.Entities.Components
+namespace game1666.GameModel.Entities.AbstractComponents
 {
 	/// <summary>
 	/// An instance of a class implementing this interface provides playing area
@@ -22,7 +23,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		ModelEntityNavigationMap NavigationMap { get; }
+		INavigationMap<IModelEntity> NavigationMap { get; }
 
 		/// <summary>
 		/// The playing area's terrain.

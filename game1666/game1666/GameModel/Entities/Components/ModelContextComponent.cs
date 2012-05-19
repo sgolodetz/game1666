@@ -4,6 +4,7 @@
  ***/
 
 using game1666.Common.Messaging;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework;
 
@@ -16,7 +17,7 @@ namespace game1666.GameModel.Entities.Components
 	/// can then access the world's message system or entity destruction manager by looking up this
 	/// component via the tree.
 	/// </summary>
-	sealed class ModelContextComponent : ModelEntityComponent
+	sealed class ModelContextComponent : ModelEntityComponent, IModelContextComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

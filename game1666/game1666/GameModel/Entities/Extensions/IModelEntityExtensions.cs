@@ -3,8 +3,8 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components;
 
 namespace game1666.GameModel.Entities.Extensions
 {
@@ -40,7 +40,7 @@ namespace game1666.GameModel.Entities.Extensions
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <returns>Its world's context component.</returns>
-		private static ModelContextComponent Context(this IModelEntity entity)
+		private static IModelContextComponent Context(this IModelEntity entity)
 		{
 			return entity.GetRootEntity().GetComponent(ModelEntityComponentGroups.CONTEXT);
 		}

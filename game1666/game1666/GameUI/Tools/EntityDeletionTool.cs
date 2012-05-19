@@ -6,6 +6,7 @@
 using System;
 using game1666.Common.Maths;
 using game1666.Common.UI;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components;
 using Microsoft.Xna.Framework;
@@ -85,7 +86,7 @@ namespace game1666.GameUI.Tools
 			Entity = null;
 			foreach(IModelEntity entity in m_playingAreaEntity.Children)
 			{
-				PlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+				IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 				if(placeableComponent == null || !placeableComponent.Destructible) continue;
 
 				// Load the entity's model.
@@ -126,7 +127,7 @@ namespace game1666.GameUI.Tools
 		{
 			if(state.LeftButton == ButtonState.Pressed && Entity != null)
 			{
-				PlaceableComponent placeableComponent = Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+				IPlaceableComponent placeableComponent = Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 				placeableComponent.InitiateDestruction();
 			}
 			return this;

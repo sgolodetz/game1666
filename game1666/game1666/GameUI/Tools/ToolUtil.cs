@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using game1666.Common.Maths;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Components;
@@ -91,7 +92,7 @@ namespace game1666.GameUI.Tools
 			Contract.Requires(entity != null);
 			Contract.Requires(playingAreaEntity != null);
 
-			PlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+			IPlaceableComponent placeableComponent = entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 
 			if(placeableComponent.IsValidlyPlaced(playingAreaEntity))
 			{

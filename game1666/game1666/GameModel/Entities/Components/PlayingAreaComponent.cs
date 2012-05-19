@@ -7,7 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Persistence;
+using game1666.GameModel.Entities.AbstractComponents;
+using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Navigation;
+using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 
 namespace game1666.GameModel.Entities.Components
@@ -30,7 +33,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		public ModelEntityNavigationMap NavigationMap { get; private set; }
+		public INavigationMap<IModelEntity> NavigationMap { get; private set; }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -49,7 +52,7 @@ namespace game1666.GameModel.Entities.Components
 		public PlayingAreaComponent(Terrain terrain)
 		{
 			Terrain = terrain;
-			NavigationMap = new ModelEntityNavigationMap(Terrain);
+			NavigationMap = new NavigationMap<IModelEntity,ModelEntityNavigationNode>(Terrain);
 		}
 
 		/// <summary>
@@ -60,7 +63,7 @@ namespace game1666.GameModel.Entities.Components
 		:	base(componentElt)
 		{
 			Terrain = ObjectPersister.LoadChildObjects<Terrain>(componentElt).First();
-			NavigationMap = new ModelEntityNavigationMap(Terrain);
+			NavigationMap = new NavigationMap<IModelEntity,ModelEntityNavigationNode>(Terrain);
 		}
 
 		#endregion

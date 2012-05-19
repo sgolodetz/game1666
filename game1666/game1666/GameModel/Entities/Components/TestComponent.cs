@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
-using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.AbstractComponents;
 
 namespace game1666.GameModel.Entities.Components
 {

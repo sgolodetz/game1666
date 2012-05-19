@@ -5,6 +5,7 @@
 
 using System.Xml.Linq;
 using game1666.Common.UI;
+using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Terrains;
@@ -110,7 +111,7 @@ namespace game1666.GameUI.Entities.Components
 			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
 				// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.
-				PlaceableComponent placeableComponent = tool.Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
+				IPlaceableComponent placeableComponent = tool.Entity.GetComponent(ModelEntityComponentGroups.PLACEABLE);
 				if(placeableComponent != null)
 				{
 					float alpha = placeableComponent.IsValidlyPlaced(targetEntity) ? 1f : 0.35f;
