@@ -1,32 +1,34 @@
 ﻿/***
- * game1666: RetryTask.cs
+ * game1666: RetryableTask.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Xml.Linq;
+using game1666.Common.Tasks.RetryStrategies;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Tasks
 {
 	/// <summary>
 	/// An instance of a class deriving from this one represents a task that
-	/// tries to succeed a number of times before giving up, regenerating an
-	/// inner sub-task as necessary to try and achieve its goal.
+	/// tries to succeed multiple times before giving up, regenerating an
+	/// inner sub-task as necessary to try and achieve its goal. The point at
+	/// which the task gives up is controlled by a retry strategy, which must
+	/// be specified by a derived class.
 	/// </summary>
-	abstract class RetryTask : Task
+	abstract class RetryableTask : Task
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
+		/// The strategy determining the point at which the task should give up.
+		/// </summary>
+		private readonly IRetryStrategy m_retryStrategy;
+
+		/// <summary>
 		/// The current sub-task (will be regenerated as necessary to try and achieve the overall goal).
 		/// </summary>
 		private Task m_subTask;
-
-		/// <summary>
-		/// The number of tries remaining before the task will give up.
-		/// </summary>
-		private int m_triesLeft;
 
 		#endregion
 
@@ -34,12 +36,12 @@ namespace game1666.Common.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a retry task that performs the specified number of tries before giving up.
+		/// Constructs a retryable task that keeps trying until its retry strategy tells it to give up.
 		/// </summary>
-		/// <param name="tryCount">The number of tries to perform before giving up.</param>
-		protected RetryTask(int tryCount)
+		/// <param name="retryStrategy">The strategy determing the point at which the task should give up.</param>
+		protected RetryableTask(IRetryStrategy retryStrategy)
 		{
-			m_triesLeft = tryCount;
+			m_retryStrategy = retryStrategy;
 		}
 
 		#endregion
@@ -67,11 +69,11 @@ namespace game1666.Common.Tasks
 		{
 			if(m_subTask == null)
 			{
-				if(m_triesLeft > 0)
+				if(m_retryStrategy.ShouldRetry())
 				{
 					// If there's no current sub-task and we haven't used up all of our tries, try and generate a sub-task.
 					m_subTask = GenerateSubTask();
-					--m_triesLeft;
+					m_retryStrategy.RetryingAt(gameTime);
 
 					// If a sub-task couldn't be generated, early out (we'll try again next time).
 					if(m_subTask == null) return TaskState.IN_PROGRESS;

@@ -3,10 +3,10 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Tasks;
+using game1666.Common.Tasks.RetryStrategies;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
@@ -16,7 +16,7 @@ namespace game1666.GameModel.Entities.Tasks
 	/// <summary>
 	/// An instance of this class represents a task that causes a mobile entity to head towards a specific position.
 	/// </summary>
-	sealed class TaskGoToPosition : RetryTask
+	sealed class TaskGoToPosition : RetryableTask
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -42,7 +42,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <param name="entity">The entity.</param>
 		/// <param name="targetPosition">The target position.</param>
 		public TaskGoToPosition(ModelEntity entity, Vector2 targetPosition)
-		:	base(Int32.MaxValue)
+		:	base(new AlwaysRetry())
 		{
 			m_entity = entity;
 			m_targetPosition = targetPosition;

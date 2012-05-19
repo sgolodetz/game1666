@@ -96,7 +96,7 @@ namespace game1666.GameModel.Navigation
 
 			// Run the pathfinder.
 			LinkedList<NavigationNodeType> nodePath = AStarSearcher<NavigationNodeType>.FindPath(sourceNode, destinationNodes, properties);
-			if(nodePath == null || nodePath.Count == 0) return null;
+			if(nodePath == null) return null;
 
 			// Prepend the source node to the path found.
 			nodePath.AddFirst(sourceNode);

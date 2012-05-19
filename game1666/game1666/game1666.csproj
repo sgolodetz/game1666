@@ -121,7 +121,9 @@
     <Compile Include="Common\Messaging\MessageRule.cs" />
     <Compile Include="Common\Messaging\MessageSystem.cs" />
     <Compile Include="Common\Tasks\PriorityQueueTask.cs" />
-    <Compile Include="Common\Tasks\RetryTask.cs" />
+    <Compile Include="Common\Tasks\RetryStrategies\AlwaysRetry.cs" />
+    <Compile Include="Common\Tasks\RetryStrategies\IRetryStrategy.cs" />
+    <Compile Include="Common\Tasks\RetryableTask.cs" />
     <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IExternalComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IMobileComponent.cs" />
