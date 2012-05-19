@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Navigation;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 

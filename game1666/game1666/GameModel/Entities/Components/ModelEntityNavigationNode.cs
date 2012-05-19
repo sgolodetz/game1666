@@ -14,7 +14,7 @@ using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
 
-namespace game1666.GameModel.Entities.Navigation
+namespace game1666.GameModel.Entities.Components
 {
 	/// <summary>
 	/// An instance of this class represents a node in the A* search space used for entity pathfinding.

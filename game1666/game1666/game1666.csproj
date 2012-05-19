@@ -169,7 +169,7 @@
     <Compile Include="GameModel\Entities\Messages\ModelEntityDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\Messages\ModelEntityPreDestructionMessage.cs" />
     <Compile Include="GameModel\Entities\Messages\ModelEntitySpawnMessage.cs" />
-    <Compile Include="GameModel\Entities\Navigation\ModelEntityNavigationNode.cs" />
+    <Compile Include="GameModel\Entities\Components\ModelEntityNavigationNode.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\IPlacementStrategy.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\PlacementStrategyRequireFlatGround.cs" />
     <Compile Include="GameModel\Entities\AbstractComponents\ModelEntityComponentExtensions.cs" />

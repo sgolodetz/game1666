@@ -17,7 +17,7 @@ namespace game1666.GameModel.Navigation
 	/// </summary>
 	/// <typeparam name="PlaceableEntityType">The type of entity that gets placed on the terrain.</typeparam>
 	/// <typeparam name="NavigationNodeType">The type of navigation node to be used.</typeparam>
-	class NavigationMap<PlaceableEntityType,NavigationNodeType> : INavigationMap<PlaceableEntityType>
+	sealed class NavigationMap<PlaceableEntityType,NavigationNodeType> : INavigationMap<PlaceableEntityType>
 		where PlaceableEntityType : class
 		where NavigationNodeType : AStarNode<NavigationNodeType>, INavigationNode<PlaceableEntityType,NavigationNodeType>, new()
 	{
