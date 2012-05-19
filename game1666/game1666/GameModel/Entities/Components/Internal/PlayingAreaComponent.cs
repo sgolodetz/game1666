@@ -22,16 +22,6 @@ namespace game1666.GameModel.Entities.Components.Internal
 	/// </summary>
 	sealed class PlayingAreaComponent : InternalComponent
 	{
-		//#################### PRIVATE VARIABLES ####################
-		#region
-
-		/// <summary>
-		/// The playing area's navigation map.
-		/// </summary>
-		private readonly ModelEntityNavigationMap m_navigationMap = new ModelEntityNavigationMap();
-
-		#endregion
-
 		//#################### PROPERTIES ####################
 		#region
 
@@ -43,7 +33,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 		/// <summary>
 		/// The playing area's navigation map.
 		/// </summary>
-		public ModelEntityNavigationMap NavigationMap { get { return m_navigationMap; } }
+		public ModelEntityNavigationMap NavigationMap { get; private set; }
 
 		/// <summary>
 		/// The playing area's terrain.
@@ -62,7 +52,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 		public PlayingAreaComponent(Terrain terrain)
 		{
 			Terrain = terrain;
-			NavigationMap.Terrain = terrain;
+			NavigationMap = new ModelEntityNavigationMap(Terrain);
 		}
 
 		/// <summary>
@@ -73,7 +63,7 @@ namespace game1666.GameModel.Entities.Components.Internal
 		:	base(componentElt)
 		{
 			Terrain = ObjectPersister.LoadChildObjects<Terrain>(componentElt).First();
-			NavigationMap.Terrain = Terrain;
+			NavigationMap = new ModelEntityNavigationMap(Terrain);
 		}
 
 		#endregion

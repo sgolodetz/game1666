@@ -27,41 +27,34 @@ namespace game1666.GameModel.Navigation
 		/// <summary>
 		/// The grid of navigation nodes, used for pathfinding and occupancy checking.
 		/// </summary>
-		private NavigationNodeType[,] m_nodeGrid;
+		private readonly NavigationNodeType[,] m_nodeGrid;
 
 		/// <summary>
 		/// The terrain for which to handle navigation.
 		/// </summary>
-		private Terrain m_terrain;
+		private readonly Terrain m_terrain;
 
 		#endregion
 
-		//#################### PROPERTIES ####################
+		//#################### CONSTRUCTORS ####################
 		#region
 
 		/// <summary>
-		/// The terrain for which to handle navigation.
+		/// Constructs a navigation map for the specified terrain.
 		/// </summary>
-		public Terrain Terrain
+		/// <param name="terrain">The terrain.</param>
+		public NavigationMap(Terrain terrain)
 		{
-			get
-			{
-				return m_terrain;
-			}
+			m_terrain = terrain;
 
-			set
+			int gridHeight = m_terrain.Heightmap.GetLength(0) - 1;
+			int gridWidth = m_terrain.Heightmap.GetLength(1) - 1;
+			m_nodeGrid = new NavigationNodeType[gridHeight, gridWidth];
+			for(int y = 0; y < gridHeight; ++y)
 			{
-				m_terrain = value;
-
-				int gridHeight = m_terrain.Heightmap.GetLength(0) - 1;
-				int gridWidth = m_terrain.Heightmap.GetLength(1) - 1;
-				m_nodeGrid = new NavigationNodeType[gridHeight, gridWidth];
-				for(int y = 0; y < gridHeight; ++y)
+				for(int x = 0; x < gridWidth; ++x)
 				{
-					for(int x = 0; x < gridWidth; ++x)
-					{
-						m_nodeGrid[y,x] = new NavigationNodeType().Initialise(new Vector2i(x,y), m_nodeGrid, m_terrain);
-					}
+					m_nodeGrid[y,x] = new NavigationNodeType().Initialise(new Vector2i(x,y), m_nodeGrid, m_terrain);
 				}
 			}
 		}
