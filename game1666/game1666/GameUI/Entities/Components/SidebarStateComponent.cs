@@ -9,6 +9,8 @@ using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameUI.Entities.Base;
+using game1666.GameUI.Entities.Extensions;
+using game1666.GameUI.Entities.Interfaces.Components;
 using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -313,8 +315,8 @@ namespace game1666.GameUI.Entities.Components
 					ConstructButtonViewport(buttonsViewport, layout, row, column),
 					new Dictionary<string,dynamic> { { "TextureName", bs.TextureName } }
 				);
-				var buttonInteractor = button.GetComponent(UIEntityComponentGroups.INTERACTION);
-				var buttonRenderer = button.GetComponent(UIEntityComponentGroups.RENDERING);
+				IButtonInteractionComponent buttonInteractor = button.GetComponent(UIEntityComponentGroups.INTERACTION);
+				IButtonRenderingComponent buttonRenderer = button.GetComponent(UIEntityComponentGroups.RENDERING);
 				if(buttonInteractor != null) buttonInteractor.MousePressedHook += bs.MousePressedHook;
 				if(buttonRenderer != null) buttonRenderer.IsHighlighted = bs.IsHighlighted;
 

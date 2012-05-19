@@ -5,6 +5,7 @@
 
 using System;
 using game1666.Common.UI;
+using game1666.GameUI.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,7 +14,7 @@ namespace game1666.GameUI.Entities.Components
 	/// <summary>
 	/// An instance of this class provides rendering behaviour to a button.
 	/// </summary>
-	sealed class ButtonRenderingComponent : RenderingComponent
+	sealed class ButtonRenderingComponent : RenderingComponent, IButtonRenderingComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region

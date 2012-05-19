@@ -8,6 +8,9 @@ using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
 using game1666.GameModel.Terrains;
+using game1666.GameUI.Entities.Base;
+using game1666.GameUI.Entities.Extensions;
+using game1666.GameUI.Entities.Interfaces.Components;
 using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -81,7 +84,7 @@ namespace game1666.GameUI.Entities.Components
 			Renderer.Setup3D();
 
 			// Sets the world, view and projection matrices based on the current state of the camera.
-			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
+			IPlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 			stateComponent.SetMatricesFromCamera();
 			m_entityEffect.World = stateComponent.WorldMatrix;
 			m_entityEffect.View = stateComponent.ViewMatrix;
@@ -131,7 +134,7 @@ namespace game1666.GameUI.Entities.Components
 		private void DrawTerrain(Terrain terrain)
 		{
 			var effect = Renderer.Content.Load<Effect>("Effects/TerrainMultitexture");
-			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
+			IPlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 			effect.Parameters["World"].SetValue(stateComponent.WorldMatrix);
 			effect.Parameters["View"].SetValue(stateComponent.ViewMatrix);
 			effect.Parameters["Projection"].SetValue(stateComponent.ProjectionMatrix);
@@ -148,7 +151,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <param name="root">The root node of the terrain quadtree to draw.</param>
 		private void DrawTerrainQuadtree(QuadtreeNode root)
 		{
-			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
+			IPlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 			m_terrainQuadtreeEffect.World = stateComponent.WorldMatrix;
 			m_terrainQuadtreeEffect.View = stateComponent.ViewMatrix;
 			m_terrainQuadtreeEffect.Projection = stateComponent.ProjectionMatrix;

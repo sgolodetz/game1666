@@ -5,6 +5,7 @@
 
 using System.Xml.Linq;
 using game1666.Common.UI;
+using game1666.GameUI.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameUI.Entities.Components
@@ -12,7 +13,7 @@ namespace game1666.GameUI.Entities.Components
 	/// <summary>
 	/// An instance of this class manages the state for a play viewer.
 	/// </summary>
-	sealed class PlayStateComponent : StateComponent
+	sealed class PlayStateComponent : StateComponent, IPlayStateComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

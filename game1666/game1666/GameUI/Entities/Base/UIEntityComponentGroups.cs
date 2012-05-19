@@ -3,7 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-namespace game1666.GameUI.Entities.Components
+namespace game1666.GameUI.Entities.Base
 {
 	/// <summary>
 	/// This class contains the string constants that are used to index UI entity component groups.

@@ -180,9 +180,13 @@
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />
-    <Compile Include="GameUI\Entities\Base\IUIEntityFactory.cs" />
+    <Compile Include="GameUI\Entities\Interfaces\Components\IButtonInteractionComponent.cs" />
+    <Compile Include="GameUI\Entities\Interfaces\Components\IButtonRenderingComponent.cs" />
+    <Compile Include="GameUI\Entities\Interfaces\Components\IPlayStateComponent.cs" />
+    <Compile Include="GameUI\Entities\Interfaces\Components\IUIContextComponent.cs" />
+    <Compile Include="GameUI\Entities\Interfaces\Context\IUIEntityFactory.cs" />
     <Compile Include="GameUI\Entities\Components\ButtonInteractionComponent.cs" />
-    <Compile Include="GameUI\Entities\Components\UIEntityComponentGroups.cs" />
+    <Compile Include="GameUI\Entities\Base\UIEntityComponentGroups.cs" />
     <Compile Include="GameUI\Entities\Components\CompositeInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\InteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Components\UIContextComponent.cs" />
@@ -194,7 +198,7 @@
     <Compile Include="GameUI\Entities\Components\RenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\SidebarRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Lifetime\UIEntityFactory.cs" />
-    <Compile Include="GameUI\Entities\Components\UIContextExtensions.cs" />
+    <Compile Include="GameUI\Entities\Extensions\UIContextExtensions.cs" />
     <Compile Include="GameUI\Entities\Base\IUIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntityComponent.cs" />

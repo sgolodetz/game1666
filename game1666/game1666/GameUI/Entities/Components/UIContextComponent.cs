@@ -5,6 +5,8 @@
 
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
+using game1666.GameUI.Entities.Interfaces.Components;
+using game1666.GameUI.Entities.Interfaces.Context;
 
 namespace game1666.GameUI.Entities.Components
 {
@@ -13,7 +15,7 @@ namespace game1666.GameUI.Entities.Components
 	/// to a UI entity tree. It is intended for use as a component of the root entity of such
 	/// a tree, e.g. a game view.
 	/// </summary>
-	sealed class UIContextComponent : UIEntityComponent
+	sealed class UIContextComponent : UIEntityComponent, IUIContextComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

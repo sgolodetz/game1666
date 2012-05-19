@@ -53,7 +53,7 @@ namespace game1666.GameUI.Entities.Components
 		{
 			foreach(IUIEntity child in Entity.Children)
 			{
-				var renderer = child.GetComponent(UIEntityComponentGroups.RENDERING);
+				RenderingComponent renderer = child.GetComponent(UIEntityComponentGroups.RENDERING);
 				if(renderer != null) renderer.Draw();
 			}
 		}

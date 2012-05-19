@@ -8,6 +8,9 @@ using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
+using game1666.GameUI.Entities.Base;
+using game1666.GameUI.Entities.Extensions;
+using game1666.GameUI.Entities.Interfaces.Components;
 using game1666.GameUI.Tools;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -62,7 +65,7 @@ namespace game1666.GameUI.Entities.Components
 		{
 			if(Tool == null) return;
 
-			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
+			IPlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 
 			Tool.OnMouseMoved
 			(
@@ -82,7 +85,7 @@ namespace game1666.GameUI.Entities.Components
 		{
 			if(Tool == null) return;
 
-			PlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
+			IPlayStateComponent stateComponent = Entity.GetComponent(UIEntityComponentGroups.STATE);
 
 			Tool = Tool.OnMousePressed
 			(

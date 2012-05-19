@@ -4,6 +4,7 @@
  ***/
 
 using game1666.Common.UI;
+using game1666.GameUI.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework.Input;
 
 namespace game1666.GameUI.Entities.Components
@@ -11,7 +12,7 @@ namespace game1666.GameUI.Entities.Components
 	/// <summary>
 	/// An instance of this class provides interaction behaviour to a button.
 	/// </summary>
-	sealed class ButtonInteractionComponent : InteractionComponent
+	sealed class ButtonInteractionComponent : InteractionComponent, IButtonInteractionComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

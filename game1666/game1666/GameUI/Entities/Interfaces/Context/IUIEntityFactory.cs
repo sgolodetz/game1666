@@ -4,9 +4,10 @@
  ***/
 
 using System.Collections.Generic;
+using game1666.GameUI.Entities.Base;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace game1666.GameUI.Entities.Base
+namespace game1666.GameUI.Entities.Interfaces.Context
 {
 	/// <summary>
 	/// An instance of a class implementing this interface can be used to construct UI entities.

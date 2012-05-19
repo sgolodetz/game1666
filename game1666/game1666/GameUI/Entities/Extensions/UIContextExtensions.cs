@@ -5,8 +5,10 @@
 
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
+using game1666.GameUI.Entities.Interfaces.Components;
+using game1666.GameUI.Entities.Interfaces.Context;
 
-namespace game1666.GameUI.Entities.Components
+namespace game1666.GameUI.Entities.Extensions
 {
 	/// <summary>
 	/// This class provides extension methods for entities and components in a
@@ -81,7 +83,7 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		/// <param name="entity">The UI entity.</param>
 		/// <returns>The context component for the containing game view.</returns>
-		private static UIContextComponent Context(this IUIEntity entity)
+		private static IUIContextComponent Context(this IUIEntity entity)
 		{
 			return entity.GetRootEntity().GetComponent(UIEntityComponentGroups.CONTEXT);
 		}
@@ -91,7 +93,7 @@ namespace game1666.GameUI.Entities.Components
 		/// </summary>
 		/// <param name="component">The UI component.</param>
 		/// <returns>The context component for the containing game view.</returns>
-		private static UIContextComponent Context(this UIEntityComponent component)
+		private static IUIContextComponent Context(this UIEntityComponent component)
 		{
 			return component.Entity.Context();
 		}
