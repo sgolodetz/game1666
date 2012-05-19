@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using game1666.Common.Tasks;
 using game1666.GameModel.Entities.AbstractComponents;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Tasks
@@ -76,7 +75,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <returns>The generated sub-task.</returns>
 		protected override Task GenerateSubTask()
 		{
-			MobileComponent mobileComponent = m_entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
+			IMobileComponent mobileComponent = m_entity.GetComponent(ModelEntityComponentGroups.EXTERNAL);
 			IPlayingAreaComponent playingAreaComponent = m_entity.Parent.GetComponent(ModelEntityComponentGroups.INTERNAL);
 
 			// Try and find a path to the target position.

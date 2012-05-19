@@ -124,6 +124,7 @@
     <Compile Include="Common\Tasks\RetryTask.cs" />
     <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\AbstractComponents\IExternalComponent.cs" />
+    <Compile Include="GameModel\Entities\AbstractComponents\IMobileComponent.cs" />
     <Compile Include="GameModel\Entities\AbstractComponents\IModelContextComponent.cs" />
     <Compile Include="GameModel\Entities\AbstractComponents\IPlaceableComponent.cs" />
     <Compile Include="GameModel\Entities\Base\IModelEntityDestructionManager.cs" />

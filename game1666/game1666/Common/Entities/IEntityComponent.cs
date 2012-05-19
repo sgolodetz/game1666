@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
@@ -25,6 +26,11 @@ namespace game1666.Common.Entities
 		/// The name of the component.
 		/// </summary>
 		string Name { get; }
+
+		/// <summary>
+		/// The properties of the component.
+		/// </summary>
+		IDictionary<string,dynamic> Properties { get; }
 
 		#endregion
 

@@ -16,7 +16,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class allows an entity to move around on a terrain.
 	/// </summary>
-	sealed class MobileComponent : ModelEntityComponent, IExternalComponent
+	sealed class MobileComponent : ModelEntityComponent, IMobileComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
