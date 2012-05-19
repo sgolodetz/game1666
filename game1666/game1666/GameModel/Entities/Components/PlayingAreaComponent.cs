@@ -17,7 +17,7 @@ namespace game1666.GameModel.Entities.Components
 	/// as the world or a settlement. Playing areas have a terrain on which other
 	/// entities can be placed or move around.
 	/// </summary>
-	sealed class PlayingAreaComponent : InternalComponent
+	sealed class PlayingAreaComponent : InternalComponent, IPlayingAreaComponent
 	{
 		//#################### PROPERTIES ####################
 		#region

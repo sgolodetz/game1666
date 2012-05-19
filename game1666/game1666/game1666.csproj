@@ -134,6 +134,8 @@
     <Compile Include="Common\Entities\IEntity.cs" />
     <Compile Include="Common\Entities\IEntityComponent.cs" />
     <Compile Include="GameModel\Entities\Blueprints\MobileBlueprint.cs" />
+    <Compile Include="GameModel\Entities\Components\ComponentGroups.cs" />
+    <Compile Include="GameModel\Entities\Components\IPlayingAreaComponent.cs" />
     <Compile Include="GameModel\Entities\Components\MobileComponent.cs" />
     <Compile Include="GameModel\Entities\Components\TraversableComponent.cs" />
     <Compile Include="GameModel\Entities\Components\ModelContextComponent.cs" />

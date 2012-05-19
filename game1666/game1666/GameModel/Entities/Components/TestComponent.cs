@@ -22,17 +22,12 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return StaticGroup; } }
+		public override string Group { get { return ComponentGroups.TEST; } }
 
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "Test"; } }
-
-		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public static string StaticGroup { get { return "GameModel/Test"; } }
 
 		#endregion
 

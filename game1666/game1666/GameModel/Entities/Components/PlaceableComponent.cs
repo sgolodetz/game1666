@@ -163,7 +163,7 @@ namespace game1666.GameModel.Entities.Components
 		public override void AfterAdd()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			PlayingAreaComponent playingArea = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup);
+			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ComponentGroups.PLAYING_AREA);
 
 			// Determine the entity's altitude on the playing area's terrain.
 			Altitude = playingArea.Terrain.DetermineAverageAltitude(Position);
@@ -201,7 +201,7 @@ namespace game1666.GameModel.Entities.Components
 		public override void BeforeRemove()
 		{
 			// Look up the playing area on which the entity containing this component resides.
-			PlayingAreaComponent playingArea = Entity.Parent.GetComponent(PlayingAreaComponent.StaticGroup);
+			IPlayingAreaComponent playingArea = Entity.Parent.GetComponent(ComponentGroups.PLAYING_AREA);
 
 			// Clear the space occupied by the entity on the navigation map.
 			playingArea.NavigationMap.MarkOccupied
@@ -257,7 +257,7 @@ namespace game1666.GameModel.Entities.Components
 			if(parent == null) return;
 
 			// Determine the model name and orientation to use (see the description on the DetermineModelAndOrientation method).
-			ModelEntityNavigationMap navigationMap = parent.GetComponent(PlayingAreaComponent.StaticGroup).NavigationMap;
+			ModelEntityNavigationMap navigationMap = parent.GetComponent(ComponentGroups.PLAYING_AREA).NavigationMap;
 			if(navigationMap == null) return;
 
 			Tuple<string,Orientation4> result = DetermineModelAndOrientation(Blueprint.Model, Orientation, navigationMap);
@@ -307,7 +307,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <returns>true, if the entity containing this component can be validly placed, or false otherwise.</returns>
 		public bool IsValidlyPlaced(IModelEntity playingAreaEntity)
 		{
-			var playingAreaComponent = playingAreaEntity.GetComponent(PlayingAreaComponent.StaticGroup);
+			IPlayingAreaComponent playingAreaComponent = playingAreaEntity.GetComponent(ComponentGroups.PLAYING_AREA);
 			if(playingAreaComponent == null) return false;
 
 			// Step 1:	Check that the entity occupies one or more grid squares, and that all the grid squares it does occupy are empty.

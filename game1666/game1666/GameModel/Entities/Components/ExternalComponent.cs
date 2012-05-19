@@ -25,12 +25,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return StaticGroup; } }
-
-		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public static string StaticGroup { get { return "GameModel/External"; } }
+		public override string Group { get { return ComponentGroups.EXTERNAL; } }
 
 		#endregion
 

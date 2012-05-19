@@ -91,7 +91,7 @@ namespace game1666.GameUI.Entities.Components.Play
 			m_entityEffect.Projection = stateComponent.ProjectionMatrix;
 
 			// Draw the terrain.
-			PlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(PlayingAreaComponent.StaticGroup);
+			IPlayingAreaComponent playingAreaComponent = targetEntity.GetComponent(ComponentGroups.PLAYING_AREA);
 			if(playingAreaComponent == null) return;
 			DrawTerrain(playingAreaComponent.Terrain);
 
@@ -103,7 +103,7 @@ namespace game1666.GameUI.Entities.Components.Play
 			ITool tool = Tool;
 			foreach(IModelEntity child in targetEntity.Children)
 			{
-				ExternalComponent childExternalComponent = child.GetComponent(ExternalComponent.StaticGroup);
+				ExternalComponent childExternalComponent = child.GetComponent(ComponentGroups.EXTERNAL);
 				if(childExternalComponent == null) return;
 
 				float alpha = tool != null && tool.Name == "Delete:Delete" && child == tool.Entity ? 0.35f : 1f;
@@ -113,12 +113,11 @@ namespace game1666.GameUI.Entities.Components.Play
 			if(tool != null && tool.Name.StartsWith("Place:") && tool.Entity != null)
 			{
 				// Draw the placeable entity (if any) associated with the active tool if we're placing an entity.
-				ExternalComponent externalComponent = tool.Entity.GetComponent(ExternalComponent.StaticGroup);
-				PlaceableComponent placeableComponent = tool.Entity.GetComponent(PlaceableComponent.StaticGroup);
-				if(externalComponent != null && placeableComponent != null)
+				PlaceableComponent placeableComponent = tool.Entity.GetComponent(ComponentGroups.PLACEABLE);
+				if(placeableComponent != null)
 				{
 					float alpha = placeableComponent.IsValidlyPlaced(targetEntity) ? 1f : 0.35f;
-					externalComponent.Draw(m_entityEffect, alpha, targetEntity);
+					placeableComponent.Draw(m_entityEffect, alpha, targetEntity);
 				}
 			}
 		}

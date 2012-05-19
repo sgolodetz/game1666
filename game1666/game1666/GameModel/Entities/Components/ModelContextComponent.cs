@@ -34,7 +34,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The group of the component.
 		/// </summary>
-		public override string Group { get { return StaticGroup; } }
+		public override string Group { get { return ComponentGroups.CONTEXT; } }
 
 		/// <summary>
 		/// A message system that is used for indirect inter-entity communication within a world.
@@ -45,11 +45,6 @@ namespace game1666.GameModel.Entities.Components
 		/// The name of the component.
 		/// </summary>
 		public override string Name { get { return "ModelContext"; } }
-
-		/// <summary>
-		/// The group of the component.
-		/// </summary>
-		public static string StaticGroup { get { return "GameModel/Context"; } }
 
 		/// <summary>
 		/// A factory that can be used to construct tasks.
