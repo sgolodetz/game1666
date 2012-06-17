@@ -14,17 +14,18 @@ namespace game1666.GameModel.Entities.Interfaces.Context
 	interface ITaskFactory
 	{
 		/// <summary>
+		/// Constructs a task that will make a mobile entity go to the specified target position
+		/// within its containing playing area.
+		/// </summary>
+		/// <param name="targetPosition">The target position.</param>
+		/// <returns>The constructed task.</returns>
+		Task MakeGoToLocalPositionTask(Vector2 targetPosition);
+
+		/// <summary>
 		/// Constructs a task that will make a mobile entity go to the specified placeable entity.
 		/// </summary>
 		/// <param name="targetEntity">The absolute path of the target placeable entity.</param>
 		/// <returns>The constructed task.</returns>
 		Task MakeGoToPlaceableTask(string targetEntityPath);
-
-		/// <summary>
-		/// Constructs a task that will make a mobile entity go to the specified target position.
-		/// </summary>
-		/// <param name="targetPosition">The target position.</param>
-		/// <returns>The constructed task.</returns>
-		Task MakeGoToPositionTask(Vector2 targetPosition);
 	}
 }

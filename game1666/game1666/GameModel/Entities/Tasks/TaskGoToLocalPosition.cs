@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: TaskGoToPosition.cs
+ * game1666: TaskGoToLocalPosition.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -14,9 +14,10 @@ using Microsoft.Xna.Framework;
 namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
-	/// An instance of this class represents a task that causes a mobile entity to head towards a specific position.
+	/// An instance of this class represents a task that causes a mobile entity
+	/// to head towards a specific position within its containing playing area.
 	/// </summary>
-	sealed class TaskGoToPosition : RetryableTask
+	sealed class TaskGoToLocalPosition : RetryableTask
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -36,20 +37,20 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a 'go to position' task.
+		/// Constructs a 'go to local position' task.
 		/// </summary>
 		/// <param name="targetPosition">The target position.</param>
-		public TaskGoToPosition(Vector2 targetPosition)
+		public TaskGoToLocalPosition(Vector2 targetPosition)
 		:	base(new AlwaysRetry())
 		{
 			TargetPosition = targetPosition;
 		}
 
 		/// <summary>
-		/// Constructs a 'go to position' task from its XML representation.
+		/// Constructs a 'go to local position' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskGoToPosition(XElement element)
+		public TaskGoToLocalPosition(XElement element)
 		:	base(new AlwaysRetry(), element)
 		{}
 

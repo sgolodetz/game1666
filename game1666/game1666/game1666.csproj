@@ -177,7 +177,7 @@
     <Compile Include="GameModel\Entities\Tasks\TaskFactory.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskFollowPath.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskGoToPlaceable.cs" />
-    <Compile Include="GameModel\Entities\Tasks\TaskGoToPosition.cs" />
+    <Compile Include="GameModel\Entities\Tasks\TaskGoToLocalPosition.cs" />
     <Compile Include="GameModel\Navigation\INavigationMap.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />
