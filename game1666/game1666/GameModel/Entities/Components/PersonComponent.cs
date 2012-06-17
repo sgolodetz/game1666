@@ -109,16 +109,12 @@ namespace game1666.GameModel.Entities.Components
 				{
 					// Try and execute the current task. If we run out of tasks, switch to the resting state.
 					State = m_queueTask.Execute(Entity, gameTime) == TaskState.IN_PROGRESS ? PersonComponentState.ACTIVE : PersonComponentState.RESTING;
-					//@@@
-					ModelEntity world = Entity.GetRootEntity();
-					string worldAsXML = world.SaveToXML().ToString();
-					//@@@
 					break;
 				}
 				default:	// PersonComponentState.RESTING
 				{
 					// TODO: Assign the person a default task based on the time of day, and switch to the active state.
-					m_queueTask.AddTask(this.TaskFactory().MakeGoToPlaceableTask(Entity.GetEntityByAbsolutePath("./settlement:Stuartopolis/house:Wibble")), TaskPriority.LOW);
+					m_queueTask.AddTask(this.TaskFactory().MakeGoToPlaceableTask("./settlement:Stuartopolis/house:Wibble"), TaskPriority.LOW);
 					State = PersonComponentState.ACTIVE;
 					break;
 				}

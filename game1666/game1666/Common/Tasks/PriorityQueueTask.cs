@@ -13,17 +13,6 @@ using Microsoft.Xna.Framework;
 namespace game1666.Common.Tasks
 {
 	/// <summary>
-	/// The different possible priorities for a task.
-	/// </summary>
-	enum TaskPriority
-	{
-		VERY_HIGH,
-		HIGH,
-		MEDIUM,
-		LOW
-	}
-
-	/// <summary>
 	/// An instance of this class represents a composite task that contains a priority queue.
 	/// Sub-tasks will be executed in order of priority, with failed tasks being discarded.
 	/// Once a sub-task has started executing, it will be allowed to run to completion (in
@@ -58,13 +47,22 @@ namespace game1666.Common.Tasks
 		/// <param name="element">The root element of the task's XML representation.</param>
 		public PriorityQueueTask(XElement element)
 		{
+			// Load the current task (if any).
 			XElement curTaskElt = element.Element("currentTask");
 			if(curTaskElt != null)
 			{
 				m_currentTask = ObjectPersister.LoadChildObjects<Task>(curTaskElt).FirstOrDefault();
 			}
 
-			// TODO: Load the tasks on the queue.
+			// Load the tasks on the queue (if any).
+			XElement taskQueueElt = element.Element("taskQueue");
+			if(taskQueueElt != null)
+			{
+				IEnumerable<PrioritisedTask> tasks = ObjectPersister.LoadChildObjects<PrioritisedTask>(taskQueueElt);
+				const int dummy = -1;
+				var elements = tasks.Select(t => new PriorityQueue<Task,TaskPriority,int>.Element(t.Task, t.Priority, dummy));
+				m_taskQueue = new PriorityQueue<Task,TaskPriority,int>(Comparer<TaskPriority>.Default, elements);
+			}
 		}
 
 		#endregion
@@ -124,7 +122,10 @@ namespace game1666.Common.Tasks
 				pqTaskElt.Add(curTaskElt);
 			}
 
-			// TODO: Save the tasks on the queue.
+			// Save the tasks on the queue (if any).
+			XElement taskQueueElt = new XElement("taskQueue");
+			ObjectPersister.SaveChildObjects(taskQueueElt, m_taskQueue.Heap.Select(e => new PrioritisedTask(e.ID, e.Key)));
+			pqTaskElt.Add(taskQueueElt);
 
 			return pqTaskElt;
 		}

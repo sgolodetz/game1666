@@ -4,7 +4,6 @@
  ***/
 
 using game1666.Common.Tasks;
-using game1666.GameModel.Entities.Base;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Interfaces.Context
@@ -17,9 +16,9 @@ namespace game1666.GameModel.Entities.Interfaces.Context
 		/// <summary>
 		/// Constructs a task that will make a mobile entity go to the specified placeable entity.
 		/// </summary>
-		/// <param name="targetEntity">The target placeable entity.</param>
+		/// <param name="targetEntity">The absolute path of the target placeable entity.</param>
 		/// <returns>The constructed task.</returns>
-		Task MakeGoToPlaceableTask(ModelEntity targetEntity);
+		Task MakeGoToPlaceableTask(string targetEntityPath);
 
 		/// <summary>
 		/// Constructs a task that will make a mobile entity go to the specified target position.

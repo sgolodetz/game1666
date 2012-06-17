@@ -48,6 +48,16 @@ namespace game1666.GameModel.Entities.Tasks
 		}
 
 		/// <summary>
+		/// Constructs a 'go to placeable' task.
+		/// </summary>
+		/// <param name="targetEntityPath">The absolute path of the target placeable entity.</param>
+		public TaskGoToPlaceable(string targetEntityPath)
+		:	base(new AlwaysRetry())
+		{
+			TargetEntityPath = targetEntityPath;
+		}
+
+		/// <summary>
 		/// Constructs a 'go to placeable' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>

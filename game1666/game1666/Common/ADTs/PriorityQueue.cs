@@ -5,7 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 namespace game1666.Common.ADTs
 {
@@ -51,12 +53,12 @@ namespace game1666.Common.ADTs
 		/// <summary>
 		/// The dictionary used to look up elements by ID in the priority queue.
 		/// </summary>
-		private readonly Dictionary<ID,int> m_dictionary = new Dictionary<ID,int>();
+		private readonly IDictionary<ID,int> m_dictionary = new Dictionary<ID,int>();
 
 		/// <summary>
 		/// The heap used to manage the ordering of elements in the priority queue.
 		/// </summary>
-		private readonly List<Element> m_heap = new List<Element>();
+		private readonly IList<Element> m_heap = new List<Element>();
 
 		/// <summary>
 		/// The comparer used to order the elements by key in the heap.
@@ -79,6 +81,11 @@ namespace game1666.Common.ADTs
 		public bool Empty { get { return m_dictionary.Count == 0; } }
 
 		/// <summary>
+		/// A read-only view of the priority queue's internal heap (useful for saving the priority queue).
+		/// </summary>
+		public ReadOnlyCollection<Element> Heap { get { return new ReadOnlyCollection<Element>(m_heap); } }
+
+		/// <summary>
 		/// The element at the front of the priority queue.
 		/// </summary>
 		public Element Top
@@ -96,12 +103,29 @@ namespace game1666.Common.ADTs
 		#region
 
 		/// <summary>
-		/// Constructs a new priority queue that uses the specified key comparer.
+		/// Constructs a priority queue that uses the specified key comparer.
 		/// </summary>
 		/// <param name="keyComparer">The key comparer.</param>
 		public PriorityQueue(IComparer<Key> keyComparer)
 		{
 			m_keyComparer = keyComparer;
+		}
+
+		/// <summary>
+		/// Constructs a priority queue that uses the specified key comparer and
+		/// has a heap consisting of the specified elements. This is useful when
+		/// reloading a saved priority queue.
+		/// </summary>
+		/// <param name="keyComparer">The key comparer.</param>
+		/// <param name="elements">The elements for the heap.</param>
+		public PriorityQueue(IComparer<Key> keyComparer, IEnumerable<Element> elements)
+		:	this(keyComparer)
+		{
+			m_heap = elements.ToList();
+			for(int i = 0; i < m_heap.Count; ++i)
+			{
+				m_dictionary[m_heap[i].ID] = i;
+			}
 		}
 
 		#endregion
