@@ -83,6 +83,9 @@ namespace game1666.GameModel.Entities.Tasks
 			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
 			var playingAreaComponent = entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 
+			// If the mobile entity's not currently within a playing area, return null.
+			if(playingAreaComponent == null) return null;
+
 			// Try and find a path to the nearest entrance of the target entity.
 			List<Vector2> targetEntrances = placeableComponent.Entrances.Select(v => new Vector2(v.X + 0.5f, v.Y + 0.5f)).ToList();
 			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath

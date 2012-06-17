@@ -312,7 +312,8 @@ namespace game1666.Common.Entities
 				component.Update(gameTime);
 			}
 
-			foreach(TreeEntityType child in Children)
+			// Note: The .ToList() call here is deliberate - the list of children is allowed to change during the loop.
+			foreach(TreeEntityType child in Children.ToList())
 			{
 				child.Update(gameTime);
 			}
