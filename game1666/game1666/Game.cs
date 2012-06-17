@@ -6,6 +6,7 @@
 using System.Xml.Linq;
 using System.Xml.XPath;
 using game1666.Common.Persistence;
+using game1666.Common.Tasks;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
@@ -120,6 +121,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
+			ObjectPersister.RegisterSpecialElement("tskPriorityQueue", typeof(PriorityQueueTask));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 
 			// Load the world from an XML file.

@@ -20,18 +20,17 @@ namespace game1666.GameModel.Entities.Tasks
 	/// </summary>
 	sealed class TaskGoToPlaceable : RetryableTask
 	{
-		//#################### PRIVATE VARIABLES ####################
+		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The mobile entity.
+		/// The absolute path of the target placeable entity.
 		/// </summary>
-		private readonly ModelEntity m_entity;
-
-		/// <summary>
-		/// The target placeable entity.
-		/// </summary>
-		private readonly ModelEntity m_targetEntity;
+		private string TargetEntityPath
+		{
+			get { return Properties["TargetEntityPath"]; }
+			set { Properties["TargetEntityPath"] = value; }
+		}
 
 		#endregion
 
@@ -41,29 +40,20 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Constructs a 'go to placeable' task.
 		/// </summary>
-		/// <param name="entity">The mobile entity.</param>
 		/// <param name="targetEntity">The target placeable entity.</param>
-		public TaskGoToPlaceable(ModelEntity entity, ModelEntity targetEntity)
+		public TaskGoToPlaceable(ModelEntity targetEntity)
 		:	base(new AlwaysRetry())
 		{
-			m_entity = entity;
-			m_targetEntity = targetEntity;
+			TargetEntityPath = targetEntity.GetAbsolutePath();
 		}
-
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
 
 		/// <summary>
-		/// Saves the task to XML.
+		/// Constructs a 'go to placeable' task from its XML representation.
 		/// </summary>
-		/// <returns>An XML representation of the task.</returns>
-		public override XElement SaveToXML()
-		{
-			// TODO
-			return null;
-		}
+		/// <param name="element">The root element of the task's XML representation.</param>
+		public TaskGoToPlaceable(XElement element)
+		:	base(new AlwaysRetry(), element)
+		{}
 
 		#endregion
 
@@ -73,12 +63,15 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Generates a 'follow path' sub-task that does the actual work.
 		/// </summary>
+		/// <param name="entity">The entity that will execute the sub-task.</param>
 		/// <returns>The generated sub-task.</returns>
-		protected override Task GenerateSubTask()
+		protected override Task GenerateSubTask(dynamic entity)
 		{
-			var mobileComponent = m_entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
-			var placeableComponent = m_targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
-			var playingAreaComponent = m_entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
+			ModelEntity targetEntity = entity.GetEntityByAbsolutePath(TargetEntityPath);
+
+			var mobileComponent = entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
+			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
+			var playingAreaComponent = entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 
 			// Try and find a path to the nearest entrance of the target entity.
 			List<Vector2> targetEntrances = placeableComponent.Entrances.Select(v => new Vector2(v.X + 0.5f, v.Y + 0.5f)).ToList();
@@ -90,7 +83,7 @@ namespace game1666.GameModel.Entities.Tasks
 			);
 
 			// If a path has been found, return a task that will cause the entity to follow it, else return null.
-			return path != null ? new TaskFollowPath(m_entity, path) : null;
+			return path != null ? new TaskFollowPath(entity, path) : null;
 		}
 
 		#endregion

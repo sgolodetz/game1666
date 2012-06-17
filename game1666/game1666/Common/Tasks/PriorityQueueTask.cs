@@ -4,8 +4,10 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.ADTs;
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Tasks
@@ -41,6 +43,32 @@ namespace game1666.Common.Tasks
 		/// </summary>
 		private readonly PriorityQueue<Task,TaskPriority, int> m_taskQueue = new PriorityQueue<Task,TaskPriority,int>(Comparer<TaskPriority>.Default);
 
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a priority queue task that initially has no sub-tasks.
+		/// </summary>
+		public PriorityQueueTask()
+		{}
+
+		/// <summary>
+		/// Constructs a priority queue task from its XML representation.
+		/// </summary>
+		/// <param name="element">The root element of the task's XML representation.</param>
+		public PriorityQueueTask(XElement element)
+		{
+			XElement curTaskElt = element.Element("currentTask");
+			if(curTaskElt != null)
+			{
+				m_currentTask = ObjectPersister.LoadChildObjects<Task>(curTaskElt).FirstOrDefault();
+			}
+
+			// TODO: Load the tasks on the queue.
+		}
+
+		#endregion
+
 		//#################### PUBLIC METHODS ####################
 		#region
 
@@ -58,13 +86,14 @@ namespace game1666.Common.Tasks
 		/// <summary>
 		/// Executes the task based on the amount of elapsed time, and returns its state after execution.
 		/// </summary>
+		/// <param name="entity">The entity that will execute the task.</param>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
-		public override TaskState Execute(GameTime gameTime)
+		public override TaskState Execute(dynamic entity, GameTime gameTime)
 		{
 			if(TrySetCurrentTask())
 			{
-				TaskState result = m_currentTask.Execute(gameTime);
+				TaskState result = m_currentTask.Execute(entity, gameTime);
 				if(result == TaskState.IN_PROGRESS)
 				{
 					return TaskState.IN_PROGRESS;
@@ -85,8 +114,19 @@ namespace game1666.Common.Tasks
 		/// <returns>An XML representation of the task.</returns>
 		public override XElement SaveToXML()
 		{
-			// TODO
-			return null;
+			XElement pqTaskElt = ObjectPersister.ConstructObjectElement(GetType());
+
+			// Save the current task (if any).
+			if(m_currentTask != null)
+			{
+				XElement curTaskElt = new XElement("currentTask");
+				ObjectPersister.SaveChildObjects(curTaskElt, new List<IPersistableObject> { m_currentTask });
+				pqTaskElt.Add(curTaskElt);
+			}
+
+			// TODO: Save the tasks on the queue.
+
+			return pqTaskElt;
 		}
 
 		#endregion

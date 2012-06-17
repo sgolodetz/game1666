@@ -18,18 +18,17 @@ namespace game1666.GameModel.Entities.Tasks
 	/// </summary>
 	sealed class TaskGoToPosition : RetryableTask
 	{
-		//#################### PRIVATE VARIABLES ####################
+		//#################### PROPERTIES ####################
 		#region
-
-		/// <summary>
-		/// The entity.
-		/// </summary>
-		private readonly ModelEntity m_entity;
 
 		/// <summary>
 		/// The target position.
 		/// </summary>
-		private readonly Vector2 m_targetPosition;
+		private Vector2 TargetPosition
+		{
+			get { return Properties["TargetPosition"]; }
+			set { Properties["TargetPosition"] = value; }
+		}
 
 		#endregion
 
@@ -39,29 +38,20 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Constructs a 'go to position' task.
 		/// </summary>
-		/// <param name="entity">The entity.</param>
 		/// <param name="targetPosition">The target position.</param>
-		public TaskGoToPosition(ModelEntity entity, Vector2 targetPosition)
+		public TaskGoToPosition(Vector2 targetPosition)
 		:	base(new AlwaysRetry())
 		{
-			m_entity = entity;
-			m_targetPosition = targetPosition;
+			TargetPosition = targetPosition;
 		}
-
-		#endregion
-
-		//#################### PUBLIC METHODS ####################
-		#region
 
 		/// <summary>
-		/// Saves the task to XML.
+		/// Constructs a 'go to position' task from its XML representation.
 		/// </summary>
-		/// <returns>An XML representation of the task.</returns>
-		public override XElement SaveToXML()
-		{
-			// TODO
-			return null;
-		}
+		/// <param name="element">The root element of the task's XML representation.</param>
+		public TaskGoToPosition(XElement element)
+		:	base(new AlwaysRetry(), element)
+		{}
 
 		#endregion
 
@@ -71,22 +61,23 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Generates a 'follow path' sub-task that does the actual work.
 		/// </summary>
+		/// <param name="entity">The entity that will execute the sub-task.</param>
 		/// <returns>The generated sub-task.</returns>
-		protected override Task GenerateSubTask()
+		protected override Task GenerateSubTask(dynamic entity)
 		{
-			var mobileComponent = m_entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
-			var playingAreaComponent = m_entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
+			var mobileComponent = entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
+			var playingAreaComponent = entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 
 			// Try and find a path to the target position.
 			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath
 			(
 				mobileComponent.Position,
-				new List<Vector2> { m_targetPosition },
+				new List<Vector2> { TargetPosition },
 				mobileComponent.Properties
 			);
 
 			// If a path has been found, return a task that will cause the entity to follow it, else return null.
-			return path != null ? new TaskFollowPath(m_entity, path) : null;
+			return path != null ? new TaskFollowPath(entity, path) : null;
 		}
 
 		#endregion

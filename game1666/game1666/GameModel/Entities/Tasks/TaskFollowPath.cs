@@ -58,9 +58,10 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Executes the task based on the amount of elapsed time, and returns its state after execution.
 		/// </summary>
+		/// <param name="entity">The entity that will execute the task.</param>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
-		public override TaskState Execute(GameTime gameTime)
+		public override TaskState Execute(dynamic entity, GameTime gameTime)
 		{
 			// Try and find the offset to the next waypoint towards which we should head (if any).
 			// If there isn't one at the moment (e.g. because we're there already, or because the

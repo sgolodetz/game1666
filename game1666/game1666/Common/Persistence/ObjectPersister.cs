@@ -142,7 +142,11 @@ namespace game1666.Common.Persistence
 		{
 			foreach(IPersistableObject child in children)
 			{
-				element.Add(child.SaveToXML());
+				XElement childElt = child.SaveToXML();
+				if(childElt != null)
+				{
+					element.Add(childElt);
+				}
 			}
 			return element;
 		}

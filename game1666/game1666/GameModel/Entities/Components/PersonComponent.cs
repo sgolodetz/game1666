@@ -4,11 +4,13 @@
  ***/
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Persistence;
 using game1666.Common.Tasks;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Extensions;
-using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components
@@ -33,7 +35,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The person's internal priority queue of tasks.
 		/// </summary>
-		private readonly PriorityQueueTask m_queueTask = new PriorityQueueTask();
+		private readonly PriorityQueueTask m_queueTask;
 
 		#endregion
 
@@ -75,12 +77,25 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
 		public PersonComponent(XElement componentElt)
 		:	base(componentElt)
-		{}
+		{
+			m_queueTask = ObjectPersister.LoadChildObjects<PriorityQueueTask>(componentElt).FirstOrDefault() ?? new PriorityQueueTask();
+		}
 
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Saves the component to XML.
+		/// </summary>
+		/// <returns>An XML representation of the component.</returns>
+		public override XElement SaveToXML()
+		{
+			XElement componentElt = base.SaveToXML();
+			ObjectPersister.SaveChildObjects(componentElt, new List<IPersistableObject> { m_queueTask });
+			return componentElt;
+		}
 
 		/// <summary>
 		/// Updates the component based on elapsed time and user input.
@@ -93,13 +108,17 @@ namespace game1666.GameModel.Entities.Components
 				case PersonComponentState.ACTIVE:
 				{
 					// Try and execute the current task. If we run out of tasks, switch to the resting state.
-					State = m_queueTask.Execute(gameTime) == TaskState.IN_PROGRESS ? PersonComponentState.ACTIVE : PersonComponentState.RESTING;
+					State = m_queueTask.Execute(Entity, gameTime) == TaskState.IN_PROGRESS ? PersonComponentState.ACTIVE : PersonComponentState.RESTING;
+					//@@@
+					ModelEntity world = Entity.GetRootEntity();
+					string worldAsXML = world.SaveToXML().ToString();
+					//@@@
 					break;
 				}
 				default:	// PersonComponentState.RESTING
 				{
 					// TODO: Assign the person a default task based on the time of day, and switch to the active state.
-					m_queueTask.AddTask(this.TaskFactory().MakeGoToPlaceableTask(Entity, Entity.GetEntityByAbsolutePath("./settlement:Stuartopolis/house:Wibble")), TaskPriority.LOW);
+					m_queueTask.AddTask(this.TaskFactory().MakeGoToPlaceableTask(Entity.GetEntityByAbsolutePath("./settlement:Stuartopolis/house:Wibble")), TaskPriority.LOW);
 					State = PersonComponentState.ACTIVE;
 					break;
 				}

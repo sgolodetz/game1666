@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Xml.Linq;
 using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
@@ -82,6 +83,17 @@ namespace game1666.GameModel.Entities.Components
 
 		//#################### PUBLIC METHODS ####################
 		#region
+
+		/// <summary>
+		/// Saves the component to XML.
+		/// </summary>
+		/// <returns>An XML representation of the component.</returns>
+		public override XElement SaveToXML()
+		{
+			// The model context component is not persisted between runs
+			// of the game (it is recreated when the world is reloaded).
+			return null;
+		}
 
 		/// <summary>
 		/// Updates the component based on elapsed time and user input.

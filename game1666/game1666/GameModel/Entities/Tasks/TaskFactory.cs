@@ -19,25 +19,23 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a task that will make the specified mobile entity go to the specified placeable entity.
+		/// Constructs a task that will make a mobile entity go to the specified placeable entity.
 		/// </summary>
-		/// <param name="entity">The mobile entity.</param>
-		/// <param name="targetEntity">Its target placeable entity.</param>
+		/// <param name="targetEntity">The target placeable entity.</param>
 		/// <returns>The constructed task.</returns>
-		public Task MakeGoToPlaceableTask(ModelEntity entity, ModelEntity targetEntity)
+		public Task MakeGoToPlaceableTask(ModelEntity targetEntity)
 		{
-			return new TaskGoToPlaceable(entity, targetEntity);
+			return new TaskGoToPlaceable(targetEntity);
 		}
 
 		/// <summary>
-		/// Constructs a task that will make the specified entity go to the specified target position.
+		/// Constructs a task that will make a mobile entity go to the specified target position.
 		/// </summary>
-		/// <param name="entity">The entity that will move.</param>
-		/// <param name="targetPosition">Its target position.</param>
+		/// <param name="targetPosition">The target position.</param>
 		/// <returns>The constructed task.</returns>
-		public Task MakeGoToPositionTask(ModelEntity entity, Vector2 targetPosition)
+		public Task MakeGoToPositionTask(Vector2 targetPosition)
 		{
-			return new TaskGoToPosition(entity, targetPosition);
+			return new TaskGoToPosition(targetPosition);
 		}
 
 		#endregion
