@@ -46,7 +46,7 @@ namespace game1666.Common.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a prioritirised task.
+		/// Constructs a prioritised task.
 		/// </summary>
 		/// <param name="task">The task itself.</param>
 		/// <param name="priority">The priority of the task.</param>
@@ -57,7 +57,7 @@ namespace game1666.Common.Tasks
 		}
 
 		/// <summary>
-		/// Constructs a prioritirised task from its XML representation.
+		/// Constructs a prioritised task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
 		public PrioritisedTask(XElement element)
@@ -72,7 +72,7 @@ namespace game1666.Common.Tasks
 		#region
 
 		/// <summary>
-		/// Saves the prioritirised task to XML.
+		/// Saves the prioritised task to XML.
 		/// </summary>
 		/// <returns>An XML representation of the task.</returns>
 		public XElement SaveToXML()
