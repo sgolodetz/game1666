@@ -323,14 +323,17 @@ namespace game1666.GameModel.Entities.Components
 			//			Note that this isn't an especially efficient way of going about this, but it will do for now.
 			//			A better approach would involve keeping track of which mobile entities are in which grid squares,
 			//			and then checking per-grid square rather than per-entity.
-			/*var gridSquareSet = new HashSet<Vector2i>(gridSquares);
-			foreach(IMobileEntity mobile in Mobiles)
+			var gridSquareSet = new HashSet<Vector2i>(gridSquares);
+			foreach(ModelEntity child in playingAreaEntity.Children)
 			{
-				if(gridSquareSet.Contains(mobile.Position.ToVector2i()))
+				var mobileComponent = child.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
+				if(mobileComponent == null) continue;
+
+				if(gridSquareSet.Contains(mobileComponent.Position.ToVector2i()))
 				{
 					return false;
 				}
-			}*/
+			}
 
 			// If we didn't find any problems, then the entity is validly placed.
 			return true;

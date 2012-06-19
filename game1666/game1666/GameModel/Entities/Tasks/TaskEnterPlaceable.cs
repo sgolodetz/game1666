@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.Common.Tasks;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Components;
+using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Tasks
@@ -67,10 +67,10 @@ namespace game1666.GameModel.Entities.Tasks
 		public override TaskState Execute(dynamic entity, GameTime gameTime)
 		{
 			ModelEntity executingEntity = entity;
-			var mobileComponent = executingEntity.GetComponent<MobileComponent>(ModelEntityComponentGroups.EXTERNAL);
+			var mobileComponent = executingEntity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			ModelEntity targetEntity = executingEntity.GetEntityByAbsolutePath(TargetEntityPath);
-			var placeableComponent = targetEntity.GetComponent<PlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
+			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			// If the mobile entity is at one of the target entity's entrances,
 			// remove it from the playing area and add it to the target entity.
@@ -85,7 +85,7 @@ namespace game1666.GameModel.Entities.Tasks
 					// If the target entity has a playing area, map the mobile entity's
 					// position to the playing area entrance that corresponds to the
 					// entrance that was used to enter the target entity.
-					var playingAreaComponent = targetEntity.GetComponent<PlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
+					var playingAreaComponent = targetEntity.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 					if(playingAreaComponent != null)
 					{
 						Vector2i playingAreaEntranceSquare = playingAreaComponent.Entrances[i];
