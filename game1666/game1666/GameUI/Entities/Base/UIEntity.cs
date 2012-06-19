@@ -42,11 +42,7 @@ namespace game1666.GameUI.Entities.Base
 		public UIEntity(string name, string archetype, Viewport viewport)
 		:	base(name, archetype)
 		{
-			Properties = new Dictionary<string,dynamic>
-			{
-				{ "Name", name },
-				{ "Viewport", viewport }
-			};
+			Properties["Viewport"] = viewport;
 		}
 
 		/// <summary>
