@@ -44,6 +44,7 @@ namespace game1666.Common.Persistence
 			parsers["int"] = s => Convert.ToInt32(s);
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
 			parsers["List[float]"] = s => ParseList(s, Convert.ToSingle);
+			parsers["List[Vector2i]"] = s => ParseList(s, ParseVector2iSpecifier, ';');
 			parsers["Orientation4"] = s => Enum.Parse(typeof(Orientation4), s);
 			parsers["string"] = s => s;
 			parsers["Vector2"] = s => ParseVector2Specifier(s);

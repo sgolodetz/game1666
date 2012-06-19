@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Maths;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
@@ -23,6 +24,11 @@ namespace game1666.GameModel.Entities.Components
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The entrances to the playing area.
+		/// </summary>
+		public List<Vector2i> Entrances { get { return Properties["Entrances"]; } }
 
 		/// <summary>
 		/// The group of the component.

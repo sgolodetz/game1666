@@ -3,7 +3,9 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using game1666.Common.Entities;
+using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Navigation;
 using game1666.GameModel.Terrains;
@@ -19,6 +21,11 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 	{
 		//#################### PROPERTIES ####################
 		#region
+
+		/// <summary>
+		/// The entrances to the playing area.
+		/// </summary>
+		List<Vector2i> Entrances { get; }
 
 		/// <summary>
 		/// The playing area's navigation map.

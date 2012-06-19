@@ -121,7 +121,9 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
+			ObjectPersister.RegisterSpecialElement("tskEnterPlaceable", typeof(TaskEnterPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskGoToLocalPosition", typeof(TaskGoToLocalPosition));
+			ObjectPersister.RegisterSpecialElement("tskGoToPlaceable", typeof(TaskGoToPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskPrioritised", typeof(PrioritisedTask));
 			ObjectPersister.RegisterSpecialElement("tskPriorityQueue", typeof(PriorityQueueTask));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));

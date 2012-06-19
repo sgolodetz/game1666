@@ -48,7 +48,7 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 		/// <summary>
 		/// The entrances to the entity.
 		/// </summary>
-		IEnumerable<Vector2i> Entrances { get; }
+		List<Vector2i> Entrances { get; }
 
 		/// <summary>
 		/// The 2D axis-aligned orientation of the entity.

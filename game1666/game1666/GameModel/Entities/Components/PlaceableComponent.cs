@@ -31,6 +31,11 @@ namespace game1666.GameModel.Entities.Components
 		#region
 
 		/// <summary>
+		/// The entrances to the entity.
+		/// </summary>
+		private List<Vector2i> m_entrances;
+
+		/// <summary>
 		/// The footprint of the entity, suitably rotated to take account of its orientation.
 		/// </summary>
 		private Footprint m_footprint;
@@ -78,14 +83,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The entrances to the entity.
 		/// </summary>
-		public IEnumerable<Vector2i> Entrances
-		{
-			get
-			{
-				Vector2i offset = Position - m_footprint.Hotspot;
-				return m_footprint.Entrances.Select(e => e + offset);
-			}
-		}
+		public List<Vector2i> Entrances { get { return m_entrances; } }
 
 		/// <summary>
 		/// The group of the component.
@@ -385,6 +383,10 @@ namespace game1666.GameModel.Entities.Components
 
 			// Determine the entity's (suitably rotated) footprint.
 			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
+
+			// Determine the entity's entrances.
+			Vector2i offset = Position - m_footprint.Hotspot;
+			m_entrances = m_footprint.Entrances.Select(e => e + offset).ToList();
 		}
 
 		#endregion

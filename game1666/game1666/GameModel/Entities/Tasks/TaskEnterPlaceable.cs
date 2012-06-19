@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Xml.Linq;
 using game1666.Common.Maths;
 using game1666.Common.Tasks;
 using game1666.GameModel.Entities.Base;
@@ -44,6 +45,14 @@ namespace game1666.GameModel.Entities.Tasks
 			TargetEntityPath = targetEntityPath;
 		}
 
+		/// <summary>
+		/// Constructs an 'enter placeable' task from its XML representation.
+		/// </summary>
+		/// <param name="element">The root element of the task's XML representation.</param>
+		public TaskEnterPlaceable(XElement element)
+		:	base(element)
+		{}
+
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
@@ -57,21 +66,34 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
 		public override TaskState Execute(dynamic entity, GameTime gameTime)
 		{
-			// Determine the position of the mobile entity.
 			ModelEntity executingEntity = entity;
-			Vector2 pos = executingEntity.GetComponent<MobileComponent>(ModelEntityComponentGroups.EXTERNAL).Position;
+			var mobileComponent = executingEntity.GetComponent<MobileComponent>(ModelEntityComponentGroups.EXTERNAL);
+
+			ModelEntity targetEntity = executingEntity.GetEntityByAbsolutePath(TargetEntityPath);
+			var placeableComponent = targetEntity.GetComponent<PlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			// If the mobile entity is at one of the target entity's entrances,
 			// remove it from the playing area and add it to the target entity.
-			ModelEntity targetEntity = executingEntity.GetEntityByAbsolutePath(TargetEntityPath);
-			var placeableComponent = targetEntity.GetComponent<PlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
-			foreach(Vector2i entranceSquare in placeableComponent.Entrances)
+			for(int i = 0, count = placeableComponent.Entrances.Count; i < count; ++i)
 			{
-				var entrancePos = new Vector2(entranceSquare.X + 0.5f, entranceSquare.Y + 0.5f);
-				if(Vector2.DistanceSquared(pos, entrancePos) < Constants.EPSILON_SQUARED)
+				Vector2i placeableEntranceSquare = placeableComponent.Entrances[i];
+				var placeableEntrancePos = new Vector2(placeableEntranceSquare.X + 0.5f, placeableEntranceSquare.Y + 0.5f);
+				if(Vector2.DistanceSquared(mobileComponent.Position, placeableEntrancePos) < Constants.EPSILON_SQUARED)
 				{
 					executingEntity.Parent.RemoveChild(executingEntity);
+
+					// If the target entity has a playing area, map the mobile entity's
+					// position to the playing area entrance that corresponds to the
+					// entrance that was used to enter the target entity.
+					var playingAreaComponent = targetEntity.GetComponent<PlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
+					if(playingAreaComponent != null)
+					{
+						Vector2i playingAreaEntranceSquare = playingAreaComponent.Entrances[i];
+						mobileComponent.Position = new Vector2(playingAreaEntranceSquare.X + 0.5f, playingAreaEntranceSquare.Y + 0.5f);
+					}
+
 					targetEntity.AddChild(executingEntity);
+
 					return TaskState.SUCCEEDED;
 				}
 			}
