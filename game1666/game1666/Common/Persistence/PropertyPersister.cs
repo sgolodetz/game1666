@@ -44,6 +44,7 @@ namespace game1666.Common.Persistence
 			parsers["int"] = s => Convert.ToInt32(s);
 			parsers["List[int]"] = s => ParseList(s, Convert.ToInt32);
 			parsers["List[float]"] = s => ParseList(s, Convert.ToSingle);
+			parsers["List[Vector2]"] = s => ParseList(s, ParseVector2Specifier, ';');
 			parsers["List[Vector2i]"] = s => ParseList(s, ParseVector2iSpecifier, ';');
 			parsers["Orientation4"] = s => Enum.Parse(typeof(Orientation4), s);
 			parsers["string"] = s => s;
@@ -285,6 +286,19 @@ namespace game1666.Common.Persistence
 		}
 
 		/// <summary>
+		/// Saves a list to a string.
+		/// </summary>
+		/// <typeparam name="T">The type of list element.</typeparam>
+		/// <param name="list">The list.</param>
+		/// <param name="elementSaver">The function used to save individual elements.</param>
+		/// <param name="separator">The separator used to delimit elements.</param>
+		/// <returns>A string representation of the list.</returns>
+		public static string SaveList<T>(List<T> list, Func<T,string> elementSaver, char separator = ',')
+		{
+			return string.Join(separator.ToString(), list.Select(e => elementSaver(e)));
+		}
+
+		/// <summary>
 		/// Saves a set of properties as children of an XML element.
 		/// </summary>
 		/// <param name="element">The XML element to which to save the properties.</param>
@@ -299,6 +313,8 @@ namespace game1666.Common.Persistence
 			savers[typeof(int)] = Tuple.Create("int", toStringSaver);
 			savers[typeof(float)] = Tuple.Create("float", toStringSaver);
 			savers[typeof(float[,])] = Tuple.Create("Array2D[float]", new Func<dynamic,string>(v => SaveArray2D<float>(v)));
+			savers[typeof(List<Vector2>)] = Tuple.Create("List[Vector2]", new Func<dynamic,string>(v => SaveList<Vector2>(v, new Func<Vector2,string>(e => e.X + "," + e.Y), ';')));
+			savers[typeof(List<Vector2i>)] = Tuple.Create("List[Vector2i]", new Func<dynamic,string>(v => SaveList<Vector2i>(v, new Func<Vector2i,string>(e => e.ToString()), ';')));
 			savers[typeof(Orientation4)] = Tuple.Create("Orientation4", toStringSaver);
 			savers[typeof(string)] = Tuple.Create("string", new Func<dynamic,string>(v => v));
 			savers[typeof(Vector2)] = Tuple.Create("Vector2", new Func<dynamic,string>(v => v.X + "," + v.Y));

@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using game1666.Common.Tasks;
 using Microsoft.Xna.Framework;
 
@@ -14,12 +15,12 @@ namespace game1666.GameModel.Entities.Interfaces.Context
 	interface ITaskFactory
 	{
 		/// <summary>
-		/// Constructs a task that will make a mobile entity go to the specified target position
-		/// within its containing playing area.
+		/// Constructs a task that will make a mobile entity go to the nearest of a set of specified
+		/// target positions within its containing playing area.
 		/// </summary>
-		/// <param name="targetPosition">The target position.</param>
+		/// <param name="targetPositions">The target positions.</param>
 		/// <returns>The constructed task.</returns>
-		Task MakeGoToLocalPositionTask(Vector2 targetPosition);
+		Task MakeGoToALocalPositionTask(IEnumerable<Vector2> targetPositions);
 
 		/// <summary>
 		/// Constructs a task that will make a mobile entity go to the specified placeable entity.

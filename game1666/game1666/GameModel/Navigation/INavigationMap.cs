@@ -33,7 +33,7 @@ namespace game1666.GameModel.Navigation
 		/// <param name="properties">A set of properties associated with the entity for which a
 		/// path is to be found (can be null if irrelevant).</param>
 		/// <returns>The path, as a list of points to traverse, or null if no path can be found.</returns>
-		Queue<Vector2> FindPath(Vector2 source, List<Vector2> destinations, IDictionary<string,dynamic> properties);
+		Queue<Vector2> FindPath(Vector2 source, IEnumerable<Vector2> destinations, IDictionary<string,dynamic> properties);
 
 		/// <summary>
 		/// Looks up the entity (if any) that occupies the specified grid square.

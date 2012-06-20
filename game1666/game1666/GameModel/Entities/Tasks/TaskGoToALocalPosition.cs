@@ -1,9 +1,10 @@
 ﻿/***
- * game1666: TaskGoToLocalPosition.cs
+ * game1666: TaskGoToALocalPosition.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Tasks;
 using game1666.Common.Tasks.RetryStrategies;
@@ -15,20 +16,21 @@ namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
 	/// An instance of this class represents a task that causes a mobile entity
-	/// to head towards a specific position within its containing playing area.
+	/// to head towards the nearest of a set of specified positions within its
+	/// containing playing area.
 	/// </summary>
-	sealed class TaskGoToLocalPosition : RetryableTask
+	sealed class TaskGoToALocalPosition : RetryableTask
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The target position.
+		/// The target positions.
 		/// </summary>
-		private Vector2 TargetPosition
+		private List<Vector2> TargetPositions
 		{
-			get { return Properties["TargetPosition"]; }
-			set { Properties["TargetPosition"] = value; }
+			get { return Properties["TargetPositions"]; }
+			set { Properties["TargetPositions"] = value; }
 		}
 
 		#endregion
@@ -37,20 +39,20 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a 'go to local position' task.
+		/// Constructs a 'go to a local position' task.
 		/// </summary>
-		/// <param name="targetPosition">The target position.</param>
-		public TaskGoToLocalPosition(Vector2 targetPosition)
+		/// <param name="targetPosition">The target positions.</param>
+		public TaskGoToALocalPosition(IEnumerable<Vector2> targetPositions)
 		:	base(new AlwaysRetry())
 		{
-			TargetPosition = targetPosition;
+			TargetPositions = targetPositions.ToList();
 		}
 
 		/// <summary>
-		/// Constructs a 'go to local position' task from its XML representation.
+		/// Constructs a 'go to a local position' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskGoToLocalPosition(XElement element)
+		public TaskGoToALocalPosition(XElement element)
 		:	base(new AlwaysRetry(), element)
 		{}
 
@@ -69,11 +71,11 @@ namespace game1666.GameModel.Entities.Tasks
 			var mobileComponent = entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
 			var playingAreaComponent = entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 
-			// Try and find a path to the target position.
+			// Try and find a path to the nearest target position.
 			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath
 			(
 				mobileComponent.Position,
-				new List<Vector2> { TargetPosition },
+				TargetPositions,
 				mobileComponent.Properties
 			);
 
