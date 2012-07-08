@@ -115,10 +115,14 @@ namespace game1666.GameModel.Entities.Components
 			matRot = Matrix.Multiply(Matrix.CreateRotationZ(Orientation), matRot);
 			matRot = Matrix.Multiply(Matrix.CreateTranslation(-pos), matRot);
 
-			effect.World = Matrix.Multiply(matRot, effect.World);
+			Matrix matWorld = effect.World;
+			effect.World = Matrix.Multiply(matRot, matWorld);
 			effect.VertexColorEnabled = true;
 
 			Renderer.DrawBoundingBox(bounds, effect, Color.Red);
+
+			// Restore the world matrix to its original value after rendering.
+			effect.World = matWorld;
 		}
 
 		#endregion
