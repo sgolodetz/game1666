@@ -122,6 +122,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("tskEnterPlaceable", typeof(TaskEnterPlaceable));
+			ObjectPersister.RegisterSpecialElement("tskExitPlaceable", typeof(TaskExitPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskGoToALocalPosition", typeof(TaskGoToALocalPosition));
 			ObjectPersister.RegisterSpecialElement("tskGoToPlaceable", typeof(TaskGoToPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskPrioritised", typeof(PrioritisedTask));

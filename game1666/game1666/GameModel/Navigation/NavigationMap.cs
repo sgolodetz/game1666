@@ -102,7 +102,7 @@ namespace game1666.GameModel.Navigation
 			nodePath.AddFirst(sourceNode);
 
 			// Convert the path to a sequence of points at the centres of the nodes.
-			var waypoints = new Queue<Vector2>(nodePath.Select(n => new Vector2(n.Position.X + 0.5f, n.Position.Y + 0.5f)));
+			var waypoints = new Queue<Vector2>(nodePath.Select(n => n.Position.ToVector2()));
 
 			// Determine which of the possible actual destinations was actually selected,
 			// and add it as the final waypoint.

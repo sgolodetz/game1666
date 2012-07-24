@@ -74,31 +74,24 @@ namespace game1666.GameModel.Entities.Tasks
 
 			// If the mobile entity is at one of the target entity's entrances,
 			// remove it from the playing area and add it to the target entity.
-			for(int i = 0, count = placeableComponent.Entrances.Count; i < count; ++i)
+			int? entranceIndex = MathUtil.FindIndexOfNearestNearbyPoint(placeableComponent.Entrances, mobileComponent.Position);
+			if(entranceIndex != null)
 			{
-				Vector2i placeableEntranceSquare = placeableComponent.Entrances[i];
-				var placeableEntrancePos = new Vector2(placeableEntranceSquare.X + 0.5f, placeableEntranceSquare.Y + 0.5f);
-				if(Vector2.DistanceSquared(mobileComponent.Position, placeableEntrancePos) < Constants.EPSILON_SQUARED)
+				executingEntity.Parent.RemoveChild(executingEntity);
+
+				// If the target entity has a playing area, map the mobile entity's
+				// position to the playing area entrance that corresponds to the
+				// entrance that was used to enter the target entity.
+				var playingAreaComponent = targetEntity.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
+				if(playingAreaComponent != null)
 				{
-					executingEntity.Parent.RemoveChild(executingEntity);
-
-					// If the target entity has a playing area, map the mobile entity's
-					// position to the playing area entrance that corresponds to the
-					// entrance that was used to enter the target entity.
-					var playingAreaComponent = targetEntity.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
-					if(playingAreaComponent != null)
-					{
-						Vector2i playingAreaEntranceSquare = playingAreaComponent.Entrances[i];
-						mobileComponent.Position = new Vector2(playingAreaEntranceSquare.X + 0.5f, playingAreaEntranceSquare.Y + 0.5f);
-					}
-
-					targetEntity.AddChild(executingEntity);
-
-					return TaskState.SUCCEEDED;
+					mobileComponent.Position = playingAreaComponent.Entrances[entranceIndex.Value].ToVector2();
 				}
-			}
 
-			return TaskState.FAILED;
+				targetEntity.AddChild(executingEntity);
+				return TaskState.SUCCEEDED;
+			}
+			else return TaskState.FAILED;
 		}
 
 		#endregion

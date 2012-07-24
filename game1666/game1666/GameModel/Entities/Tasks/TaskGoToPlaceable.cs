@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Maths;
 using game1666.Common.Tasks;
 using game1666.Common.Tasks.RetryStrategies;
 using game1666.GameModel.Entities.Base;
@@ -87,7 +88,7 @@ namespace game1666.GameModel.Entities.Tasks
 			if(playingAreaComponent == null) return null;
 
 			// Try and find a path to the nearest entrance of the target entity.
-			List<Vector2> targetEntrances = placeableComponent.Entrances.Select(v => new Vector2(v.X + 0.5f, v.Y + 0.5f)).ToList();
+			List<Vector2> targetEntrances = placeableComponent.Entrances.Select(v => v.ToVector2()).ToList();
 			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath
 			(
 				mobileComponent.Position,
