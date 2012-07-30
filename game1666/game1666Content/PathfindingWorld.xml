@@ -75,16 +75,14 @@
         <property name="State" type="string" value="ACTIVE"/>
         <tskPriorityQueue>
           <taskQueue>
-            <!-- Note: These tasks are in *heap* order. -->
             <tskPrioritised>
               <property name="Priority" type="string" value="LOW"/>
-              <tskGoToALocalPosition>
-                <property name="TargetPositions" type="List[Vector2]" value="7.5,4.5"/>
-              </tskGoToALocalPosition>
-            </tskPrioritised>
-            <tskPrioritised>
-              <property name="Priority" type="string" value="LOW"/>
-              <tskExitPlaceable/>
+              <tskSequence>
+                <tskGoToALocalPosition>
+                  <property name="TargetPositions" type="List[Vector2]" value="7.5,4.5"/>
+                </tskGoToALocalPosition>
+                <tskExitPlaceable/>
+              </tskSequence>
             </tskPrioritised>
           </taskQueue>
         </tskPriorityQueue>
@@ -103,40 +101,26 @@
       <property name="State" type="string" value="ACTIVE"/>
       <tskPriorityQueue>
         <taskQueue>
-          <!-- Note: These tasks are in *heap* order. -->
           <tskPrioritised>
             <property name="Priority" type="string" value="LOW"/>
-            <tskGoToPlaceable>
-              <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
-            </tskGoToPlaceable>
-          </tskPrioritised>
-          <tskPrioritised>
-            <property name="Priority" type="string" value="LOW"/>
-            <tskGoToALocalPosition>
-              <property name="TargetPositions" type="List[Vector2]" value="6.5,6.5"/>
-            </tskGoToALocalPosition>
-          </tskPrioritised>
-          <tskPrioritised>
-            <property name="Priority" type="string" value="LOW"/>
-            <tskExitPlaceable/>
-          </tskPrioritised>
-          <tskPrioritised>
-            <property name="Priority" type="string" value="LOW"/>
-            <tskEnterPlaceable>
-              <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
-            </tskEnterPlaceable>
-          </tskPrioritised>
-          <tskPrioritised>
-            <property name="Priority" type="string" value="LOW"/>
-            <tskGoToPlaceable>
-              <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
-            </tskGoToPlaceable>
-          </tskPrioritised>
-          <tskPrioritised>
-            <property name="Priority" type="string" value="LOW"/>
-            <tskEnterPlaceable>
-              <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
-            </tskEnterPlaceable>
+            <tskSequence>
+              <tskGoToPlaceable>
+                <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
+              </tskGoToPlaceable>
+              <tskEnterPlaceable>
+                <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
+              </tskEnterPlaceable>
+              <tskGoToPlaceable>
+                <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
+              </tskGoToPlaceable>
+              <tskEnterPlaceable>
+                <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
+              </tskEnterPlaceable>
+              <tskExitPlaceable/>
+              <tskGoToALocalPosition>
+                <property name="TargetPositions" type="List[Vector2]" value="6.5,6.5"/>
+              </tskGoToALocalPosition>
+            </tskSequence>
           </tskPrioritised>
         </taskQueue>
       </tskPriorityQueue>

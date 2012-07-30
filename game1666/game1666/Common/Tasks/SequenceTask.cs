@@ -4,7 +4,9 @@
  ***/
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Persistence;
 using Microsoft.Xna.Framework;
 
 namespace game1666.Common.Tasks
@@ -23,6 +25,26 @@ namespace game1666.Common.Tasks
 		/// The remaining tasks to be executed.
 		/// </summary>
 		private readonly LinkedList<Task> m_tasks = new LinkedList<Task>();
+
+		#endregion
+
+		//#################### CONSTRUCTORS ####################
+		#region
+
+		/// <summary>
+		/// Constructs a sequence task that initially has no sub-tasks.
+		/// </summary>
+		public SequenceTask()
+		{}
+
+		/// <summary>
+		/// Constructs a sequence task from its XML representation.
+		/// </summary>
+		/// <param name="element">The root element of the task's XML representation.</param>
+		public SequenceTask(XElement element)
+		{
+			m_tasks = new LinkedList<Task>(ObjectPersister.LoadChildObjects<Task>(element));
+		}
 
 		#endregion
 
@@ -63,8 +85,9 @@ namespace game1666.Common.Tasks
 		/// <returns>An XML representation of the task.</returns>
 		public override XElement SaveToXML()
 		{
-			// TODO
-			return null;
+			XElement element = ObjectPersister.ConstructObjectElement(GetType());
+			ObjectPersister.SaveChildObjects(element, m_tasks);
+			return element;
 		}
 
 		#endregion

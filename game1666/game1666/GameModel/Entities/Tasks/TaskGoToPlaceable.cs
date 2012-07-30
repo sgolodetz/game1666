@@ -79,6 +79,7 @@ namespace game1666.GameModel.Entities.Tasks
 		protected override Task GenerateSubTask(dynamic entity)
 		{
 			ModelEntity targetEntity = entity.GetEntityByAbsolutePath(TargetEntityPath);
+			if(targetEntity == null) return null;
 
 			var mobileComponent = entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
 			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);

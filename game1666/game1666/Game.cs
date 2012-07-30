@@ -127,6 +127,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("tskGoToPlaceable", typeof(TaskGoToPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskPrioritised", typeof(PrioritisedTask));
 			ObjectPersister.RegisterSpecialElement("tskPriorityQueue", typeof(PriorityQueueTask));
+			ObjectPersister.RegisterSpecialElement("tskSequence", typeof(SequenceTask));
 			ObjectPersister.RegisterSpecialElement("uientity", typeof(UIEntity));
 
 			// Load the world from an XML file.

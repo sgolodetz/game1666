@@ -56,6 +56,8 @@ namespace game1666.GameModel.Entities.Tasks
 			var mobileComponent = executingEntity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			ModelEntity containingEntity = executingEntity.Parent;
+			if(containingEntity == null) return TaskState.FAILED;
+
 			int? entranceIndex = null;
 			var playingAreaComponent = containingEntity.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 			if(playingAreaComponent != null)

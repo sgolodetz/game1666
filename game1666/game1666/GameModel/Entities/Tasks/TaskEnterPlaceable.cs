@@ -70,6 +70,7 @@ namespace game1666.GameModel.Entities.Tasks
 			var mobileComponent = executingEntity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			ModelEntity targetEntity = executingEntity.GetEntityByAbsolutePath(TargetEntityPath);
+			if(targetEntity == null) return TaskState.FAILED;
 			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
 
 			// If the mobile entity is at one of the target entity's entrances,
