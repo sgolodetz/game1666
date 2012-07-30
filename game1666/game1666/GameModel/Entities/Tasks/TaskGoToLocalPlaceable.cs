@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: TaskGoToPlaceable.cs
+ * game1666: TaskGoToLocalPlaceable.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -16,10 +16,10 @@ using Microsoft.Xna.Framework;
 namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
-	/// An instance of this class represents a task that causes a mobile entity to head towards
-	/// a specific placeable entity.
+	/// An instance of this class represents a task that causes a mobile entity to head
+	/// towards a specific placeable entity within its containing playing area.
 	/// </summary>
-	sealed class TaskGoToPlaceable : RetryableTask
+	sealed class TaskGoToLocalPlaceable : RetryableTask
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -39,30 +39,30 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a 'go to placeable' task.
+		/// Constructs a 'go to local placeable' task.
 		/// </summary>
 		/// <param name="targetEntity">The target placeable entity.</param>
-		public TaskGoToPlaceable(ModelEntity targetEntity)
+		public TaskGoToLocalPlaceable(ModelEntity targetEntity)
 		:	base(new AlwaysRetry())
 		{
 			TargetEntityPath = targetEntity.GetAbsolutePath();
 		}
 
 		/// <summary>
-		/// Constructs a 'go to placeable' task.
+		/// Constructs a 'go to local placeable' task.
 		/// </summary>
 		/// <param name="targetEntityPath">The absolute path of the target placeable entity.</param>
-		public TaskGoToPlaceable(string targetEntityPath)
+		public TaskGoToLocalPlaceable(string targetEntityPath)
 		:	base(new AlwaysRetry())
 		{
 			TargetEntityPath = targetEntityPath;
 		}
 
 		/// <summary>
-		/// Constructs a 'go to placeable' task from its XML representation.
+		/// Constructs a 'go to local placeable' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskGoToPlaceable(XElement element)
+		public TaskGoToLocalPlaceable(XElement element)
 		:	base(new AlwaysRetry(), element)
 		{}
 

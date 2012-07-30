@@ -124,7 +124,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("tskEnterPlaceable", typeof(TaskEnterPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskExitPlaceable", typeof(TaskExitPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskGoToALocalPosition", typeof(TaskGoToALocalPosition));
-			ObjectPersister.RegisterSpecialElement("tskGoToPlaceable", typeof(TaskGoToPlaceable));
+			ObjectPersister.RegisterSpecialElement("tskGoToLocalPlaceable", typeof(TaskGoToLocalPlaceable));
 			ObjectPersister.RegisterSpecialElement("tskPrioritised", typeof(PrioritisedTask));
 			ObjectPersister.RegisterSpecialElement("tskPriorityQueue", typeof(PriorityQueueTask));
 			ObjectPersister.RegisterSpecialElement("tskSequence", typeof(SequenceTask));

@@ -104,15 +104,15 @@
           <tskPrioritised>
             <property name="Priority" type="string" value="LOW"/>
             <tskSequence>
-              <tskGoToPlaceable>
+              <tskGoToLocalPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
-              </tskGoToPlaceable>
+              </tskGoToLocalPlaceable>
               <tskEnterPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
               </tskEnterPlaceable>
-              <tskGoToPlaceable>
+              <tskGoToLocalPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
-              </tskGoToPlaceable>
+              </tskGoToLocalPlaceable>
               <tskEnterPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
               </tskEnterPlaceable>

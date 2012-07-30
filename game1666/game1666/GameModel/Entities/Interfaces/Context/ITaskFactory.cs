@@ -23,10 +23,11 @@ namespace game1666.GameModel.Entities.Interfaces.Context
 		Task MakeGoToALocalPositionTask(IEnumerable<Vector2> targetPositions);
 
 		/// <summary>
-		/// Constructs a task that will make a mobile entity go to the specified placeable entity.
+		/// Constructs a task that will make a mobile entity go to the specified placeable entity
+		/// within its containing playing area.
 		/// </summary>
 		/// <param name="targetEntity">The absolute path of the target placeable entity.</param>
 		/// <returns>The constructed task.</returns>
-		Task MakeGoToPlaceableTask(string targetEntityPath);
+		Task MakeGoToLocalPlaceableTask(string targetEntityPath);
 	}
 }
