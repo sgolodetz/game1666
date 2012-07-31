@@ -69,6 +69,18 @@ namespace game1666.Common.Tasks
 		/// <returns>The generated sub-task.</returns>
 		protected abstract Task GenerateSubTask(dynamic entity);
 
+		/// <summary>
+		/// Provides a hook that allows sub-tasks to fail regardless of their retry strategy.
+		/// This is useful for non-recoverable situations, e.g. the target of a movement task
+		/// being destroyed.
+		/// </summary>
+		/// <param name="entity">The entity that would execute a sub-task, were it still possible.</param>
+		/// <returns>true, if the task can no longer succeed, or false otherwise.</returns>
+		protected virtual bool NoLongerPossible(dynamic entity)
+		{
+			return false;
+		}
+
 		#endregion
 
 		//#################### PUBLIC METHODS ####################
@@ -82,6 +94,12 @@ namespace game1666.Common.Tasks
 		/// <returns>The state of the task after being executed for the specified amount of time.</returns>
 		public override TaskState Execute(dynamic entity, GameTime gameTime)
 		{
+			// If the task can no longer succeed, fail early.
+			if(NoLongerPossible(entity))
+			{
+				return TaskState.FAILED;
+			}
+
 			if(m_subTask == null)
 			{
 				if(m_retryStrategy.ShouldRetry())

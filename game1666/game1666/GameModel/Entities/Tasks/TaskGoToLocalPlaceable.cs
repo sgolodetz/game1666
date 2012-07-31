@@ -101,6 +101,18 @@ namespace game1666.GameModel.Entities.Tasks
 			return path != null ? new TaskFollowPath(entity, path) : null;
 		}
 
+		/// <summary>
+		/// Provides a hook that allows sub-tasks to fail regardless of their retry strategy.
+		/// This is useful for non-recoverable situations, e.g. the target of a movement task
+		/// being destroyed.
+		/// </summary>
+		/// <param name="entity">The entity that would execute a sub-task, were it still possible.</param>
+		/// <returns>true, if the task can no longer succeed, or false otherwise.</returns>
+		protected override bool NoLongerPossible(dynamic entity)
+		{
+			return entity.GetEntityByAbsolutePath(TargetEntityPath) == null;
+		}
+
 		#endregion
 	}
 }
