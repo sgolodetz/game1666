@@ -103,6 +103,9 @@
         <taskQueue>
           <tskPrioritised>
             <property name="Priority" type="string" value="LOW"/>
+            <!--<tskGoToPlaceable>
+              <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
+            </tskGoToPlaceable>-->
             <tskSequence>
               <tskGoToLocalPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>

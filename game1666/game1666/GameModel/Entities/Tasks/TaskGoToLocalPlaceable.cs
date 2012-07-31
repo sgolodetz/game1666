@@ -102,9 +102,7 @@ namespace game1666.GameModel.Entities.Tasks
 		}
 
 		/// <summary>
-		/// Provides a hook that allows sub-tasks to fail regardless of their retry strategy.
-		/// This is useful for non-recoverable situations, e.g. the target of a movement task
-		/// being destroyed.
+		/// Makes the task fail irretrievably if the target entity no longer exists.
 		/// </summary>
 		/// <param name="entity">The entity that would execute a sub-task, were it still possible.</param>
 		/// <returns>true, if the task can no longer succeed, or false otherwise.</returns>
