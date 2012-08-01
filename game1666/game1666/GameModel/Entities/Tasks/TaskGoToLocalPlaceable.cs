@@ -3,7 +3,6 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Maths;
@@ -11,7 +10,6 @@ using game1666.Common.Tasks;
 using game1666.Common.Tasks.RetryStrategies;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
-using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Tasks
 {
@@ -72,7 +70,7 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Generates a 'follow path' sub-task that does the actual work.
+		/// Generates a 'go to a local position' sub-task that does the actual work.
 		/// </summary>
 		/// <param name="entity">The entity that will execute the sub-task.</param>
 		/// <returns>The generated sub-task.</returns>
@@ -81,24 +79,9 @@ namespace game1666.GameModel.Entities.Tasks
 			ModelEntity targetEntity = entity.GetEntityByAbsolutePath(TargetEntityPath);
 			if(targetEntity == null) return null;
 
-			var mobileComponent = entity.GetComponent<IMobileComponent>(ModelEntityComponentGroups.EXTERNAL);
+			// Try and navigate to the nearest entrance of the target entity.
 			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
-			var playingAreaComponent = entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
-
-			// If the mobile entity's not currently within a playing area, return null.
-			if(playingAreaComponent == null) return null;
-
-			// Try and find a path to the nearest entrance of the target entity.
-			List<Vector2> targetEntrances = placeableComponent.Entrances.Select(v => v.ToVector2()).ToList();
-			Queue<Vector2> path = playingAreaComponent.NavigationMap.FindPath
-			(
-				mobileComponent.Position,
-				targetEntrances,
-				mobileComponent.Properties
-			);
-
-			// If a path has been found, return a task that will cause the entity to follow it, else return null.
-			return path != null ? new TaskFollowPath(entity, path) : null;
+			return new TaskGoToALocalPosition(placeableComponent.Entrances.Select(v => v.ToVector2()).ToList(), new NeverRetry());
 		}
 
 		/// <summary>

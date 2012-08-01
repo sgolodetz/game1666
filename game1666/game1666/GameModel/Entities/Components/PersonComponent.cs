@@ -10,7 +10,6 @@ using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.Common.Tasks;
 using game1666.GameModel.Entities.Base;
-using game1666.GameModel.Entities.Extensions;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components

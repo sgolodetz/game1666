@@ -43,7 +43,16 @@ namespace game1666.GameModel.Entities.Tasks
 		/// </summary>
 		/// <param name="targetPosition">The target positions.</param>
 		public TaskGoToALocalPosition(IEnumerable<Vector2> targetPositions)
-		:	base(new AlwaysRetry())
+		:	this(targetPositions, new AlwaysRetry())
+		{}
+
+		/// <summary>
+		/// Constructs a 'go to a local position' task with the specified retry strategy.
+		/// </summary>
+		/// <param name="targetPosition">The target positions.</param>
+		/// <param name="retryStrategy">The strategy determining the point at which the task should give up.</param>
+		public TaskGoToALocalPosition(IEnumerable<Vector2> targetPositions, IRetryStrategy retryStrategy)
+		:	base(retryStrategy)
 		{
 			TargetPositions = targetPositions.ToList();
 		}

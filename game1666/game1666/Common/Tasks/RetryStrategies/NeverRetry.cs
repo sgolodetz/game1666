@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: AlwaysRetry.cs
+ * game1666: NeverRetry.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -9,10 +9,20 @@ namespace game1666.Common.Tasks.RetryStrategies
 {
 	/// <summary>
 	/// An instance of this class represents a retry strategy that specifies that a task
-	/// should never give up.
+	/// should give up after the first failure.
 	/// </summary>
-	sealed class AlwaysRetry : IRetryStrategy
+	sealed class NeverRetry : IRetryStrategy
 	{
+		//#################### PRIVATE VARIABLES ####################
+		#region
+
+		/// <summary>
+		/// Whether or not the task has already tried to succeed.
+		/// </summary>
+		private bool m_tried = false;
+
+		#endregion
+
 		//#################### PUBLIC METHODS ####################
 		#region
 
@@ -22,7 +32,7 @@ namespace game1666.Common.Tasks.RetryStrategies
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public void RetryingAt(GameTime gameTime)
 		{
-			// No-op
+			m_tried = true;
 		}
 
 		/// <summary>
@@ -31,7 +41,7 @@ namespace game1666.Common.Tasks.RetryStrategies
 		/// <returns>true, if the task should try again, or false otherwise.</returns>
 		public bool ShouldRetry()
 		{
-			return true;
+			return !m_tried;
 		}
 
 		#endregion
