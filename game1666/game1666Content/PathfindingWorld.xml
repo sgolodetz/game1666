@@ -77,12 +77,7 @@
           <taskQueue>
             <tskPrioritised>
               <property name="Priority" type="string" value="LOW"/>
-              <tskSequence>
-                <tskGoToALocalPosition>
-                  <property name="TargetPositions" type="List[Vector2]" value="7.5,4.5"/>
-                </tskGoToALocalPosition>
-                <tskExitPlaceable/>
-              </tskSequence>
+              <tskLeavePlaceable/>
             </tskPrioritised>
           </taskQueue>
         </tskPriorityQueue>
@@ -119,10 +114,11 @@
               <tskEnterPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
               </tskEnterPlaceable>
-              <tskExitPlaceable/>
+              <tskLeavePlaceable/>
               <tskGoToALocalPosition>
                 <property name="TargetPositions" type="List[Vector2]" value="6.5,6.5"/>
               </tskGoToALocalPosition>
+              <tskLeavePlaceable/>
             </tskSequence>
           </tskPrioritised>
         </taskQueue>

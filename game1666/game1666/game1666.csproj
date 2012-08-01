@@ -183,6 +183,7 @@
     <Compile Include="GameModel\Entities\Tasks\TaskGoToLocalPlaceable.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskGoToALocalPosition.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskGoToPlaceable.cs" />
+    <Compile Include="GameModel\Entities\Tasks\TaskLeavePlaceable.cs" />
     <Compile Include="GameModel\Navigation\INavigationMap.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />
