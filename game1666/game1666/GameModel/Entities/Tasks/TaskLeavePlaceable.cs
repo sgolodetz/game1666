@@ -25,6 +25,13 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
+		/// Constructs a 'leave placeable' task.
+		/// </summary>
+		public TaskLeavePlaceable()
+		:	base(new AlwaysRetry())
+		{}
+
+		/// <summary>
 		/// Constructs a 'leave placeable' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
@@ -49,7 +56,6 @@ namespace game1666.GameModel.Entities.Tasks
 			IPlayingAreaComponent playingAreaComponent = entity.Parent.GetComponent<IPlayingAreaComponent>(ModelEntityComponentGroups.INTERNAL);
 			if (playingAreaComponent != null)
 			{
-
 				result.AddTask(new TaskGoToALocalPosition(playingAreaComponent.Entrances.Select(v => v.ToVector2()).ToList(), new NeverRetry()));
 			}
 

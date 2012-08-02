@@ -86,18 +86,9 @@ namespace game1666.GameModel.Entities.Tasks
 			Tuple<List<ModelEntity>,List<ModelEntity>> chains = FindEntityChains(sourceEntity, targetEntity);
 
 			// Generate the sequence sub-task based on these chains.
-			Task result = new SequenceTask();
-
-			foreach(ModelEntity e in chains.Item1)
-			{
-				// TODO: Generate the tasks necessary to make the executing entity leave this entity.
-			}
-
-			foreach(ModelEntity e in chains.Item2)
-			{
-				// TODO: Generate the tasks necessary to make the executing entity navigate to and enter this entity.
-			}
-
+			var result = new SequenceTask();
+			foreach(ModelEntity e in chains.Item1) result.AddTask(new TaskLeavePlaceable());
+			foreach(ModelEntity e in chains.Item2.Reverse<ModelEntity>()) result.AddTask(new TaskGoToLocalPlaceable(e));
 			return result;
 		}
 
