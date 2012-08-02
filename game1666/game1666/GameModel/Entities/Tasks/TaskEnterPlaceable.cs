@@ -39,6 +39,15 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Constructs an 'enter placeable' task.
 		/// </summary>
+		/// <param name="targetEntity">The target placeable entity.</param>
+		public TaskEnterPlaceable(ModelEntity targetEntity)
+		{
+			TargetEntityPath = targetEntity.GetAbsolutePath();
+		}
+
+		/// <summary>
+		/// Constructs an 'enter placeable' task.
+		/// </summary>
 		/// <param name="targetEntityPath">The absolute path of the target placeable entity.</param>
 		public TaskEnterPlaceable(string targetEntityPath)
 		{

@@ -105,15 +105,9 @@
               <tskGoToLocalPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
               </tskGoToLocalPlaceable>
-              <tskEnterPlaceable>
-                <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis"/>
-              </tskEnterPlaceable>
               <tskGoToLocalPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
               </tskGoToLocalPlaceable>
-              <tskEnterPlaceable>
-                <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
-              </tskEnterPlaceable>
               <tskLeavePlaceable/>
               <tskGoToALocalPosition>
                 <property name="TargetPositions" type="List[Vector2]" value="6.5,6.5"/>

@@ -14,8 +14,8 @@ using game1666.GameModel.Entities.Interfaces.Components;
 namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
-	/// An instance of this class represents a task that causes a mobile entity to head
-	/// towards a specific placeable entity within its containing playing area.
+	/// An instance of this class represents a task that causes a mobile entity to navigate
+	/// to a specific placeable entity within its containing playing area and enter it.
 	/// </summary>
 	sealed class TaskGoToLocalPlaceable : RetryableTask
 	{
@@ -70,7 +70,7 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Generates a 'go to a local position' sub-task that does the actual work.
+		/// Generates a sequence sub-task that does the actual work.
 		/// </summary>
 		/// <param name="entity">The entity that will execute the sub-task.</param>
 		/// <returns>The generated sub-task.</returns>
@@ -79,9 +79,12 @@ namespace game1666.GameModel.Entities.Tasks
 			ModelEntity targetEntity = entity.GetEntityByAbsolutePath(TargetEntityPath);
 			if(targetEntity == null) return null;
 
-			// Try and navigate to the nearest entrance of the target entity.
+			// Try and navigate to the nearest entrance of the target entity and then enter it.
+			var result = new SequenceTask();
 			var placeableComponent = targetEntity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
-			return new TaskGoToALocalPosition(placeableComponent.Entrances.Select(v => v.ToVector2()).ToList(), new NeverRetry());
+			result.AddTask(new TaskGoToALocalPosition(placeableComponent.Entrances.Select(v => v.ToVector2()).ToList(), new NeverRetry()));
+			result.AddTask(new TaskEnterPlaceable(targetEntity));
+			return result;
 		}
 
 		/// <summary>
