@@ -77,12 +77,25 @@
           <taskQueue>
             <tskPrioritised>
               <property name="Priority" type="string" value="LOW"/>
-              <tskLeavePlaceable/>
+              <tskGoToPlaceable>
+                <property name="TargetEntityPath" type="string" value="./house:Domus"/>
+              </tskGoToPlaceable>
             </tskPrioritised>
           </taskQueue>
         </tskPriorityQueue>
       </cmpPerson>
     </entity>
+  </entity>
+  <entity>
+    <property name="Archetype" type="string" value="House"/>
+    <property name="Name" type="string" value="house:Domus"/>
+    <cmpPlaceable>
+      <property name="Blueprint" type="string" value="Dwelling"/>
+      <property name="ConstructionDone" type="int" value="1000"/>
+      <property name="Orientation" type="Orientation4" value="XPOS"/>
+      <property name="Position" type="Vector2i" value="40,20"/>
+      <property name="State" type="string" value="OPERATING"/>
+    </cmpPlaceable>
   </entity>
   <entity>
     <property name="Archetype" type="string" value="Citizen"/>
@@ -98,9 +111,6 @@
         <taskQueue>
           <tskPrioritised>
             <property name="Priority" type="string" value="LOW"/>
-            <!--<tskGoToPlaceable>
-              <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
-            </tskGoToPlaceable>-->
             <tskSequence>
               <tskGoToPlaceable>
                 <property name="TargetEntityPath" type="string" value="./settlement:Stuartopolis/house:Wibble"/>
