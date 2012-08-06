@@ -41,18 +41,9 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <summary>
 		/// Constructs a 'go to placeable' task.
 		/// </summary>
-		/// <param name="targetEntity">The target placeable entity.</param>
-		public TaskGoToPlaceable(ModelEntity targetEntity)
-		:	base(new AlwaysRetry())
-		{
-			TargetEntityPath = targetEntity.GetAbsolutePath();
-		}
-
-		/// <summary>
-		/// Constructs a 'go to placeable' task.
-		/// </summary>
 		/// <param name="targetEntityPath">The absolute path of the target placeable entity.</param>
-		public TaskGoToPlaceable(string targetEntityPath)
+		/// <param name="retryStrategy">The strategy determining the point at which the task should give up.</param>
+		public TaskGoToPlaceable(string targetEntityPath, IRetryStrategy retryStrategy)
 		:	base(new AlwaysRetry())
 		{
 			TargetEntityPath = targetEntityPath;
