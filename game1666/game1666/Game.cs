@@ -121,13 +121,13 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
-			ObjectPersister.RegisterSpecialElement("tskEnterPlaceable", typeof(TaskEnterPlaceable));
-			ObjectPersister.RegisterSpecialElement("tskExitPlaceable", typeof(TaskExitPlaceable));
+			ObjectPersister.RegisterSpecialElement("tskEnterEntity", typeof(TaskEnterEntity));
+			ObjectPersister.RegisterSpecialElement("tskExitEntity", typeof(TaskExitEntity));
 			ObjectPersister.RegisterSpecialElement("tskGoToALocalPosition", typeof(TaskGoToALocalPosition));
 			ObjectPersister.RegisterSpecialElement("tskGoToAPosition", typeof(TaskGoToAPosition));
-			ObjectPersister.RegisterSpecialElement("tskGoToLocalPlaceable", typeof(TaskGoToLocalPlaceable));
-			ObjectPersister.RegisterSpecialElement("tskGoToPlaceable", typeof(TaskGoToPlaceable));
-			ObjectPersister.RegisterSpecialElement("tskLeavePlaceable", typeof(TaskLeavePlaceable));
+			ObjectPersister.RegisterSpecialElement("tskGoToEntity", typeof(TaskGoToEntity));
+			ObjectPersister.RegisterSpecialElement("tskGoToLocalEntity", typeof(TaskGoToLocalEntity));
+			ObjectPersister.RegisterSpecialElement("tskLeaveEntity", typeof(TaskLeaveEntity));
 			ObjectPersister.RegisterSpecialElement("tskPrioritised", typeof(PrioritisedTask));
 			ObjectPersister.RegisterSpecialElement("tskPriorityQueue", typeof(PriorityQueueTask));
 			ObjectPersister.RegisterSpecialElement("tskSequence", typeof(SequenceTask));

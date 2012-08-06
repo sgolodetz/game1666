@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: TaskExitPlaceable.cs
+ * game1666: TaskExitEntity.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -13,26 +13,26 @@ using Microsoft.Xna.Framework;
 namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
-	/// An instance of this class represents a task that causes a mobile entity to exit
-	/// its containing placeable entity (provided that it is currently located at one of
-	/// the placeable entity's entrances).
+	/// An instance of this class represents a task that causes a mobile entity to exit its
+	/// containing entity (provided that it is currently located at one of the containing
+	/// entity's entrances).
 	/// </summary>
-	sealed class TaskExitPlaceable : Task
+	sealed class TaskExitEntity: Task
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
 
 		/// <summary>
-		/// Constructs an 'exit placeable' task.
+		/// Constructs an 'exit entity' task.
 		/// </summary>
-		public TaskExitPlaceable()
+		public TaskExitEntity()
 		{}
 
 		/// <summary>
-		/// Constructs an 'exit placeable' task from its XML representation.
+		/// Constructs an 'exit entity' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskExitPlaceable(XElement element)
+		public TaskExitEntity(XElement element)
 		:	base(element)
 		{}
 

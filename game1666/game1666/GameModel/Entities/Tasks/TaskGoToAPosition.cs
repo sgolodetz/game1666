@@ -67,7 +67,7 @@ namespace game1666.GameModel.Entities.Tasks
 		protected override Task GenerateSubTask(dynamic entity)
 		{
 			var result = new SequenceTask();
-			result.AddTask(new TaskGoToPlaceable(ContainingEntityPath, new NeverRetry()));
+			result.AddTask(new TaskGoToEntity(ContainingEntityPath, new NeverRetry()));
 			result.AddTask(new TaskGoToALocalPosition(TargetPositions, new NeverRetry()));
 			return result;
 		}

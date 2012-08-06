@@ -30,14 +30,14 @@ namespace game1666.GameModel.Entities.Tasks
 		}
 
 		/// <summary>
-		/// Constructs a task that will make a mobile entity go to the specified placeable entity
-		/// within its containing playing area.
+		/// Constructs a task that will make a mobile entity go to the specified entity within its
+		/// containing playing area.
 		/// </summary>
-		/// <param name="targetEntity">The absolute path of the target placeable entity.</param>
+		/// <param name="targetEntity">The absolute path of the target entity.</param>
 		/// <returns>The constructed task.</returns>
-		public Task MakeGoToLocalPlaceableTask(string targetEntityPath)
+		public Task MakeGoToLocalEntityTask(string targetEntityPath)
 		{
-			return new TaskGoToLocalPlaceable(targetEntityPath);
+			return new TaskGoToLocalEntity(targetEntityPath);
 		}
 
 		#endregion

@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: TaskEnterPlaceable.cs
+ * game1666: TaskEnterEntity.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -14,16 +14,16 @@ namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
 	/// An instance of this class represents a task that causes a mobile entity to enter
-	/// a specific placeable entity (provided that it is currently located at one of the
-	/// placeable entity's entrances).
+	/// a specific entity (provided that it is currently located at one of the entity's
+	/// entrances).
 	/// </summary>
-	sealed class TaskEnterPlaceable : Task
+	sealed class TaskEnterEntity : Task
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The absolute path of the target placeable entity.
+		/// The absolute path of the target entity.
 		/// </summary>
 		private string TargetEntityPath
 		{
@@ -37,28 +37,19 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs an 'enter placeable' task.
+		/// Constructs an 'enter entity' task.
 		/// </summary>
-		/// <param name="targetEntity">The target placeable entity.</param>
-		public TaskEnterPlaceable(ModelEntity targetEntity)
+		/// <param name="targetEntity">The target entity.</param>
+		public TaskEnterEntity(ModelEntity targetEntity)
 		{
 			TargetEntityPath = targetEntity.GetAbsolutePath();
 		}
 
 		/// <summary>
-		/// Constructs an 'enter placeable' task.
-		/// </summary>
-		/// <param name="targetEntityPath">The absolute path of the target placeable entity.</param>
-		public TaskEnterPlaceable(string targetEntityPath)
-		{
-			TargetEntityPath = targetEntityPath;
-		}
-
-		/// <summary>
-		/// Constructs an 'enter placeable' task from its XML representation.
+		/// Constructs an 'enter entity' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskEnterPlaceable(XElement element)
+		public TaskEnterEntity(XElement element)
 		:	base(element)
 		{}
 

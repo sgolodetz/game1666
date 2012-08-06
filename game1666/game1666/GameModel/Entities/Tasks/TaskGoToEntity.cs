@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: TaskGoToPlaceable.cs
+ * game1666: TaskGoToEntity.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -15,17 +15,17 @@ namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
 	/// An instance of this class represents a task that causes a mobile entity to head
-	/// towards a specific placeable entity within the world as a whole. Note that this
-	/// is much more general than a 'go to local placeable' task - it has to plan its
+	/// towards a specific target entity within the world as a whole. Note that this
+	/// is much more general than a 'go to local entity' task - it has to plan its
 	/// way across the world in general, not just the local playing area.
 	/// </summary>
-	sealed class TaskGoToPlaceable : RetryableTask
+	sealed class TaskGoToEntity : RetryableTask
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The absolute path of the target placeable entity.
+		/// The absolute path of the target entity.
 		/// </summary>
 		private string TargetEntityPath
 		{
@@ -39,21 +39,21 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Constructs a 'go to placeable' task.
+		/// Constructs a 'go to entity' task.
 		/// </summary>
-		/// <param name="targetEntityPath">The absolute path of the target placeable entity.</param>
+		/// <param name="targetEntityPath">The absolute path of the target entity.</param>
 		/// <param name="retryStrategy">The strategy determining the point at which the task should give up.</param>
-		public TaskGoToPlaceable(string targetEntityPath, IRetryStrategy retryStrategy)
+		public TaskGoToEntity(string targetEntityPath, IRetryStrategy retryStrategy)
 		:	base(new AlwaysRetry())
 		{
 			TargetEntityPath = targetEntityPath;
 		}
 
 		/// <summary>
-		/// Constructs a 'go to placeable' task from its XML representation.
+		/// Constructs a 'go to entity' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskGoToPlaceable(XElement element)
+		public TaskGoToEntity(XElement element)
 		:	base(new AlwaysRetry(), element)
 		{}
 
@@ -78,8 +78,8 @@ namespace game1666.GameModel.Entities.Tasks
 
 			// Generate the sequence sub-task based on these chains.
 			var result = new SequenceTask();
-			foreach(ModelEntity e in chains.Item1) result.AddTask(new TaskLeavePlaceable());
-			foreach(ModelEntity e in chains.Item2.Reverse<ModelEntity>()) result.AddTask(new TaskGoToLocalPlaceable(e));
+			foreach(ModelEntity e in chains.Item1) result.AddTask(new TaskLeaveEntity());
+			foreach(ModelEntity e in chains.Item2.Reverse<ModelEntity>()) result.AddTask(new TaskGoToLocalEntity(e));
 			return result;
 		}
 
@@ -99,13 +99,13 @@ namespace game1666.GameModel.Entities.Tasks
 		#region
 
 		/// <summary>
-		/// Finds the chains of entities we need to leave / enter to get to the target placeable.
+		/// Finds the chains of entities we need to leave / enter to get to the target entity.
 		/// To do this, we walk up the entity tree from both the source and target entities until
 		/// reaching their common ancestor, accumulating the chains we need on the way.
 		/// </summary>
 		/// <param name="sourceEntity">The source entity (the parent of the entity executing the task).</param>
 		/// <param name="targetEntity">The target entity (the entity towards which we want the executing entity to head).</param>
-		/// <returns>A chain pair, of the form ([s1,...,sm], [dn,...,d1]). To get to the target placeable, the executing
+		/// <returns>A chain pair, of the form ([s1,...,sm], [dn,...,d1]). To get to the target entity, the executing
 		/// entity must (in sequence) leave each entity si, and then navigate to and enter each entity di.</returns>
 		private static Tuple<List<ModelEntity>,List<ModelEntity>> FindEntityChains(ModelEntity sourceEntity, ModelEntity targetEntity)
 		{

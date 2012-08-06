@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: TaskLeavePlaceable.cs
+ * game1666: TaskLeaveEntity.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -15,27 +15,27 @@ namespace game1666.GameModel.Entities.Tasks
 {
 	/// <summary>
 	/// An instance of this class represents a task that causes a mobile entity to leave its
-	/// containing placeable entity. If the containing entity has a playing area, this task
-	/// causes the mobile entity to head towards one of the entrances of the playing area
-	/// before trying to exit the containing entity; if not, it just exits immediately.
+	/// containing entity. If the containing entity has a playing area, this task causes the
+	/// mobile entity to head towards one of the entrances of the playing area before trying
+	/// to exit the containing entity; if not, it just exits immediately.
 	/// </summary>
-	sealed class TaskLeavePlaceable : RetryableTask
+	sealed class TaskLeaveEntity : RetryableTask
 	{
 		//#################### CONSTRUCTORS ####################
 		#region
 
 		/// <summary>
-		/// Constructs a 'leave placeable' task.
+		/// Constructs a 'leave entity' task.
 		/// </summary>
-		public TaskLeavePlaceable()
+		public TaskLeaveEntity()
 		:	base(new AlwaysRetry())
 		{}
 
 		/// <summary>
-		/// Constructs a 'leave placeable' task from its XML representation.
+		/// Constructs a 'leave entity' task from its XML representation.
 		/// </summary>
 		/// <param name="element">The root element of the task's XML representation.</param>
-		public TaskLeavePlaceable(XElement element)
+		public TaskLeaveEntity(XElement element)
 		:	base(new AlwaysRetry(), element)
 		{}
 
@@ -59,7 +59,7 @@ namespace game1666.GameModel.Entities.Tasks
 				result.AddTask(new TaskGoToALocalPosition(playingAreaComponent.Entrances.Select(v => v.ToVector2()).ToList(), new NeverRetry()));
 			}
 
-			result.AddTask(new TaskExitPlaceable());
+			result.AddTask(new TaskExitEntity());
 			return result;
 		}
 
