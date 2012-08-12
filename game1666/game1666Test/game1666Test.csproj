@@ -59,6 +59,7 @@
     <Compile Include="Common\Maths\TriangleTest.cs" />
     <Compile Include="Common\Maths\Vector2iTest.cs" />
     <Compile Include="Common\Persistence\PropertyPersisterTest.cs" />
+    <Compile Include="GameModel\Matchmaking\ResourceMatchmakerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
