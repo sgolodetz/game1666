@@ -188,6 +188,10 @@
     <Compile Include="GameModel\Entities\Tasks\TaskGoToEntity.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskGoToAPosition.cs" />
     <Compile Include="GameModel\Entities\Tasks\TaskLeavePlaceable.cs" />
+    <Compile Include="GameModel\Matchmaking\Resource.cs" />
+    <Compile Include="GameModel\Matchmaking\ResourceMatchmaker.cs" />
+    <Compile Include="GameModel\Matchmaking\ResourceOffer.cs" />
+    <Compile Include="GameModel\Matchmaking\ResourceRequest.cs" />
     <Compile Include="GameModel\Navigation\INavigationMap.cs" />
     <Compile Include="GameModel\Navigation\INavigationNode.cs" />
     <Compile Include="GameModel\Navigation\NavigationMap.cs" />
