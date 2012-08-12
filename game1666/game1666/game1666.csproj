@@ -114,6 +114,9 @@
     <Compile Include="Common\ADTs\PriorityQueue.cs" />
     <Compile Include="Common\AStar\AStarNode.cs" />
     <Compile Include="Common\AStar\AStarSearcher.cs" />
+    <Compile Include="Common\Matchmaking\IMatchmakingParticipant.cs" />
+    <Compile Include="Common\Matchmaking\IMatchmakingRequest.cs" />
+    <Compile Include="Common\Matchmaking\Matchmaker.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingEdge.cs" />
     <Compile Include="Common\Matchmaking\MatchmakingGraph.cs" />
     <Compile Include="Common\Messaging\IMessage.cs" />
