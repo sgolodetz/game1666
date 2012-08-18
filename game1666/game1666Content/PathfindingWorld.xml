@@ -47,6 +47,7 @@
       <property name="Name" type="string" value="house:Wibble"/>
       <cmpHome>
         <property name="Blueprint" type="string" value="SmallHome"/>
+        <property name="CurrentOccupants" type="int" value="0"/>
       </cmpHome>
       <cmpPlaceable>
         <property name="Blueprint" type="string" value="Dwelling"/>
@@ -94,6 +95,7 @@
     <property name="Name" type="string" value="house:Domus"/>
     <cmpHome>
       <property name="Blueprint" type="string" value="SmallHome"/>
+      <property name="CurrentOccupants" type="int" value="0"/>
     </cmpHome>
     <cmpPlaceable>
       <property name="Blueprint" type="string" value="Dwelling"/>
