@@ -6,6 +6,7 @@
 using game1666.Common.Entities;
 using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Interfaces.Context;
+using game1666.GameModel.Matchmaking;
 
 namespace game1666.GameModel.Entities.Interfaces.Components
 {
@@ -30,6 +31,11 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 		/// A factory that can be used to construct model entities.
 		/// </summary>
 		IModelEntityFactory EntityFactory { get; }
+
+		/// <summary>
+		/// A matchmaker that is used to match up requests and offers of game resources.
+		/// </summary>
+		ResourceMatchmaker Matchmaker { get; }
 
 		/// <summary>
 		/// A message system that is used for indirect inter-entity communication within a world.

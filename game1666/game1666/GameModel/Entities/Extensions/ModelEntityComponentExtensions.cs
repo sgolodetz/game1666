@@ -7,6 +7,7 @@ using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
 using game1666.GameModel.Entities.Interfaces.Context;
+using game1666.GameModel.Matchmaking;
 
 namespace game1666.GameModel.Entities.Extensions
 {
@@ -30,6 +31,16 @@ namespace game1666.GameModel.Entities.Extensions
 		public static IModelEntityDestructionManager EntityDestructionManager(this ModelEntityComponent component)
 		{
 			return component.Context().EntityDestructionManager;
+		}
+
+		/// <summary>
+		/// Gets the resource matchmaker for the world containing the specified component.
+		/// </summary>
+		/// <param name="component">The component.</param>
+		/// <returns>Its world's resource matchmaker.</returns>
+		public static ResourceMatchmaker Matchmaker(this ModelEntityComponent component)
+		{
+			return component.Context().Matchmaker;
 		}
 
 		/// <summary>

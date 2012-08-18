@@ -8,6 +8,7 @@ using game1666.Common.Messaging;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Interfaces.Components;
 using game1666.GameModel.Entities.Interfaces.Context;
+using game1666.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components
@@ -40,6 +41,11 @@ namespace game1666.GameModel.Entities.Components
 		public override string Group { get { return ModelEntityComponentGroups.CONTEXT; } }
 
 		/// <summary>
+		/// A matchmaker that is used to match up requests and offers of game resources.
+		/// </summary>
+		public ResourceMatchmaker Matchmaker { get; private set; }
+
+		/// <summary>
 		/// A message system that is used for indirect inter-entity communication within a world.
 		/// </summary>
 		public MessageSystem MessageSystem { get; private set; }
@@ -69,6 +75,7 @@ namespace game1666.GameModel.Entities.Components
 									 IModelEntityDestructionManager entityDestructionManager,
 									 ITaskFactory taskFactory)
 		{
+			Matchmaker = new ResourceMatchmaker();
 			MessageSystem = new MessageSystem();
 
 			EntityFactory = entityFactory;
@@ -101,6 +108,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
+			Matchmaker.Match();
 			EntityDestructionManager.FlushQueue();
 		}
 
