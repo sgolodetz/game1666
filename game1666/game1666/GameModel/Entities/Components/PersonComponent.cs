@@ -54,7 +54,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The name of the component.
 		/// </summary>
-		public override string Name { get { return "Citizen"; } }
+		public override string Name { get { return "Person"; } }
 
 		/// <summary>
 		/// The state of the component.

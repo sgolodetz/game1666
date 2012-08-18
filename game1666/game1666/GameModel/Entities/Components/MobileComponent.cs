@@ -31,7 +31,7 @@ namespace game1666.GameModel.Entities.Components
 		}
 
 		/// <summary>
-		/// The blueprint for the entity.
+		/// The blueprint for the component.
 		/// </summary>
 		public MobileBlueprint Blueprint { get; private set; }
 

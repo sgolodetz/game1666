@@ -55,7 +55,7 @@ namespace game1666.GameModel.Entities.Components
 		}
 
 		/// <summary>
-		/// The blueprint for the entity.
+		/// The blueprint for the component.
 		/// </summary>
 		public PlaceableBlueprint Blueprint { get; private set; }
 

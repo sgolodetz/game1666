@@ -105,6 +105,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpGameViewState", typeof(GameViewStateComponent));
+			ObjectPersister.RegisterSpecialElement("cmpHome", typeof(HomeComponent));
 			ObjectPersister.RegisterSpecialElement("cmpMobile", typeof(MobileComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPerson", typeof(PersonComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));
@@ -117,6 +118,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpTraversable", typeof(TraversableComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
+			ObjectPersister.RegisterSpecialElement("homeblueprint", typeof(HomeBlueprint));
 			ObjectPersister.RegisterSpecialElement("mobileblueprint", typeof(MobileBlueprint));
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));

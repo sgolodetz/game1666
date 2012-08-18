@@ -45,6 +45,9 @@
     <entity>
       <property name="Archetype" type="string" value="House"/>
       <property name="Name" type="string" value="house:Wibble"/>
+      <cmpHome>
+        <property name="Blueprint" type="string" value="SmallHome"/>
+      </cmpHome>
       <cmpPlaceable>
         <property name="Blueprint" type="string" value="Dwelling"/>
         <property name="ConstructionDone" type="int" value="1000"/>
@@ -89,6 +92,9 @@
   <entity>
     <property name="Archetype" type="string" value="House"/>
     <property name="Name" type="string" value="house:Domus"/>
+    <cmpHome>
+      <property name="Blueprint" type="string" value="SmallHome"/>
+    </cmpHome>
     <cmpPlaceable>
       <property name="Blueprint" type="string" value="Dwelling"/>
       <property name="ConstructionDone" type="int" value="1000"/>
