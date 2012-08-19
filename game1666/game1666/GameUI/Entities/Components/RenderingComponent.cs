@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.GameUI.Entities.Base;
 
@@ -36,7 +37,9 @@ namespace game1666.GameUI.Entities.Components
 		/// Constructs a rendering component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		protected RenderingComponent(XElement componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		protected RenderingComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{}
 
 		#endregion

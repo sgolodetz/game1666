@@ -39,7 +39,9 @@ namespace game1666.GameUI.Entities.Components
 		/// Constructs a composite interaction component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public CompositeInteractionComponent(XElement componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public CompositeInteractionComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{}
 
 		#endregion

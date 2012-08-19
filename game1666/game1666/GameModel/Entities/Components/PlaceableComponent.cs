@@ -141,8 +141,9 @@ namespace game1666.GameModel.Entities.Components
 		/// Constructs a placeable component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public PlaceableComponent(XElement componentElt)
-		:	base(componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public PlaceableComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{
 			Initialise();
 		}

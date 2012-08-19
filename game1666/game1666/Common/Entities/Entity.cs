@@ -91,7 +91,8 @@ namespace game1666.Common.Entities
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		protected Entity(XElement entityElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		protected Entity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties = null)
 		{
 			Properties = PropertyPersister.LoadProperties(entityElt);
 
@@ -100,7 +101,7 @@ namespace game1666.Common.Entities
 				Properties["Name"] = Guid.NewGuid().ToString();
 			}
 
-			foreach(var component in ObjectPersister.LoadChildObjects<EntityComponent<TreeEntityType>>(entityElt))
+			foreach(var component in ObjectPersister.LoadChildObjects<EntityComponent<TreeEntityType>>(entityElt, fixedProperties))
 			{
 				component.AddToEntity(Self);
 			}

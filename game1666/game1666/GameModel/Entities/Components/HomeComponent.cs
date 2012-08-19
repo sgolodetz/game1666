@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Matchmaking;
 using game1666.GameModel.Entities.Base;
@@ -55,8 +56,9 @@ namespace game1666.GameModel.Entities.Components
 		/// Constructs a home component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public HomeComponent(XElement componentElt)
-		:	base(componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public HomeComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{
 			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}

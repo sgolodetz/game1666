@@ -66,9 +66,23 @@ namespace game1666.Common.Entities
 		/// Constructs a component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		protected EntityComponent(XElement componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		protected EntityComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
 			Properties = PropertyPersister.LoadProperties(componentElt);
+
+			if(fixedProperties != null)
+			{
+				// Look up any fixed properties for this component and use them, overriding the current values if need be.
+				IDictionary<string,dynamic> componentFixedProperties = null;
+				if(fixedProperties.TryGetValue(Name, out componentFixedProperties))
+				{
+					foreach(var kv in componentFixedProperties)
+					{
+						Properties[kv.Key] = kv.Value;
+					}
+				}
+			}
 		}
 
 		#endregion

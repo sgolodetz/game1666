@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
@@ -49,7 +50,9 @@ namespace game1666.GameUI.Entities.Components
 		/// Constructs a play interaction component.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public PlayInteractionComponent(XElement componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public PlayInteractionComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{}
 
 		#endregion

@@ -3,6 +3,7 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
@@ -72,8 +73,9 @@ namespace game1666.GameModel.Entities.Components
 		/// Constructs a mobile component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public MobileComponent(XElement componentElt)
-		:	base(componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public MobileComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{
 			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}

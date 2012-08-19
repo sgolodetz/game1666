@@ -74,8 +74,9 @@ namespace game1666.GameModel.Entities.Components
 		/// Constructs a person component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		public PersonComponent(XElement componentElt)
-		:	base(componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public PersonComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{
 			m_queueTask = ObjectPersister.LoadChildObjects<PriorityQueueTask>(componentElt).FirstOrDefault() ?? new PriorityQueueTask();
 		}

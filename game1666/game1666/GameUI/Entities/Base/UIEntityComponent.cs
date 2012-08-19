@@ -36,8 +36,9 @@ namespace game1666.GameUI.Entities.Base
 		/// Constructs a component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		protected UIEntityComponent(XElement componentElt)
-		:	base(componentElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		protected UIEntityComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
 		{}
 
 		#endregion
