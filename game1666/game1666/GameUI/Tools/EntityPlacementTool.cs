@@ -93,7 +93,7 @@ namespace game1666.GameUI.Tools
 			Vector2i? gridSquare = gridSquareAndDistance != null ? gridSquareAndDistance.Item1 : (Vector2i?)null;
 
 			// Try to create an entity to be placed at the specified grid square.
-			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, m_placementOrientation, terrain, m_playingAreaEntity.EntityFactory(), 100);
+			Entity = ToolUtil.TryCreateEntity(m_name, gridSquare, m_placementOrientation, terrain, 100);
 		}
 
 		/// <summary>

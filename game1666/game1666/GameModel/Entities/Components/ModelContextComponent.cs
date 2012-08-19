@@ -31,11 +31,6 @@ namespace game1666.GameModel.Entities.Components
 		public IModelEntityDestructionManager EntityDestructionManager { get; private set; }
 
 		/// <summary>
-		/// A factory that can be used to construct model entities.
-		/// </summary>
-		public IModelEntityFactory EntityFactory { get; private set; }
-
-		/// <summary>
 		/// The group of the component.
 		/// </summary>
 		public override string Group { get { return ModelEntityComponentGroups.CONTEXT; } }
@@ -68,17 +63,12 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// Constructs a model context component.
 		/// </summary>
-		/// <param name="entityFactory">A factory that can be used to construct model entities.</param>
 		/// <param name="entityDestructionManager">A manager that can be used used to ensure orderly destruction of model entities.</param>
 		/// <param name="taskFactory">A factory that can be used to construct tasks.</param>
-		public ModelContextComponent(IModelEntityFactory entityFactory,
-									 IModelEntityDestructionManager entityDestructionManager,
-									 ITaskFactory taskFactory)
+		public ModelContextComponent(IModelEntityDestructionManager entityDestructionManager, ITaskFactory taskFactory)
 		{
 			Matchmaker = new ResourceMatchmaker();
 			MessageSystem = new MessageSystem();
-
-			EntityFactory = entityFactory;
 
 			EntityDestructionManager = entityDestructionManager;
 			EntityDestructionManager.MessageSystem = MessageSystem;

@@ -28,11 +28,6 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 		IModelEntityDestructionManager EntityDestructionManager { get; }
 
 		/// <summary>
-		/// A factory that can be used to construct model entities.
-		/// </summary>
-		IModelEntityFactory EntityFactory { get; }
-
-		/// <summary>
 		/// A matchmaker that is used to match up requests and offers of game resources.
 		/// </summary>
 		ResourceMatchmaker Matchmaker { get; }

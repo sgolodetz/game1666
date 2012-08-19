@@ -53,10 +53,9 @@ namespace game1666.GameUI.Tools
 		/// <param name="gridSquare">The terrain grid square on which to place the entity's hotspot.</param>
 		/// <param name="orientation">The orientation of the entity.</param>
 		/// <param name="terrain">The terrain on which the entity is to be placed.</param>
-		/// <param name="factory">The factory to be used to create the entity.</param>
 		/// <param name="percentComplete">The percentage of the entity that has been constructed.</param>
 		/// <returns>The entity, if it can be created, or null otherwise.</returns>
-		public static ModelEntity TryCreateEntity(string prototypeName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, IModelEntityFactory factory, int percentComplete)
+		public static ModelEntity TryCreateEntity(string prototypeName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, int percentComplete)
 		{
 			// If there's no grid square on which to place the entity's hotspot, early out.
 			if(gridSquare == null) return null;
@@ -126,7 +125,6 @@ namespace game1666.GameUI.Tools
 						placeableComponent.Position,
 						placeableComponent.Orientation,
 						playingAreaComponent.Terrain,
-						playingAreaEntity.EntityFactory(),
 						0
 					)
 				);

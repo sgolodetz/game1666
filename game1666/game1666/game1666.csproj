@@ -138,7 +138,6 @@
     <Compile Include="GameModel\Entities\Interfaces\Components\IModelContextComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IPlaceableComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Context\IModelEntityDestructionManager.cs" />
-    <Compile Include="GameModel\Entities\Interfaces\Context\IModelEntityFactory.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Context\ITaskFactory.cs" />
     <Compile Include="GameModel\Entities\Base\ModelEntity.cs" />
     <Compile Include="Common\Entities\Entity.cs" />
@@ -167,8 +166,6 @@
     <Compile Include="Common\UI\Renderer.cs" />
     <Compile Include="GameModel\Entities\Blueprints\Blueprint.cs" />
     <Compile Include="GameModel\Entities\Blueprints\BlueprintManager.cs" />
-    <Compile Include="GameModel\Entities\Extensions\ModelEntityExtensions.cs" />
-    <Compile Include="GameModel\Entities\Lifetime\ModelEntityFactory.cs" />
     <Compile Include="Common\Entities\PrototypeManager.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\Footprint.cs" />
     <Compile Include="GameModel\Entities\Blueprints\PlaceableBlueprint.cs" />

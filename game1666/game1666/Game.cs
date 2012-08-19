@@ -200,7 +200,6 @@ namespace game1666
 
 			new ModelContextComponent
 			(
-				new ModelEntityFactory(),
 				new ModelEntityDestructionManager(),
 				new TaskFactory()
 			).AddToEntity(world);
