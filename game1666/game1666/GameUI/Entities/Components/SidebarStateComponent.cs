@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Entities;
 using game1666.Common.UI;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Extensions;
@@ -310,11 +311,14 @@ namespace game1666.GameUI.Entities.Components
 				int row = buttonIndex / layout.Columns;
 
 				// Construct the button and set its handlers.
-				var button = this.EntityFactory().MakeEntity
+				var button = PrototypeManager.CreateUIEntityFromPrototype
 				(
 					"Button",
 					ConstructButtonViewport(buttonsViewport, layout, row, column),
-					new Dictionary<string,dynamic> { { "TextureName", bs.TextureName } }
+					new Dictionary<string,IDictionary<string,dynamic>>
+					{{
+						UIEntityComponentGroups.RENDERING, new Dictionary<string,dynamic> {{ "TextureName", bs.TextureName }}
+					}}
 				);
 				var buttonInteractor = button.GetComponent<IButtonInteractionComponent>(UIEntityComponentGroups.INTERACTION);
 				var buttonRenderer = button.GetComponent<IButtonRenderingComponent>(UIEntityComponentGroups.RENDERING);

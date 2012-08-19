@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <prototypes>
+    <prototype name="Button">
+      <entity>
+        <cmpButtonInteraction/>
+        <cmpButtonRendering/>
+      </entity>
+    </prototype>
     <prototype name="DirtTrack">
       <entity>
         <cmpTraversable>
@@ -53,7 +59,6 @@
     </mobileblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="DirtTrack"/>
-      <property name="Archetype" type="string" value="RoadSegment"/>
       <property name="Model" type="string" value="DirtTrack"/>
       <property name="TimeToConstruct" type="int" value="0"/>
       <footprint>
@@ -67,7 +72,6 @@
     </placeableblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="Dwelling"/>
-      <property name="Archetype" type="string" value="House"/>
       <property name="Model" type="string" value="Dwelling"/>
       <property name="TimeToConstruct" type="int" value="1000"/>
       <footprint>
@@ -81,7 +85,6 @@
     </placeableblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="Mansion"/>
-      <property name="Archetype" type="string" value="House"/>
       <property name="Model" type="string" value="Mansion"/>
       <property name="TimeToConstruct" type="int" value="5000"/>
       <footprint>
@@ -96,7 +99,6 @@
     </placeableblueprint>
     <placeableblueprint>
       <property name="Name" type="string" value="Village"/>
-      <property name="Archetype" type="string" value="Settlement"/>
       <property name="Model" type="string" value="Village"/>
       <property name="TimeToConstruct" type="int" value="10000"/>
       <footprint>
@@ -113,24 +115,24 @@
   </blueprints>
   <gameviews>
     <uientity>
-      <property name="Archetype" type="string" value="GameView"/>
       <property name="Name" type="string" value="gameview:City"/>
+      <property name="Prototype" type="string" value="GameView"/>
       <property name="Target" type="string" value="./settlement:Home"/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeRendering/>
       <cmpGameViewState/>
       <uientity>
-        <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
+        <property name="Prototype" type="string" value="PlayViewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
         <cmpPlayInteraction/>
         <cmpPlayRendering/>
         <cmpPlayState/>
       </uientity>
       <uientity>
-        <property name="Archetype" type="string" value="SidebarViewer"/>
         <property name="Name" type="string" value="sidebarviewer"/>
+        <property name="Prototype" type="string" value="SidebarViewer"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <cmpCompositeInteraction/>
         <cmpSidebarRendering/>
@@ -149,24 +151,24 @@
       </uientity>
     </uientity>
     <uientity>
-      <property name="Archetype" type="string" value="GameView"/>
       <property name="Name" type="string" value="gameview:World"/>
+      <property name="Prototype" type="string" value="GameView"/>
       <property name="Target" type="string" value="."/>
       <property name="Viewport" type="Viewport" value="0,0,1,1"/>
       <cmpCompositeInteraction/>
       <cmpCompositeRendering/>
       <cmpGameViewState/>
       <uientity>
-        <property name="Archetype" type="string" value="PlayViewer"/>
         <property name="Name" type="string" value="playviewer"/>
+        <property name="Prototype" type="string" value="PlayViewer"/>
         <property name="Viewport" type="Viewport" value="0,0,0.8,1"/>
         <cmpPlayInteraction/>
         <cmpPlayRendering/>
         <cmpPlayState/>
       </uientity>
       <uientity>
-        <property name="Archetype" type="string" value="SidebarViewer"/>
         <property name="Name" type="string" value="sidebarviewer"/>
+        <property name="Prototype" type="string" value="SidebarViewer"/>
         <property name="Viewport" type="Viewport" value="0.8,0,0.2,1"/>
         <cmpCompositeInteraction/>
         <cmpSidebarRendering/>

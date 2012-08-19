@@ -78,16 +78,16 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Constructs an entity directly from its name and archetype.
+		/// Constructs an entity directly from its name and prototype.
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
-		/// <param name="archetype">The archetype of the entity.</param>
-		protected Entity(string name, string archetype)
+		/// <param name="prototype">The prototype of the entity.</param>
+		protected Entity(string name, string prototype)
 		{
 			Properties = new Dictionary<string,dynamic>
 			{
-				{ "Archetype", archetype },
-				{ "Name", name }
+				{ "Name", name },
+				{ "Prototype", prototype }
 			};
 		}
 

@@ -65,18 +65,16 @@ namespace game1666.GameUI.Tools
 			ModelEntity entity = PrototypeManager.CreateModelEntityFromPrototype
 			(
 				prototypeName, new Dictionary<string,IDictionary<string,dynamic>>
-				{
+				{{
+					ModelEntityComponentGroups.EXTERNAL, new Dictionary<string,dynamic>
 					{
-						ModelEntityComponentGroups.EXTERNAL, new Dictionary<string,dynamic>
-						{
-							{ "Altitude", 0f },
-							{ "ConstructionDone", 0 },
-							{ "Orientation", orientation },
-							{ "Position", gridSquare.Value },
-							{ "State", "IN_CONSTRUCTION" }
-						}
+						{ "Altitude", 0f },
+						{ "ConstructionDone", 0 },
+						{ "Orientation", orientation },
+						{ "Position", gridSquare.Value },
+						{ "State", "IN_CONSTRUCTION" }
 					}
-				}
+				}}
 			);
 
 			// After creating the entity, fix up any properties that could not be determined earlier.

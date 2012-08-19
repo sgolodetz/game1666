@@ -203,7 +203,6 @@
     <Compile Include="GameUI\Entities\Interfaces\Components\IButtonRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Interfaces\Components\IPlayStateComponent.cs" />
     <Compile Include="GameUI\Entities\Interfaces\Components\IUIContextComponent.cs" />
-    <Compile Include="GameUI\Entities\Interfaces\Context\IUIEntityFactory.cs" />
     <Compile Include="GameUI\Entities\Components\ButtonInteractionComponent.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntityComponentGroups.cs" />
     <Compile Include="GameUI\Entities\Components\CompositeInteractionComponent.cs" />
@@ -216,7 +215,6 @@
     <Compile Include="GameUI\Entities\Components\PlayRenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\RenderingComponent.cs" />
     <Compile Include="GameUI\Entities\Components\SidebarRenderingComponent.cs" />
-    <Compile Include="GameUI\Entities\Lifetime\UIEntityFactory.cs" />
     <Compile Include="GameUI\Entities\Extensions\UIContextExtensions.cs" />
     <Compile Include="GameUI\Entities\Base\IUIEntity.cs" />
     <Compile Include="GameUI\Entities\Base\UIEntity.cs" />

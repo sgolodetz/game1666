@@ -26,24 +26,16 @@ namespace game1666.GameUI.Entities.Base
 		/// <summary>
 		/// The viewport into which to draw the entity.
 		/// </summary>
-		public Viewport Viewport { get { return Properties["Viewport"]; } }
+		public Viewport Viewport
+		{
+			get { return Properties["Viewport"]; }
+			set { Properties["Viewport"] = value; }
+		}
 
 		#endregion
 
 		//#################### CONSTRUCTORS ####################
 		#region
-
-		/// <summary>
-		/// Constructs a UI entity with the specified archetype and viewport.
-		/// </summary>
-		/// <param name="name">The name of the entity.</param>
-		/// <param name="archetype">The archetype of the entity.</param>
-		/// <param name="viewport">The viewport of the entity.</param>
-		public UIEntity(string name, string archetype, Viewport viewport)
-		:	base(name, archetype)
-		{
-			Properties["Viewport"] = viewport;
-		}
 
 		/// <summary>
 		/// Constructs a UI entity from its XML representation.

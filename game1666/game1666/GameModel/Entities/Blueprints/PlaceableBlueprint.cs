@@ -19,11 +19,6 @@ namespace game1666.GameModel.Entities.Blueprints
 		#region
 
 		/// <summary>
-		/// The archetype for the type of entity, e.g. "House".
-		/// </summary>
-		public string Archetype { get { return Properties["Archetype"]; } }
-
-		/// <summary>
 		/// The footprint for the type of entity.
 		/// </summary>
 		public Footprint Footprint { get; private set; }

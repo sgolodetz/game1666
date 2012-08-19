@@ -7,32 +7,19 @@ using game1666.Common.Entities;
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Interfaces.Components;
-using game1666.GameUI.Entities.Interfaces.Context;
 
 namespace game1666.GameUI.Entities.Extensions
 {
 	/// <summary>
-	/// This class provides extension methods for entities and components in a
-	/// UI entity tree that allow them to easily access the contents of the
-	/// context component stored in the root entity of their tree (i.e. a game
-	/// view). The context component contains a reference to the world being
-	/// viewed, and stores an entity factory that can be used to create new
-	/// UI entities on the fly.
+	/// This class provides extension methods for entities and components in a UI entity
+	/// tree that allow them to easily access the contents of the context component stored
+	/// in the root entity of their tree (i.e. a game view). The context component contains
+	/// a reference to the world being viewed.
 	/// </summary>
 	static class UIContextExtensions
 	{
 		//#################### PUBLIC STATIC METHODS ####################
 		#region
-
-		/// <summary>
-		/// Gets the entity factory for the game view containing the specified UI component.
-		/// </summary>
-		/// <param name="component">The component.</param>
-		/// <returns>The entity factory for the containing game view.</returns>
-		public static IUIEntityFactory EntityFactory(this UIEntityComponent component)
-		{
-			return component.Context().EntityFactory;
-		}
 
 		/// <summary>
 		/// Looks up the target of the specified UI entity in the game model.

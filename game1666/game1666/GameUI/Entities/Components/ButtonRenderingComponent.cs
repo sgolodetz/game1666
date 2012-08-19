@@ -4,6 +4,8 @@
  ***/
 
 using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
 using game1666.Common.UI;
 using game1666.GameUI.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
@@ -27,7 +29,7 @@ namespace game1666.GameUI.Entities.Components
 		/// <summary>
 		/// The sprite batch to use when drawing the button.
 		/// </summary>
-		private readonly SpriteBatch m_spriteBatch;
+		private readonly SpriteBatch m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 
 		/// <summary>
 		/// The texture to use when drawing the button.
@@ -64,8 +66,18 @@ namespace game1666.GameUI.Entities.Components
 		/// <param name="textureName">The name of the texture to use when drawing the button.</param>
 		public ButtonRenderingComponent(string textureName)
 		{
-			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
 			m_texture = Renderer.Content.Load<Texture2D>("Textures/" + textureName);
+		}
+
+		/// <summary>
+		/// Constructs a button rendering component from its XML representation.
+		/// </summary>
+		/// <param name="componentElt">The root element of the component's XML representation.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public ButtonRenderingComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(componentElt, fixedProperties)
+		{
+			m_texture = Renderer.Content.Load<Texture2D>("Textures/" + Properties["TextureName"]);
 		}
 
 		#endregion

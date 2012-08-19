@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using game1666.GameModel.Entities.Base;
+using game1666.GameUI.Entities.Base;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace game1666.Common.Entities
 {
@@ -63,6 +65,26 @@ namespace game1666.Common.Entities
 			{
 				var entity = new ModelEntity(prototypeElt, fixedProperties);
 				entity.Prototype = prototypeName;
+				return entity;
+			}
+			else return null;
+		}
+
+		/// <summary>
+		/// Creates a UI entity based on the specified prototype.
+		/// </summary>
+		/// <param name="prototypeName">The name of the prototype on which to base the entity.</param>
+		/// <param name="viewport">The viewport of the entity.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
+		public static UIEntity CreateUIEntityFromPrototype(string prototypeName, Viewport viewport, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		{
+			XElement prototypeElt = null;
+			if(s_prototypes.TryGetValue(prototypeName, out prototypeElt))
+			{
+				var entity = new UIEntity(prototypeElt, fixedProperties);
+				entity.Prototype = prototypeName;
+				entity.Viewport = viewport;
 				return entity;
 			}
 			else return null;

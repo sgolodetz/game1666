@@ -102,6 +102,8 @@ namespace game1666
 			Renderer.GraphicsDevice = GraphicsDevice;
 
 			// Register special XML elements with the object persister.
+			ObjectPersister.RegisterSpecialElement("cmpButtonInteraction", typeof(ButtonInteractionComponent));
+			ObjectPersister.RegisterSpecialElement("cmpButtonRendering", typeof(ButtonRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeInteraction", typeof(CompositeInteractionComponent));
 			ObjectPersister.RegisterSpecialElement("cmpCompositeRendering", typeof(CompositeRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpGameViewState", typeof(GameViewStateComponent));

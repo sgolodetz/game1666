@@ -10,7 +10,6 @@ using game1666.Common.UI;
 using game1666.GameModel.Entities.Base;
 using game1666.GameUI.Entities.Base;
 using game1666.GameUI.Entities.Components;
-using game1666.GameUI.Entities.Lifetime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -62,10 +61,8 @@ namespace game1666.GameUI
 				XElement viewElt = t.Item2;
 
 				// Add a UI context component to the game view to provide its UI entity tree
-				// access to the world being viewed and to a UI entity factory (in case an
-				// entity needs to create new UI entities on the fly, e.g. a sidebar needs
-				// to create buttons).
-				new UIContextComponent(world, new UIEntityFactory()).AddToEntity(view);
+				// access to the world being viewed.
+				new UIContextComponent(world).AddToEntity(view);
 
 				// Recursively load the UI entities beneath the game view.
 				view.AddDescendantsFromXML(viewElt);
