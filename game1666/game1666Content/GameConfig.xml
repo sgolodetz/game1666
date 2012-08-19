@@ -1,5 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
+  <prototypes>
+    <prototype name="DirtTrack">
+      <entity>
+        <cmpTraversable>
+          <property name="Blueprint" type="string" value="DirtTrack"/>
+        </cmpTraversable>
+      </entity>
+    </prototype>
+    <prototype name="Dwelling">
+      <entity>
+        <cmpHome>
+          <property name="Blueprint" type="string" value="SmallHome"/>
+          <property name="CurrentOccupants" type="int" value="0"/>
+        </cmpHome>
+        <cmpPlaceable>
+          <property name="Blueprint" type="string" value="Dwelling"/>
+        </cmpPlaceable>
+      </entity>
+    </prototype>
+    <prototype name="Mansion">
+      <entity>
+        <cmpHome>
+          <property name="Blueprint" type="string" value="SmallHome"/>
+          <property name="CurrentOccupants" type="int" value="0"/>
+        </cmpHome>
+        <cmpPlaceable>
+          <property name="Blueprint" type="string" value="Mansion"/>
+        </cmpPlaceable>
+      </entity>
+    </prototype>
+    <property name="Village">
+      <entity>
+        <cmpPlaceable>
+          <property name="Blueprint" type="string" value="Village"/>
+        </cmpPlaceable>
+        <!-- TODO: Add a playing area component here. -->
+      </entity>
+    </property>
+  </prototypes>
   <blueprints>
     <homeblueprint>
       <property name="Name" type="string" value="SmallHome"/>

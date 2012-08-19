@@ -11,7 +11,7 @@ using game1666.Common.Persistence;
 namespace game1666.GameModel.Entities.Blueprints
 {
 	/// <summary>
-	/// This class manages blueprints for the entities in the game.
+	/// This class manages blueprints for entity components in the game.
 	/// </summary>
 	static class BlueprintManager
 	{
