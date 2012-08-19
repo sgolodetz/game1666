@@ -311,7 +311,7 @@ namespace game1666.GameUI.Entities.Components
 				int row = buttonIndex / layout.Columns;
 
 				// Construct the button and set its handlers.
-				var button = PrototypeManager.CreateUIEntityFromPrototype
+				var button = UIEntity.CreateFromPrototype
 				(
 					"Button",
 					ConstructButtonViewport(buttonsViewport, layout, row, column),

@@ -63,8 +63,8 @@ namespace game1666.Common.Entities
 		/// </summary>
 		public string Prototype
 		{
-			get	{ return Properties["Prototype"]; }
-			set	{ Properties["Prototype"] = value; }
+			get				{ return Properties["Prototype"]; }
+			protected set	{ Properties["Prototype"] = value; }
 		}
 
 		/// <summary>

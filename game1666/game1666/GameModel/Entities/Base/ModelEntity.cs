@@ -47,6 +47,27 @@ namespace game1666.GameModel.Entities.Base
 
 		#endregion
 
+		//#################### PUBLIC STATIC METHODS ####################
+		#region
+
+		/// <summary>
+		/// Creates an entity based on the specified prototype.
+		/// </summary>
+		/// <param name="prototypeName">The name of the prototype on which to base the entity.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
+		public static ModelEntity CreateFromPrototype(string prototypeName, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		{
+			XElement entityElt = PrototypeManager.GetPrototypeEntityElement(prototypeName);
+			if(entityElt == null) return null;
+
+			var entity = new ModelEntity(entityElt, fixedProperties);
+			entity.Prototype = prototypeName;
+			return entity;
+		}
+
+		#endregion
+
 		//#################### PUBLIC METHODS ####################
 		#region
 

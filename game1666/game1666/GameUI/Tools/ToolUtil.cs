@@ -62,9 +62,10 @@ namespace game1666.GameUI.Tools
 
 			// Construct the entity from its prototype, fixing some of the properties of its
 			// external component to put it in the right place.
-			ModelEntity entity = PrototypeManager.CreateModelEntityFromPrototype
+			var entity = ModelEntity.CreateFromPrototype
 			(
-				prototypeName, new Dictionary<string,IDictionary<string,dynamic>>
+				prototypeName,
+				new Dictionary<string,IDictionary<string,dynamic>>
 				{{
 					ModelEntityComponentGroups.EXTERNAL, new Dictionary<string,dynamic>
 					{

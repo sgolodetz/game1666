@@ -48,7 +48,7 @@ namespace game1666.Common.Entities
 		/// The prototype on which the entity is based. An entity's prototype, e.g. World,
 		/// indicates which components the entity should have.
 		/// </summary>
-		string Prototype { get; set; }
+		string Prototype { get; }
 
 		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).
