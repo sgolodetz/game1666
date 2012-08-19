@@ -65,12 +65,12 @@ namespace game1666Test
 			// Load the world from XML.
 			XElement worldElt = XElement.Parse(@"
 			<entity>
-				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
+				<property name=""Prototype"" type=""string"" value=""World""/>
 				<cmpTest/>
 				<entity>
-					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:Stuartopolis""/>
+					<property name=""Prototype"" type=""string"" value=""Village""/>
 					<cmpTest/>
 				</entity>
 			</entity>
@@ -78,15 +78,15 @@ namespace game1666Test
 			var world = new ModelEntity(worldElt, null).AddDescendantsFromXML(worldElt);
 
 			// Check that it was loaded correctly.
-			Assert.Equal("World", world.Prototype);
 			Assert.Equal(".", world.Name);
+			Assert.Equal("World", world.Prototype);
 			Assert.NotNull(world.GetComponent<TestComponent>(ModelEntityComponentGroups.TEST));
 
 			ModelEntity settlement = world.GetChild("settlement:Stuartopolis");
 
 			Assert.NotNull(settlement);
-			Assert.Equal("Settlement", settlement.Prototype);
 			Assert.Equal("settlement:Stuartopolis", settlement.Name);
+			Assert.Equal("Village", settlement.Prototype);
 			Assert.NotNull(settlement.GetComponent<TestComponent>(ModelEntityComponentGroups.TEST));
 		}
 
@@ -96,9 +96,9 @@ namespace game1666Test
 		[TestMethod]
 		public void GetAbsolutePathTest()
 		{
-			var world = new ModelEntity(".", "World");
-			var settlement = new ModelEntity("settlement:Stuartopolis", "Settlement");
-			var house = new ModelEntity("house:Wibble", "House");
+			var world = new ModelEntity(".");
+			var settlement = new ModelEntity("settlement:Stuartopolis");
+			var house = new ModelEntity("house:Wibble");
 
 			world.AddChild(settlement);
 			settlement.AddChild(house);
@@ -112,7 +112,7 @@ namespace game1666Test
 		[TestMethod]
 		public void GetComponentTest()
 		{
-			var entity = new ModelEntity(".", "");
+			var entity = new ModelEntity(".");
 			var component1 = new Test1Component();
 			var component2 = new Test2Component();
 
@@ -135,10 +135,10 @@ namespace game1666Test
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 
 			// Construct the world.
-			var world = new ModelEntity(".", "World");
-			var settlementA = new ModelEntity("settlement:A", "Settlement");
-			var settlementB = new ModelEntity("settlement:B", "Settlement");
-			var house = new ModelEntity("house:Wibble", "House");
+			var world = new ModelEntity(".");
+			var settlementA = new ModelEntity("settlement:A");
+			var settlementB = new ModelEntity("settlement:B");
+			var house = new ModelEntity("house:Wibble");
 
 			world.AddChild(settlementA);
 			world.AddChild(settlementB);
@@ -150,20 +150,16 @@ namespace game1666Test
 			// Save the world to XML and compare it to the expected result.
 			Assert.Equal(XElement.Parse(@"
 			<entity>
-				<property name=""Archetype"" type=""string"" value=""World""/>
 				<property name=""Name"" type=""string"" value="".""/>
 				<cmpTest>
 					<property name=""Alue"" type=""int"" value=""42""/>
 				</cmpTest>
 				<entity>
-					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:A""/>
 				</entity>
 				<entity>
-					<property name=""Archetype"" type=""string"" value=""Settlement""/>
 					<property name=""Name"" type=""string"" value=""settlement:B""/>
 					<entity>
-						<property name=""Archetype"" type=""string"" value=""House""/>
 						<property name=""Name"" type=""string"" value=""house:Wibble""/>
 						<cmpTest/>
 					</entity>

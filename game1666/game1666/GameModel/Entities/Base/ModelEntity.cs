@@ -29,12 +29,11 @@ namespace game1666.GameModel.Entities.Base
 		#region
 
 		/// <summary>
-		/// Constructs an entity directly from its name and prototype.
+		/// Constructs a blank, named entity.
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
-		/// <param name="prototype">The prototype of the entity.</param>
-		public ModelEntity(string name, string prototype)
-		:	base(name, prototype)
+		public ModelEntity(string name)
+		:	base(name)
 		{}
 
 		/// <summary>

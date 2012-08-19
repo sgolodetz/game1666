@@ -78,17 +78,12 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Constructs an entity directly from its name and prototype.
+		/// Constructs a blank, named entity.
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
-		/// <param name="prototype">The prototype of the entity.</param>
-		protected Entity(string name, string prototype)
+		protected Entity(string name)
 		{
-			Properties = new Dictionary<string,dynamic>
-			{
-				{ "Name", name },
-				{ "Prototype", prototype }
-			};
+			Properties = new Dictionary<string,dynamic> {{ "Name", name }};
 		}
 
 		/// <summary>
