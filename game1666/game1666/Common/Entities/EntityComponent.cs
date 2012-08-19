@@ -75,7 +75,7 @@ namespace game1666.Common.Entities
 			{
 				// Look up any fixed properties for this component and use them, overriding the current values if need be.
 				IDictionary<string,dynamic> componentFixedProperties = null;
-				if(fixedProperties.TryGetValue(Name, out componentFixedProperties))
+				if(fixedProperties.TryGetValue(Group, out componentFixedProperties))
 				{
 					foreach(var kv in componentFixedProperties)
 					{

@@ -92,7 +92,7 @@ namespace game1666.Common.Entities
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
-		protected Entity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties = null)
+		protected Entity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
 			Properties = PropertyPersister.LoadProperties(entityElt);
 
@@ -151,7 +151,7 @@ namespace game1666.Common.Entities
 		/// <returns>The entity.</returns>
 		public TreeEntityType AddDescendantsFromXML(XElement entityElt)
 		{
-			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<TreeEntityType>(entityElt))
+			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<TreeEntityType>(entityElt, new object[] { null }))
 			{
 				TreeEntityType child = t.Item1;
 				XElement childElt = t.Item2;

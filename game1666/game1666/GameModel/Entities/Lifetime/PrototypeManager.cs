@@ -55,13 +55,14 @@ namespace game1666.GameModel.Entities.Lifetime
 		/// Creates an entity based on the specified prototype.
 		/// </summary>
 		/// <param name="prototypeName">The name of the prototype on which to base the entity.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
 		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
-		public static ModelEntity CreateEntityFromPrototype(string prototypeName)
+		public static ModelEntity CreateEntityFromPrototype(string prototypeName, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
 			XElement prototypeElt = null;
 			if(s_prototypes.TryGetValue(prototypeName, out prototypeElt))
 			{
-				return new ModelEntity(prototypeElt);
+				return new ModelEntity(prototypeElt, fixedProperties);
 			}
 			else return null;
 		}

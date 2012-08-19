@@ -41,6 +41,11 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 		PlaceableBlueprint Blueprint { get; }
 
 		/// <summary>
+		/// The amount of construction done, in the range [0, Blueprint.TimeToConstruct].
+		/// </summary>
+		int ConstructionDone { get; set; }
+
+		/// <summary>
 		/// Whether or not the entity can be destroyed.
 		/// </summary>
 		bool Destructible { get; }
@@ -68,7 +73,7 @@ namespace game1666.GameModel.Entities.Interfaces.Components
 		/// <summary>
 		/// The state of the component.
 		/// </summary>
-		PlaceableComponentState State { get; }
+		PlaceableComponentState State { get; set; }
 
 		#endregion
 

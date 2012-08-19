@@ -62,7 +62,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The amount of construction done, in the range [0, Blueprint.TimeToConstruct].
 		/// </summary>
-		private int ConstructionDone
+		public int ConstructionDone
 		{
 			get { return Properties["ConstructionDone"]; }
 			set { Properties["ConstructionDone"] = Math.Max(Math.Min(value, Blueprint.TimeToConstruct), 0); }
@@ -118,8 +118,8 @@ namespace game1666.GameModel.Entities.Components
 		/// </summary>
 		public PlaceableComponentState State
 		{
-			get			{ return (PlaceableComponentState)Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
-			private set	{ Properties["State"] = value.ToString(); }
+			get	{ return (PlaceableComponentState)Enum.Parse(typeof(PlaceableComponentState), Properties["State"]); }
+			set	{ Properties["State"] = value.ToString(); }
 		}
 
 		#endregion

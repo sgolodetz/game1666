@@ -15,6 +15,7 @@ using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using game1666.GameModel.Entities.Lifetime;
 
 namespace game1666.GameUI.Tools
 {
@@ -48,36 +49,53 @@ namespace game1666.GameUI.Tools
 		/// <summary>
 		/// Tries to create an entity to be placed at the specified grid square.
 		/// </summary>
-		/// <param name="blueprintName">The name of the blueprint specifying the type of entity to create.</param>
+		/// <param name="prototypeName">The name of the prototype for the entity to create.</param>
 		/// <param name="gridSquare">The terrain grid square on which to place the entity's hotspot.</param>
 		/// <param name="orientation">The orientation of the entity.</param>
 		/// <param name="terrain">The terrain on which the entity is to be placed.</param>
 		/// <param name="factory">The factory to be used to create the entity.</param>
 		/// <param name="percentComplete">The percentage of the entity that has been constructed.</param>
 		/// <returns>The entity, if it can be created, or null otherwise.</returns>
-		public static ModelEntity TryCreateEntity(string blueprintName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, IModelEntityFactory factory, int percentComplete)
+		public static ModelEntity TryCreateEntity(string prototypeName, Vector2i? gridSquare, Orientation4 orientation, Terrain terrain, IModelEntityFactory factory, int percentComplete)
 		{
 			// If there's no grid square on which to place the entity's hotspot, early out.
 			if(gridSquare == null) return null;
 
-			// Work out what type of entity we're trying to place.
-			PlaceableBlueprint blueprint = BlueprintManager.GetBlueprint(blueprintName);
-			string archetype = blueprint.Archetype;
+			// Construct the entity from its prototype, fixing some of the properties of its
+			// external component to put it in the right place.
+			ModelEntity entity = PrototypeManager.CreateEntityFromPrototype
+			(
+				prototypeName, new Dictionary<string,IDictionary<string,dynamic>>
+				{
+					{
+						ModelEntityComponentGroups.EXTERNAL, new Dictionary<string,dynamic>
+						{
+							{ "Altitude", 0f },
+							{ "ConstructionDone", 0 },
+							{ "Orientation", orientation },
+							{ "Position", gridSquare.Value },
+							{ "State", "IN_CONSTRUCTION" }
+						}
+					}
+				}
+			);
+
+			// After creating the entity, fix up any properties that could not be determined earlier.
+			var placeableComponent = entity.GetComponent<IPlaceableComponent>(ModelEntityComponentGroups.EXTERNAL);
+			PlaceableBlueprint blueprint = placeableComponent.Blueprint;
+
+			placeableComponent.ConstructionDone = blueprint.TimeToConstruct * percentComplete / 100;
+			placeableComponent.State = percentComplete < 100 ? PlaceableComponentState.IN_CONSTRUCTION : PlaceableComponentState.OPERATING;
 
 			// Attempt to determine the average altitude of the terrain beneath the entity's footprint.
 			// Note that this will return null if the entity can't be validly placed.
 			float? altitude = blueprint.Footprint.Rotated((int)orientation).DetermineAverageAltitude(gridSquare.Value, terrain);
-			if(altitude == null) return null;
-
-			// Provided the altitude could be determined, continue with entity creation.
-			var properties = new Dictionary<string,dynamic>();
-			properties["Altitude"] = altitude;
-			properties["Blueprint"] = blueprintName;
-			properties["ConstructionDone"] = blueprint.TimeToConstruct * percentComplete / 100;
-			properties["Orientation"] = orientation;
-			properties["Position"] = gridSquare.Value;
-			properties["State"] = percentComplete < 100 ? "IN_CONSTRUCTION" : "OPERATING";
-			return factory.MakeEntity(archetype, properties);
+			if(altitude != null)
+			{
+				placeableComponent.Altitude = altitude.Value;
+				return entity;
+			}
+			else return null;
 		}
 
 		/// <summary>

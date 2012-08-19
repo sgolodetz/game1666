@@ -75,7 +75,7 @@ namespace game1666Test
 				</entity>
 			</entity>
 			");
-			var world = new ModelEntity(worldElt).AddDescendantsFromXML(worldElt);
+			var world = new ModelEntity(worldElt, null).AddDescendantsFromXML(worldElt);
 
 			// Check that it was loaded correctly.
 			Assert.Equal("World", world.Archetype);

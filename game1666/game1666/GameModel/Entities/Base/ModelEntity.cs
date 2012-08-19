@@ -4,6 +4,7 @@
  ***/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Entities;
 
@@ -40,8 +41,9 @@ namespace game1666.GameModel.Entities.Base
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		public ModelEntity(XElement entityElt)
-		:	base(entityElt)
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		public ModelEntity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		:	base(entityElt, fixedProperties)
 		{}
 
 		#endregion

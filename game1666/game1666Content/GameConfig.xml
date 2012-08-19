@@ -30,14 +30,14 @@
         </cmpPlaceable>
       </entity>
     </prototype>
-    <property name="Village">
+    <prototype name="Village">
       <entity>
         <cmpPlaceable>
           <property name="Blueprint" type="string" value="Village"/>
         </cmpPlaceable>
         <!-- TODO: Add a playing area component here. -->
       </entity>
-    </property>
+    </prototype>
   </prototypes>
   <blueprints>
     <homeblueprint>
