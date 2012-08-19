@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using game1666.Common.Entities;
 using game1666.Common.Maths;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
@@ -15,7 +16,6 @@ using game1666.GameModel.Terrains;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using game1666.GameModel.Entities.Lifetime;
 
 namespace game1666.GameUI.Tools
 {
@@ -63,7 +63,7 @@ namespace game1666.GameUI.Tools
 
 			// Construct the entity from its prototype, fixing some of the properties of its
 			// external component to put it in the right place.
-			ModelEntity entity = PrototypeManager.CreateEntityFromPrototype
+			ModelEntity entity = PrototypeManager.CreateModelEntityFromPrototype
 			(
 				prototypeName, new Dictionary<string,IDictionary<string,dynamic>>
 				{
@@ -122,7 +122,7 @@ namespace game1666.GameUI.Tools
 				(
 					TryCreateEntity
 					(
-						placeableComponent.Blueprint.Name,
+						entity.Prototype,
 						placeableComponent.Position,
 						placeableComponent.Orientation,
 						playingAreaComponent.Terrain,

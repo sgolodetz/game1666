@@ -6,10 +6,9 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using game1666.Common.Persistence;
 using game1666.GameModel.Entities.Base;
 
-namespace game1666.GameModel.Entities.Lifetime
+namespace game1666.Common.Entities
 {
 	/// <summary>
 	/// This class manages prototypes for entities in the game.
@@ -52,17 +51,19 @@ namespace game1666.GameModel.Entities.Lifetime
 		#region
 
 		/// <summary>
-		/// Creates an entity based on the specified prototype.
+		/// Creates a model entity based on the specified prototype.
 		/// </summary>
 		/// <param name="prototypeName">The name of the prototype on which to base the entity.</param>
 		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
 		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
-		public static ModelEntity CreateEntityFromPrototype(string prototypeName, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
+		public static ModelEntity CreateModelEntityFromPrototype(string prototypeName, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
 			XElement prototypeElt = null;
 			if(s_prototypes.TryGetValue(prototypeName, out prototypeElt))
 			{
-				return new ModelEntity(prototypeElt, fixedProperties);
+				var entity = new ModelEntity(prototypeElt, fixedProperties);
+				entity.Prototype = prototypeName;
+				return entity;
 			}
 			else return null;
 		}

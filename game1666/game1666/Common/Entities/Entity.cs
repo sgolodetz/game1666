@@ -38,12 +38,6 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// The archetype of the entity. An entity's archetype, e.g. World,
-		/// indicates which components the entity should have.
-		/// </summary>
-		public string Archetype { get { return Properties["Archetype"]; } }
-
-		/// <summary>
 		/// The children of the entity in its tree.
 		/// </summary>
 		public IEnumerable<TreeEntityType> Children { get { return m_children.Values; } }
@@ -62,6 +56,16 @@ namespace game1666.Common.Entities
 		/// The properties of the entity.
 		/// </summary>
 		public IDictionary<string,dynamic> Properties { get; private set; }
+
+		/// <summary>
+		/// The prototype on which the entity is based. An entity's prototype, e.g. World,
+		/// indicates which components the entity should have.
+		/// </summary>
+		public string Prototype
+		{
+			get	{ return Properties["Prototype"]; }
+			set	{ Properties["Prototype"] = value; }
+		}
 
 		/// <summary>
 		/// The entity itself as a tree entity (this is necessary because we can't make IEntity implement TreeEntityType in C#).

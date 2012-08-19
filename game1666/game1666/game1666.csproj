@@ -169,7 +169,7 @@
     <Compile Include="GameModel\Entities\Blueprints\BlueprintManager.cs" />
     <Compile Include="GameModel\Entities\Extensions\ModelEntityExtensions.cs" />
     <Compile Include="GameModel\Entities\Lifetime\ModelEntityFactory.cs" />
-    <Compile Include="GameModel\Entities\Lifetime\PrototypeManager.cs" />
+    <Compile Include="Common\Entities\PrototypeManager.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\Footprint.cs" />
     <Compile Include="GameModel\Entities\Blueprints\PlaceableBlueprint.cs" />
     <Compile Include="GameModel\Entities\Components\PlaceableComponent.cs" />

@@ -78,14 +78,14 @@ namespace game1666Test
 			var world = new ModelEntity(worldElt, null).AddDescendantsFromXML(worldElt);
 
 			// Check that it was loaded correctly.
-			Assert.Equal("World", world.Archetype);
+			Assert.Equal("World", world.Prototype);
 			Assert.Equal(".", world.Name);
 			Assert.NotNull(world.GetComponent<TestComponent>(ModelEntityComponentGroups.TEST));
 
 			ModelEntity settlement = world.GetChild("settlement:Stuartopolis");
 
 			Assert.NotNull(settlement);
-			Assert.Equal("Settlement", settlement.Archetype);
+			Assert.Equal("Settlement", settlement.Prototype);
 			Assert.Equal("settlement:Stuartopolis", settlement.Name);
 			Assert.NotNull(settlement.GetComponent<TestComponent>(ModelEntityComponentGroups.TEST));
 		}
