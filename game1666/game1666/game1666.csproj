@@ -166,7 +166,7 @@
     <Compile Include="Common\UI\Renderer.cs" />
     <Compile Include="GameModel\Entities\Blueprints\Blueprint.cs" />
     <Compile Include="GameModel\Entities\Blueprints\BlueprintManager.cs" />
-    <Compile Include="Common\Entities\PrototypeManager.cs" />
+    <Compile Include="Common\Entities\EntityPrototypeManager.cs" />
     <Compile Include="GameModel\Entities\PlacementStrategies\Footprint.cs" />
     <Compile Include="GameModel\Entities\Blueprints\PlaceableBlueprint.cs" />
     <Compile Include="GameModel\Entities\Components\PlaceableComponent.cs" />

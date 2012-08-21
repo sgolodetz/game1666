@@ -29,7 +29,7 @@ namespace game1666.GameModel.Entities.Base
 		#region
 
 		/// <summary>
-		/// Constructs a blank, named entity.
+		/// Constructs a blank, named model entity.
 		/// </summary>
 		/// <param name="name">The name of the entity.</param>
 		public ModelEntity(string name)
@@ -37,7 +37,15 @@ namespace game1666.GameModel.Entities.Base
 		{}
 
 		/// <summary>
-		/// Constructs an entity from its XML representation.
+		/// Constructs a model entity from its XML representation.
+		/// </summary>
+		/// <param name="entityElt">The root element of the entity's XML representation.</param>
+		public ModelEntity(XElement entityElt)
+		:	base(entityElt, null)
+		{}
+
+		/// <summary>
+		/// Constructs a model entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
@@ -58,10 +66,10 @@ namespace game1666.GameModel.Entities.Base
 		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
 		public static ModelEntity CreateFromPrototype(string prototypeName, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
-			XElement entityElt = PrototypeManager.GetPrototypeEntityElement(prototypeName);
-			if(entityElt == null) return null;
+			XElement prototypeEntity = EntityPrototypeManager.GetPrototypeEntity(prototypeName);
+			if(prototypeEntity == null) return null;
 
-			var entity = new ModelEntity(entityElt, fixedProperties);
+			var entity = new ModelEntity(prototypeEntity, fixedProperties);
 			entity.Prototype = prototypeName;
 			return entity;
 		}

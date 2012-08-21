@@ -41,6 +41,14 @@ namespace game1666.GameUI.Entities.Base
 		/// Constructs a UI entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
+		public UIEntity(XElement entityElt)
+		:	base(entityElt, null)
+		{}
+
+		/// <summary>
+		/// Constructs a UI entity from its XML representation.
+		/// </summary>
+		/// <param name="entityElt">The root element of the entity's XML representation.</param>
 		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
 		public UIEntity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(entityElt, fixedProperties)
@@ -60,10 +68,10 @@ namespace game1666.GameUI.Entities.Base
 		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
 		public static UIEntity CreateFromPrototype(string prototypeName, Viewport viewport, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
-			XElement entityElt = PrototypeManager.GetPrototypeEntityElement(prototypeName);
-			if(entityElt == null) return null;
+			XElement prototypeEntity = EntityPrototypeManager.GetPrototypeEntity(prototypeName);
+			if(prototypeEntity == null) return null;
 
-			var entity = new UIEntity(entityElt, fixedProperties);
+			var entity = new UIEntity(prototypeEntity, fixedProperties);
 			entity.Prototype = prototypeName;
 			entity.Viewport = viewport;
 			return entity;

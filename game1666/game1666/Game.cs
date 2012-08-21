@@ -198,7 +198,7 @@ namespace game1666
 		{
 			XDocument doc = XDocument.Load(filename);
 			XElement entityElt = doc.Element("entity");
-			ModelEntity world = new ModelEntity(entityElt, null);
+			ModelEntity world = new ModelEntity(entityElt);
 
 			new ModelContextComponent
 			(

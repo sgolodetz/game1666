@@ -150,7 +150,7 @@ namespace game1666.Common.Entities
 		/// <returns>The entity.</returns>
 		public TreeEntityType AddDescendantsFromXML(XElement entityElt)
 		{
-			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<TreeEntityType>(entityElt, new object[] { null }))
+			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<TreeEntityType>(entityElt))
 			{
 				TreeEntityType child = t.Item1;
 				XElement childElt = t.Item2;

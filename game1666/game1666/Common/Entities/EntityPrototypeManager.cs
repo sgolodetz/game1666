@@ -1,5 +1,5 @@
 ﻿/***
- * game1666: PrototypeManager.cs
+ * game1666: EntityPrototypeManager.cs
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
@@ -10,17 +10,18 @@ using System.Xml.XPath;
 namespace game1666.Common.Entities
 {
 	/// <summary>
-	/// This class manages prototypes for entities in the game.
+	/// This class manages prototypes for entities in the game. Prototype entities are stored in
+	/// XML format, making it possible to reuse the code for loading previously-saved entities.
 	/// </summary>
-	static class PrototypeManager
+	static class EntityPrototypeManager
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
 
 		/// <summary>
-		/// Prototype entity elements for the entities in the game.
+		/// Prototypes for the entities in the game, stored in XML format.
 		/// </summary>
-		private static readonly IDictionary<string,XElement> s_prototypeEntityElts = new Dictionary<string,XElement>();
+		private static readonly IDictionary<string,XElement> s_prototypeEntities = new Dictionary<string,XElement>();
 
 		#endregion
 
@@ -28,9 +29,9 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Loads prototype entity elements from the game configuration file.
+		/// Loads prototype entities from the game configuration file.
 		/// </summary>
-		static PrototypeManager()
+		static EntityPrototypeManager()
 		{
 			var doc = XDocument.Load(@"Content\GameConfig.xml");
 			foreach(XElement prototypeElt in doc.XPathSelectElements("config/prototypes/prototype"))
@@ -39,7 +40,7 @@ namespace game1666.Common.Entities
 				XElement entityElt = prototypeElt.Element("entity");
 				if(prototypeName != null && entityElt != null)
 				{
-					s_prototypeEntityElts[prototypeName.Value] = entityElt;
+					s_prototypeEntities[prototypeName.Value] = entityElt;
 				}
 			}
 		}
@@ -50,14 +51,14 @@ namespace game1666.Common.Entities
 		#region
 
 		/// <summary>
-		/// Gets the prototype entity element (if any) for the specified prototype.
+		/// Gets the prototype entity (if any) for the specified prototype.
 		/// </summary>
-		/// <param name="prototypeName">The name of the prototype whose entity element we want to get.</param>
-		/// <returns>The prototype entity element (if any), or null otherwise.</returns>
-		public static XElement GetPrototypeEntityElement(string prototypeName)
+		/// <param name="prototypeName">The name of the prototype entity we want to get.</param>
+		/// <returns>The prototype entity (if any), or null otherwise.</returns>
+		public static XElement GetPrototypeEntity(string prototypeName)
 		{
 			XElement entityElt = null;
-			s_prototypeEntityElts.TryGetValue(prototypeName, out entityElt);
+			s_prototypeEntities.TryGetValue(prototypeName, out entityElt);
 			return entityElt;
 		}
 

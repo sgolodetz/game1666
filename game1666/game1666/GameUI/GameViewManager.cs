@@ -55,7 +55,7 @@ namespace game1666.GameUI
 		/// <param name="world">The world that is being viewed.</param>
 		public GameViewManager(XElement element, ModelEntity world)
 		{
-			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<IUIEntity>(element, new object[] { null }))
+			foreach(var t in ObjectPersister.LoadChildObjectsAndXML<IUIEntity>(element))
 			{
 				IUIEntity view = t.Item1;
 				XElement viewElt = t.Item2;

@@ -34,14 +34,6 @@ namespace game1666.GameModel.Entities.Components
 		#region
 
 		/// <summary>
-		/// Constructs a traversable component directly from its properties.
-		/// </summary>
-		/// <param name="properties">The properties of the component.</param>
-		public TraversableComponent(IDictionary<string,dynamic> properties)
-		:	base(properties)
-		{}
-
-		/// <summary>
 		/// Constructs a traversable component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>

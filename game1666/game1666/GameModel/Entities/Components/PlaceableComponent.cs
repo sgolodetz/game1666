@@ -128,16 +128,6 @@ namespace game1666.GameModel.Entities.Components
 		#region
 
 		/// <summary>
-		/// Constructs a placeable component directly from its properties.
-		/// </summary>
-		/// <param name="properties">The properties of the component.</param>
-		public PlaceableComponent(IDictionary<string,dynamic> properties)
-		:	base(properties)
-		{
-			Initialise();
-		}
-
-		/// <summary>
 		/// Constructs a placeable component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>

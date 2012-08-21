@@ -73,7 +73,8 @@ namespace game1666.Common.Entities
 
 			if(fixedProperties != null)
 			{
-				// Look up any fixed properties for this component and use them, overriding the current values if need be.
+				// Look up any fixed properties for this component's group and use them,
+				// overriding the current values if need be.
 				IDictionary<string,dynamic> componentFixedProperties = null;
 				if(fixedProperties.TryGetValue(Group, out componentFixedProperties))
 				{
