@@ -13,7 +13,7 @@
   </cmpPlayingArea>
   <entity>
     <property name="Name" type="string" value="settlement:Stuartopolis"/>
-    <property name="Prototype" type="string" value="Village"/>
+    <property name="Prototype" type="string" value="placeable:Village"/>
     <cmpPlayingArea>
       <property name="Entrances" type="List[Vector2i]" value="4,0;0,4;7,4;4,7"/>
       <terrain>
@@ -35,7 +35,7 @@
       </terrain>
     </cmpPlayingArea>
     <cmpPlaceable>
-      <property name="Blueprint" type="string" value="Village"/>
+      <property name="Blueprint" type="string" value="placeable:Village"/>
       <property name="ConstructionDone" type="int" value="10000"/>
       <property name="Destructible" type="bool" value="false"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
@@ -46,11 +46,11 @@
       <property name="Name" type="string" value="house:Wibble"/>
       <property name="Prototype" type="string" value="Dwelling"/>
       <cmpHome>
-        <property name="Blueprint" type="string" value="SmallHome"/>
+        <property name="Blueprint" type="string" value="home:Dwelling"/>
         <property name="CurrentOccupants" type="int" value="0"/>
       </cmpHome>
       <cmpPlaceable>
-        <property name="Blueprint" type="string" value="Dwelling"/>
+        <property name="Blueprint" type="string" value="placeable:Dwelling"/>
         <property name="ConstructionDone" type="int" value="1000"/>
         <property name="Orientation" type="Orientation4" value="XPOS"/>
         <property name="Position" type="Vector2i" value="1,0"/>
@@ -60,7 +60,7 @@
     <entity>
       <property name="Prototype" type="string" value="DirtTrack"/>
       <cmpTraversable>
-        <property name="Blueprint" type="string" value="DirtTrack"/>
+        <property name="Blueprint" type="string" value="placeable:DirtTrack"/>
         <property name="ConstructionDone" type="int" value="0"/>
         <property name="Orientation" type="Orientation4" value="XPOS"/>
         <property name="Position" type="Vector2i" value="0,0"/>
@@ -71,7 +71,7 @@
       <property name="Name" type="string" value="walker:Dawlish"/>
       <property name="Prototype" type="string" value="Citizen"/>
       <cmpMobile>
-        <property name="Blueprint" type="string" value="Citizen"/>
+        <property name="Blueprint" type="string" value="mobile:Citizen"/>
         <property name="Orientation" type="float" value="0"/>
         <property name="Position" type="Vector2" value="0.5,2.5"/>
       </cmpMobile>
@@ -94,11 +94,11 @@
     <property name="Prototype" type="string" value="Dwelling"/>
     <property name="Name" type="string" value="house:Domus"/>
     <cmpHome>
-      <property name="Blueprint" type="string" value="SmallHome"/>
+      <property name="Blueprint" type="string" value="home:Dwelling"/>
       <property name="CurrentOccupants" type="int" value="0"/>
     </cmpHome>
     <cmpPlaceable>
-      <property name="Blueprint" type="string" value="Dwelling"/>
+      <property name="Blueprint" type="string" value="placeable:Dwelling"/>
       <property name="ConstructionDone" type="int" value="1000"/>
       <property name="Orientation" type="Orientation4" value="XPOS"/>
       <property name="Position" type="Vector2i" value="40,20"/>
@@ -109,7 +109,7 @@
     <property name="Name" type="string" value="walker:Fluffy"/>
     <property name="Prototype" type="string" value="Citizen"/>
     <cmpMobile>
-      <property name="Blueprint" type="string" value="Citizen"/>
+      <property name="Blueprint" type="string" value="mobile:Citizen"/>
       <property name="Orientation" type="float" value="0"/>
       <property name="Position" type="Vector2" value="45.5,25.5"/>
     </cmpMobile>
