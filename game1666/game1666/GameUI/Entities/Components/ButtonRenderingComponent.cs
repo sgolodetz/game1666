@@ -61,15 +61,6 @@ namespace game1666.GameUI.Entities.Components
 		#region
 
 		/// <summary>
-		/// Constructs a button rendering component.
-		/// </summary>
-		/// <param name="textureName">The name of the texture to use when drawing the button.</param>
-		public ButtonRenderingComponent(string textureName)
-		{
-			m_texture = Renderer.Content.Load<Texture2D>("Textures/" + textureName);
-		}
-
-		/// <summary>
 		/// Constructs a button rendering component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>

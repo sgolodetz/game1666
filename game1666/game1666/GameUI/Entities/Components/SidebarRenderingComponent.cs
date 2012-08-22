@@ -45,14 +45,6 @@ namespace game1666.GameUI.Entities.Components
 		#region
 
 		/// <summary>
-		/// Constructs a sidebar rendering component.
-		/// </summary>
-		public SidebarRenderingComponent()
-		{
-			Initialise();
-		}
-
-		/// <summary>
 		/// Constructs a sidebar rendering component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
@@ -60,7 +52,8 @@ namespace game1666.GameUI.Entities.Components
 		public SidebarRenderingComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(componentElt, fixedProperties)
 		{
-			Initialise();
+			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
+			m_texture = Renderer.Content.Load<Texture2D>("Textures/sidebarbackground");
 		}
 
 		#endregion
@@ -83,20 +76,6 @@ namespace game1666.GameUI.Entities.Components
 
 			// Draw the sidebar buttons.
 			base.Draw();
-		}
-
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Initialises the component.
-		/// </summary>
-		private void Initialise()
-		{
-			m_spriteBatch = new SpriteBatch(Renderer.GraphicsDevice);
-			m_texture = Renderer.Content.Load<Texture2D>("Textures/sidebarbackground");
 		}
 
 		#endregion

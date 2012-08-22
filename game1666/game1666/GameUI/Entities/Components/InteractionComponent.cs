@@ -29,12 +29,6 @@ namespace game1666.GameUI.Entities.Components
 		#region
 
 		/// <summary>
-		/// Constructs an interaction component.
-		/// </summary>
-		protected InteractionComponent()
-		{}
-
-		/// <summary>
 		/// Constructs an interaction component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>

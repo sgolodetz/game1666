@@ -135,7 +135,14 @@ namespace game1666.GameModel.Entities.Components
 		public PlaceableComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(componentElt, fixedProperties)
 		{
-			Initialise();
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
+
+			// Determine the entity's (suitably rotated) footprint.
+			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
+
+			// Determine the entity's entrances.
+			Vector2i offset = Position - m_footprint.Hotspot;
+			m_entrances = m_footprint.Entrances.Select(e => e + offset).ToList();
 		}
 
 		#endregion
@@ -361,26 +368,6 @@ namespace game1666.GameModel.Entities.Components
 					break;
 				}
 			}
-		}
-
-		#endregion
-
-		//#################### PRIVATE METHODS ####################
-		#region
-
-		/// <summary>
-		/// Sets up the blueprint and footprint of the component.
-		/// </summary>
-		private void Initialise()
-		{
-			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
-
-			// Determine the entity's (suitably rotated) footprint.
-			m_footprint = Blueprint.Footprint.Rotated((int)Orientation);
-
-			// Determine the entity's entrances.
-			Vector2i offset = Position - m_footprint.Hotspot;
-			m_entrances = m_footprint.Entrances.Select(e => e + offset).ToList();
 		}
 
 		#endregion
