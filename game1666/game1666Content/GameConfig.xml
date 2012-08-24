@@ -53,6 +53,19 @@
       <placementstrategyRequireFlatGround/>
     </placeableblueprint>
     <placeableblueprint>
+      <property name="Name" type="string" value="placeable:Spawner"/>
+      <property name="Model" type="string" value="Dwelling"/>
+      <property name="TimeToConstruct" type="int" value="0"/>
+      <footprint>
+        <property name="Hotspot" type="Vector2i" value="0,0"/>
+        <property name="Pattern" type="Array2D[int]">
+          [1,1]
+          0
+        </property>
+      </footprint>
+      <placementstrategyRequireFlatGround/>
+    </placeableblueprint>
+    <placeableblueprint>
       <property name="Name" type="string" value="placeable:Village"/>
       <property name="Model" type="string" value="Village"/>
       <property name="TimeToConstruct" type="int" value="10000"/>

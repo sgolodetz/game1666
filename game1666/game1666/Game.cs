@@ -117,6 +117,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpPlayState", typeof(PlayStateComponent));
 			ObjectPersister.RegisterSpecialElement("cmpSidebarRendering", typeof(SidebarRenderingComponent));
 			ObjectPersister.RegisterSpecialElement("cmpSidebarState", typeof(SidebarStateComponent));
+			ObjectPersister.RegisterSpecialElement("cmpSpawner", typeof(SpawnerComponent));
 			ObjectPersister.RegisterSpecialElement("cmpTraversable", typeof(TraversableComponent));
 			ObjectPersister.RegisterSpecialElement("entity", typeof(ModelEntity));
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));

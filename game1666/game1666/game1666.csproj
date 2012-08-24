@@ -133,6 +133,7 @@
     <Compile Include="Common\Util\GreaterComparer.cs" />
     <Compile Include="GameModel\Entities\Blueprints\HomeBlueprint.cs" />
     <Compile Include="GameModel\Entities\Components\HomeComponent.cs" />
+    <Compile Include="GameModel\Entities\Components\SpawnerComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IExternalComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IMobileComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IModelContextComponent.cs" />

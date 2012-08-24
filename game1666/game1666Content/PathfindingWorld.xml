@@ -13,7 +13,7 @@
   </cmpPlayingArea>
   <entity>
     <property name="Name" type="string" value="settlement:Stuartopolis"/>
-    <property name="Prototype" type="string" value="placeable:Village"/>
+    <property name="Prototype" type="string" value="Village"/>
     <cmpPlayingArea>
       <property name="Entrances" type="List[Vector2i]" value="4,0;0,4;7,4;4,7"/>
       <terrain>
@@ -68,6 +68,22 @@
       </cmpTraversable>
     </entity>
     <entity>
+      <property name="Name" type="string" value="spawner:Gate"/>
+      <property name="Prototype" type="string" value="Spawner"/>
+      <cmpPlaceable>
+        <property name="Blueprint" type="string" value="placeable:Spawner"/>
+        <property name="ConstructionDone" type="int" value="1000"/>
+        <property name="Destructible" type="bool" value="false"/>
+        <property name="Orientation" type="Orientation4" value="XPOS"/>
+        <property name="Position" type="Vector2i" value="0,4"/>
+        <property name="State" type="string" value="OPERATING"/>
+      </cmpPlaceable>
+      <cmpSpawner>
+        <property name="Blueprint" type="string" value="spawner:Normal"/>
+        <property name="RemainingSpawnDelay" type="int" value="0"/>
+      </cmpSpawner>
+    </entity>
+    <entity>
       <property name="Name" type="string" value="walker:Dawlish"/>
       <property name="Prototype" type="string" value="Citizen"/>
       <cmpMobile>
@@ -91,8 +107,8 @@
     </entity>
   </entity>
   <entity>
-    <property name="Prototype" type="string" value="Dwelling"/>
     <property name="Name" type="string" value="house:Domus"/>
+    <property name="Prototype" type="string" value="Dwelling"/>
     <cmpHome>
       <property name="Blueprint" type="string" value="home:Dwelling"/>
       <property name="CurrentOccupants" type="int" value="0"/>
