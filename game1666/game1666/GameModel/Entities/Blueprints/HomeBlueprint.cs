@@ -4,7 +4,6 @@
  ***/
 
 using System.Xml.Linq;
-using game1666.Common.Persistence;
 
 namespace game1666.GameModel.Entities.Blueprints
 {
@@ -31,9 +30,8 @@ namespace game1666.GameModel.Entities.Blueprints
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		public HomeBlueprint(XElement blueprintElt)
-		{
-			Properties = PropertyPersister.LoadProperties(blueprintElt);
-		}
+		:	base(blueprintElt)
+		{}
 
 		#endregion
 	}

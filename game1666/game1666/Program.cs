@@ -23,7 +23,10 @@ namespace game1666
 					game.Run();
 				}
 			}
-			catch(Exception) {}
+			catch(Exception e)
+			{
+				Console.WriteLine(e.ToString());
+			}
 		}
 
 		#endregion

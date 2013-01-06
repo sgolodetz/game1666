@@ -48,8 +48,8 @@ namespace game1666.GameModel.Entities.Blueprints
 		/// </summary>
 		/// <param name="blueprintElt">The root element of the blueprint's XML representation.</param>
 		public PlaceableBlueprint(XElement blueprintElt)
+		:	base(blueprintElt)
 		{
-			Properties = PropertyPersister.LoadProperties(blueprintElt);
 			Footprint = ObjectPersister.LoadChildObjects<Footprint>(blueprintElt).First();
 			PlacementStrategy = ObjectPersister.LoadChildObjects<IPlacementStrategy>(blueprintElt).First();
 		}

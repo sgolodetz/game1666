@@ -125,6 +125,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("mobileblueprint", typeof(MobileBlueprint));
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
+			ObjectPersister.RegisterSpecialElement("spawnerblueprint", typeof(SpawnerBlueprint));
 			ObjectPersister.RegisterSpecialElement("terrain", typeof(Terrain));
 			ObjectPersister.RegisterSpecialElement("tskEnterEntity", typeof(TaskEnterEntity));
 			ObjectPersister.RegisterSpecialElement("tskExitEntity", typeof(TaskExitEntity));

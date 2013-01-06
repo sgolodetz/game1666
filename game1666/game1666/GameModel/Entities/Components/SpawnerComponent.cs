@@ -3,11 +3,13 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using game1666.Common.Matchmaking;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
+using game1666.GameModel.Entities.Extensions;
 using game1666.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
@@ -25,7 +27,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The blueprint for the component.
 		/// </summary>
-		//public SpawnerBlueprint Blueprint { get; private set; }
+		public SpawnerBlueprint Blueprint { get; private set; }
 
 		/// <summary>
 		/// The group of the component.
@@ -40,7 +42,11 @@ namespace game1666.GameModel.Entities.Components
 		/// <summary>
 		/// The time remaining (in milliseconds) before another entity can be spawned.
 		/// </summary>
-		private int RemainingSpawnDelay { get { return Properties["RemainingSpawnDelay"]; } }
+		private int RemainingSpawnDelay
+		{
+			get { return Properties["RemainingSpawnDelay"]; }
+			set { Properties["RemainingSpawnDelay"] = value; }
+		}
 
 		#endregion
 
@@ -55,7 +61,7 @@ namespace game1666.GameModel.Entities.Components
 		public SpawnerComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(componentElt, fixedProperties)
 		{
-			//Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
+			Blueprint = BlueprintManager.GetBlueprint(Properties["Blueprint"]);
 		}
 
 		#endregion
@@ -70,7 +76,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="source">The source of the offer.</param>
 		public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingParticipant<ResourceOffer, ResourceRequest> source)
 		{
-			// TODO
+			// No-op (nobody offers anything to a spawner)
 		}
 
 		/// <summary>
@@ -89,7 +95,24 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
-			// TODO
+			RemainingSpawnDelay = Math.Max(RemainingSpawnDelay - gameTime.ElapsedGameTime.Milliseconds, 0);
+
+			if(RemainingSpawnDelay == 0)
+			{
+				// Offer all the resources this spawner can provide.
+				foreach(string resourceName in Blueprint.Offers.Keys)
+				{
+					this.Matchmaker().PostOffer
+					(
+						new ResourceOffer
+						{
+							Resource = (Resource)Enum.Parse(typeof(Resource), resourceName),
+							AvailableQuantity = 1
+						},
+						this
+					);
+				}
+			}
 		}
 
 		#endregion

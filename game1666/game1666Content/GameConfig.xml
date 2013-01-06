@@ -80,6 +80,13 @@
       </footprint>
       <placementstrategyRequireFlatGround/>
     </placeableblueprint>
+    <spawnerblueprint>
+      <property name="Name" type="string" value="spawner:Normal"/>
+      <property name="Offers" type="Dictionary[string,string]">
+        OCCUPANCY=Citizen
+      </property>
+      <property name="SpawnDelay" type="int" value="5000"/>
+    </spawnerblueprint>
   </blueprints>
   <prototypes>
     <prototype name="Button">
