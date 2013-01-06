@@ -9,7 +9,10 @@ using System.Linq;
 using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.Common.Tasks;
+using game1666.Common.Tasks.RetryStrategies;
 using game1666.GameModel.Entities.Base;
+using game1666.GameModel.Entities.Extensions;
+using game1666.GameModel.Entities.Interfaces.Components;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components
@@ -26,7 +29,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class provides person behaviour to its containing entity.
 	/// </summary>
-	sealed class PersonComponent : ModelEntityComponent
+	sealed class PersonComponent : ModelEntityComponent, IPersonComponent
 	{
 		//#################### PRIVATE VARIABLES ####################
 		#region
@@ -113,9 +116,12 @@ namespace game1666.GameModel.Entities.Components
 				}
 				default:	// PersonComponentState.RESTING
 				{
-					// TODO: Assign the person a default task based on the time of day, and switch to the active state.
-					//m_queueTask.AddTask(this.TaskFactory().MakeGoToPlaceableTask("./settlement:Stuartopolis/house:Wibble"), TaskPriority.LOW);
-					State = PersonComponentState.ACTIVE;
+					// TODO: Try and assign the person a default task based on the time of day.
+					if(Home != null)
+					{
+						m_queueTask.AddTask(this.TaskFactory().MakeGoToEntityTask(Home, new AlwaysRetry()), TaskPriority.LOW);
+						State = PersonComponentState.ACTIVE;
+					}
 					break;
 				}
 			}

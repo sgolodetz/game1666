@@ -44,7 +44,7 @@ namespace game1666.GameModel.Entities.Tasks
 		/// <param name="targetEntityPath">The absolute path of the target entity.</param>
 		/// <param name="retryStrategy">The strategy determining the point at which the task should give up.</param>
 		public TaskGoToEntity(string targetEntityPath, IRetryStrategy retryStrategy)
-		:	base(new AlwaysRetry())
+		:	base(retryStrategy)
 		{
 			TargetEntityPath = targetEntityPath;
 		}

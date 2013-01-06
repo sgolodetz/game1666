@@ -5,6 +5,10 @@
       <property name="Name" type="string" value="home:Dwelling"/>
       <property name="MaxOccupants" type="int" value="2"/>
     </homeblueprint>
+    <homeblueprint>
+      <property name="Name" type="string" value="home:Mansion"/>
+      <property name="MaxOccupants" type="int" value="10"/>
+    </homeblueprint>
     <mobileblueprint>
       <property name="Name" type="string" value="mobile:Citizen"/>
       <property name="AnimationSpeed" type="float" value="1.0"/>
@@ -60,7 +64,7 @@
         <property name="Hotspot" type="Vector2i" value="0,0"/>
         <property name="Pattern" type="Array2D[int]">
           [1,1]
-          0
+          2
         </property>
       </footprint>
       <placementstrategyRequireFlatGround/>
@@ -95,6 +99,17 @@
         <cmpButtonRendering/>
       </entity>
     </prototype>
+    <prototype name="Citizen">
+      <entity>
+        <cmpMobile>
+          <property name="Blueprint" type="string" value="mobile:Citizen"/>
+          <property name="Orientation" type="float" value="0"/>
+        </cmpMobile>
+        <cmpPerson>
+          <property name="State" type="string" value="RESTING"/>
+        </cmpPerson>
+      </entity>
+    </prototype>
     <prototype name="DirtTrack">
       <entity>
         <cmpTraversable>
@@ -116,7 +131,7 @@
     <prototype name="Mansion">
       <entity>
         <cmpHome>
-          <property name="Blueprint" type="string" value="home:Dwelling"/>
+          <property name="Blueprint" type="string" value="home:Mansion"/>
           <property name="CurrentOccupants" type="int" value="0"/>
         </cmpHome>
         <cmpPlaceable>

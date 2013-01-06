@@ -5,11 +5,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Linq;
 using game1666.Common.Matchmaking;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Extensions;
+using game1666.GameModel.Entities.Interfaces.Components;
 using game1666.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
@@ -86,7 +88,32 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="source">The source of the request.</param>
 		public void ConfirmMatchmakingRequest(ResourceRequest request, IMatchmakingParticipant<ResourceOffer, ResourceRequest> source)
 		{
-			// TODO
+			string prototypeName;
+			if(Blueprint.Offers.TryGetValue(request.Resource.ToString(), out prototypeName))
+			{
+				// Construct a new entity based on the specified prototype.
+				var spawnee = ModelEntity.CreateFromPrototype(prototypeName, null);
+
+				// If the entity is being spawned in response to an occupancy request, set its home.
+				// Its person component's state machine will cause it to head there in the absence
+				// of anything better to do.
+				if(request.Resource == Resource.OCCUPANCY)
+				{
+					var homeComponent = source as IHomeComponent;
+					Debug.Assert(homeComponent != null);	// only home components should make occupancy requests
+
+					var personComponent = spawnee.GetComponent<IPersonComponent>(ModelEntityComponentGroups.INTERNAL);
+					personComponent.Home = homeComponent.Entity.GetAbsolutePath();
+				}
+
+				// Add the new entity to the world as a child of the spawner.
+				Entity.AddChild(spawnee);
+
+				// TODO: Add a rule to set the entity's home to null if its home is destroyed.
+
+				// Set the remaining spawn delay to ensure that the spawner has to wait a bit before spawning anything else.
+				RemainingSpawnDelay = Blueprint.SpawnDelay;
+			}
 		}
 
 		/// <summary>

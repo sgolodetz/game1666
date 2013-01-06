@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using game1666.Common.Tasks;
+using game1666.Common.Tasks.RetryStrategies;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Interfaces.Context
@@ -21,6 +22,15 @@ namespace game1666.GameModel.Entities.Interfaces.Context
 		/// <param name="targetPositions">The target positions.</param>
 		/// <returns>The constructed task.</returns>
 		Task MakeGoToALocalPositionTask(IEnumerable<Vector2> targetPositions);
+
+		/// <summary>
+		/// Constructs a task that will make a mobile entity go to the specified entity within the
+		/// world as a whole.
+		/// </summary>
+		/// <param name="targetEntityPath">The absolute path of the target entity.</param>
+		/// <param name="retryStrategy">The strategy determining the point at which the task should give up.</param>
+		/// <returns>The constructed task.</returns>
+		Task MakeGoToEntityTask(string targetEntityPath, IRetryStrategy retryStrategy);
 
 		/// <summary>
 		/// Constructs a task that will make a mobile entity go to the specified entity within its

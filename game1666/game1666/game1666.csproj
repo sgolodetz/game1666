@@ -136,8 +136,10 @@
     <Compile Include="GameModel\Entities\Components\HomeComponent.cs" />
     <Compile Include="GameModel\Entities\Components\SpawnerComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IExternalComponent.cs" />
+    <Compile Include="GameModel\Entities\Interfaces\Components\IHomeComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IMobileComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IModelContextComponent.cs" />
+    <Compile Include="GameModel\Entities\Interfaces\Components\IPersonComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Components\IPlaceableComponent.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Context\IModelEntityDestructionManager.cs" />
     <Compile Include="GameModel\Entities\Interfaces\Context\ITaskFactory.cs" />

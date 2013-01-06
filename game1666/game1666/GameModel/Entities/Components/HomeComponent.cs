@@ -10,6 +10,7 @@ using game1666.Common.Matchmaking;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Extensions;
+using game1666.GameModel.Entities.Interfaces.Components;
 using game1666.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
@@ -18,7 +19,7 @@ namespace game1666.GameModel.Entities.Components
 	/// <summary>
 	/// An instance of this class allows its containing entity to act as a home for entities.
 	/// </summary>
-	sealed class HomeComponent : ModelEntityComponent, IMatchmakingParticipant<ResourceOffer,ResourceRequest>
+	sealed class HomeComponent : ModelEntityComponent, IHomeComponent
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -33,8 +34,8 @@ namespace game1666.GameModel.Entities.Components
 		/// </summary>
 		public int CurrentOccupants
 		{
-			get	{ return Properties["CurrentOccupants"]; }
-			set	{ Properties["CurrentOccupants"] = value; }
+			get			{ return Properties["CurrentOccupants"]; }
+			private set	{ Properties["CurrentOccupants"] = value; }
 		}
 
 		/// <summary>
