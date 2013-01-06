@@ -164,9 +164,9 @@ namespace game1666.Common.Matchmaking
 			var used = new HashSet<int>();
 			foreach(List<MatchmakingEdge> edgeList in m_sourceEdges)
 			{
-				foreach (MatchmakingEdge edge in edgeList)
+				foreach(MatchmakingEdge edge in edgeList)
 				{
-					if (!used.Contains(edge.Source) && !used.Contains(edge.Destination))
+					if(!used.Contains(edge.Source) && !used.Contains(edge.Destination))
 					{
 						edge.Flag = MatchmakingEdgeFlag.MARKED;
 						used.Add(edge.Source);

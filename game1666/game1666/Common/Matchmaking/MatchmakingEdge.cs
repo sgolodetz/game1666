@@ -3,6 +3,8 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
+
 namespace game1666.Common.Matchmaking
 {
 	/// <summary>
@@ -17,7 +19,7 @@ namespace game1666.Common.Matchmaking
 	/// <summary>
 	/// An instance of this class represents an edge in the matchmaking graph.
 	/// </summary>
-	sealed class MatchmakingEdge
+	sealed class MatchmakingEdge : IEquatable<MatchmakingEdge>
 	{
 		//#################### PROPERTIES ####################
 		#region
@@ -71,11 +73,10 @@ namespace game1666.Common.Matchmaking
 		/// Tests whether or not this edge is equal to another object.
 		/// </summary>
 		/// <param name="rhs">The other object.</param>
-		/// <returns>true, if the other object is a edge equal to this one, or false otherwise.</returns>
+		/// <returns>true, if the other object is an edge equal to this one, or false otherwise.</returns>
 		public override bool Equals(object rhs)
 		{
-			if(rhs is MatchmakingEdge) return Equals((MatchmakingEdge)rhs);
-			else return false;
+			return GetType() == typeof(MatchmakingEdge) && Equals((MatchmakingEdge)rhs);
 		}
 
 		/// <summary>
