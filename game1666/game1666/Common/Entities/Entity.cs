@@ -58,7 +58,7 @@ namespace game1666.Common.Entities
 		public IDictionary<string,dynamic> Properties { get; private set; }
 
 		/// <summary>
-		/// The prototype on which the entity is based. An entity's prototype, e.g. World,
+		/// The prototype on which the entity is based. An entity's prototype, e.g. Dwelling,
 		/// indicates which components the entity should have.
 		/// </summary>
 		public string Prototype
@@ -90,7 +90,7 @@ namespace game1666.Common.Entities
 		/// Constructs an entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in (can be null).</param>
 		protected Entity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
 			Properties = PropertyPersister.LoadProperties(entityElt);

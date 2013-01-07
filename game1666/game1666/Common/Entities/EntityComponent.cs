@@ -66,7 +66,7 @@ namespace game1666.Common.Entities
 		/// Constructs a component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in (can be null).</param>
 		protected EntityComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{
 			Properties = PropertyPersister.LoadProperties(componentElt);

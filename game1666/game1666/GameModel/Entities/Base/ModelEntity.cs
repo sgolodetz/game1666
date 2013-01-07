@@ -48,7 +48,7 @@ namespace game1666.GameModel.Entities.Base
 		/// Constructs a model entity from its XML representation.
 		/// </summary>
 		/// <param name="entityElt">The root element of the entity's XML representation.</param>
-		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in (can be null).</param>
 		public ModelEntity(XElement entityElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(entityElt, fixedProperties)
 		{}
@@ -62,7 +62,7 @@ namespace game1666.GameModel.Entities.Base
 		/// Creates an entity based on the specified prototype.
 		/// </summary>
 		/// <param name="prototypeName">The name of the prototype on which to base the entity.</param>
-		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in (can be null).</param>
 		/// <returns>The entity, if the specified prototype exists, or null otherwise.</returns>
 		public static ModelEntity CreateFromPrototype(string prototypeName, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		{

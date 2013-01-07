@@ -53,7 +53,7 @@ namespace game1666.GameUI.Entities.Components
 		/// Constructs a play state component.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in (can be null).</param>
 		public PlayStateComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(componentElt, fixedProperties)
 		{

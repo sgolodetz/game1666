@@ -45,7 +45,7 @@ namespace game1666.Common.Entities
 		IDictionary<string,dynamic> Properties { get; }
 
 		/// <summary>
-		/// The prototype on which the entity is based. An entity's prototype, e.g. World,
+		/// The prototype on which the entity is based. An entity's prototype, e.g. Dwelling,
 		/// indicates which components the entity should have.
 		/// </summary>
 		string Prototype { get; }

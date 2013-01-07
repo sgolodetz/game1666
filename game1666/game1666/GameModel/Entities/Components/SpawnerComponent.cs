@@ -59,7 +59,7 @@ namespace game1666.GameModel.Entities.Components
 		/// Constructs a spawner component from its XML representation.
 		/// </summary>
 		/// <param name="componentElt">The root element of the component's XML representation.</param>
-		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in.</param>
+		/// <param name="fixedProperties">Any component properties that are fixed from code instead of loaded in (can be null).</param>
 		public SpawnerComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(componentElt, fixedProperties)
 		{
@@ -92,7 +92,10 @@ namespace game1666.GameModel.Entities.Components
 			if(Blueprint.Offers.TryGetValue(request.Resource.ToString(), out prototypeName))
 			{
 				// Construct a new entity based on the specified prototype.
-				var spawnee = ModelEntity.CreateFromPrototype(prototypeName, null);
+				var spawnee = ModelEntity.CreateFromPrototype(prototypeName, new Dictionary<string,IDictionary<string,dynamic>>
+				{{
+					ModelEntityComponentGroups.EXTERNAL, new Dictionary<string,dynamic> {{ "Orientation", 0f }}
+				}});
 
 				// If the entity is being spawned in response to an occupancy request, set its home.
 				// Its person component's state machine will cause it to head there in the absence

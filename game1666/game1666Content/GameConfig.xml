@@ -103,7 +103,6 @@
       <entity>
         <cmpMobile>
           <property name="Blueprint" type="string" value="mobile:Citizen"/>
-          <property name="Orientation" type="float" value="0"/>
         </cmpMobile>
         <cmpPerson>
           <property name="State" type="string" value="RESTING"/>
