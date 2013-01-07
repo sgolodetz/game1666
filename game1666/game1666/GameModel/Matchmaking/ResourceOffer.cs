@@ -14,6 +14,11 @@ namespace game1666.GameModel.Matchmaking
 		#region
 
 		/// <summary>
+		/// Whether or not the resource is being offered by an existing entity (i.e. no spawner is needed).
+		/// </summary>
+		public bool AlreadyInGame { get; set; }
+
+		/// <summary>
 		/// The quantity of the resource that can be supplied.
 		/// </summary>
 		public int AvailableQuantity { get; set; }

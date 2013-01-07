@@ -78,7 +78,7 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="source">The source of the offer.</param>
 		public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingParticipant<ResourceOffer, ResourceRequest> source)
 		{
-			// No-op (nobody offers anything to a spawner)
+			// No-op (nobody offers anything to a spawner component)
 		}
 
 		/// <summary>
@@ -103,13 +103,11 @@ namespace game1666.GameModel.Entities.Components
 					Debug.Assert(homeComponent != null);	// only home components should make occupancy requests
 
 					var personComponent = spawnee.GetComponent<IPersonComponent>(ModelEntityComponentGroups.INTERNAL);
-					personComponent.Home = homeComponent.Entity.GetAbsolutePath();
+					personComponent.HomePath = homeComponent.Entity.GetAbsolutePath();
 				}
 
 				// Add the new entity to the world as a child of the spawner.
 				Entity.AddChild(spawnee);
-
-				// TODO: Add a rule to set the entity's home to null if its home is destroyed.
 
 				// Set the remaining spawn delay to ensure that the spawner has to wait a bit before spawning anything else.
 				RemainingSpawnDelay = Blueprint.SpawnDelay;
@@ -134,7 +132,8 @@ namespace game1666.GameModel.Entities.Components
 						new ResourceOffer
 						{
 							Resource = (Resource)Enum.Parse(typeof(Resource), resourceName),
-							AvailableQuantity = 1
+							AvailableQuantity = 1,
+							AlreadyInGame = false
 						},
 						this
 					);

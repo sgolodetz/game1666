@@ -45,7 +45,7 @@ namespace game1666.GameModel.Matchmaking
 		{
 			if(offer.Resource == Resource && offer.AvailableQuantity >= MinimumQuantity)
 			{
-				return Math.Min(10 * offer.AvailableQuantity / DesiredQuantity, 10);
+				return Math.Min(9 * offer.AvailableQuantity / DesiredQuantity, 9) + (offer.AlreadyInGame ? 1 : 0);
 			}
 			else return 0;
 		}

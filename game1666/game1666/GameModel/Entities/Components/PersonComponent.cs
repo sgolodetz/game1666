@@ -5,14 +5,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
+using game1666.Common.Matchmaking;
 using game1666.Common.Persistence;
 using game1666.Common.Tasks;
 using game1666.Common.Tasks.RetryStrategies;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Extensions;
 using game1666.GameModel.Entities.Interfaces.Components;
+using game1666.GameModel.Matchmaking;
 using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components
@@ -50,9 +53,17 @@ namespace game1666.GameModel.Entities.Components
 		public override string Group { get { return ModelEntityComponentGroups.INTERNAL; } }
 
 		/// <summary>
-		/// The person's home (as an absolute path in the entity tree).
+		/// The person's home (if any).
 		/// </summary>
-		public string Home { get; set; }
+		private ModelEntity Home
+		{
+			get { return HomePath != null ? Entity.GetEntityByAbsolutePath(HomePath) : null; }
+		}
+
+		/// <summary>
+		/// The absolute path of the person's home (if any).
+		/// </summary>
+		public string HomePath { get; set; }
 
 		/// <summary>
 		/// The name of the component.
@@ -90,6 +101,31 @@ namespace game1666.GameModel.Entities.Components
 		#region
 
 		/// <summary>
+		/// Informs the component of a confirmed matchmaking offer.
+		/// </summary>
+		/// <param name="offer">The offer.</param>
+		/// <param name="source">The source of the offer.</param>
+		public void ConfirmMatchmakingOffer(ResourceOffer offer, IMatchmakingParticipant<ResourceOffer, ResourceRequest> source)
+		{
+			// No-op (nobody offers anything to a person component)
+		}
+
+		/// <summary>
+		/// Informs the component of a confirmed matchmaking request.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <param name="source">The source of the request.</param>
+		public void ConfirmMatchmakingRequest(ResourceRequest request, IMatchmakingParticipant<ResourceOffer, ResourceRequest> source)
+		{
+			if(request.Resource == Resource.OCCUPANCY)
+			{
+				var homeComponent = source as IHomeComponent;
+				Debug.Assert(homeComponent != null);	// only home components should make occupancy requests
+				HomePath = homeComponent.Entity.GetAbsolutePath();
+			}
+		}
+
+		/// <summary>
 		/// Saves the component to XML.
 		/// </summary>
 		/// <returns>An XML representation of the component.</returns>
@@ -106,6 +142,11 @@ namespace game1666.GameModel.Entities.Components
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		public override void Update(GameTime gameTime)
 		{
+			// Try and ensure that the person has a home, etc.
+			UpdateEssentials();
+
+			// Execute any existing task the person has been assigned, or assign them a default
+			// one if they don't currently have anything to do.
 			switch(State)
 			{
 				case PersonComponentState.ACTIVE:
@@ -117,13 +158,45 @@ namespace game1666.GameModel.Entities.Components
 				default:	// PersonComponentState.RESTING
 				{
 					// TODO: Try and assign the person a default task based on the time of day.
-					if(Home != null)
+					if(HomePath != null)
 					{
-						m_queueTask.AddTask(this.TaskFactory().MakeGoToEntityTask(Home, new AlwaysRetry()), TaskPriority.LOW);
+						m_queueTask.AddTask(this.TaskFactory().MakeGoToEntityTask(HomePath, new AlwaysRetry()), TaskPriority.LOW);
 						State = PersonComponentState.ACTIVE;
 					}
 					break;
 				}
+			}
+		}
+
+		#endregion
+
+		//#################### PRIVATE METHODS ####################
+		#region
+
+		/// <summary>
+		/// Try and make sure that the person has a home, etc.
+		/// </summary>
+		private void UpdateEssentials()
+		{
+			if(Home == null)
+			{
+				if(HomePath != null)
+				{
+					// The person's home has been destroyed, so clear the path to preserve consistency.
+					HomePath = null;
+				}
+
+				// Offer occupancy to the matchmaker to try and find a new home.
+				this.Matchmaker().PostOffer
+				(
+					new ResourceOffer
+					{
+						Resource = Resource.OCCUPANCY,
+						AvailableQuantity = 1,
+						AlreadyInGame = true
+					},
+					this
+				);
 			}
 		}
 

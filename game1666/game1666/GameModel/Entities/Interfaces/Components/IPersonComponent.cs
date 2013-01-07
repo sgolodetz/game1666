@@ -4,21 +4,23 @@
  ***/
 
 using game1666.Common.Entities;
+using game1666.Common.Matchmaking;
+using game1666.GameModel.Matchmaking;
 
 namespace game1666.GameModel.Entities.Interfaces.Components
 {
 	/// <summary>
 	/// An instance of a class implementing this interface provides person behaviour to its containing entity.
 	/// </summary>
-	interface IPersonComponent : IEntityComponent
+	interface IPersonComponent : IEntityComponent, IMatchmakingParticipant<ResourceOffer,ResourceRequest>
 	{
 		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
-		/// The person's home (as an absolute path in the entity tree).
+		/// The absolute path of the person's home (if any).
 		/// </summary>
-		string Home { get; set; }
+		string HomePath { get; set; }
 
 		#endregion
 	}
