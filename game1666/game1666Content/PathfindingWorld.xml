@@ -3,6 +3,11 @@
   <property name="Name" type="string" value="."/>
   <property name="Prototype" type="string" value="World"/>
   <property name="HomeSettlement" type="string" value="./settlement:Stuartopolis"/>
+  <cmpObjectives>
+    <objTest>
+      <property name="Blah"/>
+    </objTest>
+  </cmpObjectives>
   <cmpPlayingArea>
     <terrain>
       <property name="AssetHeightmap" type="string" value="TestWorld"/>

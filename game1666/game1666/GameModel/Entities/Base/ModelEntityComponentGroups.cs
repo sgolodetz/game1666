@@ -13,6 +13,7 @@ namespace game1666.GameModel.Entities.Base
 		public const string CONTEXT = "GameModel/Context";
 		public const string EXTERNAL = "GameModel/External";
 		public const string INTERNAL = "GameModel/Internal";
+		public const string OBJECTIVES = "GameModel/Objectives";
 		public const string TEST = "GameModel/Test";
 	}
 }

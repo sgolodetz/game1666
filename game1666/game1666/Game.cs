@@ -12,6 +12,7 @@ using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Blueprints;
 using game1666.GameModel.Entities.Components;
 using game1666.GameModel.Entities.Lifetime;
+using game1666.GameModel.Entities.Objectives;
 using game1666.GameModel.Entities.PlacementStrategies;
 using game1666.GameModel.Entities.Tasks;
 using game1666.GameModel.Terrains;
@@ -109,6 +110,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("cmpGameViewState", typeof(GameViewStateComponent));
 			ObjectPersister.RegisterSpecialElement("cmpHome", typeof(HomeComponent));
 			ObjectPersister.RegisterSpecialElement("cmpMobile", typeof(MobileComponent));
+			ObjectPersister.RegisterSpecialElement("cmpObjectives", typeof(ObjectivesComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPerson", typeof(PersonComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlaceable", typeof(PlaceableComponent));
 			ObjectPersister.RegisterSpecialElement("cmpPlayingArea", typeof(PlayingAreaComponent));
@@ -123,6 +125,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
 			ObjectPersister.RegisterSpecialElement("homeblueprint", typeof(HomeBlueprint));
 			ObjectPersister.RegisterSpecialElement("mobileblueprint", typeof(MobileBlueprint));
+			ObjectPersister.RegisterSpecialElement("objTest", typeof(TestObjective));
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
 			ObjectPersister.RegisterSpecialElement("spawnerblueprint", typeof(SpawnerBlueprint));
