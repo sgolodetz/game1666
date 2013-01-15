@@ -9,7 +9,6 @@ using System.Xml.Linq;
 using game1666.Common.Persistence;
 using game1666.GameModel.Entities.Base;
 using game1666.GameModel.Entities.Objectives;
-using Microsoft.Xna.Framework;
 
 namespace game1666.GameModel.Entities.Components
 {
@@ -19,13 +18,13 @@ namespace game1666.GameModel.Entities.Components
 	/// </summary>
 	sealed class ObjectivesComponent : ModelEntityComponent
 	{
-		//#################### PRIVATE VARIABLES ####################
+		//#################### PROPERTIES ####################
 		#region
 
 		/// <summary>
 		/// The objectives that must be satisfied for the world containing this component to be considered complete.
 		/// </summary>
-		private IList<Objective> m_objectives;
+		public IEnumerable<Objective> Objectives { get; private set; }
 
 		#endregion
 
@@ -55,7 +54,7 @@ namespace game1666.GameModel.Entities.Components
 		public ObjectivesComponent(XElement componentElt, IDictionary<string,IDictionary<string,dynamic>> fixedProperties)
 		:	base(componentElt, fixedProperties)
 		{
-			m_objectives = ObjectPersister.LoadChildObjects<Objective>(componentElt).ToList();
+			Objectives = ObjectPersister.LoadChildObjects<Objective>(componentElt).ToList();
 		}
 
 		#endregion
@@ -71,15 +70,6 @@ namespace game1666.GameModel.Entities.Components
 		{
 			// TODO
 			return null;
-		}
-
-		/// <summary>
-		/// TODO
-		/// </summary>
-		/// <param name="gameTime"></param>
-		public override void Update(GameTime gameTime)
-		{
-			// TODO
 		}
 
 		#endregion

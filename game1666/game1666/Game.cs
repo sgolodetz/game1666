@@ -3,6 +3,8 @@
  * Copyright Stuart Golodetz, 2012. All rights reserved.
  ***/
 
+using System;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using game1666.Common.Persistence;
@@ -125,7 +127,7 @@ namespace game1666
 			ObjectPersister.RegisterSpecialElement("footprint", typeof(Footprint));
 			ObjectPersister.RegisterSpecialElement("homeblueprint", typeof(HomeBlueprint));
 			ObjectPersister.RegisterSpecialElement("mobileblueprint", typeof(MobileBlueprint));
-			ObjectPersister.RegisterSpecialElement("objTest", typeof(TestObjective));
+			ObjectPersister.RegisterSpecialElement("objTimeLimit", typeof(TimeLimitObjective));
 			ObjectPersister.RegisterSpecialElement("placeableblueprint", typeof(PlaceableBlueprint));
 			ObjectPersister.RegisterSpecialElement("placementstrategyRequireFlatGround", typeof(PlacementStrategyRequireFlatGround));
 			ObjectPersister.RegisterSpecialElement("spawnerblueprint", typeof(SpawnerBlueprint));
@@ -185,6 +187,22 @@ namespace game1666
 			MouseEventManager.Update();
 			m_gameViewManager.Update(gameTime);
 			m_world.Update(gameTime);
+
+			// Check whether the objectives for the current world have been satisfied.
+			var objectivesComponent = m_world.GetComponent<ObjectivesComponent>(ModelEntityComponentGroups.OBJECTIVES);
+			foreach(Objective objective in objectivesComponent.Objectives)
+			{
+				Console.WriteLine(objective + ": " + objective.DetermineStatus(m_world, gameTime));
+			}
+			if(objectivesComponent.Objectives.All(o => o.DetermineStatus(m_world, gameTime) == ObjectiveStatus.SATISFIED))
+			{
+				Console.WriteLine("World Complete");
+			}
+			else if(objectivesComponent.Objectives.Any(o => o.DetermineStatus(m_world, gameTime) == ObjectiveStatus.FAILED))
+			{
+				Console.WriteLine("World Failed");
+			}
+			Console.WriteLine("===");
 
 			base.Update(gameTime);
 		}

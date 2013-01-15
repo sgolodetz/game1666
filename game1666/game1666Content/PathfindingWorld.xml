@@ -4,9 +4,10 @@
   <property name="Prototype" type="string" value="World"/>
   <property name="HomeSettlement" type="string" value="./settlement:Stuartopolis"/>
   <cmpObjectives>
-    <objTest>
-      <property name="Blah"/>
-    </objTest>
+    <objTimeLimit>
+      <property name="Required" type="bool" value="true"/>
+      <property name="TimeLimit" type="int" value="5000"/>
+    </objTimeLimit>
   </cmpObjectives>
   <cmpPlayingArea>
     <terrain>

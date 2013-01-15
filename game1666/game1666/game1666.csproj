@@ -202,7 +202,7 @@
     <Compile Include="Common\Tasks\Task.cs" />
     <Compile Include="GameModel\Entities\Objectives\Objective.cs" />
     <Compile Include="GameModel\Entities\Components\ObjectivesComponent.cs" />
-    <Compile Include="GameModel\Entities\Objectives\TestObjective.cs" />
+    <Compile Include="GameModel\Entities\Objectives\TimeLimitObjective.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeCompiler.cs" />
     <Compile Include="GameModel\Terrains\QuadtreeNode.cs" />
     <Compile Include="GameModel\Terrains\Terrain.cs" />
